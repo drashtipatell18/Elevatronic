@@ -1,0 +1,10 @@
+<svg id="Grupo_58969" data-name="Grupo 58969" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+  <rect id="Rectángulo_11003" data-name="Rectángulo 11003" width="32" height="32" rx="8" fill="#28d094" opacity="0.15"/>
+  <g id="Grupo_58953" data-name="Grupo 58953" transform="translate(7 7)">
+    <circle id="Elipse_3419" data-name="Elipse 3419" cx="9" cy="9" r="9" fill="#28d094"/>
+    <g id="Grupo_58839" data-name="Grupo 58839" transform="translate(4 4)">
+      <rect id="Rectángulo_3617" data-name="Rectángulo 3617" width="10" height="10" transform="translate(0 -0.001)" fill="none"/>
+      <path id="Icon_feather-check" data-name="Icon feather-check" d="M7.433,0,2.452,5.206,0,2.35" transform="translate(1.284 2.58)" fill="none" stroke="#daf6e3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    </g>
+  </g>
+</svg>

@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\CustomerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,9 +17,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('layouts.main');
 });
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/forgetpass', [DashboardController::class, 'forgetPass'])->name('forgetpass');
+Route::get('/session', [DashboardController::class, 'Session'])->name('session');
+
+
+Route::get('/clientes', [CustomerController::class, 'customer'])->name('customer');
+Route::get('/clientes/crear',[CustomerController::class,'customerCreate'])->name('create.customer');
+Route::post('/clientes/insertar',[CustomerController::class,'customerInsert'])->name('insert.customer');
+Route::get('/clientes/editar/{id}', [CustomerController::class, 'customerEdit'])->name('edit.customer');
+Route::post('/clientes/actualizar/{id}', [CustomerController::class, 'customerUpdate'])->name('update.customer');
+Route::get('/clientes/destruir/{id}',[CustomerController::class,'customerDestroy'])->name('destroy.customer');

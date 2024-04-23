@@ -87,7 +87,7 @@
                                                                 detalles</a>
                                                             <a class="dropdown-item"
                                                                 href="{{ route('edit.customer', $customer->id) }}"
-                                                                data-toggle="modal" data-target="#crearCliente">Editar</a>
+                                                                data-toggle="modal" data-target="#editarCliente">Editar</a>
                                                             <a class="dropdown-item"
                                                                 href="{{ route('destroy.customer', $customer->id) }}"
                                                                 data-toggle="modal"

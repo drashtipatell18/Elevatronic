@@ -12,7 +12,6 @@ class CustomerController extends Controller
         return view('customer.view_customer',compact('customers'));
     }
 
-
     public function customerInsert(Request $request){
         $validatedData = $request->validate([
             'nombre' => 'required',
@@ -44,7 +43,7 @@ class CustomerController extends Controller
         ]);
 
         // Redirect back with success message
-        session()->flash('success', 'Cliente created successfully!');
+        session()->flash('success', 'Cliente creado exitosamente!');
         return redirect()->route('customer');
 
     }
@@ -92,7 +91,7 @@ class CustomerController extends Controller
             'posición'            => $request->input('posición'),
         ]);
 
-        session()->flash('success', 'Cliente Updated successfully!');
+        session()->flash('success', 'Cliente actualizado exitosamente!');
         return redirect()->route('customer');
 
     }
@@ -100,7 +99,7 @@ class CustomerController extends Controller
     public function customerDestroy($id){
         $customers = Cliente::find($id);
         $customers->delete();
-        session()->flash('danger', 'Cliente Delete successfully!');
+        session()->flash('danger', 'Cliente eliminar exitosamente!');
         return redirect()->back();
     }
 }

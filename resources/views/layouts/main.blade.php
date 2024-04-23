@@ -56,7 +56,7 @@
                 </a>
             </li>
             <li class="">
-                <a href="provincias.php"><i class="iconoir-maps-arrow-diagonal"></i> Provincias</a>
+                <a href="{{ route('province')}}"><i class="iconoir-maps-arrow-diagonal"></i> Provincias</a>
             </li>
             <li class="">
                 <a href="tipos-de-revision.php"><i class="iconoir-apple-shortcuts"></i> Tipos de revisión</a>
@@ -818,37 +818,6 @@
     </div>
 </div>
 
-<!-- Modal Crear Provincia-->
-<div class="modal left fade" id="Modalprovincias" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title font-family-Outfit-SemiBold">Crear Provincia</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body body_modal">
-                <div class="row">
-                    <div class="col-md-12">
-                        <form action="" class="formulario-modal">
-                            <div class="form-group">
-                                <label for="nombreProvincia">Nombre de Provincia</label>
-                                <input type="text" placeholder="Nombre de Provincia" name="nombreProvincia"
-                                    id="nombreProvincia">
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
-                <button type="button" class="btn-gris btn-red mr-2">Guardar Cambios</button>
-                <button type="button" class="btn-gris btn-border" data-dismiss="modal">Cancelar</button>
-            </div>
-        </div>
-    </div>
-</div>
 
 <!-- Modal Crear Repuesto-->
 <div class="modal left fade" id="crearRepuesto" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"

@@ -10,7 +10,6 @@ class Elevatortypes extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    protected $dates = ['eliminado_en'];
+    protected $dates = 'tipos_de_ascensors';
     protected $table = ['nombre_de_tipo_de_ascensor'];
 }
-?>

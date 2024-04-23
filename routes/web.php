@@ -40,10 +40,10 @@ Route::get('/clientes/destruir/{id}',[CustomerController::class,'customerDestroy
 
 
 //Elevatortypes
-Route::get('/tipos/de/ascensor', [ElevatortypesController::class, 'Elevatortypes'])->name('elevatortypes');
-Route::get('/tipos/de/ascensor/crear',[ElevatortypesController::class,'ElevatortypesCreate'])->name('create.elevatortypes');
-Route::post('/tipos/de/ascensor/insertar',[ElevatortypesController::class,'ElevatortypesInsert'])->name('insert.elevatortypes');
-Route::get('/tipos/de/ascensor/editar/{id}', [ElevatortypesController::class, 'ElevatortypesEdit'])->name('edit.elevatortypes');
-Route::post('/tipos/de/ascensor/actualizar/{id}', [ElevatortypesController::class, 'ElevatortypesUpdate'])->name('update.elevatortypes');
-Route::get('/tipos/de/ascensor/destruir/{id}',[ElevatortypesController::class,'ElevatortypesDestroy'])->name('destroy.elevatortypes');
+Route::get('/tipos/de/ascensor', [ElevatortypesController::class, 'elevatortypes'])->name('elevatortypes');
+Route::get('/tipos/de/ascensor/crear',[ElevatortypesController::class,'elevatortypesCreate'])->name('create.elevatortypes');
+Route::post('/tipos/de/ascensor/insertar',[ElevatortypesController::class,'elevatortypesInsert'])->name('insert.elevatortypes');
+Route::get('/tipos/de/ascensor/editar/{id}', [ElevatortypesController::class, 'elevatortypesEdit'])->name('edit.elevatortypes');
+Route::post('/tipos/de/ascensor/actualizar/{id}', [ElevatortypesController::class, 'elevatortypesUpdate'])->name('update.elevatortypes');
+Route::get('/tipos/de/ascensor/destruir/{id}',[ElevatortypesController::class,'elevatortypesDestroy'])->name('destroy.elevatortypes');
 

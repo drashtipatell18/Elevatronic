@@ -45,7 +45,7 @@
                 </a>
             </li>
             <li class="">
-                <a href="tipo-ascensor.php"><i class="iconoir-view-grid"></i> Tipos de ascensor</a>
+                <a href="{{ route('elevatortypes') }}"><i class="iconoir-view-grid"></i> Tipos de ascensor</a>
             </li>
             <li class="">
                 <a href="ascensores.php"><i class="iconoir-app-window"></i> Ascensores</a>

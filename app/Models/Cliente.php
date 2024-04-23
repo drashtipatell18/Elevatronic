@@ -11,5 +11,5 @@ class Cliente extends Model
     use HasFactory, SoftDeletes;
     protected $dates = ['eliminado_en'];
     protected $table = 'clientes';
-    protected $fillable = ['nombre','tipo_de_cliente','RUC','País','Provincia','Dirección','Teléfono','Teléfono_móvil','correo_electrónico','nombre_del_contacto'];
+    protected $fillable = ['nombre','tipo_de_cliente','ruc','país','provincia','dirección','teléfono','teléfono_móvil','correo_electrónico','nombre_del_contacto','posición'];
 }

@@ -15,12 +15,12 @@ return new class extends Migration
             $table->id();
             $table->string('nombre')->nullable();
             $table->string('tipo_de_cliente')->nullable();
-            $table->string('RUC')->nullable();
-            $table->string('País')->nullable();
-            $table->string('Provincia')->nullable();
-            $table->string('Dirección')->nullable();
-            $table->string('Teléfono')->nullable();
-            $table->string('Teléfono_móvil')->nullable();
+            $table->string('ruc')->nullable();
+            $table->string('país')->nullable();
+            $table->string('provincia')->nullable();
+            $table->string('dirección')->nullable();
+            $table->string('teléfono')->nullable();
+            $table->string('teléfono_móvil')->nullable();
             $table->string('correo_electrónico')->nullable();
             $table->string('nombre_del_contacto')->nullable();
             $table->string('posición')->nullable();

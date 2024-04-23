@@ -31,5 +31,6 @@ Route::get('/clientes', [CustomerController::class, 'customer'])->name('customer
 Route::get('/clientes/crear',[CustomerController::class,'customerCreate'])->name('create.customer');
 Route::post('/clientes/insertar',[CustomerController::class,'customerInsert'])->name('insert.customer');
 Route::get('/clientes/editar/{id}', [CustomerController::class, 'customerEdit'])->name('edit.customer');
+Route::get('/clientes/vista/{id}', [CustomerController::class, 'customerView'])->name('view.customer');
 Route::post('/clientes/actualizar/{id}', [CustomerController::class, 'customerUpdate'])->name('update.customer');
-Route::get('/clientes/destruir/{id}',[CustomerController::class,'customerDestroy'])->name('destroy.customer');
+Route::delete ('/clientes/destruir/{id}',[CustomerController::class,'customerDestroy'])->name('destroy.customer');

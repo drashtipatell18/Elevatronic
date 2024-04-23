@@ -8,11 +8,9 @@
 
     <title>Elevatronic</title>
 
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="css/menu.css?v=<?php echo rand(); ?>">
+    <link rel="stylesheet" href="{{ asset('css/menu.css') }}?v={{ uniqid() }}">
     <!--    <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">-->
-    <link rel="stylesheet" href="css/estilos.css?v=<?php echo rand(); ?>">
+    <link rel="stylesheet" href="{{ asset('css/estilos.css') }}?v={{ rand() }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@200;300;400;500;600;700;800;900&display=swap"
@@ -24,14 +22,18 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.4.0/css/fixedHeader.bootstrap4.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.bootstrap.min.css">
     <!--    <link href='https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.css' rel='stylesheet'>-->
+<!-- Include Bootstrap CSS -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
+<!-- Include jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 </head>
 <div class="wrapper">
     <nav id="sidebar">
         <div class="sidebar-header" style="background: white;">
             <!-- id -->
             <a href="javascript:void(0);" class="mr-4 sidebarCollapse" id="oculta">
-                <img src="img/menu.png" alt="menu">
+                <img src="{{ asset('img/menu.png') }}" alt="menu">
             </a>
             <img src="{{ asset('img/logo-sidebar.svg') }}" alt="logo">
         </div>
@@ -86,7 +88,7 @@
                             style="display: none;">
                             <i class="iconoir-menu"></i>
                         </a>
-                        <img src="img/logo.svg" alt="logo" width="190">
+                        <img src="{{ asset('img/logo.svg') }}" alt="logo" width="190">
                     </div>
                     <div class="col-auto ml-auto">
                         <div class="row">
@@ -100,7 +102,7 @@
                             <div class="col-auto d-flex align-items-center justify-content-center">
                                 <div class="alerta_mensajes position-relative" data-toggle="modal"
                                     data-target="#modalalerta">
-                                    <img src="img/iconos/alerta.png" alt="alerta">
+                                    <img src="{{ asset('img/iconos/alerta.png') }}" alt="alerta">
                                     <span>2</span>
                                 </div>
                             </div>
@@ -109,7 +111,7 @@
                                     <!-- cuadro para hacer click ocultar / aparecer -->
                                     <div class="d-flex align-items-center justify-content-start" id="abrirperfil">
                                         <i class="iconoir-nav-arrow-down"></i>
-                                        <img src="img/perfil.png" alt="perfil">
+                                        <img src=" {{ asset('img/perfil.png') }}" alt="perfil">
                                         <div class="">
                                             <p class="mb-0">Anghela</p>
                                             <span>Administrador</span>
@@ -119,7 +121,7 @@
                                     <div class="perfil_abs" id="perfil_abs" style="display: none;">
                                         <div class="d-flex align-items-center justify-content-between con_perfil">
                                             <div class="">
-                                                <img src="img/perfil.png" alt="perfil">
+                                                <img src=" {{ asset('img/perfil.png') }}" alt="perfil">
                                             </div>
                                             <div class="">
                                                 <p>Danfrin Rodriguez</p>
@@ -201,34 +203,6 @@
     </div>
 </div>
 
-<!-- Modal Eliminar-->
-<div class="modal fade" id="modalEliminar" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content border-radius-12">
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-12">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                        <div class="box1">
-                            <img src="img/iconos/trash.svg" alt="trash" width="76">
-                            <p class="mt-3 mb-0">
-                                ¿Seguro que quieres eliminar este elemento?
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer align-items-center justify-content-center">
-                <button type="button" class="btn-gris btn-red">Si</button>
-                <button type="button" class="btn-gris btn-border" data-dismiss="modal">No</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 <!-- Modal cerrar sesion-->
 <div class="modal fade" id="modalcerrar" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
     aria-hidden="true">
@@ -252,109 +226,6 @@
             <div class="modal-footer align-items-center justify-content-center">
                 <button type="button" class="btn-gris btn-red">Si</button>
                 <button type="button" class="btn-gris btn-border" data-dismiss="modal">No</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Modal agregar/editar clientes-->
-<div class="modal left fade" id="crearCliente" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title font-family-Outfit-SemiBold">Crear Cliente</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body body_modal">
-                <div class="row">
-                    <div class="col-md-12">
-                        <form action="" class="formulario-modal">
-                            <div class="form-group">
-                                <label for="nombreRuc">Nombre o Razón Social</label>
-                                <input type="text" placeholder="Nombre o Razón Social" name="nombreRuc"
-                                    id="nombreRuc">
-                            </div>
-                            <div class="form-group">
-                                <label for="Tcliente">Tipo de Cliente</label>
-                                <select class="custom-select" name="Tcliente" id="Tcliente">
-                                    <option selected class="d-none">Seleccionar opción</option>
-                                    <option value="1">Cliente 1</option>
-                                    <option value="2">Cliente 2</option>
-                                    <option value="3">Cliente 3</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="dniRuc">RUC o DNI</label>
-                                <input type="text" placeholder="RUC o DNI" name="dniRuc" id="dniRuc">
-                            </div>
-                            <div class="form-group">
-                                <label for="pais">País</label>
-                                <select class="custom-select" name="pais" id="pais">
-                                    <option selected class="d-none">Seleccionar opción</option>
-                                    <option value="1">Perú</option>
-                                    <option value="2">Chile</option>
-                                    <option value="3">Argentina</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="provincia">Provincia</label>
-                                <select class="custom-select" name="provincia" id="provincia">
-                                    <option selected class="d-none">Seleccionar opción</option>
-                                    <option value="1">Lima</option>
-                                    <option value="2">Arequipa</option>
-                                    <option value="3">Moquegua</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="direccion">Dirección</label>
-                                <input type="text" placeholder="Dirección" name="direccion" id="direccion">
-                            </div>
-                            <div class="form-group">
-                                <label for="telefono">Teléfono</label>
-                                <input type="text" placeholder="Teléfono" name="telefono" id="telefono">
-                            </div>
-                            <div class="form-group">
-                                <label for="celular">Celular</label>
-                                <input type="text" placeholder="Celular" name="celular" id="celular">
-                            </div>
-                            <div class="form-group">
-                                <label for="correo">Correo electrónico</label>
-                                <input type="text" placeholder="Correo electrónico" name="correo"
-                                    id="correo">
-                            </div>
-                            <div class="form-group">
-                                <label for="correo1">Correo electrónico</label>
-                                <input type="text" placeholder="Correo electrónico" name="correo1"
-                                    id="correo1">
-                            </div>
-                            <div class="form-group">
-                                <label for="Ncontacto">Nombre del conctacto</label>
-                                <input type="text" placeholder="Nombre del conctacto" name="Ncontacto"
-                                    id="Ncontacto">
-                            </div>
-                            <div class="form-group">
-                                <label for="posicion">Posición</label>
-                                <input type="text" placeholder="Posición" name="posicion" id="posicion">
-                            </div>
-                            <div class="form-group">
-                                <label for="telefono3">Teléfono</label>
-                                <input type="text" placeholder="Teléfono" name="telefono3" id="telefono3">
-                            </div>
-                            <div class="form-group">
-                                <label for="correo3">Correo electrónico</label>
-                                <input type="text" placeholder="Correo electrónico" name="correo3"
-                                    id="correo3">
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
-                <button type="button" class="btn-gris btn-red mr-2">Guardar Cambios</button>
-                <button type="button" class="btn-gris btn-border" data-dismiss="modal">Cancelar</button>
             </div>
         </div>
     </div>
@@ -1264,9 +1135,10 @@
     <button type="button" class="close" data-dismiss="alert">&times;</button>
     <strong class="mr-2"><img src="img/iconos/check.svg" alt="icono"></strong> Envio Exitoso
 </div>
-<script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
-<script src="{{ asset('js/bootstrap.min.js') }}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+
+<!-- Include Bootstrap JS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Popper.JS -->
 

@@ -389,6 +389,22 @@ table tbody tr td {
   border: 1px solid #C6C5CA;
 }
 
+#editimagePreview {
+  width: 200px;
+  height: 200px;
+  margin-top: 10px;
+  background-size: cover;
+  background-position: center center;
+  background-image: url(../img/fondo.png);
+  background-size: cover;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border: 1px solid #C6C5CA;
+}
+
 .adornoinput {
   background-color: #F2F4FA;
   padding: 7px;

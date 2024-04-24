@@ -131,3 +131,93 @@
         </div>
     </div>
 @endsection
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+
+            var table = $('#TiposAscensores').DataTable({
+                responsive: true,
+                dom: 'tp',
+                pageLength: 8, // Establece el número de registros por página a 8
+                language: {
+                    "decimal": "",
+                    "emptyTable": "No hay información",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Reistros",
+                    "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+                    "infoFiltered": "(Filtrado de _MAX_ total registros)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "lengthMenu": "Mostrar _MENU_ Registros",
+                    "loadingRecords": "Cargando...",
+                    "processing": "Procesando...",
+                    "search": "Buscar:",
+                    "zeroRecords": "Sin resultados encontrados",
+                    "paginate": {
+                        "first": "Primero",
+                        "last": "Último",
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    },
+                },
+                buttons: [{
+                        extend: 'copy',
+                        exportOptions: {
+                            columns: ':not(:last-child)' // Excluye la última columna
+                        }
+                    },
+                    {
+                        extend: 'excel',
+                        exportOptions: {
+                            columns: ':not(:last-child)' // Excluye la última columna
+                        }
+                    },
+                    {
+                        extend: 'csv',
+                        exportOptions: {
+                            columns: ':not(:last-child)' // Excluye la última columna
+                        }
+                    },
+                    {
+                        extend: 'pdf',
+                        exportOptions: {
+                            columns: ':not(:last-child)' // Excluye la última columna
+                        }
+                    },
+                    {
+                        extend: 'print',
+                        exportOptions: {
+                            columns: ':not(:last-child)' // Excluye la última columna
+                        }
+                    }
+                    // 'copy', 'csv', 'excel', 'pdf', 'print'
+                ]
+            });
+
+            // Mover el contenedor de búsqueda (filtro) a la izquierda
+            $("#miTabla_filter").css('float', 'left');
+
+            // Manejadores para los botones de exportación personalizados
+            $("#export_excel").on("click", function() {
+                table.button('.buttons-csv').trigger();
+            });
+            $("#export_pdf").on("click", function() {
+                table.button('.buttons-pdf').trigger();
+            });
+            $("#export_copy").on("click", function() {
+                table.button('.buttons-copy').trigger();
+            });
+            $("#export_print").on("click", function() {
+                table.button('.buttons-print').trigger();
+            });
+            $('#customSearchBox').keyup(function() {
+                table.search($(this).val()).draw();
+            });
+            setTimeout(function() {
+                $(".alert-success").fadeOut(1000);
+            }, 1000);
+            setTimeout(function() {
+                $(".alert-danger").fadeOut(1000);
+            }, 1000);
+        });
+    </script>
+@endpush

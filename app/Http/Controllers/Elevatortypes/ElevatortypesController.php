@@ -9,26 +9,60 @@ use Illuminate\Http\Request;
 class ElevatortypesController extends Controller
 {
     public function Elevatortypes(){
-        // $elevator_types = Elevatortypes::all();
-        return view('ElevatorTypes.view_elevator_types');
+        $elevator_types = Elevatortypes::all();
+        return view('ElevatorTypes.view_elevator_types',compact('elevator_types'));
     }
 
-    // public function customerCreate(){
-    //     return view('ElevatorTypes.create_elevator_types');
-    // }
     public function elevatortypesInsert(Request $request){
         $validatedData = $request->validate([
             'nombre_de_tipo_de_ascensor' => 'required',
         ]);
 
         // Create a new Customer instance
-        $elevatortypes = Elevatortypes::create([
+        $elevator_type = Elevatortypes::create([
             'nombre_de_tipo_de_ascensor'  => $request->input('nombre_de_tipo_de_ascensor'),
            
         ]);
 
         // Redirect back with success message
-        session()->flash('success', 'Cliente created successfully!');
+        session()->flash('success', 'Tipos de ascensor creado exitosamente!');
         return redirect()->route('elevatortypes');
     }
-}
+
+    public function elevatortypesEdit($id){
+        $elevatortypes = Elevatortypes::findOrFail($id);
+        return view('ElevatorTypes.view_elevator_types', compact('elevatortypes'));
+
+    }
+    
+    public function elevatortypesDetails($id){
+        $elevator_type = Elevatortypes::findOrFail($id);
+        return view('ElevatorTypes.elevator_details', compact('elevator_type'));
+    }
+
+    public function elevatortypesUpdate(Request $request,$id){
+        $validatedData = $request->validate([
+            'nombre_de_tipo_de_ascensor' => 'required',
+        ]);
+
+        $elevator_type = Elevatortypes::findOrFail($id);
+
+        // Create a new elevator_type instance
+        $elevator_type->update([
+            'nombre_de_tipo_de_ascensor'  => $request->input('nombre_de_tipo_de_ascensor'),
+           
+        ]);
+
+        // Redirect back with success message
+        session()->flash('success', 'Tipos de ascensor actualizado exitosamente!');
+        return redirect()->route('elevatortypes');
+    }
+
+    public function elevatortypesDestroy($id){
+        $elevator_type = Elevatortypes::find($id);
+        $elevator_type->delete();
+        session()->flash('danger', 'Tipos de ascensor eliminar exitosamente!');
+        return redirect()->back();
+    }
+    
+}    

@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Elevatortypes extends Model
 {
-    use HasFactory;
-    use SoftDeletes;
-    protected $dates = 'tipos_de_ascensors';
-    protected $table = ['nombre_de_tipo_de_ascensor'];
+    use HasFactory, SoftDeletes;
+    protected $dates = ['eliminado_en'];
+    protected $table = 'tipos_de_ascensors';
+    protected $fillable = ['nombre_de_tipo_de_ascensor'];
 }

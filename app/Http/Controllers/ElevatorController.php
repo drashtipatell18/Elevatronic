@@ -153,7 +153,9 @@ class ElevatorController extends Controller
 
     public function elevatorView(Request $request, $id){
         $elevator = Elevators::find($id);
-        return view('elevator.view_elevator_details',compact('elevator'));
+        $customers = Cliente::pluck('nombre','nombre');
+
+        return view('elevator.view_elevator_details',compact('elevator', 'customers'));
 
     }
 

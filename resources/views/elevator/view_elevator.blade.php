@@ -276,9 +276,10 @@
                                                                         name="provincia" id="provincia">
                                                                         <option selected class="d-none">Seleccionar opción
                                                                         </option>
-                                                                        <option value="lima">Lima</option>
-                                                                        <option value="arequipa">Arequipa</option>
-                                                                        <option value="moquegua">Moquegua</option>
+                                                                        @foreach ($provinces as $province)
+                                                                            <option value="{{ $province }}">
+                                                                                {{ $province }}</option>
+                                                                        @endforeach
                                                                     </select>
                                                                     @error('provincia')
                                                                         <span class="invalid-feedback" style="color: red">
@@ -686,17 +687,14 @@
                                                                     <select
                                                                         class="custom-select form-control @error('provincia') is-invalid @enderror"
                                                                         name="provincia" id="provincia">
-                                                                        <option selected disabled>Seleccionar opción
+                                                                        <option selected class="d-none">Seleccionar opción
                                                                         </option>
-                                                                        <option value="lima"
-                                                                            {{ old('provincia', $elevator->provincia ?? '') == 'lima' ? 'selected' : '' }}>
-                                                                            Lima</option>
-                                                                        <option value="arequipa"
-                                                                            {{ old('provincia', $elevator->provincia ?? '') == 'arequipa' ? 'selected' : '' }}>
-                                                                            Arequipa</option>
-                                                                        <option value="moquegua"
-                                                                            {{ old('provincia', $elevator->provincia ?? '') == 'moquegua' ? 'selected' : '' }}>
-                                                                            Moquegua</option>
+                                                                        @foreach ($provinces as $province)
+                                                                            <option value="{{ $province }}"
+                                                                                @if (isset($elevator) && $elevator->provincia == $province) selected @endif>
+                                                                                {{ $province }}
+                                                                            </option>
+                                                                        @endforeach
                                                                     </select>
                                                                     @error('provincia')
                                                                         <span class="invalid-feedback" style="color: red">

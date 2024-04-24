@@ -5,12 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Elevators;
 use App\Models\Cliente;
+use App\Models\Province;
+
+
 class ElevatorController extends Controller
 {
     public function elevator(){
         $elevators = Elevators::all();
         $customers = Cliente::pluck('nombre','nombre');
-        return view('elevator.view_elevator',compact('elevators','customers'));
+        $provinces = Province::pluck('provincia','provincia');
+        return view('elevator.view_elevator',compact('elevators','customers','provinces'));
     }
 
     public function elevatorInsert(Request $request){
@@ -80,7 +84,6 @@ class ElevatorController extends Controller
     public function elevatorEdit($id){
         $elevator = Elevators::findOrFail($id);
         return view('elevator.view_elevator',compact('elevator'));
-
     }
 
 
@@ -154,8 +157,9 @@ class ElevatorController extends Controller
     public function elevatorView(Request $request, $id){
         $elevator = Elevators::find($id);
         $customers = Cliente::pluck('nombre','nombre');
+        $provinces = Province::pluck('provincia','provincia');
 
-        return view('elevator.view_elevator_details',compact('elevator', 'customers'));
+        return view('elevator.view_elevator_details',compact('elevator', 'customers','provinces'));
 
     }
 

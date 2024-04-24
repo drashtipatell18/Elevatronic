@@ -39,7 +39,6 @@ Route::get('/session', [DashboardController::class, 'Session'])->name('session')
 // customer //
 
 Route::get('/clientes', [CustomerController::class, 'customer'])->name('customer');
-Route::get('/clientes/crear',[CustomerController::class,'customerCreate'])->name('create.customer');
 Route::post('/clientes/insertar',[CustomerController::class,'customerInsert'])->name('insert.customer');
 Route::get('/clientes/editar/{id}', [CustomerController::class, 'customerEdit'])->name('edit.customer');
 Route::get('/clientes/vista/{id}', [CustomerController::class, 'customerView'])->name('view.customer');
@@ -49,7 +48,6 @@ Route::delete ('/clientes/destruir/{id}',[CustomerController::class,'customerDes
 // ElevatorType//
 
 Route::get('/tipos/de/ascensor', [ElevatortypesController::class, 'elevatortypes'])->name('elevatortypes');
-Route::get('/tipos/de/ascensor/crear',[ElevatortypesController::class,'elevatortypesCreate'])->name('create.elevatortypes');
 Route::post('/tipos/de/ascensor/insertar',[ElevatortypesController::class,'elevatortypesInsert'])->name('insert.elevatortypes');
 Route::get('/tipos/de/ascensor/editar/{id}', [ElevatortypesController::class, 'elevatortypesEdit'])->name('edit.elevatortypes');
 Route::get('/tipos/de/ascensor/detalle/{id}', [ElevatortypesController::class, 'elevatortypesDetails'])->name('details.elevatortypes');
@@ -59,7 +57,6 @@ Route::delete('/tipos/de/ascensor/destruir/{id}',[ElevatortypesController::class
 // Province //
 
 Route::get('/provincia', [ProvinceController::class, 'province'])->name('province');
-Route::get('/provincia/crear',[ProvinceController::class,'provinceCreate'])->name('create.province');
 Route::post('/provincia/insertar',[ProvinceController::class,'provinceInsert'])->name('insert.province');
 Route::get('/provincia/editar/{id}', [ProvinceController::class, 'provinceEdit'])->name('edit.province');
 Route::get('/provincia/vista/{id}', [ProvinceController::class, 'provinceView'])->name('view.province');
@@ -69,7 +66,6 @@ Route::delete ('/provincia/destruir/{id}',[ProvinceController::class,'provinceDe
 // Elevator //
 
 Route::get('/ascensore', [ElevatorController::class, 'elevator'])->name('elevator');
-Route::get('/ascensore/crear',[ElevatorController::class,'elevatorCreate'])->name('create.elevator');
 Route::post('/ascensore/insertar',[ElevatorController::class,'elevatorInsert'])->name('insert.elevator');
 Route::get('/ascensore/editar/{id}', [ElevatorController::class, 'elevatorEdit'])->name('edit.elevator');
 Route::get('/ascensore/vista/{id}', [ElevatorController::class, 'elevatorView'])->name('view.elevator');
@@ -80,7 +76,6 @@ Route::delete ('/ascensore/destruir/{id}',[ElevatorController::class,'elevatorDe
 // Maintenance //
 
 Route::get('/mantenimiento', [MaintenanceController::class, 'maintenance'])->name('maintenance');
-Route::get('/mantenimiento/crear',[MaintenanceController::class,'maintenanceCreate'])->name('create.maintenance');
 Route::post('/mantenimiento/insertar',[MaintenanceController::class,'maintenanceInsert'])->name('insert.maintenance');
 Route::get('/mantenimiento/editar/{id}', [MaintenanceController::class, 'maintenanceEdit'])->name('edit.maintenance');
 Route::get('/mantenimiento/vista/{id}', [MaintenanceController::class, 'maintenanceView'])->name('view.maintenance');
@@ -91,7 +86,6 @@ Route::delete ('/mantenimiento/destruir/{id}',[MaintenanceController::class,'mai
 // tipos-de-revision //
 
 Route::get('/tiposderevision', [ReviewTypeController::class, 'reviewtype'])->name('reviewtype');
-Route::get('/tiposderevision/crear',[ReviewTypeController::class,'reviewtypeCreate'])->name('create.reviewtype');
 Route::post('/tiposderevision/insertar',[ReviewTypeController::class,'reviewtypeInsert'])->name('insert.reviewtype');
 Route::get('/tiposderevision/editar/{id}', [ReviewTypeController::class, 'reviewtypeEdit'])->name('edit.reviewtype');
 Route::get('/tiposderevision/vista/{id}', [ReviewTypeController::class, 'reviewtypeView'])->name('view.reviewtype');

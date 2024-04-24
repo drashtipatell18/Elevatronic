@@ -59,7 +59,7 @@
                 <a href="{{ route('province')}}"><i class="iconoir-maps-arrow-diagonal"></i> Provincias</a>
             </li>
             <li class="">
-                <a href="tipos-de-revision.php"><i class="iconoir-apple-shortcuts"></i> Tipos de revisión</a>
+                <a href="{{ route('reviewtype')}}"><i class="iconoir-apple-shortcuts"></i> Tipos de revisión</a>
             </li>
             <li class="">
                 <a href="repuestos.php"><i class="iconoir-wrench"></i> Repuestos</a>
@@ -263,37 +263,6 @@
     </div>
 </div>
 
-<!-- Modal Crear Tipo de Revisión-->
-<div class="modal left fade" id="CrearTipoRevision" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title font-family-Outfit-SemiBold">Crear Tipo de Revisión</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body body_modal">
-                <div class="row">
-                    <div class="col-md-12">
-                        <form action="" class="formulario-modal">
-                            <div class="form-group">
-                                <label for="nombreTipoRevision">Nombre de Tipo de Revisión</label>
-                                <input type="text" placeholder="Nombre de Tipo de Revisión"
-                                    name="nombreTipoRevision" id="nombreTipoRevision">
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
-                <button type="button" class="btn-gris btn-red mr-2">Guardar Cambios</button>
-                <button type="button" class="btn-gris btn-border" data-dismiss="modal">Cancelar</button>
-            </div>
-        </div>
-    </div>
-</div>
 
 <!-- Modal Asignar Repuesto-->
 <div class="modal left fade" id="asignarRepuestos" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"

@@ -21,7 +21,7 @@
                 </div>
                 <div class="col-md-6 mb-4 text-right">
                     <button type="button" class="btn-primario w-auto pl-3 pr-3" data-toggle="modal"
-                        data-target="#createprovincias">
+                        data-target="#CrearTipoRevision">
                         + Crear Nuevo
                     </button>
                 </div>
@@ -57,19 +57,15 @@
                                     <thead>
                                         <tr>
                                             <th>ID</th>
-                                            <th class="text-center">NOMBRE DE PROVINCIA</th>
+                                            <th class="text-center">NOMBRE DE TIPO</th>
                                             <th align="right" class="text-right">ACCIONES</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($provinces as $index => $province)
+                                        @foreach ($reviewtypes as $index => $reviewtype)
                                             <tr class="">
                                                 <td>{{ $index + 1 }}</td>
-                                                <td class="text-center">
-                                                    <a href="{{ route('view.province', $province->id) }}" class="text-blue">
-                                                        {{ $province->provincia }}
-                                                    </a>
-                                                </td>
+                                                <td class="text-center">{{ $reviewtype->nombre }}</td>
                                                 <td align="right">
                                                     <div class="dropdown">
                                                         <button type="button" class="btn-action dropdown-toggle"
@@ -78,13 +74,13 @@
                                                         </button>
                                                         <div class="dropdown-menu dropdown-menu-right">
                                                             <a class="dropdown-item"
-                                                                href="{{ route('view.province', $province->id) }}">Ver
+                                                                href="{{ route('view.reviewtype', $reviewtype->id) }}">Ver
                                                                 detalles</a>
                                                             <a class="dropdown-item"
-                                                                href="{{ route('edit.province', $province->id) }}"
-                                                                data-toggle="modal" data-target="#editprovincias">Editar</a>
+                                                                href="{{ route('edit.reviewtype', $reviewtype->id) }}"
+                                                                data-toggle="modal" data-target="#editarTipoRevision">Editar</a>
                                                             <a class="dropdown-item"
-                                                                href="{{ route('destroy.province', $province->id) }}"
+                                                                href="{{ route('destroy.reviewtype', $reviewtype->id) }}"
                                                                 data-toggle="modal"
                                                                 data-target="#modalEliminar">Eliminar</a>
                                                         </div>
@@ -99,30 +95,28 @@
                     </div>
                 </div>
 
-                <!-- Modal Crear Provincia-->
-                <div class="modal left fade" id="createprovincias" tabindex="-1" role="dialog"
+                <!-- Modal Crear Tipo de Revisión-->
+                <div class="modal left fade" id="CrearTipoRevision" tabindex="-1" role="dialog"
                     aria-labelledby="modelTitleId" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title font-family-Outfit-SemiBold">Crear Provincia</h5>
+                                <h5 class="modal-title font-family-Outfit-SemiBold">Crear Tipo de Revisión</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">×</span>
                                 </button>
                             </div>
-                            <form action="{{ route('insert.province') }}" method="POST" class="formulario-modal"
-                                id="provinceForm">
+                            <form action="{{ route('insert.reviewtype') }}" method="POST" class="formulario-modal">
                                 @csrf
                                 <div class="modal-body body_modal">
                                     <div class="row">
                                         <div class="col-md-12">
-
                                             <div class="form-group">
-                                                <label for="provincia">Nombre de Provincia</label>
-                                                <input type="text" placeholder="Nombre de Provincia" name="provincia"
-                                                    class="form-control @error('provincia') is-invalid @enderror"
-                                                    id="provincia">
-                                                @error('provincia')
+                                                <label for="nombre">Nombre de Tipo de Revisión</label>
+                                                <input type="text" placeholder="Nombre de Provincia" name="nombre"
+                                                    class="form-control @error('nombre') is-invalid @enderror"
+                                                    id="nombre">
+                                                @error('nombre')
                                                     <span class="invalid-feedback" style="color: red">
                                                         <strong>{{ $message }}</strong>
                                                     </span>
@@ -141,31 +135,30 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Modal edit Provincia-->
-                <div class="modal left fade" id="editprovincias" tabindex="-1" role="dialog"
+                <!-- Modal edit Tipo de Revisión-->
+                <div class="modal left fade" id="editarTipoRevision" tabindex="-1" role="dialog"
                     aria-labelledby="modelTitleId" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title font-family-Outfit-SemiBold">Actualizar Provincia</h5>
+                                <h5 class="modal-title font-family-Outfit-SemiBold">Actualizar Tipo de Revisión</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">×</span>
                                 </button>
                             </div>
-                            <form action="{{ route('update.province', $province->id) }}" method="POST"
-                                class="formulario-modal" id="provinceForm">
+                            <form action="{{ route('update.reviewtype', $reviewtype->id) }}" method="POST"
+                                class="formulario-modal" id="reviewtypeForm">
                                 @csrf
                                 <div class="modal-body body_modal">
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="provincia">Nombre de Provincia</label>
-                                                <input type="text" placeholder="Nombre de Provincia" name="provincia"
-                                                    class="form-control @error('provincia') is-invalid @enderror"
-                                                    id="provincia"
-                                                    value="{{ old('provincia', isset($province) ? $province->provincia : '') }}">
-                                                @error('provincia')
+                                                <label for="provincia">Nombre de Tipo de Revisión</label>
+                                                <input type="text" placeholder="Nombre de Provincia" name="nombre"
+                                                    class="form-control @error('nombre') is-invalid @enderror"
+                                                    id="nombre"
+                                                    value="{{ old('nombre', isset($reviewtype) ? $reviewtype->nombre : '') }}">
+                                                @error('nombre')
                                                     <span class="invalid-feedback" style="color: red">
                                                         <strong>{{ $message }}</strong>
                                                     </span>
@@ -207,7 +200,7 @@
                                 </div>
                             </div>
                             <div class="modal-footer align-items-center justify-content-center">
-                                <form id="delete-form" action="{{ route('destroy.province', $province->id) }}"
+                                <form id="delete-form" action="{{ route('destroy.reviewtype', $reviewtype->id) }}"
                                     method="POST">
                                     @csrf
                                     @method('DELETE')

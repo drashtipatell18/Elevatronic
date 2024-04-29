@@ -2,6 +2,16 @@
 @section('content')
     <div class="w-100 contenido">
         <div class="container-fluid container-mod">
+            @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+            @if (session('danger'))
+                <div class="alert alert-danger">
+                    {{ session('danger') }}
+                </div>
+            @endif
             <div class="row">
                 <div class="col-md-6 mb-4">
                     <div class="titulo">
@@ -31,7 +41,8 @@
                                 <div class="dropdown">
                                     <button class="btn-gris" type="button" id="dropdownMenuButton" data-toggle="dropdown"
                                         aria-haspopup="true" aria-expanded="false">
-                                        <img src="img/iconos/export.svg" alt="icono" class="mr-2"> Exportar Datos <i
+                                        <img src="
+                                        {{ asset('img/iconos/export.svg') }}" alt="icono" class="mr-2"> Exportar Datos <i
                                             class="iconoir-nav-arrow-down"></i>
                                     </button>
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
@@ -52,30 +63,38 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1001</td>
-                                            <td align="center">
-                                                <a href="detalle-tipo-ascensor.php" class="text-blue">
-                                                    PLATAFORMA DE DISCAPACITADOS
-                                                </a>
-                                            </td>
-                                            <td align="right">
-                                                <div class="dropdown">
-                                                    <button type="button" class="btn-action dropdown-toggle"
-                                                        data-toggle="dropdown">
-                                                        Acción <i class="fas fa-chevron-down"></i>
-                                                    </button>
-                                                    <div class="dropdown-menu dropdown-menu-right">
-                                                        <a class="dropdown-item" href="detalle-tipo-ascensor.php">Ver
-                                                            detalles</a>
-                                                        <a class="dropdown-item" href="javascript:void(0)"
-                                                            data-toggle="modal" data-target="#tiposAscensores">Editar</a>
-                                                        <a class="dropdown-item" href="javascript:void(0)"
-                                                            data-toggle="modal" data-target="#modalEliminar">Eliminar</a>
+                                        @foreach ($elevator_types as $index => $elevator_type)
+                                            <tr>
+                                                <td>{{ $index + 1 }}</td>
+                                                <td align="center">
+                                                    <a href="{{ route('details.elevatortypes', $elevator_type->id) }}"
+                                                        class="text-blue">
+                                                        {{ $elevator_type->nombre_de_tipo_de_ascensor }}
+                                                    </a>
+                                                </td>
+                                                <td align="right">
+                                                    <div class="dropdown">
+                                                        <button type="button" class="btn-action dropdown-toggle"
+                                                            data-toggle="dropdown">
+                                                            Acción <i class="fas fa-chevron-down"></i>
+                                                        </button>
+                                                        <div class="dropdown-menu dropdown-menu-right">
+                                                            <a class="dropdown-item"
+                                                                href="{{ route('details.elevatortypes', $elevator_type->id) }}">Ver
+                                                                detalles</a>
+                                                            <a class="dropdown-item"
+                                                                href="{{ route('edit.elevatortypes', $elevator_type->id) }}"
+                                                                data-toggle="modal"
+                                                                data-target="#editartiposAscensores">Editar</a>
+                                                            <a class="dropdown-item"
+                                                                href="{{ route('destroy.elevatortypes', $elevator_type->id) }}"
+                                                                data-toggle="modal"
+                                                                data-target="#modalEliminar">Eliminar</a>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -93,30 +112,111 @@
                                     <span aria-hidden="true">×</span>
                                 </button>
                             </div>
-                            <div class="modal-body body_modal">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <form
-                                        action="/tipos/de/ascensor/insertar"
-                                        method="POST" class="formulario-modal" id="customerForm">
-                                        @csrf
+                            <form action="{{ route('insert.elevatortypes') }}" method="POST" class="formulario-modal"
+                                id="customerForm">
+                                @csrf
+                                <div class="modal-body body_modal">
+                                    <div class="row">
+                                        <div class="col-md-12">
+
                                             <div class="form-group">
                                                 <label for="nombreAscensor">Nombre de Tipo de Ascensor</label>
                                                 <input type="text" placeholder="Nombre de Tipo de Ascensor"
-                                                    name="nombre_de_tipo_de_ascensor" id="nombreAscensor" class=" @error('nombre_de_tipo_de_ascensor') is-invalid @enderror">
-                                                    @error('nombre_de_tipo_de_ascensor')
+                                                    name="nombre_de_tipo_de_ascensor" id="nombreAscensor"
+                                                    class="form-control @error('nombre_de_tipo_de_ascensor') is-invalid @enderror">
+                                                @error('nombre_de_tipo_de_ascensor')
                                                     <span class="invalid-feedback" style="color: red">
                                                         <strong>{{ $message }}</strong>
                                                     </span>
                                                 @enderror
                                             </div>
-                                        </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
+                                    <button type="submit" class="btn-gris btn-red mr-2">Guardar Cambios</button>
+                                    <button type="submit" class="btn-gris btn-border"
+                                        data-dismiss="modal">Cancelar</button>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal editar Tipo de Ascensor-->
+                <div class="modal left fade" id="editartiposAscensores" tabindex="-1" role="dialog"
+                    aria-labelledby="modelTitleId" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title font-family-Outfit-SemiBold">Crear Tipo de Ascensor</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <form action="/tipos/de/ascensor/actualizar/<?php echo $elevator_type->id; ?>" method="POST"
+                                class="formulario-modal" id="customerForm">
+                                @csrf
+                                <div class="modal-body body_modal">
+                                    <div class="row">
+                                        <div class="col-md-12">
+
+                                            <div class="form-group">
+                                                <label for="nombreAscensor">Nombre de Tipo de Ascensor</label>
+                                                <input type="text" placeholder="Nombre de Tipo de Ascensor"
+                                                    name="nombre_de_tipo_de_ascensor" id="nombreAscensor"
+                                                    value="{{ old('nombre_de_tipo_de_ascensor', $elevator_type->nombre_de_tipo_de_ascensor ?? '') }}"
+                                                    class=" @error('nombre_de_tipo_de_ascensor') is-invalid @enderror">
+                                                @error('nombre_de_tipo_de_ascensor')
+                                                    <span class="invalid-feedback" style="color: red">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
+                                    <button type="submit" class="btn-gris btn-red mr-2">Guardar Cambios</button>
+                                    <button type="submit" class="btn-gris btn-border"
+                                        data-dismiss="modal">Cancelar</button>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal Eliminar-->
+                <div class="modal fade" id="modalEliminar" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content border-radius-12">
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                        <div class="box1">
+                                            <img src="{{ asset('img/iconos/trash.svg') }}" alt="trash"
+                                                width="76">
+                                            <p class="mt-3 mb-0">
+                                                ¿Seguro que quieres eliminar <span id="item-name"></span>?
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
-                                <button type="submit" class="btn-gris btn-red mr-2">Guardar Cambios</button>
-                                <button type="submit" class="btn-gris btn-border" data-dismiss="modal">Cancelar</button>
+                            <div class="modal-footer align-items-center justify-content-center">
+                                <form id="delete-form" action="{{ route('destroy.elevatortypes', $elevator_type->id) }}"
+                                    method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn-gris btn-red">Sí</button>
+                                </form>
+                                <button type="button" class="btn-gris btn-border" data-dismiss="modal">No</button>
                             </div>
                         </div>
                     </div>
@@ -206,6 +306,12 @@
             $('#customSearchBox').keyup(function() {
                 table.search($(this).val()).draw();
             });
+            setTimeout(function() {
+                $(".alert-success").fadeOut(1000);
+            }, 1000);
+            setTimeout(function() {
+                $(".alert-danger").fadeOut(1000);
+            }, 1000);
         });
     </script>
 @endpush

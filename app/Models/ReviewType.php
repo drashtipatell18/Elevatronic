@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Province extends Model
+class ReviewType extends Model
 {
     use HasFactory, SoftDeletes;
     protected $dates = ['eliminado_en'];
-    protected $table = 'provincias';
-    protected $fillable = ['provincia'];
+    protected $table = 'tipos_revisión';
+    protected $fillable = ['nombre'];
 }

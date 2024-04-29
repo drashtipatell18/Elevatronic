@@ -9,7 +9,6 @@
     <title>Elevatronic</title>
 
     <link rel="stylesheet" href="{{ asset('css/menu.css') }}?v={{ uniqid() }}">
-    <!--    <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">-->
     <link rel="stylesheet" href="{{ asset('css/estilos.css') }}?v={{ rand() }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,12 +20,12 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.4.0/css/fixedHeader.bootstrap4.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.bootstrap.min.css">
-    <!--    <link href='https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.css' rel='stylesheet'>-->
-<!-- Include Bootstrap CSS -->
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css" rel="stylesheet">
+    <!-- Include Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
-<!-- Include jQuery -->
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 </head>
 <div class="wrapper">
     <nav id="sidebar">
@@ -40,7 +39,7 @@
 
         <ul class="list-unstyled components">
             <li class="">
-                <a href="{{ route('customer')}}">
+                <a href="{{ route('customer') }}">
                     <i class="iconoir-group"></i> Clientes
                 </a>
             </li>
@@ -56,10 +55,10 @@
                 </a>
             </li>
             <li class="">
-                <a href="{{ route('province')}}"><i class="iconoir-maps-arrow-diagonal"></i> Provincias</a>
+                <a href="{{ route('province') }}"><i class="iconoir-maps-arrow-diagonal"></i> Provincias</a>
             </li>
             <li class="">
-                <a href="{{ route('reviewtype')}}"><i class="iconoir-apple-shortcuts"></i> Tipos de revisión</a>
+                <a href="{{ route('reviewtype') }}"><i class="iconoir-apple-shortcuts"></i> Tipos de revisión</a>
             </li>
             <li class="">
                 <a href="repuestos.php"><i class="iconoir-wrench"></i> Repuestos</a>
@@ -71,7 +70,7 @@
                 <a href="usuarios.php"><i class="iconoir-user-star"></i> Usuarios</a>
             </li>
             <li class="">
-                <a href="cronograma.php"><i class="iconoir-bed"></i> Cronograma</a>
+                <a href="{{ route('schedule') }}"><i class="iconoir-bed"></i> Cronograma</a>
             </li>
             <li class="">
                 <a href="carga-archivos.php"><i class="iconoir-multiple-pages-empty"></i> Carga de archivos</a>
@@ -696,8 +695,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="posicionPersonal">Posición</label>
-                                        <select class="custom-select" name="posicionPersonal"
-                                            id="posicionPersonal">
+                                        <select class="custom-select" name="posicionPersonal" id="posicionPersonal">
                                             <option selected class="d-none">Seleccionar opción</option>
                                             <option value="1">Posición 1</option>
                                             <option value="2">Posición 2</option>
@@ -766,8 +764,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="Username">Username</label>
-                                        <input type="text" placeholder="Username" name="Username"
-                                            id="Username">
+                                        <input type="text" placeholder="Username" name="Username" id="Username">
                                     </div>
                                 </div>
                                 <div class="col-md-12">
@@ -864,9 +861,10 @@
     src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js">
 </script>
 
-<script src="https://fullcalendar.io/releases/fullcalendar/3.10.0/fullcalendar.min.js"></script>
 <script src="{{ asset('js/es.js') }}"></script>
-<script src="https://fullcalendar.io/releases/fullcalendar/3.10.0/lib/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
+
 <script type="text/javascript">
     $(document).ready(function() {
         $('.sidebarCollapse').on('click', function() {

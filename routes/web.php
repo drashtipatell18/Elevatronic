@@ -105,7 +105,6 @@ Route::delete ('/repuestos/destruir/{id}',[SparePartController::class,'sparepart
 //Staff
 
 Route::get('/personal', [StaffController::class, 'staff'])->name('staff');
-Route::get('/personal/crear',[StaffController::class,'staffCreate'])->name('create.staff');
 Route::post('/personal/insertar',[StaffController::class,'staffInsert'])->name('insert.staff');
 Route::get('/personal/editar/{id}', [StaffController::class, 'staffEdit'])->name('edit.staff');
 Route::get('/personal/vista/{id}', [StaffController::class, 'staffView'])->name('view.staff');
@@ -114,7 +113,6 @@ Route::delete ('/personal/destruir/{id}',[StaffController::class,'staffDestroy']
 
 // usuarios
 Route::get('/usuarios', [UserController::class, 'user'])->name('user');
-Route::get('/usuarios/crear',[UserController::class,'userCreate'])->name('create.user');
 Route::post('/usuarios/insertar',[UserController::class,'userInsert'])->name('insert.user');
 Route::get('/usuarios/editar/{id}', [UserController::class, 'userEdit'])->name('edit.user');
 Route::get('/usuarios/vista/{id}', [UserController::class, 'userView'])->name('view.user');
@@ -123,16 +121,11 @@ Route::delete ('/usuarios/destruir/{id}',[UserController::class,'userDestroy'])-
 
 // cronograma
 Route::get('/cronograma', [ScheduleController::class, 'schedule'])->name('schedule');
-Route::get('/cronograma/crear',[ScheduleController::class,'scheduleCreate'])->name('create.schedule');
 Route::post('/cronograma/insertar',[ScheduleController::class,'scheduleInsert'])->name('insert.schedule');
-Route::get('/cronograma/editar/{id}', [ScheduleController::class, 'scheduleEdit'])->name('edit.schedule');
-Route::get('/cronograma/vista/{id}', [ScheduleController::class, 'scheduleView'])->name('view.schedule');
-Route::post('/cronograma/actualizar/{id}', [ScheduleController::class, 'scheduleUpdate'])->name('update.schedule');
-Route::delete ('/cronograma/destruir/{id}',[ScheduleController::class,'scheduleDestroy'])->name('destroy.schedule');
+Route::get('/get-events', [ScheduleController::class, 'getEvents'])->name('getevents');
 
 // cargaarchivos
 Route::get('/cargaarchivos', [FileUploadController::class, 'fileupload'])->name('fileupload');
-Route::get('/cargaarchivos/crear',[FileUploadController::class,'fileuploadCreate'])->name('create.fileupload');
 Route::post('/cargaarchivos/insertar',[FileUploadController::class,'fileuploadInsert'])->name('insert.fileupload');
 Route::get('/cargaarchivos/editar/{id}', [FileUploadController::class, 'fileuploadEdit'])->name('edit.fileupload');
 Route::get('/cargaarchivos/vista/{id}', [FileUploadController::class, 'fileuploadView'])->name('view.fileupload');

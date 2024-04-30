@@ -10,7 +10,8 @@ use App\Models\Elevators;
 
 class ElevatortypesController extends Controller
 {
-    public function Elevatortypes(){        
+    public function Elevatortypes(){  
+        $elevator_types = Elevatortypes::all();      
         return view('ElevatorTypes.view_elevator_types',compact('elevator_types'));
     }
 

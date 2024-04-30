@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Province;
+use App\Models\SparePart;
 
 class ProvinceController extends Controller
 {
@@ -35,7 +36,8 @@ class ProvinceController extends Controller
 
     public function provinceView($id){
         $province = Province::findOrFail($id);
-        return view('province.view_province_details',compact('province'));
+        $spareparts = SparePart::all();
+        return view('province.view_province_details',compact('province','spareparts'));
     }
 
     public function provinceUpdate(Request $request,$id){

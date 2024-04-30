@@ -683,88 +683,38 @@
                                                 <tr>
                                                     <th>FOTO</th>
                                                     <th>ID</th>
-                                                    <th>REPUESTO</th>
-                                                    <th>ÚLT. LIMPIEZA</th>
-                                                    <th>ÚLT. LUBRICACIÓN</th>
-                                                    <th>ÚLT. AJUSTE</th>
-                                                    <th>ÚLT. REVISIÓN</th>
-                                                    <th>ÚLT. CAMBIO</th>
-                                                    <th>ÚLT. SOLICITUD</th>
+                                                    <th>NOMBRE</th>
+                                                    <th>PRECIO</th>
+                                                    <th>LIMPIEZA</th>
+                                                    <th>LUBRICACIÓN</th>
+                                                    <th>AJUSTE</th>
+                                                    <th>REVISIÓN</th>
+                                                    <th>CAMBIO</th>
+                                                    <th>SOLICITUD</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <img src="img/tipo-repuesto.png" alt="tipo repuesto"
-                                                            width="52" height="52" class="img-table">
-                                                    </td>
-                                                    <td>1001</td>
-                                                    <td>
-                                                        <a href="detalle-repuestos.php" class="text-blue">
-                                                            ACEITERAS PARA RIELES
-                                                        </a>
-                                                    </td>
-                                                    <td>30</td>
-                                                    <td>30</td>
-                                                    <td>30</td>
-                                                    <td>30</td>
-                                                    <td>730</td>
-                                                    <td>Ejemplo</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <img src="img/tipo-repuesto.png" alt="tipo repuesto"
-                                                            width="52" height="52" class="img-table">
-                                                    </td>
-                                                    <td>1001</td>
-                                                    <td>
-                                                        <a href="detalle-repuestos.php" class="text-blue">
-                                                            ACEITERAS PARA RIELES
-                                                        </a>
-                                                    </td>
-                                                    <td>30</td>
-                                                    <td>30</td>
-                                                    <td>30</td>
-                                                    <td>30</td>
-                                                    <td>730</td>
-                                                    <td>Ejemplo</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <img src="img/tipo-repuesto.png" alt="tipo repuesto"
-                                                            width="52" height="52" class="img-table">
-                                                    </td>
-                                                    <td>1001</td>
-                                                    <td>
-                                                        <a href="detalle-repuestos.php" class="text-blue">
-                                                            ACEITERAS PARA RIELES
-                                                        </a>
-                                                    </td>
-                                                    <td>30</td>
-                                                    <td>30</td>
-                                                    <td>30</td>
-                                                    <td>30</td>
-                                                    <td>730</td>
-                                                    <td>Ejemplo</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <img src="img/tipo-repuesto.png" alt="tipo repuesto"
-                                                            width="52" height="52" class="img-table">
-                                                    </td>
-                                                    <td>1001</td>
-                                                    <td>
-                                                        <a href="detalle-repuestos.php" class="text-blue">
-                                                            ACEITERAS PARA RIELES
-                                                        </a>
-                                                    </td>
-                                                    <td>30</td>
-                                                    <td>30</td>
-                                                    <td>30</td>
-                                                    <td>30</td>
-                                                    <td>730</td>
-                                                    <td>Ejemplo</td>
-                                                </tr>
+                                                @foreach ($spareparts as $index => $sparepart)
+                                                    <tr class="">
+                                                        <td><img src="{{ asset('images/' . $sparepart->foto_de_repuesto) }}"
+                                                                alt="personal" width="52" height="52"
+                                                                class="img-table"></td>
+                                                        <td>{{ $index + 1 }}</td>
+                                                        <td>
+                                                            <a href="{{ route('view.sparepart', $sparepart->id) }}"
+                                                                class="text-blue">
+                                                                {{ $sparepart->nombre }}
+                                                            </a>
+                                                        </td>
+                                                        <td>{{ $sparepart->precio }}</td>
+                                                        <td>{{ $sparepart->frecuencia_de_limpieza }}</td>
+                                                        <td>{{ $sparepart->frecuencia_de_lubricación }}</td>
+                                                        <td>{{ $sparepart->frecuencia_de_ajuste }}</td>
+                                                        <td>{{ $sparepart->frecuencia_de_revisión }}</td>
+                                                        <td>{{ $sparepart->frecuencia_de_cambio }}</td>
+                                                        <td>{{ $sparepart->frecuencia_de_solicitud }}</td>
+                                                    </tr>
+                                                @endforeach
                                             </tbody>
                                         </table>
                                     </div>

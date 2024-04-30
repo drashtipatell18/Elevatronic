@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Elevators;
 use App\Models\Cliente;
 use App\Models\Province;
+use App\Models\SparePart;
 
 
 class ElevatorController extends Controller
@@ -156,10 +157,11 @@ class ElevatorController extends Controller
 
     public function elevatorView(Request $request, $id){
         $elevator = Elevators::find($id);
+        $spareparts = SparePart::all();
         $customers = Cliente::pluck('nombre','nombre');
         $provinces = Province::pluck('provincia','provincia');
 
-        return view('elevator.view_elevator_details',compact('elevator', 'customers','provinces'));
+        return view('elevator.view_elevator_details',compact('elevator', 'spareparts','customers','provinces'));
 
     }
 

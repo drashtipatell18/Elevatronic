@@ -123,186 +123,27 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <img src="img/tipo-repuesto.png" alt="tipo repuesto" width="52"
-                                                            height="52" class="img-table">
-                                                    </td>
-                                                    <td>1001</td>
-                                                    <td>
-                                                        <a href="detalle-repuestos.php" class="text-blue">ACEITERAS PARA
-                                                            RIELES</a>
-                                                    </td>
-                                                    <td>$25,000</td>
-                                                    <td>30</td>
-                                                    <td>30</td>
-                                                    <td>30</td>
-                                                    <td>30</td>
-                                                    <td>730</td>
-                                                    <td>Ejemplo</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <img src="img/tipo-repuesto.png" alt="tipo repuesto"
-                                                            width="52" height="52" class="img-table">
-                                                    </td>
-                                                    <td>1001</td>
-                                                    <td>
-                                                        <a href="detalle-repuestos.php" class="text-blue">ACEITERAS PARA
-                                                            RIELES</a>
-                                                    </td>
-                                                    <td>$25,000</td>
-                                                    <td>30</td>
-                                                    <td>30</td>
-                                                    <td>30</td>
-                                                    <td>30</td>
-                                                    <td>730</td>
-                                                    <td>Ejemplo</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <img src="img/tipo-repuesto.png" alt="tipo repuesto"
-                                                            width="52" height="52" class="img-table">
-                                                    </td>
-                                                    <td>1001</td>
-                                                    <td>
-                                                        <a href="detalle-repuestos.php" class="text-blue">ACEITERAS PARA
-                                                            RIELES</a>
-                                                    </td>
-                                                    <td>$25,000</td>
-                                                    <td>30</td>
-                                                    <td>30</td>
-                                                    <td>30</td>
-                                                    <td>30</td>
-                                                    <td>730</td>
-                                                    <td>Ejemplo</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <img src="img/tipo-repuesto.png" alt="tipo repuesto"
-                                                            width="52" height="52" class="img-table">
-                                                    </td>
-                                                    <td>1001</td>
-                                                    <td>
-                                                        <a href="detalle-repuestos.php" class="text-blue">ACEITERAS PARA
-                                                            RIELES</a>
-                                                    </td>
-                                                    <td>$25,000</td>
-                                                    <td>30</td>
-                                                    <td>30</td>
-                                                    <td>30</td>
-                                                    <td>30</td>
-                                                    <td>730</td>
-                                                    <td>Ejemplo</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <img src="img/tipo-repuesto.png" alt="tipo repuesto"
-                                                            width="52" height="52" class="img-table">
-                                                    </td>
-                                                    <td>1001</td>
-                                                    <td>
-                                                        <a href="detalle-repuestos.php" class="text-blue">ACEITERAS PARA
-                                                            RIELES</a>
-                                                    </td>
-                                                    <td>$25,000</td>
-                                                    <td>30</td>
-                                                    <td>30</td>
-                                                    <td>30</td>
-                                                    <td>30</td>
-                                                    <td>730</td>
-                                                    <td>Ejemplo</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <img src="img/tipo-repuesto.png" alt="tipo repuesto"
-                                                            width="52" height="52" class="img-table">
-                                                    </td>
-                                                    <td>1001</td>
-                                                    <td>
-                                                        <a href="detalle-repuestos.php" class="text-blue">ACEITERAS PARA
-                                                            RIELES</a>
-                                                    </td>
-                                                    <td>$25,000</td>
-                                                    <td>30</td>
-                                                    <td>30</td>
-                                                    <td>30</td>
-                                                    <td>30</td>
-                                                    <td>730</td>
-                                                    <td>Ejemplo</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <img src="img/tipo-repuesto.png" alt="tipo repuesto"
-                                                            width="52" height="52" class="img-table">
-                                                    </td>
-                                                    <td>1001</td>
-                                                    <td>
-                                                        <a href="detalle-repuestos.php" class="text-blue">ACEITERAS PARA
-                                                            RIELES</a>
-                                                    </td>
-                                                    <td>$25,000</td>
-                                                    <td>30</td>
-                                                    <td>30</td>
-                                                    <td>30</td>
-                                                    <td>30</td>
-                                                    <td>730</td>
-                                                    <td>Ejemplo</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <img src="img/tipo-repuesto.png" alt="tipo repuesto"
-                                                            width="52" height="52" class="img-table">
-                                                    </td>
-                                                    <td>1001</td>
-                                                    <td>
-                                                        <a href="detalle-repuestos.php" class="text-blue">ACEITERAS PARA
-                                                            RIELES</a>
-                                                    </td>
-                                                    <td>$25,000</td>
-                                                    <td>30</td>
-                                                    <td>30</td>
-                                                    <td>30</td>
-                                                    <td>30</td>
-                                                    <td>730</td>
-                                                    <td>Ejemplo</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <img src="img/tipo-repuesto.png" alt="tipo repuesto"
-                                                            width="52" height="52" class="img-table">
-                                                    </td>
-                                                    <td>1001</td>
-                                                    <td>
-                                                        <a href="detalle-repuestos.php" class="text-blue">ACEITERAS PARA
-                                                            RIELES</a>
-                                                    </td>
-                                                    <td>$25,000</td>
-                                                    <td>30</td>
-                                                    <td>30</td>
-                                                    <td>30</td>
-                                                    <td>30</td>
-                                                    <td>730</td>
-                                                    <td>Ejemplo</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <img src="img/tipo-repuesto.png" alt="tipo repuesto"
-                                                            width="52" height="52" class="img-table">
-                                                    </td>
-                                                    <td>1001</td>
-                                                    <td>
-                                                        <a href="detalle-repuestos.php" class="text-blue">ACEITERAS PARA
-                                                            RIELES</a>
-                                                    </td>
-                                                    <td>$25,000</td>
-                                                    <td>30</td>
-                                                    <td>30</td>
-                                                    <td>30</td>
-                                                    <td>30</td>
-                                                    <td>730</td>
-                                                    <td>Ejemplo</td>
-                                                </tr>
+                                                @foreach ($spareparts as $index => $sparepart)
+                                                    <tr class="">
+                                                        <td><img src="{{ asset('images/' . $sparepart->foto_de_repuesto) }}"
+                                                                alt="personal" width="52" height="52"
+                                                                class="img-table"></td>
+                                                        <td>{{ $index + 1 }}</td>
+                                                        <td>
+                                                            <a href="{{ route('view.sparepart', $sparepart->id) }}"
+                                                                class="text-blue">
+                                                                {{ $sparepart->nombre }}
+                                                            </a>
+                                                        </td>
+                                                        <td>{{ $sparepart->precio }}</td>
+                                                        <td>{{ $sparepart->frecuencia_de_limpieza }}</td>
+                                                        <td>{{ $sparepart->frecuencia_de_lubricación }}</td>
+                                                        <td>{{ $sparepart->frecuencia_de_ajuste }}</td>
+                                                        <td>{{ $sparepart->frecuencia_de_revisión }}</td>
+                                                        <td>{{ $sparepart->frecuencia_de_cambio }}</td>
+                                                        <td>{{ $sparepart->frecuencia_de_solicitud }}</td>
+                                                    </tr>
+                                                @endforeach
                                             </tbody>
                                         </table>
                                     </div>
@@ -347,131 +188,27 @@
                                         <table id="AscensoresTipo" class="table" style="width:100%">
                                             <thead>
                                                 <tr>
-                                                    <th>FOTO</th>
                                                     <th>ID</th>
+                                                    <th>FECHA ENTREGA</th>
                                                     <th>TIPO DE ASCENSOR</th>
                                                     <th>NOMBRE</th>
                                                     <th>CLIENTE</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <img src="img/ascensoresTipo.png" alt="tipo repuesto"
-                                                            width="52" height="52" class="img-table">
-                                                    </td>
-                                                    <td>1001</td>
-                                                    <td>PLATAFORMA DE DISCAPACITADOS</td>
-                                                    <td>
-                                                        <a href="detalle-ascensores-old.php" class="text-blue">EDIFICIO
-                                                            MULTIFAMILIAR CHAMA</a>
-                                                    </td>
-                                                    <td>GUIDO BERGER SUAREZ</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <img src="img/ascensoresTipo.png" alt="tipo repuesto"
-                                                            width="52" height="52" class="img-table">
-                                                    </td>
-                                                    <td>1001</td>
-                                                    <td>PLATAFORMA DE DISCAPACITADOS</td>
-                                                    <td>
-                                                        <a href="detalle-ascensores-old.php" class="text-blue">EDIFICIO
-                                                            MULTIFAMILIAR CHAMA</a>
-                                                    </td>
-                                                    <td>GUIDO BERGER SUAREZ</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <img src="img/ascensoresTipo.png" alt="tipo repuesto"
-                                                            width="52" height="52" class="img-table">
-                                                    </td>
-                                                    <td>1001</td>
-                                                    <td>PLATAFORMA DE DISCAPACITADOS</td>
-                                                    <td>
-                                                        <a href="detalle-ascensores-old.php" class="text-blue">EDIFICIO
-                                                            MULTIFAMILIAR CHAMA</a>
-                                                    </td>
-                                                    <td>GUIDO BERGER SUAREZ</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <img src="img/ascensoresTipo.png" alt="tipo repuesto"
-                                                            width="52" height="52" class="img-table">
-                                                    </td>
-                                                    <td>1001</td>
-                                                    <td>PLATAFORMA DE DISCAPACITADOS</td>
-                                                    <td>
-                                                        <a href="detalle-ascensores-old.php" class="text-blue">EDIFICIO
-                                                            MULTIFAMILIAR CHAMA</a>
-                                                    </td>
-                                                    <td>GUIDO BERGER SUAREZ</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <img src="img/ascensoresTipo.png" alt="tipo repuesto"
-                                                            width="52" height="52" class="img-table">
-                                                    </td>
-                                                    <td>1001</td>
-                                                    <td>PLATAFORMA DE DISCAPACITADOS</td>
-                                                    <td>
-                                                        <a href="detalle-ascensores-old.php" class="text-blue">EDIFICIO
-                                                            MULTIFAMILIAR CHAMA</a>
-                                                    </td>
-                                                    <td>GUIDO BERGER SUAREZ</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <img src="img/ascensoresTipo.png" alt="tipo repuesto"
-                                                            width="52" height="52" class="img-table">
-                                                    </td>
-                                                    <td>1001</td>
-                                                    <td>PLATAFORMA DE DISCAPACITADOS</td>
-                                                    <td>
-                                                        <a href="detalle-ascensores-old.php" class="text-blue">EDIFICIO
-                                                            MULTIFAMILIAR CHAMA</a>
-                                                    </td>
-                                                    <td>GUIDO BERGER SUAREZ</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <img src="img/ascensoresTipo.png" alt="tipo repuesto"
-                                                            width="52" height="52" class="img-table">
-                                                    </td>
-                                                    <td>1001</td>
-                                                    <td>PLATAFORMA DE DISCAPACITADOS</td>
-                                                    <td>
-                                                        <a href="detalle-ascensores-old.php" class="text-blue">EDIFICIO
-                                                            MULTIFAMILIAR CHAMA</a>
-                                                    </td>
-                                                    <td>GUIDO BERGER SUAREZ</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <img src="img/ascensoresTipo.png" alt="tipo repuesto"
-                                                            width="52" height="52" class="img-table">
-                                                    </td>
-                                                    <td>1001</td>
-                                                    <td>PLATAFORMA DE DISCAPACITADOS</td>
-                                                    <td>
-                                                        <a href="detalle-ascensores-old.php" class="text-blue">EDIFICIO
-                                                            MULTIFAMILIAR CHAMA</a>
-                                                    </td>
-                                                    <td>GUIDO BERGER SUAREZ</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <img src="img/ascensoresTipo.png" alt="tipo repuesto"
-                                                            width="52" height="52" class="img-table">
-                                                    </td>
-                                                    <td>1001</td>
-                                                    <td>PLATAFORMA DE DISCAPACITADOS</td>
-                                                    <td>
-                                                        <a href="detalle-ascensores-old.php" class="text-blue">EDIFICIO
-                                                            MULTIFAMILIAR CHAMA</a>
-                                                    </td>
-                                                    <td>GUIDO BERGER SUAREZ</td>
-                                                </tr>
+                                                @foreach ($elevators as $index => $elevator)
+                                                    <tr>
+                                                        <td>{{ $index + 1 }}</td>
+                                                        <td>{{ $elevator->fecha }}</td>
+                                                        <td>{{ $elevator->tipo_de_ascensor }}</td>
+                                                        <td>
+                                                            <a href="{{ route('view.elevator', $elevator->id) }}" class="text-blue">
+                                                                {{ $elevator->nombre }}
+                                                            </a>
+                                                        </td>
+                                                        <td>{{ $elevator->cliente }}</td>                                                       
+                                                    </tr>
+                                                @endforeach
                                             </tbody>
                                         </table>
                                     </div>
@@ -537,7 +274,8 @@
                                             <span aria-hidden="true">×</span>
                                         </button>
                                         <div class="box1">
-                                            <img src="{{ asset('img/iconos/trash.svg') }}" alt="trash" width="76">
+                                            <img src="{{ asset('img/iconos/trash.svg') }}" alt="trash"
+                                                width="76">
                                             <p class="mt-3 mb-0">
                                                 ¿Seguro que quieres eliminar <span id="item-name"></span>?
                                             </p>

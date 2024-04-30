@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ReviewType;
+use App\Models\SparePart;
+
 class ReviewTypeController extends Controller
 {
     public function reviewtype(){
@@ -25,6 +27,11 @@ class ReviewTypeController extends Controller
         session()->flash('success', 'Tipo de revisión creado exitosamente!');
         return redirect()->route('reviewtype');
 
+    }
+
+    public function reviewtypeView($id){
+        $reviewtype = ReviewType::find($id);
+        return view('reviewtype.view_reviewtype_record',compact('reviewtype'));
     }
 
     public function reviewtypeEdit($id){

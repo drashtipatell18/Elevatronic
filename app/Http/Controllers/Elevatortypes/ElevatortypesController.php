@@ -5,11 +5,12 @@ namespace App\Http\Controllers\Elevatortypes;
 use App\Http\Controllers\Controller;
 use App\Models\Elevatortypes\Elevatortypes;
 use Illuminate\Http\Request;
+use App\Models\SparePart;
+use App\Models\Elevators;
 
 class ElevatortypesController extends Controller
 {
-    public function Elevatortypes(){
-        $elevator_types = Elevatortypes::all();
+    public function Elevatortypes(){        
         return view('ElevatorTypes.view_elevator_types',compact('elevator_types'));
     }
 
@@ -37,7 +38,9 @@ class ElevatortypesController extends Controller
     
     public function elevatortypesDetails($id){
         $elevator_type = Elevatortypes::findOrFail($id);
-        return view('ElevatorTypes.elevator_details', compact('elevator_type'));
+        $spareparts = SparePart::all();
+        $elevators = Elevators::all();
+        return view('ElevatorTypes.elevator_details', compact('elevators','spareparts','elevator_type'));
     }
 
     public function elevatortypesUpdate(Request $request,$id){

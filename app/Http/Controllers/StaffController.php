@@ -73,11 +73,6 @@ class StaffController extends Controller
 
     }
 
-    public function staffDetails(Request $request, $id){
-        $staff = Staff::find($id);
-        return view('staff.staff_details',compact('staff'));
-    }
-
     public function staffView(Request $request, $id){
         $staffs = Staff::find($id);
         return view('staff.view_staff_record',compact('staffs'));

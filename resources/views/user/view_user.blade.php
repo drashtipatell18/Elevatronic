@@ -15,13 +15,13 @@
             <div class="row">
                 <div class="col-md-6 mb-4">
                     <div class="titulo">
-                        <h4>Personal</h4>
-                        <span>Personal</span>
+                        <h4>Usuarios</h4>
+                        <span>Usuarios</span>
                     </div>
                 </div>
                 <div class="col-md-6 mb-4 text-right">
                     <button type="button" class="btn-primario w-auto pl-3 pr-3" data-toggle="modal"
-                        data-target="#crearPersonal">
+                        data-target="#crearUsuario">
                         + Crear Nuevo
                     </button>
                 </div>
@@ -59,32 +59,53 @@
                                             <th>FOTO</th>
                                             <th>ID</th>
                                             <th>NOMBRE</th>
-                                            <th>POSICIÓN</th>
                                             <th>CORREO</th>
                                             <th>TELÉFONO</th>
-                                            <th>UBICAR</th>
                                             <th align="right" class="text-right">ACCIONES</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($staffs as $index => $staff)
+                                        {{-- <tr>
+                                            <td>
+                                                <img src="img/perfil.png" alt="personal" width="52" height="52"
+                                                    class="img-table">
+                                            </td>
+                                            <td>1001</td>
+                                            <td>
+                                                <a href="detalle-usuario.php" class="text-blue">
+                                                    YOLIVIA ACUÑA
+                                                </a>
+                                            </td>
+                                            <td>ejemplo@gmail.com</td>
+                                            <td>+51 987 654 321</td>
+                                            <td align="right">
+                                                <div class="dropdown">
+                                                    <button type="button" class="btn-action dropdown-toggle"
+                                                        data-toggle="dropdown">
+                                                        Acción <i class="fas fa-chevron-down"></i>
+                                                    </button>
+                                                    <div class="dropdown-menu dropdown-menu-right">
+                                                        <a class="dropdown-item" href="detalle-usuario.php">Ver detalles</a>
+                                                        <a class="dropdown-item" href="javascript:void(0)"
+                                                            data-toggle="modal" data-target="#crearUsuario">Editar</a>
+                                                        <a class="dropdown-item" href="javascript:void(0)"
+                                                            data-toggle="modal" data-target="#modalEliminar">Eliminar</a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr> --}}
+                                        @foreach ($users as $index => $user)
                                             <tr class="">
-                                                <td><img src="{{ asset('images/'. $staff->personalfoto) }}" alt="personal" width="52" height="52" class="img-table"></td>
+                                                <td><img src="{{ asset('images/' . $user->fotodeusuario) }}" alt="personal"
+                                                        width="52" height="52" class="img-table"></td>
                                                 <td>{{ $index + 1 }}</td>
                                                 <td>
-                                                    <a href="{{ route('view.staff', $staff->id) }}" class="text-blue">
-                                                        {{ $staff->nombre }}
+                                                    <a href="{{ route('view.user', $user->id) }}" class="text-blue">
+                                                        {{ $user->nombre }}
                                                     </a>
                                                 </td>
-                                                <td>{{ $staff->posición }}</td>
-                                                <td>{{ $staff->correo }}</td>
-                                                <td>{{ $staff->teléfono }}</td>
-                                                <td>
-                                                    <span class="adornomapa">
-                                                        <img src="img/mapa.svg" alt="mapa" width="22"
-                                                            height="22">
-                                                    </span>
-                                                </td>
+                                                <td>{{ $user->correo }}</td>
+                                                <td>{{ $user->teléfono }}</td>
                                                 <td align="right">
                                                     <div class="dropdown">
                                                         <button type="button" class="btn-action dropdown-toggle"
@@ -92,10 +113,11 @@
                                                             Acción <i class="fas fa-chevron-down"></i>
                                                         </button>
                                                         <div class="dropdown-menu dropdown-menu-right">
-                                                            <a class="dropdown-item" href="{{ route('view.staff', $staff->id) }}">Ver
+                                                            <a class="dropdown-item"
+                                                                href="{{ route('view.user', $user->id) }}">Ver
                                                                 detalles</a>
                                                             <a class="dropdown-item" href="javascript:void(0)"
-                                                                data-toggle="modal" data-target="#editarPersonal">Editar</a>
+                                                                data-toggle="modal" data-target="#editorUsuario">Editar</a>
                                                             <a class="dropdown-item" href="javascript:void(0)"
                                                                 data-toggle="modal"
                                                                 data-target="#modalEliminar">Eliminar</a>
@@ -114,18 +136,18 @@
         </div>
     </div>
 
-    <!-- Modal Crear Personal-->
-    <div class="modal left fade" id="crearPersonal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+    <!-- Modal Crear Usuario-->
+    <div class="modal left fade" id="crearUsuario" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title font-family-Outfit-SemiBold">Crear Personal</h5>
+                    <h5 class="modal-title font-family-Outfit-SemiBold">Crear Usuario</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <form action="{{ route('insert.staff') }}" method="POST" class="formulario-modal"
+                <form action="{{ route('insert.user') }}" method="POST" class="formulario-modal"
                     enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body body_modal">
@@ -133,47 +155,61 @@
                             <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
-                                        <label>Foto de Personal</label>
-                                        <div id="imagenPrevioPersonal"></div>
+                                        <label>Foto de usuario</label>
+                                        <div id="imagenPrevioUsuario"></div>
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <div class="">
-                                            <label for="imageUpload10" class="text-gris mt-4">Seleccione una
+                                            <label for="imageUploadUsuario" class="text-gris mt-4">Seleccione una
                                                 imagen</label>
-                                            <input type="file" id="imageUpload10" name="personalfoto"
+                                            <input type="file" id="imageUploadUsuario" name="fotodeusuario"
                                                 style="display: none;" accept="image/*" />
-                                            <button type="button" id="cargarimagenpersonal" class="btn-gris">
+                                            <button type="button" id="cargarimagenUsuario" class="btn-gris">
                                                 <i class="fas fa-arrow-to-top mr-2"></i>Subir Imagen
                                             </button>
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="nombre">Nombre</label>
+                                            <label for="Nombre de usuario">Nombre de usuario</label>
+                                            <input type="text" placeholder="nombredeusuario" name="nombredeusuario"
+                                                id="nombredeusuario">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="NombreUsuario">Nombre</label>
                                             <input type="text" placeholder="Nombre" name="nombre" id="nombre">
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="posición">Posición</label>
-                                            <select class="custom-select" name="posición" id="posición">
+                                            <label for="correoUsuario">Correo</label>
+                                            <input type="text" placeholder="Correo" name="correo" id="correo">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="telefonoUsuario">Teléfono</label>
+                                            <input type="text" name="teléfono" id="teléfono" placeholder="Teléfono">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="Empleado">Empleado</label>
+                                            <select class="custom-select" name="empleado" id="empleado">
                                                 <option selected class="d-none">Seleccionar opción</option>
-                                                <option value="posición_1">Posición 1</option>
-                                                <option value="posición_2">Posición 2</option>
-                                                <option value="posición_3">Posición 3</option>
+                                                <option value="1">Empleado 1</option>
+                                                <option value="2">Empleado 2</option>
+                                                <option value="3">Empleado 3</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="correo">Correo</label>
-                                            <input type="email" placeholder="Correo" name="correo" id="correo">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="telefonoPersonal">Teléfono</label>
-                                            <input type="number" name="teléfono" id="teléfono" placeholder="Teléfono">
+                                            <label for="contrasenaUser">Contraseña</label>
+                                            <input type="password" name="contraseña" id="contraseña"
+                                                placeholder="Contraseña">
                                         </div>
                                     </div>
                                 </div>
@@ -185,88 +221,141 @@
                         <button type="button" class="btn-gris btn-border" data-dismiss="modal">Cancelar</button>
                     </div>
                 </form>
-
             </div>
         </div>
     </div>
 
-    <!-- Modal editar Personal-->
-    <div class="modal left fade" id="editarPersonal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+    <!-- Modal Editor Usuario-->
+    <div class="modal left fade" id="editorUsuario" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title font-family-Outfit-SemiBold">Editar Personal</h5>
+                    <h5 class="modal-title font-family-Outfit-SemiBold">Editar Usuario</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <form action="{{ route('update.staff', $staff->id) }}" class="formulario-modal"
-                    enctype="multipart/form-data" method="POST">
+                <form action="{{ route('update.user', $user->id) }}" method="POST" class="formulario-modal"
+                    enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body body_modal">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
-                                        <label>Foto de Personal</label>
-                                        <div id="editimagenPrevioPersonal">
-                                            @if ($staff->personalfoto)
-                                                <img src="{{ asset('images/' . $staff->personalfoto) }}" width="200"
+                                        <label>Foto de usuario</label>
+                                        <div id="editimagenPrevioUsuario">
+                                            @if ($user->fotodeusuario)
+                                                <img src="{{ asset('images/' . $user->fotodeusuario) }}" width="200"
                                                     height="200" alt="Existing Image">
                                             @endif
                                         </div>
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <div class="">
-                                            <label for="editimageUpload10" class="text-gris mt-4">Seleccione una
+                                            <label for="imageUploadUsuario" class="text-gris mt-4">Seleccione una
                                                 imagen</label>
-                                            <input type="file" id="editimageUpload10" name="personalfoto"
+                                            <input type="file" id="editimageUploadUsuario" name="fotodeusuario"
                                                 style="display: none;" accept="image/*" />
-                                            <button type="button" id="editcargarimagenpersonal" class="btn-gris">
+                                            <button type="button" id="editcargarimagenUsuario" class="btn-gris">
                                                 <i class="fas fa-arrow-to-top mr-2"></i>Subir Imagen
                                             </button>
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="nombre">Nombre</label>
-                                            <input type="text" placeholder="Nombre" name="nombre"
-                                                value="{{ old('nombre', $staff->nombre ?? '') }}" id="nombre">
+                                            <label for="Nombre de usuario">Nombre de usuario</label>
+                                            <input type="text" placeholder="nombredeusuario" name="nombredeusuario"
+                                                class="form-control @error('nombredeusuario') is-invalid @enderror"
+                                                value="{{ old('nombredeusuario', $user->nombredeusuario ?? '') }}"
+                                                id="nombredeusuario">
+                                            @error('nombredeusuario')
+                                                <span class="invalid-feedback" style="color: red">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="posición">Posición</label>
-                                            <select class="custom-select" name="posición" id="posición">
-                                                <option value="" class="d-none">Seleccionar opción</option>
-                                                <option value="posición_1"
-                                                    {{ $staff->posición == 'posición_1' ? 'selected' : '' }}>Posición 1
+                                            <label for="NombreUsuario">Nombre</label>
+                                            <input type="text" placeholder="Nombre" name="nombre" id="nombre"
+                                                class="form-control @error('nombre') is-invalid @enderror"
+                                                value="{{ old('nombre', $user->nombre ?? '') }}">
+                                            @error('nombre')
+                                                <span class="invalid-feedback" style="color: red">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="correoUsuario">Correo</label>
+                                            <input type="text" placeholder="Correo" name="correo" id="correo"
+                                                class="form-control @error('correo') is-invalid @enderror"
+                                                value="{{ old('correo', $user->correo ?? '') }}">
+                                            @error('correo')
+                                                <span class="invalid-feedback" style="color: red">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="telefonoUsuario">Teléfono</label>
+                                            <input type="text" name="teléfono" id="teléfono" placeholder="Teléfono"
+                                                value="{{ old('teléfono', $user->teléfono ?? '') }}"
+                                                class="form-control @error('correo') is-invalid @enderror">
+                                            @error('teléfono')
+                                                <span class="invalid-feedback" style="color: red">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="Empleado">Empleado</label>
+                                            <select
+                                                class="custom-select form-control @error('empleado') is-invalid @enderror"
+                                                name="empleado" id="empleado">
+                                                <option selected disabled>Seleccionar opción</option>
+                                                <option value="empleado_1"
+                                                    {{ $user->empleado == 'empleado_1' ? 'selected' : '' }}>Empleado 1
                                                 </option>
-                                                <option value="posición_2"
-                                                    {{ $staff->posición == 'posición_2' ? 'selected' : '' }}>Posición 2
+                                                <option value="empleado_2"
+                                                    {{ $user->empleado == 'empleado_2' ? 'selected' : '' }}>Empleado 2
                                                 </option>
-                                                <option value="posición_3"
-                                                    {{ $staff->posición == 'posición_3' ? 'selected' : '' }}>Posición 3
+                                                <option value="empleado_3"
+                                                    {{ $user->empleado == 'empleado_3' ? 'selected' : '' }}>Empleado 3
                                                 </option>
                                             </select>
+                                            @error('empleado')
+                                                <span class="invalid-feedback" style="color: red">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </div>
                                     </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="correo">Correo</label>
-                                            <input type="email" placeholder="Correo" name="correo"
-                                                value="{{ old('correo', $staff->correo ?? '') }}" id="correo">
+
+                                    @if (!isset($users))
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="contrasenaUser">Contraseña</label>
+                                                <input type="password" name="contraseña" id="contraseña"
+                                                    class="form-control @error('contraseña') is-invalid @enderror"
+                                                    placeholder="Contraseña">
+                                                @error('contraseña')
+                                                    <span class="invalid-feedback" style="color: red">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="telefonoPersonal">Teléfono</label>
-                                            <input type="number" name="teléfono" id="teléfono"
-                                                value="{{ old('teléfono', $staff->teléfono ?? '') }}"
-                                                placeholder="Teléfono">
-                                        </div>
-                                    </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -276,7 +365,6 @@
                         <button type="button" class="btn-gris btn-border" data-dismiss="modal">Cancelar</button>
                     </div>
                 </form>
-
             </div>
         </div>
     </div>
@@ -302,7 +390,7 @@
                     </div>
                 </div>
                 <div class="modal-footer align-items-center justify-content-center">
-                    <form id="delete-form" action="{{ route('destroy.staff', $staff->id) }}" method="POST">
+                    <form id="delete-form" action="{{ route('destroy.user', $user->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn-gris btn-red">Sí</button>
@@ -394,41 +482,33 @@
             $('#customSearchBox').keyup(function() {
                 table.search($(this).val()).draw();
             });
-            setTimeout(function() {
-                $(".alert-success").fadeOut(1000);
-            }, 1000);
-            setTimeout(function() {
-                $(".alert-danger").fadeOut(1000);
-            }, 1000);
 
-            $('#cargarimagenpersonal').click(function() {
-                $('#imageUpload10').click();
+            $('#cargarimagenUsuario').click(function() {
+                $('#imageUploadUsuario').click();
             });
 
-            $('#imageUpload10').change(function() {
+            $('#imageUploadUsuario').change(function() {
                 var reader = new FileReader();
                 reader.onload = function(e) {
-                    $('#imagenPrevioPersonal').css('background-image', 'url(' + e.target.result + ')');
-                    $('#imagenPrevioPersonal').show();
+                    $('#imagenPrevioUsuario').css('background-image', 'url(' + e.target.result + ')');
+                    $('#imagenPrevioUsuario').show();
                 }
                 reader.readAsDataURL(this.files[0]);
             });
 
-            $('#editcargarimagenpersonal').click(function() {
-                $('#editimageUpload10').click();
+            $('#editcargarimagenUsuario').click(function() {
+                $('#editimageUploadUsuario').click();
             });
 
-            $('#editimageUpload10').change(function() {
+            $('#editimageUploadUsuario').change(function() {
                 var reader = new FileReader();
                 reader.onload = function(e) {
-                    $('#editimagenPrevioPersonal').css('background-image', 'url(' + e.target.result +
+                    $('#editimagenPrevioUsuario').css('background-image', 'url(' + e.target.result +
                         ')');
-                    $('#editimagenPrevioPersonal').show();
+                    $('#editimagenPrevioUsuario').show();
                 }
                 reader.readAsDataURL(this.files[0]);
             });
-
-
         });
     </script>
 @endpush

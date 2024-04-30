@@ -67,7 +67,7 @@
                 <a href="{{ route('staff')}}"><i class="iconoir-suitcase"></i> Personal</a>
             </li>
             <li class="">
-                <a href="usuarios.php"><i class="iconoir-user-star"></i> Usuarios</a>
+                <a href="{{ route('user')}}"><i class="iconoir-user-star"></i> Usuarios</a>
             </li>
             <li class="">
                 <a href="{{ route('schedule') }}"><i class="iconoir-bed"></i> Cronograma</a>
@@ -654,94 +654,6 @@
     </div>
 </div>
 
-<!-- Modal Crear Usuario-->
-<div class="modal left fade" id="crearUsuario" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title font-family-Outfit-SemiBold">Crear Usuario</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body body_modal">
-                <div class="row">
-                    <div class="col-md-12">
-                        <form action="" class="formulario-modal">
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <label>Foto de usuario</label>
-                                    <div id="imagenPrevioUsuario"></div>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <div class="">
-                                        <label for="imageUploadUsuario" class="text-gris mt-4">Seleccione una
-                                            imagen</label>
-                                        <input type="file" id="imageUploadUsuario" style="display: none;"
-                                            accept="image/*" />
-                                        <button type="button" id="cargarimagenUsuario" class="btn-gris">
-                                            <i class="fas fa-arrow-to-top mr-2"></i>Subir Imagen
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for="Username">Username</label>
-                                        <input type="text" placeholder="Username" name="Username" id="Username">
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for="NombreUsuario">Nombre</label>
-                                        <input type="text" placeholder="Nombre" name="NombreUsuario"
-                                            id="NombreUsuario">
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for="correoUsuario">Correo</label>
-                                        <input type="text" placeholder="Correo" name="correoUsuario"
-                                            id="correoUsuario">
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for="telefonoUsuario">Teléfono</label>
-                                        <input type="text" name="telefonoUsuario" id="telefonoUsuario"
-                                            placeholder="Teléfono">
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for="Empleado">Empleado</label>
-                                        <select class="custom-select" name="Empleado" id="Empleado">
-                                            <option selected class="d-none">Seleccionar opción</option>
-                                            <option value="1">Empleado 1</option>
-                                            <option value="2">Empleado 2</option>
-                                            <option value="3">Empleado 3</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for="contrasenaUser">Contraseña</label>
-                                        <input type="text" name="contrasenaUser" id="contrasenaUser"
-                                            placeholder="Contraseña">
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
-                <button type="button" class="btn-gris btn-red mr-2">Guardar Cambios</button>
-                <button type="button" class="btn-gris btn-border" data-dismiss="modal">Cancelar</button>
-            </div>
-        </div>
-    </div>
-</div>
 
 <!-- alerta carga-->
 <div id="alertaCarga" class="alert alert-elevatronic alert-dismissible" style="display: none;">
@@ -922,18 +834,7 @@
         reader.readAsDataURL(this.files[0]);
     });
 
-    $('#cargarimagenUsuario').click(function() {
-        $('#imageUploadUsuario').click();
-    });
-
-    $('#imageUploadUsuario').change(function() {
-        var reader = new FileReader();
-        reader.onload = function(e) {
-            $('#imagenPrevioUsuario').css('background-image', 'url(' + e.target.result + ')');
-            $('#imagenPrevioUsuario').show();
-        }
-        reader.readAsDataURL(this.files[0]);
-    });
+    
 </script>
 @stack('scripts')
 

@@ -108,7 +108,6 @@ Route::get('/personal', [StaffController::class, 'staff'])->name('staff');
 Route::post('/personal/insertar',[StaffController::class,'staffInsert'])->name('insert.staff');
 Route::get('/personal/editar/{id}', [StaffController::class, 'staffEdit'])->name('edit.staff');
 Route::get('/personal/vista/{id}', [StaffController::class, 'staffView'])->name('view.staff');
-Route::get('/personal/detalle/{id}', [StaffController::class, 'staffDetails'])->name('details.staff');
 Route::post('/personal/actualizar/{id}', [StaffController::class, 'staffUpdate'])->name('update.staff');
 Route::delete ('/personal/destruir/{id}',[StaffController::class,'staffDestroy'])->name('destroy.staff');
 

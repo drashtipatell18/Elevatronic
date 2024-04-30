@@ -82,8 +82,8 @@ class UserController extends Controller
     }
 
     public function userView(Request $request, $id){
-        $users = User::find($id);
-        return view('user.view_user_record',compact('users'));
+        $user = User::find($id);
+        return view('user.view_user_record',compact('user'));
     }
 
     public function userDestroy($id){

@@ -2,26 +2,16 @@
 @section('content')
     <div class="w-100 contenido">
         <div class="container-fluid container-mod">
-            @if (session('success'))
-                <div class="alert alert-success">
-                    {{ session('success') }}
-                </div>
-            @endif
-            @if (session('danger'))
-                <div class="alert alert-danger">
-                    {{ session('danger') }}
-                </div>
-            @endif
             <div class="row">
                 <div class="col-md-6 mb-4">
                     <div class="titulo">
-                        <h4>Usuarios</h4>
-                        <span>Usuarios</span>
+                        <h4>Repuestos</h4>
+                        <span>Repuestos</span>
                     </div>
                 </div>
                 <div class="col-md-6 mb-4 text-right">
                     <button type="button" class="btn-primario w-auto pl-3 pr-3" data-toggle="modal"
-                        data-target="#crearUsuario">
+                        data-target="#crearRepuesto">
                         + Crear Nuevo
                     </button>
                 </div>
@@ -59,24 +49,35 @@
                                             <th>FOTO</th>
                                             <th>ID</th>
                                             <th>NOMBRE</th>
-                                            <th>CORREO</th>
-                                            <th>TELÉFONO</th>
+                                            <th>PRECIO</th>
+                                            <th>LIMPIEZA</th>
+                                            <th>LUBRICACIÓN</th>
+                                            <th>AJUSTE</th>
+                                            <th>REVISIÓN</th>
+                                            <th>CAMBIO</th>
+                                            <th>SOLICITUD</th>
                                             <th align="right" class="text-right">ACCIONES</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($users as $index => $user)
+                                        @foreach ($spareparts as $index => $sparepart)
                                             <tr class="">
-                                                <td><img src="{{ asset('images/' . $user->fotodeusuario) }}" alt="personal"
-                                                        width="52" height="52" class="img-table"></td>
+                                                <td><img src="{{ asset('images/' . $sparepart->foto_de_repuesto) }}"
+                                                        alt="personal" width="52" height="52" class="img-table"></td>
                                                 <td>{{ $index + 1 }}</td>
                                                 <td>
-                                                    <a href="{{ route('view.user', $user->id) }}" class="text-blue">
-                                                        {{ $user->nombre }}
+                                                    <a href="{{ route('view.sparepart', $sparepart->id) }}"
+                                                        class="text-blue">
+                                                        {{ $sparepart->nombre }}
                                                     </a>
                                                 </td>
-                                                <td>{{ $user->correo }}</td>
-                                                <td>{{ $user->teléfono }}</td>
+                                                <td>{{ $sparepart->precio }}</td>
+                                                <td>{{ $sparepart->frecuencia_de_limpieza }}</td>
+                                                <td>{{ $sparepart->frecuencia_de_lubricación }}</td>
+                                                <td>{{ $sparepart->frecuencia_de_ajuste }}</td>
+                                                <td>{{ $sparepart->frecuencia_de_revisión }}</td>
+                                                <td>{{ $sparepart->frecuencia_de_cambio }}</td>
+                                                <td>{{ $sparepart->frecuencia_de_solicitud }}</td>
                                                 <td align="right">
                                                     <div class="dropdown">
                                                         <button type="button" class="btn-action dropdown-toggle"
@@ -85,10 +86,10 @@
                                                         </button>
                                                         <div class="dropdown-menu dropdown-menu-right">
                                                             <a class="dropdown-item"
-                                                                href="{{ route('view.user', $user->id) }}">Ver
+                                                                href="{{ route('view.sparepart', $sparepart->id) }}">Ver
                                                                 detalles</a>
                                                             <a class="dropdown-item" href="javascript:void(0)"
-                                                                data-toggle="modal" data-target="#editorUsuario">Editar</a>
+                                                                data-toggle="modal" data-target="#editorRepuesto">Editar</a>
                                                             <a class="dropdown-item" href="javascript:void(0)"
                                                                 data-toggle="modal"
                                                                 data-target="#modalEliminar">Eliminar</a>
@@ -107,18 +108,18 @@
         </div>
     </div>
 
-    <!-- Modal Crear Usuario-->
-    <div class="modal left fade" id="crearUsuario" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+    <!-- Modal Crear Repuesto-->
+    <div class="modal left fade" id="crearRepuesto" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title font-family-Outfit-SemiBold">Crear Usuario</h5>
+                    <h5 class="modal-title font-family-Outfit-SemiBold">Crear Repuesto</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <form action="{{ route('insert.user') }}" method="POST" class="formulario-modal"
+                <form action="{{ route('insert.sparepart') }}" method="POST" class="formulario-modal"
                     enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body body_modal">
@@ -126,38 +127,28 @@
                             <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
-                                        <label>Foto de usuario</label>
-                                        <div id="imagenPrevioUsuario"></div>
+                                        <label>Foto de repuesto</label>
+                                        <div id="imagenPrevio">
+
+                                        </div>
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <div class="">
-                                            <label for="imageUploadUsuario" class="text-gris mt-4">Seleccione una
+                                            <label for="imageUpload1" class="text-gris mt-4">Seleccione una
                                                 imagen</label>
-                                            <input type="file" id="imageUploadUsuario" name="fotodeusuario"
+                                            <input type="file" id="imageUpload1" name="foto_de_repuesto"
                                                 style="display: none;" accept="image/*" />
-                                            <button type="button" id="cargarimagenUsuario" class="btn-gris">
+                                            <button type="button" id="cargarimagen" class="btn-gris">
                                                 <i class="fas fa-arrow-to-top mr-2"></i>Subir Imagen
                                             </button>
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="Nombre de usuario">Nombre de usuario</label>
-                                            <input type="text" placeholder="nombredeusuario" name="nombredeusuario"
-                                                class="form-control @error('nombredeusuario') is-invalid @enderror"
-                                                id="nombredeusuario">
-                                            @error('nombredeusuario')
-                                                <span class="invalid-feedback" style="color: red">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="NombreUsuario">Nombre</label>
-                                            <input type="text" placeholder="Nombre" name="nombre" id="nombre"
-                                                class="form-control @error('nombre') is-invalid @enderror">
+                                            <label for="NombreRepuesto">Nombre</label>
+                                            <input type="text" placeholder="Nombre"
+                                                class="form-control @error('nombre') is-invalid @enderror" name="nombre"
+                                                id="nombre">
                                             @error('nombre')
                                                 <span class="invalid-feedback" style="color: red">
                                                     <strong>{{ $message }}</strong>
@@ -167,53 +158,103 @@
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="correoUsuario">Correo</label>
-                                            <input type="text" placeholder="Correo" name="correo" id="correo"
-                                                class="form-control @error('correo') is-invalid @enderror">
-                                            @error('correo')
+                                            <label for="precioRepuesto">Precio</label>
+                                            <input type="text" placeholder="Precio"
+                                                class="form-control @error('precio') is-invalid @enderror" name="precio"
+                                                id="precio">
+                                            @error('precio')
                                                 <span class="invalid-feedback" style="color: red">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
                                         </div>
                                     </div>
+
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="telefonoUsuario">Teléfono</label>
-                                            <input type="text" name="teléfono" id="teléfono" placeholder="Teléfono"
-                                                class="form-control @error('teléfono') is-invalid @enderror">
-                                            @error('teléfono')
+                                            <label for="DescripcionRepuesto">Descripción</label>
+                                            <textarea name="descripción" id="descripción" placeholder="Descripción" cols="30" rows="5"></textarea>
+                                            @error('descripción')
                                                 <span class="invalid-feedback" style="color: red">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="col-md-12">
+
+                                    <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="Empleado">Empleado</label>
-                                            <select
-                                                class="custom-select form-control @error('empleado') is-invalid @enderror"
-                                                name="empleado" id="empleado">
-                                                <option selected class="d-none">Seleccionar opción</option>
-                                                <option value="1">Empleado 1</option>
-                                                <option value="2">Empleado 2</option>
-                                                <option value="3">Empleado 3</option>
-                                            </select>
-                                            @error('empleado')
+                                            <label for="Flimpieza">Frecuencia de limpieza (días)</label>
+                                            <input type="text" placeholder="Frecuencia de limpieza (días)"
+                                                name="frecuencia_de_limpieza" id="frecuencia_de_limpieza"
+                                                class="form-control @error('frecuencia_de_limpieza') is-invalid @enderror">
+                                            @error('frecuencia_de_limpieza')
                                                 <span class="invalid-feedback" style="color: red">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="col-md-12">
+                                    <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="contrasenaUser">Contraseña</label>
-                                            <input type="password" name="contraseña" id="contraseña"
-                                                class="form-control @error('contraseña') is-invalid @enderror"
-                                                placeholder="Contraseña">
-                                            @error('contraseña')
+                                            <label for="Flubricacion">Frecuencia de lubricación (días)</label>
+                                            <input type="text" placeholder="Frecuencia de lubricación (días)"
+                                                name="frecuencia_de_lubricación" id="frecuencia_de_lubricación"
+                                                class="form-control @error('frecuencia_de_lubricación') is-invalid @enderror">
+                                            @error('frecuencia_de_lubricación')
+                                                <span class="invalid-feedback" style="color: red">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="FAjustes">Frecuencia de ajuste (días)</label>
+                                            <input type="text" placeholder="Frecuencia de ajuste (días)"
+                                                name="frecuencia_de_ajuste" id="frecuencia_de_ajuste"
+                                                class="form-control @error('frecuencia_de_ajuste') is-invalid @enderror">
+                                            @error('frecuencia_de_ajuste')
+                                                <span class="invalid-feedback" style="color: red">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="FRevision">Frecuencia de revisión (días)</label>
+                                            <input type="text" placeholder="Frecuencia de revisión (días)"
+                                                class="form-control @error('frecuencia_de_revisión') is-invalid @enderror"
+                                                name="frecuencia_de_revisión" id="frecuencia_de_revisión">
+                                            @error('frecuencia_de_revisión')
+                                                <span class="invalid-feedback" style="color: red">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="FCambio">Frecuencia de cambio (días)</label>
+                                            <input type="text" placeholder="Frecuencia de cambio (días)"
+                                                class="form-control @error('frecuencia_de_cambio') is-invalid @enderror"
+                                                name="frecuencia_de_cambio" id="frecuencia_de_cambio">
+                                            @error('frecuencia_de_cambio')
+                                                <span class="invalid-feedback" style="color: red">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="FSolicitud">Frecuencia de solicitud (días)</label>
+                                            <input type="text" placeholder="Frecuencia de solicitud (días)"
+                                                class="form-control @error('frecuencia_de_solicitud') is-invalid @enderror"
+                                                name="frecuencia_de_solicitud" id="frecuencia_de_solicitud">
+                                            @error('frecuencia_de_solicitud')
                                                 <span class="invalid-feedback" style="color: red">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -229,22 +270,23 @@
                         <button type="button" class="btn-gris btn-border" data-dismiss="modal">Cancelar</button>
                     </div>
                 </form>
+
             </div>
         </div>
     </div>
 
-    <!-- Modal Editor Usuario-->
-    <div class="modal left fade" id="editorUsuario" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+    <!-- Modal Editor Repuesto-->
+    <div class="modal left fade" id="editorRepuesto" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title font-family-Outfit-SemiBold">Editar Usuario</h5>
+                    <h5 class="modal-title font-family-Outfit-SemiBold">Editar Repuesto</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <form action="{{ route('update.user', $user->id) }}" method="POST" class="formulario-modal"
+                <form action="{{ route('update.sparepart', $sparepart->id) }}" method="POST" class="formulario-modal"
                     enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body body_modal">
@@ -252,45 +294,32 @@
                             <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
-                                        <label>Foto de usuario</label>
-                                        <div id="editimagenPrevioUsuario">
-                                            @if ($user->fotodeusuario)
-                                                <img src="{{ asset('images/' . $user->fotodeusuario) }}" width="200"
-                                                    height="200" alt="Existing Image">
+                                        <label>Foto de repuesto</label>
+                                        <div id="editimagenPrevio">
+                                            @if ($sparepart->foto_de_repuesto)
+                                                <img src="{{ asset('images/' . $sparepart->foto_de_repuesto) }}"
+                                                    width="200" height="200" alt="Existing Image">
                                             @endif
                                         </div>
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <div class="">
-                                            <label for="imageUploadUsuario" class="text-gris mt-4">Seleccione una
+                                            <label for="editimageUpload1" class="text-gris mt-4">Seleccione una
                                                 imagen</label>
-                                            <input type="file" id="editimageUploadUsuario" name="fotodeusuario"
+                                            <input type="file" id="editimageUpload1" name="foto_de_repuesto"
                                                 style="display: none;" accept="image/*" />
-                                            <button type="button" id="editcargarimagenUsuario" class="btn-gris">
+                                            <button type="button" id="editcargarimagen" class="btn-gris">
                                                 <i class="fas fa-arrow-to-top mr-2"></i>Subir Imagen
                                             </button>
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="Nombre de usuario">Nombre de usuario</label>
-                                            <input type="text" placeholder="nombredeusuario" name="nombredeusuario"
-                                                class="form-control @error('nombredeusuario') is-invalid @enderror"
-                                                value="{{ old('nombredeusuario', $user->nombredeusuario ?? '') }}"
-                                                id="nombredeusuario">
-                                            @error('nombredeusuario')
-                                                <span class="invalid-feedback" style="color: red">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="NombreUsuario">Nombre</label>
-                                            <input type="text" placeholder="Nombre" name="nombre" id="nombre"
+                                            <label for="NombreRepuesto">Nombre</label>
+                                            <input type="text" placeholder="Nombre"
                                                 class="form-control @error('nombre') is-invalid @enderror"
-                                                value="{{ old('nombre', $user->nombre ?? '') }}">
+                                                value="{{ old('nombre', $sparepart->nombre ?? '') }}" name="nombre"
+                                                id="nombre">
                                             @error('nombre')
                                                 <span class="invalid-feedback" style="color: red">
                                                     <strong>{{ $message }}</strong>
@@ -300,48 +329,12 @@
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="correoUsuario">Correo</label>
-                                            <input type="text" placeholder="Correo" name="correo" id="correo"
-                                                class="form-control @error('correo') is-invalid @enderror"
-                                                value="{{ old('correo', $user->correo ?? '') }}">
-                                            @error('correo')
-                                                <span class="invalid-feedback" style="color: red">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="telefonoUsuario">Teléfono</label>
-                                            <input type="text" name="teléfono" id="teléfono" placeholder="Teléfono"
-                                                value="{{ old('teléfono', $user->teléfono ?? '') }}"
-                                                class="form-control @error('correo') is-invalid @enderror">
-                                            @error('teléfono')
-                                                <span class="invalid-feedback" style="color: red">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="Empleado">Empleado</label>
-                                            <select
-                                                class="custom-select form-control @error('empleado') is-invalid @enderror"
-                                                name="empleado" id="empleado">
-                                                <option selected disabled>Seleccionar opción</option>
-                                                <option value="empleado_1"
-                                                    {{ $user->empleado == 'empleado_1' ? 'selected' : '' }}>Empleado 1
-                                                </option>
-                                                <option value="empleado_2"
-                                                    {{ $user->empleado == 'empleado_2' ? 'selected' : '' }}>Empleado 2
-                                                </option>
-                                                <option value="empleado_3"
-                                                    {{ $user->empleado == 'empleado_3' ? 'selected' : '' }}>Empleado 3
-                                                </option>
-                                            </select>
-                                            @error('empleado')
+                                            <label for="precioRepuesto">Precio</label>
+                                            <input type="text" placeholder="Precio"
+                                                class="form-control @error('precio') is-invalid @enderror"
+                                                value="{{ old('precio', $sparepart->precio ?? '') }}" name="precio"
+                                                id="precio">
+                                            @error('precio')
                                                 <span class="invalid-feedback" style="color: red">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -349,21 +342,88 @@
                                         </div>
                                     </div>
 
-                                    @if (!isset($users))
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label for="contrasenaUser">Contraseña</label>
-                                                <input type="password" name="contraseña" id="contraseña"
-                                                    class="form-control @error('contraseña') is-invalid @enderror"
-                                                    placeholder="Contraseña">
-                                                @error('contraseña')
-                                                    <span class="invalid-feedback" style="color: red">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="DescripcionRepuesto">Descripción</label>
+                                            <textarea name="descripción" id="descripción" placeholder="Descripción" cols="30" rows="5">{{ old('descripción', $sparepart->descripción ?? '') }}</textarea>
+                                            @error('descripción')
+                                                <span class="invalid-feedback" style="color: red">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </div>
-                                    @endif
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="Flimpieza">Frecuencia de limpieza (días)</label>
+                                            <input type="text" placeholder="Frecuencia de limpieza (días)"
+                                                name="frecuencia_de_limpieza" id="frecuencia_de_limpieza"
+                                                class="form-control @error('frecuencia_de_limpieza') is-invalid @enderror"
+                                                value="{{ old('frecuencia_de_limpieza', $sparepart->frecuencia_de_limpieza ?? '') }}">
+                                            @error('frecuencia_de_limpieza')
+                                                <span class="invalid-feedback" style="color: red">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="Flubricacion">Frecuencia de lubricación (días)</label>
+                                            <input type="text" placeholder="Frecuencia de lubricación (días)"
+                                                name="frecuencia_de_lubricación" id="frecuencia_de_lubricación"
+                                                class="form-control @error('frecuencia_de_lubricación') is-invalid @enderror"
+                                                value="{{ old('frecuencia_de_lubricación', $sparepart->frecuencia_de_lubricación ?? '') }}">
+                                            @error('frecuencia_de_lubricación')
+                                                <span class="invalid-feedback" style="color: red">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="FAjustes">Frecuencia de ajuste (días)</label>
+                                            <input type="text" placeholder="Frecuencia de ajuste (días)"
+                                                name="frecuencia_de_ajuste" id="frecuencia_de_ajuste"
+                                                class="form-control @error('frecuencia_de_ajuste') is-invalid @enderror"
+                                                value="{{ old('frecuencia_de_ajuste', $sparepart->frecuencia_de_ajuste ?? '') }}">
+                                            @error('frecuencia_de_ajuste')
+                                                <span class="invalid-feedback" style="color: red">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="FRevision">Frecuencia de revisión (días)</label>
+                                            <input type="text" placeholder="Frecuencia de revisión (días)"
+                                                class="form-control @error('frecuencia_de_revisión') is-invalid @enderror"
+                                                value="{{ old('frecuencia_de_revisión', $sparepart->frecuencia_de_revisión ?? '') }}"
+                                                name="frecuencia_de_revisión" id="frecuencia_de_revisión">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="FCambio">Frecuencia de cambio (días)</label>
+                                            <input type="text" placeholder="Frecuencia de cambio (días)"
+                                                class="form-control @error('frecuencia_de_cambio') is-invalid @enderror"
+                                                value="{{ old('frecuencia_de_cambio', $sparepart->frecuencia_de_cambio ?? '') }}"
+                                                name="frecuencia_de_cambio" id="frecuencia_de_cambio">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="FSolicitud">Frecuencia de solicitud (días)</label>
+                                            <input type="text" placeholder="Frecuencia de solicitud (días)"
+                                                class="form-control @error('frecuencia_de_solicitud') is-invalid @enderror"
+                                                value="{{ old('frecuencia_de_solicitud', $sparepart->frecuencia_de_solicitud ?? '') }}"
+                                                name="frecuencia_de_solicitud" id="frecuencia_de_solicitud">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -373,6 +433,7 @@
                         <button type="button" class="btn-gris btn-border" data-dismiss="modal">Cancelar</button>
                     </div>
                 </form>
+
             </div>
         </div>
     </div>
@@ -398,7 +459,7 @@
                     </div>
                 </div>
                 <div class="modal-footer align-items-center justify-content-center">
-                    <form id="delete-form" action="{{ route('destroy.user', $user->id) }}" method="POST">
+                    <form id="delete-form" action="{{ route('destroy.sparepart', $sparepart->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn-gris btn-red">Sí</button>
@@ -491,32 +552,32 @@
                 table.search($(this).val()).draw();
             });
 
-            $('#cargarimagenUsuario').click(function() {
-                $('#imageUploadUsuario').click();
+            $('#cargarimagen').click(function() {
+                $('#imageUpload1').click();
             });
 
-            $('#imageUploadUsuario').change(function() {
+            $('#imageUpload1').change(function() {
                 var reader = new FileReader();
                 reader.onload = function(e) {
-                    $('#imagenPrevioUsuario').css('background-image', 'url(' + e.target.result + ')');
-                    $('#imagenPrevioUsuario').show();
+                    $('#imagenPrevio').css('background-image', 'url(' + e.target.result + ')');
+                    $('#imagenPrevio').show();
                 }
                 reader.readAsDataURL(this.files[0]);
             });
 
-            $('#editcargarimagenUsuario').click(function() {
-                $('#editimageUploadUsuario').click();
+            $('#editcargarimagen').click(function() {
+                $('#editimageUpload1').click();
             });
 
-            $('#editimageUploadUsuario').change(function() {
+            $('#editimageUpload1').change(function() {
                 var reader = new FileReader();
                 reader.onload = function(e) {
-                    $('#editimagenPrevioUsuario').css('background-image', 'url(' + e.target.result +
-                        ')');
-                    $('#editimagenPrevioUsuario').show();
+                    $('#editimagenPrevio').css('background-image', 'url(' + e.target.result + ')');
+                    $('#ediimagenPrevio').show();
                 }
                 reader.readAsDataURL(this.files[0]);
             });
+
         });
     </script>
 @endpush

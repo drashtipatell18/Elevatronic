@@ -61,7 +61,7 @@
                 <a href="{{ route('reviewtype') }}"><i class="iconoir-apple-shortcuts"></i> Tipos de revisión</a>
             </li>
             <li class="">
-                <a href="repuestos.php"><i class="iconoir-wrench"></i> Repuestos</a>
+                <a href="{{ route('sparepart') }}"><i class="iconoir-wrench"></i> Repuestos</a>
             </li>
             <li class="">
                 <a href="{{ route('staff')}}"><i class="iconoir-suitcase"></i> Personal</a>
@@ -546,115 +546,6 @@
     </div>
 </div>
 
-
-<!-- Modal Crear Repuesto-->
-<div class="modal left fade" id="crearRepuesto" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title font-family-Outfit-SemiBold">Crear Repuesto</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body body_modal">
-                <div class="row">
-                    <div class="col-md-12">
-                        <form action="" class="formulario-modal">
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <label>Foto de repuesto</label>
-                                    <div id="imagenPrevio"></div>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <div class="">
-                                        <label for="imageUpload1" class="text-gris mt-4">Seleccione una
-                                            imagen</label>
-                                        <input type="file" id="imageUpload1" style="display: none;"
-                                            accept="image/*" />
-                                        <button type="button" id="cargarimagen" class="btn-gris">
-                                            <i class="fas fa-arrow-to-top mr-2"></i>Subir Imagen
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for="NombreRepuesto">Nombre</label>
-                                        <input type="text" placeholder="Nombre" name="NombreRepuesto"
-                                            id="NombreRepuesto">
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for="precioRepuesto">Precio</label>
-                                        <input type="text" placeholder="Precio" name="precioRepuesto"
-                                            id="precioRepuesto">
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for="DescripcionRepuesto">Descripción</label>
-                                        <textarea name="DescripcionRepuesto" id="DescripcionRepuesto" placeholder="Descripción" cols="30"
-                                            rows="5"></textarea>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="Flimpieza">Frecuencia de limpieza (días)</label>
-                                        <input type="text" placeholder="Frecuencia de limpieza (días)"
-                                            name="Flimpieza" id="Flimpieza">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="Flubricacion">Frecuencia de lubricación (días)</label>
-                                        <input type="text" placeholder="Frecuencia de lubricación (días)"
-                                            name="Flubricacion" id="Flubricacion">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="FAjustes">Frecuencia de ajuste (días)</label>
-                                        <input type="text" placeholder="Frecuencia de ajuste (días)"
-                                            name="FAjustes" id="FAjustes">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="FRevision">Frecuencia de revisión (días)</label>
-                                        <input type="text" placeholder="Frecuencia de revisión (días)"
-                                            name="FRevision" id="FRevision">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="FCambio">Frecuencia de cambio (días)</label>
-                                        <input type="text" placeholder="Frecuencia de cambio (días)"
-                                            name="FCambio" id="FCambio">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="FSolicitud">Frecuencia de solicitud (días)</label>
-                                        <input type="text" placeholder="Frecuencia de solicitud (días)"
-                                            name="FSolicitud" id="FSolicitud">
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
-                <button type="button" class="btn-gris btn-red mr-2">Guardar Cambios</button>
-                <button type="button" class="btn-gris btn-border" data-dismiss="modal">Cancelar</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
 <!-- alerta carga-->
 <div id="alertaCarga" class="alert alert-elevatronic alert-dismissible" style="display: none;">
     <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -820,20 +711,6 @@
         });
 
     });
-
-    $('#cargarimagen').click(function() {
-        $('#imageUpload1').click();
-    });
-
-    $('#imageUpload1').change(function() {
-        var reader = new FileReader();
-        reader.onload = function(e) {
-            $('#imagenPrevio').css('background-image', 'url(' + e.target.result + ')');
-            $('#imagenPrevio').show();
-        }
-        reader.readAsDataURL(this.files[0]);
-    });
-
     
 </script>
 @stack('scripts')

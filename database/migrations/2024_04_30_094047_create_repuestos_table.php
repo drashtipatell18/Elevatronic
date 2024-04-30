@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('foto_de_repuesto')->nullable();
             $table->string('nombre')->nullable();
-            $table->string('Precio')->nullable();
-            $table->longText('Descripción')->nullable();
+            $table->string('precio')->nullable();
+            $table->longText('descripción')->nullable();
             $table->string('frecuencia_de_limpieza')->nullable()->comment('(días)');
             $table->string('frecuencia_de_lubricación')->nullable()->comment('(días)');
             $table->string('frecuencia_de_ajuste')->nullable()->comment('(días)');

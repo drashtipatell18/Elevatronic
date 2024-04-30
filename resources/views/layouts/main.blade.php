@@ -64,7 +64,7 @@
                 <a href="repuestos.php"><i class="iconoir-wrench"></i> Repuestos</a>
             </li>
             <li class="">
-                <a href="personal.php"><i class="iconoir-suitcase"></i> Personal</a>
+                <a href="{{ route('staff')}}"><i class="iconoir-suitcase"></i> Personal</a>
             </li>
             <li class="">
                 <a href="usuarios.php"><i class="iconoir-user-star"></i> Usuarios</a>
@@ -73,7 +73,7 @@
                 <a href="{{ route('schedule') }}"><i class="iconoir-bed"></i> Cronograma</a>
             </li>
             <li class="">
-                <a href="carga-archivos.php"><i class="iconoir-multiple-pages-empty"></i> Carga de archivos</a>
+                <a href="{{ route('fileupload') }}"><i class="iconoir-multiple-pages-empty"></i> Carga de archivos</a>
             </li>
         </ul>
     </nav>
@@ -654,82 +654,6 @@
     </div>
 </div>
 
-<!-- Modal Crear Personal-->
-<div class="modal left fade" id="crearPersonal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title font-family-Outfit-SemiBold">Crear Personal</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body body_modal">
-                <div class="row">
-                    <div class="col-md-12">
-                        <form action="" class="formulario-modal">
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <label>Foto de Personal</label>
-                                    <div id="imagenPrevioPersonal"></div>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <div class="">
-                                        <label for="imageUpload10" class="text-gris mt-4">Seleccione una
-                                            imagen</label>
-                                        <input type="file" id="imageUpload10" style="display: none;"
-                                            accept="image/*" />
-                                        <button type="button" id="cargarimagenpersonal" class="btn-gris">
-                                            <i class="fas fa-arrow-to-top mr-2"></i>Subir Imagen
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for="NombrePersonal">Nombre</label>
-                                        <input type="text" placeholder="Nombre" name="NombrePersonal"
-                                            id="NombrePersonal">
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for="posicionPersonal">Posición</label>
-                                        <select class="custom-select" name="posicionPersonal" id="posicionPersonal">
-                                            <option selected class="d-none">Seleccionar opción</option>
-                                            <option value="1">Posición 1</option>
-                                            <option value="2">Posición 2</option>
-                                            <option value="3">Posición 3</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for="correoPersonal">Correo</label>
-                                        <input type="text" placeholder="Correo" name="correoPersonal"
-                                            id="correoPersonal">
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for="telefonoPersonal">Teléfono</label>
-                                        <input type="text" name="telefonoPersonal" id="telefonoPersonal"
-                                            placeholder="Teléfono">
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
-                <button type="button" class="btn-gris btn-red mr-2">Guardar Cambios</button>
-                <button type="button" class="btn-gris btn-border" data-dismiss="modal">Cancelar</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 <!-- Modal Crear Usuario-->
 <div class="modal left fade" id="crearUsuario" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
     aria-hidden="true">
@@ -997,20 +921,6 @@
         }
         reader.readAsDataURL(this.files[0]);
     });
-
-    $('#cargarimagenpersonal').click(function() {
-        $('#imageUpload10').click();
-    });
-
-    $('#imageUpload10').change(function() {
-        var reader = new FileReader();
-        reader.onload = function(e) {
-            $('#imagenPrevioPersonal').css('background-image', 'url(' + e.target.result + ')');
-            $('#imagenPrevioPersonal').show();
-        }
-        reader.readAsDataURL(this.files[0]);
-    });
-
 
     $('#cargarimagenUsuario').click(function() {
         $('#imageUploadUsuario').click();

@@ -108,6 +108,7 @@ Route::get('/personal', [StaffController::class, 'staff'])->name('staff');
 Route::post('/personal/insertar',[StaffController::class,'staffInsert'])->name('insert.staff');
 Route::get('/personal/editar/{id}', [StaffController::class, 'staffEdit'])->name('edit.staff');
 Route::get('/personal/vista/{id}', [StaffController::class, 'staffView'])->name('view.staff');
+Route::get('/personal/detalle/{id}', [StaffController::class, 'staffDetails'])->name('details.staff');
 Route::post('/personal/actualizar/{id}', [StaffController::class, 'staffUpdate'])->name('update.staff');
 Route::delete ('/personal/destruir/{id}',[StaffController::class,'staffDestroy'])->name('destroy.staff');
 
@@ -126,8 +127,4 @@ Route::get('/get-events', [ScheduleController::class, 'getEvents'])->name('getev
 
 // cargaarchivos
 Route::get('/cargaarchivos', [FileUploadController::class, 'fileupload'])->name('fileupload');
-Route::post('/cargaarchivos/insertar',[FileUploadController::class,'fileuploadInsert'])->name('insert.fileupload');
-Route::get('/cargaarchivos/editar/{id}', [FileUploadController::class, 'fileuploadEdit'])->name('edit.fileupload');
-Route::get('/cargaarchivos/vista/{id}', [FileUploadController::class, 'fileuploadView'])->name('view.fileupload');
-Route::post('/cargaarchivos/actualizar/{id}', [FileUploadController::class, 'fileuploadUpdate'])->name('update.fileupload');
-Route::delete ('/cargaarchivos/destruir/{id}',[FileUploadController::class,'fileuploadDestroy'])->name('destroy.fileupload');
+

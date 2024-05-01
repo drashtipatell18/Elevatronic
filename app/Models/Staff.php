@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class User extends Model
+class Staff extends Model
 {
     use HasFactory, SoftDeletes;
     protected $dates = ['eliminado_en'];
-    protected $table = 'usuarios';
-    protected $fillable = ['fotodeusuario','nombredeusuario','nombre','correo','teléfono','empleado','contraseña'];
+    protected $table = 'personals';
+    protected $fillable = ['personalfoto','nombre','posición','correo','teléfono'];
 }

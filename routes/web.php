@@ -137,8 +137,4 @@ Route::get('/get-events', [ScheduleController::class, 'getEvents'])->name('getev
 
 // cargaarchivos
 Route::get('/cargaarchivos', [FileUploadController::class, 'fileupload'])->name('fileupload');
-Route::post('/cargaarchivos/insertar',[FileUploadController::class,'fileuploadInsert'])->name('insert.fileupload');
-Route::get('/cargaarchivos/editar/{id}', [FileUploadController::class, 'fileuploadEdit'])->name('edit.fileupload');
-Route::get('/cargaarchivos/vista/{id}', [FileUploadController::class, 'fileuploadView'])->name('view.fileupload');
-Route::post('/cargaarchivos/actualizar/{id}', [FileUploadController::class, 'fileuploadUpdate'])->name('update.fileupload');
-Route::delete ('/cargaarchivos/destruir/{id}',[FileUploadController::class,'fileuploadDestroy'])->name('destroy.fileupload');
+

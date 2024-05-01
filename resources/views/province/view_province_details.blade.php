@@ -107,46 +107,56 @@
                                                 <tr>
                                                     <th>FOTO</th>
                                                     <th>ID</th>
-                                                    <th>TIPO DE ASCENSOR</th>
                                                     <th>NOMBRE</th>
-                                                    <th>CLIENTE</th>
-                                                    <th>ACCIONES</th>
+                                                    <th>PRECIO</th>
+                                                    <th>LIMPIEZA</th>
+                                                    <th>LUBRICACIÓN</th>
+                                                    <th>AJUSTE</th>
+                                                    <th>REVISIÓN</th>
+                                                    <th>CAMBIO</th>
+                                                    <th>SOLICITUD</th>
+                                                    <th align="right" class="text-right">ACCIONES</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {{-- <tr>
-                                                    <td>
-                                                        <img src="img/tipo-repuesto.png" alt="tipo repuesto" width="52"
-                                                            height="52" class="img-table">
-                                                    </td>
-                                                    <td>1001</td>
-                                                    <td>SL ELEVATOR 450KG</td>
-                                                    <td>
-                                                        <a href="detalle-repuestos.php" class="text-blue">ACEITERAS PARA
-                                                            RIELES</a>
-                                                    </td>
-                                                    <td>PROYECTOS GINA Y RAÚL S.A.C</td>
-                                                    <td align="right">
-                                                        <div class="dropdown">
-                                                            <button type="button" class="btn-action dropdown-toggle"
-                                                                data-toggle="dropdown">
-                                                                Acción <i class="fas fa-chevron-down"></i>
-                                                            </button>
-                                                            <div class="dropdown-menu dropdown-menu-right">
-                                                                <a class="dropdown-item" href="detalle-repuestos.php">Ver
-                                                                    detalles</a>
-                                                                <a class="dropdown-item" href="javascript:void(0)"
-                                                                    data-toggle="modal"
-                                                                    data-target="#Modalprovincias">Editar</a>
-                                                                <a class="dropdown-item" href="javascript:void(0)"
-                                                                    data-toggle="modal"
-                                                                    data-target="#modalEliminar">Eliminar</a>
+                                                @foreach ($spareparts as $index => $sparepart)
+                                                    <tr class="">
+                                                        <td><img src="{{ asset('images/' . $sparepart->foto_de_repuesto) }}"
+                                                                alt="personal" width="52" height="52" class="img-table"></td>
+                                                        <td>{{ $index + 1 }}</td>
+                                                        <td>
+                                                            <a href="{{ route('view.sparepart', $sparepart->id) }}"
+                                                                class="text-blue">
+                                                                {{ $sparepart->nombre }}
+                                                            </a>
+                                                        </td>
+                                                        <td>{{ $sparepart->precio }}</td>
+                                                        <td>{{ $sparepart->frecuencia_de_limpieza }}</td>
+                                                        <td>{{ $sparepart->frecuencia_de_lubricación }}</td>
+                                                        <td>{{ $sparepart->frecuencia_de_ajuste }}</td>
+                                                        <td>{{ $sparepart->frecuencia_de_revisión }}</td>
+                                                        <td>{{ $sparepart->frecuencia_de_cambio }}</td>
+                                                        <td>{{ $sparepart->frecuencia_de_solicitud }}</td>
+                                                        <td align="right">
+                                                            <div class="dropdown">
+                                                                <button type="button" class="btn-action dropdown-toggle"
+                                                                    data-toggle="dropdown">
+                                                                    Acción <i class="fas fa-chevron-down"></i>
+                                                                </button>
+                                                                <div class="dropdown-menu dropdown-menu-right">
+                                                                    <a class="dropdown-item"
+                                                                        href="{{ route('view.sparepart', $sparepart->id) }}">Ver
+                                                                        detalles</a>
+                                                                    <a class="dropdown-item" href="javascript:void(0)"
+                                                                        data-toggle="modal" data-target="#editorRepuesto">Editar</a>
+                                                                    <a class="dropdown-item" href="javascript:void(0)"
+                                                                        data-toggle="modal"
+                                                                        data-target="#modalEliminar">Eliminar</a>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                    </td>
-
-                                                </tr> --}}
-
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
                                             </tbody>
                                         </table>
                                     </div>

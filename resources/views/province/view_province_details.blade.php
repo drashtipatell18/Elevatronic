@@ -12,7 +12,7 @@
                 <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 col-4 d-flex align-items-center justify-content-end">
                     <div class="dropdown btn-new">
                         <a class="btn-action dropdownMenuLink d-inline-block" href="#" role="button"
-                        id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Acción <i class="fas fa-chevron-down"></i>
                         </a>
 
@@ -122,7 +122,8 @@
                                                 @foreach ($spareparts as $index => $sparepart)
                                                     <tr class="">
                                                         <td><img src="{{ asset('images/' . $sparepart->foto_de_repuesto) }}"
-                                                                alt="personal" width="52" height="52" class="img-table"></td>
+                                                                alt="personal" width="52" height="52"
+                                                                class="img-table"></td>
                                                         <td>{{ $index + 1 }}</td>
                                                         <td>
                                                             <a href="{{ route('view.sparepart', $sparepart->id) }}"
@@ -148,7 +149,8 @@
                                                                         href="{{ route('view.sparepart', $sparepart->id) }}">Ver
                                                                         detalles</a>
                                                                     <a class="dropdown-item" href="javascript:void(0)"
-                                                                        data-toggle="modal" data-target="#editorRepuesto">Editar</a>
+                                                                        data-toggle="modal"
+                                                                        data-target="#editorRepuesto">Editar</a>
                                                                     <a class="dropdown-item" href="javascript:void(0)"
                                                                         data-toggle="modal"
                                                                         data-target="#modalEliminar">Eliminar</a>
@@ -178,33 +180,37 @@
                                     <span aria-hidden="true">×</span>
                                 </button>
                             </div>
-                            <form action="{{ route('update.province', $province->id) }}" method="POST"
-                                id="provinceForm">
-                                @csrf
-                                <div class="modal-body body_modal">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label for="provincia">Nombre de Provincia</label>
-                                                <input type="text" placeholder="Nombre de Provincia" name="provincia"
-                                                    class="form-control @error('provincia') is-invalid @enderror"
-                                                    id="provincia" value="{{ old('provincia', isset($province) ? $province->provincia : '') }}">
-                                                @error('provincia')
-                                                    <span class="invalid-feedback" style="color: red">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
+                            @isset($province)
+                                <form action="{{ route('update.province', $province->id) }}" method="POST"
+                                    id="provinceForm">
+                                    @csrf
+                                    <div class="modal-body body_modal">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label for="provincia">Nombre de Provincia</label>
+                                                    <input type="text" placeholder="Nombre de Provincia" name="provincia"
+                                                        class="form-control @error('provincia') is-invalid @enderror"
+                                                        id="provincia"
+                                                        value="{{ old('provincia', isset($province) ? $province->provincia : '') }}">
+                                                    @error('provincia')
+                                                        <span class="invalid-feedback" style="color: red">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+
                                             </div>
-                                            
                                         </div>
                                     </div>
-                                </div>
-                                <div class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
-                                    <button type="submit" class="btn-gris btn-red mr-2">Actualizar cambios </button>
-                                    <button type="button" class="btn-gris btn-border"
-                                        data-dismiss="modal">Cancelar</button>
-                                </div>
-                            </form>
+                                    <div class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
+                                        <button type="submit" class="btn-gris btn-red mr-2">Actualizar cambios </button>
+                                        <button type="button" class="btn-gris btn-border"
+                                            data-dismiss="modal">Cancelar</button>
+                                    </div>
+                                </form>
+                            @endisset
+
 
                         </div>
                     </div>
@@ -232,12 +238,14 @@
                                 </div>
                             </div>
                             <div class="modal-footer align-items-center justify-content-center">
-                                <form id="delete-form" action="{{ route('destroy.province', $province->id) }}"
-                                    method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn-gris btn-red">Sí</button>
-                                </form>
+                                @isset($province)
+                                    <form id="delete-form" action="{{ route('destroy.province', $province->id) }}"
+                                        method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn-gris btn-red">Sí</button>
+                                    </form>
+                                @endisset
                                 <button type="button" class="btn-gris btn-border" data-dismiss="modal">No</button>
                             </div>
                         </div>

@@ -41,8 +41,8 @@
                                 <div class="dropdown">
                                     <button class="btn-gris" type="button" id="dropdownMenuButton" data-toggle="dropdown"
                                         aria-haspopup="true" aria-expanded="false">
-                                        <img src="{{ asset('img/iconos/export.svg') }}" alt="icono" class="mr-2"> Exportar Datos <i
-                                            class="iconoir-nav-arrow-down"></i>
+                                        <img src="{{ asset('img/iconos/export.svg') }}" alt="icono" class="mr-2">
+                                        Exportar Datos <i class="iconoir-nav-arrow-down"></i>
                                     </button>
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                                         <button class="dropdown-item" id="export_excel">Excel</button>
@@ -78,7 +78,8 @@
                                                                 detalles</a>
                                                             <a class="dropdown-item"
                                                                 href="{{ route('edit.reviewtype', $reviewtype->id) }}"
-                                                                data-toggle="modal" data-target="#editarTipoRevision">Editar</a>
+                                                                data-toggle="modal"
+                                                                data-target="#editarTipoRevision">Editar</a>
                                                             <a class="dropdown-item"
                                                                 href="{{ route('destroy.reviewtype', $reviewtype->id) }}"
                                                                 data-toggle="modal"
@@ -135,6 +136,7 @@
                         </div>
                     </div>
                 </div>
+
                 <!-- Modal edit Tipo de Revisión-->
                 <div class="modal left fade" id="editarTipoRevision" tabindex="-1" role="dialog"
                     aria-labelledby="modelTitleId" aria-hidden="true">
@@ -146,34 +148,35 @@
                                     <span aria-hidden="true">×</span>
                                 </button>
                             </div>
-                            <form action="{{ route('update.reviewtype', $reviewtype->id) }}" method="POST"
-                                class="formulario-modal" id="reviewtypeForm">
-                                @csrf
-                                <div class="modal-body body_modal">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label for="provincia">Nombre de Tipo de Revisión</label>
-                                                <input type="text" placeholder="Nombre de Provincia" name="nombre"
-                                                    class="form-control @error('nombre') is-invalid @enderror"
-                                                    id="nombre"
-                                                    value="{{ old('nombre', isset($reviewtype) ? $reviewtype->nombre : '') }}">
-                                                @error('nombre')
-                                                    <span class="invalid-feedback" style="color: red">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
+                            @isset($reviewtype)
+                                <form action="{{ route('update.reviewtype', $reviewtype->id) }}" method="POST"
+                                    class="formulario-modal" id="reviewtypeForm">
+                                    @csrf
+                                    <div class="modal-body body_modal">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label for="provincia">Nombre de Tipo de Revisión</label>
+                                                    <input type="text" placeholder="Nombre de Provincia" name="nombre"
+                                                        class="form-control @error('nombre') is-invalid @enderror"
+                                                        id="nombre"
+                                                        value="{{ old('nombre', isset($reviewtype) ? $reviewtype->nombre : '') }}">
+                                                    @error('nombre')
+                                                        <span class="invalid-feedback" style="color: red">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
-                                    <button type="submit" class="btn-gris btn-red mr-2">Actualizar cambios </button>
-                                    <button type="button" class="btn-gris btn-border"
-                                        data-dismiss="modal">Cancelar</button>
-                                </div>
-                            </form>
-
+                                    <div class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
+                                        <button type="submit" class="btn-gris btn-red mr-2">Actualizar cambios </button>
+                                        <button type="button" class="btn-gris btn-border"
+                                            data-dismiss="modal">Cancelar</button>
+                                    </div>
+                                </form>
+                            @endisset
                         </div>
                     </div>
                 </div>
@@ -200,13 +203,15 @@
                                 </div>
                             </div>
                             <div class="modal-footer align-items-center justify-content-center">
-                                <form id="delete-form" action="{{ route('destroy.reviewtype', $reviewtype->id) }}"
-                                    method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn-gris btn-red">Sí</button>
-                                </form>
-                                <button type="button" class="btn-gris btn-border" data-dismiss="modal">No</button>
+                                @isset($reviewtype)
+                                    <form id="delete-form" action="{{ route('destroy.reviewtype', $reviewtype->id) }}"
+                                        method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn-gris btn-red">Sí</button>
+                                        <button type="button" class="btn-gris btn-border" data-dismiss="modal">No</button>
+                                    </form>
+                                @endisset
                             </div>
                         </div>
                     </div>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContractController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DashboardController;
@@ -138,3 +139,13 @@ Route::get('/get-events', [ScheduleController::class, 'getEvents'])->name('getev
 // cargaarchivos
 Route::get('/cargaarchivos', [FileUploadController::class, 'fileupload'])->name('fileupload');
 
+
+
+// Contrato //
+
+Route::get('/contrato', [ContractController::class, 'contract'])->name('contract');
+Route::post('/contrato/insertar',[ContractController::class,'contractInsert'])->name('insert.contract');
+Route::get('/contrato/editar/{id}', [ContractController::class, 'contractEdit'])->name('edit.contract');
+// Route::get('/contrato/vista/{id}', [ContractController::class, 'contractView'])->name('view.contract');
+Route::post('/contrato/actualizar/{id}', [ContractController::class, 'contractUpdate'])->name('update.contract');
+Route::delete ('/contrato/destruir/{id}',[ContractController::class,'contractDestroy'])->name('destroy.contract');

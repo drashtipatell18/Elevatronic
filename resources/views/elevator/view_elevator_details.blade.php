@@ -5,9 +5,12 @@
             <div class="row">
                 <div class="col-xl-10 col-lg-10 col-md-8 col-sm-8 col-8 mb-4">
                     <div class="titulo">
-                        <h4>{{ $elevator->nombre }}</h4>
-                        <span>Ascensores >> {{ $elevator->nombre }}</span>
+                        @isset($elevator)
+                            <h4>{{ $elevator->nombre }}</h4>
+                            <span>Ascensores >> {{ $elevator->nombre }}</span>
+                        @endisset
                     </div>
+
                 </div>
                 <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 col-4 d-flex align-items-center justify-content-end">
                     <div class="dropdown btn-new">
@@ -19,39 +22,67 @@
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
                             <a class="dropdown-item texto-1 font-family-Inter-Regular" href="javascript:void(0)"
                                 data-toggle="modal" data-target="#editarAscensor">Editar</a>
-                            <a class="dropdown-item texto-1 font-family-Inter-Regular"
-                                href="{{ route('destroy.elevator', $elevator->id) }}" data-toggle="modal"
-                                data-target="#modalEliminar">Eliminar</a>
+                            @if (isset($elevator))
+                                <a class="dropdown-item texto-1 font-family-Inter-Regular"
+                                    href="{{ route('destroy.elevator', $elevator->id) }}" data-toggle="modal"
+                                    data-target="#modalEliminar">Eliminar</a>
+                            @endif
                         </div>
+
                     </div>
                 </div>
                 <div class="col-md-12 mb-4">
                     <div class="box-contenido pb-0">
                         <div class="row">
                             <div class="col-md-12 d-flex align-items-start justify-content-start gap-20 mb-6 box-detalle">
-                                <div class="contenido-img">
-                                    <img src="{{ asset('images/' . $elevator->imagen) }}" alt="user" width="160">
-                                </div>
+                                @if (isset($elevator))
+                                    <div class="contenido-img">
+                                        <img src="{{ asset('images/' . $elevator->imagen) }}" alt="user" width="160">
+                                    </div>
+                                @endif
                                 <div class="align-items-start d-flex flex-column h-100 justify-content-between">
-                                    <div>
-                                        <h3>{{ $elevator->nombre }}</h3>
-                                        <span>Ascensor</span>
-                                    </div>
-                                    <div class="d-flex align-items-center justify-content-start gap-15 flex-wrap">
-                                        <div class="option">
-                                            <h4>{{ $elevator->id }}</h4>
-                                            <p class="mb-0">ID elemento</p>
+                                    @if (isset($elevator))
+                                        <div>
+                                            <h3>{{ $elevator->nombre }}</h3>
+                                            <span>Ascensor</span>
                                         </div>
-                                        <div class="option">
-                                            <h4>{{ $elevator->contrato }}</h4>
-                                            <p class="mb-0"># de contrato</p>
+                                        <div class="d-flex align-items-center justify-content-start gap-15 flex-wrap">
+                                            <div class="option">
+                                                <h4>{{ $elevator->id }}</h4>
+                                                <p class="mb-0">ID elemento</p>
+                                            </div>
+                                            <div class="option">
+                                                <h4>{{ $elevator->contrato }}</h4>
+                                                <p class="mb-0"># de contrato</p>
+                                            </div>
+                                            <div class="option">
+                                                <h4>{{ \Carbon\Carbon::parse($elevator->fecha)->format('d M Y, g:i a') }}
+                                                </h4>
+                                                <p class="mb-0">Fecha registro</p>
+                                            </div>
                                         </div>
-                                        <div class="option">
-                                            <h4>{{ \Carbon\Carbon::parse($elevator->fecha)->format('d M Y, g:i a') }}</h4>
-                                            <p class="mb-0">Fecha registro</p>
+                                    @else
+                                        <div>
+                                            <h3>Elevator Name</h3>
+                                            <span>Ascensor</span>
                                         </div>
-                                    </div>
+                                        <div class="d-flex align-items-center justify-content-start gap-15 flex-wrap">
+                                            <div class="option">
+                                                <h4>N/A</h4>
+                                                <p class="mb-0">ID elemento</p>
+                                            </div>
+                                            <div class="option">
+                                                <h4>N/A</h4>
+                                                <p class="mb-0"># de contrato</p>
+                                            </div>
+                                            <div class="option">
+                                                <h4>N/A</h4>
+                                                <p class="mb-0">Fecha registro</p>
+                                            </div>
+                                        </div>
+                                    @endif
                                 </div>
+
                             </div>
                             <div class="col-md-12">
                                 <ul class="nav nav-tabs tabs-elevatronic" role="tablist">
@@ -86,246 +117,314 @@
                                             </span>
                                         </h3>
                                     </div>
-                                    <div class="col-md-6">
-                                        <table class="table table-borderless">
-                                            <tbody>
-                                                <tr>
-                                                    <td class="text-gris">Nombre</td>
-                                                    <td>{{ $elevator->nombre }}</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <table class="table table-borderless">
-                                            <tbody>
-                                                <tr>
-                                                    <td class="text-gris">Código</td>
-                                                    <td>{{ $elevator->código }}</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <table class="table table-borderless">
-                                            <tbody>
-                                                <tr>
-                                                    <td class="text-gris">Cliente del ascensor</td>
-                                                    <td>{{ $elevator->cliente }}</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <table class="table table-borderless">
-                                            <tbody>
-                                                <tr>
-                                                    <td class="text-gris">Marca</td>
-                                                    <td>{{ $elevator->marca }}</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <table class="table table-borderless">
-                                            <tbody>
-                                                <tr>
-                                                    <td class="text-gris">Fecha de entrega</td>
-                                                    {{-- <h4>{{ $elevator->fecha->format('d M Y') }}</h4> --}}
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <table class="table table-borderless">
-                                            <tbody>
-                                                <tr>
-                                                    <td class="text-gris">Garantía</td>
-                                                    <td>{{ $elevator->garantizar }}</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <table class="table table-borderless">
-                                            <tbody>
-                                                <tr>
-                                                    <td class="text-gris">Dirección</td>
-                                                    <td>
-                                                        {{ $elevator->dirección }}
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <table class="table table-borderless">
-                                            <tbody>
-                                                <tr>
-                                                    <td class="text-gris">Técnico instalador</td>
-                                                    <td>-</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <table class="table table-borderless">
-                                            <tbody>
-                                                <tr>
-                                                    <td class="text-gris">Ubigeo</td>
-                                                    <td>-</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <table class="table table-borderless">
-                                            <tbody>
-                                                <tr>
-                                                    <td class="text-gris">Provincia</td>
-                                                    <td>{{ $elevator->provincia }}</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <table class="table table-borderless">
-                                            <tbody>
-                                                <tr>
-                                                    <td class="text-gris">Técnico ajustador</td>
-                                                    <td>-</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <table class="table table-borderless">
-                                            <tbody>
-                                                <tr>
-                                                    <td class="text-gris">Tipo de ascensor</td>
-                                                    <td>{{ $elevator->tipo_de_ascensor }}</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <table class="table table-borderless">
-                                            <tbody>
-                                                <tr>
-                                                    <td class="text-gris">Cantidad</td>
-                                                    <td>{{ $elevator->cantidad }}</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="adornoinput mb-3">
-                                                    <div class="custom-control custom-checkbox">
-                                                        <input type="checkbox" class="custom-control-input"
-                                                            id="MGratuito" name="MGratuito" checked>
-                                                        <label class="custom-control-label" for="MGratuito">Mantenimiento
-                                                            gratuito?</label>
+                                    @isset($elevator)
+                                        <div class="col-md-6">
+                                            <table class="table table-borderless">
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="text-gris">Nombre</td>
+                                                        <td>
+                                                            @isset($elevator->nombre)
+                                                                {{ $elevator->nombre }}
+                                                            @else
+                                                                Nombre no especificado
+                                                            @endisset
+                                                        </td>
+
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <table class="table table-borderless">
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="text-gris">Código</td>
+                                                        <td>
+                                                            @isset($elevator->código)
+                                                                {{ $elevator->código }}
+                                                            @else
+                                                                Código no especificado
+                                                            @endisset
+                                                        </td>
+
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <table class="table table-borderless">
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="text-gris">Cliente del ascensor</td>
+                                                        <td>
+                                                            @isset($elevator->cliente)
+                                                                {{ $elevator->cliente }}
+                                                            @else
+                                                                No cliente disponible
+                                                            @endisset
+                                                        </td>
+
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <table class="table table-borderless">
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="text-gris">Marca</td>
+                                                        <td>
+                                                            @isset($elevator->marca)
+                                                                {{ $elevator->marca }}
+                                                            @else
+                                                                No marca disponible
+                                                            @endisset
+                                                        </td>
+
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <table class="table table-borderless">
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="text-gris">Fecha de entrega</td>
+                                                        {{-- <h4>{{ $elevator->fecha->format('d M Y') }}</h4> --}}
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <table class="table table-borderless">
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="text-gris">Garantía</td>
+                                                        <td>
+                                                            @isset($elevator->garantizar)
+                                                                {{ $elevator->garantizar }}
+                                                            @else
+                                                                No garantía disponible
+                                                            @endisset
+                                                        </td>
+
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <table class="table table-borderless">
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="text-gris">Dirección</td>
+                                                        <td>
+                                                            @isset($elevator->dirección)
+                                                                {{ $elevator->dirección }}
+                                                            @else
+                                                                No dirección disponible
+                                                            @endisset
+                                                        </td>
+
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <table class="table table-borderless">
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="text-gris">Técnico instalador</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <table class="table table-borderless">
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="text-gris">Ubigeo</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <table class="table table-borderless">
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="text-gris">Provincia</td>
+                                                        <td>
+                                                            @isset($elevator->provincia)
+                                                                {{ $elevator->provincia }}
+                                                            @else
+                                                                No provincia disponible
+                                                            @endisset
+                                                        </td>
+
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <table class="table table-borderless">
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="text-gris">Técnico ajustador</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <table class="table table-borderless">
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="text-gris">Tipo de ascensor</td>
+                                                        <td>
+                                                            @isset($elevator->tipo_de_ascensor)
+                                                                {{ $elevator->tipo_de_ascensor }}
+                                                            @else
+                                                                Tipo de ascensor no especificado
+                                                            @endisset
+                                                        </td>
+
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <table class="table table-borderless">
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="text-gris">Cantidad</td>
+                                                        <td>
+                                                            @isset($elevator->cantidad)
+                                                                {{ $elevator->cantidad }}
+                                                            @else
+                                                                Cantidad no especificada
+                                                            @endisset
+                                                        </td>
+
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="adornoinput mb-3">
+                                                        <div class="custom-control custom-checkbox">
+                                                            <input type="checkbox" class="custom-control-input"
+                                                                id="MGratuito" name="MGratuito" checked>
+                                                            <label class="custom-control-label" for="MGratuito">Mantenimiento
+                                                                gratuito?</label>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="adornoinput mb-3">
-                                                    <div class="custom-control custom-checkbox">
-                                                        <input type="checkbox" class="custom-control-input"
-                                                            id="SinCuarto" name="SinCuarto">
-                                                        <label class="custom-control-label" for="SinCuarto">Sin
-                                                            cuarto de maquina?</label>
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="adornoinput mb-3">
+                                                        <div class="custom-control custom-checkbox">
+                                                            <input type="checkbox" class="custom-control-input"
+                                                                id="SinCuarto" name="SinCuarto">
+                                                            <label class="custom-control-label" for="SinCuarto">Sin
+                                                                cuarto de maquina?</label>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="adornoinput mb-3">
-                                                    <div class="custom-control custom-checkbox">
-                                                        <input type="checkbox" class="custom-control-input"
-                                                            id="ConCuarto" name="ConCuarto">
-                                                        <label class="custom-control-label" for="ConCuarto">Con
-                                                            cuarto de maquina?</label>
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="adornoinput mb-3">
+                                                        <div class="custom-control custom-checkbox">
+                                                            <input type="checkbox" class="custom-control-input"
+                                                                id="ConCuarto" name="ConCuarto">
+                                                            <label class="custom-control-label" for="ConCuarto">Con
+                                                                cuarto de maquina?</label>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <table class="table table-borderless">
-                                            <tbody>
-                                                <tr>
-                                                    <td class="text-gris"># Pisos</td>
-                                                    <td>{{ $elevator->npisos }}</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <table class="table table-borderless">
-                                            <tbody>
-                                                <tr>
-                                                    <td class="text-gris">Contacto</td>
-                                                    <td>{{ $elevator->contrato }}</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <table class="table table-borderless">
-                                            <tbody>
-                                                <tr>
-                                                    <td class="text-gris">Teléfono</td>
-                                                    <td>{{ $elevator->teléfono }}</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <table class="table table-borderless">
-                                            <tbody>
-                                                <tr>
-                                                    <td class="text-gris">Correo</td>
-                                                    <td>{{ $elevator->correo }}</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <table class="table table-borderless">
-                                            <tbody>
-                                                <tr>
-                                                    <td class="text-gris">Descripción 1</td>
-                                                    <td>
-                                                        {{ $elevator->descripcion1 }}
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <table class="table table-borderless">
-                                            <tbody>
-                                                <tr>
-                                                    <td class="text-gris">Descripción 2</td>
-                                                    <td>
-                                                        {{ $elevator->descripcion2 }}
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                        <div class="col-md-12">
+                                            <table class="table table-borderless">
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="text-gris"># Pisos</td>
+                                                        <td>{{ $elevator->npisos }}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <table class="table table-borderless">
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="text-gris">Contacto</td>
+                                                        <td>{{ $elevator->contrato }}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <table class="table table-borderless">
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="text-gris">Teléfono</td>
+                                                        <td>{{ $elevator->teléfono }}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <table class="table table-borderless">
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="text-gris">Correo</td>
+                                                        <td>{{ $elevator->correo }}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <table class="table table-borderless">
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="text-gris">Descripción 1</td>
+                                                        <td>
+                                                            {{ $elevator->descripcion1 }}
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <table class="table table-borderless">
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="text-gris">Descripción 2</td>
+                                                        <td>
+                                                            {{ $elevator->descripcion2 }}
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    @else
+                                        <div class="col-md-12">
+                                            <p>No se encontró información del ascensor.</p>
+                                        </div>
+                                    @endisset
                                 </div>
                             </div>
+                            {{-- contratos --}}
                             <div id="contratos" class="tab-pane">
                                 <div class="row">
                                     <div class="col-md-6 d-flex align-items-center justify-content-start mb-3">
@@ -385,104 +484,418 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>1970-01-01</td>
-                                                    <td>S/ 190.00</td>
-                                                    <td>2018-01-09</td>
-                                                    <td>2018-01-09</td>
-                                                    <td>S/ 190.00</td>
-                                                    <td>
-                                                        <div class="alerta boton-activo">
-                                                            <i class="fas fa-circle"></i> activo
-                                                        </div>
-                                                    </td>
-                                                    <td align="right">
-                                                        <div class="dropdown">
-                                                            <button type="button" class="btn-action dropdown-toggle"
-                                                                data-toggle="dropdown">
-                                                                Acción <i class="fas fa-chevron-down"></i>
-                                                            </button>
-                                                            <div class="dropdown-menu dropdown-menu-right">
-                                                                <a class="dropdown-item" href="javascript:void(0)"
-                                                                    data-toggle="modal" data-target="#crearContratos">Ver
-                                                                    detalles</a>
-                                                                <a class="dropdown-item" href="javascript:void(0)"
-                                                                    data-toggle="modal"
-                                                                    data-target="#crearContratos">Editar</a>
-                                                                <a class="dropdown-item" href="javascript:void(0)"
-                                                                    data-toggle="modal"
-                                                                    data-target="#modalEliminar">Eliminar</a>
+                                                @foreach ($contracts as $contra)
+                                                    <tr>
+                                                        <td>{{ $contra->fecha_de_propuesta }}</td>
+                                                        <td>{{ $contra->monto_de_propuesta }}</td>
+                                                        <td>{{ $contra->fecha_de_inicio }}</td>
+                                                        <td>{{ $contra->fecha_de_fin }}</td>
+                                                        <td>{{ $contra->estado_cuenta_del_contrato }}
+                                                        <td>
+                                                            <div class="alerta boton-activo">
+                                                                <i class="fas fa-circle"></i> activo
                                                             </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>1970-01-01</td>
-                                                    <td>S/ 190.00</td>
-                                                    <td>2018-01-09</td>
-                                                    <td>2018-01-09</td>
-                                                    <td>S/ 190.00</td>
-                                                    <td>
-                                                        <div class="alerta boton-activo">
-                                                            <i class="fas fa-circle"></i> activo
-                                                        </div>
-                                                    </td>
-                                                    <td align="right">
-                                                        <div class="dropdown">
-                                                            <button type="button" class="btn-action dropdown-toggle"
-                                                                data-toggle="dropdown">
-                                                                Acción <i class="fas fa-chevron-down"></i>
-                                                            </button>
-                                                            <div class="dropdown-menu dropdown-menu-right">
-                                                                <a class="dropdown-item" href="javascript:void(0)"
-                                                                    data-toggle="modal" data-target="#crearContratos">Ver
-                                                                    detalles</a>
-                                                                <a class="dropdown-item" href="javascript:void(0)"
-                                                                    data-toggle="modal"
-                                                                    data-target="#crearContratos">Editar</a>
-                                                                <a class="dropdown-item" href="javascript:void(0)"
-                                                                    data-toggle="modal"
-                                                                    data-target="#modalEliminar">Eliminar</a>
+                                                        </td>
+                                                        <td align="right">
+                                                            <div class="dropdown">
+                                                                <button type="button" class="btn-action dropdown-toggle"
+                                                                    data-toggle="dropdown">
+                                                                    Acción <i class="fas fa-chevron-down"></i>
+                                                                </button>
+                                                                <div class="dropdown-menu dropdown-menu-right">
+                                                                    <a class="dropdown-item" href="javascript:void(0)"
+                                                                        data-toggle="modal"
+                                                                        data-target="#crearContratos">Ver
+                                                                        detalles</a>
+                                                                    <a class="dropdown-item"
+                                                                        href="{{ route('edit.contract', $contra->id) }}"
+                                                                        data-toggle="modal"
+                                                                        data-target="#editarContratos">Editar</a>
+
+                                                                    <a class="dropdown-item" href="javascript:void(0)"
+                                                                        data-toggle="modal"
+                                                                        data-target="#modalEliminar">Eliminar</a>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>1970-01-01</td>
-                                                    <td>S/ 190.00</td>
-                                                    <td>2018-01-09</td>
-                                                    <td>2018-01-09</td>
-                                                    <td>S/ 190.00</td>
-                                                    <td>
-                                                        <div class="alerta boton-inactivo">
-                                                            <i class="fas fa-circle"></i> inactivo
-                                                        </div>
-                                                    </td>
-                                                    <td align="right">
-                                                        <div class="dropdown">
-                                                            <button type="button" class="btn-action dropdown-toggle"
-                                                                data-toggle="dropdown">
-                                                                Acción <i class="fas fa-chevron-down"></i>
-                                                            </button>
-                                                            <div class="dropdown-menu dropdown-menu-right">
-                                                                <a class="dropdown-item" href="javascript:void(0)"
-                                                                    data-toggle="modal" data-target="#crearContratos">Ver
-                                                                    detalles</a>
-                                                                <a class="dropdown-item" href="javascript:void(0)"
-                                                                    data-toggle="modal"
-                                                                    data-target="#crearContratos">Editar</a>
-                                                                <a class="dropdown-item" href="javascript:void(0)"
-                                                                    data-toggle="modal"
-                                                                    data-target="#modalEliminar">Eliminar</a>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
                             </div>
+
+                            <!-- Modal Creando Contrato-->
+                            <div class="modal left fade" id="crearContratos" tabindex="-1" role="dialog"
+                                aria-labelledby="modelTitleId" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title font-family-Outfit-SemiBold">Creando Contrato</h5>
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close">
+                                                <span aria-hidden="true">×</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body body_modal">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <form action="/contrato/insertar" method="POST"
+                                                        class="formulario-modal" id="customerForm">
+                                                        @csrf
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <label for="ascensor">Ascensor</label>
+                                                                    <input type="text" placeholder="Ascensor"
+                                                                        name="ascensor" id="ascensor"
+                                                                        class="@error('ascensor') is-invalid @enderror">
+                                                                    @error('ascensor')
+                                                                        <span class="invalid-feedback" style="color: red">
+                                                                            <strong>{{ $message }}</strong>
+                                                                        </span>
+                                                                    @enderror
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="fecha_de_propuesta">Fecha de
+                                                                        propuesta</label>
+                                                                    <input type="date" placeholder="dd/mm/aaaa"
+                                                                        name="fecha_de_propuesta" id="fecha_de_propuesta"
+                                                                        class="@error('fecha_de_propuesta') is-invalid @enderror">
+                                                                    @error('fecha_de_propuesta')
+                                                                        <span class="invalid-feedback" style="color: red">
+                                                                            <strong>{{ $message }}</strong>
+                                                                        </span>
+                                                                    @enderror
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="monto_de_propuesta">Monto de
+                                                                        propuesta</label>
+                                                                    <input type="text" placeholder="S/ 300 mensual"
+                                                                        name="monto_de_propuesta" id="monto_de_propuesta"
+                                                                        class="@error('monto_de_propuesta') is-invalid @enderror">
+                                                                    @error('monto_de_propuesta')
+                                                                        <span class="invalid-feedback" style="color: red">
+                                                                            <strong>{{ $message }}</strong>
+                                                                        </span>
+                                                                    @enderror
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="monto_de_contrato">Monto de
+                                                                        contrato</label>
+                                                                    <input type="text" placeholder="S/ 300 mensual"
+                                                                        name="monto_de_contrato" id="monto_de_contrato"
+                                                                        class="@error('monto_de_contrato') is-invalid @enderror">
+                                                                    @error('monto_de_contrato')
+                                                                        <span class="invalid-feedback" style="color: red">
+                                                                            <strong>{{ $message }}</strong>
+                                                                        </span>
+                                                                    @enderror
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="fecha_de_inicio">Fecha de inicio</label>
+                                                                    <input type="date" placeholder="dd/mm/aaaa"
+                                                                        name="fecha_de_inicio" id="fecha_de_inicio"
+                                                                        class="@error('fecha_de_inicio') is-invalid @enderror">
+                                                                    @error('fecha_de_inicio')
+                                                                        <span class="invalid-feedback" style="color: red">
+                                                                            <strong>{{ $message }}</strong>
+                                                                        </span>
+                                                                    @enderror
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="fecha_de_fin">Fecha de fin</label>
+                                                                    <input type="date" placeholder="dd/mm/aaaa"
+                                                                        name="fecha_de_fin" id="fecha_de_fin"
+                                                                        class="@error('fecha_de_fin') is-invalid @enderror">
+                                                                    @error('fecha_de_fin')
+                                                                        <span class="invalid-feedback" style="color: red">
+                                                                            <strong>{{ $message }}</strong>
+                                                                        </span>
+                                                                    @enderror
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-12"></div>
+                                                            <div class="col-md-6">
+                                                                <div class="adornoinput mb-3">
+                                                                    <div class="custom-control custom-checkbox">
+                                                                        <input type="checkbox"
+                                                                            class="custom-control-input" id="renovación"
+                                                                            name="renovación">
+                                                                        <label class="custom-control-label"
+                                                                            for="renovación">Renovación</label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-12"></div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="cada_cuantos_meses">Cada cuantos
+                                                                        meses?</label>
+                                                                    <input type="text" placeholder="Meses"
+                                                                        name="cada_cuantos_meses" id="cada_cuantos_meses"
+                                                                        class="@error('cada_cuantos_meses') is-invalid @enderror">
+                                                                    @error('cada_cuantos_meses')
+                                                                        <span class="invalid-feedback" style="color: red">
+                                                                            <strong>{{ $message }}</strong>
+                                                                        </span>
+                                                                    @enderror
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <label for="observación">Observación</label>
+                                                                    <textarea name="observación" id="observación" placeholder="Comentario de contrato" cols="30" rows="5"></textarea>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <label for="estado_cuenta_del_contrato">Estado cuenta
+                                                                        del
+                                                                        contrato</label>
+                                                                    <textarea name="estado_cuenta_del_contrato" id="estado_cuenta_del_contrato" placeholder="Estado cuenta del contrato"
+                                                                        cols="30" rows="5"></textarea>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <label for="estado">Estado</label>
+                                                                    <input type="text" placeholder="Activo"
+                                                                        name="estado" id="estado">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
+                                            <button type="submit" class="btn-gris btn-red mr-2">Asignar
+                                                Respuesto</button>
+                                            <button type="button" class="btn-gris btn-border"
+                                                data-dismiss="modal">Cancelar</button>
+                                        </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!-- Modal editar Contrato-->
+                            <div class="modal left fade" id="editarContratos" tabindex="-1" role="dialog"
+                                aria-labelledby="modelTitleId" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title font-family-Outfit-SemiBold">Creando Contrato</h5>
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close">
+                                                <span aria-hidden="true">×</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body body_modal">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <form action="/contrato/actualizar/<?php echo $contra->id; ?>" method="POST"
+                                                        class="formulario-modal" id="customerForm">
+                                                        @csrf
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <label for="ascensor">Ascensor</label>
+                                                                    <input type="text" placeholder="Ascensor"
+                                                                        name="ascensor" id="ascensor"
+                                                                        class="@error('ascensor') is-invalid @enderror"
+                                                                        value="{{ old('ascensor', $contra->ascensor ?? '') }}">
+                                                                    @error('ascensor')
+                                                                        <span class="invalid-feedback" style="color: red">
+                                                                            <strong>{{ $message }}</strong>
+                                                                        </span>
+                                                                    @enderror
+                                                                </div>
+
+
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="fecha_de_propuesta">Fecha de
+                                                                        propuesta</label>
+                                                                    <input type="date" placeholder="dd/mm/aaaa"
+                                                                        name="fecha_de_propuesta" id="fecha_de_propuesta"
+                                                                        class="@error('fecha_de_propuesta') is-invalid @enderror"
+                                                                        value="{{ old('fecha_de_propuesta', $contra->fecha_de_propuesta ?? '') }}">
+                                                                    @error('fecha_de_propuesta')
+                                                                        <span class="invalid-feedback" style="color: red">
+                                                                            <strong>{{ $message }}</strong>
+                                                                        </span>
+                                                                    @enderror
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="monto_de_propuesta">Monto de
+                                                                        propuesta</label>
+                                                                    <input type="text" placeholder="S/ 300 mensual"
+                                                                        name="monto_de_propuesta" id="monto_de_propuesta"
+                                                                        class="@error('monto_de_propuesta') is-invalid @enderror"
+                                                                        value="{{ old('monto_de_propuesta', $contra->monto_de_propuesta ?? '') }}">
+                                                                    @error('monto_de_propuesta')
+                                                                        <span class="invalid-feedback" style="color: red">
+                                                                            <strong>{{ $message }}</strong>
+                                                                        </span>
+                                                                    @enderror
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="monto_de_contrato">Monto de
+                                                                        contrato</label>
+                                                                    <input type="text" placeholder="S/ 300 mensual"
+                                                                        name="monto_de_contrato" id="monto_de_contrato"
+                                                                        class="@error('monto_de_contrato') is-invalid @enderror"
+                                                                        value="{{ old('monto_de_contrato', $contra->monto_de_contrato ?? '') }}">
+                                                                    @error('monto_de_contrato')
+                                                                        <span class="invalid-feedback" style="color: red">
+                                                                            <strong>{{ $message }}</strong>
+                                                                        </span>
+                                                                    @enderror
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="fecha_de_inicio">Fecha de inicio</label>
+                                                                    <input type="date" placeholder="dd/mm/aaaa"
+                                                                        name="fecha_de_inicio" id="fecha_de_inicio"
+                                                                        class="@error('fecha_de_inicio') is-invalid @enderror"
+                                                                        value="{{ old('fecha_de_inicio', $contra->fecha_de_inicio ?? '') }}">
+                                                                    @error('fecha_de_inicio')
+                                                                        <span class="invalid-feedback" style="color: red">
+                                                                            <strong>{{ $message }}</strong>
+                                                                        </span>
+                                                                    @enderror
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="fecha_de_fin">Fecha de fin</label>
+                                                                    <input type="date" placeholder="dd/mm/aaaa"
+                                                                        name="fecha_de_fin" id="fecha_de_fin"
+                                                                        class="@error('fecha_de_fin') is-invalid @enderror"
+                                                                        value="{{ old('fecha_de_fin', $contra->fecha_de_fin ?? '') }}">
+                                                                    @error('fecha_de_fin')
+                                                                        <span class="invalid-feedback" style="color: red">
+                                                                            <strong>{{ $message }}</strong>
+                                                                        </span>
+                                                                    @enderror
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-md-12"></div>
+                                                            <div class="col-md-6">
+                                                                <div class="adornoinput mb-3">
+                                                                    <div class="custom-control custom-checkbox">
+                                                                        <input type="checkbox"
+                                                                            class="custom-control-input" id="renovación"
+                                                                            name="renovación"
+                                                                            {{ $contra->renovación ? 'checked' : '' }}>
+                                                                        <label class="custom-control-label"
+                                                                            for="renovación">Renovación</label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-md-12"></div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="cada_cuantos_meses">Cada cuántos
+                                                                        meses?</label>
+                                                                    <input type="text" placeholder="Meses"
+                                                                        name="cada_cuantos_meses" id="cada_cuantos_meses"
+                                                                        class="@error('cada_cuantos_meses') is-invalid @enderror"
+                                                                        value="{{ old('cada_cuantos_meses', $contra->cada_cuantos_meses ?? '') }}">
+                                                                    @error('cada_cuantos_meses')
+                                                                        <span class="invalid-feedback" style="color: red">
+                                                                            <strong>{{ $message }}</strong>
+                                                                        </span>
+                                                                    @enderror
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <label for="observación">Observación</label>
+                                                                    <textarea name="observación" id="observación" placeholder="Comentario de contrato" cols="30" rows="5"
+                                                                        class="@error('observación') is-invalid @enderror">{{ old('observación', $contra->observación ?? '') }}</textarea>
+                                                                    @error('observación')
+                                                                        <span class="invalid-feedback" style="color: red">
+                                                                            <strong>{{ $message }}</strong>
+                                                                        </span>
+                                                                    @enderror
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <label for="estado_cuenta_del_contrato">Estado cuenta
+                                                                        del contrato</label>
+                                                                    <textarea name="estado_cuenta_del_contrato" id="estado_cuenta_del_contrato" placeholder="Estado cuenta del contrato"
+                                                                        cols="30" rows="5" class="@error('estado_cuenta_del_contrato') is-invalid @enderror">{{ old('estado_cuenta_del_contrato', $contra->estado_cuenta_del_contrato ?? '') }}</textarea>
+                                                                    @error('estado_cuenta_del_contrato')
+                                                                        <span class="invalid-feedback" style="color: red">
+                                                                            <strong>{{ $message }}</strong>
+                                                                        </span>
+                                                                    @enderror
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <label for="estado">Estado</label>
+                                                                    <input type="text" placeholder="Activo"
+                                                                        name="estado" id="estado"
+                                                                        class="@error('estado') is-invalid @enderror"
+                                                                        value="{{ old('estado', $contra->estado ?? '') }}">
+                                                                    @error('estado')
+                                                                        <span class="invalid-feedback" style="color: red">
+                                                                            <strong>{{ $message }}</strong>
+                                                                        </span>
+                                                                    @enderror
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
+                                            <button type="submit" class="btn-gris btn-red mr-2">Asignar
+                                                Respuesto</button>
+                                            <button type="button" class="btn-gris btn-border"
+                                                data-dismiss="modal">Cancelar</button>
+                                        </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            {{-- mantenimientos --}}
                             <div id="mantenimientos" class="tab-pane">
                                 <div class="row">
                                     <div class="col-md-6 d-flex align-items-center justify-content-start mb-3">
@@ -735,8 +1148,9 @@
                                     <span aria-hidden="true">×</span>
                                 </button>
                             </div>
-                            <form action="{{ route('update.elevator', $elevator->id) }}" class="formulario-modal"
-                                enctype="multipart/form-data" method="POST">
+                            <form action="{{ isset($elevator) ? route('update.elevator', $elevator->id) : '#' }}"
+                                class="formulario-modal" enctype="multipart/form-data" method="POST">
+
                                 @csrf
                                 <div class="modal-body body_modal">
                                     <div class="row">
@@ -745,11 +1159,14 @@
                                                 <div class="col-md-6 mb-3">
                                                     <label>Foto de Ascensor</label>
                                                     <div id="editimagePreview">
-                                                        @if ($elevator->imagen)
-                                                            <img src="{{ asset('images/' . $elevator->imagen) }}"
-                                                                alt="Existing Image" width="200px" height="200px">
-                                                        @endif
+                                                        @isset($elevator)
+                                                            @if ($elevator->imagen)
+                                                                <img src="{{ asset('images/' . $elevator->imagen) }}"
+                                                                    alt="Existing Image" width="200px" height="200px">
+                                                            @endif
+                                                        @endisset
                                                     </div>
+
                                                 </div>
                                                 <div
                                                     class="align-items-start col-md-6 d-flex flex-column justify-content-between mb-3">
@@ -832,9 +1249,13 @@
                                                             </option>
                                                             @foreach ($customers as $key => $value)
                                                                 <option value="{{ $key }}"
-                                                                    {{ old('cliente', $elevator->cliente ?? '') == $key ? 'selected' : '' }}>
-                                                                    {{ $value }}</option>
+                                                                    @isset($elevator)
+                                                                    {{ old('cliente', $elevator->cliente ?? '') == $key ? 'selected' : '' }}
+                                                                @endisset>
+                                                                    {{ $value }}
+                                                                </option>
                                                             @endforeach
+
                                                         </select>
                                                         @error('cliente')
                                                             <span class="invalid-feedback" style="color: red">
@@ -1188,14 +1609,17 @@
                                 </div>
                             </div>
                             <div class="modal-footer align-items-center justify-content-center">
-                                <form id="delete-form" action="{{ route('destroy.elevator', $elevator->id) }}"
-                                    method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn-gris btn-red">Sí</button>
-                                </form>
+                                @isset($elevator)
+                                    <form id="delete-form" action="{{ route('destroy.elevator', $elevator->id) }}"
+                                        method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                    </form>
+                                @endisset
+
                                 <button type="button" class="btn-gris btn-border" data-dismiss="modal">No</button>
                             </div>
+
                         </div>
                     </div>
                 </div>

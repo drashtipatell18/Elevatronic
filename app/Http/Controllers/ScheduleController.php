@@ -60,7 +60,7 @@ class ScheduleController extends Controller
             ];
         }
 
-        return response()->json(['events' => $formattedEvents]);
+        return response()->json($formattedEvents);
     }
 
 }

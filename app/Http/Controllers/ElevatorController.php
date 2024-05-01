@@ -8,6 +8,8 @@ use App\Models\Cliente;
 use App\Models\Province;
 use App\Models\SparePart;
 use App\Models\Contract;
+use App\Models\MaintInReview;
+use App\Models\ReviewType;
 
 class ElevatorController extends Controller
 {
@@ -156,13 +158,14 @@ class ElevatorController extends Controller
     }
 
     public function elevatorView(Request $request, $id){
-        $elevator = Elevators::find($id);
+        $elevators = Elevators::find($id);
         $contracts = Contract::all();
         $spareparts = SparePart::all();
         $customers = Cliente::pluck('nombre','nombre');
         $provinces = Province::pluck('provincia','provincia');
-
-        return view('elevator.view_elevator_details',compact('elevator', 'spareparts','customers','provinces','contracts'));
+        $maint_in_reviews = MaintInReview::all();
+        $review_types  = ReviewType::pluck('nombre','nombre');
+        return view('elevator.view_elevator_details',compact('elevators','review_types', 'maint_in_reviews','spareparts','customers','provinces','contracts'));
 
     }
 

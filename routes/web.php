@@ -37,6 +37,7 @@ Auth::routes();
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/forgetpass', [DashboardController::class, 'forgetPass'])->name('forgetpass');
 Route::get('/session', [DashboardController::class, 'Session'])->name('session');
+Route::get('/logout',[HomeController::class,'Logout'])->name('logout');
 
 // customer //
 
@@ -82,6 +83,7 @@ Route::get('/mant/en/revisión', [MaintInReviewController::class, 'maintInReview
 Route::post('/mant/en/revisión/insertar',[MaintInReviewController::class,'maintInReviewInsert'])->name('insert.maint.in.review');
 Route::get('/mant/en/revisión/editar/{id}', [MaintInReviewController::class, 'maintInReviewEdit'])->name('edit.maint.in.review');
 Route::get('/mant/en/revisión/vista/{id}', [MaintInReviewController::class, 'maintInReviewView'])->name('view.maint.in.review');
+Route::get('/mant/en/revisión/detalle/{id}', [MaintInReviewController::class, 'maintInReviewDetails'])->name('details.maint.in.review');
 Route::post('/mant/en/revisión/actualizar/{id}', [MaintInReviewController::class, 'maintInReviewUpdate'])->name('update.maint.in.review');
 Route::delete ('/mant/en/revisión/destruir/{id}',[MaintInReviewController::class,'maintInReviewDestroy'])->name('destroy.maint.in.review');
 

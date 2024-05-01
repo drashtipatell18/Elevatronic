@@ -47,10 +47,10 @@
                                 @csrf <!-- CSRF Protection -->
                                 <div class="form-group">
                                     <label for="email">Correo electrónico</label>
-                                    <input type="email" name="correo" id="correo"
-                                        class="form-control @error('correo') is-invalid @enderror"
+                                    <input type="email" name="email" id="email"
+                                        class="form-control @error('email') is-invalid @enderror"
                                         placeholder="Correo electrónico">
-                                    @error('correo')
+                                    @error('email')
                                         <span class="invalid-feedback" style="color: red">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -58,8 +58,8 @@
                                 </div>
                                 <div class="form-group mb-4">
                                     <label for="password">Contraseña</label>
-                                    <input type="password" name="contraseña" id="contraseña" class="form-control @error('contraseña') is-invalid @enderror placeholder="Contraseña">
-                                    @error('contraseña')
+                                    <input type="password" name="password" id="password" class="form-control @error('password') is-invalid @enderror placeholder="Contraseña">
+                                    @error('password')
                                     <span class="invalid-feedback" style="color: red">
                                         <strong>{{ $message }}</strong>
                                     </span>

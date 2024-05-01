@@ -22,15 +22,12 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function Login(){
-        echo 'login';exit;
         return view('auth.login');
     }
 
     
     public function loginStore(Request $request)
     {
-        echo 'loginStore';exit;
-
         $credentials = $request->validate([
             'email' => 'required|email',
             'password' => 'required',
@@ -43,6 +40,14 @@ class HomeController extends Controller
        
         // If none of the attempts succeed, redirect back with an error message
         return back()->withErrors(['email' => 'Invalid credentials'])->withInput($request->only('email'));
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/login');
     }
     
 }

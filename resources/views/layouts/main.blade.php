@@ -110,9 +110,15 @@
                                     <!-- cuadro para hacer click ocultar / aparecer -->
                                     <div class="d-flex align-items-center justify-content-start" id="abrirperfil">
                                         <i class="iconoir-nav-arrow-down"></i>
-                                        <img src=" {{ asset('img/perfil.png') }}" alt="perfil">
+                                        @if (auth()->user())
+                                            <img src="{{ asset('images/' . auth()->user()->image) }}"
+                                                alt="User Image" width="100" height="50px"
+                                                class="img-circle profile_img">
+                                        @else
+                                            <p>No user image available</p>
+                                        @endif
                                         <div class="">
-                                            <p class="mb-0">Anghela</p>
+                                            <p class="mb-0">{{ auth()->user()->name }}</p>
                                             <span>Administrador</span>
                                         </div>
                                     </div>
@@ -120,11 +126,16 @@
                                     <div class="perfil_abs" id="perfil_abs" style="display: none;">
                                         <div class="d-flex align-items-center justify-content-between con_perfil">
                                             <div class="">
-                                                <img src=" {{ asset('img/perfil.png') }}" alt="perfil">
-                                            </div>
+                                                @if (auth()->user())
+                                                <img src="{{ asset('images/' . auth()->user()->image) }}"
+                                                    alt="User Image" width="100" height="50px"
+                                                    class="img-circle profile_img">
+                                            @else
+                                                <p>No user image available</p>
+                                            @endif                                            </div>
                                             <div class="">
-                                                <p>Danfrin Rodriguez</p>
-                                                <span class="m-0">ejemplo@gmail.com</span>
+                                                <p>{{ auth()->user()->name }}</p>
+                                                <span class="m-0">{{ auth()->user()->email }}</span>
                                             </div>
                                         </div>
                                         <div class="salir">

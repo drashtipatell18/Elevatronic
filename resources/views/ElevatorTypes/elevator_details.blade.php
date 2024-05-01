@@ -168,7 +168,7 @@
                                         <div class="dropdown">
                                             <button class="btn-gris" type="button" id="dropdownMenuButton"
                                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <img src="img/iconos/export.svg" alt="icono" class="mr-2"> Exportar
+                                                <img src="{{ asset('img/iconos/export.svg')}}" alt="icono" class="mr-2"> Exportar
                                                 Datos <i class="iconoir-nav-arrow-down"></i>
                                             </button>
                                             <div class="dropdown-menu dropdown-menu-right"

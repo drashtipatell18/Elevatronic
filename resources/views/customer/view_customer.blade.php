@@ -42,8 +42,8 @@
                                 <div class="dropdown">
                                     <button class="btn-gris" type="button" id="dropdownMenuButton" data-toggle="dropdown"
                                         aria-haspopup="true" aria-expanded="false">
-                                        <img src="{{ asset('img/iconos/export.svg') }}" alt="icono" class="mr-2"> Exportar Datos <i
-                                            class="iconoir-nav-arrow-down"></i>
+                                        <img src="{{ asset('img/iconos/export.svg') }}" alt="icono" class="mr-2">
+                                        Exportar Datos <i class="iconoir-nav-arrow-down"></i>
                                     </button>
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                                         <button class="dropdown-item" id="export_excel">Excel</button>
@@ -119,14 +119,13 @@
                             <div class="modal-body body_modal">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <form
-                                            action="/clientes/insertar"
-                                            method="POST" class="formulario-modal" id="customerForm">
+                                        <form action="/clientes/insertar" method="POST" class="formulario-modal"
+                                            id="customerForm">
                                             @csrf
                                             <div class="form-group">
                                                 <label for="nombreRuc">Nombre o Razón Social</label>
                                                 <input type="text" placeholder="Nombre o Razón Social" name="nombre"
-                                                    id="nombre" 
+                                                    id="nombre"
                                                     class="form-control @error('nombre') is-invalid @enderror">
                                                 @error('nombre')
                                                     <span class="invalid-feedback" style="color: red">
@@ -140,12 +139,9 @@
                                                     class="custom-select form-control @error('tipo_de_cliente') is-invalid @enderror"
                                                     name="tipo_de_cliente" id="Tcliente">
                                                     <option selected disabled>Seleccionar opción</option>
-                                                    <option value="person1"
-                                                        >Cliente 1</option>
-                                                    <option value="person2"
-                                                       >Cliente 2</option>
-                                                    <option value="person3"
-                                                       >Cliente 3</option>
+                                                    <option value="person1">Cliente 1</option>
+                                                    <option value="person2">Cliente 2</option>
+                                                    <option value="person3">Cliente 3</option>
                                                 </select>
 
                                                 @error('tipo_de_cliente')
@@ -157,7 +153,7 @@
                                             <div class="form-group">
                                                 <label for="RUC">RUC o DNI</label>
                                                 <input type="text" placeholder="RUC o DNI" name="ruc"
-                                                    id="ruc" 
+                                                    id="ruc"
                                                     class="form-control @error('ruc') is-invalid @enderror">
                                                 @error('ruc')
                                                     <span class="invalid-feedback" style="color: red">
@@ -171,12 +167,9 @@
                                                     class="custom-select form-control @error('país') is-invalid @enderror"
                                                     name="país" id="país">
                                                     <option selected disabled>Seleccionar opción</option>
-                                                    <option value="perú"
-                                                        >Perú</option>
-                                                    <option value="chile"
-                                                        >Chile</option>
-                                                    <option value="argentina"
-                                                        >Argentina</option>
+                                                    <option value="perú">Perú</option>
+                                                    <option value="chile">Chile</option>
+                                                    <option value="argentina">Argentina</option>
                                                 </select>
                                                 @error('país')
                                                     <span class="invalid-feedback" style="color: red">
@@ -190,12 +183,9 @@
                                                     class="custom-select form-control @error('provincia') is-invalid @enderror"
                                                     name="provincia" id="provincia">
                                                     <option selected disabled>Seleccionar opción</option>
-                                                    <option value="lima"
-                                                       >Lima</option>
-                                                    <option value="arequipa"
-                                                      >Arequipa</option>
-                                                    <option value="moquegua"
-                                                        >Moquegua
+                                                    <option value="lima">Lima</option>
+                                                    <option value="arequipa">Arequipa</option>
+                                                    <option value="moquegua">Moquegua
                                                     </option>
                                                 </select>
 
@@ -273,7 +263,7 @@
                                             </div>
                                             <div class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
                                                 <button type="submit" class="btn-gris btn-red mr-2">
-                                                        Guardar Cambios
+                                                    Guardar Cambios
                                                 </button>
                                                 <button type="button" class="btn-gris btn-border"
                                                     data-dismiss="modal">Cancelar</button>
@@ -287,8 +277,8 @@
                 </div>
 
                 <!-- Modal agregar/editar clientes-->
-                <div class="modal left fade" id="editarCliente" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
-                    aria-hidden="true">
+                <div class="modal left fade" id="editarCliente" tabindex="-1" role="dialog"
+                    aria-labelledby="modelTitleId" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -300,171 +290,180 @@
                             <div class="modal-body body_modal">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <form action="/clientes/actualizar/<?php echo $customer->id ?>" method="POST" class="formulario-modal" id="customerForm">
-                                            @csrf
-                                            <div class="form-group">
-                                                <label for="nombreRuc">Nombre o Razón Social</label>
-                                                <input type="text" placeholder="Nombre o Razón Social" name="nombre"
-                                                    id="nombre" value="{{ old('nombre', $customer->nombre ?? '') }}"
-                                                    class="form-control @error('nombre') is-invalid @enderror">
-                                                @error('nombre')
-                                                    <span class="invalid-feedback" style="color: red">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="tipo_de_cliente">Tipo de Cliente</label>
-                                                <select
-                                                    class="custom-select form-control @error('tipo_de_cliente') is-invalid @enderror"
-                                                    name="tipo_de_cliente" id="Tcliente">
-                                                    <option selected disabled>Seleccionar opción</option>
-                                                    <option value="person1"
-                                                        @if (old('tipo_de_cliente', $customer->tipo_de_cliente ?? '') == 'person1') selected @endif>Cliente 1</option>
-                                                    <option value="person2"
-                                                        @if (old('tipo_de_cliente', $customer->tipo_de_cliente ?? '') == 'person2') selected @endif>Cliente 2</option>
-                                                    <option value="person3"
-                                                        @if (old('tipo_de_cliente', $customer->tipo_de_cliente ?? '') == 'person3') selected @endif>Cliente 3</option>
-                                                </select>
+                                        @isset($customer)
+                                            <form action="/clientes/actualizar/<?php echo $customer->id; ?>" method="POST"
+                                                class="formulario-modal" id="customerForm">
+                                                @csrf
+                                                <div class="form-group">
+                                                    <label for="nombreRuc">Nombre o Razón Social</label>
+                                                    <input type="text" placeholder="Nombre o Razón Social" name="nombre"
+                                                        id="nombre" value="{{ old('nombre', $customer->nombre ?? '') }}"
+                                                        class="form-control @error('nombre') is-invalid @enderror">
+                                                    @error('nombre')
+                                                        <span class="invalid-feedback" style="color: red">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="tipo_de_cliente">Tipo de Cliente</label>
+                                                    <select
+                                                        class="custom-select form-control @error('tipo_de_cliente') is-invalid @enderror"
+                                                        name="tipo_de_cliente" id="Tcliente">
+                                                        <option selected disabled>Seleccionar opción</option>
+                                                        <option value="person1"
+                                                            @if (old('tipo_de_cliente', $customer->tipo_de_cliente ?? '') == 'person1') selected @endif>Cliente 1
+                                                        </option>
+                                                        <option value="person2"
+                                                            @if (old('tipo_de_cliente', $customer->tipo_de_cliente ?? '') == 'person2') selected @endif>Cliente 2
+                                                        </option>
+                                                        <option value="person3"
+                                                            @if (old('tipo_de_cliente', $customer->tipo_de_cliente ?? '') == 'person3') selected @endif>Cliente 3
+                                                        </option>
+                                                    </select>
 
-                                                @error('tipo_de_cliente')
-                                                    <span class="invalid-feedback" style="color: red">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="RUC">RUC o DNI</label>
-                                                <input type="text" placeholder="RUC o DNI" name="ruc"
-                                                    id="ruc" value="{{ old('ruc', $customer->ruc ?? '') }}"
-                                                    class="form-control @error('ruc') is-invalid @enderror">
-                                                @error('ruc')
-                                                    <span class="invalid-feedback" style="color: red">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="pais">País</label>
-                                                <select
-                                                    class="custom-select form-control @error('país') is-invalid @enderror"
-                                                    name="país" id="país">
-                                                    <option selected disabled>Seleccionar opción</option>
-                                                    <option value="perú"
-                                                        @if (old('país', $customer->país ?? '') == 'perú') selected @endif>Perú</option>
-                                                    <option value="chile"
-                                                        @if (old('país', $customer->país ?? '') == 'chile') selected @endif>Chile</option>
-                                                    <option value="argentina"
-                                                        @if (old('país', $customer->país ?? '') == 'argentina') selected @endif>Argentina</option>
-                                                </select>
-                                                @error('país')
-                                                    <span class="invalid-feedback" style="color: red">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="provincia">Provincia</label>
-                                                <select
-                                                    class="custom-select form-control @error('provincia') is-invalid @enderror"
-                                                    name="provincia" id="provincia">
-                                                    <option selected disabled>Seleccionar opción</option>
-                                                    <option value="lima"
-                                                        @if (old('provincia', $customer->provincia ?? '') == 'lima') selected @endif>Lima</option>
-                                                    <option value="arequipa"
-                                                        @if (old('provincia', $customer->provincia ?? '') == 'arequipa') selected @endif>Arequipa</option>
-                                                    <option value="moquegua"
-                                                        @if (old('provincia', $customer->provincia ?? '') == 'moquegua') selected @endif>Moquegua
-                                                    </option>
-                                                </select>
+                                                    @error('tipo_de_cliente')
+                                                        <span class="invalid-feedback" style="color: red">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="RUC">RUC o DNI</label>
+                                                    <input type="text" placeholder="RUC o DNI" name="ruc"
+                                                        id="ruc" value="{{ old('ruc', $customer->ruc ?? '') }}"
+                                                        class="form-control @error('ruc') is-invalid @enderror">
+                                                    @error('ruc')
+                                                        <span class="invalid-feedback" style="color: red">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="pais">País</label>
+                                                    <select
+                                                        class="custom-select form-control @error('país') is-invalid @enderror"
+                                                        name="país" id="país">
+                                                        <option selected disabled>Seleccionar opción</option>
+                                                        <option value="perú"
+                                                            @if (old('país', $customer->país ?? '') == 'perú') selected @endif>Perú</option>
+                                                        <option value="chile"
+                                                            @if (old('país', $customer->país ?? '') == 'chile') selected @endif>Chile</option>
+                                                        <option value="argentina"
+                                                            @if (old('país', $customer->país ?? '') == 'argentina') selected @endif>Argentina
+                                                        </option>
+                                                    </select>
+                                                    @error('país')
+                                                        <span class="invalid-feedback" style="color: red">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="provincia">Provincia</label>
+                                                    <select
+                                                        class="custom-select form-control @error('provincia') is-invalid @enderror"
+                                                        name="provincia" id="provincia">
+                                                        <option selected disabled>Seleccionar opción</option>
+                                                        <option value="lima"
+                                                            @if (old('provincia', $customer->provincia ?? '') == 'lima') selected @endif>Lima</option>
+                                                        <option value="arequipa"
+                                                            @if (old('provincia', $customer->provincia ?? '') == 'arequipa') selected @endif>Arequipa
+                                                        </option>
+                                                        <option value="moquegua"
+                                                            @if (old('provincia', $customer->provincia ?? '') == 'moquegua') selected @endif>Moquegua
+                                                        </option>
+                                                    </select>
 
-                                                @error('provincia')
-                                                    <span class="invalid-feedback" style="color: red">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="dirección">Dirección</label>
-                                                <input type="text" placeholder="Dirección" name="dirección"
-                                                    id="dirección"
-                                                    value="{{ old('dirección', $customer->dirección ?? '') }}"
-                                                    class="form-control @error('dirección') is-invalid @enderror">
-                                                @error('dirección')
-                                                    <span class="invalid-feedback" style="color: red">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="teléfono">Teléfono</label>
-                                                <input type="text" placeholder="Teléfono" name="teléfono"
-                                                    id="teléfono"
-                                                    value="{{ old('teléfono', $customer->teléfono ?? '') }}"
-                                                    class="form-control @error('teléfono') is-invalid @enderror">
-                                                @error('teléfono')
-                                                    <span class="invalid-feedback" style="color: red">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="teléfono_móvil">Teléfono Móvil</label>
-                                                <input type="text" placeholder="Teléfono Móvil" name="teléfono_móvil"
-                                                    id="teléfono_móvil"
-                                                    value="{{ old('teléfono_móvil', $customer->teléfono_móvil ?? '') }}"
-                                                    class="form-control @error('teléfono_móvil') is-invalid @enderror">
-                                                @error('teléfono_móvil')
-                                                    <span class="invalid-feedback" style="color: red">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="correo">Correo electrónico</label>
-                                                <input type="text" placeholder="Correo electrónico"
-                                                    name="correo_electrónico" id="correo_electrónico"
-                                                    value="{{ old('correo_electrónico', $customer->correo_electrónico ?? '') }}"
-                                                    class="form-control @error('correo_electrónico') is-invalid @enderror">
-                                                @error('correo_electrónico')
-                                                    <span class="invalid-feedback" style="color: red">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="Ncontacto">Nombre del conctacto</label>
-                                                <input type="text" placeholder="Nombre del conctacto"
-                                                    name="nombre_del_contacto" id="nombre_del_contacto"
-                                                    value="{{ old('nombre_del_contacto', $customer->nombre_del_contacto ?? '') }}"
-                                                    class="form-control @error('nombre_del_contacto') is-invalid @enderror">
-                                                @error('nombre_del_contacto')
-                                                    <span class="invalid-feedback" style="color: red">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="posición">Posición</label>
-                                                <input type="text" placeholder="Posición" name="posición"
-                                                    id="posición"
-                                                    value="{{ old('posición', $customer->posición ?? '') }}"
-                                                    class="form-control @error('posición') is-invalid @enderror">
-                                                @error('posición')
-                                                    <span class="invalid-feedback" style="color: red">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                            <div class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
-                                                <button type="submit" class="btn-gris btn-red mr-2">
+                                                    @error('provincia')
+                                                        <span class="invalid-feedback" style="color: red">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="dirección">Dirección</label>
+                                                    <input type="text" placeholder="Dirección" name="dirección"
+                                                        id="dirección"
+                                                        value="{{ old('dirección', $customer->dirección ?? '') }}"
+                                                        class="form-control @error('dirección') is-invalid @enderror">
+                                                    @error('dirección')
+                                                        <span class="invalid-feedback" style="color: red">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="teléfono">Teléfono</label>
+                                                    <input type="text" placeholder="Teléfono" name="teléfono"
+                                                        id="teléfono"
+                                                        value="{{ old('teléfono', $customer->teléfono ?? '') }}"
+                                                        class="form-control @error('teléfono') is-invalid @enderror">
+                                                    @error('teléfono')
+                                                        <span class="invalid-feedback" style="color: red">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="teléfono_móvil">Teléfono Móvil</label>
+                                                    <input type="text" placeholder="Teléfono Móvil" name="teléfono_móvil"
+                                                        id="teléfono_móvil"
+                                                        value="{{ old('teléfono_móvil', $customer->teléfono_móvil ?? '') }}"
+                                                        class="form-control @error('teléfono_móvil') is-invalid @enderror">
+                                                    @error('teléfono_móvil')
+                                                        <span class="invalid-feedback" style="color: red">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="correo">Correo electrónico</label>
+                                                    <input type="text" placeholder="Correo electrónico"
+                                                        name="correo_electrónico" id="correo_electrónico"
+                                                        value="{{ old('correo_electrónico', $customer->correo_electrónico ?? '') }}"
+                                                        class="form-control @error('correo_electrónico') is-invalid @enderror">
+                                                    @error('correo_electrónico')
+                                                        <span class="invalid-feedback" style="color: red">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="Ncontacto">Nombre del conctacto</label>
+                                                    <input type="text" placeholder="Nombre del conctacto"
+                                                        name="nombre_del_contacto" id="nombre_del_contacto"
+                                                        value="{{ old('nombre_del_contacto', $customer->nombre_del_contacto ?? '') }}"
+                                                        class="form-control @error('nombre_del_contacto') is-invalid @enderror">
+                                                    @error('nombre_del_contacto')
+                                                        <span class="invalid-feedback" style="color: red">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="posición">Posición</label>
+                                                    <input type="text" placeholder="Posición" name="posición"
+                                                        id="posición"
+                                                        value="{{ old('posición', $customer->posición ?? '') }}"
+                                                        class="form-control @error('posición') is-invalid @enderror">
+                                                    @error('posición')
+                                                        <span class="invalid-feedback" style="color: red">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                                <div class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
+                                                    <button type="submit" class="btn-gris btn-red mr-2">
                                                         Actualizar Cambios
-                                                  
-                                                </button>
-                                                <button type="button" class="btn-gris btn-border"
-                                                    data-dismiss="modal">Cancelar</button>
-                                            </div>
-                                        </form>
+
+                                                    </button>
+                                                    <button type="button" class="btn-gris btn-border"
+                                                        data-dismiss="modal">Cancelar</button>
+                                                </div>
+                                            </form>
+                                        @endisset
+
                                     </div>
                                 </div>
                             </div>
@@ -494,13 +493,16 @@
                                 </div>
                             </div>
                             <div class="modal-footer align-items-center justify-content-center">
-                                <form id="delete-form" action="{{ route('destroy.customer', $customer->id) }}"
-                                    method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn-gris btn-red">Sí</button>
-                                </form>
-                                <button type="button" class="btn-gris btn-border" data-dismiss="modal">No</button>
+                                @isset($customer)
+                                    <form id="delete-form" action="{{ route('destroy.customer', $customer->id) }}"
+                                        method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn-gris btn-red">Sí</button>
+                                        <button type="button" class="btn-gris btn-border" data-dismiss="modal">No</button>
+                                    </form>
+                                @endisset
+
                             </div>
                         </div>
                     </div>
@@ -597,6 +599,5 @@
                 $(".alert-danger").fadeOut(1000);
             }, 1000);
         });
-    </script> 
+    </script>
 @endpush
-

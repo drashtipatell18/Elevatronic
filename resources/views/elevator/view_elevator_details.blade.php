@@ -117,244 +117,246 @@
                                             </span>
                                         </h3>
                                     </div>
+                                    <div class="col-md-6">
+                                        <table class="table table-borderless">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="text-gris">Nombre</td>
+                                                    <td>
+                                                        @isset($elevator->nombre)
+                                                            {{ $elevator->nombre }}
+                                                        @else
+                                                            Nombre no especificado
+                                                        @endisset
+                                                    </td>
+
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <table class="table table-borderless">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="text-gris">Código</td>
+                                                    <td>
+                                                        @isset($elevator->código)
+                                                            {{ $elevator->código }}
+                                                        @else
+                                                            Código no especificado
+                                                        @endisset
+                                                    </td>
+
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <table class="table table-borderless">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="text-gris">Cliente del ascensor</td>
+                                                    <td>
+                                                        @isset($elevator->cliente)
+                                                            {{ $elevator->cliente }}
+                                                        @else
+                                                            No cliente disponible
+                                                        @endisset
+                                                    </td>
+
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <table class="table table-borderless">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="text-gris">Marca</td>
+                                                    <td>
+                                                        @isset($elevator->marca)
+                                                            {{ $elevator->marca }}
+                                                        @else
+                                                            No marca disponible
+                                                        @endisset
+                                                    </td>
+
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <table class="table table-borderless">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="text-gris">Fecha de entrega</td>
+                                                    {{-- <h4>{{ $elevator->fecha->format('d M Y') }}</h4> --}}
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <table class="table table-borderless">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="text-gris">Garantía</td>
+                                                    <td>
+                                                        @isset($elevator->garantizar)
+                                                            {{ $elevator->garantizar }}
+                                                        @else
+                                                            No garantía disponible
+                                                        @endisset
+                                                    </td>
+
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <table class="table table-borderless">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="text-gris">Dirección</td>
+                                                    <td>
+                                                        @isset($elevator->dirección)
+                                                            {{ $elevator->dirección }}
+                                                        @else
+                                                            No dirección disponible
+                                                        @endisset
+                                                    </td>
+
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <table class="table table-borderless">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="text-gris">Técnico instalador</td>
+                                                    <td>-</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <table class="table table-borderless">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="text-gris">Ubigeo</td>
+                                                    <td>-</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <table class="table table-borderless">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="text-gris">Provincia</td>
+                                                    <td>
+                                                        @isset($elevator->provincia)
+                                                            {{ $elevator->provincia }}
+                                                        @else
+                                                            No provincia disponible
+                                                        @endisset
+                                                    </td>
+
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <table class="table table-borderless">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="text-gris">Técnico ajustador</td>
+                                                    <td>-</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <table class="table table-borderless">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="text-gris">Tipo de ascensor</td>
+                                                    <td>
+                                                        @isset($elevator->tipo_de_ascensor)
+                                                            {{ $elevator->tipo_de_ascensor }}
+                                                        @else
+                                                            Tipo de ascensor no especificado
+                                                        @endisset
+                                                    </td>
+
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <table class="table table-borderless">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="text-gris">Cantidad</td>
+                                                    <td>
+                                                        @isset($elevator->cantidad)
+                                                            {{ $elevator->cantidad }}
+                                                        @else
+                                                            Cantidad no especificada
+                                                        @endisset
+                                                    </td>
+
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="adornoinput mb-3">
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input"
+                                                            id="MGratuito" name="MGratuito" checked>
+                                                        <label class="custom-control-label" for="MGratuito">Mantenimiento
+                                                            gratuito?</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="adornoinput mb-3">
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input"
+                                                            id="SinCuarto" name="SinCuarto">
+                                                        <label class="custom-control-label" for="SinCuarto">Sin
+                                                            cuarto de maquina?</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="adornoinput mb-3">
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input"
+                                                            id="ConCuarto" name="ConCuarto">
+                                                        <label class="custom-control-label" for="ConCuarto">Con
+                                                            cuarto de maquina?</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     @isset($elevator)
-                                        <div class="col-md-6">
-                                            <table class="table table-borderless">
-                                                <tbody>
-                                                    <tr>
-                                                        <td class="text-gris">Nombre</td>
-                                                        <td>
-                                                            @isset($elevator->nombre)
-                                                                {{ $elevator->nombre }}
-                                                            @else
-                                                                Nombre no especificado
-                                                            @endisset
-                                                        </td>
-
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <table class="table table-borderless">
-                                                <tbody>
-                                                    <tr>
-                                                        <td class="text-gris">Código</td>
-                                                        <td>
-                                                            @isset($elevator->código)
-                                                                {{ $elevator->código }}
-                                                            @else
-                                                                Código no especificado
-                                                            @endisset
-                                                        </td>
-
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <table class="table table-borderless">
-                                                <tbody>
-                                                    <tr>
-                                                        <td class="text-gris">Cliente del ascensor</td>
-                                                        <td>
-                                                            @isset($elevator->cliente)
-                                                                {{ $elevator->cliente }}
-                                                            @else
-                                                                No cliente disponible
-                                                            @endisset
-                                                        </td>
-
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <table class="table table-borderless">
-                                                <tbody>
-                                                    <tr>
-                                                        <td class="text-gris">Marca</td>
-                                                        <td>
-                                                            @isset($elevator->marca)
-                                                                {{ $elevator->marca }}
-                                                            @else
-                                                                No marca disponible
-                                                            @endisset
-                                                        </td>
-
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <table class="table table-borderless">
-                                                <tbody>
-                                                    <tr>
-                                                        <td class="text-gris">Fecha de entrega</td>
-                                                        {{-- <h4>{{ $elevator->fecha->format('d M Y') }}</h4> --}}
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <table class="table table-borderless">
-                                                <tbody>
-                                                    <tr>
-                                                        <td class="text-gris">Garantía</td>
-                                                        <td>
-                                                            @isset($elevator->garantizar)
-                                                                {{ $elevator->garantizar }}
-                                                            @else
-                                                                No garantía disponible
-                                                            @endisset
-                                                        </td>
-
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <table class="table table-borderless">
-                                                <tbody>
-                                                    <tr>
-                                                        <td class="text-gris">Dirección</td>
-                                                        <td>
-                                                            @isset($elevator->dirección)
-                                                                {{ $elevator->dirección }}
-                                                            @else
-                                                                No dirección disponible
-                                                            @endisset
-                                                        </td>
-
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <table class="table table-borderless">
-                                                <tbody>
-                                                    <tr>
-                                                        <td class="text-gris">Técnico instalador</td>
-                                                        <td>-</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <table class="table table-borderless">
-                                                <tbody>
-                                                    <tr>
-                                                        <td class="text-gris">Ubigeo</td>
-                                                        <td>-</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <table class="table table-borderless">
-                                                <tbody>
-                                                    <tr>
-                                                        <td class="text-gris">Provincia</td>
-                                                        <td>
-                                                            @isset($elevator->provincia)
-                                                                {{ $elevator->provincia }}
-                                                            @else
-                                                                No provincia disponible
-                                                            @endisset
-                                                        </td>
-
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <table class="table table-borderless">
-                                                <tbody>
-                                                    <tr>
-                                                        <td class="text-gris">Técnico ajustador</td>
-                                                        <td>-</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <table class="table table-borderless">
-                                                <tbody>
-                                                    <tr>
-                                                        <td class="text-gris">Tipo de ascensor</td>
-                                                        <td>
-                                                            @isset($elevator->tipo_de_ascensor)
-                                                                {{ $elevator->tipo_de_ascensor }}
-                                                            @else
-                                                                Tipo de ascensor no especificado
-                                                            @endisset
-                                                        </td>
-
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <table class="table table-borderless">
-                                                <tbody>
-                                                    <tr>
-                                                        <td class="text-gris">Cantidad</td>
-                                                        <td>
-                                                            @isset($elevator->cantidad)
-                                                                {{ $elevator->cantidad }}
-                                                            @else
-                                                                Cantidad no especificada
-                                                            @endisset
-                                                        </td>
-
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="adornoinput mb-3">
-                                                        <div class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input"
-                                                                id="MGratuito" name="MGratuito" checked>
-                                                            <label class="custom-control-label" for="MGratuito">Mantenimiento
-                                                                gratuito?</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="adornoinput mb-3">
-                                                        <div class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input"
-                                                                id="SinCuarto" name="SinCuarto">
-                                                            <label class="custom-control-label" for="SinCuarto">Sin
-                                                                cuarto de maquina?</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="adornoinput mb-3">
-                                                        <div class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input"
-                                                                id="ConCuarto" name="ConCuarto">
-                                                            <label class="custom-control-label" for="ConCuarto">Con
-                                                                cuarto de maquina?</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
                                         <div class="col-md-12">
+
                                             <table class="table table-borderless">
+
                                                 <tbody>
                                                     <tr>
                                                         <td class="text-gris"># Pisos</td>
@@ -417,11 +419,9 @@
                                                 </tbody>
                                             </table>
                                         </div>
-                                    @else
-                                        <div class="col-md-12">
-                                            <p>No se encontró información del ascensor.</p>
-                                        </div>
                                     @endisset
+
+
                                 </div>
                             </div>
                             {{-- contratos --}}
@@ -492,10 +492,17 @@
                                                         <td>{{ $contra->fecha_de_fin }}</td>
                                                         <td>{{ $contra->estado_cuenta_del_contrato }}
                                                         <td>
-                                                            <div class="alerta boton-activo">
-                                                                <i class="fas fa-circle"></i> activo
-                                                            </div>
+                                                            @if ($contra->estado == 'activo')
+                                                                <div class="alerta boton-activo">
+                                                                    <i class="fas fa-circle"></i> activo
+                                                                </div>
+                                                            @elseif ($contra->estado == 'inactivo')
+                                                                <div class="alerta boton-inactivo">
+                                                                    <i class="fas fa-circle"></i> inactivo
+                                                                </div>
+                                                            @endif
                                                         </td>
+
                                                         <td align="right">
                                                             <div class="dropdown">
                                                                 <button type="button" class="btn-action dropdown-toggle"
@@ -708,192 +715,232 @@
                                         <div class="modal-body body_modal">
                                             <div class="row">
                                                 <div class="col-md-12">
-                                                    <form action="/contrato/actualizar/<?php echo $contra->id; ?>" method="POST"
-                                                        class="formulario-modal" id="customerForm">
-                                                        @csrf
-                                                        <div class="row">
-                                                            <div class="col-md-12">
-                                                                <div class="form-group">
-                                                                    <label for="ascensor">Ascensor</label>
-                                                                    <input type="text" placeholder="Ascensor"
-                                                                        name="ascensor" id="ascensor"
-                                                                        class="@error('ascensor') is-invalid @enderror"
-                                                                        value="{{ old('ascensor', $contra->ascensor ?? '') }}">
-                                                                    @error('ascensor')
-                                                                        <span class="invalid-feedback" style="color: red">
-                                                                            <strong>{{ $message }}</strong>
-                                                                        </span>
-                                                                    @enderror
-                                                                </div>
+                                                    @isset($contra)
+                                                        <form action="/contrato/actualizar/<?php echo $contra->id; ?>" method="POST"
+                                                            class="formulario-modal" id="customerForm">
+                                                            @csrf
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label for="ascensor">Ascensor</label>
+                                                                        <input type="text" placeholder="Ascensor"
+                                                                            name="ascensor" id="ascensor"
+                                                                            class="@error('ascensor') is-invalid @enderror"
+                                                                            value="{{ old('ascensor', $contra->ascensor ?? '') }}">
+                                                                        @error('ascensor')
+                                                                            <span class="invalid-feedback" style="color: red">
+                                                                                <strong>{{ $message }}</strong>
+                                                                            </span>
+                                                                        @enderror
+                                                                    </div>
 
 
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <div class="form-group">
-                                                                    <label for="fecha_de_propuesta">Fecha de
-                                                                        propuesta</label>
-                                                                    <input type="date" placeholder="dd/mm/aaaa"
-                                                                        name="fecha_de_propuesta" id="fecha_de_propuesta"
-                                                                        class="@error('fecha_de_propuesta') is-invalid @enderror"
-                                                                        value="{{ old('fecha_de_propuesta', $contra->fecha_de_propuesta ?? '') }}">
-                                                                    @error('fecha_de_propuesta')
-                                                                        <span class="invalid-feedback" style="color: red">
-                                                                            <strong>{{ $message }}</strong>
-                                                                        </span>
-                                                                    @enderror
                                                                 </div>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <div class="form-group">
-                                                                    <label for="monto_de_propuesta">Monto de
-                                                                        propuesta</label>
-                                                                    <input type="text" placeholder="S/ 300 mensual"
-                                                                        name="monto_de_propuesta" id="monto_de_propuesta"
-                                                                        class="@error('monto_de_propuesta') is-invalid @enderror"
-                                                                        value="{{ old('monto_de_propuesta', $contra->monto_de_propuesta ?? '') }}">
-                                                                    @error('monto_de_propuesta')
-                                                                        <span class="invalid-feedback" style="color: red">
-                                                                            <strong>{{ $message }}</strong>
-                                                                        </span>
-                                                                    @enderror
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="col-md-6">
-                                                                <div class="form-group">
-                                                                    <label for="monto_de_contrato">Monto de
-                                                                        contrato</label>
-                                                                    <input type="text" placeholder="S/ 300 mensual"
-                                                                        name="monto_de_contrato" id="monto_de_contrato"
-                                                                        class="@error('monto_de_contrato') is-invalid @enderror"
-                                                                        value="{{ old('monto_de_contrato', $contra->monto_de_contrato ?? '') }}">
-                                                                    @error('monto_de_contrato')
-                                                                        <span class="invalid-feedback" style="color: red">
-                                                                            <strong>{{ $message }}</strong>
-                                                                        </span>
-                                                                    @enderror
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="col-md-6">
-                                                                <div class="form-group">
-                                                                    <label for="fecha_de_inicio">Fecha de inicio</label>
-                                                                    <input type="date" placeholder="dd/mm/aaaa"
-                                                                        name="fecha_de_inicio" id="fecha_de_inicio"
-                                                                        class="@error('fecha_de_inicio') is-invalid @enderror"
-                                                                        value="{{ old('fecha_de_inicio', $contra->fecha_de_inicio ?? '') }}">
-                                                                    @error('fecha_de_inicio')
-                                                                        <span class="invalid-feedback" style="color: red">
-                                                                            <strong>{{ $message }}</strong>
-                                                                        </span>
-                                                                    @enderror
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="col-md-6">
-                                                                <div class="form-group">
-                                                                    <label for="fecha_de_fin">Fecha de fin</label>
-                                                                    <input type="date" placeholder="dd/mm/aaaa"
-                                                                        name="fecha_de_fin" id="fecha_de_fin"
-                                                                        class="@error('fecha_de_fin') is-invalid @enderror"
-                                                                        value="{{ old('fecha_de_fin', $contra->fecha_de_fin ?? '') }}">
-                                                                    @error('fecha_de_fin')
-                                                                        <span class="invalid-feedback" style="color: red">
-                                                                            <strong>{{ $message }}</strong>
-                                                                        </span>
-                                                                    @enderror
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="col-md-12"></div>
-                                                            <div class="col-md-6">
-                                                                <div class="adornoinput mb-3">
-                                                                    <div class="custom-control custom-checkbox">
-                                                                        <input type="checkbox"
-                                                                            class="custom-control-input" id="renovación"
-                                                                            name="renovación"
-                                                                            {{ $contra->renovación ? 'checked' : '' }}>
-                                                                        <label class="custom-control-label"
-                                                                            for="renovación">Renovación</label>
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label for="fecha_de_propuesta">Fecha de
+                                                                            propuesta</label>
+                                                                        <input type="date" placeholder="dd/mm/aaaa"
+                                                                            name="fecha_de_propuesta" id="fecha_de_propuesta"
+                                                                            class="@error('fecha_de_propuesta') is-invalid @enderror"
+                                                                            value="{{ old('fecha_de_propuesta', $contra->fecha_de_propuesta ?? '') }}">
+                                                                        @error('fecha_de_propuesta')
+                                                                            <span class="invalid-feedback" style="color: red">
+                                                                                <strong>{{ $message }}</strong>
+                                                                            </span>
+                                                                        @enderror
                                                                     </div>
                                                                 </div>
-                                                            </div>
-
-                                                            <div class="col-md-12"></div>
-                                                            <div class="col-md-6">
-                                                                <div class="form-group">
-                                                                    <label for="cada_cuantos_meses">Cada cuántos
-                                                                        meses?</label>
-                                                                    <input type="text" placeholder="Meses"
-                                                                        name="cada_cuantos_meses" id="cada_cuantos_meses"
-                                                                        class="@error('cada_cuantos_meses') is-invalid @enderror"
-                                                                        value="{{ old('cada_cuantos_meses', $contra->cada_cuantos_meses ?? '') }}">
-                                                                    @error('cada_cuantos_meses')
-                                                                        <span class="invalid-feedback" style="color: red">
-                                                                            <strong>{{ $message }}</strong>
-                                                                        </span>
-                                                                    @enderror
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label for="monto_de_propuesta">Monto de
+                                                                            propuesta</label>
+                                                                        <input type="text" placeholder="S/ 300 mensual"
+                                                                            name="monto_de_propuesta" id="monto_de_propuesta"
+                                                                            class="@error('monto_de_propuesta') is-invalid @enderror"
+                                                                            value="{{ old('monto_de_propuesta', $contra->monto_de_propuesta ?? '') }}">
+                                                                        @error('monto_de_propuesta')
+                                                                            <span class="invalid-feedback" style="color: red">
+                                                                                <strong>{{ $message }}</strong>
+                                                                            </span>
+                                                                        @enderror
+                                                                    </div>
                                                                 </div>
-                                                            </div>
 
-                                                            <div class="col-md-12">
-                                                                <div class="form-group">
-                                                                    <label for="observación">Observación</label>
-                                                                    <textarea name="observación" id="observación" placeholder="Comentario de contrato" cols="30" rows="5"
-                                                                        class="@error('observación') is-invalid @enderror">{{ old('observación', $contra->observación ?? '') }}</textarea>
-                                                                    @error('observación')
-                                                                        <span class="invalid-feedback" style="color: red">
-                                                                            <strong>{{ $message }}</strong>
-                                                                        </span>
-                                                                    @enderror
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label for="monto_de_contrato">Monto de
+                                                                            contrato</label>
+                                                                        <input type="text" placeholder="S/ 300 mensual"
+                                                                            name="monto_de_contrato" id="monto_de_contrato"
+                                                                            class="@error('monto_de_contrato') is-invalid @enderror"
+                                                                            value="{{ old('monto_de_contrato', $contra->monto_de_contrato ?? '') }}">
+                                                                        @error('monto_de_contrato')
+                                                                            <span class="invalid-feedback" style="color: red">
+                                                                                <strong>{{ $message }}</strong>
+                                                                            </span>
+                                                                        @enderror
+                                                                    </div>
                                                                 </div>
-                                                            </div>
 
-                                                            <div class="col-md-12">
-                                                                <div class="form-group">
-                                                                    <label for="estado_cuenta_del_contrato">Estado cuenta
-                                                                        del contrato</label>
-                                                                    <textarea name="estado_cuenta_del_contrato" id="estado_cuenta_del_contrato" placeholder="Estado cuenta del contrato"
-                                                                        cols="30" rows="5" class="@error('estado_cuenta_del_contrato') is-invalid @enderror">{{ old('estado_cuenta_del_contrato', $contra->estado_cuenta_del_contrato ?? '') }}</textarea>
-                                                                    @error('estado_cuenta_del_contrato')
-                                                                        <span class="invalid-feedback" style="color: red">
-                                                                            <strong>{{ $message }}</strong>
-                                                                        </span>
-                                                                    @enderror
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label for="fecha_de_inicio">Fecha de inicio</label>
+                                                                        <input type="date" placeholder="dd/mm/aaaa"
+                                                                            name="fecha_de_inicio" id="fecha_de_inicio"
+                                                                            class="@error('fecha_de_inicio') is-invalid @enderror"
+                                                                            value="{{ old('fecha_de_inicio', $contra->fecha_de_inicio ?? '') }}">
+                                                                        @error('fecha_de_inicio')
+                                                                            <span class="invalid-feedback" style="color: red">
+                                                                                <strong>{{ $message }}</strong>
+                                                                            </span>
+                                                                        @enderror
+                                                                    </div>
                                                                 </div>
-                                                            </div>
 
-                                                            <div class="col-md-12">
-                                                                <div class="form-group">
-                                                                    <label for="estado">Estado</label>
-                                                                    <input type="text" placeholder="Activo"
-                                                                        name="estado" id="estado"
-                                                                        class="@error('estado') is-invalid @enderror"
-                                                                        value="{{ old('estado', $contra->estado ?? '') }}">
-                                                                    @error('estado')
-                                                                        <span class="invalid-feedback" style="color: red">
-                                                                            <strong>{{ $message }}</strong>
-                                                                        </span>
-                                                                    @enderror
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label for="fecha_de_fin">Fecha de fin</label>
+                                                                        <input type="date" placeholder="dd/mm/aaaa"
+                                                                            name="fecha_de_fin" id="fecha_de_fin"
+                                                                            class="@error('fecha_de_fin') is-invalid @enderror"
+                                                                            value="{{ old('fecha_de_fin', $contra->fecha_de_fin ?? '') }}">
+                                                                        @error('fecha_de_fin')
+                                                                            <span class="invalid-feedback" style="color: red">
+                                                                                <strong>{{ $message }}</strong>
+                                                                            </span>
+                                                                        @enderror
+                                                                    </div>
                                                                 </div>
+
+                                                                <div class="col-md-12"></div>
+                                                                <div class="col-md-6">
+                                                                    <div class="adornoinput mb-3">
+                                                                        <div class="custom-control custom-checkbox">
+                                                                            <input type="checkbox"
+                                                                                class="custom-control-input" id="renovación"
+                                                                                name="renovación"
+                                                                                {{ $contra->renovación ? 'checked' : '' }}>
+                                                                            <label class="custom-control-label"
+                                                                                for="renovación">Renovación</label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-md-12"></div>
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label for="cada_cuantos_meses">Cada cuántos
+                                                                            meses?</label>
+                                                                        <input type="text" placeholder="Meses"
+                                                                            name="cada_cuantos_meses" id="cada_cuantos_meses"
+                                                                            class="@error('cada_cuantos_meses') is-invalid @enderror"
+                                                                            value="{{ old('cada_cuantos_meses', $contra->cada_cuantos_meses ?? '') }}">
+                                                                        @error('cada_cuantos_meses')
+                                                                            <span class="invalid-feedback" style="color: red">
+                                                                                <strong>{{ $message }}</strong>
+                                                                            </span>
+                                                                        @enderror
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label for="observación">Observación</label>
+                                                                        <textarea name="observación" id="observación" placeholder="Comentario de contrato" cols="30" rows="5"
+                                                                            class="@error('observación') is-invalid @enderror">{{ old('observación', $contra->observación ?? '') }}</textarea>
+                                                                        @error('observación')
+                                                                            <span class="invalid-feedback" style="color: red">
+                                                                                <strong>{{ $message }}</strong>
+                                                                            </span>
+                                                                        @enderror
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label for="estado_cuenta_del_contrato">Estado cuenta
+                                                                            del contrato</label>
+                                                                        <textarea name="estado_cuenta_del_contrato" id="estado_cuenta_del_contrato" placeholder="Estado cuenta del contrato"
+                                                                            cols="30" rows="5" class="@error('estado_cuenta_del_contrato') is-invalid @enderror">{{ old('estado_cuenta_del_contrato', $contra->estado_cuenta_del_contrato ?? '') }}</textarea>
+                                                                        @error('estado_cuenta_del_contrato')
+                                                                            <span class="invalid-feedback" style="color: red">
+                                                                                <strong>{{ $message }}</strong>
+                                                                            </span>
+                                                                        @enderror
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label for="estado">Estado</label>
+                                                                        <input type="text" placeholder="Activo"
+                                                                            name="estado" id="estado"
+                                                                            class="@error('estado') is-invalid @enderror"
+                                                                            value="{{ old('estado', $contra->estado ?? '') }}">
+                                                                        @error('estado')
+                                                                            <span class="invalid-feedback" style="color: red">
+                                                                                <strong>{{ $message }}</strong>
+                                                                            </span>
+                                                                        @enderror
+                                                                    </div>
+                                                                </div>
+
                                                             </div>
-
-                                                        </div>
-
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
-                                            <button type="submit" class="btn-gris btn-red mr-2">Asignar
-                                                Respuesto</button>
-                                            <button type="button" class="btn-gris btn-border"
-                                                data-dismiss="modal">Cancelar</button>
-                                        </div>
-                                        </form>
+                                            <div class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
+                                                <button type="submit" class="btn-gris btn-red mr-2">Asignar
+                                                    Respuesto</button>
+                                                <button type="button" class="btn-gris btn-border"
+                                                    data-dismiss="modal">Cancelar</button>
+                                            </div>
+                                            </form>
+                                        @endisset
+
                                     </div>
                                 </div>
                             </div>
 
+                            <!-- Modal Eliminar-->
+                            <div class="modal fade" id="modalEliminar" tabindex="-1" role="dialog"
+                                aria-labelledby="modelTitleId" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content border-radius-12">
+                                        <divw class="modal-body">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">×</span>
+                                                    </button>
+                                                    <div class="box1">
+                                                        <img src="{{ asset('img/iconos/trash.svg') }}" alt="trash"
+                                                            width="76">
+                                                        <p class="mt-3 mb-0">
+                                                            ¿Seguro que quieres eliminar <span id="item-name"></span>?
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </divw>
+                                        <div class="modal-footer align-items-center justify-content-center">
+                                            @isset($contra)
+                                                <form id="delete-form" action="{{ route('destroy.contract', $contra->id) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn-gris btn-red">Sí</button>
+                                                    <button type="button" class="btn-gris btn-border"
+                                                        data-dismiss="modal">No</button>
+                                                </form>
+                                            @endisset
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
 
                             {{-- mantenimientos --}}
                             <div id="mantenimientos" class="tab-pane">
@@ -1582,14 +1629,15 @@
 
 
                 <!-- Modal Eliminar-->
-                <div class="modal fade" id="modalEliminar" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
-                    aria-hidden="true">
+                <div class="modal fade" id="modalEliminar" tabindex="-1" role="dialog"
+                    aria-labelledby="modelTitleId" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content border-radius-12">
                             <divw class="modal-body">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <button type="button" class="close" data-dismiss="modal"
+                                            aria-label="Close">
                                             <span aria-hidden="true">×</span>
                                         </button>
                                         <div class="box1">
@@ -1609,7 +1657,8 @@
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn-gris btn-red">Sí</button>
-                                        <button type="button" class="btn-gris btn-border" data-dismiss="modal">No</button>
+                                        <button type="button" class="btn-gris btn-border"
+                                            data-dismiss="modal">No</button>
                                     </form>
                                 @endisset
                             </div>

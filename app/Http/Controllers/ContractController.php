@@ -34,17 +34,17 @@ class ContractController extends Controller
 
         // Create a new Contract instance
         $contract = Contract::create([
-            'ascensor'              => $request->input('ascensor'),
-            'fecha_de_propuesta'     => $request->input('fecha_de_propuesta'),
-            'monto_de_propuesta'                 => $request->input('monto_de_propuesta'),
-            'monto_de_contrato'           => $request->input('monto_de_contrato'),
-            'fecha_de_inicio'                => $request->input('fecha_de_inicio'),
-            'fecha_de_fin'           => $request->input('fecha_de_fin'),
-            'renovación'            => $request->input('renovación'),
-            'cada_cuantos_meses'      => $request->input('cada_cuantos_meses'),
-            'observación'  => $request->input('observación'),
+            'ascensor'                   => $request->input('ascensor'),
+            'fecha_de_propuesta'         => $request->input('fecha_de_propuesta'),
+            'monto_de_propuesta'         => $request->input('monto_de_propuesta'),
+            'monto_de_contrato'          => $request->input('monto_de_contrato'),
+            'fecha_de_inicio'            => $request->input('fecha_de_inicio'),
+            'fecha_de_fin'               => $request->input('fecha_de_fin'),
+            'renovación'                 => $request->input('renovación'),
+            'cada_cuantos_meses'         => $request->input('cada_cuantos_meses'),
+            'observación'                => $request->input('observación'),
             'estado_cuenta_del_contrato' => $request->input('estado_cuenta_del_contrato'),
-            'estado'            => $request->input('estado'),
+            'estado'                     => strtolower($request->input('estado')),
         ]);
 
         // Redirect back with success message
@@ -93,22 +93,16 @@ class ContractController extends Controller
             'cada_cuantos_meses'      => $request->input('cada_cuantos_meses'),
             'observación'  => $request->input('observación'),
             'estado_cuenta_del_contrato' => $request->input('estado_cuenta_del_contrato'),
-            'estado'            => $request->input('estado'),
+            'estado'            => strtolower($request->input('estado')),
         ]);
 
         session()->flash('success', 'Contract actualizado exitosamente!');
-        return redirect()->route('customer');
+        return redirect()->route('contract');
 
     }
 
     public function contractDestroy($id){
         $contract = Contract::find($id);
-        $elevator = Elevators::find($id);
-        
-        if (!$elevator) {
-            abort(404); // Or handle the case where $elevator is not found
-        }
-        
         $contract->delete();
         session()->flash('danger', 'Contract eliminado exitosamente!');
         return redirect()->back();

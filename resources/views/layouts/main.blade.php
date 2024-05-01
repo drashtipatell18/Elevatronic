@@ -64,10 +64,10 @@
                 <a href="{{ route('sparepart') }}"><i class="iconoir-wrench"></i> Repuestos</a>
             </li>
             <li class="">
-                <a href="{{ route('staff')}}"><i class="iconoir-suitcase"></i> Personal</a>
+                <a href="{{ route('staff') }}"><i class="iconoir-suitcase"></i> Personal</a>
             </li>
             <li class="">
-                <a href="{{ route('user')}}"><i class="iconoir-user-star"></i> Usuarios</a>
+                <a href="{{ route('user') }}"><i class="iconoir-user-star"></i> Usuarios</a>
             </li>
             <li class="">
                 <a href="{{ route('schedule') }}"><i class="iconoir-bed"></i> Cronograma</a>
@@ -202,30 +202,33 @@
     </div>
 </div>
 
-<!-- Modal cerrar sesion-->
+<!-- Logout Modal -->
 <div class="modal fade" id="modalcerrar" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content border-radius-12">
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-12">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                        <div class="box2">
-                            <img src="img/iconos/icono-cerrar.svg" alt="cerrar" width="76">
-                            <p class="mt-3 mb-0">
-                                ¿Seguro que quieres cerrar sesión?
-                            </p>
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                            <div class="box2">
+                                <img src="{{ asset('img/iconos/icono-cerrar.svg') }}" alt="cerrar" width="76">
+                                <p class="mt-3 mb-0">
+                                    ¿Seguro que quieres cerrar sesión?
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer align-items-center justify-content-center">
-                <button type="button" class="btn-gris btn-red">Si</button>
-                <button type="button" class="btn-gris btn-border" data-dismiss="modal">No</button>
-            </div>
+                <div class="modal-footer align-items-center justify-content-center">
+                    <button type="submit" class="btn-gris btn-red">Si</button>
+                    <button type="button" class="btn-gris btn-border" data-dismiss="modal">No</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -533,7 +536,6 @@
         });
 
     });
-    
 </script>
 @stack('scripts')
 

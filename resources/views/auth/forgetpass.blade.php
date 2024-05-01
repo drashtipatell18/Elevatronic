@@ -1,40 +1,71 @@
-@extends('layouts.main')
+<!DOCTYPE html>
+<html lang="en">
 
-@section('content')
-               
-<section class="bg_login">
-    <div class="container h-100">
-        <div class="row h-100 align-items-center justify-content-center">
-            <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 col-12">
-                <div class="login">
-                    <div class="form-recupera" id="form-recupera">
-                        <div class="mb-2">
-                            <a href="">
-                                <i class="fas fa-chevron-left"></i>
-                            </a> 
-                         </div> 
-                        <div class="mb-4">
-                            <h4 class="mb-1">
-                                Recupera tu contraseña
-                            </h4>
-                            <p>
-                                Introduce tu correo y enviaremos instrucciones sobre cómo restablecerlo.
-                            </p>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Elevatronic</title>
+
+    <link rel="stylesheet" href="{{ asset('css/menu.css') }}?v={{ uniqid() }}">
+    <link rel="stylesheet" href="{{ asset('css/estilos.css') }}?v={{ rand() }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v5.15.4/css/all.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/iconoir-icons/iconoir@main/css/iconoir.css">
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.4.0/css/fixedHeader.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css" rel="stylesheet">
+    <!-- Include Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+
+<body>
+    <div class="wrapper">
+        <section class="bg_login">
+            <div class="container h-100">
+                <div class="row h-100 align-items-center justify-content-center">
+                    <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 col-12">
+                        <div class="login">
+                            <div class="form-recupera" id="form-recupera">
+                                <div class="mb-2">
+                                    <a href="">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </a>
+                                </div>
+                                <div class="mb-4">
+                                    <h4 class="mb-1">
+                                        Recupera tu contraseña
+                                    </h4>
+                                    <p>
+                                        Introduce tu correo y enviaremos instrucciones sobre cómo restablecerlo.
+                                    </p>
+                                </div>
+                                <form action="" method="post">
+                                    <div class="form-group mb-5">
+                                        <label for="correo">Correo electrónico</label>
+                                        <input type="text" name="correo" id="correo"
+                                            placeholder="Correo electrónico">
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="button" class="btn-primario" id="envia">Enviar</button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
-                        <form action="" method="post">
-                            <div class="form-group mb-5">
-                                <label for="correo">Correo electrónico</label>
-                                <input type="text" name="correo" id="correo" placeholder="Correo electrónico">
-                            </div>
-                            <div class="form-group">
-                                <button type="button" class="btn-primario" id="envia">Enviar</button>
-                            </div>
-                        </form>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
     </div>
-</section>
-            
-@endsection
+</body>
+
+</html>

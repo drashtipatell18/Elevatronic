@@ -28,9 +28,10 @@ use App\Http\Controllers\MaintInReviewController;
 */
 
 Route::get('/', function () {
-    return view('layouts.main');
+    return redirect()->route('login');
 });
 
+Route::get('/login',[HomeController::class,'Login'])->name('login');
 Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');

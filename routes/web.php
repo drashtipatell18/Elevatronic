@@ -54,6 +54,7 @@ Route::get('/tipos/de/ascensor/editar/{id}', [ElevatortypesController::class, 'e
 Route::get('/tipos/de/ascensor/detalle/{id}', [ElevatortypesController::class, 'elevatortypesDetails'])->name('details.elevatortypes');
 Route::post('/tipos/de/ascensor/actualizar/{id}', [ElevatortypesController::class, 'elevatortypesUpdate'])->name('update.elevatortypes');
 Route::delete('/tipos/de/ascensor/destruir/{id}',[ElevatortypesController::class,'elevatortypesDestroy'])->name('destroy.elevatortypes');
+Route::post('/asignarrepuesto/insertar',[ElevatortypesController::class,'AsignarRepuesto'])->name('insert.asignarrepuesto');
 
 // Province //
 

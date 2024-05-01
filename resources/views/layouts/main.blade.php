@@ -262,49 +262,6 @@
     </div>
 </div>
 
-
-<!-- Modal Asignar Repuesto-->
-<div class="modal left fade" id="asignarRepuestos" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title font-family-Outfit-SemiBold">Asignar Repuesto</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body body_modal">
-                <div class="row">
-                    <div class="col-md-12">
-                        <form action="" class="formulario-modal">
-                            <div class="form-group">
-                                <label for="NombreTipoAscensor">Nombre de Tipo de Ascensor</label>
-                                <input type="text" placeholder="Nombre de Tipo de Ascensor"
-                                    name="NombreTipoAscensor" id="NombreTipoAscensor">
-                            </div>
-                            <div class="form-group">
-                                <label for="repuesto">Repuesto</label>
-                                <select class="custom-select" name="repuesto" id="repuesto">
-                                    <option selected class="d-none">Seleccionar opción</option>
-                                    <option value="1">Repuesto 1</option>
-                                    <option value="2">Repuesto 2</option>
-                                    <option value="3">Repuesto 3</option>
-                                </select>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
-                <button type="button" class="btn-gris btn-red mr-2">Asignar respuesto</button>
-                <button type="button" class="btn-gris btn-border" data-dismiss="modal">Cancelar</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
 <!-- Modal Creando Contrato-->
 <div class="modal left fade" id="crearContratos" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
     aria-hidden="true">

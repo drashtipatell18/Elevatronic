@@ -41,8 +41,8 @@
                                 <div class="dropdown">
                                     <button class="btn-gris" type="button" id="dropdownMenuButton" data-toggle="dropdown"
                                         aria-haspopup="true" aria-expanded="false">
-                                        <img src="{{ asset('img/iconos/export.svg') }}" alt="icono" class="mr-2"> Exportar Datos <i
-                                            class="iconoir-nav-arrow-down"></i>
+                                        <img src="{{ asset('img/iconos/export.svg') }}" alt="icono" class="mr-2">
+                                        Exportar Datos <i class="iconoir-nav-arrow-down"></i>
                                     </button>
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                                         <button class="dropdown-item" id="export_excel">Excel</button>
@@ -67,16 +67,16 @@
                                     <tbody>
                                         @foreach ($users as $index => $user)
                                             <tr class="">
-                                                <td><img src="{{ asset('images/' . $user->fotodeusuario) }}" alt="personal"
+                                                <td><img src="{{ asset('images/' . $user->image) }}" alt="personal"
                                                         width="52" height="52" class="img-table"></td>
                                                 <td>{{ $index + 1 }}</td>
                                                 <td>
                                                     <a href="{{ route('view.user', $user->id) }}" class="text-blue">
-                                                        {{ $user->nombre }}
+                                                        {{ $user->name }}
                                                     </a>
                                                 </td>
-                                                <td>{{ $user->correo }}</td>
-                                                <td>{{ $user->teléfono }}</td>
+                                                <td>{{ $user->email }}</td>
+                                                <td>{{ $user->phone }}</td>
                                                 <td align="right">
                                                     <div class="dropdown">
                                                         <button type="button" class="btn-action dropdown-toggle"
@@ -133,7 +133,7 @@
                                         <div class="">
                                             <label for="imageUploadUsuario" class="text-gris mt-4">Seleccione una
                                                 imagen</label>
-                                            <input type="file" id="imageUploadUsuario" name="fotodeusuario"
+                                            <input type="file" id="imageUploadUsuario" name="image"
                                                 style="display: none;" accept="image/*" />
                                             <button type="button" id="cargarimagenUsuario" class="btn-gris">
                                                 <i class="fas fa-arrow-to-top mr-2"></i>Subir Imagen
@@ -143,10 +143,10 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="Nombre de usuario">Nombre de usuario</label>
-                                            <input type="text" placeholder="nombredeusuario" name="nombredeusuario"
-                                                class="form-control @error('nombredeusuario') is-invalid @enderror"
-                                                id="nombredeusuario">
-                                            @error('nombredeusuario')
+                                            <input type="text" placeholder="username" name="username"
+                                                class="form-control @error('username') is-invalid @enderror"
+                                                id="username">
+                                            @error('username')
                                                 <span class="invalid-feedback" style="color: red">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -156,9 +156,9 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="NombreUsuario">Nombre</label>
-                                            <input type="text" placeholder="Nombre" name="nombre" id="nombre"
-                                                class="form-control @error('nombre') is-invalid @enderror">
-                                            @error('nombre')
+                                            <input type="text" placeholder="Nombre" name="name" id="name"
+                                                class="form-control @error('name') is-invalid @enderror">
+                                            @error('name')
                                                 <span class="invalid-feedback" style="color: red">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -168,9 +168,9 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="correoUsuario">Correo</label>
-                                            <input type="text" placeholder="Correo" name="correo" id="correo"
-                                                class="form-control @error('correo') is-invalid @enderror">
-                                            @error('correo')
+                                            <input type="text" placeholder="Correo" name="email" id="email"
+                                                class="form-control @error('email') is-invalid @enderror">
+                                            @error('email')
                                                 <span class="invalid-feedback" style="color: red">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -180,9 +180,9 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="telefonoUsuario">Teléfono</label>
-                                            <input type="text" name="teléfono" id="teléfono" placeholder="Teléfono"
-                                                class="form-control @error('teléfono') is-invalid @enderror">
-                                            @error('teléfono')
+                                            <input type="text" name="phone" id="phone" placeholder="Teléfono"
+                                                class="form-control @error('phone') is-invalid @enderror">
+                                            @error('phone')
                                                 <span class="invalid-feedback" style="color: red">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -193,14 +193,14 @@
                                         <div class="form-group">
                                             <label for="Empleado">Empleado</label>
                                             <select
-                                                class="custom-select form-control @error('empleado') is-invalid @enderror"
-                                                name="empleado" id="empleado">
+                                                class="custom-select form-control @error('employee') is-invalid @enderror"
+                                                name="employee" id="employee">
                                                 <option selected class="d-none">Seleccionar opción</option>
-                                                <option value="1">Empleado 1</option>
-                                                <option value="2">Empleado 2</option>
-                                                <option value="3">Empleado 3</option>
+                                                <option value="empleado_1">Empleado 1</option>
+                                                <option value="empleado_2">Empleado 2</option>
+                                                <option value="empleado_3">Empleado 3</option>
                                             </select>
-                                            @error('empleado')
+                                            @error('employee')
                                                 <span class="invalid-feedback" style="color: red">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -210,10 +210,10 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="contrasenaUser">Contraseña</label>
-                                            <input type="password" name="contraseña" id="contraseña"
-                                                class="form-control @error('contraseña') is-invalid @enderror"
+                                            <input type="password" name="password" id="password"
+                                                class="form-control @error('password') is-invalid @enderror"
                                                 placeholder="Contraseña">
-                                            @error('contraseña')
+                                            @error('password')
                                                 <span class="invalid-feedback" style="color: red">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -244,135 +244,137 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <form action="{{ route('update.user', $user->id) }}" method="POST" class="formulario-modal"
-                    enctype="multipart/form-data">
-                    @csrf
-                    <div class="modal-body body_modal">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label>Foto de usuario</label>
-                                        <div id="editimagenPrevioUsuario">
-                                            @if ($user->fotodeusuario)
-                                                <img src="{{ asset('images/' . $user->fotodeusuario) }}" width="200"
-                                                    height="200" alt="Existing Image">
-                                            @endif
+                @isset($user)
+                    <form action="{{ route('update.user', $user->id) }}" method="POST" class="formulario-modal"
+                        enctype="multipart/form-data">
+                        @csrf
+                        <div class="modal-body body_modal">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label>Foto de usuario</label>
+                                            <div id="editimagenPrevioUsuario">
+                                                @if ($user->image)
+                                                    <img src="{{ asset('images/' . $user->image) }}" width="200"
+                                                        height="200" alt="Existing Image">
+                                                @endif
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <div class="">
-                                            <label for="imageUploadUsuario" class="text-gris mt-4">Seleccione una
-                                                imagen</label>
-                                            <input type="file" id="editimageUploadUsuario" name="fotodeusuario"
-                                                style="display: none;" accept="image/*" />
-                                            <button type="button" id="editcargarimagenUsuario" class="btn-gris">
-                                                <i class="fas fa-arrow-to-top mr-2"></i>Subir Imagen
-                                            </button>
+                                        <div class="col-md-6 mb-3">
+                                            <div class="">
+                                                <label for="imageUploadUsuario" class="text-gris mt-4">Seleccione una
+                                                    imagen</label>
+                                                <input type="file" id="editimageUploadUsuario" name="image"
+                                                    style="display: none;" accept="image/*" />
+                                                <button type="button" id="editcargarimagenUsuario" class="btn-gris">
+                                                    <i class="fas fa-arrow-to-top mr-2"></i>Subir Imagen
+                                                </button>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="Nombre de usuario">Nombre de usuario</label>
-                                            <input type="text" placeholder="nombredeusuario" name="nombredeusuario"
-                                                class="form-control @error('nombredeusuario') is-invalid @enderror"
-                                                value="{{ old('nombredeusuario', $user->nombredeusuario ?? '') }}"
-                                                id="nombredeusuario">
-                                            @error('nombredeusuario')
-                                                <span class="invalid-feedback" style="color: red">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="NombreUsuario">Nombre</label>
-                                            <input type="text" placeholder="Nombre" name="nombre" id="nombre"
-                                                class="form-control @error('nombre') is-invalid @enderror"
-                                                value="{{ old('nombre', $user->nombre ?? '') }}">
-                                            @error('nombre')
-                                                <span class="invalid-feedback" style="color: red">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="correoUsuario">Correo</label>
-                                            <input type="text" placeholder="Correo" name="correo" id="correo"
-                                                class="form-control @error('correo') is-invalid @enderror"
-                                                value="{{ old('correo', $user->correo ?? '') }}">
-                                            @error('correo')
-                                                <span class="invalid-feedback" style="color: red">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="telefonoUsuario">Teléfono</label>
-                                            <input type="text" name="teléfono" id="teléfono" placeholder="Teléfono"
-                                                value="{{ old('teléfono', $user->teléfono ?? '') }}"
-                                                class="form-control @error('correo') is-invalid @enderror">
-                                            @error('teléfono')
-                                                <span class="invalid-feedback" style="color: red">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="Empleado">Empleado</label>
-                                            <select
-                                                class="custom-select form-control @error('empleado') is-invalid @enderror"
-                                                name="empleado" id="empleado">
-                                                <option selected disabled>Seleccionar opción</option>
-                                                <option value="empleado_1"
-                                                    {{ $user->empleado == 'empleado_1' ? 'selected' : '' }}>Empleado 1
-                                                </option>
-                                                <option value="empleado_2"
-                                                    {{ $user->empleado == 'empleado_2' ? 'selected' : '' }}>Empleado 2
-                                                </option>
-                                                <option value="empleado_3"
-                                                    {{ $user->empleado == 'empleado_3' ? 'selected' : '' }}>Empleado 3
-                                                </option>
-                                            </select>
-                                            @error('empleado')
-                                                <span class="invalid-feedback" style="color: red">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-
-                                    @if (!isset($users))
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="contrasenaUser">Contraseña</label>
-                                                <input type="password" name="contraseña" id="contraseña"
-                                                    class="form-control @error('contraseña') is-invalid @enderror"
-                                                    placeholder="Contraseña">
-                                                @error('contraseña')
+                                                <label for="Nombre de usuario">Nombre de usuario</label>
+                                                <input type="text" placeholder="nombredeusuario" name="username"
+                                                    class="form-control @error('username') is-invalid @enderror"
+                                                    value="{{ old('username', $user->username ?? '') }}" id="username">
+                                                @error('username')
                                                     <span class="invalid-feedback" style="color: red">
                                                         <strong>{{ $message }}</strong>
                                                     </span>
                                                 @enderror
                                             </div>
                                         </div>
-                                    @endif
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="NombreUsuario">Nombre</label>
+                                                <input type="text" placeholder="Nombre" name="name" id="name"
+                                                    class="form-control @error('name') is-invalid @enderror"
+                                                    value="{{ old('name', $user->name ?? '') }}">
+                                                @error('name')
+                                                    <span class="invalid-feedback" style="color: red">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="correoUsuario">Correo</label>
+                                                <input type="text" placeholder="Correo" name="email" id="email"
+                                                    class="form-control @error('email') is-invalid @enderror"
+                                                    value="{{ old('email', $user->email ?? '') }}">
+                                                @error('email')
+                                                    <span class="invalid-feedback" style="color: red">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="telefonoUsuario">Teléfono</label>
+                                                <input type="text" name="phone" id="phone" placeholder="Teléfono"
+                                                    value="{{ old('phone', $user->phone ?? '') }}"
+                                                    class="form-control @error('phone') is-invalid @enderror">
+                                                @error('phone')
+                                                    <span class="invalid-feedback" style="color: red">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="Empleado">Empleado</label>
+                                                <select
+                                                    class="custom-select form-control @error('employee') is-invalid @enderror"
+                                                    name="employee" id="employee">
+                                                    <option selected disabled>Seleccionar opción</option>
+                                                    <option value="empleado_1"
+                                                        {{ $user->employee == 'empleado_1' ? 'selected' : '' }}>Empleado 1
+                                                    </option>
+                                                    <option value="empleado_2"
+                                                        {{ $user->employee == 'empleado_2' ? 'selected' : '' }}>Empleado 2
+                                                    </option>
+                                                    <option value="empleado_3"
+                                                        {{ $user->employee == 'empleado_3' ? 'selected' : '' }}>Empleado 3
+                                                    </option>
+                                                </select>
+                                                @error('employee')
+                                                    <span class="invalid-feedback" style="color: red">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        @if (!isset($users))
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label for="contrasenaUser">Contraseña</label>
+                                                    <input type="password" name="password" id="password"
+                                                        class="form-control @error('password') is-invalid @enderror"
+                                                        placeholder="Contraseña">
+                                                    @error('password')
+                                                        <span class="invalid-feedback" style="color: red">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
-                        <button type="submit" class="btn-gris btn-red mr-2">Actualizar cambios</button>
-                        <button type="button" class="btn-gris btn-border" data-dismiss="modal">Cancelar</button>
-                    </div>
-                </form>
+                        <div class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
+                            <button type="submit" class="btn-gris btn-red mr-2">Actualizar cambios</button>
+                            <button type="button" class="btn-gris btn-border" data-dismiss="modal">Cancelar</button>
+                        </div>
+                    </form>
+                @endisset
+
             </div>
         </div>
     </div>
@@ -398,12 +400,15 @@
                     </div>
                 </div>
                 <div class="modal-footer align-items-center justify-content-center">
+                    @isset($user)
                     <form id="delete-form" action="{{ route('destroy.user', $user->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn-gris btn-red">Sí</button>
+                        <button type="button" class="btn-gris btn-border" data-dismiss="modal">No</button>
                     </form>
-                    <button type="button" class="btn-gris btn-border" data-dismiss="modal">No</button>
+                    @endisset
+
                 </div>
             </div>
         </div>

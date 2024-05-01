@@ -42,7 +42,8 @@
                                     <button class="btn-gris" type="button" id="dropdownMenuButton" data-toggle="dropdown"
                                         aria-haspopup="true" aria-expanded="false">
                                         <img src="
-                                        {{ asset('img/iconos/export.svg') }}" alt="icono" class="mr-2"> Exportar Datos <i
+                                        {{ asset('img/iconos/export.svg') }}"
+                                            alt="icono" class="mr-2"> Exportar Datos <i
                                             class="iconoir-nav-arrow-down"></i>
                                     </button>
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
@@ -101,6 +102,7 @@
                         </div>
                     </div>
                 </div>
+
                 <!-- Modal Crear Tipo de Ascensor-->
                 <div class="modal left fade" id="tiposAscensores" tabindex="-1" role="dialog"
                     aria-labelledby="modelTitleId" aria-hidden="true">
@@ -155,35 +157,36 @@
                                     <span aria-hidden="true">×</span>
                                 </button>
                             </div>
-                            <form action="/tipos/de/ascensor/actualizar/<?php echo $elevator_type->id; ?>" method="POST"
-                                class="formulario-modal" id="customerForm">
-                                @csrf
-                                <div class="modal-body body_modal">
-                                    <div class="row">
-                                        <div class="col-md-12">
+                            @isset($elevator_type)
+                                <form action="/tipos/de/ascensor/actualizar/<?php echo $elevator_type->id; ?>" method="POST"
+                                    class="formulario-modal" id="customerForm">
+                                    @csrf
+                                    <div class="modal-body body_modal">
+                                        <div class="row">
+                                            <div class="col-md-12">
 
-                                            <div class="form-group">
-                                                <label for="nombreAscensor">Nombre de Tipo de Ascensor</label>
-                                                <input type="text" placeholder="Nombre de Tipo de Ascensor"
-                                                    name="nombre_de_tipo_de_ascensor" id="nombreAscensor"
-                                                    value="{{ old('nombre_de_tipo_de_ascensor', $elevator_type->nombre_de_tipo_de_ascensor ?? '') }}"
-                                                    class=" @error('nombre_de_tipo_de_ascensor') is-invalid @enderror">
-                                                @error('nombre_de_tipo_de_ascensor')
-                                                    <span class="invalid-feedback" style="color: red">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
+                                                <div class="form-group">
+                                                    <label for="nombreAscensor">Nombre de Tipo de Ascensor</label>
+                                                    <input type="text" placeholder="Nombre de Tipo de Ascensor"
+                                                        name="nombre_de_tipo_de_ascensor" id="nombreAscensor"
+                                                        value="{{ old('nombre_de_tipo_de_ascensor', $elevator_type->nombre_de_tipo_de_ascensor ?? '') }}"
+                                                        class=" @error('nombre_de_tipo_de_ascensor') is-invalid @enderror">
+                                                    @error('nombre_de_tipo_de_ascensor')
+                                                        <span class="invalid-feedback" style="color: red">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
-                                    <button type="submit" class="btn-gris btn-red mr-2">Guardar Cambios</button>
-                                    <button type="submit" class="btn-gris btn-border"
-                                        data-dismiss="modal">Cancelar</button>
-                                </div>
-                            </form>
-
+                                    <div class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
+                                        <button type="submit" class="btn-gris btn-red mr-2">Guardar Cambios</button>
+                                        <button type="submit" class="btn-gris btn-border"
+                                            data-dismiss="modal">Cancelar</button>
+                                    </div>
+                                </form>
+                            @endisset
                         </div>
                     </div>
                 </div>
@@ -210,13 +213,16 @@
                                 </div>
                             </div>
                             <div class="modal-footer align-items-center justify-content-center">
+                                @isset($elevator_type)
                                 <form id="delete-form" action="{{ route('destroy.elevatortypes', $elevator_type->id) }}"
                                     method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn-gris btn-red">Sí</button>
+                                    <button type="button" class="btn-gris btn-border" data-dismiss="modal">No</button>
                                 </form>
-                                <button type="button" class="btn-gris btn-border" data-dismiss="modal">No</button>
+                                @endisset
+                                
                             </div>
                         </div>
                     </div>

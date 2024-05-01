@@ -193,14 +193,30 @@
                         method: 'GET',
                         dataType: 'json',
                         success: function(response) {
-                            console.log(response);
-                            callback(response.events); // Pass the events to FullCalendar
+                            console.log('Response from server:', response);
+
+                            // Iterate over each event in the response
+                            var formattedEvents = response.map(function(event) {
+                                return {
+                                    title: event.ascensor,
+                                    start: event.mantenimiento,
+                                    hora_de_inicio: event.hora_de_inicio,
+                                    hora_de_finalización: event.hora_de_finalización,
+                                    estado: event.estado
+                                };
+                            });
+
+                            console.log('Formatted events:', formattedEvents);
+
+                            callback(
+                            formattedEvents); // Pass the formatted events to FullCalendar
                         },
                         error: function(xhr, status, error) {
                             console.error('Error fetching events:', error);
                         }
                     });
                 },
+
                 dayClick: function(date, jsEvent, view) {
                     resetForm();
                     var formattedDate = date.format('YYYY-MM-DD');

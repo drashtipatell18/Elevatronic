@@ -64,10 +64,10 @@
                 <a href="{{ route('sparepart') }}"><i class="iconoir-wrench"></i> Repuestos</a>
             </li>
             <li class="">
-                <a href="{{ route('staff')}}"><i class="iconoir-suitcase"></i> Personal</a>
+                <a href="{{ route('staff') }}"><i class="iconoir-suitcase"></i> Personal</a>
             </li>
             <li class="">
-                <a href="{{ route('user')}}"><i class="iconoir-user-star"></i> Usuarios</a>
+                <a href="{{ route('user') }}"><i class="iconoir-user-star"></i> Usuarios</a>
             </li>
             <li class="">
                 <a href="{{ route('schedule') }}"><i class="iconoir-bed"></i> Cronograma</a>
@@ -110,9 +110,15 @@
                                     <!-- cuadro para hacer click ocultar / aparecer -->
                                     <div class="d-flex align-items-center justify-content-start" id="abrirperfil">
                                         <i class="iconoir-nav-arrow-down"></i>
-                                        <img src=" {{ asset('img/perfil.png') }}" alt="perfil">
+                                        @if (auth()->user())
+                                            <img src="{{ asset('images/' . auth()->user()->image) }}"
+                                                alt="User Image" width="100" height="50px"
+                                                class="img-circle profile_img">
+                                        @else
+                                            <p>No user image available</p>
+                                        @endif
                                         <div class="">
-                                            <p class="mb-0">Anghela</p>
+                                            <p class="mb-0">{{ auth()->user()->name }}</p>
                                             <span>Administrador</span>
                                         </div>
                                     </div>
@@ -120,11 +126,16 @@
                                     <div class="perfil_abs" id="perfil_abs" style="display: none;">
                                         <div class="d-flex align-items-center justify-content-between con_perfil">
                                             <div class="">
-                                                <img src=" {{ asset('img/perfil.png') }}" alt="perfil">
-                                            </div>
+                                                @if (auth()->user())
+                                                <img src="{{ asset('images/' . auth()->user()->image) }}"
+                                                    alt="User Image" width="100" height="50px"
+                                                    class="img-circle profile_img">
+                                            @else
+                                                <p>No user image available</p>
+                                            @endif                                            </div>
                                             <div class="">
-                                                <p>Danfrin Rodriguez</p>
-                                                <span class="m-0">ejemplo@gmail.com</span>
+                                                <p>{{ auth()->user()->name }}</p>
+                                                <span class="m-0">{{ auth()->user()->email }}</span>
                                             </div>
                                         </div>
                                         <div class="salir">
@@ -202,30 +213,33 @@
     </div>
 </div>
 
-<!-- Modal cerrar sesion-->
+<!-- Logout Modal -->
 <div class="modal fade" id="modalcerrar" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content border-radius-12">
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-12">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                        <div class="box2">
-                            <img src="img/iconos/icono-cerrar.svg" alt="cerrar" width="76">
-                            <p class="mt-3 mb-0">
-                                ¿Seguro que quieres cerrar sesión?
-                            </p>
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                            <div class="box2">
+                                <img src="{{ asset('img/iconos/icono-cerrar.svg') }}" alt="cerrar" width="76">
+                                <p class="mt-3 mb-0">
+                                    ¿Seguro que quieres cerrar sesión?
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer align-items-center justify-content-center">
-                <button type="button" class="btn-gris btn-red">Si</button>
-                <button type="button" class="btn-gris btn-border" data-dismiss="modal">No</button>
-            </div>
+                <div class="modal-footer align-items-center justify-content-center">
+                    <button type="submit" class="btn-gris btn-red">Si</button>
+                    <button type="button" class="btn-gris btn-border" data-dismiss="modal">No</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -261,49 +275,6 @@
         </div>
     </div>
 </div>
-
-
-<!-- Modal Asignar Repuesto-->
-<div class="modal left fade" id="asignarRepuestos" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title font-family-Outfit-SemiBold">Asignar Repuesto</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body body_modal">
-                <div class="row">
-                    <div class="col-md-12">
-                        <form action="" class="formulario-modal">
-                            <div class="form-group">
-                                <label for="NombreTipoAscensor">Nombre de Tipo de Ascensor</label>
-                                <input type="text" placeholder="Nombre de Tipo de Ascensor"
-                                    name="NombreTipoAscensor" id="NombreTipoAscensor">
-                            </div>
-                            <div class="form-group">
-                                <label for="repuesto">Repuesto</label>
-                                <select class="custom-select" name="repuesto" id="repuesto">
-                                    <option selected class="d-none">Seleccionar opción</option>
-                                    <option value="1">Repuesto 1</option>
-                                    <option value="2">Repuesto 2</option>
-                                    <option value="3">Repuesto 3</option>
-                                </select>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
-                <button type="button" class="btn-gris btn-red mr-2">Asignar respuesto</button>
-                <button type="button" class="btn-gris btn-border" data-dismiss="modal">Cancelar</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 
 <!-- Modal Creando Contrato-->
 <div class="modal left fade" id="crearContratos" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
@@ -576,7 +547,6 @@
         });
 
     });
-    
 </script>
 @stack('scripts')
 

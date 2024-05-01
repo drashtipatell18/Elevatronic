@@ -168,7 +168,7 @@
                                         <div class="dropdown">
                                             <button class="btn-gris" type="button" id="dropdownMenuButton"
                                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <img src="img/iconos/export.svg" alt="icono" class="mr-2"> Exportar
+                                                <img src="{{ asset('img/iconos/export.svg')}}" alt="icono" class="mr-2"> Exportar
                                                 Datos <i class="iconoir-nav-arrow-down"></i>
                                             </button>
                                             <div class="dropdown-menu dropdown-menu-right"
@@ -202,11 +202,12 @@
                                                         <td>{{ $elevator->fecha }}</td>
                                                         <td>{{ $elevator->tipo_de_ascensor }}</td>
                                                         <td>
-                                                            <a href="{{ route('view.elevator', $elevator->id) }}" class="text-blue">
+                                                            <a href="{{ route('view.elevator', $elevator->id) }}"
+                                                                class="text-blue">
                                                                 {{ $elevator->nombre }}
                                                             </a>
                                                         </td>
-                                                        <td>{{ $elevator->cliente }}</td>                                                       
+                                                        <td>{{ $elevator->cliente }}</td>
                                                     </tr>
                                                 @endforeach
                                             </tbody>
@@ -214,6 +215,65 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal Asignar Repuesto-->
+                <div class="modal left fade" id="asignarRepuestos" tabindex="-1" role="dialog"
+                    aria-labelledby="modelTitleId" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title font-family-Outfit-SemiBold">Asignar Repuesto</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <form action="{{ route('insert.asignarrepuesto') }}" method="POST"
+                                class="formulario-modal">
+                                @csrf
+                                <div class="modal-body body_modal">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="nombre_del_tipo_de_ascensor">Nombre de Tipo de Ascensor</label>
+                                                <input type="text" placeholder="Nombre de Tipo de Ascensor"
+                                                    name="nombre_del_tipo_de_ascensor" id="nombre_del_tipo_de_ascensor">
+                                                @error('nombre_del_tipo_de_ascensor')
+                                                    <span class="invalid-feedback" style="color: red">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="repuesto">Repuesto</label>
+                                                <select
+                                                    class="custom-select form-control @error('reemplazo') is-invalid @enderror"
+                                                    name="reemplazo" id="reemplazo">
+                                                    <option selected disabled>Seleccionar opción</option>
+                                                    @foreach ($spareparts as $sparepart)
+                                                        <option value="{{ $sparepart->nombre }}">
+                                                            {{ $sparepart->nombre }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                                @error('reemplazo')
+                                                    <span class="invalid-feedback" style="color: red">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
+                                    <button type="submit" class="btn-gris btn-red mr-2">Asignar respuesto</button>
+                                    <button type="button" class="btn-gris btn-border"
+                                        data-dismiss="modal">Cancelar</button>
+                                </div>
+                            </form>
+
                         </div>
                     </div>
                 </div>

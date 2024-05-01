@@ -7,6 +7,7 @@ use App\Models\Elevatortypes\Elevatortypes;
 use Illuminate\Http\Request;
 use App\Models\SparePart;
 use App\Models\Elevators;
+use App\Models\AssginSpare;
 
 class ElevatortypesController extends Controller
 {
@@ -44,6 +45,23 @@ class ElevatortypesController extends Controller
         return view('ElevatorTypes.elevator_details', compact('elevators','spareparts','elevator_type'));
     }
 
+    public function AsignarRepuesto(Request $request){
+        $validatedData = $request->validate([
+            'nombre_del_tipo_de_ascensor' => 'required',
+            'reemplazo' => 'required',
+        ]);
+
+        // Create a new Customer instance
+        $assginspare = AssginSpare::create([
+            'nombre_del_tipo_de_ascensor'  => $request->input('nombre_del_tipo_de_ascensor'),
+            'reemplazo'                   => $request->input('reemplazo'),
+           
+        ]);
+
+        // Redirect back with success message
+        session()->flash('success', 'Asignar repuesto creado exitosamente!');
+        return redirect()->route('elevatortypes');
+    }
     public function elevatortypesUpdate(Request $request,$id){
         $validatedData = $request->validate([
             'nombre_de_tipo_de_ascensor' => 'required',

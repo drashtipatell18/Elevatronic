@@ -31,8 +31,8 @@
                                 <div class="dropdown">
                                     <button class="btn-gris" type="button" id="dropdownMenuButton" data-toggle="dropdown"
                                         aria-haspopup="true" aria-expanded="false">
-                                        <img src="{{ asset('img/iconos/export.svg') }}" alt="icono" class="mr-2"> Exportar Datos <i
-                                            class="iconoir-nav-arrow-down"></i>
+                                        <img src="{{ asset('img/iconos/export.svg') }}" alt="icono" class="mr-2">
+                                        Exportar Datos <i class="iconoir-nav-arrow-down"></i>
                                     </button>
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                                         <button class="dropdown-item" id="export_excel">Excel</button>
@@ -286,154 +286,155 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <form action="{{ route('update.sparepart', $sparepart->id) }}" method="POST" class="formulario-modal"
-                    enctype="multipart/form-data">
-                    @csrf
-                    <div class="modal-body body_modal">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label>Foto de repuesto</label>
-                                        <div id="editimagenPrevio">
-                                            @if ($sparepart->foto_de_repuesto)
-                                                <img src="{{ asset('images/' . $sparepart->foto_de_repuesto) }}"
-                                                    width="200" height="200" alt="Existing Image">
-                                            @endif
+                @isset($sparepart)
+                    <form action="{{ route('update.sparepart', $sparepart->id) }}" method="POST" class="formulario-modal"
+                        enctype="multipart/form-data">
+                        @csrf
+                        <div class="modal-body body_modal">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label>Foto de repuesto</label>
+                                            <div id="editimagenPrevio">
+                                                @if ($sparepart->foto_de_repuesto)
+                                                    <img src="{{ asset('images/' . $sparepart->foto_de_repuesto) }}"
+                                                        width="200" height="200" alt="Existing Image">
+                                                @endif
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <div class="">
-                                            <label for="editimageUpload1" class="text-gris mt-4">Seleccione una
-                                                imagen</label>
-                                            <input type="file" id="editimageUpload1" name="foto_de_repuesto"
-                                                style="display: none;" accept="image/*" />
-                                            <button type="button" id="editcargarimagen" class="btn-gris">
-                                                <i class="fas fa-arrow-to-top mr-2"></i>Subir Imagen
-                                            </button>
+                                        <div class="col-md-6 mb-3">
+                                            <div class="">
+                                                <label for="editimageUpload1" class="text-gris mt-4">Seleccione una
+                                                    imagen</label>
+                                                <input type="file" id="editimageUpload1" name="foto_de_repuesto"
+                                                    style="display: none;" accept="image/*" />
+                                                <button type="button" id="editcargarimagen" class="btn-gris">
+                                                    <i class="fas fa-arrow-to-top mr-2"></i>Subir Imagen
+                                                </button>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="NombreRepuesto">Nombre</label>
-                                            <input type="text" placeholder="Nombre"
-                                                class="form-control @error('nombre') is-invalid @enderror"
-                                                value="{{ old('nombre', $sparepart->nombre ?? '') }}" name="nombre"
-                                                id="nombre">
-                                            @error('nombre')
-                                                <span class="invalid-feedback" style="color: red">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="NombreRepuesto">Nombre</label>
+                                                <input type="text" placeholder="Nombre"
+                                                    class="form-control @error('nombre') is-invalid @enderror"
+                                                    value="{{ old('nombre', $sparepart->nombre ?? '') }}" name="nombre"
+                                                    id="nombre">
+                                                @error('nombre')
+                                                    <span class="invalid-feedback" style="color: red">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="precioRepuesto">Precio</label>
-                                            <input type="text" placeholder="Precio"
-                                                class="form-control @error('precio') is-invalid @enderror"
-                                                value="{{ old('precio', $sparepart->precio ?? '') }}" name="precio"
-                                                id="precio">
-                                            @error('precio')
-                                                <span class="invalid-feedback" style="color: red">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="precioRepuesto">Precio</label>
+                                                <input type="text" placeholder="Precio"
+                                                    class="form-control @error('precio') is-invalid @enderror"
+                                                    value="{{ old('precio', $sparepart->precio ?? '') }}" name="precio"
+                                                    id="precio">
+                                                @error('precio')
+                                                    <span class="invalid-feedback" style="color: red">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="DescripcionRepuesto">Descripción</label>
-                                            <textarea name="descripción" id="descripción" placeholder="Descripción" cols="30" rows="5">{{ old('descripción', $sparepart->descripción ?? '') }}</textarea>
-                                            @error('descripción')
-                                                <span class="invalid-feedback" style="color: red">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="DescripcionRepuesto">Descripción</label>
+                                                <textarea name="descripción" id="descripción" placeholder="Descripción" cols="30" rows="5">{{ old('descripción', $sparepart->descripción ?? '') }}</textarea>
+                                                @error('descripción')
+                                                    <span class="invalid-feedback" style="color: red">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="Flimpieza">Frecuencia de limpieza (días)</label>
-                                            <input type="text" placeholder="Frecuencia de limpieza (días)"
-                                                name="frecuencia_de_limpieza" id="frecuencia_de_limpieza"
-                                                class="form-control @error('frecuencia_de_limpieza') is-invalid @enderror"
-                                                value="{{ old('frecuencia_de_limpieza', $sparepart->frecuencia_de_limpieza ?? '') }}">
-                                            @error('frecuencia_de_limpieza')
-                                                <span class="invalid-feedback" style="color: red">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="Flimpieza">Frecuencia de limpieza (días)</label>
+                                                <input type="text" placeholder="Frecuencia de limpieza (días)"
+                                                    name="frecuencia_de_limpieza" id="frecuencia_de_limpieza"
+                                                    class="form-control @error('frecuencia_de_limpieza') is-invalid @enderror"
+                                                    value="{{ old('frecuencia_de_limpieza', $sparepart->frecuencia_de_limpieza ?? '') }}">
+                                                @error('frecuencia_de_limpieza')
+                                                    <span class="invalid-feedback" style="color: red">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="Flubricacion">Frecuencia de lubricación (días)</label>
-                                            <input type="text" placeholder="Frecuencia de lubricación (días)"
-                                                name="frecuencia_de_lubricación" id="frecuencia_de_lubricación"
-                                                class="form-control @error('frecuencia_de_lubricación') is-invalid @enderror"
-                                                value="{{ old('frecuencia_de_lubricación', $sparepart->frecuencia_de_lubricación ?? '') }}">
-                                            @error('frecuencia_de_lubricación')
-                                                <span class="invalid-feedback" style="color: red">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="Flubricacion">Frecuencia de lubricación (días)</label>
+                                                <input type="text" placeholder="Frecuencia de lubricación (días)"
+                                                    name="frecuencia_de_lubricación" id="frecuencia_de_lubricación"
+                                                    class="form-control @error('frecuencia_de_lubricación') is-invalid @enderror"
+                                                    value="{{ old('frecuencia_de_lubricación', $sparepart->frecuencia_de_lubricación ?? '') }}">
+                                                @error('frecuencia_de_lubricación')
+                                                    <span class="invalid-feedback" style="color: red">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="FAjustes">Frecuencia de ajuste (días)</label>
-                                            <input type="text" placeholder="Frecuencia de ajuste (días)"
-                                                name="frecuencia_de_ajuste" id="frecuencia_de_ajuste"
-                                                class="form-control @error('frecuencia_de_ajuste') is-invalid @enderror"
-                                                value="{{ old('frecuencia_de_ajuste', $sparepart->frecuencia_de_ajuste ?? '') }}">
-                                            @error('frecuencia_de_ajuste')
-                                                <span class="invalid-feedback" style="color: red">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="FAjustes">Frecuencia de ajuste (días)</label>
+                                                <input type="text" placeholder="Frecuencia de ajuste (días)"
+                                                    name="frecuencia_de_ajuste" id="frecuencia_de_ajuste"
+                                                    class="form-control @error('frecuencia_de_ajuste') is-invalid @enderror"
+                                                    value="{{ old('frecuencia_de_ajuste', $sparepart->frecuencia_de_ajuste ?? '') }}">
+                                                @error('frecuencia_de_ajuste')
+                                                    <span class="invalid-feedback" style="color: red">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="FRevision">Frecuencia de revisión (días)</label>
-                                            <input type="text" placeholder="Frecuencia de revisión (días)"
-                                                class="form-control @error('frecuencia_de_revisión') is-invalid @enderror"
-                                                value="{{ old('frecuencia_de_revisión', $sparepart->frecuencia_de_revisión ?? '') }}"
-                                                name="frecuencia_de_revisión" id="frecuencia_de_revisión">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="FRevision">Frecuencia de revisión (días)</label>
+                                                <input type="text" placeholder="Frecuencia de revisión (días)"
+                                                    class="form-control @error('frecuencia_de_revisión') is-invalid @enderror"
+                                                    value="{{ old('frecuencia_de_revisión', $sparepart->frecuencia_de_revisión ?? '') }}"
+                                                    name="frecuencia_de_revisión" id="frecuencia_de_revisión">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="FCambio">Frecuencia de cambio (días)</label>
-                                            <input type="text" placeholder="Frecuencia de cambio (días)"
-                                                class="form-control @error('frecuencia_de_cambio') is-invalid @enderror"
-                                                value="{{ old('frecuencia_de_cambio', $sparepart->frecuencia_de_cambio ?? '') }}"
-                                                name="frecuencia_de_cambio" id="frecuencia_de_cambio">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="FCambio">Frecuencia de cambio (días)</label>
+                                                <input type="text" placeholder="Frecuencia de cambio (días)"
+                                                    class="form-control @error('frecuencia_de_cambio') is-invalid @enderror"
+                                                    value="{{ old('frecuencia_de_cambio', $sparepart->frecuencia_de_cambio ?? '') }}"
+                                                    name="frecuencia_de_cambio" id="frecuencia_de_cambio">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="FSolicitud">Frecuencia de solicitud (días)</label>
-                                            <input type="text" placeholder="Frecuencia de solicitud (días)"
-                                                class="form-control @error('frecuencia_de_solicitud') is-invalid @enderror"
-                                                value="{{ old('frecuencia_de_solicitud', $sparepart->frecuencia_de_solicitud ?? '') }}"
-                                                name="frecuencia_de_solicitud" id="frecuencia_de_solicitud">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="FSolicitud">Frecuencia de solicitud (días)</label>
+                                                <input type="text" placeholder="Frecuencia de solicitud (días)"
+                                                    class="form-control @error('frecuencia_de_solicitud') is-invalid @enderror"
+                                                    value="{{ old('frecuencia_de_solicitud', $sparepart->frecuencia_de_solicitud ?? '') }}"
+                                                    name="frecuencia_de_solicitud" id="frecuencia_de_solicitud">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
-                        <button type="submit" class="btn-gris btn-red mr-2">Actualizar cambios</button>
-                        <button type="button" class="btn-gris btn-border" data-dismiss="modal">Cancelar</button>
-                    </div>
-                </form>
-
+                        <div class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
+                            <button type="submit" class="btn-gris btn-red mr-2">Actualizar cambios</button>
+                            <button type="button" class="btn-gris btn-border" data-dismiss="modal">Cancelar</button>
+                        </div>
+                    </form>
+                @endisset
             </div>
         </div>
     </div>
@@ -459,12 +460,14 @@
                     </div>
                 </div>
                 <div class="modal-footer align-items-center justify-content-center">
-                    <form id="delete-form" action="{{ route('destroy.sparepart', $sparepart->id) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn-gris btn-red">Sí</button>
-                    </form>
-                    <button type="button" class="btn-gris btn-border" data-dismiss="modal">No</button>
+                    @isset($sparepart)
+                        <form id="delete-form" action="{{ route('destroy.sparepart', $sparepart->id) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn-gris btn-red">Sí</button>
+                            <button type="button" class="btn-gris btn-border" data-dismiss="modal">No</button>
+                        </form>
+                    @endisset
                 </div>
             </div>
         </div>

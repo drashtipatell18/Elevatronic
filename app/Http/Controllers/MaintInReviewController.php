@@ -112,4 +112,11 @@ class MaintInReviewController extends Controller
         return redirect()->back();
     }
 
+    public function maintInReviewDetails($id){
+        $maint_in_review = MaintInReview::findOrFail($id);
+        $review_types = ReviewType::pluck('nombre','nombre');
+        $elevators = Elevators::pluck('nombre','nombre');
+        return view('Maint.view_maint_in_review_record', compact('maint_in_review','review_types','elevators'));
+
+    }
 }

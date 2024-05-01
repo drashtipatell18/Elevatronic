@@ -5,11 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-class User extends Model
+class User extends Authenticatable
 {
-    use HasFactory, SoftDeletes;
-    protected $dates = ['eliminado_en'];
-    protected $table = 'usuarios';
-    protected $fillable = ['fotodeusuario','nombredeusuario','nombre','correo','teléfono','empleado','contraseña'];
+    use HasFactory, Notifiable, SoftDeletes;
+    protected $dates = ['deleted_at'];
+    protected $table = 'users';
+    protected $fillable = ['image','username','name','email','phone','employee','password'];
 }

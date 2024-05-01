@@ -13,31 +13,30 @@ class UserController extends Controller
     }
 
     public function userInsert(Request $request){
-        // dd($request->all());
         $validatedData = $request->validate([
-            'nombredeusuario' => 'required',
-            'nombre' => 'required',
-            'correo' => 'required',
-            'teléfono' => 'required',
-            'empleado' => 'required',
-            'contraseña' => 'required',
+            'username' => 'required',
+            'name' => 'required',
+            'email' => 'required',
+            'phone' => 'required',
+            'employee' => 'required',
+            'password' => 'required',
         ]);
 
         $filename = '';
-        if ($request->hasFile('fotodeusuario')){
-            $image = $request->file('fotodeusuario');
+        if ($request->hasFile('image')){
+            $image = $request->file('image');
             $filename = time() . '.' . $image->getClientOriginalExtension();
             $image->move('images', $filename);
         }
 
         $user = User::create([
-            'fotodeusuario'       => $filename,
-            'nombredeusuario'     => $request->input('nombredeusuario'),
-            'nombre'              => $request->input('nombre'),
-            'correo'              => $request->input('correo'),
-            'teléfono'            => $request->input('teléfono'),
-            'empleado'            => $request->input('empleado'),
-            'contraseña'          => bcrypt($request->input('contraseña')),
+            'image'            => $filename,
+            'username'         => $request->input('username'),
+            'name'             => $request->input('name'),
+            'email'            => $request->input('email'),
+            'phone'            => $request->input('phone'),
+            'employee'         => $request->input('employee'),
+            'password'         => bcrypt($request->input('password')),
         ]);
 
         // Redirect back with success message
@@ -48,31 +47,31 @@ class UserController extends Controller
     public function userUpdate(Request $request,$id){
         // dd($request->all());
         $validatedData = $request->validate([
-            'nombredeusuario' => 'required',
-            'nombre' => 'required',
-            'correo' => 'required',
-            'teléfono' => 'required',
-            'empleado' => 'required',
+            'username' => 'required',
+            'name' => 'required',
+            'email' => 'required',
+            'phone' => 'required',
+            'employee' => 'required',
         ]);
 
         $user = User::findOrFail($id);
 
-        if ($request->hasFile('fotodeusuario')){
-            $image = $request->file('fotodeusuario');
+        if ($request->hasFile('image')){
+            $image = $request->file('image');
             $filename = time() . '.' . $image->getClientOriginalExtension();
             $image->move('images', $filename);
     
             // Update the imagen attribute with the new filename
-            $user->fotodeusuario = $filename;
+            $user->image = $filename;
         }
 
         //  update Elevators instance
         $user->update([
-            'nombredeusuario'     => $request->input('nombredeusuario'),
-            'nombre'              => $request->input('nombre'),
-            'correo'              => $request->input('correo'),
-            'teléfono'            => $request->input('teléfono'),
-            'empleado'            => $request->input('empleado'),
+            'username'            => $request->input('username'),
+            'name'                => $request->input('name'),
+            'email'               => $request->input('email'),
+            'phone'               => $request->input('phone'),
+            'employee'            => $request->input('employee'),
         ]);
 
         // Redirect back with success message

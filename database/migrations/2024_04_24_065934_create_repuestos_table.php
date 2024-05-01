@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('repuestos', function (Blueprint $table) {
             $table->id();
             $table->string('foto_de_repuesto')->nullable();
-            $table->string('foto_de_repuesto')->nullable();
             $table->string('nombre')->nullable();
             $table->string('Precio')->nullable();
             $table->longText('Descripción')->nullable();

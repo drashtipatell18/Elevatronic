@@ -14,6 +14,7 @@ use App\Http\Controllers\StaffController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\FileUploadController;
+use App\Http\Controllers\MaintInReviewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -71,6 +72,16 @@ Route::get('/ascensore/editar/{id}', [ElevatorController::class, 'elevatorEdit']
 Route::get('/ascensore/vista/{id}', [ElevatorController::class, 'elevatorView'])->name('view.elevator');
 Route::post('/ascensore/actualizar/{id}', [ElevatorController::class, 'elevatorUpdate'])->name('update.elevator');
 Route::delete ('/ascensore/destruir/{id}',[ElevatorController::class,'elevatorDestroy'])->name('destroy.elevator');
+
+
+// Maint In Review //
+
+Route::get('/mant/en/revisión', [MaintInReviewController::class, 'maintInReview'])->name('maint_in_review');
+Route::post('/mant/en/revisión/insertar',[MaintInReviewController::class,'maintInReviewInsert'])->name('insert.maint.in.review');
+Route::get('/mant/en/revisión/editar/{id}', [MaintInReviewController::class, 'maintInReviewEdit'])->name('edit.maint.in.review');
+Route::get('/mant/en/revisión/vista/{id}', [MaintInReviewController::class, 'maintInReviewView'])->name('view.maint.in.review');
+Route::post('/mant/en/revisión/actualizar/{id}', [MaintInReviewController::class, 'maintInReviewUpdate'])->name('update.maint.in.review');
+Route::delete ('/mant/en/revisión/destruir/{id}',[MaintInReviewController::class,'maintInReviewDestroy'])->name('destroy.maint.in.review');
 
 
 // Maintenance //

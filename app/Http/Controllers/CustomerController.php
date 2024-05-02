@@ -49,8 +49,8 @@ class CustomerController extends Controller
     }
 
     public function customerView(Request $request, $id){
-        $customers = Cliente::find($id);
-        return view('customer.view_customer_details',compact('customers'));
+        $customer = Cliente::find($id);
+        return view('customer.view_customer_details',compact('customer'));
 
     }
 

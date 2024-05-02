@@ -117,8 +117,8 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                @isset($staff)
-                    <form action="{{ route('update.staff', $staff->id) }}" class="formulario-modal"
+                @isset($staffs)
+                    <form action="{{ route('update.staff', $staffs->id) }}" class="formulario-modal"
                         enctype="multipart/form-data" method="POST">
                         @csrf
                         <div class="modal-body body_modal">
@@ -128,8 +128,8 @@
                                         <div class="col-md-6 mb-3">
                                             <label>Foto de Personal</label>
                                             <div id="editimagenPrevioPersonal">
-                                                @if ($staff->personalfoto)
-                                                    <img src="{{ asset('images/' . $staff->personalfoto) }}" width="200"
+                                                @if ($staffs->personalfoto)
+                                                    <img src="{{ asset('images/' . $staffs->personalfoto) }}" width="200"
                                                         height="200" alt="Existing Image">
                                                 @endif
                                             </div>
@@ -150,7 +150,7 @@
                                                 <label for="nombre">Nombre</label>
                                                 <input type="text" placeholder="Nombre"
                                                     class="form-control @error('nombre') is-invalid @enderror" name="nombre"
-                                                    value="{{ old('nombre', $staff->nombre ?? '') }}" id="nombre">
+                                                    value="{{ old('nombre', $staffs->nombre ?? '') }}" id="nombre">
                                                 @error('nombre')
                                                     <span class="invalid-feedback" style="color: red">
                                                         <strong>{{ $message }}</strong>
@@ -166,13 +166,13 @@
                                                     name="posición" id="posición">
                                                     <option value="" class="d-none">Seleccionar opción</option>
                                                     <option value="posición_1"
-                                                        {{ $staff->posición == 'posición_1' ? 'selected' : '' }}>Posición 1
+                                                        {{ $staffs->posición == 'posición_1' ? 'selected' : '' }}>Posición 1
                                                     </option>
                                                     <option value="posición_2"
-                                                        {{ $staff->posición == 'posición_2' ? 'selected' : '' }}>Posición 2
+                                                        {{ $staffs->posición == 'posición_2' ? 'selected' : '' }}>Posición 2
                                                     </option>
                                                     <option value="posición_3"
-                                                        {{ $staff->posición == 'posición_3' ? 'selected' : '' }}>Posición 3
+                                                        {{ $staffs->posición == 'posición_3' ? 'selected' : '' }}>Posición 3
                                                     </option>
                                                 </select>
                                                 @error('posición')
@@ -187,7 +187,7 @@
                                                 <label for="correo">Correo</label>
                                                 <input type="email" placeholder="Correo"
                                                     class="form-control @error('correo') is-invalid @enderror" name="correo"
-                                                    value="{{ old('correo', $staff->correo ?? '') }}" id="correo">
+                                                    value="{{ old('correo', $staffs->correo ?? '') }}" id="correo">
                                                 @error('correo')
                                                     <span class="invalid-feedback" style="color: red">
                                                         <strong>{{ $message }}</strong>
@@ -200,7 +200,7 @@
                                                 <label for="telefonoPersonal">Teléfono</label>
                                                 <input type="number" name="teléfono" id="teléfono"
                                                     class="form-control @error('teléfono') is-invalid @enderror"
-                                                    value="{{ old('teléfono', $staff->teléfono ?? '') }}"
+                                                    value="{{ old('teléfono', $staffs->teléfono ?? '') }}"
                                                     placeholder="Teléfono">
                                                 @error('teléfono')
                                                     <span class="invalid-feedback" style="color: red">
@@ -244,8 +244,8 @@
                     </div>
                 </div>
                 <div class="modal-footer align-items-center justify-content-center">
-                    @isset($staff)
-                        <form id="delete-form" action="{{ route('destroy.staff', $staff->id) }}" method="POST">
+                    @isset($staffs)
+                        <form id="delete-form" action="{{ route('destroy.staff', $staffs->id) }}" method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn-gris btn-red">Sí</button>

@@ -60,7 +60,7 @@ class UserController extends Controller
             $image = $request->file('image');
             $filename = time() . '.' . $image->getClientOriginalExtension();
             $image->move('images', $filename);
-    
+
             // Update the imagen attribute with the new filename
             $user->image = $filename;
         }

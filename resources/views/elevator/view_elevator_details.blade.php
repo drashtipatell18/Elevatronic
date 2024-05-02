@@ -1169,8 +1169,8 @@
                                 </button>
                             </div>
 
-                            @isset($elevator)
-                                <form action="{{ route('update.elevator', $elevator->id) }}" class="formulario-modal"
+                            @isset($elevators)
+                                <form action="{{ route('update.elevator', $elevators->id) }}" class="formulario-modal"
                                     enctype="multipart/form-data" method="POST">
                                     @csrf
                                     <div class="modal-body body_modal">
@@ -1180,8 +1180,8 @@
                                                     <div class="col-md-6 mb-3">
                                                         <label>Foto de Ascensor</label>
                                                         <div id="editimagePreview">
-                                                            @if ($elevator->imagen)
-                                                                <img src="{{ asset('images/' . $elevator->imagen) }}"
+                                                            @if ($elevators->imagen)
+                                                                <img src="{{ asset('images/' . $elevators->imagen) }}"
                                                                     alt="Existing Image" width="200px" height="200px">
                                                             @endif
                                                         </div>
@@ -1203,7 +1203,7 @@
                                                             <input type="text" placeholder="# de contrato" name="contrato"
                                                                 id="contrato"
                                                                 class="form-control @error('contrato') is-invalid @enderror"
-                                                                value="{{ old('contrato', $elevator->contrato ?? '') }}">
+                                                                value="{{ old('contrato', $elevators->contrato ?? '') }}">
                                                             @error('contrato')
                                                                 <span class="invalid-feedback" style="color: red">
                                                                     <strong>{{ $message }}</strong>
@@ -1217,7 +1217,7 @@
                                                             <input type="text" placeholder="Nombre ascensor"
                                                                 name="nombre" id="nombre"
                                                                 class="form-control @error('nombre') is-invalid @enderror"
-                                                                value="{{ old('nombre', $elevator->nombre ?? '') }}">
+                                                                value="{{ old('nombre', $elevators->nombre ?? '') }}">
                                                             @error('nombre')
                                                                 <span class="invalid-feedback" style="color: red">
                                                                     <strong>{{ $message }}</strong>
@@ -1232,7 +1232,7 @@
                                                             <input type="text" placeholder="Código" name="código"
                                                                 id="código"
                                                                 class="form-control @error('código') is-invalid @enderror"
-                                                                value="{{ old('código', $elevator->código ?? '') }}">
+                                                                value="{{ old('código', $elevators->código ?? '') }}">
                                                             @error('código')
                                                                 <span class="invalid-feedback" style="color: red">
                                                                     <strong>{{ $message }}</strong>
@@ -1247,7 +1247,7 @@
                                                             <input type="text" placeholder="Marca" name="marca"
                                                                 id="marca"
                                                                 class="form-control @error('marca') is-invalid @enderror"
-                                                                value="{{ old('marca', $elevator->marca ?? '') }}">
+                                                                value="{{ old('marca', $elevators->marca ?? '') }}">
                                                             @error('marca')
                                                                 <span class="invalid-feedback" style="color: red">
                                                                     <strong>{{ $message }}</strong>
@@ -1267,7 +1267,7 @@
                                                                 </option>
                                                                 @foreach ($customers as $key => $value)
                                                                     <option value="{{ $key }}"
-                                                                        {{ old('cliente', $elevator->cliente ?? '') == $key ? 'selected' : '' }}>
+                                                                        {{ old('cliente', $elevators->cliente ?? '') == $key ? 'selected' : '' }}>
                                                                         {{ $value }}</option>
                                                                 @endforeach
                                                             </select>
@@ -1285,7 +1285,7 @@
                                                             <input type="date" placeholder="dd/mm/aaaa"
                                                                 class="form-control @error('fecha') is-invalid @enderror"
                                                                 name="fecha" id="fecha"
-                                                                value="{{ old('fecha', isset($elevator) ? $elevator->fecha : '') }}">
+                                                                value="{{ old('fecha', isset($elevators) ? $elevators->fecha : '') }}">
                                                             @error('fecha')
                                                                 <span class="invalid-feedback" style="color: red">
                                                                     <strong>{{ $message }}</strong>
@@ -1300,7 +1300,7 @@
                                                             <input type="text" placeholder="Garantizar"
                                                                 class="form-control @error('garantizar') is-invalid @enderror"
                                                                 name="garantizar" id="garantizar"
-                                                                value="{{ old('garantizar', $elevator->garantizar ?? '') }}">
+                                                                value="{{ old('garantizar', $elevators->garantizar ?? '') }}">
                                                             @error('garantizar')
                                                                 <span class="invalid-feedback" style="color: red">
                                                                     <strong>{{ $message }}</strong>
@@ -1315,7 +1315,7 @@
                                                             <input type="text" placeholder="Dirección"
                                                                 class="form-control @error('dirección') is-invalid @enderror"
                                                                 name="dirección" id="dirección"
-                                                                value="{{ old('dirección', $elevator->dirección ?? '') }}">
+                                                                value="{{ old('dirección', $elevators->dirección ?? '') }}">
                                                             @error('dirección')
                                                                 <span class="invalid-feedback" style="color: red">
                                                                     <strong>{{ $message }}</strong>
@@ -1330,7 +1330,7 @@
                                                             <input type="text" placeholder="Ubigeo"
                                                                 class="form-control @error('ubigeo') is-invalid @enderror"
                                                                 name="ubigeo" id="ubigeo"
-                                                                value="{{ old('ubigeo', $elevator->ubigeo ?? '') }}">
+                                                                value="{{ old('ubigeo', $elevators->ubigeo ?? '') }}">
                                                             @error('ubigeo')
                                                                 <span class="invalid-feedback" style="color: red">
                                                                     <strong>{{ $message }}</strong>
@@ -1348,13 +1348,13 @@
                                                                 <option selected disabled>Seleccionar opción
                                                                 </option>
                                                                 <option value="lima"
-                                                                    {{ old('provincia', $elevator->provincia ?? '') == 'lima' ? 'selected' : '' }}>
+                                                                    {{ old('provincia', $elevators->provincia ?? '') == 'lima' ? 'selected' : '' }}>
                                                                     Lima</option>
                                                                 <option value="arequipa"
-                                                                    {{ old('provincia', $elevator->provincia ?? '') == 'arequipa' ? 'selected' : '' }}>
+                                                                    {{ old('provincia', $elevators->provincia ?? '') == 'arequipa' ? 'selected' : '' }}>
                                                                     Arequipa</option>
                                                                 <option value="moquegua"
-                                                                    {{ old('provincia', $elevator->provincia ?? '') == 'moquegua' ? 'selected' : '' }}>
+                                                                    {{ old('provincia', $elevators->provincia ?? '') == 'moquegua' ? 'selected' : '' }}>
                                                                     Moquegua</option>
                                                             </select>
                                                             @error('provincia')
@@ -1375,13 +1375,13 @@
                                                                 <option selected disabled>Seleccionar opción
                                                                 </option>
                                                                 <option value="tecnico_1"
-                                                                    {{ old('técnico_instalador', $elevator->técnico_instalador ?? '') == 'tecnico_1' ? 'selected' : '' }}>
+                                                                    {{ old('técnico_instalador', $elevators->técnico_instalador ?? '') == 'tecnico_1' ? 'selected' : '' }}>
                                                                     Técnico 1</option>
                                                                 <option value="tecnico_2"
-                                                                    {{ old('técnico_instalador', $elevator->técnico_instalador ?? '') == 'tecnico_2' ? 'selected' : '' }}>
+                                                                    {{ old('técnico_instalador', $elevators->técnico_instalador ?? '') == 'tecnico_2' ? 'selected' : '' }}>
                                                                     Técnico 2</option>
                                                                 <option value="tecnico_3"
-                                                                    {{ old('técnico_instalador', $elevator->técnico_instalador ?? '') == 'tecnico_3' ? 'selected' : '' }}>
+                                                                    {{ old('técnico_instalador', $elevators->técnico_instalador ?? '') == 'tecnico_3' ? 'selected' : '' }}>
                                                                     Técnico 3</option>
                                                             </select>
                                                             @error('técnico_instalador')
@@ -1402,13 +1402,13 @@
                                                                 <option selected disabled>Seleccionar opción
                                                                 </option>
                                                                 <option value="tecnico_1"
-                                                                    {{ old('técnico_ajustador', $elevator->técnico_ajustador ?? '') == 'tecnico_1' ? 'selected' : '' }}>
+                                                                    {{ old('técnico_ajustador', $elevators->técnico_ajustador ?? '') == 'tecnico_1' ? 'selected' : '' }}>
                                                                     Técnico 1</option>
                                                                 <option value="tecnico_2"
-                                                                    {{ old('técnico_ajustador', $elevator->técnico_ajustador ?? '') == 'tecnico_2' ? 'selected' : '' }}>
+                                                                    {{ old('técnico_ajustador', $elevators->técnico_ajustador ?? '') == 'tecnico_2' ? 'selected' : '' }}>
                                                                     Técnico 2</option>
                                                                 <option value="tecnico_3"
-                                                                    {{ old('técnico_ajustador', $elevator->técnico_ajustador ?? '') == 'tecnico_3' ? 'selected' : '' }}>
+                                                                    {{ old('técnico_ajustador', $elevators->técnico_ajustador ?? '') == 'tecnico_3' ? 'selected' : '' }}>
                                                                     Técnico 3</option>
                                                             </select>
                                                             @error('técnico_ajustador')
@@ -1428,13 +1428,13 @@
                                                                 <option selected disabled>Seleccionar opción
                                                                 </option>
                                                                 <option value="tipo_1"
-                                                                    {{ old('tipo_de_ascensor', $elevator->tipo_de_ascensor ?? '') == 'tipo_1' ? 'selected' : '' }}>
+                                                                    {{ old('tipo_de_ascensor', $elevators->tipo_de_ascensor ?? '') == 'tipo_1' ? 'selected' : '' }}>
                                                                     Tipo 1</option>
                                                                 <option value="tipo_2"
-                                                                    {{ old('tipo_de_ascensor', $elevator->tipo_de_ascensor ?? '') == 'tipo_2' ? 'selected' : '' }}>
+                                                                    {{ old('tipo_de_ascensor', $elevators->tipo_de_ascensor ?? '') == 'tipo_2' ? 'selected' : '' }}>
                                                                     Tipo 2</option>
                                                                 <option value="tipo_3"
-                                                                    {{ old('tipo_de_ascensor', $elevator->tipo_de_ascensor ?? '') == 'tipo_3' ? 'selected' : '' }}>
+                                                                    {{ old('tipo_de_ascensor', $elevators->tipo_de_ascensor ?? '') == 'tipo_3' ? 'selected' : '' }}>
                                                                     Tipo 3</option>
                                                             </select>
                                                             @error('tipo_de_ascensor')
@@ -1453,13 +1453,13 @@
                                                                 name="cantidad" id="cantidad">
                                                                 <option selected disabled>Seleccionar</option>
                                                                 <option value="cantidad_1"
-                                                                    {{ old('cantidad', $elevator->cantidad ?? '') == 'cantidad_1' ? 'selected' : '' }}>
+                                                                    {{ old('cantidad', $elevators->cantidad ?? '') == 'cantidad_1' ? 'selected' : '' }}>
                                                                     Cantidad 1</option>
                                                                 <option value="cantidad_2"
-                                                                    {{ old('cantidad', $elevator->cantidad ?? '') == 'cantidad_2' ? 'selected' : '' }}>
+                                                                    {{ old('cantidad', $elevators->cantidad ?? '') == 'cantidad_2' ? 'selected' : '' }}>
                                                                     Cantidad 2</option>
                                                                 <option value="cantidad_3"
-                                                                    {{ old('cantidad', $elevator->cantidad ?? '') == 'cantidad_3' ? 'selected' : '' }}>
+                                                                    {{ old('cantidad', $elevators->cantidad ?? '') == 'cantidad_3' ? 'selected' : '' }}>
                                                                     Cantidad 3</option>
                                                             </select>
                                                             @error('cantidad')
@@ -1476,7 +1476,7 @@
                                                             <div class="custom-control custom-checkbox">
                                                                 <input type="checkbox" class="custom-control-input"
                                                                     id="mgratuito" name="mgratuito"
-                                                                    {{ isset($elevator) && $elevator->mgratuito ? 'checked' : '' }}>
+                                                                    {{ isset($elevators) && $elevators->mgratuito ? 'checked' : '' }}>
                                                                 <label class="custom-control-label"
                                                                     for="MGratuito">Mantenimiento gratuito?</label>
                                                             </div>
@@ -1487,7 +1487,7 @@
                                                             <div class="custom-control custom-checkbox">
                                                                 <input type="checkbox" class="custom-control-input"
                                                                     id="sincuarto" name="sincuarto"
-                                                                    {{ isset($elevator) && $elevator->sincuarto ? 'checked' : '' }}>
+                                                                    {{ isset($elevators) && $elevators->sincuarto ? 'checked' : '' }}>
                                                                 <label class="custom-control-label" for="SinCuarto">Sin cuarto
                                                                     de maquina?</label>
                                                             </div>
@@ -1498,7 +1498,7 @@
                                                             <div class="custom-control custom-checkbox">
                                                                 <input type="checkbox" class="custom-control-input"
                                                                     id="concuarto" name="concuarto"
-                                                                    {{ isset($elevator) && $elevator->concuarto ? 'checked' : '' }}>
+                                                                    {{ isset($elevators) && $elevators->concuarto ? 'checked' : '' }}>
                                                                 <label class="custom-control-label" for="ConCuarto">Con cuarto
                                                                     de maquina?</label>
                                                             </div>
@@ -1511,7 +1511,7 @@
                                                             <input type="text" placeholder="#" name="npisos"
                                                                 id="npisos"
                                                                 class="form-control @error('npisos') is-invalid @enderror"
-                                                                value="{{ old('npisos', isset($elevator) ? $elevator->npisos : '') }}">
+                                                                value="{{ old('npisos', isset($elevators) ? $elevators->npisos : '') }}">
                                                             @error('npisos')
                                                                 <span class="invalid-feedback" style="color: red">
                                                                     <strong>{{ $message }}</strong>
@@ -1525,7 +1525,7 @@
                                                             <input type="number" placeholder="Nombre del contacto"
                                                                 name="ncontacto" id="ncontacto"
                                                                 class="form-control @error('ncontacto') is-invalid @enderror"
-                                                                value="{{ old('ncontacto', isset($elevator) ? $elevator->ncontacto : '') }}">
+                                                                value="{{ old('ncontacto', isset($elevators) ? $elevators->ncontacto : '') }}">
                                                             @error('ncontacto')
                                                                 <span class="invalid-feedback" style="color: red">
                                                                     <strong>{{ $message }}</strong>
@@ -1540,7 +1540,7 @@
                                                             <input type="number" placeholder="Teléfono"
                                                                 class="form-control @error('teléfono') is-invalid @enderror"
                                                                 name="teléfono" id="teléfono"
-                                                                value="{{ old('teléfono', isset($elevator) ? $elevator->teléfono : '') }}">
+                                                                value="{{ old('teléfono', isset($elevators) ? $elevators->teléfono : '') }}">
                                                             @error('teléfono')
                                                                 <span class="invalid-feedback" style="color: red">
                                                                     <strong>{{ $message }}</strong>
@@ -1555,7 +1555,7 @@
                                                             <input type="text" placeholder="Correo electrónico"
                                                                 class="form-control @error('correo') is-invalid @enderror"
                                                                 name="correo" id="correo"
-                                                                value="{{ old('correo', isset($elevator) ? $elevator->correo : '') }}">
+                                                                value="{{ old('correo', isset($elevators) ? $elevators->correo : '') }}">
                                                             @error('correo')
                                                                 <span class="invalid-feedback" style="color: red">
                                                                     <strong>{{ $message }}</strong>
@@ -1568,7 +1568,7 @@
                                                         <div class="form-group">
                                                             <label for="Descripcion1">Descripción 1</label>
                                                             <textarea name="descripcion1" id="descripcion1" placeholder="Descripción" cols="30" rows="5"
-                                                                class="form-control">{{ old('descripcion1', isset($elevator) ? $elevator->descripcion1 : '') }}</textarea>
+                                                                class="form-control">{{ old('descripcion1', isset($elevators) ? $elevators->descripcion1 : '') }}</textarea>
 
                                                         </div>
                                                     </div>
@@ -1576,7 +1576,7 @@
                                                     <div class="col-md-12 d-none position-relative" id="DAdicional">
                                                         <div class="form-group">
                                                             <label for="Descripcion2">Descripción 2</label>
-                                                            <textarea name="descripcion2" id="descripcion2" placeholder="Descripción" cols="30" rows="5">{{ old('descripcion1', isset($elevator) ? $elevator->descripcion1 : '') }}</textarea>
+                                                            <textarea name="descripcion2" id="descripcion2" placeholder="Descripción" cols="30" rows="5">{{ old('descripcion1', isset($elevators) ? $elevators->descripcion1 : '') }}</textarea>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-12">

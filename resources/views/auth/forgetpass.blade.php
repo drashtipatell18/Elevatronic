@@ -49,14 +49,21 @@
                                         Introduce tu correo y enviaremos instrucciones sobre cómo restablecerlo.
                                     </p>
                                 </div>
-                                <form action="" method="post">
+                                <form method="POST" action="{{ route('forget.password.email') }}" class="login">
+                                    @csrf
                                     <div class="form-group mb-5">
                                         <label for="correo">Correo electrónico</label>
-                                        <input type="text" name="correo" id="correo"
+                                        <input type="email" name="email" id="email"
+                                            class="form-control @error('email') is-invalid @enderror"
                                             placeholder="Correo electrónico">
+                                        @error('email')
+                                            <div class="invalid-feedback error-message" style="color: red">
+                                                <strong>{{ $message }}</strong>
+                                            </div>
+                                        @enderror
                                     </div>
                                     <div class="form-group">
-                                        <button type="button" class="btn-primario" id="envia">Enviar</button>
+                                        <button type="submit" class="btn-primario" id="envia">Enviar</button>
                                     </div>
                                 </form>
                             </div>

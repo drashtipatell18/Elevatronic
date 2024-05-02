@@ -33,7 +33,8 @@ Route::get('/', function () {
 });
 
 Route::get('/login',[HomeController::class,'Login'])->name('login');
-Route::get('/forgetpass', [DashboardController::class, 'forgetPass'])->name('forgetpass');
+Route::get('/forget-password', [DashboardController::class, 'showForgetPasswordForm'])->name('forget.password');
+Route::post('/forget-password', [DashboardController::class, 'sendResetLinkEmail'])->name('forget.password.email');
 Route::get('/session', [DashboardController::class, 'Session'])->name('session');
 Route::get('/logout',[HomeController::class,'Logout'])->name('logout');
 

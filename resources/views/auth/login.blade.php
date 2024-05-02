@@ -71,7 +71,7 @@
                                 <div class="line-form"></div>
                                 <div class="form-group">
                                     <p>¿Olvidaste tu contraseña?</p>
-                                    <a href="{{ route('forgetpass') }}" class="btn-lineal">Recuperar
+                                    <a href="{{ route('forget.password') }}" class="btn-lineal">Recuperar
                                         contraseña</a>
                                 </div>
                             </form>

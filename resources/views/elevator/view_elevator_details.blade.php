@@ -30,8 +30,8 @@
                             <a class="dropdown-item texto-1 font-family-Inter-Regular"
                                 href="{{ route('destroy.elevator', $elevators->id) }}" data-toggle="modal"
                                 data-target="#modalEliminar">Eliminar</a>
-                        </div>
-
+                            </div>
+                            
                     </div>
                 </div>
                 <div class="col-md-12 mb-4">

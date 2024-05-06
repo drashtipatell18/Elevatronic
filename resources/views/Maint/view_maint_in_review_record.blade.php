@@ -740,4 +740,105 @@
     </div>
 @endsection
 @push('scripts')
+    <script>
+        $(document).ready(function() {
+
+            $('#uploadButton10').click(function() {
+                $('#imageUpload').click();
+            });
+
+            $('#imageUpload').change(function() {
+                var imageCount = $('#imageCount'); // Selector para el contador de imágenes
+                var count = 0; // Inicializar contador
+
+                if (this.files) {
+                    var filesCount = this.files.length; // Número de archivos seleccionados
+                    count = $('.gallery img').length + filesCount; // Sumar al total actual de imágenes
+
+                    for (var i = 0; i < filesCount; i++) {
+                        var reader = new FileReader();
+                        reader.onload = function(e) {
+                            var imgHtml = $(
+                                '<div class="col-md-6 mb-4"><div class="img-container"><img src="' +
+                                e.target.result + '" /></div></div>');
+                            $('.gallery .row').append(imgHtml);
+                            imageCount.text('Imágenes (' + count +
+                            ')'); // Actualizar el texto del contador
+                        }
+                        reader.readAsDataURL(this.files[i]);
+                    }
+                }
+            });
+
+
+            $('#uploadButton11').on('click', function() {
+                $('#fileUpload').trigger('click');
+            });
+
+            $('#fileUpload').on('change', function() {
+                var files = this.files;
+                var fileCount = $('#fileList').children().length;
+
+                $.each(files, function(i, file) {
+                    fileCount++;
+                    var fileName = file.name;
+                    var fileSize = (file.size / 1024 / 1024).toFixed(2) + ' MB';
+                    var fileEntry = $('<div class="file-entry">' +
+                        '<span class="file-info">' +
+                        fileName + ' (' + fileSize + ')' +
+                        '</span>' +
+                        '<button class="remove-file"><i class="fal fa-trash-alt"></i></button>' +
+                        '</div>');
+                    $('#fileList').append(fileEntry);
+                });
+
+                $('#fileCount').text('Archivos (' + fileCount + ')');
+            });
+
+            // Evento para el botón de eliminar
+            $('#fileList').on('click', '.remove-file', function() {
+                $(this).parent().remove(); // Elimina la entrada del archivo
+                var fileCount = $('#fileList').children().length; // Recuenta los archivos
+                $('#fileCount').text('Archivos (' + fileCount + ')'); // Actualiza el contador
+            });
+
+            var table = $('#contratosTable').DataTable({
+                responsive: true,
+                dom: 'tp',
+                pageLength: 8, // Establece el número de registros por página a 8
+                language: {
+                    "decimal": "",
+                    "emptyTable": "No hay información",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Reistros",
+                    "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+                    "infoFiltered": "(Filtrado de _MAX_ total registros)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "lengthMenu": "Mostrar _MENU_ Registros",
+                    "loadingRecords": "Cargando...",
+                    "processing": "Procesando...",
+                    "search": "Buscar:",
+                    "zeroRecords": "Sin resultados encontrados",
+                    "paginate": {
+                        "first": "Primero",
+                        "last": "Último",
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    },
+                },
+                buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                ]
+            });
+
+            // $('#customSearchBox').keyup(function(){
+            //     table.search($(this).val()).draw();
+            // });
+            $('.customSearchBox').keyup(function() {
+                table.search($(this).val()).draw();
+            });
+
+
+        });
+    </script>
 @endpush

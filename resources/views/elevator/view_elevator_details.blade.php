@@ -22,9 +22,9 @@
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
                             <a class="dropdown-item texto-1 font-family-Inter-Regular" href="javascript:void(0)"
                                 data-toggle="modal" data-target="#editarAscensor">Editar</a>
-                                <a class="dropdown-item texto-1 font-family-Inter-Regular"
-                                    href="{{ route('destroy.elevator', $elevators->id) }}" data-toggle="modal"
-                                    data-target="#modalEliminar">Eliminar</a>
+                            <a class="dropdown-item texto-1 font-family-Inter-Regular"
+                                href="{{ route('destroy.elevator', $elevators->id) }}" data-toggle="modal"
+                                data-target="#modalEliminar">Eliminar</a>
                         </div>
 
                     </div>
@@ -113,6 +113,9 @@
                                             <span class="float-right fz-15 btn-gris" style="min-width: auto;">
                                                 <i class="fad fa-qrcode"></i> Ver QR
                                             </span>
+                                            <button onclick="showQRCodeModal()" class="btn btn-md btn-info btn-circle"
+                                                type='button'>
+                                                <i class="la la-qrcode                                                                                                                                                                                                                                                       utton>
                                         </h3>
                                     </div>
                                     <div class="col-md-6">
@@ -2160,6 +2163,27 @@
                     </div>
                 </div>
 
+                <div class="modal fade text-left" id="showQrCodeModal" role="dialog"
+                    aria-labelledby="showQrCodeModal" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Código QR Generado</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div id="qrcode"></div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn grey btn-outline-secondary"
+                                    data-dismiss="modal">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
@@ -2289,5 +2313,9 @@
             });
 
         });
+
+        function showQRCodeModal() {
+            $('#showQrCodeModal').modal('show');
+        }
     </script>
 @endpush

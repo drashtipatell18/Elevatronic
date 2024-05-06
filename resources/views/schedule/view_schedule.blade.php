@@ -309,7 +309,7 @@
                                 </div>
                             </div>
                             <div class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
-                                <button type="submit" class="btn-gris btn-red mr-2" id="submitFormButton">Agregar</button>
+                                <button type="submit" class="btn-gris btn-red mr-2" id="submitFormButton">Actualizar</button>
                                 <button type="button" class="btn-gris btn-border" data-dismiss="modal">Cancelar</button>
                             </div>
                         </form>

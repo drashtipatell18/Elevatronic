@@ -119,7 +119,7 @@
                                         @endif
                                         <div class="">
                                             <p class="mb-0">{{ auth()->user()->name }}</p>
-                                            <span>Administrador</span>
+                                            <span>Administradora</span>
                                         </div>
                                     </div>
                                     <!-- cuadro oculto -->
@@ -385,13 +385,13 @@
 <!-- alerta carga-->
 <div id="alertaCarga" class="alert alert-elevatronic alert-dismissible" style="display: none;">
     <button type="button" class="close" data-dismiss="alert">&times;</button>
-    <strong class="mr-2"><img src="img/iconos/check.svg" alt="icono"></strong> Carga de archivo exitosa
+    <strong class="mr-2"><img src=" {{ asset('img/iconos/check.svg') }}" alt="icono"></strong> Carga de archivo exitosa
 </div>
 
 <!-- alerta envio-->
 <div id="alertaEnvio" class="alert alert-elevatronic alert-dismissible" style="display: none;">
     <button type="button" class="close" data-dismiss="alert">&times;</button>
-    <strong class="mr-2"><img src="img/iconos/check.svg" alt="icono"></strong> Envio Exitoso
+    <strong class="mr-2"><img src="{{ asset('img/iconos/check.svg') }}" alt="icono"></strong> Envio Exitoso
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 

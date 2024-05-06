@@ -522,6 +522,13 @@
                 }
                 reader.readAsDataURL(this.files[0]);
             });
+
+            setTimeout(function() {
+                $(".alert-success").fadeOut(1000);
+            }, 1000);
+            setTimeout(function() {
+                $(".alert-danger").fadeOut(1000);
+            }, 1000);
         });
     </script>
 @endpush

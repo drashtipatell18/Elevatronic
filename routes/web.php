@@ -37,8 +37,8 @@ Route::get('/forget-password', [DashboardController::class, 'showForgetPasswordF
 Route::get('/session', [DashboardController::class, 'Session'])->name('session');
 Route::post('/forget-password', [DashboardController::class, 'sendResetLinkEmail'])->name('forget.password.email');
 Route::get('/logout',[HomeController::class,'Logout'])->name('logout');
-Route::get('/reset/{token}', [DashboardController::class, 'reset'])->name('reset');
-    Route::post('/reset/{token}', [DashboardController::class, 'postReset'])->name('post_reset');
+Route::get('/restablecer/{token}', [DashboardController::class, 'reset'])->name('reset');
+Route::post('/restablecer/{token}', [DashboardController::class, 'postReset'])->name('post_reset');
 
 Auth::routes();
 

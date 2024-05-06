@@ -15,7 +15,7 @@
 
     <p>Por favor haga clic en el siguiente enlace para restablecer su contraseña:</p>
 
-    @component('mail::button', ['url' => url('reset/' . $user->remember_token)])
+    @component('mail::button', ['url' => url('restablecer/' . $user->remember_token)])
     Restablecer su contraseña
     @endcomponent
 

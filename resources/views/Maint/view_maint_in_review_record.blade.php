@@ -1,5 +1,10 @@
 @extends('layouts.main')
 @section('content')
+    <style>
+        .qrcode {
+            text-align: center;
+        }
+    </style>
     <div class="w-100 contenido">
         <div class="container-fluid container-mod">
             <div class="row">
@@ -81,7 +86,8 @@
                                     <div class="col-md-12 mb-4">
                                         <h3>
                                             Información del ascensor
-                                            <span class="float-right fz-15 btn-gris" style="min-width: auto;">
+                                            <span class="float-right fz-15 btn-gris" style="min-width: auto;"
+                                                id="qrButton">
                                                 <i class="fad fa-qrcode"></i> Ver QR
                                             </span>
                                         </h3>
@@ -738,6 +744,29 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade text-left" id="showQrCodeModal" role="dialog" aria-labelledby="showQrCodeModal"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Código QR Generado</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="qrcode" class="qrcode">
+                        <img src="{{ asset('img/qr_code.jpg') }}" width="100"></img>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn grey btn-outline-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 @endsection
 @push('scripts')
     <script>
@@ -763,7 +792,7 @@
                                 e.target.result + '" /></div></div>');
                             $('.gallery .row').append(imgHtml);
                             imageCount.text('Imágenes (' + count +
-                            ')'); // Actualizar el texto del contador
+                                ')'); // Actualizar el texto del contador
                         }
                         reader.readAsDataURL(this.files[i]);
                     }
@@ -838,7 +867,9 @@
                 table.search($(this).val()).draw();
             });
 
-
+            $("#qrButton").click(function() {
+                $('#showQrCodeModal').modal('show');
+            });
         });
     </script>
 @endpush

@@ -1,5 +1,10 @@
 @extends('layouts.main')
 @section('content')
+<style>
+    .qrcode{
+        text-align: center;
+    }
+</style>
     <div class="w-100 contenido">
         <div class="container-fluid container-mod">
             <div class="row">
@@ -110,12 +115,10 @@
                                     <div class="col-md-12 mb-4">
                                         <h3>
                                             Información del ascensor
-                                            <span class="float-right fz-15 btn-gris" style="min-width: auto;">
+                                            <span class="float-right fz-15 btn-gris" style="min-width: auto;"
+                                                id="qrButton">
                                                 <i class="fad fa-qrcode"></i> Ver QR
                                             </span>
-                                            <button onclick="showQRCodeModal()" class="btn btn-md btn-info btn-circle"
-                                                type='button'>
-                                                <i class="la la-qrcode                                                                                                                                                                                                                                                       utton>
                                         </h3>
                                     </div>
                                     <div class="col-md-6">
@@ -2174,7 +2177,9 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <div id="qrcode"></div>
+                                <div id="qrcode" class="qrcode">
+                                    <img src="{{ asset('img/qr_code.jpg') }}" width="100"></img>
+                                </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn grey btn-outline-secondary"
@@ -2311,11 +2316,9 @@
                     'copy', 'csv', 'excel', 'pdf', 'print'
                 ]
             });
-
+            $("#qrButton").click(function() {
+                $('#showQrCodeModal').modal('show');
+            });
         });
-
-        function showQRCodeModal() {
-            $('#showQrCodeModal').modal('show');
-        }
     </script>
 @endpush

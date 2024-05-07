@@ -245,7 +245,7 @@
                     </button>
                 </div>
                 @isset($user)
-                    <form action="{{ route('update.user', $user->id) }}" method="POST" class="formulario-modal"
+                <form action="/usuarios/actualizar/<?php echo $user->id; ?>" method="POST"
                         enctype="multipart/form-data">
                         @csrf
                         <div class="modal-body body_modal">

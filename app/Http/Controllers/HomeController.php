@@ -25,19 +25,19 @@ class HomeController extends Controller
         return view('auth.login');
     }
 
-    
+
     public function loginStore(Request $request)
     {
         $credentials = $request->validate([
             'email' => 'required|email',
             'password' => 'required',
         ]);
-    
+
         // Attempt to authenticate using the user's email
         if (Auth::attempt(['email' => $credentials['email'], 'password' => $credentials['password']])) {
             return redirect()->route('clientes');
         }
-       
+
         // If none of the attempts succeed, redirect back with an error message
         return back()->withErrors(['email' => 'Invalid credentials'])->withInput($request->only('email'));
     }
@@ -49,5 +49,5 @@ class HomeController extends Controller
         $request->session()->regenerateToken();
         return redirect('/login');
     }
-    
+
 }

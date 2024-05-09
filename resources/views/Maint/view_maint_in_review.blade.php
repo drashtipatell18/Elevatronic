@@ -7,6 +7,16 @@
     </style>
     <div class="w-100 contenido">
         <div class="container-fluid container-mod">
+            @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+        @if (session('danger'))
+            <div class="alert alert-danger">
+                {{ session('danger') }}
+            </div>
+        @endif
             <div class="row">
                 <div class="col-md-6 mb-4">
                     <div class="titulo">
@@ -766,6 +776,12 @@
             $('#customSearchBox').keyup(function() {
                 table.search($(this).val()).draw();
             });
+            setTimeout(function() {
+                $(".alert-success").fadeOut(1000);
+            }, 1000);
+            setTimeout(function() {
+                $(".alert-danger").fadeOut(1000);
+            }, 1000);
         });
     </script>
 @endpush

@@ -160,7 +160,6 @@
                 </main>
             </div>
             <div class="copyright text-center">
-                <p> Created by⭐<a href="https://kalathiyainfotech.com/">Kalathiya Infotech</a></p>
             </div>
         </div>
     </div>

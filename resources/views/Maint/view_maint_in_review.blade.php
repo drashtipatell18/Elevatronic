@@ -1,5 +1,10 @@
 @extends('layouts.main')
 @section('content')
+    <style>
+        .dt-head-center {
+            text-align: center;
+        }
+    </style>
     <div class="w-100 contenido">
         <div class="container-fluid container-mod">
             <div class="row">
@@ -42,8 +47,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-12">
-                                <table id="ascensores" class="table" style="width:100%">
+                            <div class="col-md-12 tbl table-responsive">
+                                <table id="ascensores" class="table">
                                     <thead>
                                         <tr>
                                             <th>TIPO DE REVISIÓN</th>
@@ -59,7 +64,7 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($maint_in_reviews as $maint_in_rev)
-                                            <tr>
+                                        <tr class="td-head-center">
                                                 <td>{{ $maint_in_rev->tipo_de_revisión }}</td>
                                                 <td>{{ $maint_in_rev->ascensor }}</td>
                                                 <td>{{ $maint_in_rev->fecha_de_mantenimiento }}</td>
@@ -722,6 +727,14 @@
                         extend: 'pdf',
                         exportOptions: {
                             columns: ':not(:last-child)' // Excluye la última columna
+                        },
+                        customize: function(doc) {
+                             doc.content[1].table.widths = Array(doc.content[1].table.body[0].length + 1).join('*').split('');
+                            var columnCount = doc.content[1].table.body[0].length;
+                            doc.content[1].table.body.forEach(function(row) {
+                                row[0].alignment = 'center'; // Center align the first column
+                                row[columnCount - 1].alignment = 'center'; // Center align the last column
+                            });
                         }
                     },
                     {

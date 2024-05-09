@@ -31,11 +31,11 @@
                             <div class="col-md-3 mb-3">
                                 <div class="form-group">
                                     <label for="Empleado">Seleccione la provincia que desea consulta</label>
-                                    <select class="custom-select" name="Empleado" id="Empleado">
-                                        <option selected class="d-none">Seleccionar opción</option>
-                                        <option value="1">LIMA</option>
-                                        <option value="2">AREQUIPA</option>
-                                        <option value="3">TACNA</option>
+                                    <select id="province" name="province" class="form-control">
+                                        <option value="">Select Province</option>
+                                        @foreach ($provinces as $province)
+                                            <option value="{{ $province }}">{{ $province }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>

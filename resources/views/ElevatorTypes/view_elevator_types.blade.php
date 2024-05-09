@@ -1,5 +1,10 @@
 @extends('layouts.main')
 @section('content')
+    <style>
+        .dt-head-center {
+            text-align: center;
+        }
+    </style>
     <div class="w-100 contenido">
         <div class="container-fluid container-mod">
             @if (session('success'))
@@ -54,8 +59,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-12">
-                                <table id="TiposAscensores" class="table" style="width:100%">
+                            <div class="col-md-12 tbl table-responsive">
+                                <table id="TiposAscensores" class="table">
                                     <thead>
                                         <tr>
                                             <th>ID</th>
@@ -65,8 +70,8 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($elevator_types as $index => $elevator_type)
-                                            <tr>
-                                                <td>{{ $index + 1 }}</td>
+                                        <tr class="td-head-center">
+                                            <td>{{ $index + 1 }}</td>
                                                 <td align="center">
                                                     <a href="{{ route('details.elevatortypes', $elevator_type->id) }}"
                                                         class="text-blue">
@@ -214,15 +219,15 @@
                             </div>
                             <div class="modal-footer align-items-center justify-content-center">
                                 @isset($elevator_type)
-                                <form id="delete-form" action="{{ route('destroy.elevatortypes', $elevator_type->id) }}"
-                                    method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn-gris btn-red">Sí</button>
-                                    <button type="button" class="btn-gris btn-border" data-dismiss="modal">No</button>
-                                </form>
+                                    <form id="delete-form" action="{{ route('destroy.elevatortypes', $elevator_type->id) }}"
+                                        method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn-gris btn-red">Sí</button>
+                                        <button type="button" class="btn-gris btn-border" data-dismiss="modal">No</button>
+                                    </form>
                                 @endisset
-                                
+
                             </div>
                         </div>
                     </div>
@@ -281,6 +286,14 @@
                         extend: 'pdf',
                         exportOptions: {
                             columns: ':not(:last-child)' // Excluye la última columna
+                        },
+                        customize: function(doc) {
+                             doc.content[1].table.widths = Array(doc.content[1].table.body[0].length + 1).join('*').split('');
+                            var columnCount = doc.content[1].table.body[0].length;
+                            doc.content[1].table.body.forEach(function(row) {
+                                row[0].alignment = 'center'; // Center align the first column
+                                row[columnCount - 1].alignment = 'center'; // Center align the last column
+                            });
                         }
                     },
                     {

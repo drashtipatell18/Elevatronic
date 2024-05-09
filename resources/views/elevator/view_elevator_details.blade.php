@@ -1,10 +1,14 @@
 @extends('layouts.main')
 @section('content')
-<style>
-    .qrcode{
-        text-align: center;
-    }
-</style>
+    <style>
+        .qrcode {
+            text-align: center;
+        }
+
+        .dt-head-center {
+            text-align: center;
+        }
+    </style>
     <div class="w-100 contenido">
         <div class="container-fluid container-mod">
             <div class="row">

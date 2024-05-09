@@ -37,7 +37,7 @@
                         <div class="login">
                             <div class="form-envia" id="form-envia">
                                 <div class="mb-2">
-                                    <a href="index.php">
+                                    <a href="{{ route('login') }}">
                                         <i class="fas fa-chevron-left"></i>
                                     </a>
                                 </div>

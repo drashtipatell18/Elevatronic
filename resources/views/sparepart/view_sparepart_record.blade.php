@@ -65,7 +65,7 @@
                                 <div class="col-md-4 mb-4">
                                     <div class="box-contenido">
                                         <h3>Foto de repuesto</h3>
-                                        <img src="{{ asset('images/' . $sparepart->foto_de_repuesto) }}" alt="personal">
+                                        <img src="{{ asset('images/' . $sparepart->foto_de_repuesto) }}" alt="personal" class="w-100">
                                     </div>
                                 </div>
                                 <div class="col-md-8 mb-4">

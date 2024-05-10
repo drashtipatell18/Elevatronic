@@ -58,13 +58,6 @@ class MaintInReviewController extends Controller
 
     }
 
-    public function maintInReviewEdit($id) {
-        $maint_in_review = MaintInReview::findOrFail($id);
-        $review_types = ReviewType::pluck('nombre', 'nombre');
-        $elevators = Elevators::pluck('nombre', 'nombre');
-        return view('Maint.view_maint_in_review', compact('maint_in_review', 'review_types', 'elevators'));
-    }
-    
     public function maintInReviewUpdate(Request $request,$id){
         $validatedData = $request->validate([
             'tipo_de_revisión' => 'required',

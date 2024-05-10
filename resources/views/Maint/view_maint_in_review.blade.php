@@ -77,11 +77,11 @@
                                         <tr class="td-head-center">
                                                 <td>{{ $maint_in_rev->tipo_de_revisión }}</td>
                                                 <td>{{ $maint_in_rev->ascensor }}</td>
+                                                <td>{{ $maint_in_rev->núm_certificado }}</td>
                                                 <td>{{ $maint_in_rev->fecha_de_mantenimiento }}</td>
                                                 <td>{{ $maint_in_rev->hora_inicio }}</td>
                                                 <td>{{ $maint_in_rev->hora_fin }}</td>
                                                 <td>{{ $maint_in_rev->técnico }}</td>
-                                                <td>{{ $maint_in_rev->observaciónes }}</td>
                                                 <td>
                                                     <a class="text-blue" href="javascript:void(0)" data-toggle="modal"
                                                         data-target="#observacion">
@@ -639,12 +639,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-12">
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et mattis nulla. Pellentesque
-                                laoreet sem sit amet nulla vestibulum, eu iaculis tellus aliquam. Sed lectus nisi, sagittis
-                                eget enim suscipit, accumsan euismod tortor. Mauris gravida gravida suscipit. Praesent
-                                rutrum bibendum mauris, eget sodales ex rutrum sed.
-                            </p>
+                            <p>{{ $maint_in_rev->observaciónes }}</p>
                         </div>
                     </div>
                 </div>

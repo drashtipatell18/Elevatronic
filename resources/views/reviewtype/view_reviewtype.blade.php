@@ -20,8 +20,8 @@
             <div class="row">
                 <div class="col-md-6 mb-4">
                     <div class="titulo">
-                        <h4>Provincias</h4>
-                        <span>Provincias</span>
+                        <h4>Tipos de revisión</h4>
+                        <span>Tipos de revisión</span>
                     </div>
                 </div>
                 <div class="col-md-6 mb-4 text-right">

@@ -70,8 +70,8 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($elevator_types as $index => $elevator_type)
-                                        <tr class="td-head-center">
-                                            <td>{{ $index + 1 }}</td>
+                                            <tr class="td-head-center">
+                                                <td>{{ $index + 1 }}</td>
                                                 <td align="center">
                                                     <a href="{{ route('details.elevatortypes', $elevator_type->id) }}"
                                                         class="text-blue">
@@ -120,7 +120,7 @@
                                 </button>
                             </div>
                             <form action="{{ route('insert.elevatortypes') }}" method="POST" class="formulario-modal"
-                                id="customerForm">
+                                id="createelevatorForm">
                                 @csrf
                                 <div class="modal-body body_modal">
                                     <div class="row">
@@ -130,12 +130,7 @@
                                                 <label for="nombreAscensor">Nombre de Tipo de Ascensor</label>
                                                 <input type="text" placeholder="Nombre de Tipo de Ascensor"
                                                     name="nombre_de_tipo_de_ascensor" id="nombreAscensor"
-                                                    class="form-control @error('nombre_de_tipo_de_ascensor') is-invalid @enderror">
-                                                @error('nombre_de_tipo_de_ascensor')
-                                                    <span class="invalid-feedback" style="color: red">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
+                                                    class="form-control">
                                             </div>
                                         </div>
                                     </div>
@@ -157,14 +152,14 @@
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title font-family-Outfit-SemiBold">Crear Tipo de Ascensor</h5>
+                                <h5 class="modal-title font-family-Outfit-SemiBold">Editar Tipo de Ascensor</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">×</span>
                                 </button>
                             </div>
                             @isset($elevator_type)
                                 <form action="/tipos/de/ascensor/actualizar/<?php echo $elevator_type->id; ?>" method="POST"
-                                    class="formulario-modal" id="customerForm">
+                                    class="formulario-modal" id="editelevatorForm">
                                     @csrf
                                     <div class="modal-body body_modal">
                                         <div class="row">
@@ -175,7 +170,7 @@
                                                     <input type="text" placeholder="Nombre de Tipo de Ascensor"
                                                         name="nombre_de_tipo_de_ascensor" id="nombreAscensor"
                                                         value="{{ old('nombre_de_tipo_de_ascensor', $elevator_type->nombre_de_tipo_de_ascensor ?? '') }}"
-                                                        class=" @error('nombre_de_tipo_de_ascensor') is-invalid @enderror">
+                                                        class="form-control">
                                                     @error('nombre_de_tipo_de_ascensor')
                                                         <span class="invalid-feedback" style="color: red">
                                                             <strong>{{ $message }}</strong>
@@ -186,7 +181,7 @@
                                         </div>
                                     </div>
                                     <div class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
-                                        <button type="submit" class="btn-gris btn-red mr-2">Guardar Cambios</button>
+                                        <button type="submit" class="btn-gris btn-red mr-2">Actualizar cambios</button>
                                         <button type="submit" class="btn-gris btn-border"
                                             data-dismiss="modal">Cancelar</button>
                                     </div>
@@ -288,11 +283,14 @@
                             columns: ':not(:last-child)' // Excluye la última columna
                         },
                         customize: function(doc) {
-                             doc.content[1].table.widths = Array(doc.content[1].table.body[0].length + 1).join('*').split('');
+                            doc.content[1].table.widths = Array(doc.content[1].table.body[0]
+                                .length + 1).join('*').split('');
                             var columnCount = doc.content[1].table.body[0].length;
                             doc.content[1].table.body.forEach(function(row) {
-                                row[0].alignment = 'center'; // Center align the first column
-                                row[columnCount - 1].alignment = 'center'; // Center align the last column
+                                row[0].alignment =
+                                'center'; // Center align the first column
+                                row[columnCount - 1].alignment =
+                                'center'; // Center align the last column
                             });
                         }
                     },
@@ -331,6 +329,44 @@
             setTimeout(function() {
                 $(".alert-danger").fadeOut(1000);
             }, 1000);
+            $('#createelevatorForm').validate({
+                rules: {
+                    nombre_de_tipo_de_ascensor: 'required'
+                },
+                messages: {
+                    nombre_de_tipo_de_ascensor: 'Por favor, ingresa el nombre de tipo de ascensor'
+                },
+                errorElement: 'span',
+                errorPlacement: function(error, element) {
+                    error.addClass('invalid-feedback');
+                    element.closest('.form-group').append(error);
+                },
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass('is-invalid').removeClass('is-valid');
+                },
+                unhighlight: function(element, errorClass, validClass) {
+                    $(element).removeClass('is-invalid').addClass('is-valid');
+                }
+            });
+            $('#editelevatorForm').validate({
+                rules: {
+                    nombre_de_tipo_de_ascensor: 'required'
+                },
+                messages: {
+                    nombre_de_tipo_de_ascensor: 'Por favor, ingresa el nombre de tipo de ascensor'
+                },
+                errorElement: 'span',
+                errorPlacement: function(error, element) {
+                    error.addClass('invalid-feedback');
+                    element.closest('.form-group').append(error);
+                },
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass('is-invalid').removeClass('is-valid');
+                },
+                unhighlight: function(element, errorClass, validClass) {
+                    $(element).removeClass('is-invalid').addClass('is-valid');
+                }
+            });
         });
     </script>
 @endpush

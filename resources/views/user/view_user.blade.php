@@ -124,7 +124,7 @@
                     </button>
                 </div>
                 <form action="{{ route('insert.user') }}" method="POST" class="formulario-modal"
-                    enctype="multipart/form-data">
+                    enctype="multipart/form-data" id="createuserform">
                     @csrf
                     <div class="modal-body body_modal">
                         <div class="row">
@@ -250,7 +250,8 @@
                     </button>
                 </div>
                 @isset($user)
-                    <form action="/usuarios/actualizar/<?php echo $user->id; ?>" method="POST" enctype="multipart/form-data">
+                    <form action="/usuarios/actualizar/<?php echo $user->id; ?>" method="POST" enctype="multipart/form-data"
+                        id="edituserform">
                         @csrf
                         <div class="modal-body body_modal">
                             <div class="row">
@@ -470,11 +471,14 @@
                             columns: ':not(:last-child)' // Excluye la última columna
                         },
                         customize: function(doc) {
-                             doc.content[1].table.widths = Array(doc.content[1].table.body[0].length + 1).join('*').split('');
+                            doc.content[1].table.widths = Array(doc.content[1].table.body[0]
+                                .length + 1).join('*').split('');
                             var columnCount = doc.content[1].table.body[0].length;
                             doc.content[1].table.body.forEach(function(row) {
-                                row[0].alignment = 'center'; // Center align the first column
-                                row[columnCount - 1].alignment = 'center'; // Center align the last column
+                                row[0].alignment =
+                                    'center'; // Center align the first column
+                                row[columnCount - 1].alignment =
+                                    'center'; // Center align the last column
                             });
                         }
                     },
@@ -541,6 +545,110 @@
             setTimeout(function() {
                 $(".alert-danger").fadeOut(1000);
             }, 1000);
+
+            $('#createuserform').validate({
+                rules: {
+                    username: "required",
+                    name: "required",
+                    email: {
+                        required: true,
+                        email: true
+                    },
+                    phone: {
+                        required: true,
+                        digits: true
+                    },
+                    employee: "required",
+                    password: {
+                        required: true,
+                        minlength: 6
+                    }
+                },
+                messages: {
+                    username: "Por favor, ingrese el nombre de usuario",
+                    name: "Por favor, ingrese el nombre",
+                    email: {
+                        required: "Por favor, ingrese el correo",
+                        email: "Por favor, ingrese un correo válido"
+                    },
+                    phone: {
+                        required: "Por favor, ingrese el teléfono",
+                        digits: "Por favor, ingrese solo números"
+                    },
+                    employee: "Por favor, seleccione un empleado",
+                    password: {
+                        required: "Por favor, ingrese la contraseña",
+                        minlength: "La contraseña debe tener al menos 6 caracteres"
+                    }
+                },
+                errorElement: "span",
+                errorPlacement: function(error, element) {
+                    // Add the `invalid-feedback` class to the error element
+                    error.addClass("invalid-feedback");
+                    // Add error message after the invalid element
+                    error.insertAfter(element);
+                },
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass("is-invalid").removeClass("is-valid");
+                },
+                unhighlight: function(element, errorClass, validClass) {
+                    $(element).removeClass("is-invalid").addClass("is-valid");
+                }
+            });
+
+            $('#edituserform').validate({
+                rules: {
+                    username: "required",
+                    name: "required",
+                    email: {
+                        required: true,
+                        email: true
+                    },
+                    phone: {
+                        required: true,
+                        digits: true
+                    },
+                    employee: "required",
+                    @if (!isset($users))
+                        password: {
+                            required: true,
+                            minlength: 6
+                        }
+                    @endif
+                },
+                messages: {
+                    username: "Por favor, ingrese el nombre de usuario",
+                    name: "Por favor, ingrese el nombre",
+                    email: {
+                        required: "Por favor, ingrese el correo",
+                        email: "Por favor, ingrese un correo válido"
+                    },
+                    phone: {
+                        required: "Por favor, ingrese el teléfono",
+                        digits: "Por favor, ingrese solo números"
+                    },
+                    employee: "Por favor, seleccione un empleado",
+                    @if (!isset($users))
+                        password: {
+                            required: "Por favor, ingrese la contraseña",
+                            minlength: "La contraseña debe tener al menos 6 caracteres"
+                        }
+                    @endif
+                },
+                errorElement: "span",
+                errorPlacement: function(error, element) {
+                    // Add the `invalid-feedback` class to the error element
+                    error.addClass("invalid-feedback");
+                    // Add error message after the invalid element
+                    error.insertAfter(element);
+                },
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass("is-invalid").removeClass("is-valid");
+                },
+                unhighlight: function(element, errorClass, validClass) {
+                    $(element).removeClass("is-invalid").addClass("is-valid");
+                }
+            });
         });
     </script>
 @endpush

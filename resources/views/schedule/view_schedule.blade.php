@@ -1,4 +1,7 @@
 @extends('layouts.main')
+<style>
+    .error { color: red; }
+</style>
 @section('content')
     <div class="w-100 contenido">
         <div class="container-fluid container-mod">
@@ -437,6 +440,52 @@
             setTimeout(function() {
                 $(".alert-danger").fadeOut(1000);
             }, 1000);
+
+            $("#eventForm").validate({
+            rules: {
+                ascensor: {
+                    required: true
+                },
+                revisar: {
+                    required: true
+                },
+                mantenimiento: {
+                    required: true
+                },
+                hora_de_inicio: {
+                    required: true
+                },
+                hora_de_finalización: {
+                    required: true
+                },
+                estado: {
+                    required: true
+                }
+                // Add rules for other fields here
+            },
+            messages: {
+                // Specify custom messages for each field
+                ascensor: "Por favor, seleccione un ascensor.",
+                revisar: "Por favor, seleccione un tipo de revisión.",
+                mantenimiento: "Por favor, ingrese una fecha de mantenimiento.",
+                hora_de_inicio: "Por favor, ingrese una hora de inicio.",
+                hora_de_finalización: "Por favor, ingrese una hora de finalización.",
+                estado: "Por favor, seleccione un estado."
+                // Add messages for other fields here
+            },
+            errorElement: "span",
+            errorPlacement: function(error, element) {
+                error.addClass("error");
+                error.insertAfter(element);
+            },
+            highlight: function(element, errorClass, validClass) {
+                $(element).addClass("is-invalid").removeClass("is-valid");
+            },
+            unhighlight: function(element, errorClass, validClass) {
+                $(element).removeClass("is-invalid").addClass("is-valid");
+            }
+        });
+
         });
     </script>
 @endpush

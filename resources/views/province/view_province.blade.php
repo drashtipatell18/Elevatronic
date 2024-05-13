@@ -1,10 +1,10 @@
 @extends('layouts.main')
 @section('content')
-<style>
-    .dt-head-center{
-        text-align: center;
-    }
-</style>
+    <style>
+        .dt-head-center {
+            text-align: center;
+        }
+    </style>
     <div class="w-100 contenido">
         <div class="container-fluid container-mod">
             @if (session('success'))
@@ -68,8 +68,8 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($provinces as $index => $province)
-                                        <tr class="td-head-center">
-                                            <td>{{ $index + 1 }}</td>
+                                            <tr class="td-head-center">
+                                                <td>{{ $index + 1 }}</td>
                                                 <td class="text-center">
                                                     <a href="{{ route('view.province', $province->id) }}" class="text-blue">
                                                         {{ $province->provincia }}
@@ -116,7 +116,7 @@
                                 </button>
                             </div>
                             <form action="{{ route('insert.province') }}" method="POST" class="formulario-modal"
-                                id="provinceForm">
+                                id="createprovinceForm">
                                 @csrf
                                 <div class="modal-body body_modal">
                                     <div class="row">
@@ -125,13 +125,7 @@
                                             <div class="form-group">
                                                 <label for="provincia">Nombre de Provincia</label>
                                                 <input type="text" placeholder="Nombre de Provincia" name="provincia"
-                                                    class="form-control @error('provincia') is-invalid @enderror"
-                                                    id="provincia">
-                                                @error('provincia')
-                                                    <span class="invalid-feedback" style="color: red">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
+                                                    class="form-control" id="provincia">
                                             </div>
                                         </div>
                                     </div>
@@ -160,7 +154,7 @@
                             </div>
                             @isset($province)
                                 <form action="{{ route('update.province', $province->id) }}" method="POST"
-                                    class="formulario-modal" id="provinceForm">
+                                    class="formulario-modal" id="editprovinceForm">
                                     @csrf
                                     <div class="modal-body body_modal">
                                         <div class="row">
@@ -282,11 +276,14 @@
                             columns: ':not(:last-child)' // Excluye la última columna
                         },
                         customize: function(doc) {
-                             doc.content[1].table.widths = Array(doc.content[1].table.body[0].length + 1).join('*').split('');
+                            doc.content[1].table.widths = Array(doc.content[1].table.body[0]
+                                .length + 1).join('*').split('');
                             var columnCount = doc.content[1].table.body[0].length;
                             doc.content[1].table.body.forEach(function(row) {
-                                row[0].alignment = 'center'; // Center align the first column
-                                row[columnCount - 1].alignment = 'center'; // Center align the last column
+                                row[0].alignment =
+                                    'center'; // Center align the first column
+                                row[columnCount - 1].alignment =
+                                    'center'; // Center align the last column
                             });
                         }
                     },
@@ -325,6 +322,50 @@
             setTimeout(function() {
                 $(".alert-danger").fadeOut(1000);
             }, 1000);
+
+            $('#createprovinceForm').validate({
+                rules: {
+                    provincia: "required"
+                },
+                messages: {
+                    provincia: "Por favor, ingrese el nombre de la provincia"
+                },
+                errorElement: "span",
+                errorPlacement: function(error, element) {
+                    // Add the `invalid-feedback` class to the error element
+                    error.addClass("invalid-feedback");
+                    // Add error message after the invalid element
+                    error.insertAfter(element);
+                },
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass("is-invalid").removeClass("is-valid");
+                },
+                unhighlight: function(element, errorClass, validClass) {
+                    $(element).removeClass("is-invalid").addClass("is-valid");
+                }
+            });
+
+            $('#editprovinceForm').validate({
+                rules: {
+                    provincia: "required"
+                },
+                messages: {
+                    provincia: "Por favor, ingrese el nombre de la provincia"
+                },
+                errorElement: "span",
+                errorPlacement: function(error, element) {
+                    // Add the `invalid-feedback` class to the error element
+                    error.addClass("invalid-feedback");
+                    // Add error message after the invalid element
+                    error.insertAfter(element);
+                },
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass("is-invalid").removeClass("is-valid");
+                },
+                unhighlight: function(element, errorClass, validClass) {
+                    $(element).removeClass("is-invalid").addClass("is-valid");
+                }
+            });
         });
     </script>
 @endpush

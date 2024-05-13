@@ -72,8 +72,8 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($elevators as $index => $elevator)
-                                        <tr class="td-head-center">
-                                            <td>{{ $index + 1 }}</td>
+                                            <tr class="td-head-center">
+                                                <td>{{ $index + 1 }}</td>
                                                 <td>{{ $elevator->fecha }}</td>
                                                 <td>{{ $elevator->tipo_de_ascensor }}</td>
                                                 <td>
@@ -125,7 +125,7 @@
                                             </button>
                                         </div>
                                         <form action="{{ route('insert.elevator') }}" class="formulario-modal"
-                                            enctype="multipart/form-data" method="POST">
+                                            enctype="multipart/form-data" method="POST" id="createelevatform">
                                             @csrf
                                             <div class="modal-body body_modal">
                                                 <div class="row">
@@ -153,12 +153,7 @@
                                                                     <label for="contrato"># de contrato</label>
                                                                     <input type="text" placeholder="# de contrato"
                                                                         name="contrato" id="contrato"
-                                                                        class="form-control @error('contrato') is-invalid @enderror">
-                                                                    @error('contrato')
-                                                                        <span class="invalid-feedback" style="color: red">
-                                                                            <strong>{{ $message }}</strong>
-                                                                        </span>
-                                                                    @enderror
+                                                                        class="form-control">
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-12">
@@ -166,12 +161,7 @@
                                                                     <label for="nombre">Nombre ascensor</label>
                                                                     <input type="text" placeholder="Nombre ascensor"
                                                                         name="nombre" id="nombre"
-                                                                        class="form-control @error('nombre') is-invalid @enderror">
-                                                                    @error('nombre')
-                                                                        <span class="invalid-feedback" style="color: red">
-                                                                            <strong>{{ $message }}</strong>
-                                                                        </span>
-                                                                    @enderror
+                                                                        class="form-control">
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
@@ -179,12 +169,7 @@
                                                                     <label for="código">Código</label>
                                                                     <input type="text" placeholder="Código"
                                                                         name="código" id="código"
-                                                                        class="form-control @error('código') is-invalid @enderror">
-                                                                    @error('código')
-                                                                        <span class="invalid-feedback" style="color: red">
-                                                                            <strong>{{ $message }}</strong>
-                                                                        </span>
-                                                                    @enderror
+                                                                        class="form-control">
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
@@ -192,183 +177,119 @@
                                                                     <label for="marca">Marca</label>
                                                                     <input type="text" placeholder="Marca"
                                                                         name="marca" id="marca"
-                                                                        class="form-control @error('marca') is-invalid @enderror">
-                                                                    @error('marca')
-                                                                        <span class="invalid-feedback" style="color: red">
-                                                                            <strong>{{ $message }}</strong>
-                                                                        </span>
-                                                                    @enderror
+                                                                        class="form-control">
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-12">
                                                                 <div class="form-group">
                                                                     <label for="clienteAscensor">Cliente del
                                                                         ascensor</label>
-                                                                    <select
-                                                                        class="custom-select form-control @error('cliente') is-invalid @enderror"
-                                                                        name="cliente" id="cliente">
-                                                                        <option selected class="d-none">Seleccionar opción
-                                                                        </option>
-                                                                        @foreach ($customers as $key => $value)
-                                                                            <option value="{{ $key }}">
-                                                                                {{ $value }}</option>
-                                                                        @endforeach
-                                                                    </select>
-                                                                    @error('cliente')
-                                                                        <span class="invalid-feedback" style="color: red">
-                                                                            <strong>{{ $message }}</strong>
-                                                                        </span>
-                                                                    @enderror
+                                                                        <select class="custom-select form-control" name="cliente" id="cliente">
+                                                                            <option value="" class="d-none">Seleccionar opción</option>
+                                                                            @foreach ($customers as $key => $value)
+                                                                                <option value="{{ $key }}">{{ $value }}</option>
+                                                                            @endforeach
+                                                                        </select>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label for="fechaEntrega">Fecha de entrega</label>
                                                                     <input type="date" placeholder="dd/mm/aaaa"
-                                                                        class="form-control @error('fecha') is-invalid @enderror"
-                                                                        name="fecha" id="fecha">
-                                                                    @error('fecha')
-                                                                        <span class="invalid-feedback" style="color: red">
-                                                                            <strong>{{ $message }}</strong>
-                                                                        </span>
-                                                                    @enderror
+                                                                        class="form-control" name="fecha"
+                                                                        id="fecha">
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label for="garantia">Garantía</label>
                                                                     <input type="text" placeholder="Garantizar"
-                                                                        class="form-control @error('garantizar') is-invalid @enderror"
-                                                                        name="garantizar" id="garantizar">
-                                                                    @error('garantizar')
-                                                                        <span class="invalid-feedback" style="color: red">
-                                                                            <strong>{{ $message }}</strong>
-                                                                        </span>
-                                                                    @enderror
+                                                                        class="form-control" name="garantizar"
+                                                                        id="garantizar">
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-12">
                                                                 <div class="form-group">
                                                                     <label for="dirección">Dirección</label>
                                                                     <input type="text" placeholder="Dirección"
-                                                                        class="form-control @error('dirección') is-invalid @enderror"
-                                                                        name="dirección" id="dirección">
-                                                                    @error('dirección')
-                                                                        <span class="invalid-feedback" style="color: red">
-                                                                            <strong>{{ $message }}</strong>
-                                                                        </span>
-                                                                    @enderror
+                                                                        class="form-control" name="dirección"
+                                                                        id="dirección">
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label for="ubigeo">Ubigeo</label>
                                                                     <input type="text" placeholder="Ubigeo"
-                                                                        class="form-control @error('ubigeo') is-invalid @enderror"
-                                                                        name="ubigeo" id="ubigeo">
-                                                                    @error('ubigeo')
-                                                                        <span class="invalid-feedback" style="color: red">
-                                                                            <strong>{{ $message }}</strong>
-                                                                        </span>
-                                                                    @enderror
+                                                                        class="form-control" name="ubigeo"
+                                                                        id="ubigeo">
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label for="provincia">Provincia</label>
-                                                                    <select
-                                                                        class="custom-select form-control @error('provincia') is-invalid @enderror"
-                                                                        name="provincia" id="provincia">
-                                                                        <option selected class="d-none">Seleccionar opción
+                                                                    <select class="custom-select form-control"
+                                                                        name="provincia" id="provincia" >
+                                                                        <option value="" class="d-none">Seleccionar opción
                                                                         </option>
                                                                         @foreach ($provinces as $province)
                                                                             <option value="{{ $province }}">
                                                                                 {{ $province }}</option>
                                                                         @endforeach
                                                                     </select>
-                                                                    @error('provincia')
-                                                                        <span class="invalid-feedback" style="color: red">
-                                                                            <strong>{{ $message }}</strong>
-                                                                        </span>
-                                                                    @enderror
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-12">
                                                                 <div class="form-group">
                                                                     <label for="tecnicoInstalador">Técnico
                                                                         instalador</label>
-                                                                    <select
-                                                                        class="custom-select form-control @error('técnico_instalador') is-invalid @enderror"
+                                                                    <select class="custom-select form-control"
                                                                         name="técnico_instalador" id="técnico_instalador">
-                                                                        <option selected class="d-none">Seleccionar opción
+                                                                        <option class="d-none">Seleccionar opción
                                                                         </option>
                                                                         <option value="tecnico_1">Tecnico 1</option>
                                                                         <option value="tecnico_2">Tecnico 2</option>
                                                                         <option value="tecnico_3">Tecnico 3</option>
                                                                     </select>
-                                                                    @error('técnico_instalador')
-                                                                        <span class="invalid-feedback" style="color: red">
-                                                                            <strong>{{ $message }}</strong>
-                                                                        </span>
-                                                                    @enderror
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-12">
                                                                 <div class="form-group">
                                                                     <label for="técnico_ajustador">Técnico
                                                                         ajustador</label>
-                                                                    <select
-                                                                        class="custom-select form-control @error('técnico_ajustador') is-invalid @enderror"
+                                                                    <select class="custom-select form-control"
                                                                         name="técnico_ajustador" id="técnico_ajustador">
-                                                                        <option selected class="d-none">Seleccionar opción
+                                                                        <option class="d-none">Seleccionar opción
                                                                         </option>
                                                                         <option value="tecnico_1">Tecnico 1</option>
                                                                         <option value="tecnico_2">Tecnico 2</option>
                                                                         <option value="tecnico_3">Tecnico 3</option>
                                                                     </select>
-                                                                    @error('técnico_ajustador')
-                                                                        <span class="invalid-feedback" style="color: red">
-                                                                            <strong>{{ $message }}</strong>
-                                                                        </span>
-                                                                    @enderror
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-12">
                                                                 <div class="form-group">
                                                                     <label for="tipo_de_ascensor">Tipo de ascensor</label>
-                                                                    <select
-                                                                        class="custom-select form-control @error('tipo_de_ascensor') is-invalid @enderror"
+                                                                    <select class="custom-select form-control"
                                                                         name="tipo_de_ascensor" id="tipo_de_ascensor">
-                                                                        <option selected class="d-none">Seleccionar opción
+                                                                        <option class="d-none">Seleccionar opción
                                                                         </option>
                                                                         <option value="tipo_1">Tipo 1</option>
                                                                         <option value="tipo_2">Tipo 2</option>
                                                                         <option value="tipo_3">Tipo 3</option>
                                                                     </select>
-                                                                    @error('tipo_de_ascensor')
-                                                                        <span class="invalid-feedback" style="color: red">
-                                                                            <strong>{{ $message }}</strong>
-                                                                        </span>
-                                                                    @enderror
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label for="tiposAscensor">Cantidad</label>
-                                                                    <select
-                                                                        class="custom-select @error('cantidad') is-invalid @enderror"
-                                                                        name="cantidad" id="cantidad">
-                                                                        <option selected class="d-none">Seleccionar
+                                                                    <select class="custom-select" name="cantidad"
+                                                                        id="cantidad">
+                                                                        <option class="d-none">Seleccionar
                                                                         </option>
                                                                         <option value="cantidad_1">Cantidad 1</option>
                                                                         <option value="cantidad_2">Cantidad 2</option>
                                                                         <option value="cantidad_3">Cantidad 3</option>
                                                                     </select>
-                                                                    @error('tipo_de_ascensor')
-                                                                        <span class="invalid-feedback" style="color: red">
-                                                                            <strong>{{ $message }}</strong>
-                                                                        </span>
-                                                                    @enderror
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-12"></div>
@@ -412,13 +333,7 @@
                                                                 <div class="form-group">
                                                                     <label for="Npisos"># de pisos</label>
                                                                     <input type="text" placeholder="#" name="npisos"
-                                                                        id="npisos"
-                                                                        class="form-control @error('npisos') is-invalid @enderror">
-                                                                    @error('npisos')
-                                                                        <span class="invalid-feedback" style="color: red">
-                                                                            <strong>{{ $message }}</strong>
-                                                                        </span>
-                                                                    @enderror
+                                                                        id="npisos" class="form-control">
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-12">
@@ -426,51 +341,30 @@
                                                                     <label for="Ncontacto">Nombre del Contacto</label>
                                                                     <input type="text"
                                                                         placeholder="Nombre del contacto" name="ncontacto"
-                                                                        id="ncontacto"
-                                                                        class="form-control @error('ncontacto') is-invalid @enderror">
-                                                                    @error('npisos')
-                                                                        <span class="invalid-feedback" style="color: red">
-                                                                            <strong>{{ $message }}</strong>
-                                                                        </span>
-                                                                    @enderror
+                                                                        id="ncontacto" class="form-control">
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-12">
                                                                 <div class="form-group">
                                                                     <label for="telefono">Teléfono</label>
                                                                     <input type="text" placeholder="Teléfono"
-                                                                        class="form-control @error('teléfono') is-invalid @enderror"
-                                                                        name="teléfono" id="teléfono">
-                                                                    @error('teléfono')
-                                                                        <span class="invalid-feedback" style="color: red">
-                                                                            <strong>{{ $message }}</strong>
-                                                                        </span>
-                                                                    @enderror
+                                                                        class="form-control" name="teléfono"
+                                                                        id="teléfono">
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-12">
                                                                 <div class="form-group">
                                                                     <label for="correo">Correo electrónico</label>
                                                                     <input type="text" placeholder="Correo electrónico"
-                                                                        class="form-control @error('correo') is-invalid @enderror"
-                                                                        name="correo" id="correo">
-                                                                    @error('correo')
-                                                                        <span class="invalid-feedback" style="color: red">
-                                                                            <strong>{{ $message }}</strong>
-                                                                        </span>
-                                                                    @enderror
+                                                                        class="form-control" name="correo"
+                                                                        id="correo">
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-12">
                                                                 <div class="form-group">
                                                                     <label for="Descripcion1">Descripción 1</label>
                                                                     <textarea name="descripcion1" id="descripcion1" placeholder="Descripción" cols="30" rows="5"
-                                                                        class="form-control @error('descripcion1') is-invalid @enderror"></textarea>
-                                                                    @error('descripcion1')
-                                                                        <span class="invalid-feedback" style="color: red">
-                                                                            <strong>{{ $message }}</strong>
-                                                                        </span>
-                                                                    @enderror
+                                                                        class="form-control"></textarea>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-12 d-none position-relative"
@@ -515,7 +409,7 @@
                                         </div>
                                         @isset($elevator)
                                             <form action="{{ route('update.elevator', $elevator->id) }}"
-                                                class="formulario-modal" enctype="multipart/form-data" method="POST">
+                                                class="formulario-modal" enctype="multipart/form-data" method="POST" id="editelevatform">
                                                 @csrf
                                                 <div class="modal-body body_modal">
                                                     <div class="row">
@@ -550,28 +444,18 @@
                                                                         <label for="contrato"># de contrato</label>
                                                                         <input type="text" placeholder="# de contrato"
                                                                             name="contrato" id="contrato"
-                                                                            class="form-control @error('contrato') is-invalid @enderror"
+                                                                            class="form-control"
                                                                             value="{{ old('contrato', $elevator->contrato ?? '') }}">
-                                                                        @error('contrato')
-                                                                            <span class="invalid-feedback" style="color: red">
-                                                                                <strong>{{ $message }}</strong>
-                                                                            </span>
-                                                                        @enderror
-                                                                    </div>
+                                                                        </div>
                                                                 </div>
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
                                                                         <label for="nombre">Nombre ascensor</label>
                                                                         <input type="text" placeholder="Nombre ascensor"
                                                                             name="nombre" id="nombre"
-                                                                            class="form-control @error('nombre') is-invalid @enderror"
+                                                                            class="form-control"
                                                                             value="{{ old('nombre', $elevator->nombre ?? '') }}">
-                                                                        @error('nombre')
-                                                                            <span class="invalid-feedback" style="color: red">
-                                                                                <strong>{{ $message }}</strong>
-                                                                            </span>
-                                                                        @enderror
-                                                                    </div>
+                                                                        </div>
                                                                 </div>
 
                                                                 <div class="col-md-6">
@@ -579,14 +463,9 @@
                                                                         <label for="código">Código</label>
                                                                         <input type="text" placeholder="Código"
                                                                             name="código" id="código"
-                                                                            class="form-control @error('código') is-invalid @enderror"
+                                                                            class="form-control"
                                                                             value="{{ old('código', $elevator->código ?? '') }}">
-                                                                        @error('código')
-                                                                            <span class="invalid-feedback" style="color: red">
-                                                                                <strong>{{ $message }}</strong>
-                                                                            </span>
-                                                                        @enderror
-                                                                    </div>
+                                                                        </div>
                                                                 </div>
 
                                                                 <div class="col-md-6">
@@ -594,14 +473,9 @@
                                                                         <label for="marca">Marca</label>
                                                                         <input type="text" placeholder="Marca"
                                                                             name="marca" id="marca"
-                                                                            class="form-control @error('marca') is-invalid @enderror"
+                                                                            class="form-control"
                                                                             value="{{ old('marca', $elevator->marca ?? '') }}">
-                                                                        @error('marca')
-                                                                            <span class="invalid-feedback" style="color: red">
-                                                                                <strong>{{ $message }}</strong>
-                                                                            </span>
-                                                                        @enderror
-                                                                    </div>
+                                                                        </div>
                                                                 </div>
 
                                                                 <div class="col-md-12">
@@ -609,9 +483,9 @@
                                                                         <label for="clienteAscensor">Cliente del
                                                                             ascensor</label>
                                                                         <select
-                                                                            class="custom-select form-control @error('cliente') is-invalid @enderror"
+                                                                            class="custom-select form-control"
                                                                             name="cliente" id="cliente">
-                                                                            <option selected disabled>Seleccionar opción
+                                                                            <option  disabled>Seleccionar opción
                                                                             </option>
                                                                             @foreach ($customers as $key => $value)
                                                                                 <option value="{{ $key }}"
@@ -619,11 +493,6 @@
                                                                                     {{ $value }}</option>
                                                                             @endforeach
                                                                         </select>
-                                                                        @error('cliente')
-                                                                            <span class="invalid-feedback" style="color: red">
-                                                                                <strong>{{ $message }}</strong>
-                                                                            </span>
-                                                                        @enderror
                                                                     </div>
                                                                 </div>
 
@@ -631,67 +500,47 @@
                                                                     <div class="form-group">
                                                                         <label for="fechaEntrega">Fecha de entrega</label>
                                                                         <input type="date" placeholder="dd/mm/aaaa"
-                                                                            class="form-control @error('fecha') is-invalid @enderror"
+                                                                            class="form-control"
                                                                             name="fecha" id="fecha"
                                                                             value="{{ old('fecha', isset($elevator) ? $elevator->fecha : '') }}">
-                                                                        @error('fecha')
-                                                                            <span class="invalid-feedback" style="color: red">
-                                                                                <strong>{{ $message }}</strong>
-                                                                            </span>
-                                                                        @enderror
-                                                                    </div>
+                                                                        </div>
                                                                 </div>
 
                                                                 <div class="col-md-6">
                                                                     <div class="form-group">
                                                                         <label for="garantia">Garantía</label>
                                                                         <input type="text" placeholder="Garantizar"
-                                                                            class="form-control @error('garantizar') is-invalid @enderror"
+                                                                            class="form-control"
                                                                             name="garantizar" id="garantizar"
                                                                             value="{{ old('garantizar', $elevator->garantizar ?? '') }}">
-                                                                        @error('garantizar')
-                                                                            <span class="invalid-feedback" style="color: red">
-                                                                                <strong>{{ $message }}</strong>
-                                                                            </span>
-                                                                        @enderror
-                                                                    </div>
+                                                                        </div>
                                                                 </div>
 
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
                                                                         <label for="dirección">Dirección</label>
                                                                         <input type="text" placeholder="Dirección"
-                                                                            class="form-control @error('dirección') is-invalid @enderror"
+                                                                            class="form-control"
                                                                             name="dirección" id="dirección"
                                                                             value="{{ old('dirección', $elevator->dirección ?? '') }}">
-                                                                        @error('dirección')
-                                                                            <span class="invalid-feedback" style="color: red">
-                                                                                <strong>{{ $message }}</strong>
-                                                                            </span>
-                                                                        @enderror
-                                                                    </div>
+                                                                        </div>
                                                                 </div>
 
                                                                 <div class="col-md-6">
                                                                     <div class="form-group">
                                                                         <label for="ubigeo">Ubigeo</label>
                                                                         <input type="text" placeholder="Ubigeo"
-                                                                            class="form-control @error('ubigeo') is-invalid @enderror"
+                                                                            class="form-control"
                                                                             name="ubigeo" id="ubigeo"
                                                                             value="{{ old('ubigeo', $elevator->ubigeo ?? '') }}">
-                                                                        @error('ubigeo')
-                                                                            <span class="invalid-feedback" style="color: red">
-                                                                                <strong>{{ $message }}</strong>
-                                                                            </span>
-                                                                        @enderror
-                                                                    </div>
+                                                                        </div>
                                                                 </div>
 
                                                                 <div class="col-md-6">
                                                                     <div class="form-group">
                                                                         <label for="provincia">Provincia</label>
                                                                         <select
-                                                                            class="custom-select form-control @error('provincia') is-invalid @enderror"
+                                                                            class="custom-select form-control"
                                                                             name="provincia" id="provincia">
                                                                             <option selected class="d-none">Seleccionar opción
                                                                             </option>
@@ -702,11 +551,6 @@
                                                                                 </option>
                                                                             @endforeach
                                                                         </select>
-                                                                        @error('provincia')
-                                                                            <span class="invalid-feedback" style="color: red">
-                                                                                <strong>{{ $message }}</strong>
-                                                                            </span>
-                                                                        @enderror
                                                                     </div>
                                                                 </div>
 
@@ -715,7 +559,7 @@
                                                                         <label for="tecnicoInstalador">Técnico
                                                                             instalador</label>
                                                                         <select
-                                                                            class="custom-select form-control @error('técnico_instalador') is-invalid @enderror"
+                                                                            class="custom-select form-control"
                                                                             name="técnico_instalador" id="técnico_instalador">
                                                                             <option selected disabled>Seleccionar opción
                                                                             </option>
@@ -729,11 +573,6 @@
                                                                                 {{ old('técnico_instalador', $elevator->técnico_instalador ?? '') == 'tecnico_3' ? 'selected' : '' }}>
                                                                                 Técnico 3</option>
                                                                         </select>
-                                                                        @error('técnico_instalador')
-                                                                            <span class="invalid-feedback" style="color: red">
-                                                                                <strong>{{ $message }}</strong>
-                                                                            </span>
-                                                                        @enderror
                                                                     </div>
                                                                 </div>
 
@@ -742,7 +581,7 @@
                                                                         <label for="técnico_ajustador">Técnico
                                                                             ajustador</label>
                                                                         <select
-                                                                            class="custom-select form-control @error('técnico_ajustador') is-invalid @enderror"
+                                                                            class="custom-select form-control"
                                                                             name="técnico_ajustador" id="técnico_ajustador">
                                                                             <option selected disabled>Seleccionar opción
                                                                             </option>
@@ -756,11 +595,6 @@
                                                                                 {{ old('técnico_ajustador', $elevator->técnico_ajustador ?? '') == 'tecnico_3' ? 'selected' : '' }}>
                                                                                 Técnico 3</option>
                                                                         </select>
-                                                                        @error('técnico_ajustador')
-                                                                            <span class="invalid-feedback" style="color: red">
-                                                                                <strong>{{ $message }}</strong>
-                                                                            </span>
-                                                                        @enderror
                                                                     </div>
                                                                 </div>
 
@@ -768,7 +602,7 @@
                                                                     <div class="form-group">
                                                                         <label for="tipo_de_ascensor">Tipo de ascensor</label>
                                                                         <select
-                                                                            class="custom-select form-control @error('tipo_de_ascensor') is-invalid @enderror"
+                                                                            class="custom-select form-control"
                                                                             name="tipo_de_ascensor" id="tipo_de_ascensor">
                                                                             <option selected disabled>Seleccionar opción
                                                                             </option>
@@ -782,11 +616,6 @@
                                                                                 {{ old('tipo_de_ascensor', $elevator->tipo_de_ascensor ?? '') == 'tipo_3' ? 'selected' : '' }}>
                                                                                 Tipo 3</option>
                                                                         </select>
-                                                                        @error('tipo_de_ascensor')
-                                                                            <span class="invalid-feedback" style="color: red">
-                                                                                <strong>{{ $message }}</strong>
-                                                                            </span>
-                                                                        @enderror
                                                                     </div>
                                                                 </div>
 
@@ -794,7 +623,7 @@
                                                                     <div class="form-group">
                                                                         <label for="tiposAscensor">Cantidad</label>
                                                                         <select
-                                                                            class="custom-select @error('cantidad') is-invalid @enderror"
+                                                                            class="custom-select"
                                                                             name="cantidad" id="cantidad">
                                                                             <option selected disabled>Seleccionar</option>
                                                                             <option value="cantidad_1"
@@ -807,11 +636,6 @@
                                                                                 {{ old('cantidad', $elevator->cantidad ?? '') == 'cantidad_3' ? 'selected' : '' }}>
                                                                                 Cantidad 3</option>
                                                                         </select>
-                                                                        @error('cantidad')
-                                                                            <span class="invalid-feedback" style="color: red">
-                                                                                <strong>{{ $message }}</strong>
-                                                                            </span>
-                                                                        @enderror
                                                                     </div>
                                                                 </div>
 
@@ -858,13 +682,8 @@
                                                                         <label for="Npisos"># de pisos</label>
                                                                         <input type="text" placeholder="#" name="npisos"
                                                                             id="npisos"
-                                                                            class="form-control @error('npisos') is-invalid @enderror"
+                                                                            class="form-control"
                                                                             value="{{ old('npisos', isset($elevator) ? $elevator->npisos : '') }}">
-                                                                        @error('npisos')
-                                                                            <span class="invalid-feedback" style="color: red">
-                                                                                <strong>{{ $message }}</strong>
-                                                                            </span>
-                                                                        @enderror
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-12">
@@ -873,44 +692,29 @@
                                                                         <input type="number"
                                                                             placeholder="Nombre del contacto" name="ncontacto"
                                                                             id="ncontacto"
-                                                                            class="form-control @error('ncontacto') is-invalid @enderror"
+                                                                            class="form-control"
                                                                             value="{{ old('ncontacto', isset($elevator) ? $elevator->ncontacto : '') }}">
-                                                                        @error('ncontacto')
-                                                                            <span class="invalid-feedback" style="color: red">
-                                                                                <strong>{{ $message }}</strong>
-                                                                            </span>
-                                                                        @enderror
-                                                                    </div>
+                                                                        </div>
                                                                 </div>
 
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
                                                                         <label for="telefono">Teléfono</label>
                                                                         <input type="number" placeholder="Teléfono"
-                                                                            class="form-control @error('teléfono') is-invalid @enderror"
+                                                                            class="form-control"
                                                                             name="teléfono" id="teléfono"
                                                                             value="{{ old('teléfono', isset($elevator) ? $elevator->teléfono : '') }}">
-                                                                        @error('teléfono')
-                                                                            <span class="invalid-feedback" style="color: red">
-                                                                                <strong>{{ $message }}</strong>
-                                                                            </span>
-                                                                        @enderror
-                                                                    </div>
+                                                                        </div>
                                                                 </div>
 
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
                                                                         <label for="correo">Correo electrónico</label>
                                                                         <input type="text" placeholder="Correo electrónico"
-                                                                            class="form-control @error('correo') is-invalid @enderror"
+                                                                            class="form-control"
                                                                             name="correo" id="correo"
                                                                             value="{{ old('correo', isset($elevator) ? $elevator->correo : '') }}">
-                                                                        @error('correo')
-                                                                            <span class="invalid-feedback" style="color: red">
-                                                                                <strong>{{ $message }}</strong>
-                                                                            </span>
-                                                                        @enderror
-                                                                    </div>
+                                                                        </div>
                                                                 </div>
 
                                                                 <div class="col-md-12">
@@ -1047,11 +851,14 @@
                             columns: ':not(:last-child)' // Excluye la última columna
                         },
                         customize: function(doc) {
-                             doc.content[1].table.widths = Array(doc.content[1].table.body[0].length + 1).join('*').split('');
+                            doc.content[1].table.widths = Array(doc.content[1].table.body[0]
+                                .length + 1).join('*').split('');
                             var columnCount = doc.content[1].table.body[0].length;
                             doc.content[1].table.body.forEach(function(row) {
-                                row[0].alignment = 'center'; // Center align the first column
-                                row[columnCount - 1].alignment = 'center'; // Center align the last column
+                                row[0].alignment =
+                                    'center'; // Center align the first column
+                                row[columnCount - 1].alignment =
+                                    'center'; // Center align the last column
                             });
                         }
                     },
@@ -1115,6 +922,175 @@
                     $('#editimagePreview').show();
                 }
                 reader.readAsDataURL(this.files[0]);
+            });
+
+            $("#createelevatform").validate({
+                // Specify validation rules
+                rules: {
+                    imagen: {
+                        required: true,
+                        extension: "jpg|jpeg|png|gif"
+                    },
+                    contrato: "required",
+                    nombre: "required",
+                    código: "required",
+                    marca: "required",
+                    cliente: "required",
+                    fecha: "required",
+                    garantizar: "required",
+                    dirección: "required",
+                    ubigeo: "required",
+                    provincia: "required",
+                    técnico_instalador: "required",
+                    técnico_ajustador: "required",
+                    tipo_de_ascensor: "required",
+                    cantidad: "required",
+                    npisos: "required",
+                    ncontacto: "required",
+                    teléfono: {
+                        required: true,
+                        digits: true
+                    },
+                    correo: {
+                        required: true,
+                        email: true
+                    },
+                    descripcion1: "required",
+                    // Add more rules for other fields as needed
+                },
+                // Specify validation error messages
+                messages: {
+                    imagen: {
+                        required: "Por favor, seleccione una imagen.",
+                        extension: "Por favor, seleccione un archivo de imagen válido (jpg, jpeg, png, gif)."
+                    },
+                    contrato: "Por favor, ingrese el número de contrato.",
+                    nombre: "Por favor, ingrese el nombre del ascensor.",
+                    código: "Por favor, ingrese el código.",
+                    marca: "Por favor, ingrese la marca.",
+                    cliente: "Por favor, seleccione un cliente.",
+                    fecha: "Por favor, seleccione una fecha de entrega.",
+                    garantizar: "Por favor, ingrese la garantía.",
+                    dirección: "Por favor, ingrese la dirección.",
+                    ubigeo: "Por favor, ingrese el ubigeo.",
+                    provincia: "Por favor, seleccione una provincia.",
+                    técnico_instalador: "Por favor, seleccione un técnico instalador.",
+                    técnico_ajustador: "Por favor, seleccione un técnico ajustador.",
+                    tipo_de_ascensor: "Por favor, seleccione un tipo de ascensor.",
+                    cantidad: "Por favor, seleccione una cantidad.",
+                    npisos: "Por favor, ingrese el número de pisos.",
+                    ncontacto: "Por favor, ingrese el nombre del contacto.",
+                    teléfono: {
+                        required: "Por favor, ingrese un número de teléfono.",
+                        digits: "Por favor, ingrese solo dígitos para el número de teléfono."
+                    },
+                    correo: {
+                        required: "Por favor, ingrese una dirección de correo electrónico.",
+                        email: "Por favor, ingrese una dirección de correo electrónico válida."
+                    },
+                    descripcion1: "Por favor, ingrese una descripción.",
+                    // Add more messages for other fields as needed
+                },
+                // Make sure the error messages are displayed in a Bootstrap-friendly way
+                errorElement: "span",
+                errorPlacement: function(error, element) {
+                    // Add the `invalid-feedback` class to the error element
+                    error.addClass("invalid-feedback");
+                    // Add error message after the invalid element
+                    element.closest(".form-group").append(error);
+                },
+                // Highlight the invalid fields
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass("is-invalid").removeClass("is-valid");
+                },
+                // Remove the error message and green border when the field is valid
+                unhighlight: function(element, errorClass, validClass) {
+                    $(element).removeClass("is-invalid").addClass("is-valid");
+                }
+            });
+            $("#editelevatform").validate({
+                // Specify validation rules
+                rules: {
+                    imagen: {
+                        required: true,
+                        extension: "jpg|jpeg|png|gif"
+                    },
+                    contrato: "required",
+                    nombre: "required",
+                    código: "required",
+                    marca: "required",
+                    cliente: "required",
+                    fecha: "required",
+                    garantizar: "required",
+                    dirección: "required",
+                    ubigeo: "required",
+                    provincia: "required",
+                    técnico_instalador: "required",
+                    técnico_ajustador: "required",
+                    tipo_de_ascensor: "required",
+                    cantidad: "required",
+                    npisos: "required",
+                    ncontacto: "required",
+                    teléfono: {
+                        required: true,
+                        digits: true
+                    },
+                    correo: {
+                        required: true,
+                        email: true
+                    },
+                    descripcion1: "required",
+                    // Add more rules for other fields as needed
+                },
+                // Specify validation error messages
+                messages: {
+                    imagen: {
+                        required: "Por favor, seleccione una imagen.",
+                        extension: "Por favor, seleccione un archivo de imagen válido (jpg, jpeg, png, gif)."
+                    },
+                    contrato: "Por favor, ingrese el número de contrato.",
+                    nombre: "Por favor, ingrese el nombre del ascensor.",
+                    código: "Por favor, ingrese el código.",
+                    marca: "Por favor, ingrese la marca.",
+                    cliente: "Por favor, seleccione un cliente.",
+                    fecha: "Por favor, seleccione una fecha de entrega.",
+                    garantizar: "Por favor, ingrese la garantía.",
+                    dirección: "Por favor, ingrese la dirección.",
+                    ubigeo: "Por favor, ingrese el ubigeo.",
+                    provincia: "Por favor, seleccione una provincia.",
+                    técnico_instalador: "Por favor, seleccione un técnico instalador.",
+                    técnico_ajustador: "Por favor, seleccione un técnico ajustador.",
+                    tipo_de_ascensor: "Por favor, seleccione un tipo de ascensor.",
+                    cantidad: "Por favor, seleccione una cantidad.",
+                    npisos: "Por favor, ingrese el número de pisos.",
+                    ncontacto: "Por favor, ingrese el nombre del contacto.",
+                    teléfono: {
+                        required: "Por favor, ingrese un número de teléfono.",
+                        digits: "Por favor, ingrese solo dígitos para el número de teléfono."
+                    },
+                    correo: {
+                        required: "Por favor, ingrese una dirección de correo electrónico.",
+                        email: "Por favor, ingrese una dirección de correo electrónico válida."
+                    },
+                    descripcion1: "Por favor, ingrese una descripción.",
+                    // Add more messages for other fields as needed
+                },
+                // Make sure the error messages are displayed in a Bootstrap-friendly way
+                errorElement: "span",
+                errorPlacement: function(error, element) {
+                    // Add the `invalid-feedback` class to the error element
+                    error.addClass("invalid-feedback");
+                    // Add error message after the invalid element
+                    element.closest(".form-group").append(error);
+                },
+                // Highlight the invalid fields
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass("is-invalid").removeClass("is-valid");
+                },
+                // Remove the error message and green border when the field is valid
+                unhighlight: function(element, errorClass, validClass) {
+                    $(element).removeClass("is-invalid").addClass("is-valid");
+                }
             });
         });
     </script>

@@ -1,10 +1,10 @@
 @extends('layouts.main')
 @section('content')
-<style>
-    .dt-head-center{
-        text-align: center;
-    }
-</style>
+    <style>
+        .dt-head-center {
+            text-align: center;
+        }
+    </style>
     <div class="w-100 contenido">
         <div class="container-fluid container-mod">
             @if (session('success'))
@@ -68,8 +68,8 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($reviewtypes as $index => $reviewtype)
-                                        <tr class="td-head-center">
-                                            <td>{{ $index + 1 }}</td>
+                                            <tr class="td-head-center">
+                                                <td>{{ $index + 1 }}</td>
                                                 <td class="text-center">{{ $reviewtype->nombre }}</td>
                                                 <td align="right">
                                                     <div class="dropdown">
@@ -112,7 +112,8 @@
                                     <span aria-hidden="true">×</span>
                                 </button>
                             </div>
-                            <form action="{{ route('insert.reviewtype') }}" method="POST" class="formulario-modal">
+                            <form action="{{ route('insert.reviewtype') }}" method="POST" class="formulario-modal"
+                                id="createreviewtype">
                                 @csrf
                                 <div class="modal-body body_modal">
                                     <div class="row">
@@ -155,7 +156,7 @@
                             </div>
                             @isset($reviewtype)
                                 <form action="{{ route('update.reviewtype', $reviewtype->id) }}" method="POST"
-                                    class="formulario-modal" id="reviewtypeForm">
+                                    class="formulario-modal" id="editreviewtypeForm">
                                     @csrf
                                     <div class="modal-body body_modal">
                                         <div class="row">
@@ -277,11 +278,14 @@
                             columns: ':not(:last-child)' // Excluye la última columna
                         },
                         customize: function(doc) {
-                             doc.content[1].table.widths = Array(doc.content[1].table.body[0].length + 1).join('*').split('');
+                            doc.content[1].table.widths = Array(doc.content[1].table.body[0]
+                                .length + 1).join('*').split('');
                             var columnCount = doc.content[1].table.body[0].length;
                             doc.content[1].table.body.forEach(function(row) {
-                                row[0].alignment = 'center'; // Center align the first column
-                                row[columnCount - 1].alignment = 'center'; // Center align the last column
+                                row[0].alignment =
+                                    'center'; // Center align the first column
+                                row[columnCount - 1].alignment =
+                                    'center'; // Center align the last column
                             });
                         }
                     },
@@ -320,6 +324,49 @@
             setTimeout(function() {
                 $(".alert-danger").fadeOut(1000);
             }, 1000);
+
+            $('#createreviewtype').validate({
+                rules: {
+                    nombre: "required"
+                },
+                messages: {
+                    nombre: "Por favor, ingrese el nombre del tipo de revisión"
+                },
+                errorElement: "span",
+                errorPlacement: function(error, element) {
+                    // Add the `invalid-feedback` class to the error element
+                    error.addClass("invalid-feedback");
+                    // Add error message after the invalid element
+                    error.insertAfter(element);
+                },
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass("is-invalid").removeClass("is-valid");
+                },
+                unhighlight: function(element, errorClass, validClass) {
+                    $(element).removeClass("is-invalid").addClass("is-valid");
+                }
+            });
+            $('#editreviewtypeForm').validate({
+                rules: {
+                    nombre: "required"
+                },
+                messages: {
+                    nombre: "Por favor, ingrese el nombre del tipo de revisión"
+                },
+                errorElement: "span",
+                errorPlacement: function(error, element) {
+                    // Add the `invalid-feedback` class to the error element
+                    error.addClass("invalid-feedback");
+                    // Add error message after the invalid element
+                    error.insertAfter(element);
+                },
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass("is-invalid").removeClass("is-valid");
+                },
+                unhighlight: function(element, errorClass, validClass) {
+                    $(element).removeClass("is-invalid").addClass("is-valid");
+                }
+            });
         });
     </script>
 @endpush

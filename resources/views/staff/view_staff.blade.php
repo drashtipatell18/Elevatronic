@@ -1,10 +1,10 @@
 @extends('layouts.main')
 @section('content')
-<style>
-    .dt-head-center{
-        text-align: center;
-    }
-</style>
+    <style>
+        .dt-head-center {
+            text-align: center;
+        }
+    </style>
     <div class="w-100 contenido">
         <div class="container-fluid container-mod">
             @if (session('success'))
@@ -133,7 +133,7 @@
                     </button>
                 </div>
                 <form action="{{ route('insert.staff') }}" method="POST" class="formulario-modal"
-                    enctype="multipart/form-data">
+                    enctype="multipart/form-data" id="createstaff">
                     @csrf
                     <div class="modal-body body_modal">
                         <div class="row">
@@ -173,7 +173,7 @@
                                             <select
                                                 class="custom-select form-control @error('posición') is-invalid @enderror"
                                                 name="posición" id="posición">
-                                                <option selected class="d-none">Seleccionar opción</option>
+                                                <option>Seleccionar opción</option>
                                                 <option value="posición_1">Posición 1</option>
                                                 <option value="posición_2">Posición 2</option>
                                                 <option value="posición_3">Posición 3</option>
@@ -237,7 +237,7 @@
                 </div>
                 @isset($staff)
                     <form action="{{ route('update.staff', $staff->id) }}" class="formulario-modal"
-                        enctype="multipart/form-data" method="POST">
+                        enctype="multipart/form-data" method="POST" id="editstaff">
                         @csrf
                         <div class="modal-body body_modal">
                             <div class="row">
@@ -427,11 +427,14 @@
                             columns: ':not(:last-child)' // Excluye la última columna
                         },
                         customize: function(doc) {
-                             doc.content[1].table.widths = Array(doc.content[1].table.body[0].length + 1).join('*').split('');
+                            doc.content[1].table.widths = Array(doc.content[1].table.body[0]
+                                .length + 1).join('*').split('');
                             var columnCount = doc.content[1].table.body[0].length;
                             doc.content[1].table.body.forEach(function(row) {
-                                row[0].alignment = 'center'; // Center align the first column
-                                row[columnCount - 1].alignment = 'center'; // Center align the last column
+                                row[0].alignment =
+                                    'center'; // Center align the first column
+                                row[columnCount - 1].alignment =
+                                    'center'; // Center align the last column
                             });
                         }
                     },
@@ -498,6 +501,85 @@
                 reader.readAsDataURL(this.files[0]);
             });
 
+            $('#createstaff').validate({
+                rules: {
+                    nombre: "required",
+                    posición: "required",
+                    correo: {
+                        required: true,
+                        email: true
+                    },
+                    teléfono: {
+                        required: true,
+                        digits: true
+                    }
+                },
+                messages: {
+                    nombre: "Por favor, ingrese el nombre",
+                    posición: "Por favor, seleccione la posición",
+                    correo: {
+                        required: "Por favor, ingrese el correo",
+                        email: "Por favor, ingrese un correo válido"
+                    },
+                    teléfono: {
+                        required: "Por favor, ingrese el teléfono",
+                        digits: "Por favor, ingrese solo números"
+                    }
+                },
+                errorElement: "span",
+                errorPlacement: function(error, element) {
+                    // Add the `invalid-feedback` class to the error element
+                    error.addClass("invalid-feedback");
+                    // Add error message after the invalid element
+                    error.insertAfter(element);
+                },
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass("is-invalid").removeClass("is-valid");
+                },
+                unhighlight: function(element, errorClass, validClass) {
+                    $(element).removeClass("is-invalid").addClass("is-valid");
+                }
+            });
+
+            $('#editstaff').validate({
+                rules: {
+                    nombre: "required",
+                    posición: "required",
+                    correo: {
+                        required: true,
+                        email: true
+                    },
+                    teléfono: {
+                        required: true,
+                        digits: true
+                    }
+                },
+                messages: {
+                    nombre: "Por favor, ingrese el nombre",
+                    posición: "Por favor, seleccione la posición",
+                    correo: {
+                        required: "Por favor, ingrese el correo",
+                        email: "Por favor, ingrese un correo válido"
+                    },
+                    teléfono: {
+                        required: "Por favor, ingrese el teléfono",
+                        digits: "Por favor, ingrese solo números"
+                    }
+                },
+                errorElement: "span",
+                errorPlacement: function(error, element) {
+                    // Add the `invalid-feedback` class to the error element
+                    error.addClass("invalid-feedback");
+                    // Add error message after the invalid element
+                    error.insertAfter(element);
+                },
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass("is-invalid").removeClass("is-valid");
+                },
+                unhighlight: function(element, errorClass, validClass) {
+                    $(element).removeClass("is-invalid").addClass("is-valid");
+                }
+            });
 
         });
     </script>

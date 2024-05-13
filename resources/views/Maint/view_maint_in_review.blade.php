@@ -101,8 +101,8 @@
                                                                 href="{{ route('details.maint.in.review', $maint_in_rev->id) }}">Ver
                                                                 detalles</a>
                                                             <a class="dropdown-item" href="javascript:void(0)"
-                                                                data-toggle="modal" data-target="#editorMantenimiento{{ $maint_in_rev->id }}"
-                                                               >Editar</a>
+                                                                data-toggle="modal"
+                                                                data-target="#editorMantenimiento{{ $maint_in_rev->id }}">Editar</a>
                                                             <a class="dropdown-item" href="javascript:void(0)"
                                                                 data-toggle="modal"
                                                                 data-target="#modalEliminar{{ $maint_in_rev->id }}">Eliminar</a>
@@ -139,8 +139,9 @@
                                             </div>
 
                                             <!-- Modal Editor Mantenimiento-->
-                                            <div class="modal left fade" id="editorMantenimiento{{ $maint_in_rev->id }}" tabindex="-1"
-                                                role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                                            <div class="modal left fade" id="editorMantenimiento{{ $maint_in_rev->id }}"
+                                                tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+                                                aria-hidden="true">
                                                 <div class="modal-dialog" role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
@@ -154,7 +155,7 @@
                                                         @isset($maint_in_rev)
                                                             <form
                                                                 action="{{ route('update.maint.in.review', $maint_in_rev->id) }}"
-                                                                method="POST" class="formulario-modal">
+                                                                method="POST" class="formulario-modal" id="editmaintreview">
 
                                                                 @csrf
                                                                 <div class="modal-body body_modal">
@@ -450,8 +451,9 @@
                                             </div>
 
                                             <!-- Modal Eliminar-->
-                                            <div class="modal fade" id="modalEliminar{{ $maint_in_rev->id }}" tabindex="-1" role="dialog"
-                                                aria-labelledby="modelTitleId" aria-hidden="true">
+                                            <div class="modal fade" id="modalEliminar{{ $maint_in_rev->id }}"
+                                                tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+                                                aria-hidden="true">
                                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                                     <div class="modal-content border-radius-12">
                                                         <div class="modal-body">
@@ -513,47 +515,36 @@
                     </button>
                 </div>
                 <form action="{{ route('insert.maint.in.review') }}" method="POST" class="formulario-modal"
-                    id="customerForm">
+                    id="createmaintreview">
                     @csrf
                     <div class="modal-body body_modal">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="tipo_de_revisión">Tipo de revisión</label>
-                                    <select class="custom-select @error('tipo_de_revisión') is-invalid @enderror"
-                                        name="tipo_de_revisión" id="tipo_de_revisión">
+                                    <select class="custom-select" name="tipo_de_revisión" id="tipo_de_revisión"
+                                        class="form-control">
                                         <option selected disabled>Seleccionar tipo de revisión</option>
                                         @foreach ($review_types as $key => $value)
                                             <option value="{{ $key }}">{{ $value }}</option>
                                         @endforeach
                                     </select>
-                                    @error('tipo_de_revisión')
-                                        <span class="invalid-feedback" style="color: red">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
                                 </div>
 
                                 <div class="form-group">
                                     <label for="ascensor">Ascensor</label>
-                                    <select class="custom-select @error('ascensor') is-invalid @enderror" name="ascensor"
-                                        id="ascensor">
+                                    <select class="custom-select" name="ascensor" id="ascensor" class="form-control">
                                         <option selected disabled>Seleccionar opción</option>
                                         @foreach ($elevators as $key => $value)
                                             <option value="{{ $key }}">{{ $value }}</option>
                                         @endforeach
                                     </select>
-                                    @error('ascensor')
-                                        <span class="invalid-feedback" style="color: red">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
                                 </div>
 
                                 <div class="form-group">
                                     <label for="dirección">Dirección</label>
                                     <input type="text" placeholder="Dirección" name="dirección" id="dirección"
-                                        class="@error('dirección') is-invalid @enderror">
+                                        class="form-control">
                                     @error('dirección')
                                         <span class="invalid-feedback" style="color: red">
                                             <strong>{{ $message }}</strong>
@@ -563,88 +554,52 @@
                                 <div class="form-group">
                                     <label for="provincia">Provincia</label>
                                     <input type="text" placeholder="Provincia" name="provincia" id="provincia"
-                                        class="@error('provincia') is-invalid @enderror">
-                                    @error('provincia')
-                                        <span class="invalid-feedback" style="color: red">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
+                                        class="form-control">
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="núm_certificado">Núm Certificado</label>
                                             <input type="text" placeholder="Núm Certificado" name="núm_certificado"
-                                                id="núm_certificado"
-                                                class="@error('núm_certificado') is-invalid @enderror">
-                                            @error('núm_certificado')
-                                                <span class="invalid-feedback" style="color: red">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
+                                                id="núm_certificado" class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="máquina">#Máquina</label>
                                             <input type="text" placeholder="#Máquina" name="máquina" id="máquina"
-                                                class="@error('máquina') is-invalid @enderror">
-                                            @error('máquina')
-                                                <span class="invalid-feedback" style="color: red">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
+                                                class="form-control">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="supervisor">Supervisor</label>
-                                    <select class="custom-select @error('supervisor') is-invalid @enderror"
-                                        name="supervisor" id="supervisor">
+                                    <select class="custom-select" name="supervisor" id="supervisor">
                                         <option selected disabled class="d-none">Seleccionar opción</option>
                                         <option value="supervisor_1">Supervisor 1</option>
                                         <option value="supervisor_2">Supervisor 2</option>
                                         <option value="supervisor_3">Supervisor 3</option>
                                     </select>
-                                    @error('supervisor')
-                                        <span class="invalid-feedback" style="color: red">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
                                 </div>
-
                                 <div class="form-group">
                                     <label for="técnico">Técnico</label>
-                                    <select class="custom-select @error('técnico') is-invalid @enderror" name="técnico"
-                                        id="técnico">
+                                    <select class="custom-select" name="técnico" id="técnico">
                                         <option selected disabled class="d-none">Seleccionar opción</option>
                                         <option value="técnico_1">Técnico 1</option>
                                         <option value="técnico_2">Técnico 2</option>
                                         <option value="técnico_3">Técnico 3</option>
                                     </select>
-                                    @error('técnico')
-                                        <span class="invalid-feedback" style="color: red">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
                                 </div>
-
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="Mprogramado">Mes programado</label>
-                                            <select class="custom-select @error('mes_programado') is-invalid @enderror"
-                                                name="mes_programado" id="Mprogramado">
+                                            <select class="custom-select" name="mes_programado" id="Mprogramado">
                                                 <option selected disabled class="d-none">Seleccionar opción</option>
                                                 <option value="mes_programado_1">Mes programado 1</option>
                                                 <option value="mes_programado_2">Mes programado 2</option>
                                                 <option value="mes_programado_3">Mes programado 3</option>
                                             </select>
-                                            @error('mes_programado')
-                                                <span class="invalid-feedback" style="color: red">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
                                         </div>
                                     </div>
 
@@ -652,73 +607,42 @@
                                         <div class="form-group">
                                             <label for="FMantenimiento">Fecha de mantenimiento</label>
                                             <input type="date" placeholder="dd/mm/aaaa" name="fecha_de_mantenimiento"
-                                                id="FMantenimiento"
-                                                class="@error('fecha_de_mantenimiento') is-invalid @enderror">
-                                            @error('fecha_de_mantenimiento')
-                                                <span class="invalid-feedback" style="color: red">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
+                                                id="FMantenimiento" class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="FInicio">Hora inicio</label>
                                             <input type="time" placeholder="dd/mm/aaaa" name="hora_inicio"
-                                                id="FInicio" class="@error('hora_inicio') is-invalid @enderror">
-                                            @error('hora_inicio')
-                                                <span class="invalid-feedback" style="color: red">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
+                                                id="FInicio" class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="HFin">Hora fin</label>
                                             <input type="time" placeholder="dd/mm/aaaa" name="hora_fin"
-                                                id="HFin" class="@error('hora_fin') is-invalid @enderror">
-                                            @error('hora_fin')
-                                                <span class="invalid-feedback" style="color: red">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
+                                                id="HFin" class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="observaciones">Observaciónes</label>
                                             <textarea name="observaciónes" id="observaciones" placeholder="Comentario de contrato" cols="30"
-                                                rows="5" class="@error('observaciónes') is-invalid @enderror"></textarea>
-                                            @error('observaciónes')
-                                                <span class="invalid-feedback" style="color: red">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
+                                                rows="5" class="form-control"></textarea>
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="observacionesInternas">Observaciónes internas</label>
                                             <textarea name="observaciónes_internas" id="observacionesInternas" placeholder="Observaciónes internas"
-                                                cols="30" rows="5" class="@error('observaciónes_internas') is-invalid @enderror"></textarea>
-                                            @error('observaciónes_internas')
-                                                <span class="invalid-feedback" style="color: red">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
+                                                cols="30" rows="5" class="form-control"></textarea>
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="solucion">Solución</label>
                                             <textarea name="solución" id="solucion" placeholder="Solución" cols="30" rows="5"
-                                                class="@error('solución') is-invalid @enderror"></textarea>
-                                            @error('solución')
-                                                <span class="invalid-feedback" style="color: red">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
+                                                class="form-control"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -833,6 +757,105 @@
             setTimeout(function() {
                 $(".alert-danger").fadeOut(1000);
             }, 1000);
+
+            $("#createmaintreview").validate({
+                rules: {
+                    tipo_de_revisión: "required",
+                    ascensor: "required",
+                    dirección: "required",
+                    provincia: "required",
+                    núm_certificado: "required",
+                    máquina: "required",
+                    supervisor: "required",
+                    técnico: "required",
+                    mes_programado: "required",
+                    fecha_de_mantenimiento: "required",
+                    hora_inicio: "required",
+                    hora_fin: "required",
+                    observaciónes: "required",
+                    observaciónes_internas: "required",
+                    solución: "required"
+                },
+                messages: {
+                    // Specify validation error messages
+                    tipo_de_revisión: "Por favor, seleccione el tipo de revisión.",
+                    ascensor: "Por favor, seleccione el ascensor.",
+                    dirección: "Por favor, ingrese la dirección.",
+                    provincia: "Por favor, ingrese la provincia.",
+                    núm_certificado: "Por favor, ingrese el número de certificado.",
+                    máquina: "Por favor, ingrese el número de máquina.",
+                    supervisor: "Por favor, seleccione el supervisor.",
+                    técnico: "Por favor, seleccione el técnico.",
+                    mes_programado: "Por favor, seleccione el mes programado.",
+                    fecha_de_mantenimiento: "Por favor, ingrese la fecha de mantenimiento.",
+                    hora_inicio: "Por favor, ingrese la hora de inicio.",
+                    hora_fin: "Por favor, ingrese la hora de fin.",
+                    observaciónes: "Por favor, ingrese las observaciones.",
+                    observaciónes_internas: "Por favor, ingrese las observaciones internas.",
+                    solución: "Por favor, ingrese la solución."
+                },
+                errorElement: "span",
+                errorPlacement: function(error, element) {
+                    // Add the `invalid-feedback` class to the error element
+                    error.addClass("invalid-feedback");
+                    // Add error message after the invalid element
+                    error.insertAfter(element);
+                },
+                // Highlight the invalid fields
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass("is-invalid").removeClass("is-valid");
+                },
+                // Remove the error message and green border when the field is valid
+                unhighlight: function(element, errorClass, validClass) {
+                    $(element).removeClass("is-invalid").addClass("is-valid");
+                }
+            });
+
+            $("#editmaintreview").validate({
+                rules: {
+                    tipo_de_revisión: "required",
+                    dirección: "required",
+                    provincia: "required",
+                    núm_certificado: "required",
+                    máquina: "required",
+                    supervisor: "required",
+                    técnico: "required",
+                    mes_programado: "required",
+                    fecha_de_mantenimiento: "required",
+                    hora_inicio: "required",
+                    hora_fin: "required",
+                    observaciónes: "required",
+                    observaciónes_internas: "required",
+                    solución: "required",
+                },
+                messages: {
+                    tipo_de_revisión: "Por favor, seleccione el tipo de revisión.",
+                    dirección: "Por favor, ingrese la dirección.",
+                    provincia: "Por favor, ingrese la provincia.",
+                    núm_certificado: "Por favor, ingrese el número de certificado.",
+                    máquina: "Por favor, ingrese el número de máquina.",
+                    supervisor: "Por favor, seleccione el supervisor.",
+                    técnico: "Por favor, seleccione el técnico.",
+                    mes_programado: "Por favor, seleccione el mes programado.",
+                    fecha_de_mantenimiento: "Por favor, ingrese la fecha de mantenimiento.",
+                    hora_inicio: "Por favor, ingrese la hora de inicio.",
+                    hora_fin: "Por favor, ingrese la hora de fin.",
+                    observaciónes: "Por favor, ingrese las observaciones.",
+                    observaciónes_internas: "Por favor, ingrese las observaciones internas.",
+                    solución: "Por favor, ingrese la solución."
+                },
+                errorElement: "span",
+                errorPlacement: function(error, element) {
+                    error.addClass("error");
+                    error.insertAfter(element);
+                },
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass("is-invalid").removeClass("is-valid");
+                },
+                unhighlight: function(element, errorClass, validClass) {
+                    $(element).removeClass("is-invalid").addClass("is-valid");
+                }
+            });
 
         });
     </script>

@@ -125,7 +125,7 @@
                     </button>
                 </div>
                 <form action="{{ route('insert.sparepart') }}" method="POST" class="formulario-modal"
-                    enctype="multipart/form-data">
+                    enctype="multipart/form-data" id="createspartpart">
                     @csrf
                     <div class="modal-body body_modal">
                         <div class="row">
@@ -293,7 +293,7 @@
                 </div>
                 @isset($sparepart)
                     <form action="{{ route('update.sparepart', $sparepart->id) }}" method="POST" class="formulario-modal"
-                        enctype="multipart/form-data">
+                        enctype="multipart/form-data" id="editsparepart">
                         @csrf
                         <div class="modal-body body_modal">
                             <div class="row">
@@ -535,9 +535,9 @@
                             var columnCount = doc.content[1].table.body[0].length;
                             doc.content[1].table.body.forEach(function(row) {
                                 row[0].alignment =
-                                'center'; // Center align the first column
+                                    'center'; // Center align the first column
                                 row[columnCount - 1].alignment =
-                                'center'; // Center align the last column
+                                    'center'; // Center align the last column
                             });
                         }
                     },
@@ -597,6 +597,150 @@
                 reader.readAsDataURL(this.files[0]);
             });
 
+            $('#createspartpart').validate({
+                rules: {
+                    nombre: "required",
+                    precio: {
+                        required: true,
+                        number: true
+                    },
+                    descripción: "required",
+                    frecuencia_de_limpieza: {
+                        required: true,
+                        number: true
+                    },
+                    frecuencia_de_lubricación: {
+                        required: true,
+                        number: true
+                    },
+                    frecuencia_de_ajuste: {
+                        required: true,
+                        number: true
+                    },
+                    frecuencia_de_revisión: {
+                        required: true,
+                        number: true
+                    },
+                    frecuencia_de_cambio: {
+                        required: true,
+                        number: true
+                    },
+                    frecuencia_de_solicitud: {
+                        required: true,
+                        number: true
+                    }
+                },
+                messages: {
+                    nombre: "Por favor, ingrese el nombre del repuesto",
+                    precio: {
+                        required: "Por favor, ingrese el precio",
+                        number: "Por favor, ingrese un valor numérico para el precio"
+                    },
+                    descripción: "Por favor, ingrese la descripción del repuesto",
+                    frecuencia_de_limpieza: {
+                        required: "Por favor, ingrese la frecuencia de limpieza",
+                        number: "Por favor, ingrese un valor numérico para la frecuencia de limpieza"
+                    },
+                    frecuencia_de_lubricación: {
+                        required: "Por favor, ingrese la frecuencia de lubricación",
+                        number: "Por favor, ingrese un valor numérico para la frecuencia de lubricación"
+                    },
+                    frecuencia_de_ajuste: {
+                        required: "Por favor, ingrese la frecuencia de ajuste",
+                        number: "Por favor, ingrese un valor numérico para la frecuencia de ajuste"
+                    },
+                    frecuencia_de_revisión: {
+                        required: "Por favor, ingrese la frecuencia de revisión",
+                        number: "Por favor, ingrese un valor numérico para la frecuencia de revisión"
+                    },
+                    frecuencia_de_cambio: {
+                        required: "Por favor, ingrese la frecuencia de cambio",
+                        number: "Por favor, ingrese un valor numérico para la frecuencia de cambio"
+                    },
+                    frecuencia_de_solicitud: {
+                        required: "Por favor, ingrese la frecuencia de solicitud",
+                        number: "Por favor, ingrese un valor numérico para la frecuencia de solicitud"
+                    }
+                },
+                errorElement: "span",
+                errorPlacement: function(error, element) {
+                    // Add the `invalid-feedback` class to the error element
+                    error.addClass("invalid-feedback");
+                    // Add error message after the invalid element
+                    error.insertAfter(element);
+                },
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass("is-invalid").removeClass("is-valid");
+                },
+                unhighlight: function(element, errorClass, validClass) {
+                    $(element).removeClass("is-invalid").addClass("is-valid");
+                }
+            });
+
+            $('#editsparepart').validate({
+                rules: {
+                    nombre: "required",
+                    precio: {
+                        required: true,
+                        number: true
+                    },
+                    descripción: "required",
+                    frecuencia_de_limpieza: {
+                        required: true,
+                        number: true
+                    },
+                    frecuencia_de_lubricación: {
+                        required: true,
+                        number: true
+                    },
+                    frecuencia_de_ajuste: {
+                        required: true,
+                        number: true
+                    },
+                    frecuencia_de_revisión: {
+                        number: true
+                    },
+                    frecuencia_de_cambio: {
+                        number: true
+                    },
+                    frecuencia_de_solicitud: {
+                        number: true
+                    }
+                },
+                messages: {
+                    nombre: "Por favor, ingrese el nombre del repuesto",
+                    precio: {
+                        required: "Por favor, ingrese el precio",
+                        number: "Por favor, ingrese un valor numérico para el precio"
+                    },
+                    descripción: "Por favor, ingrese la descripción del repuesto",
+                    frecuencia_de_limpieza: {
+                        required: "Por favor, ingrese la frecuencia de limpieza",
+                        number: "Por favor, ingrese un valor numérico para la frecuencia de limpieza"
+                    },
+                    frecuencia_de_lubricación: {
+                        required: "Por favor, ingrese la frecuencia de lubricación",
+                        number: "Por favor, ingrese un valor numérico para la frecuencia de lubricación"
+                    },
+                    frecuencia_de_ajuste: {
+                        required: "Por favor, ingrese la frecuencia de ajuste",
+                        number: "Por favor, ingrese un valor numérico para la frecuencia de ajuste"
+                    }
+                },
+                errorElement: "span",
+                errorPlacement: function(error, element) {
+                    // Add the `invalid-feedback` class to the error element
+                    error.addClass("invalid-feedback");
+                    // Add error message after the invalid element
+                    error.insertAfter(element);
+                },
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass("is-invalid").removeClass("is-valid");
+                },
+                unhighlight: function(element, errorClass, validClass) {
+                    $(element).removeClass("is-invalid").addClass("is-valid");
+                }
+            });
         });
     </script>
 @endpush

@@ -636,7 +636,6 @@
                         required: "Por favor, ingrese el precio",
                         number: "Por favor, ingrese un valor numérico para el precio"
                     },
-                    descripción: "Por favor, ingrese la descripción del repuesto",
                     frecuencia_de_limpieza: {
                         required: "Por favor, ingrese la frecuencia de limpieza",
                         number: "Por favor, ingrese un valor numérico para la frecuencia de limpieza"
@@ -713,7 +712,6 @@
                         required: "Por favor, ingrese el precio",
                         number: "Por favor, ingrese un valor numérico para el precio"
                     },
-                    descripción: "Por favor, ingrese la descripción del repuesto",
                     frecuencia_de_limpieza: {
                         required: "Por favor, ingrese la frecuencia de limpieza",
                         number: "Por favor, ingrese un valor numérico para la frecuencia de limpieza"

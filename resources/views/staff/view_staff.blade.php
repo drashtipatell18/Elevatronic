@@ -173,7 +173,7 @@
                                             <select
                                                 class="custom-select form-control @error('posición') is-invalid @enderror"
                                                 name="posición" id="posición">
-                                                <option>Seleccionar opción</option>
+                                                <option value="">Seleccionar opción</option>
                                                 <option value="posición_1">Posición 1</option>
                                                 <option value="posición_2">Posición 2</option>
                                                 <option value="posición_3">Posición 3</option>

@@ -1,5 +1,8 @@
 @extends('layouts.main')
 @section('content')
+<style>
+    .error { color: red; }
+</style>
     <div class="w-100 contenido">
         <div class="container-fluid container-mod">
             <div class="row">
@@ -231,7 +234,7 @@
                                 </button>
                             </div>
                             <form action="{{ route('insert.asignarrepuesto') }}" method="POST"
-                                class="formulario-modal">
+                                class="formulario-modal" id="assginsparpart">
                                 @csrf
                                 <div class="modal-body body_modal">
                                     <div class="row">
@@ -248,14 +251,10 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="repuesto">Repuesto</label>
-                                                <select
-                                                    class="custom-select form-control @error('reemplazo') is-invalid @enderror"
-                                                    name="reemplazo" id="reemplazo">
-                                                    <option selected disabled>Seleccionar opción</option>
+                                                <select class="custom-select form-control" name="reemplazo" id="reemplazo">
+                                                    <option value="" selected disabled>Seleccionar opción</option>
                                                     @foreach ($spareparts as $sparepart)
-                                                        <option value="{{ $sparepart->nombre }}">
-                                                            {{ $sparepart->nombre }}
-                                                        </option>
+                                                        <option value="{{ $sparepart->nombre }}">{{ $sparepart->nombre }}</option>
                                                     @endforeach
                                                 </select>
                                                 @error('reemplazo')
@@ -359,3 +358,49 @@
         </div>
     </div>
 @endsection
+@push('scripts')
+<script>
+    $(document).ready(function() {
+        $("#assginsparpart").validate({
+            rules: {
+                nombre_del_tipo_de_ascensor: {
+                    required: true,
+                    minlength: 2 // Example: Minimum length of 2 characters
+                    // Add more rules as needed
+                },
+                reemplazo: {
+                    required: true
+                }
+                // Add rules for other fields here
+            },
+            messages: {
+                nombre_del_tipo_de_ascensor: {
+                    required: "Por favor, ingrese el nombre del tipo de ascensor.",
+                    minlength: "El nombre del tipo de ascensor debe tener al menos 2 caracteres."
+                    // Add more messages as needed
+                },
+                reemplazo: "Por favor, seleccione un repuesto."
+                // Add messages for other fields here
+            },
+            errorElement: "span",
+            errorPlacement: function(error, element) {
+                error.addClass("error");
+                if (element.is("select")) {
+                    // If the error is for a select element, append it after the select element's parent div
+                    error.insertAfter(element.closest('.form-group'));
+                } else {
+                    // For other elements, insert the error after the element
+                    error.insertAfter(element);
+                }
+            },
+            highlight: function(element, errorClass, validClass) {
+                $(element).addClass("is-invalid").removeClass("is-valid");
+            },
+            unhighlight: function(element, errorClass, validClass) {
+                $(element).removeClass("is-invalid").addClass("is-valid");
+            }
+        });
+    });
+</script>
+
+@endpush

@@ -200,7 +200,7 @@
                                             <select
                                                 class="custom-select form-control @error('employee') is-invalid @enderror"
                                                 name="employee" id="employee">
-                                                <option selected class="d-none">Seleccionar opción</option>
+                                                <option value="" class="d-none">Seleccionar opción</option>
                                                 <option value="empleado_1">Empleado 1</option>
                                                 <option value="empleado_2">Empleado 2</option>
                                                 <option value="empleado_3">Empleado 3</option>
@@ -335,7 +335,7 @@
                                                 <select
                                                     class="custom-select form-control @error('employee') is-invalid @enderror"
                                                     name="employee" id="employee">
-                                                    <option selected disabled>Seleccionar opción</option>
+                                                    <option value="" disabled>Seleccionar opción</option>
                                                     <option value="empleado_1"
                                                         {{ $user->employee == 'empleado_1' ? 'selected' : '' }}>Empleado 1
                                                     </option>

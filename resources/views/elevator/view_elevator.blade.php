@@ -244,7 +244,7 @@
                                                                         instalador</label>
                                                                     <select class="custom-select form-control"
                                                                         name="técnico_instalador" id="técnico_instalador">
-                                                                        <option class="d-none">Seleccionar opción
+                                                                        <option value=""  class="d-none">Seleccionar opción
                                                                         </option>
                                                                         <option value="tecnico_1">Tecnico 1</option>
                                                                         <option value="tecnico_2">Tecnico 2</option>
@@ -258,7 +258,7 @@
                                                                         ajustador</label>
                                                                     <select class="custom-select form-control"
                                                                         name="técnico_ajustador" id="técnico_ajustador">
-                                                                        <option class="d-none">Seleccionar opción
+                                                                        <option value=""  class="d-none">Seleccionar opción
                                                                         </option>
                                                                         <option value="tecnico_1">Tecnico 1</option>
                                                                         <option value="tecnico_2">Tecnico 2</option>
@@ -271,7 +271,7 @@
                                                                     <label for="tipo_de_ascensor">Tipo de ascensor</label>
                                                                     <select class="custom-select form-control"
                                                                         name="tipo_de_ascensor" id="tipo_de_ascensor">
-                                                                        <option class="d-none">Seleccionar opción
+                                                                        <option value=""  class="d-none">Seleccionar opción
                                                                         </option>
                                                                         <option value="tipo_1">Tipo 1</option>
                                                                         <option value="tipo_2">Tipo 2</option>
@@ -284,7 +284,7 @@
                                                                     <label for="tiposAscensor">Cantidad</label>
                                                                     <select class="custom-select" name="cantidad"
                                                                         id="cantidad">
-                                                                        <option class="d-none">Seleccionar
+                                                                        <option value=""  class="d-none">Seleccionar
                                                                         </option>
                                                                         <option value="cantidad_1">Cantidad 1</option>
                                                                         <option value="cantidad_2">Cantidad 2</option>
@@ -485,7 +485,7 @@
                                                                         <select
                                                                             class="custom-select form-control"
                                                                             name="cliente" id="cliente">
-                                                                            <option  disabled>Seleccionar opción
+                                                                            <option value="" disabled>Seleccionar opción
                                                                             </option>
                                                                             @foreach ($customers as $key => $value)
                                                                                 <option value="{{ $key }}"
@@ -542,7 +542,7 @@
                                                                         <select
                                                                             class="custom-select form-control"
                                                                             name="provincia" id="provincia">
-                                                                            <option selected class="d-none">Seleccionar opción
+                                                                            <option value="" class="d-none">Seleccionar opción
                                                                             </option>
                                                                             @foreach ($provinces as $province)
                                                                                 <option value="{{ $province }}"
@@ -561,7 +561,7 @@
                                                                         <select
                                                                             class="custom-select form-control"
                                                                             name="técnico_instalador" id="técnico_instalador">
-                                                                            <option selected disabled>Seleccionar opción
+                                                                            <option value="" disabled>Seleccionar opción
                                                                             </option>
                                                                             <option value="tecnico_1"
                                                                                 {{ old('técnico_instalador', $elevator->técnico_instalador ?? '') == 'tecnico_1' ? 'selected' : '' }}>
@@ -583,7 +583,7 @@
                                                                         <select
                                                                             class="custom-select form-control"
                                                                             name="técnico_ajustador" id="técnico_ajustador">
-                                                                            <option selected disabled>Seleccionar opción
+                                                                            <option value="" disabled>Seleccionar opción
                                                                             </option>
                                                                             <option value="tecnico_1"
                                                                                 {{ old('técnico_ajustador', $elevator->técnico_ajustador ?? '') == 'tecnico_1' ? 'selected' : '' }}>
@@ -604,7 +604,7 @@
                                                                         <select
                                                                             class="custom-select form-control"
                                                                             name="tipo_de_ascensor" id="tipo_de_ascensor">
-                                                                            <option selected disabled>Seleccionar opción
+                                                                            <option value="" disabled>Seleccionar opción
                                                                             </option>
                                                                             <option value="tipo_1"
                                                                                 {{ old('tipo_de_ascensor', $elevator->tipo_de_ascensor ?? '') == 'tipo_1' ? 'selected' : '' }}>
@@ -625,7 +625,7 @@
                                                                         <select
                                                                             class="custom-select"
                                                                             name="cantidad" id="cantidad">
-                                                                            <option selected disabled>Seleccionar</option>
+                                                                            <option value="" disabled>Seleccionar</option>
                                                                             <option value="cantidad_1"
                                                                                 {{ old('cantidad', $elevator->cantidad ?? '') == 'cantidad_1' ? 'selected' : '' }}>
                                                                                 Cantidad 1</option>

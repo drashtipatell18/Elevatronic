@@ -831,6 +831,7 @@
                 $('#fileCount').text('Archivos (' + fileCount + ')'); // Actualiza el contador
             });
 
+            
             var table = $('#contratosTable').DataTable({
                 responsive: true,
                 dom: 'tp',

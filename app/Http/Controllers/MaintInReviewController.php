@@ -17,6 +17,12 @@ class MaintInReviewController extends Controller
         return view('Maint.view_maint_in_review',compact('maint_in_reviews','review_types','elevators'));
     }
 
+    public function totalRecordCount(){
+        $maint_in_reviews = MaintInReview::all();
+        $totalRecordCount = $maint_in_reviews->count();
+        return view('layouts.main',compact('totalRecordCount'));
+    }
+    
     public function maintInReviewInsert(Request $request){
         $validatedData = $request->validate([
             'tipo_de_revisión' => 'required',

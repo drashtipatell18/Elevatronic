@@ -90,6 +90,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/mant/en/revisión/detalle/{id}', [MaintInReviewController::class, 'maintInReviewDetails'])->name('details.maint.in.review');
     Route::post('/mant/en/revisión/actualizar/{id}', [MaintInReviewController::class, 'maintInReviewUpdate'])->name('update.maint.in.review');
     Route::delete ('/mant/en/revisión/destruir/{id}',[MaintInReviewController::class,'maintInReviewDestroy'])->name('destroy.maint.in.review');
+    Route::get('/mant/en/revisión/recuento_total_de_registros', [MaintInReviewController::class, 'totalRecordCount']);
 
 
     // Maintenance //

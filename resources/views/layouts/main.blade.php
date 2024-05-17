@@ -53,7 +53,7 @@
             </li>
             <li class="">
                 <a href="{{ route('maint_in_review') }}" class="position-relative">
-                    <i class="iconoir-search-window"></i> Mant. en revisión <span class="adorno-num">3</span>
+                    <i class="iconoir-search-window"></i> Mant. en revisión <span class="adorno-num">{{ $totalRecordCount }}</span>
                 </a>
             </li>
             <li class="">

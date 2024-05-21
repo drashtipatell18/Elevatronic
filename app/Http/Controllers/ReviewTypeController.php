@@ -28,12 +28,7 @@ class ReviewTypeController extends Controller
         return redirect()->route('reviewtype');
 
     }
-
-    public function reviewtypeView($id){
-        $reviewtype = ReviewType::find($id);
-        return view('reviewtype.view_reviewtype_record',compact('reviewtype'));
-    }
-
+    
     public function reviewtypeEdit($id){
         $reviewtype = ReviewType::findOrFail($id);
         return view('reviewtype.view_reviewtype',compact('reviewtype'));

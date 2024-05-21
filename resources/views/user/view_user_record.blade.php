@@ -5,8 +5,8 @@
             <div class="row">
                 <div class="col-xl-10 col-lg-10 col-md-8 col-sm-8 col-8 mb-4">
                     <div class="titulo">
-                        <h4>{{ $user->name }}</h4>
-                        <span>Usuarios >> {{ $user->name }}</span>
+                        <h4>{{ $users->name }}</h4>
+                        <span>Usuarios >> {{ $users->name }}</span>
                     </div>
                 </div>
                 <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 col-4 d-flex align-items-center justify-content-end">
@@ -19,8 +19,8 @@
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
                             <a class="dropdown-item texto-1 font-family-Inter-Regular" href="javascript:void(0)"
                                 data-toggle="modal" data-target="#editorUsuario">Editar</a>
-                            <a class="dropdown-item texto-1 font-family-Inter-Regular" href="javascript:void(0)"
-                                data-toggle="modal" data-target="#modalEliminar">Eliminar</a>
+                            <a class="dropdown-item" href="{{ route('destroy.user', $users->id) }}" data-toggle="modal"
+                                data-target="#modalEliminar">Eliminar</a>
                         </div>
                     </div>
                 </div>
@@ -29,24 +29,24 @@
                         <div class="row">
                             <div class="col-md-12 d-flex align-items-start justify-content-start gap-20 mb-6 box-detalle">
                                 <div class="">
-                                    <img src="{{ asset('images/' . $user->image) }}" alt="repuesto">
+                                    <img src="{{ asset('images/' . $users->image) }}" alt="repuesto">
                                 </div>
                                 <div class="align-items-start d-flex flex-column h-100 justify-content-between">
                                     <div>
-                                        <h3>{{ $user->name }}</h3>
+                                        <h3>{{ $users->name }}</h3>
                                         <span>Usuario</span>
                                     </div>
                                     <div class="d-flex align-items-center justify-content-start gap-15 flex-wrap">
                                         <div class="option">
-                                            <h4>{{ $user->id }}</h4>
+                                            <h4>{{ $users->id }}</h4>
                                             <p class="mb-0">ID elemento</p>
                                         </div>
                                         <div class="option">
-                                            <h4>{{ $user->username }}</h4>
+                                            <h4>{{ $users->username }}</h4>
                                             <p class="mb-0">Username</p>
                                         </div>
                                         <div class="option">
-                                            <h4>{{ $user->created_at->format('d M Y, g:i a') }}</h4>
+                                            <h4>{{ $users->created_at->format('d M Y, g:i a') }}</h4>
                                             <p class="mb-0">Fecha registro</p>
                                         </div>
                                     </div>
@@ -69,8 +69,7 @@
                                 <div class="col-md-4 mb-4">
                                     <div class="box-contenido">
                                         <h3>Foto de usuario</h3>
-                                        <img src="{{ asset('images/' . $user->image) }}" alt="personal"
-                                            class="w-100">
+                                        <img src="{{ asset('images/' . $users->image) }}" alt="personal" class="w-100">
                                     </div>
                                 </div>
                                 <div class="col-md-8 mb-4">
@@ -80,23 +79,23 @@
                                             <tbody>
                                                 <tr>
                                                     <td class="text-gris">Username</td>
-                                                    <td>{{ $user->username }}</td>
+                                                    <td>{{ $users->username }}</td>
                                                 </tr>
                                                 <tr>
                                                     <td class="text-gris">Nombres</td>
-                                                    <td>{{ $user->name }}</td>
+                                                    <td>{{ $users->name }}</td>
                                                 </tr>
                                                 <tr>
                                                     <td class="text-gris">Correo</td>
-                                                    <td>{{ $user->email }}</td>
+                                                    <td>{{ $users->email }}</td>
                                                 </tr>
                                                 <tr>
                                                     <td class="text-gris">Teléfono</td>
-                                                    <td>{{ $user->phone }}</td>
+                                                    <td>{{ $users->phone }}</td>
                                                 </tr>
                                                 <tr>
                                                     <td class="text-gris">Empleado</td>
-                                                    <td>{{ $user->employee }}</td>
+                                                    <td>{{ $users->employee }}</td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -120,8 +119,8 @@
                             <span aria-hidden="true">×</span>
                         </button>
                     </div>
-                    @isset($user)
-                        <form action="{{ route('update.user', $user->id) }}" method="POST" class="formulario-modal"
+                    @isset($users)
+                        <form action="{{ url('/usuarios/actualizar/' . $users->id) }}" method="POST" class="formulario-modal"
                             enctype="multipart/form-data">
                             @csrf
                             <div class="modal-body body_modal">
@@ -131,8 +130,8 @@
                                             <div class="col-md-6 mb-3">
                                                 <label>Foto de usuario</label>
                                                 <div id="editimagenPrevioUsuario">
-                                                    @if ($user->image)
-                                                        <img src="{{ asset('images/' . $user->image) }}" width="200"
+                                                    @if ($users->image)
+                                                        <img src="{{ asset('images/' . $users->image) }}" width="200"
                                                             height="200" alt="Existing Image">
                                                     @endif
                                                 </div>
@@ -151,11 +150,9 @@
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label for="Nombre de usuario">Nombre de usuario</label>
-                                                    <input type="text" placeholder="nombredeusuario"
-                                                        name="username"
+                                                    <input type="text" placeholder="nombredeusuario" name="username"
                                                         class="form-control @error('username') is-invalid @enderror"
-                                                        value="{{ old('username', $user->username ?? '') }}"
-                                                        id="username">
+                                                        value="{{ old('username', $users->username ?? '') }}" id="username">
                                                     @error('username')
                                                         <span class="invalid-feedback" style="color: red">
                                                             <strong>{{ $message }}</strong>
@@ -168,7 +165,7 @@
                                                     <label for="NombreUsuario">Nombre</label>
                                                     <input type="text" placeholder="Nombre" name="name" id="name"
                                                         class="form-control @error('name') is-invalid @enderror"
-                                                        value="{{ old('name', $user->name ?? '') }}">
+                                                        value="{{ old('name', $users->name ?? '') }}">
                                                     @error('name')
                                                         <span class="invalid-feedback" style="color: red">
                                                             <strong>{{ $message }}</strong>
@@ -181,7 +178,7 @@
                                                     <label for="correoUsuario">Correo</label>
                                                     <input type="text" placeholder="Correo" name="email" id="email"
                                                         class="form-control @error('email') is-invalid @enderror"
-                                                        value="{{ old('email', $user->email ?? '') }}">
+                                                        value="{{ old('email', $users->email ?? '') }}">
                                                     @error('email')
                                                         <span class="invalid-feedback" style="color: red">
                                                             <strong>{{ $message }}</strong>
@@ -194,7 +191,7 @@
                                                     <label for="telefonoUsuario">Teléfono</label>
                                                     <input type="text" name="phone" id="phone"
                                                         placeholder="Teléfono"
-                                                        value="{{ old('phone', $user->phone ?? '') }}"
+                                                        value="{{ old('phone', $users->phone ?? '') }}"
                                                         class="form-control @error('phone') is-invalid @enderror">
                                                     @error('phone')
                                                         <span class="invalid-feedback" style="color: red">
@@ -211,13 +208,13 @@
                                                         name="employee" id="employee">
                                                         <option selected disabled>Seleccionar opción</option>
                                                         <option value="empleado_1"
-                                                            {{ $user->employee == 'empleado_1' ? 'selected' : '' }}>Empleado 1
+                                                            {{ $users->employee == 'empleado_1' ? 'selected' : '' }}>Empleado 1
                                                         </option>
                                                         <option value="empleado_2"
-                                                            {{ $user->employee == 'empleado_2' ? 'selected' : '' }}>Empleado 2
+                                                            {{ $users->employee == 'empleado_2' ? 'selected' : '' }}>Empleado 2
                                                         </option>
                                                         <option value="empleado_3"
-                                                            {{ $user->employee == 'empleado_3' ? 'selected' : '' }}>Empleado 3
+                                                            {{ $users->employee == 'empleado_3' ? 'selected' : '' }}>Empleado 3
                                                         </option>
                                                     </select>
                                                     @error('empleado')
@@ -278,8 +275,8 @@
                         </div>
                     </div>
                     <div class="modal-footer align-items-center justify-content-center">
-                        @isset($user)
-                            <form id="delete-form" action="{{ route('destroy.user', $user->id) }}" method="POST">
+                        @isset($users)
+                            <form id="delete-form" action="{{ route('destroy.user', $users->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn-gris btn-red">Sí</button>

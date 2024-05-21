@@ -219,10 +219,14 @@
 
                                                                             <div class="form-group">
                                                                                 <label for="provinciaAs">Provincia</label>
-                                                                                <input type="text" placeholder="Provincia"
-                                                                                    name="provincia" id="provincia"
-                                                                                    class="form-control @error('provincia') is-invalid @enderror"
-                                                                                    value="{{ old('provincia', $maint_in_rev->provincia ?? '') }}">
+                                                                                <select id="provincia" name="provincia" class="form-control">
+                                                                                    <option value="">Select Province</option>
+                                                                                    @foreach ($provinces as $province)
+                                                                                        <option value="{{ $province }}" {{ old('provincia', $maint_in_rev->provincia ?? '') == $province ? 'selected' : '' }}>
+                                                                                            {{ $province }}
+                                                                                        </option>
+                                                                                    @endforeach
+                                                                                </select>
                                                                                 @error('provincia')
                                                                                     <span class="invalid-feedback" role="alert">
                                                                                         <strong>{{ $message }}</strong>
@@ -553,8 +557,12 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="provincia">Provincia</label>
-                                    <input type="text" placeholder="Provincia" name="provincia" id="provincia"
-                                        class="form-control">
+                                    <select id="province" name="province" class="form-control">
+                                        <option value="">Select Province</option>
+                                        @foreach ($provinces as $province)
+                                            <option value="{{ $province }}">{{ $province }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">

@@ -103,7 +103,8 @@
                                                                 detalles</a>
                                                             <a class="dropdown-item" href="javascript:void(0)"
                                                                 data-toggle="modal" data-target="#editarPersonal">Editar</a>
-                                                            <a class="dropdown-item" href="javascript:void(0)"
+                                                            <a class="dropdown-item"
+                                                                href="{{ route('destroy.staff', $staff->id) }}"
                                                                 data-toggle="modal"
                                                                 data-target="#modalEliminar">Eliminar</a>
                                                         </div>

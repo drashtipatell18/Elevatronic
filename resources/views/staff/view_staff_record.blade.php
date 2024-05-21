@@ -19,8 +19,8 @@
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
                             <a class="dropdown-item texto-1 font-family-Inter-Regular" href="javascript:void(0)"
                                 data-toggle="modal" data-target="#editarPersonal">Editar</a>
-                            <a class="dropdown-item texto-1 font-family-Inter-Regular" href="javascript:void(0)"
-                                data-toggle="modal" data-target="#modalEliminar">Eliminar</a>
+                            <a class="dropdown-item" href="{{ route('destroy.staff', $staffs->id) }}" data-toggle="modal"
+                                data-target="#modalEliminar">Eliminar</a>
                         </div>
                     </div>
                 </div>
@@ -118,7 +118,7 @@
                     </button>
                 </div>
                 @isset($staffs)
-                    <form action="{{ route('update.staff', $staffs->id) }}" class="formulario-modal"
+                    <form action="{{ url('/personal/actualizar/' . $staffs->id) }}" class="formulario-modal"
                         enctype="multipart/form-data" method="POST">
                         @csrf
                         <div class="modal-body body_modal">

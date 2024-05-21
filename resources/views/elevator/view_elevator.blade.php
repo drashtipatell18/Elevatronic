@@ -689,7 +689,7 @@
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
                                                                         <label for="Ncontacto">Nombre del Contacto</label>
-                                                                        <input type="number"
+                                                                        <input type="text"
                                                                             placeholder="Nombre del contacto" name="ncontacto"
                                                                             id="ncontacto"
                                                                             class="form-control"

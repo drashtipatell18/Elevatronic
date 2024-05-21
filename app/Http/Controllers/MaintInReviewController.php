@@ -6,6 +6,7 @@ use App\Models\Elevators;
 use App\Models\Elevatortypes\Elevatortypes;
 use App\Models\MaintInReview;
 use App\Models\ReviewType;
+use App\Models\Province;
 use Illuminate\Http\Request;
 
 class MaintInReviewController extends Controller
@@ -14,7 +15,8 @@ class MaintInReviewController extends Controller
         $maint_in_reviews = MaintInReview::all();
         $review_types = ReviewType::pluck('nombre','nombre');
         $elevators = Elevators::pluck('nombre','nombre');
-        return view('Maint.view_maint_in_review',compact('maint_in_reviews','review_types','elevators'));
+        $provinces = Province::pluck('provincia', 'provincia');
+        return view('Maint.view_maint_in_review',compact('maint_in_reviews','review_types','elevators','provinces'));
     }
 
     public function totalRecordCount(){
@@ -22,7 +24,7 @@ class MaintInReviewController extends Controller
         $totalRecordCount = $maint_in_reviews->count();
         return view('layouts.main',compact('totalRecordCount'));
     }
-    
+
     public function maintInReviewInsert(Request $request){
         $validatedData = $request->validate([
             'tipo_de_revisión' => 'required',

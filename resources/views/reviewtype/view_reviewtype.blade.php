@@ -79,9 +79,6 @@
                                                         </button>
                                                         <div class="dropdown-menu dropdown-menu-right">
                                                             <a class="dropdown-item"
-                                                                href="{{ route('view.reviewtype', $reviewtype->id) }}">Ver
-                                                                detalles</a>
-                                                            <a class="dropdown-item"
                                                                 href="{{ route('edit.reviewtype', $reviewtype->id) }}"
                                                                 data-toggle="modal"
                                                                 data-target="#editarTipoRevision">Editar</a>

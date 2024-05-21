@@ -54,7 +54,7 @@ class StaffController extends Controller
             $image = $request->file('personalfoto');
             $filename = time() . '.' . $image->getClientOriginalExtension();
             $image->move('images', $filename);
-    
+
             // Update the imagen attribute with the new filename
             $staff->personalfoto = $filename;
         }
@@ -77,6 +77,13 @@ class StaffController extends Controller
         $staffs = Staff::find($id);
         return view('staff.view_staff_record',compact('staffs'));
 
+    }
+
+    public function staffDestroy($id){
+        $staffs = Staff::find($id);
+        $staffs->delete();
+        session()->flash('danger', 'Personal eliminar exitosamente!');
+        return redirect()->back();
     }
 
 }

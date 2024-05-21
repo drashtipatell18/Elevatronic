@@ -63,6 +63,7 @@
                                         <tr>
                                             <th>ID</th>
                                             <th class="text-center">NOMBRE DE TIPO</th>
+                                            <th class="text-center">DESCRIPCIÓN</th>
                                             <th align="right" class="text-right">ACCIONES</th>
                                         </tr>
                                     </thead>
@@ -71,6 +72,7 @@
                                             <tr class="td-head-center">
                                                 <td>{{ $index + 1 }}</td>
                                                 <td class="text-center">{{ $reviewtype->nombre }}</td>
+                                                <td class="text-center">{{ $reviewtype->descripción }}</td>
                                                 <td align="right">
                                                     <div class="dropdown">
                                                         <button type="button" class="btn-action dropdown-toggle"
@@ -81,15 +83,117 @@
                                                             <a class="dropdown-item"
                                                                 href="{{ route('edit.reviewtype', $reviewtype->id) }}"
                                                                 data-toggle="modal"
-                                                                data-target="#editarTipoRevision">Editar</a>
-                                                            <a class="dropdown-item"
-                                                                href="{{ route('destroy.reviewtype', $reviewtype->id) }}"
-                                                                data-toggle="modal"
-                                                                data-target="#modalEliminar">Eliminar</a>
+                                                                data-target="#editarTipoRevision{{ $reviewtype->id }}">Editar</a>
+                                                            <a class="dropdown-item" data-toggle="modal"
+                                                                data-target="#modalEliminar{{ $reviewtype->id }}">Eliminar</a>
                                                         </div>
                                                     </div>
                                                 </td>
                                             </tr>
+                                            <!-- Modal edit Tipo de Revisión-->
+                                            <div class="modal left fade" id="editarTipoRevision{{ $reviewtype->id }}"
+                                                tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+                                                aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title font-family-Outfit-SemiBold">Actualizar
+                                                                Tipo de Revisión</h5>
+                                                            <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close">
+                                                                <span aria-hidden="true">×</span>
+                                                            </button>
+                                                        </div>
+                                                        @isset($reviewtype)
+                                                            <form action="{{ route('update.reviewtype', $reviewtype->id) }}"
+                                                                method="POST" class="formulario-modal" id="editreviewtypeForm">
+                                                                @csrf
+                                                                <div class="modal-body body_modal">
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+                                                                            <div class="form-group">
+                                                                                <label for="provincia">Nombre de Tipo de
+                                                                                    Revisión</label>
+                                                                                <input type="text"
+                                                                                    placeholder="Nombre de Provincia"
+                                                                                    name="nombre"
+                                                                                    class="form-control @error('nombre') is-invalid @enderror"
+                                                                                    id="nombre"
+                                                                                    value="{{ old('nombre', isset($reviewtype) ? $reviewtype->nombre : '') }}">
+                                                                                @error('nombre')
+                                                                                    <span class="invalid-feedback"
+                                                                                        style="color: red">
+                                                                                        <strong>{{ $message }}</strong>
+                                                                                    </span>
+                                                                                @enderror
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <label for="provincia">Descripción</label>
+                                                                                <input type="text"
+                                                                                    placeholder="Descripción"
+                                                                                    name="descripción" class="form-control"
+                                                                                    id="descripción"
+                                                                                    value="{{ old('descripción', isset($reviewtype) ? $reviewtype->descripción : '') }}">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div
+                                                                    class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
+                                                                    <button type="submit"
+                                                                        class="btn-gris btn-red mr-2">Actualizar cambios
+                                                                    </button>
+                                                                    <button type="button" class="btn-gris btn-border"
+                                                                        data-dismiss="modal">Cancelar</button>
+                                                                </div>
+                                                            </form>
+                                                        @endisset
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Modal Eliminar-->
+                                            <div class="modal fade" id="modalEliminar{{ $reviewtype->id }}"
+                                                tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+                                                aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                    <div class="modal-content border-radius-12">
+                                                        <div class="modal-body">
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <button type="button" class="close"
+                                                                        data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">×</span>
+                                                                    </button>
+                                                                    <div class="box1">
+                                                                        <img src="{{ asset('img/iconos/trash.svg') }}"
+                                                                            alt="trash" width="76">
+                                                                        <p class="mt-3 mb-0">
+                                                                            ¿Seguro que quieres eliminar <span
+                                                                                id="item-name"></span>?
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div
+                                                            class="modal-footer align-items-center justify-content-center">
+                                                            @isset($reviewtype)
+                                                                <form id="delete-form"
+                                                                    action="{{ route('destroy.reviewtype', $reviewtype->id) }}"
+                                                                    method="POST">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="submit"
+                                                                        class="btn-gris btn-red">Sí</button>
+                                                                    <button type="button" class="btn-gris btn-border"
+                                                                        data-dismiss="modal">No</button>
+                                                                </form>
+                                                            @endisset
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         @endforeach
                                     </tbody>
                                 </table>
@@ -126,6 +230,14 @@
                                                     </span>
                                                 @enderror
                                             </div>
+                                            <div class="form-group">
+                                                <label for="provincia">Descripción</label>
+                                                <input type="text"
+                                                    placeholder="Descripción"
+                                                    name="descripción" class="form-control"
+                                                    id="descripción"
+                                                    >
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -140,85 +252,7 @@
                     </div>
                 </div>
 
-                <!-- Modal edit Tipo de Revisión-->
-                <div class="modal left fade" id="editarTipoRevision" tabindex="-1" role="dialog"
-                    aria-labelledby="modelTitleId" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title font-family-Outfit-SemiBold">Actualizar Tipo de Revisión</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">×</span>
-                                </button>
-                            </div>
-                            @isset($reviewtype)
-                                <form action="{{ route('update.reviewtype', $reviewtype->id) }}" method="POST"
-                                    class="formulario-modal" id="editreviewtypeForm">
-                                    @csrf
-                                    <div class="modal-body body_modal">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label for="provincia">Nombre de Tipo de Revisión</label>
-                                                    <input type="text" placeholder="Nombre de Provincia" name="nombre"
-                                                        class="form-control @error('nombre') is-invalid @enderror"
-                                                        id="nombre"
-                                                        value="{{ old('nombre', isset($reviewtype) ? $reviewtype->nombre : '') }}">
-                                                    @error('nombre')
-                                                        <span class="invalid-feedback" style="color: red">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
-                                        <button type="submit" class="btn-gris btn-red mr-2">Actualizar cambios </button>
-                                        <button type="button" class="btn-gris btn-border"
-                                            data-dismiss="modal">Cancelar</button>
-                                    </div>
-                                </form>
-                            @endisset
-                        </div>
-                    </div>
-                </div>
 
-                <!-- Modal Eliminar-->
-                <div class="modal fade" id="modalEliminar" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
-                    aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content border-radius-12">
-                            <div class="modal-body">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">×</span>
-                                        </button>
-                                        <div class="box1">
-                                            <img src="{{ asset('img/iconos/trash.svg') }}" alt="trash"
-                                                width="76">
-                                            <p class="mt-3 mb-0">
-                                                ¿Seguro que quieres eliminar <span id="item-name"></span>?
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer align-items-center justify-content-center">
-                                @isset($reviewtype)
-                                    <form id="delete-form" action="{{ route('destroy.reviewtype', $reviewtype->id) }}"
-                                        method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn-gris btn-red">Sí</button>
-                                        <button type="button" class="btn-gris btn-border" data-dismiss="modal">No</button>
-                                    </form>
-                                @endisset
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>

@@ -11,5 +11,5 @@ class ReviewType extends Model
     use HasFactory, SoftDeletes;
     protected $dates = ['eliminado_en'];
     protected $table = 'tipos_revisión';
-    protected $fillable = ['nombre'];
+    protected $fillable = ['nombre','descripción'];
 }

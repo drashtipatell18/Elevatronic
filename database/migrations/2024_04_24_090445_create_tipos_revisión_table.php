@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('tipos_revisión', function (Blueprint $table) {
             $table->id();
             $table->string('nombre')->nullable();
+            $table->string('descripción')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

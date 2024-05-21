@@ -21,6 +21,7 @@ class ReviewTypeController extends Controller
         // Create a new Province instance
         $reviewtype = ReviewType::create([
             'nombre' => $request->input('nombre'),
+            'descripción' => $request->input('descripción')
         ]);
 
         // Redirect back with success message
@@ -28,7 +29,7 @@ class ReviewTypeController extends Controller
         return redirect()->route('reviewtype');
 
     }
-    
+
     public function reviewtypeEdit($id){
         $reviewtype = ReviewType::findOrFail($id);
         return view('reviewtype.view_reviewtype',compact('reviewtype'));
@@ -45,6 +46,7 @@ class ReviewTypeController extends Controller
         // Update a new Province instance
         $reviewtype->update([
             'nombre' => $request->input('nombre'),
+            'descripción' => $request->input('descripción')
         ]);
 
         // Redirect back with success message

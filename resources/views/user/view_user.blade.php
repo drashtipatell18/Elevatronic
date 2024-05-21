@@ -546,55 +546,69 @@
                 $(".alert-danger").fadeOut(1000);
             }, 1000);
 
-            $('#createuserform').validate({
-                rules: {
-                    username: "required",
-                    name: "required",
-                    email: {
-                        required: true,
-                        email: true
+            // Define the custom password validation method before initializing validation
+            $.validator.addMethod("passwordFormat", function(value, element) {
+                    // Password must contain at least one uppercase letter, one special character, and be at least 8 characters long
+                    return this.optional(element) || /^(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
+                        value);
+                },
+                "La contraseña debe tener al menos 8 caracteres, comenzar con una letra mayúscula y contener al menos un carácter especial."
+                );
+
+            $(document).ready(function() {
+                // Initialize jQuery Validation plugin on the form
+                $('#createuserform').validate({
+                    rules: {
+                        username: "required",
+                        name: "required",
+                        email: {
+                            required: true,
+                            email: true
+                        },
+                        phone: {
+                            required: true,
+                            digits: true
+                        },
+                        employee: "required",
+                        password: {
+                            required: true,
+                            minlength: 8, // Adjusted minlength to 8 characters
+                            passwordFormat: true // Apply custom passwordFormat rule
+                        }
                     },
-                    phone: {
-                        required: true,
-                        digits: true
+                    messages: {
+                        username: "Por favor, ingrese el nombre de usuario",
+                        name: "Por favor, ingrese el nombre",
+                        email: {
+                            required: "Por favor, ingrese el correo",
+                            email: "Por favor, ingrese un correo válido"
+                        },
+                        phone: {
+                            required: "Por favor, ingrese el teléfono",
+                            digits: "Por favor, ingrese solo números"
+                        },
+                        employee: "Por favor, seleccione un empleado",
+                        password: {
+                            required: "Por favor, ingrese la contraseña",
+                            minlength: "La contraseña debe tener al menos 8 caracteres" // Updated minlength message
+                        }
                     },
-                    employee: "required",
-                    password: {
-                        required: true,
-                        minlength: 6
+                    errorElement: "span",
+                    errorPlacement: function(error, element) {
+                        // Add the `invalid-feedback` class to the error element
+                        error.addClass("invalid-feedback");
+                        // Add error message after the invalid element
+                        error.insertAfter(element);
+                    },
+                    highlight: function(element, errorClass, validClass) {
+                        $(element).addClass("is-invalid").removeClass("is-valid");
+                    },
+                    unhighlight: function(element, errorClass, validClass) {
+                        $(element).removeClass("is-invalid").addClass("is-valid");
                     }
-                },
-                messages: {
-                    username: "Por favor, ingrese el nombre de usuario",
-                    name: "Por favor, ingrese el nombre",
-                    email: {
-                        required: "Por favor, ingrese el correo",
-                        email: "Por favor, ingrese un correo válido"
-                    },
-                    phone: {
-                        required: "Por favor, ingrese el teléfono",
-                        digits: "Por favor, ingrese solo números"
-                    },
-                    employee: "Por favor, seleccione un empleado",
-                    password: {
-                        required: "Por favor, ingrese la contraseña",
-                        minlength: "La contraseña debe tener al menos 6 caracteres"
-                    }
-                },
-                errorElement: "span",
-                errorPlacement: function(error, element) {
-                    // Add the `invalid-feedback` class to the error element
-                    error.addClass("invalid-feedback");
-                    // Add error message after the invalid element
-                    error.insertAfter(element);
-                },
-                highlight: function(element, errorClass, validClass) {
-                    $(element).addClass("is-invalid").removeClass("is-valid");
-                },
-                unhighlight: function(element, errorClass, validClass) {
-                    $(element).removeClass("is-invalid").addClass("is-valid");
-                }
+                });
             });
+
 
             $('#edituserform').validate({
                 rules: {

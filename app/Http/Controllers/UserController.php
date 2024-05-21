@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Rules\PasswordFormat;
 
 class UserController extends Controller
 {
@@ -12,37 +13,40 @@ class UserController extends Controller
         return view('user.view_user', compact('users'));
     }
 
-    public function userInsert(Request $request){
+    public function userInsert(Request $request)
+    {
         $validatedData = $request->validate([
             'username' => 'required',
             'name' => 'required',
-            'email' => 'required',
+            'email' => 'required|email',
             'phone' => 'required',
             'employee' => 'required',
-            'password' => 'required',
+            'password' => ['required', new PasswordFormat()],
+            'image' => 'nullable|image|max:2048', // Optional image validation
         ]);
 
         $filename = '';
-        if ($request->hasFile('image')){
+        if ($request->hasFile('image')) {
             $image = $request->file('image');
             $filename = time() . '.' . $image->getClientOriginalExtension();
-            $image->move('images', $filename);
+            $image->move(public_path('images'), $filename); // Save the image to the public/images directory
         }
 
         $user = User::create([
-            'image'            => $filename,
-            'username'         => $request->input('username'),
-            'name'             => $request->input('name'),
-            'email'            => $request->input('email'),
-            'phone'            => $request->input('phone'),
-            'employee'         => $request->input('employee'),
-            'password'         => bcrypt($request->input('password')),
+            'image' => $filename,
+            'username' => $request->input('username'),
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'phone' => $request->input('phone'),
+            'employee' => $request->input('employee'),
+            'password' => bcrypt($request->input('password')),
         ]);
 
         // Redirect back with success message
         session()->flash('success', 'Usuario creado exitosamente!');
         return redirect()->route('user');
     }
+
 
     public function userUpdate(Request $request,$id){
         // dd($request->all());

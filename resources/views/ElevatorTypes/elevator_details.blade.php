@@ -1,8 +1,10 @@
 @extends('layouts.main')
 @section('content')
-<style>
-    .error { color: red; }
-</style>
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
     <div class="w-100 contenido">
         <div class="container-fluid container-mod">
             <div class="row">
@@ -112,7 +114,7 @@
                                     <div class="col-md-12">
                                         <table id="repuestosAsignados" class="table" style="width:100%">
                                             <thead>
-                                                <tr>
+                                                {{-- <tr>
                                                     <th>FOTO</th>
                                                     <th>ID</th>
                                                     <th>NOMBRE</th>
@@ -123,10 +125,22 @@
                                                     <th>REVISIÓN</th>
                                                     <th>CAMBIO</th>
                                                     <th>SOLICITUD</th>
+                                                </tr> --}}
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th class="text-center">Nombre de Tipo de Ascensor</th>
+                                                    <th>Repuesto</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($spareparts as $index => $sparepart)
+                                                @foreach ($assginspares as $index => $assginspare)
+                                                    <tr class="">
+                                                        <td>{{ $index + 1 }}</td>
+                                                        <td class="text-center">{{ $assginspare->nombre_del_tipo_de_ascensor }}</td>
+                                                        <td>{{ $assginspare->reemplazo }}</td>
+                                                    </tr>
+                                                @endforeach
+                                                {{-- @foreach ($spareparts as $index => $sparepart)
                                                     <tr class="">
                                                         <td><img src="{{ asset('images/' . $sparepart->foto_de_repuesto) }}"
                                                                 alt="personal" width="52" height="52"
@@ -146,7 +160,7 @@
                                                         <td>{{ $sparepart->frecuencia_de_cambio }}</td>
                                                         <td>{{ $sparepart->frecuencia_de_solicitud }}</td>
                                                     </tr>
-                                                @endforeach
+                                                @endforeach --}}
                                             </tbody>
                                         </table>
                                     </div>
@@ -171,7 +185,8 @@
                                         <div class="dropdown">
                                             <button class="btn-gris" type="button" id="dropdownMenuButton"
                                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <img src="{{ asset('img/iconos/export.svg')}}" alt="icono" class="mr-2"> Exportar
+                                                <img src="{{ asset('img/iconos/export.svg') }}" alt="icono"
+                                                    class="mr-2"> Exportar
                                                 Datos <i class="iconoir-nav-arrow-down"></i>
                                             </button>
                                             <div class="dropdown-menu dropdown-menu-right"
@@ -233,8 +248,8 @@
                                     <span aria-hidden="true">×</span>
                                 </button>
                             </div>
-                            <form action="{{ route('insert.asignarrepuesto') }}" method="POST"
-                                class="formulario-modal" id="assginsparpart">
+                            <form action="{{ route('insert.asignarrepuesto') }}" method="POST" class="formulario-modal"
+                                id="assginsparpart">
                                 @csrf
                                 <div class="modal-body body_modal">
                                     <div class="row">
@@ -251,10 +266,12 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="repuesto">Repuesto</label>
-                                                <select class="custom-select form-control" name="reemplazo" id="reemplazo">
+                                                <select class="custom-select form-control" name="reemplazo"
+                                                    id="reemplazo">
                                                     <option value="" selected disabled>Seleccionar opción</option>
                                                     @foreach ($spareparts as $sparepart)
-                                                        <option value="{{ $sparepart->nombre }}">{{ $sparepart->nombre }}</option>
+                                                        <option value="{{ $sparepart->nombre }}">{{ $sparepart->nombre }}
+                                                        </option>
                                                     @endforeach
                                                 </select>
                                                 @error('reemplazo')
@@ -359,48 +376,47 @@
     </div>
 @endsection
 @push('scripts')
-<script>
-    $(document).ready(function() {
-        $("#assginsparpart").validate({
-            rules: {
-                nombre_del_tipo_de_ascensor: {
-                    required: true,
-                    minlength: 2 // Example: Minimum length of 2 characters
-                    // Add more rules as needed
+    <script>
+        $(document).ready(function() {
+            $("#assginsparpart").validate({
+                rules: {
+                    nombre_del_tipo_de_ascensor: {
+                        required: true,
+                        minlength: 2 // Example: Minimum length of 2 characters
+                        // Add more rules as needed
+                    },
+                    reemplazo: {
+                        required: true
+                    }
+                    // Add rules for other fields here
                 },
-                reemplazo: {
-                    required: true
-                }
-                // Add rules for other fields here
-            },
-            messages: {
-                nombre_del_tipo_de_ascensor: {
-                    required: "Por favor, ingrese el nombre del tipo de ascensor.",
-                    minlength: "El nombre del tipo de ascensor debe tener al menos 2 caracteres."
-                    // Add more messages as needed
+                messages: {
+                    nombre_del_tipo_de_ascensor: {
+                        required: "Por favor, ingrese el nombre del tipo de ascensor.",
+                        minlength: "El nombre del tipo de ascensor debe tener al menos 2 caracteres."
+                        // Add more messages as needed
+                    },
+                    reemplazo: "Por favor, seleccione un repuesto."
+                    // Add messages for other fields here
                 },
-                reemplazo: "Por favor, seleccione un repuesto."
-                // Add messages for other fields here
-            },
-            errorElement: "span",
-            errorPlacement: function(error, element) {
-                error.addClass("error");
-                if (element.is("select")) {
-                    // If the error is for a select element, append it after the select element's parent div
-                    error.insertAfter(element.closest('.form-group'));
-                } else {
-                    // For other elements, insert the error after the element
-                    error.insertAfter(element);
+                errorElement: "span",
+                errorPlacement: function(error, element) {
+                    error.addClass("error");
+                    if (element.is("select")) {
+                        // If the error is for a select element, append it after the select element's parent div
+                        error.insertAfter(element.closest('.form-group'));
+                    } else {
+                        // For other elements, insert the error after the element
+                        error.insertAfter(element);
+                    }
+                },
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass("is-invalid").removeClass("is-valid");
+                },
+                unhighlight: function(element, errorClass, validClass) {
+                    $(element).removeClass("is-invalid").addClass("is-valid");
                 }
-            },
-            highlight: function(element, errorClass, validClass) {
-                $(element).addClass("is-invalid").removeClass("is-valid");
-            },
-            unhighlight: function(element, errorClass, validClass) {
-                $(element).removeClass("is-invalid").addClass("is-valid");
-            }
+            });
         });
-    });
-</script>
-
+    </script>
 @endpush

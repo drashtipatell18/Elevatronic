@@ -11,8 +11,8 @@ use App\Models\AssginSpare;
 
 class ElevatortypesController extends Controller
 {
-    public function Elevatortypes(){  
-        $elevator_types = Elevatortypes::all();      
+    public function Elevatortypes(){
+        $elevator_types = Elevatortypes::all();
         return view('ElevatorTypes.view_elevator_types',compact('elevator_types'));
     }
 
@@ -24,7 +24,7 @@ class ElevatortypesController extends Controller
         // Create a new Customer instance
         $elevator_type = Elevatortypes::create([
             'nombre_de_tipo_de_ascensor'  => $request->input('nombre_de_tipo_de_ascensor'),
-           
+
         ]);
 
         // Redirect back with success message
@@ -37,12 +37,14 @@ class ElevatortypesController extends Controller
         return view('ElevatorTypes.view_elevator_types', compact('elevatortypes'));
 
     }
-    
+
     public function elevatortypesDetails($id){
         $elevator_type = Elevatortypes::findOrFail($id);
         $spareparts = SparePart::all();
         $elevators = Elevators::all();
-        return view('ElevatorTypes.elevator_details', compact('elevators','spareparts','elevator_type'));
+        $assginspares = AssginSpare::all();
+
+        return view('ElevatorTypes.elevator_details', compact('assginspares','elevators','spareparts','elevator_type'));
     }
 
     public function AsignarRepuesto(Request $request){
@@ -55,13 +57,14 @@ class ElevatortypesController extends Controller
         $assginspare = AssginSpare::create([
             'nombre_del_tipo_de_ascensor'  => $request->input('nombre_del_tipo_de_ascensor'),
             'reemplazo'                   => $request->input('reemplazo'),
-           
+
         ]);
 
         // Redirect back with success message
         session()->flash('success', 'Asignar repuesto creado exitosamente!');
         return redirect()->route('elevatortypes');
     }
+
     public function elevatortypesUpdate(Request $request,$id){
         $validatedData = $request->validate([
             'nombre_de_tipo_de_ascensor' => 'required',
@@ -72,7 +75,7 @@ class ElevatortypesController extends Controller
         // Create a new elevator_type instance
         $elevator_type->update([
             'nombre_de_tipo_de_ascensor'  => $request->input('nombre_de_tipo_de_ascensor'),
-           
+
         ]);
 
         // Redirect back with success message
@@ -86,5 +89,5 @@ class ElevatortypesController extends Controller
         session()->flash('danger', 'Tipos de ascensor eliminar exitosamente!');
         return redirect()->back();
     }
-    
-}    
+
+}

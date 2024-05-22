@@ -66,24 +66,6 @@
                                                 <p class="mb-0">Fecha registro</p>
                                             </div>
                                         </div>
-                                        <div>
-                                            <h3>Elevator Name</h3>
-                                            <span>Ascensor</span>
-                                        </div>
-                                        <div class="d-flex align-items-center justify-content-start gap-15 flex-wrap">
-                                            <div class="option">
-                                                <h4>N/A</h4>
-                                                <p class="mb-0">ID elemento</p>
-                                            </div>
-                                            <div class="option">
-                                                <h4>N/A</h4>
-                                                <p class="mb-0"># de contrato</p>
-                                            </div>
-                                            <div class="option">
-                                                <h4>N/A</h4>
-                                                <p class="mb-0">Fecha registro</p>
-                                            </div>
-                                        </div>
                                 </div>
 
                             </div>
@@ -1761,7 +1743,7 @@
                                                     <div class="col-md-12">
                                                         <div class="form-group">
                                                             <label for="Ncontacto">Nombre del Contacto</label>
-                                                            <input type="number" placeholder="Nombre del contacto"
+                                                            <input type="text" placeholder="Nombre del contacto"
                                                                 name="ncontacto" id="ncontacto"
                                                                 class="form-control @error('ncontacto') is-invalid @enderror"
                                                                 value="{{ old('ncontacto', isset($elevators) ? $elevators->ncontacto : '') }}">

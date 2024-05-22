@@ -210,7 +210,7 @@
                                                                                     <div class="form-group">
                                                                                         <label for="Flimpieza">Frecuencia de
                                                                                             limpieza (días)</label>
-                                                                                        <input type="text"
+                                                                                        <input type="number"
                                                                                             placeholder="Frecuencia de limpieza (días)"
                                                                                             name="frecuencia_de_limpieza"
                                                                                             id="frecuencia_de_limpieza"
@@ -228,7 +228,7 @@
                                                                                     <div class="form-group">
                                                                                         <label for="Flubricacion">Frecuencia de
                                                                                             lubricación (días)</label>
-                                                                                        <input type="text"
+                                                                                        <input type="number"
                                                                                             placeholder="Frecuencia de lubricación (días)"
                                                                                             name="frecuencia_de_lubricación"
                                                                                             id="frecuencia_de_lubricación"
@@ -247,7 +247,7 @@
                                                                                     <div class="form-group">
                                                                                         <label for="FAjustes">Frecuencia de
                                                                                             ajuste (días)</label>
-                                                                                        <input type="text"
+                                                                                        <input type="number"
                                                                                             placeholder="Frecuencia de ajuste (días)"
                                                                                             name="frecuencia_de_ajuste"
                                                                                             id="frecuencia_de_ajuste"
@@ -265,7 +265,7 @@
                                                                                     <div class="form-group">
                                                                                         <label for="FRevision">Frecuencia de
                                                                                             revisión (días)</label>
-                                                                                        <input type="text"
+                                                                                        <input type="number"
                                                                                             placeholder="Frecuencia de revisión (días)"
                                                                                             class="form-control @error('frecuencia_de_revisión') is-invalid @enderror"
                                                                                             value="{{ old('frecuencia_de_revisión', $sparepart->frecuencia_de_revisión ?? '') }}"
@@ -277,7 +277,7 @@
                                                                                     <div class="form-group">
                                                                                         <label for="FCambio">Frecuencia de
                                                                                             cambio (días)</label>
-                                                                                        <input type="text"
+                                                                                        <input type="number"
                                                                                             placeholder="Frecuencia de cambio (días)"
                                                                                             class="form-control @error('frecuencia_de_cambio') is-invalid @enderror"
                                                                                             value="{{ old('frecuencia_de_cambio', $sparepart->frecuencia_de_cambio ?? '') }}"
@@ -289,7 +289,7 @@
                                                                                     <div class="form-group">
                                                                                         <label for="FSolicitud">Frecuencia de
                                                                                             solicitud (días)</label>
-                                                                                        <input type="text"
+                                                                                        <input type="number"
                                                                                             placeholder="Frecuencia de solicitud (días)"
                                                                                             class="form-control @error('frecuencia_de_solicitud') is-invalid @enderror"
                                                                                             value="{{ old('frecuencia_de_solicitud', $sparepart->frecuencia_de_solicitud ?? '') }}"
@@ -445,7 +445,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="Flimpieza">Frecuencia de limpieza (días)</label>
-                                            <input type="text" placeholder="Frecuencia de limpieza (días)"
+                                            <input type="number" placeholder="Frecuencia de limpieza (días)"
                                                 name="frecuencia_de_limpieza" id="frecuencia_de_limpieza"
                                                 class="form-control @error('frecuencia_de_limpieza') is-invalid @enderror">
                                             @error('frecuencia_de_limpieza')
@@ -458,7 +458,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="Flubricacion">Frecuencia de lubricación (días)</label>
-                                            <input type="text" placeholder="Frecuencia de lubricación (días)"
+                                            <input type="number" placeholder="Frecuencia de lubricación (días)"
                                                 name="frecuencia_de_lubricación" id="frecuencia_de_lubricación"
                                                 class="form-control @error('frecuencia_de_lubricación') is-invalid @enderror">
                                             @error('frecuencia_de_lubricación')
@@ -472,7 +472,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="FAjustes">Frecuencia de ajuste (días)</label>
-                                            <input type="text" placeholder="Frecuencia de ajuste (días)"
+                                            <input type="number" placeholder="Frecuencia de ajuste (días)"
                                                 name="frecuencia_de_ajuste" id="frecuencia_de_ajuste"
                                                 class="form-control @error('frecuencia_de_ajuste') is-invalid @enderror">
                                             @error('frecuencia_de_ajuste')
@@ -485,7 +485,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="FRevision">Frecuencia de revisión (días)</label>
-                                            <input type="text" placeholder="Frecuencia de revisión (días)"
+                                            <input type="number" placeholder="Frecuencia de revisión (días)"
                                                 class="form-control @error('frecuencia_de_revisión') is-invalid @enderror"
                                                 name="frecuencia_de_revisión" id="frecuencia_de_revisión">
                                             @error('frecuencia_de_revisión')
@@ -498,7 +498,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="FCambio">Frecuencia de cambio (días)</label>
-                                            <input type="text" placeholder="Frecuencia de cambio (días)"
+                                            <input type="number" placeholder="Frecuencia de cambio (días)"
                                                 class="form-control @error('frecuencia_de_cambio') is-invalid @enderror"
                                                 name="frecuencia_de_cambio" id="frecuencia_de_cambio">
                                             @error('frecuencia_de_cambio')
@@ -511,7 +511,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="FSolicitud">Frecuencia de solicitud (días)</label>
-                                            <input type="text" placeholder="Frecuencia de solicitud (días)"
+                                            <input type="number" placeholder="Frecuencia de solicitud (días)"
                                                 class="form-control @error('frecuencia_de_solicitud') is-invalid @enderror"
                                                 name="frecuencia_de_solicitud" id="frecuencia_de_solicitud">
                                             @error('frecuencia_de_solicitud')

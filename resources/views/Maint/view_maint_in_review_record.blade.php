@@ -355,53 +355,125 @@
                                                     <th>SOLICITUD</th>
                                                 </tr>
                                             </thead>
+                                            {{-- <tbody>
+                                                @foreach ($spareparts as $index => $sparepart)
+                                                    <tr>
+                                                        <td>{{ $sparepart->nombre }}</td>
+                                                        <td>
+                                                            <div class="custom-control custom-checkbox">
+                                                                <input type="checkbox" class="custom-control-input"
+                                                                    id="limpieza" name="limpieza">
+                                                                <label class="custom-control-label"
+                                                                    for="limpieza"></label>
+                                                            </div>
+                                                            {{ $sparepart->frecuencia_de_limpieza }}
+                                                        </td>
+                                                        <td>
+                                                            <div class="custom-control custom-checkbox">
+                                                                <input type="checkbox" class="custom-control-input"
+                                                                    id="limpieza" name="limpieza">
+                                                                <label class="custom-control-label"
+                                                                    for="limpieza"></label>
+                                                            </div>
+                                                            {{ $sparepart->frecuencia_de_lubricación }}
+                                                        </td>
+                                                        <td>
+                                                            <div class="custom-control custom-checkbox">
+                                                                <input type="checkbox" class="custom-control-input"
+                                                                    id="limpieza" name="limpieza">
+                                                                <label class="custom-control-label"
+                                                                    for="limpieza"></label>
+                                                            </div>{{ $sparepart->frecuencia_de_ajuste }}
+                                                        </td>
+                                                        <td>
+                                                            <div class="custom-control custom-checkbox">
+                                                                <input type="checkbox" class="custom-control-input"
+                                                                    id="limpieza" name="limpieza">
+                                                                <label class="custom-control-label"
+                                                                    for="limpieza"></label>
+                                                            </div>{{ $sparepart->frecuencia_de_revisión }}
+                                                        </td>
+                                                        <td>
+                                                            <div class="custom-control custom-checkbox">
+                                                                <input type="checkbox" class="custom-control-input"
+                                                                    id="limpieza" name="limpieza">
+                                                                <label class="custom-control-label"
+                                                                    for="limpieza"></label>
+                                                            </div>{{ $sparepart->frecuencia_de_cambio }}
+                                                        </td>
+                                                        <td>
+                                                            <div class="custom-control custom-checkbox">
+                                                                <input type="checkbox" class="custom-control-input"
+                                                                    id="limpieza" name="limpieza">
+                                                                <label class="custom-control-label"
+                                                                    for="limpieza"></label>
+                                                            </div>{{ $sparepart->frecuencia_de_solicitud }}
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody> --}}
                                             <tbody>
-                                                <tr>
-                                                    <td>BARRERA INFRARROJA</td>
-                                                    <td>
-                                                        <div class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input"
-                                                                id="limpieza" name="limpieza" disabled>
-                                                            <label class="custom-control-label" for="limpieza"></label>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input"
-                                                                id="lubricacion" name="lubricacion" checked disabled>
-                                                            <label class="custom-control-label" for="lubricacion"></label>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input"
-                                                                id="ajustes" name="ajustes" disabled>
-                                                            <label class="custom-control-label" for="ajustes"></label>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input"
-                                                                id="revision" name="revision" disabled>
-                                                            <label class="custom-control-label" for="revision"></label>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input"
-                                                                id="cambio" name="cambio" disabled>
-                                                            <label class="custom-control-label" for="cambio"></label>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input"
-                                                                id="solicitud" name="solicitud" disabled>
-                                                            <label class="custom-control-label" for="solicitud"></label>
-                                                        </div>
-                                                    </td>
-                                                </tr>
+                                                @foreach ($spareparts as $index => $sparepart)
+                                                    <tr>
+                                                        <td>{{ $sparepart->nombre }}</td>
+                                                        <td>
+                                                            <div class="custom-control custom-checkbox">
+                                                                <input type="checkbox" class="custom-control-input"
+                                                                    id="limpieza-{{ $index }}" name="limpieza[]"
+                                                                    {{ $sparepart->frecuencia_de_limpieza ? 'checked' : '' }} disabled>
+                                                                <label class="custom-control-label"
+                                                                    for="limpieza-{{ $index }}"></label>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="custom-control custom-checkbox">
+                                                                <input type="checkbox" class="custom-control-input"
+                                                                    id="lubricacion-{{ $index }}" name="lubricacion[]"
+                                                                    {{ $sparepart->frecuencia_de_lubricación ? 'checked' : '' }} disabled>
+                                                                <label class="custom-control-label"
+                                                                    for="lubricacion-{{ $index }}"></label>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="custom-control custom-checkbox">
+                                                                <input type="checkbox" class="custom-control-input"
+                                                                    id="ajuste-{{ $index }}" name="ajuste[]"
+                                                                    {{ $sparepart->frecuencia_de_ajuste ? 'checked' : '' }} disabled>
+                                                                <label class="custom-control-label"
+                                                                    for="ajuste-{{ $index }}"></label>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="custom-control custom-checkbox">
+                                                                <input type="checkbox" class="custom-control-input"
+                                                                    id="revision-{{ $index }}" name="revision[]"
+                                                                    {{ $sparepart->frecuencia_de_revisión ? 'checked' : '' }} disabled>
+                                                                <label class="custom-control-label"
+                                                                    for="revision-{{ $index }}"></label>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="custom-control custom-checkbox">
+                                                                <input type="checkbox" class="custom-control-input"
+                                                                    id="cambio-{{ $index }}" name="cambio[]"
+                                                                    {{ $sparepart->frecuencia_de_cambio ? 'checked' : '' }} disabled>
+                                                                <label class="custom-control-label"
+                                                                    for="cambio-{{ $index }}"></label>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="custom-control custom-checkbox">
+                                                                <input type="checkbox" class="custom-control-input"
+                                                                    id="solicitud-{{ $index }}" name="solicitud[]"
+                                                                    {{ $sparepart->frecuencia_de_solicitud ? 'checked' : '' }} disabled>
+                                                                <label class="custom-control-label"
+                                                                    for="solicitud-{{ $index }}"></label>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
                                             </tbody>
+
                                         </table>
                                     </div>
                                 </div>
@@ -831,7 +903,7 @@
                 $('#fileCount').text('Archivos (' + fileCount + ')'); // Actualiza el contador
             });
 
-            
+
             var table = $('#contratosTable').DataTable({
                 responsive: true,
                 dom: 'tp',

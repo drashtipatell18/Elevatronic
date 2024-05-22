@@ -8,6 +8,7 @@ use App\Models\MaintInReview;
 use App\Models\ReviewType;
 use App\Models\Province;
 use Illuminate\Http\Request;
+use App\Models\SparePart;
 
 class MaintInReviewController extends Controller
 {
@@ -117,7 +118,8 @@ class MaintInReviewController extends Controller
         $maint_in_review = MaintInReview::findOrFail($id);
         $review_types = ReviewType::pluck('nombre','nombre');
         $elevators = Elevators::pluck('nombre','nombre');
-        return view('Maint.view_maint_in_review_record', compact('maint_in_review','review_types','elevators'));
+        $spareparts = SparePart::all();
+        return view('Maint.view_maint_in_review_record', compact('spareparts','maint_in_review','review_types','elevators'));
 
     }
 }

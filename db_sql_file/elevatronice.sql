@@ -61,7 +61,7 @@ CREATE TABLE `ascensores` (
 -- Dumping data for table `ascensores`
 --
 
-INSERT INTO `ascensores` (`id`, `imagen`, `contrato`, `nombre`, `código`, `marca`, `cliente`, `fecha`, `garantizar`, `dirección`, `ubigeo`, `provincia`, `técnico_instalador`, `técnico_ajustador`, `tipo_de_ascensor`, `cantidad`, `mgratuito`, `sincuarto`, `concuarto`, `npisos`, `ncontacto`, `teléfono`, `correo`, `descripcion1`, `created_at`, `updated_at`, `deleted_at`) VALUES
+INSERT INTO `ascensores` (`id`, `imagen`, `contrato`, `nombre`, `código`, `marca`, `cliente`, `fecha`, `garantizar`, `dirección`, `ubigeo`, `provincia`, `técnico_instalador`, `técnico_ajustador`, `tipo_de_ascensor`, ``, `mgratuito`, `sincuarto`, `concuarto`, `npisos`, `ncontacto`, `teléfono`, `correo`, `descripcion1`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1, '1713939118.jpg', 'asdad', 'asdasd', 'asdasd', 'sadasd', 'qwe', '2024-04-24', 'asdasd', 'dasdas', 'dasdas', 'jjhkjh', 'tecnico_1', 'tecnico_2', 'tipo_1', 'cantidad_1', NULL, NULL, NULL, 'asdas', '321457457', '57575455', 'sdasd', 'sadasds', '2024-04-23 23:21:00', '2024-04-24 04:11:49', NULL),
 (2, '1713939118.jpg', 'asdads', 'dasdas', 'asdasd', 'sadasd', 'tyty', '2024-04-25', 'dasd', 'dasd', 'dasdas', 'arequipa', 'tecnico_2', 'tecnico_2', 'tipo_1', 'cantidad_2', NULL, NULL, NULL, 'dasdasd', '9876453', '67867867', '86788', 'hjghjghjghjgh', '2024-04-23 23:31:49', '2024-04-24 01:28:31', '2024-04-24 01:28:31');
 

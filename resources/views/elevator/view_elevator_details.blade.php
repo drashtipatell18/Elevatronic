@@ -41,33 +41,31 @@
                     <div class="box-contenido pb-0">
                         <div class="row">
                             <div class="col-md-12 d-flex align-items-start justify-content-start gap-20 mb-6 box-detalle">
-                                @if (isset($elevator))
+                                @if (isset($elevators))
                                     <div class="contenido-img">
-                                        <img src="{{ asset('images/' . $elevator->imagen) }}" alt="user" width="160">
+                                        <img src="{{ asset('images/' . $elevators->imagen) }}" alt="user" width="160">
                                     </div>
                                 @endif
                                 <div class="align-items-start d-flex flex-column h-100 justify-content-between">
-                                    @if (isset($elevator))
                                         <div>
-                                            <h3>{{ $elevator->nombre }}</h3>
+                                            <h3>{{ $elevators->nombre }}</h3>
                                             <span>Ascensor</span>
                                         </div>
                                         <div class="d-flex align-items-center justify-content-start gap-15 flex-wrap">
                                             <div class="option">
-                                                <h4>{{ $elevator->id }}</h4>
+                                                <h4>{{ $elevators->id }}</h4>
                                                 <p class="mb-0">ID elemento</p>
                                             </div>
                                             <div class="option">
-                                                <h4>{{ $elevator->contrato }}</h4>
+                                                <h4>{{ $elevators->contrato }}</h4>
                                                 <p class="mb-0"># de contrato</p>
                                             </div>
                                             <div class="option">
-                                                <h4>{{ \Carbon\Carbon::parse($elevator->fecha)->format('d M Y, g:i a') }}
+                                                <h4>{{ \Carbon\Carbon::parse($elevators->fecha)->format('d M Y, g:i a') }}
                                                 </h4>
                                                 <p class="mb-0">Fecha registro</p>
                                             </div>
                                         </div>
-                                    @else
                                         <div>
                                             <h3>Elevator Name</h3>
                                             <span>Ascensor</span>
@@ -86,7 +84,6 @@
                                                 <p class="mb-0">Fecha registro</p>
                                             </div>
                                         </div>
-                                    @endif
                                 </div>
 
                             </div>
@@ -130,8 +127,8 @@
                                                 <tr>
                                                     <td class="text-gris">Nombre</td>
                                                     <td>
-                                                        @isset($elevator->nombre)
-                                                            {{ $elevator->nombre }}
+                                                        @isset($elevators->nombre)
+                                                            {{ $elevators->nombre }}
                                                         @else
                                                             Nombre no especificado
                                                         @endisset
@@ -147,8 +144,8 @@
                                                 <tr>
                                                     <td class="text-gris">Código</td>
                                                     <td>
-                                                        @isset($elevator->código)
-                                                            {{ $elevator->código }}
+                                                        @isset($elevators->código)
+                                                            {{ $elevators->código }}
                                                         @else
                                                             Código no especificado
                                                         @endisset
@@ -164,8 +161,8 @@
                                                 <tr>
                                                     <td class="text-gris">Cliente del ascensor</td>
                                                     <td>
-                                                        @isset($elevator->cliente)
-                                                            {{ $elevator->cliente }}
+                                                        @isset($elevators->cliente)
+                                                            {{ $elevators->cliente }}
                                                         @else
                                                             No cliente disponible
                                                         @endisset
@@ -181,8 +178,8 @@
                                                 <tr>
                                                     <td class="text-gris">Marca</td>
                                                     <td>
-                                                        @isset($elevator->marca)
-                                                            {{ $elevator->marca }}
+                                                        @isset($elevators->marca)
+                                                            {{ $elevators->marca }}
                                                         @else
                                                             No marca disponible
                                                         @endisset
@@ -208,8 +205,8 @@
                                                 <tr>
                                                     <td class="text-gris">Garantía</td>
                                                     <td>
-                                                        @isset($elevator->garantizar)
-                                                            {{ $elevator->garantizar }}
+                                                        @isset($elevators->garantizar)
+                                                            {{ $elevators->garantizar }}
                                                         @else
                                                             No garantía disponible
                                                         @endisset
@@ -225,8 +222,8 @@
                                                 <tr>
                                                     <td class="text-gris">Dirección</td>
                                                     <td>
-                                                        @isset($elevator->dirección)
-                                                            {{ $elevator->dirección }}
+                                                        @isset($elevators->dirección)
+                                                            {{ $elevators->dirección }}
                                                         @else
                                                             No dirección disponible
                                                         @endisset
@@ -262,8 +259,8 @@
                                                 <tr>
                                                     <td class="text-gris">Provincia</td>
                                                     <td>
-                                                        @isset($elevator->provincia)
-                                                            {{ $elevator->provincia }}
+                                                        @isset($elevators->provincia)
+                                                            {{ $elevators->provincia }}
                                                         @else
                                                             No provincia disponible
                                                         @endisset
@@ -289,8 +286,8 @@
                                                 <tr>
                                                     <td class="text-gris">Tipo de ascensor</td>
                                                     <td>
-                                                        @isset($elevator->tipo_de_ascensor)
-                                                            {{ $elevator->tipo_de_ascensor }}
+                                                        @isset($elevators->tipo_de_ascensor)
+                                                            {{ $elevators->tipo_de_ascensor }}
                                                         @else
                                                             Tipo de ascensor no especificado
                                                         @endisset
@@ -306,8 +303,8 @@
                                                 <tr>
                                                     <td class="text-gris">Cantidad</td>
                                                     <td>
-                                                        @isset($elevator->cantidad)
-                                                            {{ $elevator->cantidad }}
+                                                        @isset($elevators->cantidad)
+                                                            {{ $elevators->cantidad }}
                                                         @else
                                                             Cantidad no especificada
                                                         @endisset
@@ -323,7 +320,7 @@
                                                 <div class="adornoinput mb-3">
                                                     <div class="custom-control custom-checkbox">
                                                         <input type="checkbox" class="custom-control-input"
-                                                            id="MGratuito" name="MGratuito" checked>
+                                                            id="MGratuito" name="mgratuito" value="mgratuito" {{ in_array('mgratuito', explode(',', $elevators->quarters)) ? 'checked' : '' }} disabled>
                                                         <label class="custom-control-label" for="MGratuito">Mantenimiento
                                                             gratuito?</label>
                                                     </div>
@@ -337,7 +334,7 @@
                                                 <div class="adornoinput mb-3">
                                                     <div class="custom-control custom-checkbox">
                                                         <input type="checkbox" class="custom-control-input"
-                                                            id="SinCuarto" name="SinCuarto">
+                                                            id="SinCuarto" name="sincuarto" value="sincuarto" {{ in_array('sincuarto', explode(',', $elevators->quarters)) ? 'checked' : '' }} disabled>
                                                         <label class="custom-control-label" for="SinCuarto">Sin
                                                             cuarto de maquina?</label>
                                                     </div>
@@ -351,7 +348,7 @@
                                                 <div class="adornoinput mb-3">
                                                     <div class="custom-control custom-checkbox">
                                                         <input type="checkbox" class="custom-control-input"
-                                                            id="ConCuarto" name="ConCuarto">
+                                                            id="ConCuarto" name="concuarto" value="concuarto" {{ in_array('concuarto', explode(',', $elevators->quarters)) ? 'checked' : '' }} disabled>
                                                         <label class="custom-control-label" for="ConCuarto">Con
                                                             cuarto de maquina?</label>
                                                     </div>
@@ -359,7 +356,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    @isset($elevator)
+                                    @isset($elevators)
                                         <div class="col-md-12">
 
                                             <table class="table table-borderless">
@@ -367,7 +364,7 @@
                                                 <tbody>
                                                     <tr>
                                                         <td class="text-gris"># Pisos</td>
-                                                        <td>{{ $elevator->npisos }}</td>
+                                                        <td>{{ $elevators->npisos }}</td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -377,7 +374,7 @@
                                                 <tbody>
                                                     <tr>
                                                         <td class="text-gris">Contacto</td>
-                                                        <td>{{ $elevator->contrato }}</td>
+                                                        <td>{{ $elevators->contrato }}</td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -387,7 +384,7 @@
                                                 <tbody>
                                                     <tr>
                                                         <td class="text-gris">Teléfono</td>
-                                                        <td>{{ $elevator->teléfono }}</td>
+                                                        <td>{{ $elevators->teléfono }}</td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -397,7 +394,7 @@
                                                 <tbody>
                                                     <tr>
                                                         <td class="text-gris">Correo</td>
-                                                        <td>{{ $elevator->correo }}</td>
+                                                        <td>{{ $elevators->correo }}</td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -408,7 +405,7 @@
                                                     <tr>
                                                         <td class="text-gris">Descripción 1</td>
                                                         <td>
-                                                            {{ $elevator->descripcion1 }}
+                                                            {{ $elevators->descripcion1 }}
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -420,7 +417,7 @@
                                                     <tr>
                                                         <td class="text-gris">Descripción 2</td>
                                                         <td>
-                                                            {{ $elevator->descripcion2 }}
+                                                            {{ $elevators->descripcion2 }}
                                                         </td>
                                                     </tr>
                                                 </tbody>

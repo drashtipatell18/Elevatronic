@@ -399,10 +399,10 @@
                                                                                             <input type="checkbox"
                                                                                                 class="custom-control-input"
                                                                                                 id="mgratuito"
-                                                                                                name="mgratuito"
-                                                                                                {{ isset($elevator) && $elevator->mgratuito ? 'checked' : '' }}>
+                                                                                                name="quarters[]"
+                                                                                                value="mgratuito" {{ in_array('mgratuito', explode(',', $elevator->quarters)) ? 'checked' : '' }}>
                                                                                             <label class="custom-control-label"
-                                                                                                for="MGratuito">Mantenimiento
+                                                                                                for="mgratuito">Mantenimiento
                                                                                                 gratuito?</label>
                                                                                         </div>
                                                                                     </div>
@@ -414,10 +414,10 @@
                                                                                             <input type="checkbox"
                                                                                                 class="custom-control-input"
                                                                                                 id="sincuarto"
-                                                                                                name="sincuarto"
-                                                                                                {{ isset($elevator) && $elevator->sincuarto ? 'checked' : '' }}>
+                                                                                                name="quarters[]"
+                                                                                                value="sincuarto" {{ in_array('sincuarto', explode(',', $elevator->quarters)) ? 'checked' : '' }}>
                                                                                             <label class="custom-control-label"
-                                                                                                for="SinCuarto">Sin cuarto de
+                                                                                                for="sincuarto">Sin cuarto de
                                                                                                 maquina?</label>
                                                                                         </div>
                                                                                     </div>
@@ -429,10 +429,10 @@
                                                                                             <input type="checkbox"
                                                                                                 class="custom-control-input"
                                                                                                 id="concuarto"
-                                                                                                name="concuarto"
-                                                                                                {{ isset($elevator) && $elevator->concuarto ? 'checked' : '' }}>
+                                                                                                name="quarters[]"
+                                                                                                value="concuarto" {{ in_array('concuarto', explode(',', $elevator->quarters)) ? 'checked' : '' }}>
                                                                                             <label class="custom-control-label"
-                                                                                                for="ConCuarto">Con cuarto de
+                                                                                                for="concuarto">Con cuarto de
                                                                                                 maquina?</label>
                                                                                         </div>
                                                                                     </div>
@@ -763,8 +763,8 @@
                                                                 <div class="adornoinput mb-3">
                                                                     <div class="custom-control custom-checkbox">
                                                                         <input type="checkbox"
-                                                                            class="custom-control-input" id="mgratuito"
-                                                                            name="mgratuito">
+                                                                            class="custom-control-input" id="MGratuito"
+                                                                            name="quarters[]" value="mgratuito">
                                                                         <label class="custom-control-label"
                                                                             for="MGratuito">Mantenimiento
                                                                             gratuito?</label>
@@ -775,8 +775,8 @@
                                                                 <div class="adornoinput mb-3">
                                                                     <div class="custom-control custom-checkbox">
                                                                         <input type="checkbox"
-                                                                            class="custom-control-input" id="sincuarto"
-                                                                            name="sincuarto">
+                                                                            class="custom-control-input" id="SinCuarto"
+                                                                            name="quarters[]" value="sincuarto">
                                                                         <label class="custom-control-label"
                                                                             for="SinCuarto">Sin cuarto de
                                                                             maquina?</label>
@@ -787,8 +787,8 @@
                                                                 <div class="adornoinput mb-3">
                                                                     <div class="custom-control custom-checkbox">
                                                                         <input type="checkbox"
-                                                                            class="custom-control-input" id="concuarto"
-                                                                            name="concuarto">
+                                                                            class="custom-control-input" id="ConCuarto"
+                                                                            name="quarters[]" value="concuarto">
                                                                         <label class="custom-control-label"
                                                                             for="ConCuarto">Con cuarto de
                                                                             maquina?</label>

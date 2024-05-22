@@ -21,7 +21,6 @@ class ElevatorController extends Controller
     }
 
     public function elevatorInsert(Request $request){
-        // dd($request->all());
         $validatedData = $request->validate([
             'contrato' => 'required',
             'nombre' => 'required',
@@ -37,6 +36,7 @@ class ElevatorController extends Controller
             'técnico_ajustador' => 'required',
             'tipo_de_ascensor' => 'required',
             'cantidad' => 'required',
+            'quarters' => 'required',
             'npisos' => 'required',
             'ncontacto' => 'required',
             'teléfono' => 'required',
@@ -49,6 +49,7 @@ class ElevatorController extends Controller
             $filename = time() . '.' . $image->getClientOriginalExtension();
             $image->move('images', $filename);
         }
+        $quarters = implode(',', $request->input('quarters'));
 
         // Create a new Elevators instance
         $elevators = Elevators::create([
@@ -67,9 +68,7 @@ class ElevatorController extends Controller
             'técnico_ajustador'   => $request->input('técnico_ajustador'),
             'tipo_de_ascensor'    => $request->input('tipo_de_ascensor'),
             'cantidad'            => $request->input('cantidad'),
-            'mgratuito'           => $request->input('mgratuito'),
-            'sincuarto'           => $request->input('sincuarto'),
-            'concuarto'           => $request->input('concuarto'),
+            'quarters'            => $quarters,
             'npisos'              => $request->input('npisos'),
             'ncontacto'           => $request->input('ncontacto'),
             'teléfono'            => $request->input('teléfono'),
@@ -107,6 +106,7 @@ class ElevatorController extends Controller
             'técnico_ajustador' => 'required',
             'tipo_de_ascensor' => 'required',
             'cantidad' => 'required',
+            'quarters' => 'required',
             'npisos' => 'required',
             'ncontacto' => 'required',
             'teléfono' => 'required',
@@ -123,6 +123,7 @@ class ElevatorController extends Controller
             // Update the imagen attribute with the new filename
             $elevator->imagen = $filename;
         }
+        $quarters = implode(',', $request->input('quarters'));
 
         //  update Elevators instance
         $elevator->update([
@@ -140,9 +141,7 @@ class ElevatorController extends Controller
             'técnico_ajustador'   => $request->input('técnico_ajustador'),
             'tipo_de_ascensor'    => $request->input('tipo_de_ascensor'),
             'cantidad'            => $request->input('cantidad'),
-            'mgratuito'           => $request->input('mgratuito'),
-            'sincuarto'           => $request->input('sincuarto'),
-            'concuarto'           => $request->input('concuarto'),
+            'quarters'            => $quarters,
             'npisos'              => $request->input('npisos'),
             'ncontacto'           => $request->input('ncontacto'),
             'teléfono'            => $request->input('teléfono'),

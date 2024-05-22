@@ -31,8 +31,7 @@
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
                             <a class="dropdown-item texto-1 font-family-Inter-Regular" href="javascript:void(0)"
                                 data-toggle="modal" data-target="#editarAscensor">Editar</a>
-                            <a class="dropdown-item texto-1 font-family-Inter-Regular"
-                                href="{{ route('destroy.elevator', $elevators->id) }}" data-toggle="modal"
+                            <a class="dropdown-item texto-1 font-family-Inter-Regular" data-toggle="modal"
                                 data-target="#modalEliminar">Eliminar</a>
                         </div>
 

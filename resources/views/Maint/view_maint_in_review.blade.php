@@ -100,7 +100,7 @@
                                                             <a class="dropdown-item"
                                                                 href="{{ route('details.maint.in.review', $maint_in_rev->id) }}">Ver
                                                                 detalles</a>
-                                                            <a class="dropdown-item" href="javascript:void(0)"
+                                                            <a class="dropdown-item" href="{{ route('edit.maint.in.review', $maint_in_rev->id) }}"
                                                                 data-toggle="modal"
                                                                 data-target="#editorMantenimiento{{ $maint_in_rev->id }}">Editar</a>
                                                             <a class="dropdown-item" href="javascript:void(0)"

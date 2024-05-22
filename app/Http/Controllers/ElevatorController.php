@@ -119,7 +119,7 @@ class ElevatorController extends Controller
             $image = $request->file('imagen');
             $filename = time() . '.' . $image->getClientOriginalExtension();
             $image->move('images', $filename);
-    
+
             // Update the imagen attribute with the new filename
             $elevator->imagen = $filename;
         }
@@ -166,8 +166,85 @@ class ElevatorController extends Controller
         $maint_in_reviews = MaintInReview::all();
         $review_types  = ReviewType::pluck('nombre','nombre');
         return view('elevator.view_elevator_details',compact('elevators','review_types', 'maint_in_reviews','spareparts','customers','provinces','contracts'));
+    }
+
+    public function contractInsert(Request $request){
+        $validatedData = $request->validate([
+            'ascensor' => 'required',
+            'fecha_de_propuesta' => 'required',
+            'monto_de_propuesta' => 'required',
+            'monto_de_contrato' => 'required',
+            'fecha_de_inicio' => 'required',
+            'fecha_de_fin' => 'required',
+            'cada_cuantos_meses' => 'required',
+            'observación' => 'required',
+            'estado_cuenta_del_contrato' => 'required',
+            'estado' => 'required',
+        ]);
+
+        // Create a new Contract instance
+        $contract = Contract::create([
+            'ascensor'                   => $request->input('ascensor'),
+            'fecha_de_propuesta'         => $request->input('fecha_de_propuesta'),
+            'monto_de_propuesta'         => $request->input('monto_de_propuesta'),
+            'monto_de_contrato'          => $request->input('monto_de_contrato'),
+            'fecha_de_inicio'            => $request->input('fecha_de_inicio'),
+            'fecha_de_fin'               => $request->input('fecha_de_fin'),
+            'renovación'                 => $request->input('renovación'),
+            'cada_cuantos_meses'         => $request->input('cada_cuantos_meses'),
+            'observación'                => $request->input('observación'),
+            'estado_cuenta_del_contrato' => $request->input('estado_cuenta_del_contrato'),
+            'estado'                     => strtolower($request->input('estado')),
+        ]);
+
+        // Redirect back with success message
+        session()->flash('success', 'creado Contract exitosamente!');
+        return redirect()->route('elevator');
 
     }
+
+    public function contractUpdate(Request $request,$id){
+        $validatedData = $request->validate([
+            'ascensor' => 'required',
+            'fecha_de_propuesta' => 'required',
+            'monto_de_propuesta' => 'required',
+            'monto_de_contrato' => 'required',
+            'fecha_de_inicio' => 'required',
+            'fecha_de_fin' => 'required',
+            'cada_cuantos_meses' => 'required',
+            'observación' => 'required',
+            'estado_cuenta_del_contrato' => 'required',
+            'estado' => 'required',
+        ]);
+
+        $contract = Contract::findOrFail($id);
+        // Create a new Contract instance
+        $contract->update([
+            'ascensor'              => $request->input('ascensor'),
+            'fecha_de_propuesta'     => $request->input('fecha_de_propuesta'),
+            'monto_de_propuesta'       => $request->input('monto_de_propuesta'),
+            'monto_de_contrato'        => $request->input('monto_de_contrato'),
+            'fecha_de_inicio'          => $request->input('fecha_de_inicio'),
+            'fecha_de_fin'           => $request->input('fecha_de_fin'),
+            'renovación'            => $request->input('renovación'),
+            'cada_cuantos_meses'      => $request->input('cada_cuantos_meses'),
+            'observación'  => $request->input('observación'),
+            'estado_cuenta_del_contrato' => $request->input('estado_cuenta_del_contrato'),
+            'estado'            => strtolower($request->input('estado')),
+        ]);
+
+        session()->flash('success', 'Contract actualizado exitosamente!');
+        return redirect()->route('elevator');
+
+    }
+
+    public function contractDestroy($id){
+        $contract = Contract::find($id);
+        $contract->delete();
+        session()->flash('danger', 'Contract eliminado exitosamente!');
+        return redirect()->back();
+    }
+
 
     public function elevatorDestroy($id){
         $elevator = Elevators::find($id);

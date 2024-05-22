@@ -1,22 +1,32 @@
 @extends('layouts.app')
 
 @section('content')
-<style>
-    .form-control {
-        width: 100%;
-        min-height:28px !important;
-    }
-    .text-center{
-        text-align: center;
-    }
-</style>
+    <style>
+        .form-control {
+            width: 100%;
+            min-height: 28px !important;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+    </style>
     <section class="form-02-main">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
                     <div class="_lk_de">
                         <div class="form-03-main">
-
+                            @if (session('success'))
+                                <div class="alert alert-success">
+                                    {{ session('success') }}
+                                </div>
+                            @endif
+                            @if (session('danger'))
+                                <div class="alert alert-danger">
+                                    {{ session('danger') }}
+                                </div>
+                            @endif
                             <h3 class="text-center">Reset Password</h3>
 
                             <form method="POST" action="{{ route('post_reset', ['token' => $token]) }}" class="login">
@@ -32,7 +42,8 @@
                                     @enderror
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" class="form-control @error('confirmpassword') is-invalid @enderror"
+                                    <input type="password"
+                                        class="form-control @error('confirmpassword') is-invalid @enderror"
                                         name="confirmpassword" value="" placeholder="Confirm Password">
                                     @error('confirmpassword')
                                         <span class="invalid-feedback" style="color: red">
@@ -113,7 +124,8 @@
                                         Restablecer la contraseña
                                     </h4>
                                 </div>
-                                <form method="POST" action="{{ route('post_reset', ['token' => $token]) }}" class="login">
+                                <form method="POST" action="{{ route('post_reset', ['token' => $token]) }}"
+                                    class="login">
                                     @csrf
                                     <div class="form-group">
                                         <input type="password" name="newpassword" value=""
@@ -126,7 +138,8 @@
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" class="form-control @error('confirmpassword') is-invalid @enderror"
+                                        <input type="password"
+                                            class="form-control @error('confirmpassword') is-invalid @enderror"
                                             name="confirmpassword" value="" placeholder="Confirm Password">
                                         @error('confirmpassword')
                                             <span class="invalid-feedback" style="color: red">
@@ -149,3 +162,43 @@
 </body>
 
 </html>
+<script>
+  $.validator.addMethod("passwordFormat", function(value, element) {
+            // Password must contain at least one uppercase letter, one special character, and be at least 8 characters long
+            return this.optional(element) || /^(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(value);
+        }, "La contraseña debe tener al menos 8 caracteres, comenzar con una letra mayúscula y contener al menos un carácter especial.");
+
+        $(document).ready(function () {
+            $('form.login').validate({
+                rules: {
+                    newpassword: {
+                        required: true,
+                        passwordFormat: true
+                    },
+                    confirmpassword: {
+                        required: true,
+                        equalTo: 'input[name="newpassword"]'
+                    }
+                },
+                messages: {
+                    newpassword: {
+                        required: "Please enter a new password",
+                        passwordFormat: "La contraseña debe tener al menos 8 caracteres, comenzar con una letra mayúscula y contener al menos un carácter especial."
+                    },
+                    confirmpassword: {
+                        required: "Please confirm your new password",
+                        equalTo: "The confirmation password does not match"
+                    }
+                },
+                errorElement: 'span',
+                errorClass: 'invalid-feedback',
+                highlight: function (element, errorClass, validClass) {
+                    $(element).addClass('is-invalid').removeClass('is-valid');
+                },
+                unhighlight: function (element, errorClass, validClass) {
+                    $(element).removeClass('is-invalid').addClass('is-valid');
+                }
+            });
+        });
+</script>
+

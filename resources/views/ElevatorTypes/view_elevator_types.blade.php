@@ -88,18 +88,110 @@
                                                             <a class="dropdown-item"
                                                                 href="{{ route('details.elevatortypes', $elevator_type->id) }}">Ver
                                                                 detalles</a>
-                                                            <a class="dropdown-item"
-                                                                href="{{ route('edit.elevatortypes', $elevator_type->id) }}"
-                                                                data-toggle="modal"
-                                                                data-target="#editartiposAscensores">Editar</a>
-                                                            <a class="dropdown-item"
-                                                                href="{{ route('destroy.elevatortypes', $elevator_type->id) }}"
-                                                                data-toggle="modal"
-                                                                data-target="#modalEliminar">Eliminar</a>
+                                                            <a class="dropdown-item" href="" data-toggle="modal"
+                                                                data-target="#editartiposAscensores{{ $elevator_type->id }}">Editar</a>
+                                                            <a class="dropdown-item" href="" data-toggle="modal"
+                                                                data-target="#modalEliminar{{ $elevator_type->id }}">Eliminar</a>
                                                         </div>
                                                     </div>
                                                 </td>
                                             </tr>
+                                            <!-- Modal editar Tipo de Ascensor-->
+                                            <div class="modal left fade" id="editartiposAscensores{{ $elevator_type->id }}" tabindex="-1"
+                                                role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title font-family-Outfit-SemiBold">Editar Tipo
+                                                                de Ascensor</h5>
+                                                            <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close">
+                                                                <span aria-hidden="true">×</span>
+                                                            </button>
+                                                        </div>
+                                                        @isset($elevator_type)
+                                                            <form action="/tipos/de/ascensor/actualizar/<?php echo $elevator_type->id; ?>"
+                                                                method="POST" class="formulario-modal" id="editelevatorForm">
+                                                                @csrf
+                                                                <div class="modal-body body_modal">
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+
+                                                                            <div class="form-group">
+                                                                                <label for="nombreAscensor">Nombre de Tipo de
+                                                                                    Ascensor</label>
+                                                                                <input type="text"
+                                                                                    placeholder="Nombre de Tipo de Ascensor"
+                                                                                    name="nombre_de_tipo_de_ascensor"
+                                                                                    id="nombreAscensor"
+                                                                                    value="{{ old('nombre_de_tipo_de_ascensor', $elevator_type->nombre_de_tipo_de_ascensor ?? '') }}"
+                                                                                    class="form-control">
+                                                                                @error('nombre_de_tipo_de_ascensor')
+                                                                                    <span class="invalid-feedback"
+                                                                                        style="color: red">
+                                                                                        <strong>{{ $message }}</strong>
+                                                                                    </span>
+                                                                                @enderror
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div
+                                                                    class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
+                                                                    <button type="submit"
+                                                                        class="btn-gris btn-red mr-2">Actualizar
+                                                                        cambios</button>
+                                                                    <button type="submit" class="btn-gris btn-border"
+                                                                        data-dismiss="modal">Cancelar</button>
+                                                                </div>
+                                                            </form>
+                                                        @endisset
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Modal Eliminar-->
+                                            <div class="modal fade" id="modalEliminar{{ $elevator_type->id }}" tabindex="-1" role="dialog"
+                                                aria-labelledby="modelTitleId" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                    <div class="modal-content border-radius-12">
+                                                        <div class="modal-body">
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <button type="button" class="close"
+                                                                        data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">×</span>
+                                                                    </button>
+                                                                    <div class="box1">
+                                                                        <img src="{{ asset('img/iconos/trash.svg') }}"
+                                                                            alt="trash" width="76">
+                                                                        <p class="mt-3 mb-0">
+                                                                            ¿Seguro que quieres eliminar <span
+                                                                                id="item-name"></span>?
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div
+                                                            class="modal-footer align-items-center justify-content-center">
+                                                            @isset($elevator_type)
+                                                                <form id="delete-form"
+                                                                    action="{{ route('destroy.elevatortypes', $elevator_type->id) }}"
+                                                                    method="POST">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="submit"
+                                                                        class="btn-gris btn-red">Sí</button>
+                                                                    <button type="button" class="btn-gris btn-border"
+                                                                        data-dismiss="modal">No</button>
+                                                                </form>
+                                                            @endisset
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         @endforeach
                                     </tbody>
                                 </table>
@@ -146,87 +238,7 @@
                     </div>
                 </div>
 
-                <!-- Modal editar Tipo de Ascensor-->
-                <div class="modal left fade" id="editartiposAscensores" tabindex="-1" role="dialog"
-                    aria-labelledby="modelTitleId" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title font-family-Outfit-SemiBold">Editar Tipo de Ascensor</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">×</span>
-                                </button>
-                            </div>
-                            @isset($elevator_type)
-                                <form action="/tipos/de/ascensor/actualizar/<?php echo $elevator_type->id; ?>" method="POST"
-                                    class="formulario-modal" id="editelevatorForm">
-                                    @csrf
-                                    <div class="modal-body body_modal">
-                                        <div class="row">
-                                            <div class="col-md-12">
 
-                                                <div class="form-group">
-                                                    <label for="nombreAscensor">Nombre de Tipo de Ascensor</label>
-                                                    <input type="text" placeholder="Nombre de Tipo de Ascensor"
-                                                        name="nombre_de_tipo_de_ascensor" id="nombreAscensor"
-                                                        value="{{ old('nombre_de_tipo_de_ascensor', $elevator_type->nombre_de_tipo_de_ascensor ?? '') }}"
-                                                        class="form-control">
-                                                    @error('nombre_de_tipo_de_ascensor')
-                                                        <span class="invalid-feedback" style="color: red">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
-                                        <button type="submit" class="btn-gris btn-red mr-2">Actualizar cambios</button>
-                                        <button type="submit" class="btn-gris btn-border"
-                                            data-dismiss="modal">Cancelar</button>
-                                    </div>
-                                </form>
-                            @endisset
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Modal Eliminar-->
-                <div class="modal fade" id="modalEliminar" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
-                    aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content border-radius-12">
-                            <div class="modal-body">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">×</span>
-                                        </button>
-                                        <div class="box1">
-                                            <img src="{{ asset('img/iconos/trash.svg') }}" alt="trash"
-                                                width="76">
-                                            <p class="mt-3 mb-0">
-                                                ¿Seguro que quieres eliminar <span id="item-name"></span>?
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer align-items-center justify-content-center">
-                                @isset($elevator_type)
-                                    <form id="delete-form" action="{{ route('destroy.elevatortypes', $elevator_type->id) }}"
-                                        method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn-gris btn-red">Sí</button>
-                                        <button type="button" class="btn-gris btn-border" data-dismiss="modal">No</button>
-                                    </form>
-                                @endisset
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -288,9 +300,9 @@
                             var columnCount = doc.content[1].table.body[0].length;
                             doc.content[1].table.body.forEach(function(row) {
                                 row[0].alignment =
-                                'center'; // Center align the first column
+                                    'center'; // Center align the first column
                                 row[columnCount - 1].alignment =
-                                'center'; // Center align the last column
+                                    'center'; // Center align the last column
                             });
                         }
                     },

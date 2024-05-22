@@ -42,6 +42,16 @@
                                     </a>
                                 </div>
                                 <div class="mb-4">
+                                    @if (session('success'))
+                                        <div class="alert alert-success">
+                                            {{ session('success') }}
+                                        </div>
+                                    @endif
+                                    @if (session('danger'))
+                                        <div class="alert alert-danger">
+                                            {{ session('danger') }}
+                                        </div>
+                                    @endif
                                     <h4 class="mb-1">
                                         Recupera tu contraseña
                                     </h4>
@@ -76,3 +86,14 @@
 </body>
 
 </html>
+<script>
+    $(document).ready(function() {
+
+        setTimeout(function() {
+            $(".alert-success").fadeOut(1000);
+        }, 1000);
+        setTimeout(function() {
+            $(".alert-danger").fadeOut(1000);
+        }, 1000);
+    });
+</script>

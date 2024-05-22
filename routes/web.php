@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\ContractController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DashboardController;
@@ -136,7 +135,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/usuarios/insertar',[UserController::class,'userInsert'])->name('insert.user');
     Route::get('/usuarios/editar/{id}', [UserController::class, 'userEdit'])->name('edit.user');
     Route::get('/usuarios/vista/{id}', [UserController::class, 'userView'])->name('view.user');
-    Route::post('/usuarios/actualizar/{id}', [UserController::class, 'userUpdate'])->name('update.user');
+    Route::put('/usuarios/actualizar/{id}', [UserController::class, 'userUpdate'])->name('update.user');
     Route::delete ('/usuarios/destruir/{id}',[UserController::class,'userDestroy'])->name('destroy.user');
 
     // cronograma
@@ -151,9 +150,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Contrato //
 
-    Route::get('/contrato', [ContractController::class, 'contract'])->name('contract');
-    Route::post('/contrato/insertar',[ContractController::class,'contractInsert'])->name('insert.contract');
-    Route::get('/contrato/editar/{id}', [ContractController::class, 'contractEdit'])->name('edit.contract');
-    Route::post('/contrato/actualizar/{id}', [ContractController::class, 'contractUpdate'])->name('update.contract');
-    Route::delete ('/contrato/destruir/{id}',[ContractController::class,'contractDestroy'])->name('destroy.contract');
+    Route::post('/contrato/insertar',[ElevatorController::class,'contractInsert'])->name('insert.contract');
+    Route::get('/contrato/editar/{id}', [ElevatorController::class, 'contractEdit'])->name('edit.contract');
+    Route::post('/contrato/actualizar/{id}', [ElevatorController::class, 'contractUpdate'])->name('update.contract');
+    Route::delete ('/contrato/destruir/{id}',[ElevatorController::class,'contractDestroy'])->name('destroy.contract');
 });

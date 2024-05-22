@@ -1,20 +1,22 @@
 @extends('layouts.main')
 <style>
-    .error { color: red; }
+    .error {
+        color: red;
+    }
 </style>
 @section('content')
     <div class="w-100 contenido">
         <div class="container-fluid container-mod">
             @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
-        @if (session('danger'))
-            <div class="alert alert-danger">
-                {{ session('danger') }}
-            </div>
-        @endif
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+            @if (session('danger'))
+                <div class="alert alert-danger">
+                    {{ session('danger') }}
+                </div>
+            @endif
             <div class="row">
                 <div class="col-md-6 mb-4">
                     <div class="titulo">
@@ -192,7 +194,7 @@
                     </div>
                     @isset($schedule)
                         <form action="{{ route('update.schedule', ['id' => $schedule->id]) }}" method="POST"
-                            class="formulario-modal" id="eventForm">
+                            class="formulario-modal" id="editeventForm">
                             @csrf
                             <div class="modal-body body_modal">
                                 <div class="row">
@@ -312,7 +314,8 @@
                                 </div>
                             </div>
                             <div class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
-                                <button type="submit" class="btn-gris btn-red mr-2" id="submitFormButton">Actualizar</button>
+                                <button type="submit" class="btn-gris btn-red mr-2"
+                                    id="submitFormButton">Actualizar</button>
                                 <button type="button" class="btn-gris btn-border" data-dismiss="modal">Cancelar</button>
                             </div>
                         </form>
@@ -350,8 +353,6 @@
                         method: 'GET',
                         dataType: 'json',
                         success: function(response) {
-                            console.log('Response from server:', response);
-
                             // Iterate over each event in the response
                             var formattedEvents = response.map(function(event) {
                                 return {
@@ -362,9 +363,6 @@
                                     estado: event.estado
                                 };
                             });
-
-                            console.log('Formatted events:', formattedEvents);
-
                             callback(
                             formattedEvents); // Pass the formatted events to FullCalendar
                         },
@@ -381,11 +379,12 @@
                     $("#editCronograma").modal();
                 },
                 eventClick: function(calEvent, jsEvent, view) {
+                    console.log(calEvent);
                     $('#ascensor').val(calEvent.ascensor);
                     $('#revisar').val(calEvent.tipoRevision);
                     $('#mantenimiento').val(moment(calEvent.start).format('YYYY-MM-DD'));
-                    $('#hora_de_inicio').val(moment(calEvent.start).format('HH:mm'));
-                    $('#hora_de_finalización').val(moment(calEvent.end).format('HH:mm'));
+                    $('#hora_de_inicio').val(moment(calEvent.hora_de_inicio).format('HH:mm'));
+                    $('#hora_de_finalización').val(moment(calEvent.hora_de_finalización).format('HH:mm'));
                     $('#estado').val(calEvent.estado);
                     $("#editCronograma").modal();
                 }
@@ -442,49 +441,93 @@
             }, 1000);
 
             $("#eventForm").validate({
-            rules: {
-                ascensor: {
-                    required: true
+                rules: {
+                    ascensor: {
+                        required: true
+                    },
+                    revisar: {
+                        required: true
+                    },
+                    mantenimiento: {
+                        required: true
+                    },
+                    hora_de_inicio: {
+                        required: true
+                    },
+                    hora_de_finalización: {
+                        required: true
+                    },
+                    estado: {
+                        required: true
+                    }
+                    // Add rules for other fields here
                 },
-                revisar: {
-                    required: true
+                messages: {
+                    // Specify custom messages for each field
+                    ascensor: "Por favor, seleccione un ascensor.",
+                    revisar: "Por favor, seleccione un tipo de revisión.",
+                    mantenimiento: "Por favor, ingrese una fecha de mantenimiento.",
+                    hora_de_inicio: "Por favor, ingrese una hora de inicio.",
+                    hora_de_finalización: "Por favor, ingrese una hora de finalización.",
+                    estado: "Por favor, seleccione un estado."
+                    // Add messages for other fields here
                 },
-                mantenimiento: {
-                    required: true
+                errorElement: "span",
+                errorPlacement: function(error, element) {
+                    error.addClass("error");
+                    error.insertAfter(element);
                 },
-                hora_de_inicio: {
-                    required: true
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass("is-invalid").removeClass("is-valid");
                 },
-                hora_de_finalización: {
-                    required: true
-                },
-                estado: {
-                    required: true
+                unhighlight: function(element, errorClass, validClass) {
+                    $(element).removeClass("is-invalid").addClass("is-valid");
                 }
-                // Add rules for other fields here
-            },
-            messages: {
-                // Specify custom messages for each field
-                ascensor: "Por favor, seleccione un ascensor.",
-                revisar: "Por favor, seleccione un tipo de revisión.",
-                mantenimiento: "Por favor, ingrese una fecha de mantenimiento.",
-                hora_de_inicio: "Por favor, ingrese una hora de inicio.",
-                hora_de_finalización: "Por favor, ingrese una hora de finalización.",
-                estado: "Por favor, seleccione un estado."
-                // Add messages for other fields here
-            },
-            errorElement: "span",
-            errorPlacement: function(error, element) {
-                error.addClass("error");
-                error.insertAfter(element);
-            },
-            highlight: function(element, errorClass, validClass) {
-                $(element).addClass("is-invalid").removeClass("is-valid");
-            },
-            unhighlight: function(element, errorClass, validClass) {
-                $(element).removeClass("is-invalid").addClass("is-valid");
-            }
-        });
+            });
+            $("#editeventForm").validate({
+                rules: {
+                    ascensor: {
+                        required: true
+                    },
+                    revisar: {
+                        required: true
+                    },
+                    mantenimiento: {
+                        required: true
+                    },
+                    hora_de_inicio: {
+                        required: true
+                    },
+                    hora_de_finalización: {
+                        required: true
+                    },
+                    estado: {
+                        required: true
+                    }
+                    // Add rules for other fields here
+                },
+                messages: {
+                    // Specify custom messages for each field
+                    ascensor: "Por favor, seleccione un ascensor.",
+                    revisar: "Por favor, seleccione un tipo de revisión.",
+                    mantenimiento: "Por favor, ingrese una fecha de mantenimiento.",
+                    hora_de_inicio: "Por favor, ingrese una hora de inicio.",
+                    hora_de_finalización: "Por favor, ingrese una hora de finalización.",
+                    estado: "Por favor, seleccione un estado."
+                    // Add messages for other fields here
+                },
+                errorElement: "span",
+                errorPlacement: function(error, element) {
+                    error.addClass("error");
+                    error.insertAfter(element);
+                },
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass("is-invalid").removeClass("is-valid");
+                },
+                unhighlight: function(element, errorClass, validClass) {
+                    $(element).removeClass("is-invalid").addClass("is-valid");
+                }
+            });
 
         });
     </script>

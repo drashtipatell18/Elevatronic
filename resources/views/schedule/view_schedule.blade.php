@@ -379,12 +379,11 @@
                     $("#editCronograma").modal();
                 },
                 eventClick: function(calEvent, jsEvent, view) {
-                    console.log(calEvent);
                     $('#ascensor').val(calEvent.ascensor);
                     $('#revisar').val(calEvent.tipoRevision);
                     $('#mantenimiento').val(moment(calEvent.start).format('YYYY-MM-DD'));
-                    $('#hora_de_inicio').val(moment(calEvent.hora_de_inicio).format('HH:mm'));
-                    $('#hora_de_finalización').val(moment(calEvent.hora_de_finalización).format('HH:mm'));
+                    $('#horah_de_finalización').val(moment(calEvent.hora_de_inicio).format('HH:mm'));
+                    $('#hora_de_inicio').val(moment(calEvent.horah_de_finalización).format('HH:mm'));
                     $('#estado').val(calEvent.estado);
                     $("#editCronograma").modal();
                 }

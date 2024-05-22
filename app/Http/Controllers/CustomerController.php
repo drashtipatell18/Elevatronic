@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Cliente;
+use App\Models\Province;
 
 class CustomerController extends Controller
 {
     public function customer(){
         $customers = Cliente::all();
-        return view('customer.view_customer',compact('customers'));
+        $provinces = Province::pluck('provincia', 'provincia');
+        return view('customer.view_customer',compact('customers','provinces'));
     }
 
     public function customerInsert(Request $request){

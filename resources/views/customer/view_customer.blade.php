@@ -90,20 +90,18 @@
                                                             <a class="dropdown-item"
                                                                 href="{{ route('view.customer', $customer->id) }}">Ver
                                                                 detalles</a>
-                                                            <a class="dropdown-item"
-                                                                href=""
-                                                                data-toggle="modal" data-target="#editarCliente{{ $customer->id }}">Editar</a>
-                                                            <a class="dropdown-item"
-                                                                href=""
-                                                                data-toggle="modal"
+                                                            <a class="dropdown-item" href="" data-toggle="modal"
+                                                                data-target="#editarCliente{{ $customer->id }}">Editar</a>
+                                                            <a class="dropdown-item" href="" data-toggle="modal"
                                                                 data-target="#modalEliminar{{ $customer->id }}">Eliminar</a>
                                                         </div>
                                                     </div>
                                                 </td>
                                             </tr>
                                             <!-- Modal agregar/editar clientes-->
-                                            <div class="modal left fade" id="editarCliente{{ $customer->id }}" tabindex="-1" role="dialog"
-                                                aria-labelledby="modelTitleId" aria-hidden="true">
+                                            <div class="modal left fade" id="editarCliente{{ $customer->id }}"
+                                                tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+                                                aria-hidden="true">
                                                 <div class="modal-dialog" role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
@@ -179,24 +177,19 @@
                                                                             </div>
                                                                             <div class="form-group">
                                                                                 <label for="provincia">Provincia</label>
-                                                                                <select
-                                                                                    class="custom-select form-control @error('provincia') is-invalid @enderror"
+                                                                                <select class="custom-select form-control"
                                                                                     name="provincia" id="provincia">
-                                                                                    <option selected disabled>Seleccionar opción
+                                                                                    <option value="" class="d-none">
+                                                                                        Seleccionar
+                                                                                        opción
                                                                                     </option>
-                                                                                    <option value="lima"
-                                                                                        @if (old('provincia', $customer->provincia ?? '') == 'lima') selected @endif>
-                                                                                        Lima</option>
-                                                                                    <option value="arequipa"
-                                                                                        @if (old('provincia', $customer->provincia ?? '') == 'arequipa') selected @endif>
-                                                                                        Arequipa
-                                                                                    </option>
-                                                                                    <option value="moquegua"
-                                                                                        @if (old('provincia', $customer->provincia ?? '') == 'moquegua') selected @endif>
-                                                                                        Moquegua
-                                                                                    </option>
+                                                                                    @foreach ($provinces as $province)
+                                                                                        <option value="{{ $province }}"
+                                                                                            @if (isset($elevator) && $elevator->provincia == $province) selected @endif>
+                                                                                            {{ $province }}
+                                                                                        </option>
+                                                                                    @endforeach
                                                                                 </select>
-
                                                                                 @error('provincia')
                                                                                     <span class="invalid-feedback"
                                                                                         style="color: red">
@@ -276,8 +269,8 @@
                                             </div>
 
                                             <!-- Modal Eliminar-->
-                                            <div class="modal fade" id="modalEliminar{{ $customer->id }}" tabindex="-1" role="dialog"
-                                                aria-labelledby="modelTitleId" aria-hidden="true">
+                                            <div class="modal fade" id="modalEliminar{{ $customer->id }}" tabindex="-1"
+                                                role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
                                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                                     <div class="modal-content border-radius-12">
                                                         <div class="modal-body">
@@ -376,13 +369,11 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="provincia">Provincia</label>
-                                                <select class="custom-select form-control" name="provincia"
-                                                    id="provincia">
-                                                    <option selected disabled>Seleccionar opción</option>
-                                                    <option value="lima">Lima</option>
-                                                    <option value="arequipa">Arequipa</option>
-                                                    <option value="moquegua">Moquegua
-                                                    </option>
+                                                <select id="provincia" name="provincia" class="form-control">
+                                                    <option value="">Select Province</option>
+                                                    @foreach ($provinces as $province)
+                                                        <option value="{{ $province }}">{{ $province }}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                             <div class="form-group">

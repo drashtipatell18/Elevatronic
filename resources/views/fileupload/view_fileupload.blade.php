@@ -20,43 +20,52 @@
                                 </div>
                             </div>
                             <div class="col-md-12 mt-4">
-                                <div class="row">
-                                    <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 mb-4">
-                                        <div class="custom-control custom-radio iconSelect">
-                                            <input type="radio" id="mantenimiento" name="tipoArchivos" value="1"
-                                                class="custom-control-input" checked>
-                                            <label class="custom-control-label" for="mantenimiento">
-                                                Mantenimientos
-                                            </label>
-                                        </div>
+                                @if (session('success'))
+                                    <div class="alert alert-success">
+                                        {{ session('success') }}
                                     </div>
-                                    <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 mb-4">
-                                        <div class="custom-control custom-radio iconSelect">
-                                            <input type="radio" id="contratos" name="tipoArchivos" value="2"
-                                                class="custom-control-input">
-                                            <label class="custom-control-label" for="contratos">
-                                                Contratos
-                                            </label>
-                                        </div>
+                                @endif
+                                @if (session('danger'))
+                                    <div class="alert alert-danger">
+                                        {{ session('danger') }}
                                     </div>
-                                    <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 mb-4">
-                                        <div class="custom-control custom-radio iconSelect">
-                                            <input type="radio" id="repuestos" name="tipoArchivos" value="3"
-                                                class="custom-control-input">
-                                            <label class="custom-control-label" for="repuestos">
-                                                Repuestos
-                                            </label>
+                                @endif
+                                <form id="uploadForm" method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="row">
+                                        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 mb-4">
+                                            <div class="custom-control custom-radio iconSelect">
+                                                <input type="radio" id="mantenimiento" name="tipoArchivos"
+                                                    value="mantenimiento" class="custom-control-input">
+                                                <label class="custom-control-label"
+                                                    for="mantenimiento">Mantenimientos</label>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-12 mt-4">
-                                        <!--                                            <input type="file" id="fileInput" style="display: none;">-->
-                                        <!--                                            <button id="cargarArchivo" class="boton btn-red"><i class="fas fa-upload"></i> Cargar archivos</button>-->
+                                        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 mb-4">
+                                            <div class="custom-control custom-radio iconSelect">
+                                                <input type="radio" id="contratos" name="tipoArchivos" value="contratos"
+                                                    class="custom-control-input">
+                                                <label class="custom-control-label" for="contratos">Contratos</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 mb-4">
+                                            <div class="custom-control custom-radio iconSelect">
+                                                <input type="radio" id="repuestos" name="tipoArchivos" value="repuestos"
+                                                    class="custom-control-input">
+                                                <label class="custom-control-label" for="repuestos">Repuestos</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 mt-4">
 
-                                        <button id="carga" class="boton btn-red"><i class="fas fa-upload"></i>
-                                            Cargar archivos</button>
-
+                                            <input type="file" id="fileInput" name="file" style="display: none;">
+                                            <input type="hidden" id="selectedTipoArchivo" name="tipoArchivo"
+                                                value="1">
+                                            <button type="submit" id="cargarArchivo" class="boton btn-red">
+                                                <i class="fas fa-upload"></i> Cargar archivos
+                                            </button>
+                                        </div>
                                     </div>
-                                </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -65,11 +74,42 @@
         </div>
     </div>
 @endsection
+
 @push('scripts')
-<script>
-    $('#cargarArchivo').on('click', function() {
-        // Dispara el clic en el input file oculto
-        $('#fileInput').click();
-    });
-</script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Update hidden input with the selected radio button value
+            $('input[name="tipoArchivos"]').on('change', function() {
+                $('#selectedTipoArchivo').val($(this).val());
+            });
+
+            $('#cargarArchivo').on('click', function(event) {
+                event.preventDefault();
+                $('#fileInput').click();
+            });
+
+            $('#fileInput').on('change', function() {
+            // Create FormData object to store form data
+            var formData = new FormData($('#uploadForm')[0]);
+
+            // Send AJAX request
+            $.ajax({
+                url: '{{ route("upload.excel") }}',
+                method: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    // Handle success response
+                    console.log(response);
+                },
+                error: function(xhr, status, error) {
+                    // Handle error response
+                    console.error(xhr.responseText);
+                }
+            });
+        });
+        });
+    </script>
 @endpush

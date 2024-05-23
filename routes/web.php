@@ -146,7 +146,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/get-events', [ScheduleController::class, 'getEvents'])->name('getevents');
 
     // cargaarchivos
-    Route::get('/cargaarchivos', [FileUploadController::class, 'fileupload'])->name('fileupload');
+    Route::post('/cargaarchivos', [FileUploadController::class, 'fileupload'])->name('fileupload');
+    Route::post('/subir-excel', [FileUploadController::class, 'uploadExcel'])->name('upload.excel');
 
     // Contrato //
 

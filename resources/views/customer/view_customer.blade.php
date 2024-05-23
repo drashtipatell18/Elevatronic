@@ -134,7 +134,7 @@
                                                                                     Cliente</label>
                                                                                 <select class="custom-select form-control"
                                                                                     name="tipo_de_cliente" id="Tcliente">
-                                                                                    <option selected disabled>Seleccionar opción
+                                                                                    <option value="">Seleccionar opción
                                                                                     </option>
                                                                                     <option value="person1"
                                                                                         @if (old('tipo_de_cliente', $customer->tipo_de_cliente ?? '') == 'person1') selected @endif>
@@ -161,7 +161,7 @@
                                                                                 <label for="pais">País</label>
                                                                                 <select class="custom-select form-control"
                                                                                     name="país" id="país">
-                                                                                    <option selected disabled>Seleccionar opción
+                                                                                    <option value="">Seleccionar opción
                                                                                     </option>
                                                                                     <option value="perú"
                                                                                         @if (old('país', $customer->país ?? '') == 'perú') selected @endif>
@@ -179,7 +179,7 @@
                                                                                 <label for="provincia">Provincia</label>
                                                                                 <select class="custom-select form-control"
                                                                                     name="provincia" id="provincia">
-                                                                                    <option value="" class="d-none">
+                                                                                    <option value="">
                                                                                         Seleccionar
                                                                                         opción
                                                                                     </option>
@@ -345,7 +345,7 @@
                                                 <label for="tipo_de_cliente">Tipo de Cliente</label>
                                                 <select class="custom-select form-control" name="tipo_de_cliente"
                                                     id="Tcliente">
-                                                    <option selected disabled>Seleccionar opción</option>
+                                                    <option value="">Seleccionar opción</option>
                                                     <option value="person1">Cliente 1</option>
                                                     <option value="person2">Cliente 2</option>
                                                     <option value="person3">Cliente 3</option>

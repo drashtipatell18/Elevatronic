@@ -110,6 +110,25 @@
                                             @enderror
                                         </div>
                                     </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="Técnico">Técnico</label>
+                                            <select class="custom-select  @error('técnico') is-invalid @enderror"
+                                                name="técnico" id="técnico">
+                                                <option value="">Seleccione un técnico</option>
+                                                <option value="técnico_1">Técnico 1</option>
+                                                <option value="técnico_2">Técnico 2</option>
+                                                <option value="técnico_3">Técnico 3</option>
+                                            </select>
+                                            @error('técnico')
+                                                <span class="invalid-feedback" style="color: red">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="mantenimiento">Fecha de mantenimiento</label>
@@ -182,8 +201,8 @@
     </div>
     @foreach ($schedules as $schedule)
         <!-- Modal Agregar Cromograma-->
-        <div class="modal left fade" id="editCronograma" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
-            aria-hidden="true">
+        <div class="modal left fade" id="editCronograma{{ $schedule->id }}" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+            aria-hidden="true" data-event-id="">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -237,6 +256,31 @@
                                                     </select>
                                                     @error('revisar')
                                                         <span class="invalid-feedback" style="color: red">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+
+                                                <div class="form-group">
+                                                    <label for="tecnico">Técnico</label>
+                                                    <select class="custom-select" name="técnico" id="tecnico">
+                                                        <option value=""
+                                                            class="form-control @error('técnico') is-invalid @enderror">
+                                                            Seleccionar opción</option>
+                                                        <option value="técnico_1"
+                                                            {{ old('técnico') == 'técnico_1' ? 'selected' : ($schedule->técnico == 'técnico_1' ? 'selected' : '') }}>
+                                                            Técnico 1</option>
+                                                        <option value="técnico_2"
+                                                            {{ old('técnico') == 'técnico_2' ? 'selected' : ($schedule->técnico == 'técnico_2' ? 'selected' : '') }}>
+                                                            Técnico 2</option>
+                                                        <option value="técnico_3"
+                                                            {{ old('técnico') == 'técnico_3' ? 'selected' : ($schedule->técnico == 'técnico_3' ? 'selected' : '') }}>
+                                                            Técnico 3</option>
+                                                    </select>
+                                                    @error('técnico')
+                                                        <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $message }}</strong>
                                                         </span>
                                                     @enderror
@@ -348,6 +392,7 @@
                 eventLimit: true,
                 events: function(start, end, timezone, callback) {
                     // Retrieve events from the server
+
                     $.ajax({
                         url: '/get-events', // Change this URL to your server endpoint
                         method: 'GET',
@@ -356,15 +401,20 @@
                             // Iterate over each event in the response
                             var formattedEvents = response.map(function(event) {
                                 return {
+                                    id:event.id,
                                     title: event.ascensor,
+                                    tipoRevision:event.revisar,
+                                    técnico: event.técnico,
                                     start: event.mantenimiento,
                                     hora_de_inicio: event.hora_de_inicio,
-                                    hora_de_finalización: event.hora_de_finalización,
+                                    hora_de_finalización: event
+                                        .hora_de_finalización,
                                     estado: event.estado
                                 };
                             });
                             callback(
-                            formattedEvents); // Pass the formatted events to FullCalendar
+                                formattedEvents
+                            ); // Pass the formatted events to FullCalendar
                         },
                         error: function(xhr, status, error) {
                             console.error('Error fetching events:', error);
@@ -379,13 +429,17 @@
                     $("#editCronograma").modal();
                 },
                 eventClick: function(calEvent, jsEvent, view) {
-                    $('#ascensor').val(calEvent.ascensor);
+
+                    var eventId = calEvent.id;
+                    $('#editCronograma' + eventId).attr('data-event-id', eventId);
+                    $('#ascensor').val(calEvent.title);
                     $('#revisar').val(calEvent.tipoRevision);
+                    $('#técnico').val(calEvent.técnico);
                     $('#mantenimiento').val(moment(calEvent.start).format('YYYY-MM-DD'));
                     $('#horah_de_finalización').val(moment(calEvent.hora_de_inicio).format('HH:mm'));
                     $('#hora_de_inicio').val(moment(calEvent.horah_de_finalización).format('HH:mm'));
                     $('#estado').val(calEvent.estado);
-                    $("#editCronograma").modal();
+                    $("#editCronograma" + eventId).modal(); // Show the modal
                 }
             });
 
@@ -447,6 +501,9 @@
                     revisar: {
                         required: true
                     },
+                    técnico: {
+                        required: true
+                    },
                     mantenimiento: {
                         required: true
                     },
@@ -465,6 +522,7 @@
                     // Specify custom messages for each field
                     ascensor: "Por favor, seleccione un ascensor.",
                     revisar: "Por favor, seleccione un tipo de revisión.",
+                    técnico: "Por favor, seleccione un técnico.",
                     mantenimiento: "Por favor, ingrese una fecha de mantenimiento.",
                     hora_de_inicio: "Por favor, ingrese una hora de inicio.",
                     hora_de_finalización: "Por favor, ingrese una hora de finalización.",
@@ -491,6 +549,9 @@
                     revisar: {
                         required: true
                     },
+                    técnico: {
+                        required: true
+                    },
                     mantenimiento: {
                         required: true
                     },
@@ -509,6 +570,7 @@
                     // Specify custom messages for each field
                     ascensor: "Por favor, seleccione un ascensor.",
                     revisar: "Por favor, seleccione un tipo de revisión.",
+                    técnico: "Por favor, seleccione un técnico.",
                     mantenimiento: "Por favor, ingrese una fecha de mantenimiento.",
                     hora_de_inicio: "Por favor, ingrese una hora de inicio.",
                     hora_de_finalización: "Por favor, ingrese una hora de finalización.",

@@ -11,5 +11,5 @@ class Schedule extends Model
     use HasFactory, SoftDeletes;
     protected $dates = ['eliminado_en'];
     protected $table = 'cronogramas';
-    protected $fillable = ['ascensor','revisar','mantenimiento','hora_de_inicio','hora_de_finalización','estado'];
+    protected $fillable = ['ascensor','revisar','técnico','mantenimiento','hora_de_inicio','hora_de_finalización','estado'];
 }

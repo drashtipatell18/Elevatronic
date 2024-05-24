@@ -583,7 +583,7 @@
                                 <div class="form-group">
                                     <label for="supervisor">Supervisor</label>
                                     <select class="custom-select" name="supervisor" id="supervisor">
-                                        <option selected disabled class="d-none">Seleccionar opción</option>
+                                        <option value="">Seleccionar opción</option>
                                         <option value="supervisor_1">Supervisor 1</option>
                                         <option value="supervisor_2">Supervisor 2</option>
                                         <option value="supervisor_3">Supervisor 3</option>
@@ -592,7 +592,7 @@
                                 <div class="form-group">
                                     <label for="técnico">Técnico</label>
                                     <select class="custom-select" name="técnico" id="técnico">
-                                        <option selected disabled class="d-none">Seleccionar opción</option>
+                                        <option value="">Seleccionar opción</option>
                                         <option value="técnico_1">Técnico 1</option>
                                         <option value="técnico_2">Técnico 2</option>
                                         <option value="técnico_3">Técnico 3</option>
@@ -603,7 +603,7 @@
                                         <div class="form-group">
                                             <label for="Mprogramado">Mes programado</label>
                                             <select class="custom-select" name="mes_programado" id="Mprogramado">
-                                                <option selected disabled class="d-none">Seleccionar opción</option>
+                                                <option value="">Seleccionar opción</option>
                                                 <option value="mes_programado_1">Mes programado 1</option>
                                                 <option value="mes_programado_2">Mes programado 2</option>
                                                 <option value="mes_programado_3">Mes programado 3</option>

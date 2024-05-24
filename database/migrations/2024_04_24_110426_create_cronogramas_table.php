@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('ascensor')->nullable();
             $table->string('revisar')->nullable();
-            $table->string('mantenimiento')->nullable();
+            $table->string('técnico')->nullable();
+            $table->date('mantenimiento')->nullable();
             $table->date('hora_de_inicio')->nullable();
             $table->date('hora_de_finalización')->nullable();
             $table->string('estado')->nullable();

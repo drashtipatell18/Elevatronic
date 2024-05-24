@@ -22,6 +22,7 @@ class ScheduleController extends Controller
         $validatedData = $request->validate([
             'ascensor' => 'required',
             'revisar' => 'required',
+            'técnico' => 'required',
             'mantenimiento' => 'required|date',
             'hora_de_inicio' => 'required',
             'hora_de_finalización' => 'required',
@@ -33,6 +34,7 @@ class ScheduleController extends Controller
         $reviewtype = Schedule::create([
             'ascensor'             => $request->input('ascensor'),
             'revisar'              => $request->input('revisar'),
+            'técnico'              => $request->input('técnico'),
             'mantenimiento'        => $request->input('mantenimiento'),
             'hora_de_inicio'       => $request->input('hora_de_inicio'),
             'hora_de_finalización' => $request->input('hora_de_finalización'),
@@ -49,6 +51,7 @@ class ScheduleController extends Controller
         $validatedData = $request->validate([
             'ascensor' => 'required',
             'revisar' => 'required',
+            'técnico' => 'required',
             'mantenimiento' => 'required|date',
             'hora_de_inicio' => 'required',
             'hora_de_finalización' => 'required',
@@ -61,6 +64,7 @@ class ScheduleController extends Controller
         $schedules->update([
             'ascensor'             => $request->input('ascensor'),
             'revisar'              => $request->input('revisar'),
+            'técnico'              => $request->input('técnico'),
             'mantenimiento'        => $request->input('mantenimiento'),
             'hora_de_inicio'       => $request->input('hora_de_inicio'),
             'hora_de_finalización' => $request->input('hora_de_finalización'),
@@ -79,8 +83,10 @@ class ScheduleController extends Controller
         $formattedEvents = [];
         foreach ($events as $event) {
             $formattedEvents[] = [
+                'id' => $event->id,
                 'ascensor' => $event->ascensor,
                 'revisar' => $event->revisar,
+                'técnico' => $event->técnico,
                 'mantenimiento' => $event->mantenimiento,
                 'hora_de_inicio' => $event->hora_de_inicio,
                 'hora_de_finalización' => $event->hora_de_finalización,

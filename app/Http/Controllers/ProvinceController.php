@@ -5,12 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Province;
 use App\Models\SparePart;
+use App\Models\Cliente;
+use Illuminate\Support\Facades\DB;
 
 class ProvinceController extends Controller
 {
     public function province(){
         $provinces = Province::all();
-        return view('province.view_province',compact('provinces'));
+        $customers = Cliente::pluck('provincia','id');
+        return view('province.view_province',compact('provinces','customers'));
     }
 
     public function provinceInsert(Request $request){
@@ -22,7 +25,6 @@ class ProvinceController extends Controller
         $province = Province::create([
             'provincia' => $request->input('provincia'),
         ]);
-
         // Redirect back with success message
         session()->flash('success', 'Provincia creado exitosamente!');
         return redirect()->route('province');
@@ -57,11 +59,58 @@ class ProvinceController extends Controller
         return redirect()->route('province');
     }
 
-    public function provinceDestroy($id){
+
+    public function provinceDestroy($id)
+    {
         $province = Province::find($id);
+
+        if (!$province) {
+            session()->flash('danger', 'Provincia no encontrada!');
+            return redirect()->back();
+        }
+
+        $provincename = $province->provincia;
+        $customers = Cliente::where('provincia', $provincename)->get();
+
+        if ($customers->isNotEmpty()) {
+            session()->flash('customers', $customers);
+            session()->flash('province_id', $id);
+            return redirect()->back();
+        }
+
         $province->delete();
-        session()->flash('danger', 'Provincia eliminar exitosamente!');
+        session()->flash('success', 'Provincia eliminada exitosamente!');
         return redirect()->back();
     }
+
+    public function provinceForceDestroy(Request $request, $id)
+    {
+        $province = Province::find($id);
+
+        if (!$province) {
+            session()->flash('danger', 'Provincia no encontrada!');
+            return redirect()->back();
+        }
+
+        $provincename = $province->provincia;
+        $customers = Cliente::where('provincia', $provincename)->get();
+
+        DB::beginTransaction();
+        try {
+            foreach ($customers as $customer) {
+                $customer->delete();
+            }
+
+            $province->delete();
+            DB::commit();
+            session()->flash('success', 'Provincia y sus clientes eliminados exitosamente!');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            session()->flash('danger', 'Hubo un error al eliminar la provincia y sus clientes.');
+        }
+
+        return redirect()->back();
+    }
+
 }
-   
+

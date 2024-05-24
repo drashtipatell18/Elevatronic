@@ -166,13 +166,6 @@
                                                                                     <option value="perú"
                                                                                         @if (old('país', $customer->país ?? '') == 'perú') selected @endif>
                                                                                         Perú</option>
-                                                                                    <option value="chile"
-                                                                                        @if (old('país', $customer->país ?? '') == 'chile') selected @endif>
-                                                                                        Chile</option>
-                                                                                    <option value="argentina"
-                                                                                        @if (old('país', $customer->país ?? '') == 'argentina') selected @endif>
-                                                                                        Argentina
-                                                                                    </option>
                                                                                 </select>
                                                                             </div>
                                                                             <div class="form-group">
@@ -185,7 +178,7 @@
                                                                                     </option>
                                                                                     @foreach ($provinces as $province)
                                                                                         <option value="{{ $province }}"
-                                                                                            @if (isset($elevator) && $elevator->provincia == $province) selected @endif>
+                                                                                            @if (isset($customer) && $customer->provincia == $province) selected @endif>
                                                                                             {{ $province }}
                                                                                         </option>
                                                                                     @endforeach
@@ -361,10 +354,8 @@
                                             <div class="form-group">
                                                 <label for="pais">País</label>
                                                 <select class="custom-select form-control" name="país" id="país">
-                                                    <option selected disabled>Seleccionar opción</option>
+                                                    <option value="">Seleccionar opción</option>
                                                     <option value="perú">Perú</option>
-                                                    <option value="chile">Chile</option>
-                                                    <option value="argentina">Argentina</option>
                                                 </select>
                                             </div>
                                             <div class="form-group">

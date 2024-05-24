@@ -70,6 +70,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/provincia/vista/{id}', [ProvinceController::class, 'provinceView'])->name('view.province');
     Route::post('/provincia/actualizar/{id}', [ProvinceController::class, 'provinceUpdate'])->name('update.province');
     Route::delete ('/provincia/destruir/{id}',[ProvinceController::class,'provinceDestroy'])->name('destroy.province');
+    Route::delete('/province/force/{id}', [ProvinceController::class, 'provinceForceDestroy'])->name('force.destroy.province');
 
     // Elevator //
 
@@ -146,7 +147,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/get-events', [ScheduleController::class, 'getEvents'])->name('getevents');
 
     // cargaarchivos
-    Route::post('/cargaarchivos', [FileUploadController::class, 'fileupload'])->name('fileupload');
+    Route::get('/cargaarchivos', [FileUploadController::class, 'fileupload'])->name('fileupload');
     Route::post('/subir-excel', [FileUploadController::class, 'uploadExcel'])->name('upload.excel');
 
     // Contrato //

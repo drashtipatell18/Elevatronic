@@ -4,14 +4,17 @@
         .dt-head-center {
             text-align: center;
         }
+
         .invalid-feedback {
             color: red;
             display: block;
             margin-top: 5px;
         }
+
         .is-invalid {
             border-color: red;
         }
+
         .is-valid {
             border-color: green;
         }
@@ -133,8 +136,10 @@
                                                                             <div class="form-group">
                                                                                 <label for="provincia">Nombre de
                                                                                     Provincia</label>
-                                                                                <select class="custom-select form-control" name="provincia" id="provincia">
-                                                                                    <option value="" >Seleccionar opción</option>
+                                                                                <select class="custom-select form-control"
+                                                                                    name="provincia" id="provincia">
+                                                                                    <option value="">Seleccionar opción
+                                                                                    </option>
                                                                                     <option value="amazonas"
                                                                                         {{ old('provincia', $province->provincia) == 'amazonas' ? 'selected' : '' }}>
                                                                                         Amazonas</option>
@@ -246,7 +251,7 @@
                                                                             alt="trash" width="76">
                                                                         <p class="mt-3 mb-0">
                                                                             ¿Seguro que quieres eliminar <span
-                                                                                id="item-name"></span>?
+                                                                                id="item-name">{{ $province->provincia }}</span>?
                                                                         </p>
                                                                     </div>
                                                                 </div>
@@ -254,16 +259,14 @@
                                                         </div>
                                                         <div
                                                             class="modal-footer align-items-center justify-content-center">
-                                                            @isset($province)
-                                                                <form id="delete-form"
-                                                                    action="{{ route('destroy.province', $province->id) }}"
-                                                                    method="POST">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                    <button type="submit"
-                                                                        class="btn-gris btn-red">Sí</button>
-                                                                </form>
-                                                            @endisset
+                                                            <form id="delete-form"
+                                                                action="{{ route('destroy.province', $province->id) }}"
+                                                                method="POST">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit"
+                                                                    class="btn-gris btn-red">Sí</button>
+                                                            </form>
                                                             <button type="button" class="btn-gris btn-border"
                                                                 data-dismiss="modal">No</button>
                                                         </div>
@@ -277,7 +280,49 @@
                         </div>
                     </div>
                 </div>
+                @if (session('customers'))
+                    <!-- Modal Eliminar Clientes-->
+                    <div class="modal fade" id="modalEliminarClientes" tabindex="-1" role="dialog"
+                        aria-labelledby="modelTitleId" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content border-radius-12">
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close">
+                                                <span aria-hidden="true">×</span>
+                                            </button>
+                                            <div class="box1">
+                                                <img src="{{ asset('img/iconos/trash.svg') }}" alt="trash"
+                                                    width="76">
+                                                <p class="mt-3 mb-0">
+                                                    Esta provincia está asignada a clientes y no puede ser eliminada
+                                                    directamente. ¿Quieres eliminar también los clientes?
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer align-items-center justify-content-center">
+                                    <form action="{{ route('force.destroy.province', session('province_id')) }}"
+                                        method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn-gris btn-red">Sí</button>
+                                    </form>
+                                    <button type="button" class="btn-gris btn-border" data-dismiss="modal">No</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
+                    <script>
+                        $(document).ready(function() {
+                            $('#modalEliminarClientes').modal('show');
+                        });
+                    </script>
+                @endif
                 <!-- Modal Crear Provincia-->
                 <div class="modal left fade" id="createprovincias" tabindex="-1" role="dialog"
                     aria-labelledby="modelTitleId" aria-hidden="true">

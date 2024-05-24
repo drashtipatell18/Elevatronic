@@ -528,7 +528,7 @@
                                     <label for="tipo_de_revisión">Tipo de revisión</label>
                                     <select class="custom-select" name="tipo_de_revisión" id="tipo_de_revisión"
                                         class="form-control">
-                                        <option selected disabled>Seleccionar tipo de revisión</option>
+                                        <option value="">Seleccionar tipo de revisión</option>
                                         @foreach ($review_types as $key => $value)
                                             <option value="{{ $key }}">{{ $value }}</option>
                                         @endforeach
@@ -538,7 +538,7 @@
                                 <div class="form-group">
                                     <label for="ascensor">Ascensor</label>
                                     <select class="custom-select" name="ascensor" id="ascensor" class="form-control">
-                                        <option selected disabled>Seleccionar opción</option>
+                                        <option value="">Seleccionar opción</option>
                                         @foreach ($elevators as $key => $value)
                                             <option value="{{ $key }}">{{ $value }}</option>
                                         @endforeach
@@ -557,7 +557,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="provincia">Provincia</label>
-                                    <select id="province" name="province" class="form-control">
+                                    <select id="provincia" name="provincia" class="form-control">
                                         <option value="">Select Province</option>
                                         @foreach ($provinces as $province)
                                             <option value="{{ $province }}">{{ $province }}</option>
@@ -789,7 +789,7 @@
                     tipo_de_revisión: "Por favor, seleccione el tipo de revisión.",
                     ascensor: "Por favor, seleccione el ascensor.",
                     dirección: "Por favor, ingrese la dirección.",
-                    provincia: "Por favor, ingrese la provincia.",
+                    provincia: 'Por favor, selecciona la provincia',
                     núm_certificado: "Por favor, ingrese el número de certificado.",
                     máquina: "Por favor, ingrese el número de máquina.",
                     supervisor: "Por favor, seleccione el supervisor.",
@@ -839,7 +839,7 @@
                 messages: {
                     tipo_de_revisión: "Por favor, seleccione el tipo de revisión.",
                     dirección: "Por favor, ingrese la dirección.",
-                    provincia: "Por favor, ingrese la provincia.",
+                    provincia: 'Por favor, selecciona la provincia',
                     núm_certificado: "Por favor, ingrese el número de certificado.",
                     máquina: "Por favor, ingrese el número de máquina.",
                     supervisor: "Por favor, seleccione el supervisor.",

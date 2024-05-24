@@ -149,6 +149,7 @@ Route::group(['middleware' => 'auth'], function () {
     // cargaarchivos
     Route::get('/cargaarchivos', [FileUploadController::class, 'fileupload'])->name('fileupload');
     Route::post('/subir-excel', [FileUploadController::class, 'uploadExcel'])->name('upload.excel');
+    
 
     // Contrato //
 

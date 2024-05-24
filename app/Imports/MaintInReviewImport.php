@@ -1,4 +1,6 @@
-<?php namespace App\Imports;
+<?php
+
+namespace App\Imports;
 
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
@@ -9,7 +11,7 @@ class MaintInReviewImport implements ToCollection
     public function collection(Collection $rows)
     {
         foreach ($rows as $row) {
-           $main =  MaintInReview::create([
+            MaintInReview::create([
                 'tipo_de_revisión' => $row[0],
                 'ascensor' => $row[1],
                 'dirección' => $row[2],
@@ -27,9 +29,5 @@ class MaintInReviewImport implements ToCollection
                 'solución' => $row[14],
             ]);
         }
-        echo '<pre>';
-        print_r($main);
-        echo '</pre>';exit;
     }
 }
-

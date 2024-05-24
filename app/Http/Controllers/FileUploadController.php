@@ -15,7 +15,8 @@ class FileUploadController extends Controller
 
     public function uploadExcel(Request $request)
     {
-    
+        ini_set('memory_limit', '1024M'); // Increase memory limit
+
         // Validate the incoming request data
         $request->validate([
             'file' => 'required|mimes:xlsx',
@@ -24,10 +25,9 @@ class FileUploadController extends Controller
     
         $tipoArchivo = $request->input('tipoArchivo');
         $file = $request->file('file');
-       
+    
         // Check if file was uploaded successfully
         if ($file->isValid()) {
-            // Process each row of data based on the 'tipoArchivo' value
             try {
                 switch ($tipoArchivo) {
                     case 'mantenimiento':
@@ -47,8 +47,8 @@ class FileUploadController extends Controller
                 return redirect()->back()->with('danger', 'Failed to import data: ' . $e->getMessage());
             }
         } else {
-            // If file upload failed, redirect back with an error message
             return redirect()->back()->with('danger', 'Failed to upload Excel file.');
         }
     }
+    
 }

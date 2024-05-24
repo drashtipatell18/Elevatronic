@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Rules\PasswordFormat;
+use App\Models\Staff;
 
 class UserController extends Controller
 {
     public function user(){
         $users = User::all();
-        return view('user.view_user', compact('users'));
+        $staffs = Staff::pluck('nombre','nombre');
+        return view('user.view_user', compact('users','staffs'));
     }
 
     public function userInsert(Request $request)
@@ -47,7 +49,6 @@ class UserController extends Controller
         return redirect()->route('user');
     }
 
-
     public function userUpdate(Request $request,$id){
         // dd($request->all());
         $validatedData = $request->validate([
@@ -81,7 +82,6 @@ class UserController extends Controller
         // Redirect back with success message
         session()->flash('success', 'Usuario actualizado exitosamente!');
         return redirect()->route('user');
-
     }
 
     public function userView(Request $request, $id){
@@ -95,5 +95,5 @@ class UserController extends Controller
         session()->flash('danger', 'Usuario eliminar exitosamente!');
         return redirect()->back();
     }
-
+    
 }

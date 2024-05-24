@@ -227,23 +227,12 @@
                                                                                 <div class="col-md-12">
                                                                                     <div class="form-group">
                                                                                         <label for="Empleado">Empleado</label>
-                                                                                        <select
-                                                                                            class="custom-select form-control @error('employee') is-invalid @enderror"
-                                                                                            name="employee" id="employee">
-                                                                                            <option value="" disabled>
-                                                                                                Seleccionar opción</option>
-                                                                                            <option value="empleado_1"
-                                                                                                {{ $user->employee == 'empleado_1' ? 'selected' : '' }}>
-                                                                                                Empleado 1
-                                                                                            </option>
-                                                                                            <option value="empleado_2"
-                                                                                                {{ $user->employee == 'empleado_2' ? 'selected' : '' }}>
-                                                                                                Empleado 2
-                                                                                            </option>
-                                                                                            <option value="empleado_3"
-                                                                                                {{ $user->employee == 'empleado_3' ? 'selected' : '' }}>
-                                                                                                Empleado 3
-                                                                                            </option>
+                                                                                        <select id="employee" name="employee" class="form-control @error('employee') is-invalid @enderror">
+                                                                                            <option value="">Seleccionar empleado</option>
+                                                                                            @foreach ($staffs as $staff)
+                                                                                                <option value="{{ $staff }}" {{ old('employee', $user->employee ?? '') == $staff ? 'selected' : '' }}>
+                                                                                                {{ $staff }}</option>
+                                                                                            @endforeach
                                                                                         </select>
                                                                                         @error('employee')
                                                                                             <span class="invalid-feedback"
@@ -429,13 +418,11 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="Empleado">Empleado</label>
-                                            <select
-                                                class="custom-select form-control @error('employee') is-invalid @enderror"
-                                                name="employee" id="employee">
-                                                <option value="" class="d-none">Seleccionar opción</option>
-                                                <option value="empleado_1">Empleado 1</option>
-                                                <option value="empleado_2">Empleado 2</option>
-                                                <option value="empleado_3">Empleado 3</option>
+                                            <select id="employee" name="employee" class="custom-select form-control @error('employee') is-invalid @enderror">
+                                                <option value="">Seleccionar empleado</option>
+                                                @foreach ($staffs as $staff)
+                                                    <option value="{{ $staff }}">{{ $staff }}</option>
+                                                @endforeach
                                             </select>
                                             @error('employee')
                                                 <span class="invalid-feedback" style="color: red">
@@ -658,7 +645,6 @@
                 }
             });
 
-
             $('#edituserform').validate({
                 rules: {
                     username: "required",
@@ -672,12 +658,6 @@
                         digits: true
                     },
                     employee: "required",
-                    @if (!isset($users))
-                        password: {
-                            required: true,
-                            minlength: 6
-                        }
-                    @endif
                 },
                 messages: {
                     username: "Por favor, ingrese el nombre de usuario",
@@ -691,12 +671,7 @@
                         digits: "Por favor, ingrese solo números"
                     },
                     employee: "Por favor, seleccione un empleado",
-                    @if (!isset($users))
-                        password: {
-                            required: "Por favor, ingrese la contraseña",
-                            minlength: "La contraseña debe tener al menos 6 caracteres"
-                        }
-                    @endif
+
                 },
                 errorElement: "span",
                 errorPlacement: function(error, element) {

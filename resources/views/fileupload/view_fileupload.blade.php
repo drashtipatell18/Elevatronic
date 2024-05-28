@@ -76,22 +76,38 @@
     </div>
 @endsection
 
+
 @push('scripts')
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
-            // Update hidden input with the selected radio button value
-            $('input[name="tipoArchivos"]').on('change', function() {
-                $('#selectedTipoArchivo').val($(this).val());
-            });
-
             $('#cargarArchivo').on('click', function(event) {
                 event.preventDefault();
                 $('#fileInput').click();
             });
 
             $('#fileInput').on('change', function() {
-                $('#uploadForm').submit();
+                // Create FormData object to store form data
+                var formData = new FormData($('#uploadForm')[0]);
+
+                // Send AJAX request
+                $.ajax({
+                    url: $('#uploadForm').attr('action'),
+                    method: $('#uploadForm').attr('method'),
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        // Handle success response
+                        console.log(response);
+                        // You can redirect or show a success message here
+                    },
+                    error: function(xhr, status, error) {
+                        // Handle error response
+                        console.error(xhr.responseText);
+                        // You can display an error message here
+                    }
+                });
             });
         });
     </script>

@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
-use App\Imports\MaintInReviewImport;
+use App\Imports\MaintReviewImport;
 use App\Imports\ContractImport;
 use App\Imports\SparepartImport;
 
@@ -31,7 +31,7 @@ class FileUploadController extends Controller
             try {
                 switch ($tipoArchivo) {
                     case 'mantenimiento':
-                        Excel::import(new MaintInReviewImport, $file);
+                        Excel::import(new MaintReviewImport, $file);
                         break;
                     case 'contratos':
                         Excel::import(new ContractImport, $file);

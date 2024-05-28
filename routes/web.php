@@ -152,7 +152,6 @@ Route::group(['middleware' => 'auth'], function () {
     
 
     // Contrato //
-
     Route::post('/contrato/insertar',[ElevatorController::class,'contractInsert'])->name('insert.contract');
     Route::get('/contrato/editar/{id}', [ElevatorController::class, 'contractEdit'])->name('edit.contract');
     Route::post('/contrato/actualizar/{id}', [ElevatorController::class, 'contractUpdate'])->name('update.contract');

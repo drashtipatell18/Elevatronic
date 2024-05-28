@@ -27,20 +27,20 @@ class MaintInReviewController extends Controller
     }
 
     public function maintInReviewInsert(Request $request){
-        // $validatedData = $request->validate([
-        //     'tipo_de_revisión' => 'required',
-        //     'ascensor' => 'required',
-        //     'dirección' => 'required',
-        //     'provincia' => 'required',
-        //     'núm_certificado' => 'required',
-        //     'máquina' => 'required',
-        //     'supervisor' => 'required',
-        //     'técnico' => 'required',
-        //     'mes_programado' => 'required',
-        //     'fecha_de_mantenimiento' => 'required',
-        //     'hora_inicio' => 'required',
-        //     'hora_fin' => 'required',
-        // ]);
+        $validatedData = $request->validate([
+            'tipo_de_revisión' => 'required',
+            'ascensor' => 'required',
+            'dirección' => 'required',
+            'provincia' => 'required',
+            'núm_certificado' => 'required',
+            'máquina' => 'required',
+            'supervisor' => 'required',
+            'técnico' => 'required',
+            'mes_programado' => 'required',
+            'fecha_de_mantenimiento' => 'required',
+            'hora_inicio' => 'required',
+            'hora_fin' => 'required',
+        ]);
 
         // Create a new Province instance
         $maintinreview = MaintInReview::create([

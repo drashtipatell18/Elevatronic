@@ -67,8 +67,14 @@
                                     <tbody>
                                         @foreach ($spareparts as $index => $sparepart)
                                             <tr class="td-head-center">
-                                                <td><img src="{{ asset('images/' . $sparepart->foto_de_repuesto) }}"
-                                                        alt="personal" width="52" height="52" class="img-table"></td>
+                                                <td>
+                                                    @if($sparepart->foto_de_repuesto)
+                                                    <img src="{{ asset('images/' . $sparepart->foto_de_repuesto) }}"
+                                                        alt="personal" width="52" height="52" class="img-table">
+                                                    @else
+                                                        <img src="{{ asset('img/bydefult.png') }}" width="52" height="52" class="img-table"  alt="user">
+                                                    @endif
+                                                    </td>
                                                 <td>{{ $index + 1 }}</td>
                                                 <td>
                                                     <a href="{{ route('view.sparepart', $sparepart->id) }}"

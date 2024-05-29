@@ -150,7 +150,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/cargaarchivos', [FileUploadController::class, 'fileupload'])->name('fileupload');
     Route::post('/subir-excel', [FileUploadController::class, 'uploadExcel'])->name('upload.excel');
     
-
     // Contrato //
     Route::post('/contrato/insertar',[ElevatorController::class,'contractInsert'])->name('insert.contract');
     Route::get('/contrato/editar/{id}', [ElevatorController::class, 'contractEdit'])->name('edit.contract');

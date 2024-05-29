@@ -29,7 +29,11 @@
                         <div class="row">
                             <div class="col-md-12 d-flex align-items-start justify-content-start gap-20 mb-6 box-detalle">
                                 <div class="">
+                                    @if($sparepart->foto_de_repuesto)
                                     <img src="{{ asset('images/' . $sparepart->foto_de_repuesto) }}" alt="repuesto">
+                                    @else
+                                    <img src="{{ asset('img/bydefult.png') }}"  alt="user">
+                                @endif
                                 </div>
                                 <div class="align-items-start d-flex flex-column h-100 justify-content-between">
                                     <div>
@@ -65,7 +69,11 @@
                                 <div class="col-md-4 mb-4">
                                     <div class="box-contenido">
                                         <h3>Foto de repuesto</h3>
+                                        @if($sparepart->foto_de_repuesto)
                                         <img src="{{ asset('images/' . $sparepart->foto_de_repuesto) }}" alt="personal" class="w-100">
+                                        @else
+                                        <img src="{{ asset('img/bydefult.png') }}" class="w-100"  alt="personal">
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="col-md-8 mb-4">

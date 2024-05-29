@@ -640,8 +640,8 @@
                                                 </div>
                                             </div>
                                             <div class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
-                                                <button type="submit" class="btn-gris btn-red mr-2">Asignar
-                                                    Respuesto</button>
+                                                <button type="submit" class="btn-gris btn-red mr-2">Guardar cambios
+                                                </button>
                                                 <button type="button" class="btn-gris btn-border"
                                                     data-dismiss="modal">Cancelar</button>
                                             </div>
@@ -657,7 +657,7 @@
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title font-family-Outfit-SemiBold">Creando Contrato</h5>
+                                            <h5 class="modal-title font-family-Outfit-SemiBold">Contrato De Edición</h5>
                                             <button type="button" class="close" data-dismiss="modal"
                                                 aria-label="Close">
                                                 <span aria-hidden="true">×</span>
@@ -798,8 +798,8 @@
                                                 </div>
                                             </div>
                                             <div class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
-                                                <button type="submit" class="btn-gris btn-red mr-2">Asignar
-                                                    Respuesto</button>
+                                                <button type="submit" class="btn-gris btn-red mr-2">Actualizar cambio
+                                                </button>
                                                 <button type="button" class="btn-gris btn-border"
                                                     data-dismiss="modal">Cancelar</button>
                                             </div>
@@ -1561,20 +1561,15 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="provincia">Provincia</label>
-                                                            <select
+                                                             <select
                                                                 class="custom-select form-control @error('provincia') is-invalid @enderror"
                                                                 name="provincia" id="provincia">
-                                                                <option selected disabled>Seleccionar opción
-                                                                </option>
-                                                                <option value="lima"
-                                                                    {{ old('provincia', $elevators->provincia ?? '') == 'lima' ? 'selected' : '' }}>
-                                                                    Lima</option>
-                                                                <option value="arequipa"
-                                                                    {{ old('provincia', $elevators->provincia ?? '') == 'arequipa' ? 'selected' : '' }}>
-                                                                    Arequipa</option>
-                                                                <option value="moquegua"
-                                                                    {{ old('provincia', $elevators->provincia ?? '') == 'moquegua' ? 'selected' : '' }}>
-                                                                    Moquegua</option>
+                                                                @foreach ($provinces as $province)
+                                                                    <option value="{{ $province }}"
+                                                                        @if (isset($elevators) && $elevators->provincia == $province) selected @endif>
+                                                                        {{ $province }}
+                                                                    </option>
+                                                                @endforeach
                                                             </select>
                                                             @error('provincia')
                                                                 <span class="invalid-feedback" style="color: red">

@@ -152,7 +152,7 @@
                                                                             </div>
                                                                             <div class="form-group">
                                                                                 <label for="RUC">RUC o DNI</label>
-                                                                                <input type="text" placeholder="RUC o DNI"
+                                                                                <input type="number" placeholder="RUC o DNI"
                                                                                     name="ruc" id="ruc"
                                                                                     value="{{ old('ruc', $customer->ruc ?? '') }}"
                                                                                     class="form-control">
@@ -199,7 +199,7 @@
                                                                             </div>
                                                                             <div class="form-group">
                                                                                 <label for="teléfono">Teléfono</label>
-                                                                                <input type="text" placeholder="Teléfono"
+                                                                                <input type="number" placeholder="Teléfono"
                                                                                     name="teléfono" id="teléfono"
                                                                                     value="{{ old('teléfono', $customer->teléfono ?? '') }}"
                                                                                     class="form-control">
@@ -207,7 +207,7 @@
                                                                             <div class="form-group">
                                                                                 <label for="teléfono_móvil">Teléfono
                                                                                     Móvil</label>
-                                                                                <input type="text"
+                                                                                <input type="number"
                                                                                     placeholder="Teléfono Móvil"
                                                                                     name="teléfono_móvil" id="teléfono_móvil"
                                                                                     value="{{ old('teléfono_móvil', $customer->teléfono_móvil ?? '') }}"
@@ -348,7 +348,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="RUC">RUC o DNI</label>
-                                                <input type="text" placeholder="RUC o DNI" name="ruc"
+                                                <input type="number" placeholder="RUC o DNI" name="ruc"
                                                     id="ruc" class="form-control">
                                             </div>
                                             <div class="form-group">
@@ -374,17 +374,17 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="teléfono">Teléfono</label>
-                                                <input type="text" placeholder="Teléfono" name="teléfono"
+                                                <input type="number" placeholder="Teléfono" name="teléfono"
                                                     id="teléfono" class="form-control">
                                             </div>
                                             <div class="form-group">
                                                 <label for="teléfono_móvil">Teléfono Móvil</label>
-                                                <input type="text" placeholder="Teléfono Móvil" name="teléfono_móvil"
+                                                <input type="number" placeholder="Teléfono Móvil" name="teléfono_móvil"
                                                     id="teléfono_móvil" class="form-control">
                                             </div>
                                             <div class="form-group">
                                                 <label for="correo">Correo electrónico</label>
-                                                <input type="text" placeholder="Correo electrónico"
+                                                <input type="email" placeholder="Correo electrónico"
                                                     name="correo_electrónico" id="correo_electrónico"
                                                     class="form-control">
                                             </div>
@@ -523,15 +523,30 @@
                 rules: {
                     nombre: 'required',
                     tipo_de_cliente: 'required',
-                    ruc: 'required',
+                    ruc: {
+                        required: true,
+                        digits: true,
+                        minlength: 8,
+                        maxlength: 8
+                    },
                     país: 'required',
                     provincia: 'required',
                     dirección: 'required',
-                    teléfono: 'required',
-                    teléfono_móvil: 'required',
+                    teléfono: {
+                        required: true,
+                        digits: true,
+                        minlength: 8,
+                        maxlength: 8
+                    },
+                    teléfono_móvil: {
+                        required: true,
+                        digits: true,
+                        minlength: 8,
+                        maxlength: 8
+                    },
                     correo_electrónico: {
                         required: true,
-                        email: true // validate email format
+                        email: true
                     },
                     nombre_del_contacto: 'required',
                     posición: 'required'
@@ -539,12 +554,27 @@
                 messages: {
                     nombre: 'Por favor, ingresa el nombre o razón social',
                     tipo_de_cliente: 'Por favor, selecciona el tipo de cliente',
-                    ruc: 'Por favor, ingresa el RUC o DNI',
+                    ruc: {
+                        required: 'Por favor, ingresa el RUC o DNI',
+                        digits: 'Por favor, ingresa solo dígitos',
+                        minlength: 'El RUC debe tener exactamente 8 dígitos',
+                        maxlength: 'El RUC debe tener exactamente 8 dígitos'
+                    },
                     país: 'Por favor, selecciona el país',
                     provincia: 'Por favor, selecciona la provincia',
                     dirección: 'Por favor, ingresa la dirección',
-                    teléfono: 'Por favor, ingresa el teléfono',
-                    teléfono_móvil: 'Por favor, ingresa el teléfono móvil',
+                    teléfono: {
+                        required: 'Por favor, ingresa el teléfono',
+                        digits: 'Por favor, ingresa solo dígitos',
+                        minlength: 'El teléfono debe tener exactamente 8 dígitos',
+                        maxlength: 'El teléfono debe tener exactamente 8 dígitos'
+                    },
+                    teléfono_móvil: {
+                        required: 'Por favor, ingresa el teléfono móvil',
+                        digits: 'Por favor, ingresa solo dígitos',
+                        minlength: 'El teléfono móvil debe tener exactamente 8 dígitos',
+                        maxlength: 'El teléfono móvil debe tener exactamente 8 dígitos'
+                    },
                     correo_electrónico: {
                         required: 'Por favor, ingresa un correo electrónico',
                         email: 'Por favor, ingresa un correo electrónico válido'
@@ -569,15 +599,30 @@
                 rules: {
                     nombre: 'required',
                     tipo_de_cliente: 'required',
-                    ruc: 'required',
+                    ruc: {
+                        required: true,
+                        digits: true,
+                        minlength: 8,
+                        maxlength: 8
+                    },
                     país: 'required',
                     provincia: 'required',
                     dirección: 'required',
-                    teléfono: 'required',
-                    teléfono_móvil: 'required',
+                    teléfono: {
+                        required: true,
+                        digits: true,
+                        minlength: 8,
+                        maxlength: 8
+                    },
+                    teléfono_móvil: {
+                        required: true,
+                        digits: true,
+                        minlength: 8,
+                        maxlength: 8
+                    },
                     correo_electrónico: {
                         required: true,
-                        email: true // validate email format
+                        email: true
                     },
                     nombre_del_contacto: 'required',
                     posición: 'required'
@@ -585,12 +630,27 @@
                 messages: {
                     nombre: 'Por favor, ingresa el nombre o razón social',
                     tipo_de_cliente: 'Por favor, selecciona el tipo de cliente',
-                    ruc: 'Por favor, ingresa el RUC o DNI',
+                    ruc: {
+                        required: 'Por favor, ingresa el RUC o DNI',
+                        digits: 'Por favor, ingresa solo dígitos',
+                        minlength: 'El RUC debe tener exactamente 8 dígitos',
+                        maxlength: 'El RUC debe tener exactamente 8 dígitos'
+                    },
                     país: 'Por favor, selecciona el país',
                     provincia: 'Por favor, selecciona la provincia',
                     dirección: 'Por favor, ingresa la dirección',
-                    teléfono: 'Por favor, ingresa el teléfono',
-                    teléfono_móvil: 'Por favor, ingresa el teléfono móvil',
+                    teléfono: {
+                        required: 'Por favor, ingresa el teléfono',
+                        digits: 'Por favor, ingresa solo dígitos',
+                        minlength: 'El teléfono debe tener exactamente 8 dígitos',
+                        maxlength: 'El teléfono debe tener exactamente 8 dígitos'
+                    },
+                    teléfono_móvil: {
+                        required: 'Por favor, ingresa el teléfono móvil',
+                        digits: 'Por favor, ingresa solo dígitos',
+                        minlength: 'El teléfono móvil debe tener exactamente 8 dígitos',
+                        maxlength: 'El teléfono móvil debe tener exactamente 8 dígitos'
+                    },
                     correo_electrónico: {
                         required: 'Por favor, ingresa un correo electrónico',
                         email: 'Por favor, ingresa un correo electrónico válido'
@@ -610,6 +670,7 @@
                     $(element).removeClass('is-invalid').addClass('is-valid');
                 }
             });
+
         });
     </script>
 @endpush

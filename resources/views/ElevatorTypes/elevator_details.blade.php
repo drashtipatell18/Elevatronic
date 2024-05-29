@@ -22,10 +22,10 @@
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-                            <a class="dropdown-item texto-1 font-family-Inter-Regular" href="javascript:void(0)"
+                            <a class="dropdown-item texto-1 font-family-Inter-Regular" href="href="{{ route('edit.elevatortypes', $elevator_type->id) }}""
                                 data-toggle="modal" data-target="#editartiposAscensores">Editar</a>
-                            <a class="dropdown-item texto-1 font-family-Inter-Regular" href="javascript:void(0)"
-                                data-toggle="modal" data-target="#modalEliminar">Eliminar</a>
+                            <a class="dropdown-item texto-1 font-family-Inter-Regular" href="href="{{ route('destroy.elevatortypes', $elevator_type->id) }}""
+                                data-toggle="modal" data-target="#modalEliminar{{ $elevator_type->id }}">Eliminar</a>
                         </div>
                     </div>
                 </div>
@@ -339,7 +339,7 @@
                 </div>
 
                 <!-- Modal Eliminar-->
-                <div class="modal fade" id="modalEliminar" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+                <div class="modal fade" id="modalEliminar{{ $elevator_type->id }}" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
                     aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content border-radius-12">
@@ -378,6 +378,66 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
+
+            var table = $('#repuestosAsignados').DataTable({
+                responsive: true,
+                dom: 'tp',
+                pageLength: 8, // Establece el número de registros por página a 8
+                language: {
+                    "decimal": "",
+                    "emptyTable": "No hay información",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Reistros",
+                    "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+                    "infoFiltered": "(Filtrado de _MAX_ total registros)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "lengthMenu": "Mostrar _MENU_ Registros",
+                    "loadingRecords": "Cargando...",
+                    "processing": "Procesando...",
+                    "search": "Buscar:",
+                    "zeroRecords": "Sin resultados encontrados",
+                    "paginate": {
+                        "first": "Primero",
+                        "last": "Último",
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    },
+                },
+                buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                ]
+            });
+
+            $(".export_excel").on("click", function() {
+                var tableId = $(this).data("table");
+                var table = $(tableId).DataTable();
+                table.button('.buttons-csv').trigger();
+            });
+            $(".export_pdf").on("click", function() {
+                var tableId = $(this).data("table");
+                var table = $(tableId).DataTable();
+                table.button('.buttons-pdf').trigger();
+            });
+            $(".export_copy").on("click", function() {
+                var tableId = $(this).data("table");
+                var table = $(tableId).DataTable();
+                table.button('.buttons-copy').trigger();
+            });
+            $(".export_print").on("click", function() {
+                var tableId = $(this).data("table");
+                var table = $(tableId).DataTable();
+                table.button('.buttons-print').trigger();
+            });
+
+            // $('#customSearchBox').keyup(function(){
+            //     table.search($(this).val()).draw();
+            // });
+            $('.customSearchBox').keyup(function() {
+                table.search($(this).val()).draw();
+            });
+
+
+
             $("#assginsparpart").validate({
                 rules: {
                     nombre_del_tipo_de_ascensor: {

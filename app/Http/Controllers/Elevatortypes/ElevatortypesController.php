@@ -87,7 +87,7 @@ class ElevatortypesController extends Controller
         $elevator_type = Elevatortypes::find($id);
         $elevator_type->delete();
         session()->flash('danger', 'Tipos de ascensor eliminar exitosamente!');
-        return redirect()->back();
+        return redirect()->route('elevatortypes');
     }
 
 }

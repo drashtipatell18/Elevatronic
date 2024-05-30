@@ -86,7 +86,8 @@ class UserController extends Controller
 
     public function userView(Request $request, $id){
         $users = User::find($id);
-        return view('user.view_user_record',compact('users'));
+        $staffs = Staff::pluck('nombre','nombre');
+        return view('user.view_user_record',compact('users','staffs'));
     }
 
     public function userDestroy($id){
@@ -95,5 +96,5 @@ class UserController extends Controller
         session()->flash('danger', 'Usuario eliminar exitosamente!');
         return redirect()->back();
     }
-    
+
 }

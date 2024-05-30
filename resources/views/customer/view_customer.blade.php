@@ -519,81 +519,84 @@
                 $(".alert-danger").fadeOut(1000);
             }, 1000);
 
-            $('#EditcustomerForm').validate({
-                rules: {
-                    nombre: 'required',
-                    tipo_de_cliente: 'required',
-                    ruc: {
-                        required: true,
-                        digits: true,
-                        minlength: 8,
-                        maxlength: 8
+            $('div[id^="editarCliente"]').on('shown.bs.modal', function() {
+                const formId = $(this).find('form').attr('id');
+                $('#' + formId).validate({
+                    rules: {
+                        nombre: 'required',
+                        tipo_de_cliente: 'required',
+                        ruc: {
+                            required: true,
+                            digits: true,
+                            minlength: 8,
+                            maxlength: 8
+                        },
+                        país: 'required',
+                        provincia: 'required',
+                        dirección: 'required',
+                        teléfono: {
+                            required: true,
+                            digits: true,
+                            minlength: 8,
+                            maxlength: 8
+                        },
+                        teléfono_móvil: {
+                            required: true,
+                            digits: true,
+                            minlength: 8,
+                            maxlength: 8
+                        },
+                        correo_electrónico: {
+                            required: true,
+                            email: true
+                        },
+                        nombre_del_contacto: 'required',
+                        posición: 'required'
                     },
-                    país: 'required',
-                    provincia: 'required',
-                    dirección: 'required',
-                    teléfono: {
-                        required: true,
-                        digits: true,
-                        minlength: 8,
-                        maxlength: 8
+                    messages: {
+                        nombre: 'Por favor, ingresa el nombre o razón social',
+                        tipo_de_cliente: 'Por favor, selecciona el tipo de cliente',
+                        ruc: {
+                            required: 'Por favor, ingresa el RUC o DNI',
+                            digits: 'Por favor, ingresa solo dígitos',
+                            minlength: 'El RUC debe tener exactamente 8 dígitos',
+                            maxlength: 'El RUC debe tener exactamente 8 dígitos'
+                        },
+                        país: 'Por favor, selecciona el país',
+                        provincia: 'Por favor, selecciona la provincia',
+                        dirección: 'Por favor, ingresa la dirección',
+                        teléfono: {
+                            required: 'Por favor, ingresa el teléfono',
+                            digits: 'Por favor, ingresa solo dígitos',
+                            minlength: 'El teléfono debe tener exactamente 8 dígitos',
+                            maxlength: 'El teléfono debe tener exactamente 8 dígitos'
+                        },
+                        teléfono_móvil: {
+                            required: 'Por favor, ingresa el teléfono móvil',
+                            digits: 'Por favor, ingresa solo dígitos',
+                            minlength: 'El teléfono móvil debe tener exactamente 8 dígitos',
+                            maxlength: 'El teléfono móvil debe tener exactamente 8 dígitos'
+                        },
+                        correo_electrónico: {
+                            required: 'Por favor, ingresa un correo electrónico',
+                            email: 'Por favor, ingresa un correo electrónico válido'
+                        },
+                        nombre_del_contacto: 'Por favor, ingresa el nombre del contacto',
+                        posición: 'Por favor, ingresa la posición'
                     },
-                    teléfono_móvil: {
-                        required: true,
-                        digits: true,
-                        minlength: 8,
-                        maxlength: 8
+                    errorElement: 'span',
+                    errorPlacement: function(error, element) {
+                        error.addClass('invalid-feedback');
+                        element.closest('.form-group').append(error);
                     },
-                    correo_electrónico: {
-                        required: true,
-                        email: true
+                    highlight: function(element, errorClass, validClass) {
+                        $(element).addClass('is-invalid').removeClass('is-valid');
                     },
-                    nombre_del_contacto: 'required',
-                    posición: 'required'
-                },
-                messages: {
-                    nombre: 'Por favor, ingresa el nombre o razón social',
-                    tipo_de_cliente: 'Por favor, selecciona el tipo de cliente',
-                    ruc: {
-                        required: 'Por favor, ingresa el RUC o DNI',
-                        digits: 'Por favor, ingresa solo dígitos',
-                        minlength: 'El RUC debe tener exactamente 8 dígitos',
-                        maxlength: 'El RUC debe tener exactamente 8 dígitos'
-                    },
-                    país: 'Por favor, selecciona el país',
-                    provincia: 'Por favor, selecciona la provincia',
-                    dirección: 'Por favor, ingresa la dirección',
-                    teléfono: {
-                        required: 'Por favor, ingresa el teléfono',
-                        digits: 'Por favor, ingresa solo dígitos',
-                        minlength: 'El teléfono debe tener exactamente 8 dígitos',
-                        maxlength: 'El teléfono debe tener exactamente 8 dígitos'
-                    },
-                    teléfono_móvil: {
-                        required: 'Por favor, ingresa el teléfono móvil',
-                        digits: 'Por favor, ingresa solo dígitos',
-                        minlength: 'El teléfono móvil debe tener exactamente 8 dígitos',
-                        maxlength: 'El teléfono móvil debe tener exactamente 8 dígitos'
-                    },
-                    correo_electrónico: {
-                        required: 'Por favor, ingresa un correo electrónico',
-                        email: 'Por favor, ingresa un correo electrónico válido'
-                    },
-                    nombre_del_contacto: 'Por favor, ingresa el nombre del contacto',
-                    posición: 'Por favor, ingresa la posición'
-                },
-                errorElement: 'span',
-                errorPlacement: function(error, element) {
-                    error.addClass('invalid-feedback');
-                    element.closest('.form-group').append(error);
-                },
-                highlight: function(element, errorClass, validClass) {
-                    $(element).addClass('is-invalid').removeClass('is-valid');
-                },
-                unhighlight: function(element, errorClass, validClass) {
-                    $(element).removeClass('is-invalid').addClass('is-valid');
-                    $(element).closest('.form-group').find('.invalid-feedback').remove();
-                }
+                    unhighlight: function(element, errorClass, validClass) {
+                        $(element).removeClass('is-invalid').addClass('is-valid');
+                        $(element).closest('.form-group').find('.invalid-feedback').remove();
+                    }
+                });
             });
             $('#customerForm').validate({
                 rules: {

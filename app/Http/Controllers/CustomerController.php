@@ -52,7 +52,8 @@ class CustomerController extends Controller
 
     public function customerView(Request $request, $id){
         $customer = Cliente::find($id);
-        return view('customer.view_customer_details',compact('customer'));
+        $provinces = Province::pluck('provincia', 'provincia');
+        return view('customer.view_customer_details',compact('customer','provinces'));
 
     }
 

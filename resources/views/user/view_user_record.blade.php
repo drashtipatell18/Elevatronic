@@ -203,19 +203,12 @@
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label for="Empleado">Empleado</label>
-                                                    <select
-                                                        class="custom-select form-control @error('employee') is-invalid @enderror"
-                                                        name="employee" id="employee">
-                                                        <option selected disabled>Seleccionar opción</option>
-                                                        <option value="empleado_1"
-                                                            {{ $users->employee == 'empleado_1' ? 'selected' : '' }}>Empleado 1
-                                                        </option>
-                                                        <option value="empleado_2"
-                                                            {{ $users->employee == 'empleado_2' ? 'selected' : '' }}>Empleado 2
-                                                        </option>
-                                                        <option value="empleado_3"
-                                                            {{ $users->employee == 'empleado_3' ? 'selected' : '' }}>Empleado 3
-                                                        </option>
+                                                    <select id="employee" name="employee" class="form-control @error('employee') is-invalid @enderror">
+                                                        <option value="">Seleccionar empleado</option>
+                                                        @foreach ($staffs as $staff)
+                                                            <option value="{{ $staff }}" {{ old('employee', $users->employee ?? '') == $staff ? 'selected' : '' }}>
+                                                            {{ $staff }}</option>
+                                                        @endforeach
                                                     </select>
                                                     @error('empleado')
                                                         <span class="invalid-feedback" style="color: red">

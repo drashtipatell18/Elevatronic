@@ -90,219 +90,15 @@
                                                             <a class="dropdown-item"
                                                                 href="{{ route('view.customer', $customer->id) }}">Ver
                                                                 detalles</a>
-                                                            <a class="dropdown-item" href="" data-toggle="modal"
-                                                                data-target="#editarCliente{{ $customer->id }}">Editar</a>
+                                                            <a class="dropdown-item edit-customer" href="#"
+                                                                data-customer="{{ json_encode($customer) }}"
+                                                                data-toggle="modal" data-target="#editarCliente">Editar</a>
                                                             <a class="dropdown-item" href="" data-toggle="modal"
                                                                 data-target="#modalEliminar{{ $customer->id }}">Eliminar</a>
                                                         </div>
                                                     </div>
                                                 </td>
                                             </tr>
-                                            <!-- Modal agregar/editar clientes-->
-                                            <div class="modal left fade" id="editarCliente{{ $customer->id }}"
-                                                tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
-                                                aria-hidden="true">
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title font-family-Outfit-SemiBold">editar
-                                                                Cliente</h5>
-                                                            <button type="button" class="close" data-dismiss="modal"
-                                                                aria-label="Close">
-                                                                <span aria-hidden="true">×</span>
-                                                            </button>
-                                                        </div>
-                                                        <div class="modal-body body_modal">
-                                                            <div class="row">
-                                                                <div class="col-md-12">
-                                                                    @isset($customer)
-                                                                        <form action="/clientes/actualizar/<?php echo $customer->id; ?>"
-                                                                            method="POST" class="formulario-modal"
-                                                                            id="EditcustomerForm">
-                                                                            @csrf
-                                                                            <div class="form-group">
-                                                                                <label for="nombreRuc">Nombre o Razón
-                                                                                    Social</label>
-                                                                                <input type="text"
-                                                                                    placeholder="Nombre o Razón Social"
-                                                                                    name="nombre" id="nombre"
-                                                                                    value="{{ old('nombre', $customer->nombre ?? '') }}"
-                                                                                    class="form-control">
-                                                                            </div>
-                                                                            <div class="form-group">
-                                                                                <label for="tipo_de_cliente">Tipo de
-                                                                                    Cliente</label>
-                                                                                <select class="custom-select form-control"
-                                                                                    name="tipo_de_cliente" id="Tcliente">
-                                                                                    <option value="">Seleccionar opción
-                                                                                    </option>
-                                                                                    <option value="person1"
-                                                                                        @if (old('tipo_de_cliente', $customer->tipo_de_cliente ?? '') == 'person1') selected @endif>
-                                                                                        Cliente 1
-                                                                                    </option>
-                                                                                    <option value="person2"
-                                                                                        @if (old('tipo_de_cliente', $customer->tipo_de_cliente ?? '') == 'person2') selected @endif>
-                                                                                        Cliente 2
-                                                                                    </option>
-                                                                                    <option value="person3"
-                                                                                        @if (old('tipo_de_cliente', $customer->tipo_de_cliente ?? '') == 'person3') selected @endif>
-                                                                                        Cliente 3
-                                                                                    </option>
-                                                                                </select>
-                                                                            </div>
-                                                                            <div class="form-group">
-                                                                                <label for="RUC">RUC o DNI</label>
-                                                                                <input type="number" placeholder="RUC o DNI"
-                                                                                    name="ruc" id="ruc"
-                                                                                    value="{{ old('ruc', $customer->ruc ?? '') }}"
-                                                                                    class="form-control">
-                                                                            </div>
-                                                                            <div class="form-group">
-                                                                                <label for="pais">País</label>
-                                                                                <select class="custom-select form-control"
-                                                                                    name="país" id="país">
-                                                                                    <option value="">Seleccionar opción
-                                                                                    </option>
-                                                                                    <option value="perú"
-                                                                                        @if (old('país', $customer->país ?? '') == 'perú') selected @endif>
-                                                                                        Perú</option>
-                                                                                </select>
-                                                                            </div>
-                                                                            <div class="form-group">
-                                                                                <label for="provincia">Provincia</label>
-                                                                                <select class="custom-select form-control"
-                                                                                    name="provincia" id="provincia">
-                                                                                    <option value="">
-                                                                                        Seleccionar
-                                                                                        opción
-                                                                                    </option>
-                                                                                    @foreach ($provinces as $province)
-                                                                                        <option value="{{ $province }}"
-                                                                                            @if (isset($customer) && $customer->provincia == $province) selected @endif>
-                                                                                            {{ $province }}
-                                                                                        </option>
-                                                                                    @endforeach
-                                                                                </select>
-                                                                                @error('provincia')
-                                                                                    <span class="invalid-feedback"
-                                                                                        style="color: red">
-                                                                                        <strong>{{ $message }}</strong>
-                                                                                    </span>
-                                                                                @enderror
-                                                                            </div>
-                                                                            <div class="form-group">
-                                                                                <label for="dirección">Dirección</label>
-                                                                                <input type="text" placeholder="Dirección"
-                                                                                    name="dirección" id="dirección"
-                                                                                    value="{{ old('dirección', $customer->dirección ?? '') }}"
-                                                                                    class="form-control">
-                                                                            </div>
-                                                                            <div class="form-group">
-                                                                                <label for="teléfono">Teléfono</label>
-                                                                                <input type="number" placeholder="Teléfono"
-                                                                                    name="teléfono" id="teléfono"
-                                                                                    value="{{ old('teléfono', $customer->teléfono ?? '') }}"
-                                                                                    class="form-control">
-                                                                            </div>
-                                                                            <div class="form-group">
-                                                                                <label for="teléfono_móvil">Teléfono
-                                                                                    Móvil</label>
-                                                                                <input type="number"
-                                                                                    placeholder="Teléfono Móvil"
-                                                                                    name="teléfono_móvil" id="teléfono_móvil"
-                                                                                    value="{{ old('teléfono_móvil', $customer->teléfono_móvil ?? '') }}"
-                                                                                    class="form-control">
-                                                                            </div>
-                                                                            <div class="form-group">
-                                                                                <label for="correo">Correo
-                                                                                    electrónico</label>
-                                                                                <input type="text"
-                                                                                    placeholder="Correo electrónico"
-                                                                                    name="correo_electrónico"
-                                                                                    id="correo_electrónico"
-                                                                                    value="{{ old('correo_electrónico', $customer->correo_electrónico ?? '') }}"
-                                                                                    class="form-control">
-                                                                            </div>
-                                                                            <div class="form-group">
-                                                                                <label for="Ncontacto">Nombre del
-                                                                                    conctacto</label>
-                                                                                <input type="text"
-                                                                                    placeholder="Nombre del conctacto"
-                                                                                    name="nombre_del_contacto"
-                                                                                    id="nombre_del_contacto"
-                                                                                    value="{{ old('nombre_del_contacto', $customer->nombre_del_contacto ?? '') }}"
-                                                                                    class="form-control">
-                                                                            </div>
-                                                                            <div class="form-group">
-                                                                                <label for="posición">Posición</label>
-                                                                                <input type="text" placeholder="Posición"
-                                                                                    name="posición" id="posición"
-                                                                                    value="{{ old('posición', $customer->posición ?? '') }}"
-                                                                                    class="form-control">
-                                                                            </div>
-                                                                            <div
-                                                                                class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
-                                                                                <button type="submit"
-                                                                                    class="btn-gris btn-red mr-2">
-                                                                                    Actualizar Cambios
-
-                                                                                </button>
-                                                                                <button type="button"
-                                                                                    class="btn-gris btn-border"
-                                                                                    data-dismiss="modal">Cancelar</button>
-                                                                            </div>
-                                                                        </form>
-                                                                    @endisset
-
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <!-- Modal Eliminar-->
-                                            <div class="modal fade" id="modalEliminar{{ $customer->id }}" tabindex="-1"
-                                                role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-                                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                                    <div class="modal-content border-radius-12">
-                                                        <div class="modal-body">
-                                                            <div class="row">
-                                                                <div class="col-md-12">
-                                                                    <button type="button" class="close"
-                                                                        data-dismiss="modal" aria-label="Close">
-                                                                        <span aria-hidden="true">×</span>
-                                                                    </button>
-                                                                    <div class="box1">
-                                                                        <img src="{{ asset('img/iconos/trash.svg') }}"
-                                                                            alt="trash" width="76">
-                                                                        <p class="mt-3 mb-0">
-                                                                            ¿Seguro que quieres eliminar <span
-                                                                                id="item-name"></span>?
-                                                                        </p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div
-                                                            class="modal-footer align-items-center justify-content-center">
-                                                            @isset($customer)
-                                                                <form id="delete-form"
-                                                                    action="{{ route('destroy.customer', $customer->id) }}"
-                                                                    method="POST">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                    <button type="submit"
-                                                                        class="btn-gris btn-red">Sí</button>
-                                                                    <button type="button" class="btn-gris btn-border"
-                                                                        data-dismiss="modal">No</button>
-                                                                </form>
-                                                            @endisset
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
                                         @endforeach
                                     </tbody>
                                 </table>
@@ -311,9 +107,8 @@
                     </div>
                 </div>
 
-                <!-- Modal agregar/editar clientes-->
-                <div class="modal left fade" id="crearCliente" tabindex="-1" role="dialog"
-                    aria-labelledby="modelTitleId" aria-hidden="true">
+                <div class="modal left fade" id="crearCliente" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+                    aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -414,6 +209,176 @@
                     </div>
                 </div>
 
+                <!-- Modal agregar/editar clientes-->
+                <div class="modal left fade" id="editarCliente" tabindex="-1" role="dialog"
+                    aria-labelledby="modelTitleId" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title font-family-Outfit-SemiBold">editar
+                                    Cliente</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body body_modal">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        @isset($customer)
+                                            <form action="" method="POST"
+                                                class="formulario-modal" id="EditcustomerForm">
+                                                @csrf
+                                                <div class="form-group">
+                                                    <label for="nombreRuc">Nombre o Razón
+                                                        Social</label>
+                                                    <input type="text" placeholder="Nombre o Razón Social" name="nombre"
+                                                        id="edit-nombre" value=""
+                                                        class="form-control">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="tipo_de_cliente">Tipo de
+                                                        Cliente</label>
+                                                        <select class="custom-select form-control" name="tipo_de_cliente" id="edit-tipo_de_cliente">
+                                                            <option value="">Seleccionar opción</option>
+                                                            <option value="person1" {{ $customer->tipo_de_cliente == 'person1' ? 'selected' : '' }}>Cliente 1</option>
+                                                            <option value="person2" {{ $customer->tipo_de_cliente == 'person2' ? 'selected' : '' }}>Cliente 2</option>
+                                                            <option value="person3" {{ $customer->tipo_de_cliente == 'person3' ? 'selected' : '' }}>Cliente 3</option>
+                                                        </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="RUC">RUC o DNI</label>
+                                                    <input type="number" placeholder="RUC o DNI" name="ruc"
+                                                        id="edit-ruc" value=""
+                                                        class="form-control">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="pais">País</label>
+                                                    <select class="custom-select form-control" name="país" id="edit-país">
+                                                        <option value="">Seleccionar opción
+                                                        </option>
+                                                        <option value="perú"{{ $customer->país == 'perú' ? 'selected': ''}}> Perú </option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="provincia">Provincia</label>
+                                                    <select class="custom-select form-control" name="provincia"
+                                                        id="edit-provincia">
+                                                        <option value="">
+                                                            Seleccionar
+                                                            opción
+                                                        </option>
+                                                        @foreach ($provinces as $province)
+                                                            <option value="{{ $province }}"
+                                                                {{ $customer->provincia == $province ? 'selected' : ''}}>
+                                                                {{ $province }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                    @error('provincia')
+                                                        <span class="invalid-feedback" style="color: red">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="dirección">Dirección</label>
+                                                    <input type="text" placeholder="Dirección" name="dirección"
+                                                        id="edit-dirección"
+                                                        value=""
+                                                        class="form-control">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="teléfono">Teléfono</label>
+                                                    <input type="number" placeholder="Teléfono" name="teléfono"
+                                                        id="edit-teléfono"
+                                                        value=""
+                                                        class="form-control">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="teléfono_móvil">Teléfono
+                                                        Móvil</label>
+                                                    <input type="number" placeholder="Teléfono Móvil" name="teléfono_móvil"
+                                                        id="edit-teléfono_móvil"
+                                                        value=""
+                                                        class="form-control">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="correo">Correo
+                                                        electrónico</label>
+                                                    <input type="text" placeholder="Correo electrónico"
+                                                        name="correo_electrónico" id="edit-correo_electrónico"
+                                                        value=""
+                                                        class="form-control">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="Ncontacto">Nombre del
+                                                        conctacto</label>
+                                                    <input type="text" placeholder="Nombre del conctacto"
+                                                        name="nombre_del_contacto" id="edit-nombre_del_contacto"
+                                                        value=""
+                                                        class="form-control">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="posición">Posición</label>
+                                                    <input type="text" placeholder="Posición" name="posición"
+                                                        id="edit-posición"
+                                                        value=""
+                                                        class="form-control">
+                                                </div>
+                                                <div class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
+                                                    <button type="submit" class="btn-gris btn-red mr-2">
+                                                        Actualizar Cambios
+
+                                                    </button>
+                                                    <button type="button" class="btn-gris btn-border"
+                                                        data-dismiss="modal">Cancelar</button>
+                                                </div>
+                                            </form>
+                                        @endisset
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal Eliminar-->
+                <div class="modal fade" id="modalEliminar{{ $customer->id }}" tabindex="-1" role="dialog"
+                    aria-labelledby="modelTitleId" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content border-radius-12">
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                        <div class="box1">
+                                            <img src="{{ asset('img/iconos/trash.svg') }}" alt="trash"
+                                                width="76">
+                                            <p class="mt-3 mb-0">
+                                                ¿Seguro que quieres eliminar <span id="item-name"></span>?
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer align-items-center justify-content-center">
+                                @isset($customer)
+                                    <form id="delete-form" action="{{ route('destroy.customer', $customer->id) }}"
+                                        method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn-gris btn-red">Sí</button>
+                                        <button type="button" class="btn-gris btn-border" data-dismiss="modal">No</button>
+                                    </form>
+                                @endisset
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
             </div>
         </div>
@@ -597,6 +562,24 @@
                         $(element).closest('.form-group').find('.invalid-feedback').remove();
                     }
                 });
+            });
+            $('.edit-customer').on('click', function() {
+                var customer = $(this).data('customer');
+                // Populate the modal with customer data
+                $('#edit-nombre').val(customer.nombre);
+                $('#edit-tipo_de_cliente').val(customer.tipo_de_cliente);
+                $('#edit-ruc').val(customer.ruc);
+                $('#edit-país').val(customer.país);
+                $('#edit-provincia').val(customer.provincia);
+                $('#edit-dirección').val(customer.dirección);
+                $('#edit-teléfono').val(customer.teléfono);
+                $('#edit-teléfono_móvil').val(customer.teléfono_móvil);
+                $('#edit-correo_electrónico').val(customer.correo_electrónico);
+                $('#edit-nombre_del_contacto').val(customer.nombre_del_contacto);
+                $('#edit-posición').val(customer.posición);
+
+                // Set the form action to the correct route
+                $('#EditcustomerForm').attr('action', '/clientes/actualizar/' + customer.id);
             });
             $('#customerForm').validate({
                 rules: {

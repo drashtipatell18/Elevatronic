@@ -22,10 +22,12 @@
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-                            <a class="dropdown-item texto-1 font-family-Inter-Regular" href="href="{{ route('edit.elevatortypes', $elevator_type->id) }}""
-                                data-toggle="modal" data-target="#editartiposAscensores">Editar</a>
-                            <a class="dropdown-item texto-1 font-family-Inter-Regular" href="href="{{ route('destroy.elevatortypes', $elevator_type->id) }}""
-                                data-toggle="modal" data-target="#modalEliminar{{ $elevator_type->id }}">Eliminar</a>
+                            <a class="dropdown-item edit-elevator-type" href="#"
+                                data-elevator-type="{{ json_encode($elevator_type) }}" data-toggle="modal"
+                                data-target="#editartiposAscensores">Editar</a>
+                            <a class="dropdown-item texto-1 font-family-Inter-Regular"
+                                href="href="{{ route('destroy.elevatortypes', $elevator_type->id) }}"" data-toggle="modal"
+                                data-target="#modalEliminar{{ $elevator_type->id }}">Eliminar</a>
                         </div>
                     </div>
                 </div>
@@ -136,7 +138,8 @@
                                                 @foreach ($assginspares as $index => $assginspare)
                                                     <tr class="">
                                                         <td>{{ $index + 1 }}</td>
-                                                        <td class="text-center">{{ $assginspare->nombre_del_tipo_de_ascensor }}</td>
+                                                        <td class="text-center">
+                                                            {{ $assginspare->nombre_del_tipo_de_ascensor }}</td>
                                                         <td>{{ $assginspare->reemplazo }}</td>
                                                     </tr>
                                                 @endforeach
@@ -300,47 +303,49 @@
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title font-family-Outfit-SemiBold">Crear Tipo de Ascensor</h5>
+                                <h5 class="modal-title font-family-Outfit-SemiBold">Editar Tipo
+                                    de Ascensor</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">×</span>
                                 </button>
                             </div>
-                            <form action="/tipos/de/ascensor/actualizar/<?php echo $elevator_type->id; ?>" method="POST"
-                                class="formulario-modal" id="customerForm">
-                                @csrf
-                                <div class="modal-body body_modal">
-                                    <div class="row">
-                                        <div class="col-md-12">
+                            @isset($elevator_type)
+                                <form action="" method="POST" class="formulario-modal" id="editelevatorForm">
+                                    @csrf
+                                    <div class="modal-body body_modal">
+                                        <div class="row">
+                                            <div class="col-md-12">
 
-                                            <div class="form-group">
-                                                <label for="nombreAscensor">Nombre de Tipo de Ascensor</label>
-                                                <input type="text" placeholder="Nombre de Tipo de Ascensor"
-                                                    name="nombre_de_tipo_de_ascensor" id="nombreAscensor"
-                                                    value="{{ old('nombre_de_tipo_de_ascensor', $elevator_type->nombre_de_tipo_de_ascensor ?? '') }}"
-                                                    class=" @error('nombre_de_tipo_de_ascensor') is-invalid @enderror">
-                                                @error('nombre_de_tipo_de_ascensor')
-                                                    <span class="invalid-feedback" style="color: red">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
+                                                <div class="form-group">
+                                                    <label for="nombreAscensor">Nombre de Tipo de
+                                                        Ascensor</label>
+                                                    <input type="text" placeholder="Nombre de Tipo de Ascensor"
+                                                        name="nombre_de_tipo_de_ascensor" id="edit-nombre_de_tipo_de_ascensor"
+                                                        value="" class="form-control">
+                                                    @error('nombre_de_tipo_de_ascensor')
+                                                        <span class="invalid-feedback" style="color: red">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
-                                    <button type="submit" class="btn-gris btn-red mr-2">Guardar Cambios</button>
-                                    <button type="submit" class="btn-gris btn-border"
-                                        data-dismiss="modal">Cancelar</button>
-                                </div>
-                            </form>
-
+                                    <div class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
+                                        <button type="submit" class="btn-gris btn-red mr-2">Actualizar
+                                            cambios</button>
+                                        <button type="submit" class="btn-gris btn-border"
+                                            data-dismiss="modal">Cancelar</button>
+                                    </div>
+                                </form>
+                            @endisset
                         </div>
                     </div>
                 </div>
 
                 <!-- Modal Eliminar-->
-                <div class="modal fade" id="modalEliminar{{ $elevator_type->id }}" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
-                    aria-hidden="true">
+                <div class="modal fade" id="modalEliminar{{ $elevator_type->id }}" tabindex="-1" role="dialog"
+                    aria-labelledby="modelTitleId" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content border-radius-12">
                             <div class="modal-body">
@@ -436,7 +441,35 @@
                 table.search($(this).val()).draw();
             });
 
+            $('#editartiposAscensores').on('shown.bs.modal', function() {
+                const formId = $(this).find('form').attr('id');
+                $('#' + formId).validate({
+                    rules: {
+                        nombre_de_tipo_de_ascensor: 'required'
+                    },
+                    messages: {
+                        nombre_de_tipo_de_ascensor: 'Por favor, ingresa el nombre de tipo de ascensor'
+                    },
+                    errorElement: 'span',
+                    errorPlacement: function(error, element) {
+                        error.addClass('invalid-feedback');
+                        element.closest('.form-group').append(error);
+                    },
+                    highlight: function(element, errorClass, validClass) {
+                        $(element).addClass('is-invalid').removeClass('is-valid');
+                    },
+                    unhighlight: function(element, errorClass, validClass) {
+                        $(element).removeClass('is-invalid').addClass('is-valid');
+                    }
+                });
+            });
 
+            $('.edit-elevator-type').on('click', function() {
+                var elevator_type = $(this).data('elevator-type');
+
+                $('#edit-nombre_de_tipo_de_ascensor').val(elevator_type.nombre_de_tipo_de_ascensor);
+                $('#editelevatorForm').attr('action', '/tipos/de/ascensor/actualizar/' + elevator_type.id);
+            });
 
             $("#assginsparpart").validate({
                 rules: {

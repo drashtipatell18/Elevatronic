@@ -29,8 +29,9 @@
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-                            <a class="dropdown-item texto-1 font-family-Inter-Regular" href="javascript:void(0)"
-                                data-toggle="modal" data-target="#editarAscensor">Editar</a>
+                            <a class="dropdown-item edit-elevator" href="#"
+                                data-elevator="{{ json_encode($elevators) }}" data-toggle="modal"
+                                data-target="#editarAscensor">Editar</a>
                             <a class="dropdown-item texto-1 font-family-Inter-Regular" data-toggle="modal"
                                 data-target="#modalEliminar">Eliminar</a>
                         </div>
@@ -43,31 +44,31 @@
                             <div class="col-md-12 d-flex align-items-start justify-content-start gap-20 mb-6 box-detalle">
                                 @if (isset($elevators))
                                     <div class="contenido-img">
-                                        <img src="{{ asset('images/' . $elevators->imagen) }}" alt="user" width="160">
+                                        <img src="{{ asset('images/' . $elevators->imagen) }}" alt="user"
+                                            width="160">
                                     </div>
                                 @endif
                                 <div class="align-items-start d-flex flex-column h-100 justify-content-between">
-                                        <div>
-                                            <h3>{{ $elevators->nombre }}</h3>
-                                            <span>Ascensor</span>
+                                    <div>
+                                        <h3>{{ $elevators->nombre }}</h3>
+                                        <span>Ascensor</span>
+                                    </div>
+                                    <div class="d-flex align-items-center justify-content-start gap-15 flex-wrap">
+                                        <div class="option">
+                                            <h4>{{ $elevators->id }}</h4>
+                                            <p class="mb-0">ID elemento</p>
                                         </div>
-                                        <div class="d-flex align-items-center justify-content-start gap-15 flex-wrap">
-                                            <div class="option">
-                                                <h4>{{ $elevators->id }}</h4>
-                                                <p class="mb-0">ID elemento</p>
-                                            </div>
-                                            <div class="option">
-                                                <h4>{{ $elevators->contrato }}</h4>
-                                                <p class="mb-0"># de contrato</p>
-                                            </div>
-                                            <div class="option">
-                                                <h4>{{ \Carbon\Carbon::parse($elevators->fecha)->format('d M Y, g:i a') }}
-                                                </h4>
-                                                <p class="mb-0">Fecha registro</p>
-                                            </div>
+                                        <div class="option">
+                                            <h4>{{ $elevators->contrato }}</h4>
+                                            <p class="mb-0"># de contrato</p>
                                         </div>
+                                        <div class="option">
+                                            <h4>{{ \Carbon\Carbon::parse($elevators->fecha)->format('d M Y, g:i a') }}
+                                            </h4>
+                                            <p class="mb-0">Fecha registro</p>
+                                        </div>
+                                    </div>
                                 </div>
-
                             </div>
                             <div class="col-md-12">
                                 <ul class="nav nav-tabs tabs-elevatronic" role="tablist">
@@ -302,7 +303,9 @@
                                                 <div class="adornoinput mb-3">
                                                     <div class="custom-control custom-checkbox">
                                                         <input type="checkbox" class="custom-control-input"
-                                                            id="MGratuito" name="mgratuito" value="mgratuito" {{ in_array('mgratuito', explode(',', $elevators->quarters)) ? 'checked' : '' }} disabled>
+                                                            id="MGratuito" name="mgratuito" value="mgratuito"
+                                                            {{ in_array('mgratuito', explode(',', $elevators->quarters)) ? 'checked' : '' }}
+                                                            disabled>
                                                         <label class="custom-control-label" for="MGratuito">Mantenimiento
                                                             gratuito?</label>
                                                     </div>
@@ -316,7 +319,9 @@
                                                 <div class="adornoinput mb-3">
                                                     <div class="custom-control custom-checkbox">
                                                         <input type="checkbox" class="custom-control-input"
-                                                            id="SinCuarto" name="sincuarto" value="sincuarto" {{ in_array('sincuarto', explode(',', $elevators->quarters)) ? 'checked' : '' }} disabled>
+                                                            id="SinCuarto" name="sincuarto" value="sincuarto"
+                                                            {{ in_array('sincuarto', explode(',', $elevators->quarters)) ? 'checked' : '' }}
+                                                            disabled>
                                                         <label class="custom-control-label" for="SinCuarto">Sin
                                                             cuarto de maquina?</label>
                                                     </div>
@@ -330,7 +335,9 @@
                                                 <div class="adornoinput mb-3">
                                                     <div class="custom-control custom-checkbox">
                                                         <input type="checkbox" class="custom-control-input"
-                                                            id="ConCuarto" name="concuarto" value="concuarto" {{ in_array('concuarto', explode(',', $elevators->quarters)) ? 'checked' : '' }} disabled>
+                                                            id="ConCuarto" name="concuarto" value="concuarto"
+                                                            {{ in_array('concuarto', explode(',', $elevators->quarters)) ? 'checked' : '' }}
+                                                            disabled>
                                                         <label class="custom-control-label" for="ConCuarto">Con
                                                             cuarto de maquina?</label>
                                                     </div>
@@ -663,7 +670,7 @@
                                                 <span aria-hidden="true">×</span>
                                             </button>
                                         </div>
-                                        <form action="/contrato/actualizar/<?php echo $contra->id; ?>" method="POST"
+                                        {{--  <form action="/contrato/actualizar/<?php echo $contra->id; ?>" method="POST"
                                             class="formulario-modal" id="editcontratos">
                                             @csrf
                                             <div class="modal-body body_modal">
@@ -803,7 +810,7 @@
                                                 <button type="button" class="btn-gris btn-border"
                                                     data-dismiss="modal">Cancelar</button>
                                             </div>
-                                        </form>
+                                        </form>  --}}
 
                                     </div>
                                 </div>
@@ -1390,7 +1397,7 @@
 
                             @isset($elevators)
                                 <form action="{{ route('update.elevator', $elevators->id) }}" class="formulario-modal"
-                                    enctype="multipart/form-data" method="POST">
+                                    enctype="multipart/form-data" method="POST" id="editelevatform">
                                     @csrf
                                     <div class="modal-body body_modal">
                                         <div class="row">
@@ -1561,7 +1568,7 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="provincia">Provincia</label>
-                                                             <select
+                                                            <select
                                                                 class="custom-select form-control @error('provincia') is-invalid @enderror"
                                                                 name="provincia" id="provincia">
                                                                 @foreach ($provinces as $province)
@@ -1685,41 +1692,54 @@
                                                     </div>
 
                                                     <div class="col-md-12"></div>
-                                                    <div class="col-md-6">
-                                                        <div class="adornoinput mb-3">
-                                                            <div class="custom-control custom-checkbox">
-                                                                <input type="checkbox" class="custom-control-input"
-                                                                    id="mgratuito" name="mgratuito"
-                                                                    {{ isset($elevators) && $elevators->mgratuito ? 'checked' : '' }}>
-                                                                <label class="custom-control-label"
-                                                                    for="MGratuito">Mantenimiento gratuito?</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="adornoinput mb-3">
-                                                            <div class="custom-control custom-checkbox">
-                                                                <input type="checkbox" class="custom-control-input"
-                                                                    id="sincuarto" name="sincuarto"
-                                                                    {{ isset($elevators) && $elevators->sincuarto ? 'checked' : '' }}>
-                                                                <label class="custom-control-label" for="SinCuarto">Sin
-                                                                    cuarto
-                                                                    de maquina?</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="adornoinput mb-3">
-                                                            <div class="custom-control custom-checkbox">
-                                                                <input type="checkbox" class="custom-control-input"
-                                                                    id="concuarto" name="concuarto"
-                                                                    {{ isset($elevators) && $elevators->concuarto ? 'checked' : '' }}>
-                                                                <label class="custom-control-label" for="ConCuarto">Con
-                                                                    cuarto
-                                                                    de maquina?</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="adornoinput mb-3">
+                                                                        <div
+                                                                            class="custom-control custom-checkbox">
+                                                                            <input type="checkbox"
+                                                                                class="custom-control-input"
+                                                                                id="mgratuito"
+                                                                                name="quarters[]"
+                                                                                value="mgratuito"
+                                                                                {{ in_array('mgratuito', explode(',', $elevators->quarters)) ? 'checked' : '' }}>
+                                                                            <label class="custom-control-label"
+                                                                                for="mgratuito">Mantenimiento
+                                                                                gratuito?</label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="adornoinput mb-3">
+                                                                        <div
+                                                                            class="custom-control custom-checkbox">
+                                                                            <input type="checkbox"
+                                                                                class="custom-control-input"
+                                                                                id="sincuarto"
+                                                                                name="quarters[]"
+                                                                                value="sincuarto"
+                                                                                {{ in_array('sincuarto', explode(',', $elevators->quarters)) ? 'checked' : '' }}>
+                                                                            <label class="custom-control-label"
+                                                                                for="sincuarto">Sin cuarto de
+                                                                                maquina?</label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="adornoinput mb-3">
+                                                                        <div
+                                                                            class="custom-control custom-checkbox">
+                                                                            <input type="checkbox"
+                                                                                class="custom-control-input"
+                                                                                id="concuarto"
+                                                                                name="quarters[]"
+                                                                                value="concuarto"
+                                                                                {{ in_array('concuarto', explode(',', $elevators->quarters)) ? 'checked' : '' }}>
+                                                                            <label class="custom-control-label"
+                                                                                for="concuarto">Con cuarto de
+                                                                                maquina?</label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
 
                                                     <div class="col-md-12">
                                                         <div class="form-group">
@@ -2364,6 +2384,118 @@
                 unhighlight: function(element, errorClass, validClass) {
                     $(element).removeClass("is-invalid").addClass("is-valid");
                 }
+            });
+
+            $("#editelevatform").validate({
+                // Specify validation rules
+                rules: {
+                    imagen: {
+                        required: true,
+                        extension: "jpg|jpeg|png|gif"
+                    },
+                    contrato: "required",
+                    nombre: "required",
+                    código: "required",
+                    marca: "required",
+                    cliente: "required",
+                    fecha: "required",
+                    garantizar: "required",
+                    dirección: "required",
+                    ubigeo: "required",
+                    provincia: "required",
+                    técnico_instalador: "required",
+                    técnico_ajustador: "required",
+                    tipo_de_ascensor: "required",
+                    cantidad: "required",
+                    npisos: "required",
+                    ncontacto: "required",
+                    teléfono: {
+                        required: true,
+                        digits: true
+                    },
+                    correo: {
+                        required: true,
+                        email: true
+                    },
+                    descripcion1: "required",
+                    // Add more rules for other fields as needed
+                },
+                // Specify validation error messages
+                messages: {
+                    imagen: {
+                        required: "Por favor, seleccione una imagen.",
+                        extension: "Por favor, seleccione un archivo de imagen válido (jpg, jpeg, png, gif)."
+                    },
+                    contrato: "Por favor, ingrese el número de contrato.",
+                    nombre: "Por favor, ingrese el nombre del ascensor.",
+                    código: "Por favor, ingrese el código.",
+                    marca: "Por favor, ingrese la marca.",
+                    cliente: "Por favor, seleccione un cliente.",
+                    fecha: "Por favor, seleccione una fecha de entrega.",
+                    garantizar: "Por favor, ingrese la garantía.",
+                    dirección: "Por favor, ingrese la dirección.",
+                    ubigeo: "Por favor, ingrese el ubigeo.",
+                    provincia: "Por favor, seleccione una provincia.",
+                    técnico_instalador: "Por favor, seleccione un técnico instalador.",
+                    técnico_ajustador: "Por favor, seleccione un técnico ajustador.",
+                    tipo_de_ascensor: "Por favor, seleccione un tipo de ascensor.",
+                    cantidad: "Por favor, seleccione una cantidad.",
+                    npisos: "Por favor, ingrese el número de pisos.",
+                    ncontacto: "Por favor, ingrese el nombre del contacto.",
+                    teléfono: {
+                        required: "Por favor, ingrese un número de teléfono.",
+                        digits: "Por favor, ingrese solo dígitos para el número de teléfono."
+                    },
+                    correo: {
+                        required: "Por favor, ingrese una dirección de correo electrónico.",
+                        email: "Por favor, ingrese una dirección de correo electrónico válida."
+                    },
+                    descripcion1: "Por favor, ingrese una descripción.",
+                    // Add more messages for other fields as needed
+                },
+                // Make sure the error messages are displayed in a Bootstrap-friendly way
+                errorElement: "span",
+                errorPlacement: function(error, element) {
+                    // Add the `invalid-feedback` class to the error element
+                    error.addClass("invalid-feedback");
+                    // Add error message after the invalid element
+                    element.closest(".form-group").append(error);
+                },
+                // Highlight the invalid fields
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass("is-invalid").removeClass("is-valid");
+                },
+                // Remove the error message and green border when the field is valid
+                unhighlight: function(element, errorClass, validClass) {
+                    $(element).removeClass("is-invalid").addClass("is-valid");
+                }
+            });
+
+            $('.edit-elevator').on('click', function() {
+                var elevator = $(this).data('elevator');
+                console.log(elevator);
+                $('#edit-contrato').val(elevator.contrato);
+                $('#edit-nombre').val(elevator.nombre);
+                $('#edit-código').val(elevator.código);
+                $('#edit-marca').val(elevator.marca);
+                $('#edit-cliente').val(elevator.cliente);
+                $('#edit-fecha').val(elevator.fecha);
+                $('#edit-garantizar').val(elevator.garantizar);
+                $('#edit-dirección').val(elevator.dirección);
+                $('#edit-ubigeo').val(elevator.ubigeo);
+                $('#edit-provincia').val(elevator.provincia);
+                $('#edit-técnico_instalador').val(elevator.técnico_instalador);
+                $('#edit-tipo_de_ascensor').val(elevator.tipo_de_ascensor);
+                $('#edit-cantidad').val(elevator.cantidad);
+                $('#mgratuito').val(elevator.quarters);
+                $('#sincuarto').val(elevator.quarters);
+                $('#concuarto').val(elevator.quarters);
+                $('#edit-npisos').val(elevator.npisos);
+                $('#edit-ncontacto').val(elevator.ncontacto);
+                $('#edit-teléfono').val(elevator.teléfono);
+                $('#edit-correo').val(elevator.correo);
+                $('#edit-descripcion1').val(elevator.descripcion1);
+
             });
         });
     </script>

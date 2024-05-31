@@ -17,8 +17,8 @@
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-                            <a class="dropdown-item texto-1 font-family-Inter-Regular"
-                                href="{{ route('edit.province', $province->id) }}" data-toggle="modal"
+                            <a class="dropdown-item edit-province" href="#"
+                                data-province="{{ json_encode($province) }}" data-toggle="modal"
                                 data-target="#editprovincias">Editar</a>
                             <a class="dropdown-item texto-1 font-family-Inter-Regular"
                                 href="{{ route('destroy.province', $province->id) }}" data-toggle="modal"
@@ -159,8 +159,9 @@
                                                         </td>
                                                     </tr>
                                                     <!-- Modal Editor Repuesto-->
-                                                    <div class="modal left fade" id="editorRepuesto{{ $sparepart->id }}" tabindex="-1"
-                                                        role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                                                    <div class="modal left fade" id="editorRepuesto{{ $sparepart->id }}"
+                                                        tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+                                                        aria-hidden="true">
                                                         <div class="modal-dialog" role="document">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
@@ -287,7 +288,8 @@
                                                                                                 <label
                                                                                                     for="Flubricacion">Frecuencia
                                                                                                     de lubricación
-                                                                                                    (días)</label>
+                                                                                                    (días)
+                                                                                                </label>
                                                                                                 <input type="text"
                                                                                                     placeholder="Frecuencia de lubricación (días)"
                                                                                                     name="frecuencia_de_lubricación"
@@ -398,8 +400,9 @@
                                                     </div>
 
                                                     <!-- Modal Eliminar-->
-                                                    <div class="modal fade" id="modalEliminar{{ $sparepart->id }}" tabindex="-1"
-                                                        role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                                                    <div class="modal fade" id="modalEliminar{{ $sparepart->id }}"
+                                                        tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+                                                        aria-hidden="true">
                                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                                             <div class="modal-content border-radius-12">
                                                                 <div class="modal-body">
@@ -449,51 +452,126 @@
                 </div>
 
                 <!-- Modal edit Provincia-->
-                <div class="modal left fade" id="editprovincias" tabindex="-1" role="dialog"
-                    aria-labelledby="modelTitleId" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title font-family-Outfit-SemiBold">Actualizar Provincia</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">×</span>
-                                </button>
-                            </div>
-                            @isset($province)
-                                <form action="{{ route('update.province', $province->id) }}" method="POST"
-                                    id="provinceForm">
-                                    @csrf
-                                    <div class="modal-body body_modal">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label for="provincia">Nombre de Provincia</label>
-                                                    <input type="text" placeholder="Nombre de Provincia" name="provincia"
-                                                        class="form-control @error('provincia') is-invalid @enderror"
-                                                        id="provincia"
-                                                        value="{{ old('provincia', isset($province) ? $province->provincia : '') }}">
-                                                    @error('provincia')
-                                                        <span class="invalid-feedback" style="color: red">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
-                                                    @enderror
-                                                </div>
-
+                <div class="modal left fade" id="editprovincias"
+                tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title font-family-Outfit-SemiBold">Actualizar
+                                Provincia</h5>
+                            <button type="button" class="close" data-dismiss="modal"
+                                aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        @isset($province)
+                            <form action="{{ route('update.province', $province->id) }}"
+                                method="POST" class="formulario-modal" id="editprovinceForm">
+                                @csrf
+                                <div class="modal-body body_modal">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="provincia">Nombre de
+                                                    Provincia</label>
+                                                <select class="custom-select form-control"
+                                                    name="provincia" id="edit-provincia">
+                                                    <option value="">Seleccionar opción
+                                                    </option>
+                                                    <option value="amazonas"
+                                                        {{ old('provincia', $province->provincia) == 'amazonas' ? 'selected' : '' }}>
+                                                        Amazonas</option>
+                                                    <option value="ancash"
+                                                        {{ old('provincia', $province->provincia) == 'ancash' ? 'selected' : '' }}>
+                                                        Ancash</option>
+                                                    <option value="apurimac"
+                                                        {{ old('provincia', $province->provincia) == 'apurimac' ? 'selected' : '' }}>
+                                                        Apurimac</option>
+                                                    <option value="arequipa"
+                                                        {{ old('provincia', $province->provincia) == 'arequipa' ? 'selected' : '' }}>
+                                                        Arequipa</option>
+                                                    <option value="ayacucho"
+                                                        {{ old('provincia', $province->provincia) == 'ayacucho' ? 'selected' : '' }}>
+                                                        Ayacucho</option>
+                                                    <option value="cajamarca"
+                                                        {{ old('provincia', $province->provincia) == 'cajamarca' ? 'selected' : '' }}>
+                                                        Cajamarca</option>
+                                                    <option value="callao"
+                                                        {{ old('provincia', $province->provincia) == 'callao' ? 'selected' : '' }}>
+                                                        Callao</option>
+                                                    <option value="cusco"
+                                                        {{ old('provincia', $province->provincia) == 'cusco' ? 'selected' : '' }}>
+                                                        Cusco</option>
+                                                    <option value="huancavelica"
+                                                        {{ old('provincia', $province->provincia) == 'huancavelica' ? 'selected' : '' }}>
+                                                        Huancavelica</option>
+                                                    <option value="huanuco"
+                                                        {{ old('provincia', $province->provincia) == 'huanuco' ? 'selected' : '' }}>
+                                                        Huanuco</option>
+                                                    <option value="ica"
+                                                        {{ old('provincia', $province->provincia) == 'ica' ? 'selected' : '' }}>
+                                                        Ica</option>
+                                                    <option
+                                                        value="junín"{{ old('provincia', $province->provincia) == 'junín' ? 'selected' : '' }}>
+                                                        Junín</option>
+                                                    <option
+                                                        value="la_libertad"{{ old('provincia', $province->provincia) == 'la_libertad' ? 'selected' : '' }}>
+                                                        La Libertad</option>
+                                                    <option
+                                                        value="lambayeque"{{ old('provincia', $province->provincia) == 'lambayeque' ? 'selected' : '' }}>
+                                                        Lambayeque</option>
+                                                    <option
+                                                        value="lima"{{ old('provincia', $province->provincia) == 'lima' ? 'selected' : '' }}>
+                                                        Lima</option>
+                                                    <option
+                                                        value="loreto"{{ old('provincia', $province->provincia) == 'loreto' ? 'selected' : '' }}>
+                                                        Loreto</option>
+                                                    <option
+                                                        value="madre_de_dios"{{ old('provincia', $province->provincia) == 'madre_de_dios' ? 'selected' : '' }}>
+                                                        Madre de Dios</option>
+                                                    <option
+                                                        value="moquegua"{{ old('provincia', $province->provincia) == 'moquegua' ? 'selected' : '' }}>
+                                                        Moquegua</option>
+                                                    <option
+                                                        value="pasco"{{ old('provincia', $province->provincia) == 'pasco' ? 'selected' : '' }}>
+                                                        Pasco</option>
+                                                    <option
+                                                        value="piura"{{ old('provincia', $province->provincia) == 'piura' ? 'selected' : '' }}>
+                                                        Piura</option>
+                                                    <option
+                                                        value="puno"{{ old('provincia', $province->provincia) == 'puno' ? 'selected' : '' }}>
+                                                        Puno</option>
+                                                    <option
+                                                        value="san_martín"{{ old('provincia', $province->provincia) == 'san_martín' ? 'selected' : '' }}>
+                                                        San Martín</option>
+                                                    <option
+                                                        value="tacna"{{ old('provincia', $province->provincia) == 'tacna' ? 'selected' : '' }}>
+                                                        Tacna</option>
+                                                    <option
+                                                        value="tumbes"{{ old('provincia', $province->provincia) == 'tumbes' ? 'selected' : '' }}>
+                                                        Tumbes</option>
+                                                    <option
+                                                        value="ucayali"{{ old('provincia', $province->provincia) == 'ucayali' ? 'selected' : '' }}>
+                                                        Ucayali</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
-                                        <button type="submit" class="btn-gris btn-red mr-2">Actualizar cambios </button>
-                                        <button type="button" class="btn-gris btn-border"
-                                            data-dismiss="modal">Cancelar</button>
-                                    </div>
-                                </form>
-                            @endisset
-
-
-                        </div>
+                                </div>
+                                <div
+                                    class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
+                                    <button type="submit"
+                                        class="btn-gris btn-red mr-2">Actualizar cambios
+                                    </button>
+                                    <button type="button" class="btn-gris btn-border"
+                                        data-dismiss="modal">Cancelar</button>
+                                </div>
+                            </form>
+                        @endisset
                     </div>
                 </div>
+            </div>
 
                 <!-- Modal Eliminar-->
                 <div class="modal fade" id="modalEliminar" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
@@ -627,6 +705,37 @@
                 buttons: [
                     'copy', 'csv', 'excel', 'pdf', 'print'
                 ]
+            });
+
+            $('#editprovinceForm').validate({
+                rules: {
+                    provincia: {
+                        required: true
+                    }
+                },
+                messages: {
+                    provincia: {
+                        required: "Por favor, seleccione una provincia"
+                    }
+                },
+                errorElement: "span",
+                errorPlacement: function(error, element) {
+                    error.addClass('invalid-feedback');
+                    element.closest('.form-group').append(error);
+                },
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass('is-invalid').removeClass('is-valid');
+                },
+                unhighlight: function(element, errorClass, validClass) {
+                    $(element).removeClass('is-invalid').addClass('is-valid');
+                }
+            });
+
+            $('.edit-province').on('click', function() {
+                var province = $(this).data('province');
+                $('#edit-provincia').val(province.provincia);
+                $('#editprovinceForm').attr('action', '/provincia/actualizar/' + province.id);
+
             });
 
         });

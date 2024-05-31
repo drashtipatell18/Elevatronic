@@ -80,77 +80,16 @@
                                                             Acción <i class="fas fa-chevron-down"></i>
                                                         </button>
                                                         <div class="dropdown-menu dropdown-menu-right">
-                                                            <a class="dropdown-item"
-                                                                href="{{ route('edit.reviewtype', $reviewtype->id) }}"
+                                                            <a class="dropdown-item edit-reviewtype" href="#"
+                                                                data-reviewtype="{{ json_encode($reviewtype) }}"
                                                                 data-toggle="modal"
-                                                                data-target="#editarTipoRevision{{ $reviewtype->id }}">Editar</a>
+                                                                data-target="#editarTipoRevision">Editar</a>
                                                             <a class="dropdown-item" data-toggle="modal"
                                                                 data-target="#modalEliminar{{ $reviewtype->id }}">Eliminar</a>
                                                         </div>
                                                     </div>
                                                 </td>
                                             </tr>
-                                            <!-- Modal edit Tipo de Revisión-->
-                                            <div class="modal left fade" id="editarTipoRevision{{ $reviewtype->id }}"
-                                                tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
-                                                aria-hidden="true">
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title font-family-Outfit-SemiBold">Actualizar
-                                                                Tipo de Revisión</h5>
-                                                            <button type="button" class="close" data-dismiss="modal"
-                                                                aria-label="Close">
-                                                                <span aria-hidden="true">×</span>
-                                                            </button>
-                                                        </div>
-                                                        @isset($reviewtype)
-                                                            <form action="{{ route('update.reviewtype', $reviewtype->id) }}"
-                                                                method="POST" class="formulario-modal" id="editreviewtypeForm">
-                                                                @csrf
-                                                                <div class="modal-body body_modal">
-                                                                    <div class="row">
-                                                                        <div class="col-md-12">
-                                                                            <div class="form-group">
-                                                                                <label for="provincia">Nombre de Tipo de
-                                                                                    Revisión</label>
-                                                                                <input type="text"
-                                                                                    placeholder="Nombre de Provincia"
-                                                                                    name="nombre"
-                                                                                    class="form-control @error('nombre') is-invalid @enderror"
-                                                                                    id="nombre"
-                                                                                    value="{{ old('nombre', isset($reviewtype) ? $reviewtype->nombre : '') }}">
-                                                                                @error('nombre')
-                                                                                    <span class="invalid-feedback"
-                                                                                        style="color: red">
-                                                                                        <strong>{{ $message }}</strong>
-                                                                                    </span>
-                                                                                @enderror
-                                                                            </div>
-                                                                            <div class="form-group">
-                                                                                <label for="provincia">Descripción</label>
-                                                                                <input type="text"
-                                                                                    placeholder="Descripción"
-                                                                                    name="descripción" class="form-control"
-                                                                                    id="descripción"
-                                                                                    value="{{ old('descripción', isset($reviewtype) ? $reviewtype->descripción : '') }}">
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div
-                                                                    class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
-                                                                    <button type="submit"
-                                                                        class="btn-gris btn-red mr-2">Actualizar cambios
-                                                                    </button>
-                                                                    <button type="button" class="btn-gris btn-border"
-                                                                        data-dismiss="modal">Cancelar</button>
-                                                                </div>
-                                                            </form>
-                                                        @endisset
-                                                    </div>
-                                                </div>
-                                            </div>
 
                                             <!-- Modal Eliminar-->
                                             <div class="modal fade" id="modalEliminar{{ $reviewtype->id }}"
@@ -232,11 +171,8 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="provincia">Descripción</label>
-                                                <input type="text"
-                                                    placeholder="Descripción"
-                                                    name="descripción" class="form-control"
-                                                    id="descripción"
-                                                    >
+                                                <input type="text" placeholder="Descripción" name="descripción"
+                                                    class="form-control" id="descripción">
                                             </div>
                                         </div>
                                     </div>
@@ -252,6 +188,67 @@
                     </div>
                 </div>
 
+                <!-- Modal edit Tipo de Revisión-->
+                                            <div class="modal left fade" id="editarTipoRevision"
+                                                tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+                                                aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title font-family-Outfit-SemiBold">Actualizar
+                                                                Tipo de Revisión</h5>
+                                                            <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close">
+                                                                <span aria-hidden="true">×</span>
+                                                            </button>
+                                                        </div>
+                                                        @isset($reviewtype)
+                                                            <form action="{{ route('update.reviewtype', $reviewtype->id) }}"
+                                                                method="POST" class="formulario-modal" id="editreviewtypeForm">
+                                                                @csrf
+                                                                <div class="modal-body body_modal">
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+                                                                            <div class="form-group">
+                                                                                <label for="provincia">Nombre de Tipo de
+                                                                                    Revisión</label>
+                                                                                <input type="text"
+                                                                                    placeholder="Nombre de Provincia"
+                                                                                    name="nombre"
+                                                                                    class="form-control @error('nombre') is-invalid @enderror"
+                                                                                    id="edit-nombre"
+                                                                                    value="{{ old('nombre', isset($reviewtype) ? $reviewtype->nombre : '') }}">
+                                                                                @error('nombre')
+                                                                                    <span class="invalid-feedback"
+                                                                                        style="color: red">
+                                                                                        <strong>{{ $message }}</strong>
+                                                                                    </span>
+                                                                                @enderror
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <label for="provincia">Descripción</label>
+                                                                                <input type="text"
+                                                                                    placeholder="Descripción"
+                                                                                    name="descripción" class="form-control"
+                                                                                    id="edit-descripción"
+                                                                                    value="{{ old('descripción', isset($reviewtype) ? $reviewtype->descripción : '') }}">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div
+                                                                    class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
+                                                                    <button type="submit"
+                                                                        class="btn-gris btn-red mr-2">Actualizar cambios
+                                                                    </button>
+                                                                    <button type="button" class="btn-gris btn-border"
+                                                                        data-dismiss="modal">Cancelar</button>
+                                                                </div>
+                                                            </form>
+                                                        @endisset
+                                                    </div>
+                                                </div>
+                                            </div>
 
             </div>
         </div>
@@ -379,10 +376,12 @@
             });
             $('#editreviewtypeForm').validate({
                 rules: {
-                    nombre: "required"
+                    nombre: 'required',
+                    descripción: 'required'
                 },
                 messages: {
-                    nombre: "Por favor, ingrese el nombre del tipo de revisión"
+                    nombre: "Por favor, ingrese el nombre del tipo de revisión",
+                    descripción: "Por favor, ingrese el descripción del tipo de revisión"
                 },
                 errorElement: "span",
                 errorPlacement: function(error, element) {
@@ -397,6 +396,13 @@
                 unhighlight: function(element, errorClass, validClass) {
                     $(element).removeClass("is-invalid").addClass("is-valid");
                 }
+            });
+            $('.edit-reviewtype').on('click', function() {
+                var reviewtype = $(this).data('reviewtype');
+                $('#edit-nombre').val(reviewtype.nombre);
+                $('#edit-descripción').val(reviewtype.descripción);
+                $('#editreviewtypeForm').attr('action', '/tiposderevision/actualizar/' + reviewtype.id);
+
             });
         });
     </script>

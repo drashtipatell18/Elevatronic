@@ -17,7 +17,7 @@
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-                            <a class="dropdown-item texto-1 font-family-Inter-Regular" href="javascript:void(0)"
+                            <a class="dropdown-item edit-staff" href="#" data-staff="{{ json_encode($staffs) }}"
                                 data-toggle="modal" data-target="#editarPersonal">Editar</a>
                             <a class="dropdown-item" href="{{ route('destroy.staff', $staffs->id) }}" data-toggle="modal"
                                 data-target="#modalEliminar">Eliminar</a>
@@ -112,113 +112,117 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title font-family-Outfit-SemiBold">Editar Personal</h5>
+                    <h5 class="modal-title font-family-Outfit-SemiBold">Editar
+                        Personal</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                @isset($staffs)
-                    <form action="{{ url('/personal/actualizar/' . $staffs->id) }}" class="formulario-modal"
-                        enctype="multipart/form-data" method="POST">
-                        @csrf
-                        <div class="modal-body body_modal">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="row">
-                                        <div class="col-md-6 mb-3">
-                                            <label>Foto de Personal</label>
-                                            <div id="editimagenPrevioPersonal">
-                                                @if ($staffs->personalfoto)
-                                                    <img src="{{ asset('images/' . $staffs->personalfoto) }}" width="200"
-                                                        height="200" alt="Existing Image">
-                                                @endif
-                                            </div>
+                <form action="" class="formulario-modal" enctype="multipart/form-data" method="POST" id="editstaff">
+                    @csrf
+                    <div class="modal-body body_modal">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label>Foto de Personal</label>
+                                        <div id="editimagenPrevioPersonal">
+                                            @if ($staffs->personalfoto)
+                                                <img src="{{ asset('images/' . $staffs->personalfoto) }}" width="200"
+                                                    height="200" alt="Existing Image">
+                                            @endif
                                         </div>
-                                        <div class="col-md-6 mb-3">
-                                            <div class="">
-                                                <label for="editimageUpload10" class="text-gris mt-4">Seleccione una
-                                                    imagen</label>
-                                                <input type="file" id="editimageUpload10" name="personalfoto"
-                                                    style="display: none;" accept="image/*" />
-                                                <button type="button" id="editcargarimagenpersonal" class="btn-gris">
-                                                    <i class="fas fa-arrow-to-top mr-2"></i>Subir Imagen
-                                                </button>
-                                            </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <div class="">
+                                            <label for="editimageUpload10" class="text-gris mt-4">Seleccione
+                                                una
+                                                imagen</label>
+                                            <input type="file" id="editimageUpload10" name="personalfoto"
+                                                style="display: none;" accept="image/*" />
+                                            <button type="button" id="editcargarimagenpersonal" class="btn-gris">
+                                                <i class="fas fa-arrow-to-top mr-2"></i>Subir
+                                                Imagen
+                                            </button>
                                         </div>
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label for="nombre">Nombre</label>
-                                                <input type="text" placeholder="Nombre"
-                                                    class="form-control @error('nombre') is-invalid @enderror" name="nombre"
-                                                    value="{{ old('nombre', $staffs->nombre ?? '') }}" id="nombre">
-                                                @error('nombre')
-                                                    <span class="invalid-feedback" style="color: red">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="nombre">Nombre</label>
+                                            <input type="text" placeholder="Nombre"
+                                                class="form-control @error('nombre') is-invalid @enderror" name="nombre"
+                                                value="" id="edit-nombre">
+                                            @error('nombre')
+                                                <span class="invalid-feedback" style="color: red">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </div>
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label for="posición">Posición</label>
-                                                <select
-                                                    class="custom-select form-control @error('posición') is-invalid @enderror"
-                                                    name="posición" id="posición">
-                                                    <option value="" class="d-none">Seleccionar opción</option>
-                                                    <option value="posición_1"
-                                                        {{ $staffs->posición == 'posición_1' ? 'selected' : '' }}>Posición 1
-                                                    </option>
-                                                    <option value="posición_2"
-                                                        {{ $staffs->posición == 'posición_2' ? 'selected' : '' }}>Posición 2
-                                                    </option>
-                                                    <option value="posición_3"
-                                                        {{ $staffs->posición == 'posición_3' ? 'selected' : '' }}>Posición 3
-                                                    </option>
-                                                </select>
-                                                @error('posición')
-                                                    <span class="invalid-feedback" style="color: red">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="posición">Posición</label>
+                                            <select
+                                                class="custom-select form-control @error('posición') is-invalid @enderror"
+                                                name="posición" id="edit-posición">
+                                                <option value="" class="">Seleccionar
+                                                    opción</option>
+                                                <option value="posición_1"
+                                                    {{ $staffs->posición == 'posición_1' ? 'selected' : '' }}>
+                                                    Posición 1
+                                                </option>
+                                                <option value="posición_2"
+                                                    {{ $staffs->posición == 'posición_2' ? 'selected' : '' }}>
+                                                    Posición 2
+                                                </option>
+                                                <option value="posición_3"
+                                                    {{ $staffs->posición == 'posición_3' ? 'selected' : '' }}>
+                                                    Posición 3
+                                                </option>
+                                            </select>
+                                            @error('posición')
+                                                <span class="invalid-feedback" style="color: red">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </div>
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label for="correo">Correo</label>
-                                                <input type="email" placeholder="Correo"
-                                                    class="form-control @error('correo') is-invalid @enderror" name="correo"
-                                                    value="{{ old('correo', $staffs->correo ?? '') }}" id="correo">
-                                                @error('correo')
-                                                    <span class="invalid-feedback" style="color: red">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="correo">Correo</label>
+                                            <input type="email" placeholder="Correo"
+                                                class="form-control @error('correo') is-invalid @enderror" name="correo"
+                                                value="" id="edit-correo">
+                                            @error('correo')
+                                                <span class="invalid-feedback" style="color: red">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </div>
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label for="telefonoPersonal">Teléfono</label>
-                                                <input type="number" name="teléfono" id="teléfono"
-                                                    class="form-control @error('teléfono') is-invalid @enderror"
-                                                    value="{{ old('teléfono', $staffs->teléfono ?? '') }}"
-                                                    placeholder="Teléfono">
-                                                @error('teléfono')
-                                                    <span class="invalid-feedback" style="color: red">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="telefonoPersonal">Teléfono</label>
+                                            <input type="number" name="teléfono" id="edit-teléfono"
+                                                class="form-control @error('teléfono') is-invalid @enderror"
+                                                value="" placeholder="Teléfono">
+                                            @error('teléfono')
+                                                <span class="invalid-feedback" style="color: red">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
-                            <button type="submit" class="btn-gris btn-red mr-2">Actualizar cambios</button>
-                            <button type="button" class="btn-gris btn-border" data-dismiss="modal">Cancelar</button>
-                        </div>
-                    </form>
-                @endisset
+                    </div>
+                    <div class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
+                        <button type="submit" class="btn-gris btn-red mr-2">Actualizar
+                            cambios</button>
+                        <button type="button" class="btn-gris btn-border" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -257,3 +261,59 @@
         </div>
     </div>
 @endsection
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            $('#editstaff').validate({
+                rules: {
+                    nombre: "required",
+                    posición: "required",
+                    correo: {
+                        required: true,
+                        email: true
+                    },
+                    teléfono: {
+                        required: true,
+                        digits: true
+                    }
+                },
+                messages: {
+                    nombre: "Por favor, ingrese el nombre",
+                    posición: "Por favor, seleccione la posición",
+                    correo: {
+                        required: "Por favor, ingrese el correo",
+                        email: "Por favor, ingrese un correo válido"
+                    },
+                    teléfono: {
+                        required: "Por favor, ingrese el teléfono",
+                        digits: "Por favor, ingrese solo números"
+                    }
+                },
+                errorElement: "span",
+                errorPlacement: function(error, element) {
+                    // Add the `invalid-feedback` class to the error element
+                    error.addClass("invalid-feedback");
+                    // Add error message after the invalid element
+                    error.insertAfter(element);
+                },
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass("is-invalid").removeClass("is-valid");
+                },
+                unhighlight: function(element, errorClass, validClass) {
+                    $(element).removeClass("is-invalid").addClass("is-valid");
+                }
+            });
+
+            $('.edit-staff').on('click', function() {
+                var staff = $(this).data('staff');
+                // Populate the modal with customer data
+                $('#edit-nombre').val(staff.nombre);
+                $('#edit-posición').val(staff.posición);
+                $('#edit-correo').val(staff.correo);
+                $('#edit-teléfono').val(staff.teléfono);
+                // Set the form action to the correct route
+                $('#editstaff').attr('action', '/personal/actualizar/' + staff.id);
+            });
+        });
+    </script>
+@endpush

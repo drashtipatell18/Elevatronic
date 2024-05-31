@@ -92,197 +92,21 @@
                                                             <a class="dropdown-item"
                                                                 href="{{ route('view.user', $user->id) }}">Ver
                                                                 detalles</a>
-                                                            <a class="dropdown-item" href="{{ route('edit.user', $user->id) }}"
-                                                                data-toggle="modal"
-                                                                data-target="#editorUsuario{{ $user->id }}">Editar</a>
-                                                            <a class="dropdown-item" href="{{ route('destroy.user', $user->id) }}"
+                                                            <a class="dropdown-item edit-user" href="#"
+                                                                data-user="{{ json_encode($user) }}" data-toggle="modal"
+                                                                data-target="#editorUsuario">Editar</a>
+                                                            <a class="dropdown-item"
+                                                                href="{{ route('destroy.user', $user->id) }}"
                                                                 data-toggle="modal"
                                                                 data-target="#modalEliminar{{ $user->id }}">Eliminar</a>
                                                         </div>
                                                     </div>
                                                 </td>
                                             </tr>
-                                            <!-- Modal Editor Usuario-->
-                                            <div class="modal left fade" id="editorUsuario{{ $user->id }}"
-                                                tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
-                                                aria-hidden="true">
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title font-family-Outfit-SemiBold">Editar
-                                                                Usuario</h5>
-                                                            <button type="button" class="close" data-dismiss="modal"
-                                                                aria-label="Close">
-                                                                <span aria-hidden="true">×</span>
-                                                            </button>
-                                                        </div>
-                                                        @isset($user)
-                                                            <form action="{{ route('update.user', $user->id) }}" method="POST"
-                                                                enctype="multipart/form-data" id="edituserform">
-                                                                @csrf
-                                                                @method('PUT')
-                                                                <div class="modal-body body_modal">
-                                                                    <div class="row">
-                                                                        <div class="col-md-12">
-                                                                            <div class="row">
-                                                                                <div class="col-md-6 mb-3">
-                                                                                    <label>Foto de usuario</label>
-                                                                                    <div id="editimagenPrevioUsuario">
-                                                                                        @if ($user->image)
-                                                                                            <img src="{{ asset('images/' . $user->image) }}"
-                                                                                                width="200" height="200"
-                                                                                                alt="Existing Image">
-                                                                                        @endif
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col-md-6 mb-3">
-                                                                                    <div class="">
-                                                                                        <label for="imageUploadUsuario"
-                                                                                            class="text-gris mt-4">Seleccione
-                                                                                            una
-                                                                                            imagen</label>
-                                                                                        <input type="file"
-                                                                                            id="editimageUploadUsuario"
-                                                                                            name="image"
-                                                                                            style="display: none;"
-                                                                                            accept="image/*" />
-                                                                                        <button type="button"
-                                                                                            id="editcargarimagenUsuario"
-                                                                                            class="btn-gris">
-                                                                                            <i
-                                                                                                class="fas fa-arrow-to-top mr-2"></i>Subir
-                                                                                            Imagen
-                                                                                        </button>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col-md-12">
-                                                                                    <div class="form-group">
-                                                                                        <label for="Nombre de usuario">Nombre
-                                                                                            de usuario</label>
-                                                                                        <input type="text"
-                                                                                            placeholder="nombredeusuario"
-                                                                                            name="username"
-                                                                                            class="form-control @error('username') is-invalid @enderror"
-                                                                                            value="{{ old('username', $user->username ?? '') }}"
-                                                                                            id="username">
-                                                                                        @error('username')
-                                                                                            <span class="invalid-feedback"
-                                                                                                style="color: red">
-                                                                                                <strong>{{ $message }}</strong>
-                                                                                            </span>
-                                                                                        @enderror
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col-md-12">
-                                                                                    <div class="form-group">
-                                                                                        <label
-                                                                                            for="NombreUsuario">Nombre</label>
-                                                                                        <input type="text"
-                                                                                            placeholder="Nombre"
-                                                                                            name="name" id="name"
-                                                                                            class="form-control @error('name') is-invalid @enderror"
-                                                                                            value="{{ old('name', $user->name ?? '') }}">
-                                                                                        @error('name')
-                                                                                            <span class="invalid-feedback"
-                                                                                                style="color: red">
-                                                                                                <strong>{{ $message }}</strong>
-                                                                                            </span>
-                                                                                        @enderror
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col-md-12">
-                                                                                    <div class="form-group">
-                                                                                        <label
-                                                                                            for="correoUsuario">Correo</label>
-                                                                                        <input type="text"
-                                                                                            placeholder="Correo"
-                                                                                            name="email" id="email"
-                                                                                            class="form-control @error('email') is-invalid @enderror"
-                                                                                            value="{{ old('email', $user->email ?? '') }}">
-                                                                                        @error('email')
-                                                                                            <span class="invalid-feedback"
-                                                                                                style="color: red">
-                                                                                                <strong>{{ $message }}</strong>
-                                                                                            </span>
-                                                                                        @enderror
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col-md-12">
-                                                                                    <div class="form-group">
-                                                                                        <label
-                                                                                            for="telefonoUsuario">Teléfono</label>
-                                                                                        <input type="text" name="phone"
-                                                                                            id="phone"
-                                                                                            placeholder="Teléfono"
-                                                                                            value="{{ old('phone', $user->phone ?? '') }}"
-                                                                                            class="form-control @error('phone') is-invalid @enderror">
-                                                                                        @error('phone')
-                                                                                            <span class="invalid-feedback"
-                                                                                                style="color: red">
-                                                                                                <strong>{{ $message }}</strong>
-                                                                                            </span>
-                                                                                        @enderror
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col-md-12">
-                                                                                    <div class="form-group">
-                                                                                        <label for="Empleado">Empleado</label>
-                                                                                        <select id="employee" name="employee" class="form-control @error('employee') is-invalid @enderror">
-                                                                                            <option value="">Seleccionar empleado</option>
-                                                                                            @foreach ($staffs as $staff)
-                                                                                                <option value="{{ $staff }}" {{ old('employee', $user->employee ?? '') == $staff ? 'selected' : '' }}>
-                                                                                                {{ $staff }}</option>
-                                                                                            @endforeach
-                                                                                        </select>
-                                                                                        @error('employee')
-                                                                                            <span class="invalid-feedback"
-                                                                                                style="color: red">
-                                                                                                <strong>{{ $message }}</strong>
-                                                                                            </span>
-                                                                                        @enderror
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                @if (!isset($users))
-                                                                                    <div class="col-md-12">
-                                                                                        <div class="form-group">
-                                                                                            <label
-                                                                                                for="contrasenaUser">Contraseña</label>
-                                                                                            <input type="password"
-                                                                                                name="password" id="password"
-                                                                                                class="form-control @error('password') is-invalid @enderror"
-                                                                                                placeholder="Contraseña">
-                                                                                            @error('password')
-                                                                                                <span class="invalid-feedback"
-                                                                                                    style="color: red">
-                                                                                                    <strong>{{ $message }}</strong>
-                                                                                                </span>
-                                                                                            @enderror
-                                                                                        </div>
-                                                                                    </div>
-                                                                                @endif
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div
-                                                                    class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
-                                                                    <button type="submit"
-                                                                        class="btn-gris btn-red mr-2">Actualizar
-                                                                        cambios</button>
-                                                                    <button type="button" class="btn-gris btn-border"
-                                                                        data-dismiss="modal">Cancelar</button>
-                                                                </div>
-                                                            </form>
-                                                        @endisset
-
-                                                    </div>
-                                                </div>
-                                            </div>
 
                                             <!-- Modal Eliminar-->
-                                            <div class="modal fade" id="modalEliminar{{ $user->id }}" tabindex="-1" role="dialog"
-                                                aria-labelledby="modelTitleId" aria-hidden="true">
+                                            <div class="modal fade" id="modalEliminar{{ $user->id }}" tabindex="-1"
+                                                role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
                                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                                     <div class="modal-content border-radius-12">
                                                         <div class="modal-body">
@@ -418,7 +242,8 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="Empleado">Empleado</label>
-                                            <select id="employee" name="employee" class="custom-select form-control @error('employee') is-invalid @enderror">
+                                            <select id="employee" name="employee"
+                                                class="custom-select form-control @error('employee') is-invalid @enderror">
                                                 <option value="">Seleccionar empleado</option>
                                                 @foreach ($staffs as $staff)
                                                     <option value="{{ $staff }}">{{ $staff }}</option>
@@ -453,6 +278,155 @@
                         <button type="button" class="btn-gris btn-border" data-dismiss="modal">Cancelar</button>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Editor Usuario-->
+    <div class="modal left fade" id="editorUsuario" tabindex="-1" role="dialog"
+        aria-labelledby="modelTitleId" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title font-family-Outfit-SemiBold">Editar
+                        Usuario</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                @isset($user)
+                    <form action="" method="POST" enctype="multipart/form-data"
+                        id="edituserform">
+                        @csrf
+                        @method('PUT')
+                        <div class="modal-body body_modal">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label>Foto de usuario</label>
+                                            <div id="editimagenPrevioUsuario">
+                                                @if ($user->image)
+                                                    <img src="{{ asset('images/' . $user->image) }}" width="200"
+                                                        height="200" alt="Existing Image">
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <div class="">
+                                                <label for="imageUploadUsuario" class="text-gris mt-4">Seleccione
+                                                    una
+                                                    imagen</label>
+                                                <input type="file" id="editimageUploadUsuario" name="image"
+                                                    style="display: none;" accept="image/*" />
+                                                <button type="button" id="editcargarimagenUsuario" class="btn-gris">
+                                                    <i class="fas fa-arrow-to-top mr-2"></i>Subir
+                                                    Imagen
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="Nombre de usuario">Nombre
+                                                    de usuario</label>
+                                                <input type="text" placeholder="nombredeusuario" name="username"
+                                                    class="form-control @error('username') is-invalid @enderror"
+                                                    value="" id="edit-username">
+                                                @error('username')
+                                                    <span class="invalid-feedback" style="color: red">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="NombreUsuario">Nombre</label>
+                                                <input type="text" placeholder="Nombre" name="name" id="edit-name"
+                                                    class="form-control @error('name') is-invalid @enderror"
+                                                    value="">
+                                                @error('name')
+                                                    <span class="invalid-feedback" style="color: red">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="correoUsuario">Correo</label>
+                                                <input type="email" placeholder="Correo" name="email" id="edit-email"
+                                                    class="form-control @error('email') is-invalid @enderror"
+                                                    value="">
+                                                @error('email')
+                                                    <span class="invalid-feedback" style="color: red">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="telefonoUsuario">Teléfono</label>
+                                                <input type="number" name="phone" id="edit-phone" placeholder="Teléfono"
+                                                    value=""
+                                                    class="form-control @error('phone') is-invalid @enderror">
+                                                @error('phone')
+                                                    <span class="invalid-feedback" style="color: red">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="Empleado">Empleado</label>
+                                                <select id="edit-employee" name="employee"
+                                                    class="form-control @error('employee') is-invalid @enderror">
+                                                    <option value="">Seleccionar
+                                                        empleado</option>
+                                                    @foreach ($staffs as $staff)
+                                                        <option value="{{ $staff }}"
+                                                            {{ old('employee', $user->employee ?? '') == $staff ? 'selected' : '' }}>
+                                                            {{ $staff }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                                @error('employee')
+                                                    <span class="invalid-feedback" style="color: red">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        @if (!isset($users))
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label for="contrasenaUser">Contraseña</label>
+                                                    <input type="password" name="password" id="password"
+                                                        class="form-control @error('password') is-invalid @enderror"
+                                                        placeholder="Contraseña">
+                                                    @error('password')
+                                                        <span class="invalid-feedback" style="color: red">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
+                            <button type="submit" class="btn-gris btn-red mr-2">Actualizar
+                                cambios</button>
+                            <button type="button" class="btn-gris btn-border" data-dismiss="modal">Cancelar</button>
+                        </div>
+                    </form>
+                @endisset
+
             </div>
         </div>
     </div>
@@ -686,6 +660,18 @@
                 unhighlight: function(element, errorClass, validClass) {
                     $(element).removeClass("is-invalid").addClass("is-valid");
                 }
+            });
+
+            $('.edit-user').on('click', function() {
+                var user = $(this).data('user');
+                // Populate the modal with customer data
+                $('#edit-username').val(user.username);
+                $('#edit-name').val(user.name);
+                $('#edit-email').val(user.email);
+                $('#edit-phone').val(user.phone);
+                $('#edit-employee').val(user.employee);
+                // Set the form action to the correct route
+                $('#edituserform').attr('action', '/usuarios/actualizar/' + user.id);
             });
         });
     </script>

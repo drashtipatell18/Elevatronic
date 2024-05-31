@@ -101,9 +101,9 @@
                                                             <a class="dropdown-item"
                                                                 href="{{ route('view.staff', $staff->id) }}">Ver
                                                                 detalles</a>
-                                                            <a class="dropdown-item" href="javascript:void(0)"
-                                                                data-toggle="modal"
-                                                                data-target="#editarPersonal{{ $staff->id }}">Editar</a>
+                                                            <a class="dropdown-item edit-staff" href="#"
+                                                                data-staff="{{ json_encode($staff) }}" data-toggle="modal"
+                                                                data-target="#editarPersonal">Editar</a>
                                                             <a class="dropdown-item"
                                                                 href="{{ route('destroy.staff', $staff->id) }}"
                                                                 data-toggle="modal"
@@ -112,157 +112,6 @@
                                                     </div>
                                                 </td>
                                             </tr>
-                                            <!-- Modal editar Personal-->
-                                            <div class="modal left fade" id="editarPersonal{{ $staff->id }}"
-                                                tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
-                                                aria-hidden="true">
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title font-family-Outfit-SemiBold">Editar
-                                                                Personal</h5>
-                                                            <button type="button" class="close" data-dismiss="modal"
-                                                                aria-label="Close">
-                                                                <span aria-hidden="true">×</span>
-                                                            </button>
-                                                        </div>
-                                                        @isset($staff)
-                                                            <form action="{{ route('update.staff', $staff->id) }}"
-                                                                class="formulario-modal" enctype="multipart/form-data"
-                                                                method="POST" id="editstaff">
-                                                                @csrf
-                                                                <div class="modal-body body_modal">
-                                                                    <div class="row">
-                                                                        <div class="col-md-12">
-                                                                            <div class="row">
-                                                                                <div class="col-md-6 mb-3">
-                                                                                    <label>Foto de Personal</label>
-                                                                                    <div id="editimagenPrevioPersonal">
-                                                                                        @if ($staff->personalfoto)
-                                                                                            <img src="{{ asset('images/' . $staff->personalfoto) }}"
-                                                                                                width="200" height="200"
-                                                                                                alt="Existing Image">
-                                                                                        @endif
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col-md-6 mb-3">
-                                                                                    <div class="">
-                                                                                        <label for="editimageUpload10"
-                                                                                            class="text-gris mt-4">Seleccione
-                                                                                            una
-                                                                                            imagen</label>
-                                                                                        <input type="file"
-                                                                                            id="editimageUpload10"
-                                                                                            name="personalfoto"
-                                                                                            style="display: none;"
-                                                                                            accept="image/*" />
-                                                                                        <button type="button"
-                                                                                            id="editcargarimagenpersonal"
-                                                                                            class="btn-gris">
-                                                                                            <i
-                                                                                                class="fas fa-arrow-to-top mr-2"></i>Subir
-                                                                                            Imagen
-                                                                                        </button>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col-md-12">
-                                                                                    <div class="form-group">
-                                                                                        <label for="nombre">Nombre</label>
-                                                                                        <input type="text"
-                                                                                            placeholder="Nombre"
-                                                                                            class="form-control @error('nombre') is-invalid @enderror"
-                                                                                            name="nombre"
-                                                                                            value="{{ old('nombre', $staff->nombre ?? '') }}"
-                                                                                            id="nombre">
-                                                                                        @error('nombre')
-                                                                                            <span class="invalid-feedback"
-                                                                                                style="color: red">
-                                                                                                <strong>{{ $message }}</strong>
-                                                                                            </span>
-                                                                                        @enderror
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col-md-12">
-                                                                                    <div class="form-group">
-                                                                                        <label for="posición">Posición</label>
-                                                                                        <select
-                                                                                            class="custom-select form-control @error('posición') is-invalid @enderror"
-                                                                                            name="posición" id="posición">
-                                                                                            <option value=""
-                                                                                                class="d-none">Seleccionar
-                                                                                                opción</option>
-                                                                                            <option value="posición_1"
-                                                                                                {{ $staff->posición == 'posición_1' ? 'selected' : '' }}>
-                                                                                                Posición 1
-                                                                                            </option>
-                                                                                            <option value="posición_2"
-                                                                                                {{ $staff->posición == 'posición_2' ? 'selected' : '' }}>
-                                                                                                Posición 2
-                                                                                            </option>
-                                                                                            <option value="posición_3"
-                                                                                                {{ $staff->posición == 'posición_3' ? 'selected' : '' }}>
-                                                                                                Posición 3
-                                                                                            </option>
-                                                                                        </select>
-                                                                                        @error('posición')
-                                                                                            <span class="invalid-feedback"
-                                                                                                style="color: red">
-                                                                                                <strong>{{ $message }}</strong>
-                                                                                            </span>
-                                                                                        @enderror
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col-md-12">
-                                                                                    <div class="form-group">
-                                                                                        <label for="correo">Correo</label>
-                                                                                        <input type="email"
-                                                                                            placeholder="Correo"
-                                                                                            class="form-control @error('correo') is-invalid @enderror"
-                                                                                            name="correo"
-                                                                                            value="{{ old('correo', $staff->correo ?? '') }}"
-                                                                                            id="correo">
-                                                                                        @error('correo')
-                                                                                            <span class="invalid-feedback"
-                                                                                                style="color: red">
-                                                                                                <strong>{{ $message }}</strong>
-                                                                                            </span>
-                                                                                        @enderror
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col-md-12">
-                                                                                    <div class="form-group">
-                                                                                        <label
-                                                                                            for="telefonoPersonal">Teléfono</label>
-                                                                                        <input type="number" name="teléfono"
-                                                                                            id="teléfono"
-                                                                                            class="form-control @error('teléfono') is-invalid @enderror"
-                                                                                            value="{{ old('teléfono', $staff->teléfono ?? '') }}"
-                                                                                            placeholder="Teléfono">
-                                                                                        @error('teléfono')
-                                                                                            <span class="invalid-feedback"
-                                                                                                style="color: red">
-                                                                                                <strong>{{ $message }}</strong>
-                                                                                            </span>
-                                                                                        @enderror
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div
-                                                                    class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
-                                                                    <button type="submit"
-                                                                        class="btn-gris btn-red mr-2">Actualizar
-                                                                        cambios</button>
-                                                                    <button type="button" class="btn-gris btn-border"
-                                                                        data-dismiss="modal">Cancelar</button>
-                                                                </div>
-                                                            </form>
-                                                        @endisset
-                                                    </div>
-                                                </div>
-                                            </div>
 
                                             <!-- Modal Eliminar-->
                                             <div class="modal fade" id="modalEliminar{{ $staff->id }}" tabindex="-1"
@@ -418,6 +267,159 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal editar Personal-->
+    <div class="modal left fade" id="editarPersonal"
+        tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title font-family-Outfit-SemiBold">Editar
+                        Personal</h5>
+                    <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                @isset($staff)
+                    <form action="{{ route('update.staff', $staff->id) }}"
+                        class="formulario-modal" enctype="multipart/form-data"
+                        method="POST" id="editstaff">
+                        @csrf
+                        <div class="modal-body body_modal">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label>Foto de Personal</label>
+                                            <div id="editimagenPrevioPersonal">
+                                                @if ($staff->personalfoto)
+                                                    <img src="{{ asset('images/' . $staff->personalfoto) }}"
+                                                        width="200" height="200"
+                                                        alt="Existing Image">
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <div class="">
+                                                <label for="editimageUpload10"
+                                                    class="text-gris mt-4">Seleccione
+                                                    una
+                                                    imagen</label>
+                                                <input type="file"
+                                                    id="editimageUpload10"
+                                                    name="personalfoto"
+                                                    style="display: none;"
+                                                    accept="image/*" />
+                                                <button type="button"
+                                                    id="editcargarimagenpersonal"
+                                                    class="btn-gris">
+                                                    <i
+                                                        class="fas fa-arrow-to-top mr-2"></i>Subir
+                                                    Imagen
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="nombre">Nombre</label>
+                                                <input type="text"
+                                                    placeholder="Nombre"
+                                                    class="form-control @error('nombre') is-invalid @enderror"
+                                                    name="nombre"
+                                                    value=""
+                                                    id="edit-nombre">
+                                                @error('nombre')
+                                                    <span class="invalid-feedback"
+                                                        style="color: red">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="posición">Posición</label>
+                                                <select
+                                                    class="custom-select form-control @error('posición') is-invalid @enderror"
+                                                    name="posición" id="edit-posición">
+                                                    <option value=""
+                                                        class="">Seleccionar
+                                                        opción</option>
+                                                    <option value="posición_1"
+                                                        {{ $staff->posición == 'posición_1' ? 'selected' : '' }}>
+                                                        Posición 1
+                                                    </option>
+                                                    <option value="posición_2"
+                                                        {{ $staff->posición == 'posición_2' ? 'selected' : '' }}>
+                                                        Posición 2
+                                                    </option>
+                                                    <option value="posición_3"
+                                                        {{ $staff->posición == 'posición_3' ? 'selected' : '' }}>
+                                                        Posición 3
+                                                    </option>
+                                                </select>
+                                                @error('posición')
+                                                    <span class="invalid-feedback"
+                                                        style="color: red">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="correo">Correo</label>
+                                                <input type="email"
+                                                    placeholder="Correo"
+                                                    class="form-control @error('correo') is-invalid @enderror"
+                                                    name="correo"
+                                                    value=""
+                                                    id="edit-correo">
+                                                @error('correo')
+                                                    <span class="invalid-feedback"
+                                                        style="color: red">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label
+                                                    for="telefonoPersonal">Teléfono</label>
+                                                <input type="number" name="teléfono"
+                                                    id="edit-teléfono"
+                                                    class="form-control @error('teléfono') is-invalid @enderror"
+                                                    value=""
+                                                    placeholder="Teléfono">
+                                                @error('teléfono')
+                                                    <span class="invalid-feedback"
+                                                        style="color: red">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
+                            <button type="submit"
+                                class="btn-gris btn-red mr-2">Actualizar
+                                cambios</button>
+                            <button type="button" class="btn-gris btn-border"
+                                data-dismiss="modal">Cancelar</button>
+                        </div>
+                    </form>
+                @endisset
+            </div>
+        </div>
+    </div>
+
 @endsection
 @push('scripts')
     <script>
@@ -625,6 +627,16 @@
                 }
             });
 
+            $('.edit-staff').on('click', function() {
+                var staff = $(this).data('staff');
+                // Populate the modal with customer data
+                $('#edit-nombre').val(staff.nombre);
+                $('#edit-posición').val(staff.posición);
+                $('#edit-correo').val(staff.correo);
+                $('#edit-teléfono').val(staff.teléfono);
+                // Set the form action to the correct route
+                $('#editstaff').attr('action', '/personal/actualizar/' + staff.id);
+            });
         });
     </script>
 @endpush

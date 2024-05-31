@@ -17,7 +17,7 @@
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-                            <a class="dropdown-item texto-1 font-family-Inter-Regular" href="javascript:void(0)"
+                            <a class="dropdown-item edit-user" href="#" data-user="{{ json_encode($users) }}"
                                 data-toggle="modal" data-target="#editorUsuario">Editar</a>
                             <a class="dropdown-item" href="{{ route('destroy.user', $users->id) }}" data-toggle="modal"
                                 data-target="#modalEliminar">Eliminar</a>
@@ -114,15 +114,15 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title font-family-Outfit-SemiBold">Editar Usuario</h5>
+                        <h5 class="modal-title font-family-Outfit-SemiBold">Editar
+                            Usuario</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">×</span>
                         </button>
                     </div>
-                    @isset($users)
-                        <form action="{{ url('/usuarios/actualizar/' . $users->id) }}" method="POST" class="formulario-modal"
-                            enctype="multipart/form-data">
+                        <form action="" method="POST" enctype="multipart/form-data" id="edituserform">
                             @csrf
+                            @method('PUT')
                             <div class="modal-body body_modal">
                                 <div class="row">
                                     <div class="col-md-12">
@@ -138,21 +138,24 @@
                                             </div>
                                             <div class="col-md-6 mb-3">
                                                 <div class="">
-                                                    <label for="imageUploadUsuario" class="text-gris mt-4">Seleccione una
+                                                    <label for="imageUploadUsuario" class="text-gris mt-4">Seleccione
+                                                        una
                                                         imagen</label>
                                                     <input type="file" id="editimageUploadUsuario" name="image"
                                                         style="display: none;" accept="image/*" />
                                                     <button type="button" id="editcargarimagenUsuario" class="btn-gris">
-                                                        <i class="fas fa-arrow-to-top mr-2"></i>Subir Imagen
+                                                        <i class="fas fa-arrow-to-top mr-2"></i>Subir
+                                                        Imagen
                                                     </button>
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label for="Nombre de usuario">Nombre de usuario</label>
+                                                    <label for="Nombre de usuario">Nombre
+                                                        de usuario</label>
                                                     <input type="text" placeholder="nombredeusuario" name="username"
                                                         class="form-control @error('username') is-invalid @enderror"
-                                                        value="{{ old('username', $users->username ?? '') }}" id="username">
+                                                        value="" id="edit-username">
                                                     @error('username')
                                                         <span class="invalid-feedback" style="color: red">
                                                             <strong>{{ $message }}</strong>
@@ -163,9 +166,9 @@
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label for="NombreUsuario">Nombre</label>
-                                                    <input type="text" placeholder="Nombre" name="name" id="name"
+                                                    <input type="text" placeholder="Nombre" name="name" id="edit-name"
                                                         class="form-control @error('name') is-invalid @enderror"
-                                                        value="{{ old('name', $users->name ?? '') }}">
+                                                        value="">
                                                     @error('name')
                                                         <span class="invalid-feedback" style="color: red">
                                                             <strong>{{ $message }}</strong>
@@ -176,9 +179,10 @@
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label for="correoUsuario">Correo</label>
-                                                    <input type="text" placeholder="Correo" name="email" id="email"
+                                                    <input type="email" placeholder="Correo" name="email"
+                                                        id="edit-email"
                                                         class="form-control @error('email') is-invalid @enderror"
-                                                        value="{{ old('email', $users->email ?? '') }}">
+                                                        value="">
                                                     @error('email')
                                                         <span class="invalid-feedback" style="color: red">
                                                             <strong>{{ $message }}</strong>
@@ -189,9 +193,8 @@
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label for="telefonoUsuario">Teléfono</label>
-                                                    <input type="text" name="phone" id="phone"
-                                                        placeholder="Teléfono"
-                                                        value="{{ old('phone', $users->phone ?? '') }}"
+                                                    <input type="number" name="phone" id="edit-phone"
+                                                        placeholder="Teléfono" value=""
                                                         class="form-control @error('phone') is-invalid @enderror">
                                                     @error('phone')
                                                         <span class="invalid-feedback" style="color: red">
@@ -203,14 +206,18 @@
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label for="Empleado">Empleado</label>
-                                                    <select id="employee" name="employee" class="form-control @error('employee') is-invalid @enderror">
-                                                        <option value="">Seleccionar empleado</option>
+                                                    <select id="edit-employee" name="employee"
+                                                        class="form-control @error('employee') is-invalid @enderror">
+                                                        <option value="">Seleccionar
+                                                            empleado</option>
                                                         @foreach ($staffs as $staff)
-                                                            <option value="{{ $staff }}" {{ old('employee', $users->employee ?? '') == $staff ? 'selected' : '' }}>
-                                                            {{ $staff }}</option>
+                                                            <option value="{{ $staff }}"
+                                                                {{ old('employee', $users->employee ?? '') == $staff ? 'selected' : '' }}>
+                                                                {{ $staff }}
+                                                            </option>
                                                         @endforeach
                                                     </select>
-                                                    @error('empleado')
+                                                    @error('employee')
                                                         <span class="invalid-feedback" style="color: red">
                                                             <strong>{{ $message }}</strong>
                                                         </span>
@@ -238,11 +245,11 @@
                                 </div>
                             </div>
                             <div class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
-                                <button type="submit" class="btn-gris btn-red mr-2">Actualizar cambios</button>
+                                <button type="submit" class="btn-gris btn-red mr-2">Actualizar
+                                    cambios</button>
                                 <button type="button" class="btn-gris btn-border" data-dismiss="modal">Cancelar</button>
                             </div>
                         </form>
-                    @endisset
                 </div>
             </div>
         </div>
@@ -282,3 +289,63 @@
         </div>
     </div>
 @endsection
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            $('#edituserform').validate({
+                rules: {
+                    username: "required",
+                    name: "required",
+                    email: {
+                        required: true,
+                        email: true
+                    },
+                    phone: {
+                        required: true,
+                        digits: true
+                    },
+                    employee: "required",
+                },
+                messages: {
+                    username: "Por favor, ingrese el nombre de usuario",
+                    name: "Por favor, ingrese el nombre",
+                    email: {
+                        required: "Por favor, ingrese el correo",
+                        email: "Por favor, ingrese un correo válido"
+                    },
+                    phone: {
+                        required: "Por favor, ingrese el teléfono",
+                        digits: "Por favor, ingrese solo números"
+                    },
+                    employee: "Por favor, seleccione un empleado",
+
+                },
+                errorElement: "span",
+                errorPlacement: function(error, element) {
+                    // Add the `invalid-feedback` class to the error element
+                    error.addClass("invalid-feedback");
+                    // Add error message after the invalid element
+                    error.insertAfter(element);
+                },
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass("is-invalid").removeClass("is-valid");
+                },
+                unhighlight: function(element, errorClass, validClass) {
+                    $(element).removeClass("is-invalid").addClass("is-valid");
+                }
+            });
+
+            $('.edit-user').on('click', function() {
+                var user = $(this).data('user');
+                // Populate the modal with customer data
+                $('#edit-username').val(user.username);
+                $('#edit-name').val(user.name);
+                $('#edit-email').val(user.email);
+                $('#edit-phone').val(user.phone);
+                $('#edit-employee').val(user.employee);
+                // Set the form action to the correct route
+                $('#edituserform').attr('action', '/usuarios/actualizar/' + user.id);
+            });
+        });
+    </script>
+@endpush

@@ -148,9 +148,10 @@
                                                                     <a class="dropdown-item"
                                                                         href="{{ route('view.sparepart', $sparepart->id) }}">Ver
                                                                         detalles</a>
-                                                                    <a class="dropdown-item" href="javascript:void(0)"
+                                                                    <a class="dropdown-item edit-sparepart" href="#"
+                                                                        data-sparepart="{{ json_encode($sparepart) }}"
                                                                         data-toggle="modal"
-                                                                        data-target="#editorRepuesto{{ $sparepart->id }}">Editar</a>
+                                                                        data-target="#editorRepuesto">Editar</a>
                                                                     <a class="dropdown-item" href="javascript:void(0)"
                                                                         data-toggle="modal"
                                                                         data-target="#modalEliminar{{ $sparepart->id }}">Eliminar</a>
@@ -158,25 +159,26 @@
                                                             </div>
                                                         </td>
                                                     </tr>
+
                                                     <!-- Modal Editor Repuesto-->
-                                                    <div class="modal left fade" id="editorRepuesto{{ $sparepart->id }}"
-                                                        tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
-                                                        aria-hidden="true">
+                                                    <div class="modal left fade" id="editorRepuesto" tabindex="-1"
+                                                        role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
                                                         <div class="modal-dialog" role="document">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
                                                                     <h5 class="modal-title font-family-Outfit-SemiBold">
-                                                                        Editar Repuesto</h5>
+                                                                        Editar
+                                                                        Repuesto</h5>
                                                                     <button type="button" class="close"
                                                                         data-dismiss="modal" aria-label="Close">
                                                                         <span aria-hidden="true">×</span>
                                                                     </button>
                                                                 </div>
-                                                                @isset($sparepart)
                                                                     <form
-                                                                        action="{{ route('update.sparepart', $sparepart->id) }}"
+                                                                        action=""
                                                                         method="POST" class="formulario-modal"
-                                                                        enctype="multipart/form-data">
+                                                                        enctype="multipart/form-data" id="editsparepart">
+
                                                                         @csrf
                                                                         <div class="modal-body body_modal">
                                                                             <div class="row">
@@ -220,9 +222,9 @@
                                                                                                 <input type="text"
                                                                                                     placeholder="Nombre"
                                                                                                     class="form-control @error('nombre') is-invalid @enderror"
-                                                                                                    value="{{ old('nombre', $sparepart->nombre ?? '') }}"
+                                                                                                    value=""
                                                                                                     name="nombre"
-                                                                                                    id="nombre">
+                                                                                                    id="edit-nombre">
                                                                                                 @error('nombre')
                                                                                                     <span class="invalid-feedback"
                                                                                                         style="color: red">
@@ -238,9 +240,9 @@
                                                                                                 <input type="text"
                                                                                                     placeholder="Precio"
                                                                                                     class="form-control @error('precio') is-invalid @enderror"
-                                                                                                    value="{{ old('precio', $sparepart->precio ?? '') }}"
+                                                                                                    value=""
                                                                                                     name="precio"
-                                                                                                    id="precio">
+                                                                                                    id="edit-precio">
                                                                                                 @error('precio')
                                                                                                     <span class="invalid-feedback"
                                                                                                         style="color: red">
@@ -254,7 +256,7 @@
                                                                                             <div class="form-group">
                                                                                                 <label
                                                                                                     for="DescripcionRepuesto">Descripción</label>
-                                                                                                <textarea name="descripción" id="descripción" placeholder="Descripción" cols="30" rows="5">{{ old('descripción', $sparepart->descripción ?? '') }}</textarea>
+                                                                                                <textarea name="descripción" id="edit-descripción" placeholder="Descripción" cols="30" rows="5">{{ old('descripción', $sparepart->descripción ?? '') }}</textarea>
                                                                                                 @error('descripción')
                                                                                                     <span class="invalid-feedback"
                                                                                                         style="color: red">
@@ -268,13 +270,14 @@
                                                                                             <div class="form-group">
                                                                                                 <label
                                                                                                     for="Flimpieza">Frecuencia
-                                                                                                    de limpieza (días)</label>
-                                                                                                <input type="text"
+                                                                                                    de
+                                                                                                    limpieza (días)</label>
+                                                                                                <input type="number"
                                                                                                     placeholder="Frecuencia de limpieza (días)"
                                                                                                     name="frecuencia_de_limpieza"
-                                                                                                    id="frecuencia_de_limpieza"
+                                                                                                    id="edit-frecuencia_de_limpieza"
                                                                                                     class="form-control @error('frecuencia_de_limpieza') is-invalid @enderror"
-                                                                                                    value="{{ old('frecuencia_de_limpieza', $sparepart->frecuencia_de_limpieza ?? '') }}">
+                                                                                                    value="">
                                                                                                 @error('frecuencia_de_limpieza')
                                                                                                     <span class="invalid-feedback"
                                                                                                         style="color: red">
@@ -287,13 +290,12 @@
                                                                                             <div class="form-group">
                                                                                                 <label
                                                                                                     for="Flubricacion">Frecuencia
-                                                                                                    de lubricación
-                                                                                                    (días)
-                                                                                                </label>
-                                                                                                <input type="text"
+                                                                                                    de
+                                                                                                    lubricación (días)</label>
+                                                                                                <input type="number"
                                                                                                     placeholder="Frecuencia de lubricación (días)"
                                                                                                     name="frecuencia_de_lubricación"
-                                                                                                    id="frecuencia_de_lubricación"
+                                                                                                    id="edit-frecuencia_de_lubricación"
                                                                                                     class="form-control @error('frecuencia_de_lubricación') is-invalid @enderror"
                                                                                                     value="{{ old('frecuencia_de_lubricación', $sparepart->frecuencia_de_lubricación ?? '') }}">
                                                                                                 @error('frecuencia_de_lubricación')
@@ -309,11 +311,12 @@
                                                                                             <div class="form-group">
                                                                                                 <label
                                                                                                     for="FAjustes">Frecuencia
-                                                                                                    de ajuste (días)</label>
-                                                                                                <input type="text"
+                                                                                                    de
+                                                                                                    ajuste (días)</label>
+                                                                                                <input type="number"
                                                                                                     placeholder="Frecuencia de ajuste (días)"
                                                                                                     name="frecuencia_de_ajuste"
-                                                                                                    id="frecuencia_de_ajuste"
+                                                                                                    id="edit-frecuencia_de_ajuste"
                                                                                                     class="form-control @error('frecuencia_de_ajuste') is-invalid @enderror"
                                                                                                     value="{{ old('frecuencia_de_ajuste', $sparepart->frecuencia_de_ajuste ?? '') }}">
                                                                                                 @error('frecuencia_de_ajuste')
@@ -328,57 +331,42 @@
                                                                                             <div class="form-group">
                                                                                                 <label
                                                                                                     for="FRevision">Frecuencia
-                                                                                                    de revisión (días)</label>
-                                                                                                <input type="text"
+                                                                                                    de
+                                                                                                    revisión (días)</label>
+                                                                                                <input type="number"
                                                                                                     placeholder="Frecuencia de revisión (días)"
                                                                                                     class="form-control @error('frecuencia_de_revisión') is-invalid @enderror"
                                                                                                     value="{{ old('frecuencia_de_revisión', $sparepart->frecuencia_de_revisión ?? '') }}"
                                                                                                     name="frecuencia_de_revisión"
-                                                                                                    id="frecuencia_de_revisión">
-                                                                                                @error('frecuencia_de_revisión')
-                                                                                                    <span class="invalid-feedback"
-                                                                                                        style="color: red">
-                                                                                                        <strong>{{ $message }}</strong>
-                                                                                                    </span>
-                                                                                                @enderror
+                                                                                                    id="edit-frecuencia_de_revisión">
                                                                                             </div>
                                                                                         </div>
                                                                                         <div class="col-md-6">
                                                                                             <div class="form-group">
                                                                                                 <label
                                                                                                     for="FCambio">Frecuencia
-                                                                                                    de cambio (días)</label>
-                                                                                                <input type="text"
+                                                                                                    de
+                                                                                                    cambio (días)</label>
+                                                                                                <input type="number"
                                                                                                     placeholder="Frecuencia de cambio (días)"
                                                                                                     class="form-control @error('frecuencia_de_cambio') is-invalid @enderror"
                                                                                                     value="{{ old('frecuencia_de_cambio', $sparepart->frecuencia_de_cambio ?? '') }}"
                                                                                                     name="frecuencia_de_cambio"
-                                                                                                    id="frecuencia_de_cambio">
-                                                                                                @error('frecuencia_de_cambio')
-                                                                                                    <span class="invalid-feedback"
-                                                                                                        style="color: red">
-                                                                                                        <strong>{{ $message }}</strong>
-                                                                                                    </span>
-                                                                                                @enderror
+                                                                                                    id="edit-frecuencia_de_cambio">
                                                                                             </div>
                                                                                         </div>
                                                                                         <div class="col-md-6">
                                                                                             <div class="form-group">
                                                                                                 <label
                                                                                                     for="FSolicitud">Frecuencia
-                                                                                                    de solicitud (días)</label>
-                                                                                                <input type="text"
+                                                                                                    de
+                                                                                                    solicitud (días)</label>
+                                                                                                <input type="number"
                                                                                                     placeholder="Frecuencia de solicitud (días)"
                                                                                                     class="form-control @error('frecuencia_de_solicitud') is-invalid @enderror"
                                                                                                     value="{{ old('frecuencia_de_solicitud', $sparepart->frecuencia_de_solicitud ?? '') }}"
                                                                                                     name="frecuencia_de_solicitud"
-                                                                                                    id="frecuencia_de_solicitud">
-                                                                                                @error('frecuencia_de_solicitud')
-                                                                                                    <span class="invalid-feedback"
-                                                                                                        style="color: red">
-                                                                                                        <strong>{{ $message }}</strong>
-                                                                                                    </span>
-                                                                                                @enderror
+                                                                                                    id="edit-frecuencia_de_solicitud">
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -394,7 +382,6 @@
                                                                                 data-dismiss="modal">Cancelar</button>
                                                                         </div>
                                                                     </form>
-                                                                @endisset
                                                             </div>
                                                         </div>
                                                     </div>
@@ -452,126 +439,122 @@
                 </div>
 
                 <!-- Modal edit Provincia-->
-                <div class="modal left fade" id="editprovincias"
-                tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
-                aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title font-family-Outfit-SemiBold">Actualizar
-                                Provincia</h5>
-                            <button type="button" class="close" data-dismiss="modal"
-                                aria-label="Close">
-                                <span aria-hidden="true">×</span>
-                            </button>
-                        </div>
-                        @isset($province)
-                            <form action="{{ route('update.province', $province->id) }}"
-                                method="POST" class="formulario-modal" id="editprovinceForm">
-                                @csrf
-                                <div class="modal-body body_modal">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label for="provincia">Nombre de
-                                                    Provincia</label>
-                                                <select class="custom-select form-control"
-                                                    name="provincia" id="edit-provincia">
-                                                    <option value="">Seleccionar opción
-                                                    </option>
-                                                    <option value="amazonas"
-                                                        {{ old('provincia', $province->provincia) == 'amazonas' ? 'selected' : '' }}>
-                                                        Amazonas</option>
-                                                    <option value="ancash"
-                                                        {{ old('provincia', $province->provincia) == 'ancash' ? 'selected' : '' }}>
-                                                        Ancash</option>
-                                                    <option value="apurimac"
-                                                        {{ old('provincia', $province->provincia) == 'apurimac' ? 'selected' : '' }}>
-                                                        Apurimac</option>
-                                                    <option value="arequipa"
-                                                        {{ old('provincia', $province->provincia) == 'arequipa' ? 'selected' : '' }}>
-                                                        Arequipa</option>
-                                                    <option value="ayacucho"
-                                                        {{ old('provincia', $province->provincia) == 'ayacucho' ? 'selected' : '' }}>
-                                                        Ayacucho</option>
-                                                    <option value="cajamarca"
-                                                        {{ old('provincia', $province->provincia) == 'cajamarca' ? 'selected' : '' }}>
-                                                        Cajamarca</option>
-                                                    <option value="callao"
-                                                        {{ old('provincia', $province->provincia) == 'callao' ? 'selected' : '' }}>
-                                                        Callao</option>
-                                                    <option value="cusco"
-                                                        {{ old('provincia', $province->provincia) == 'cusco' ? 'selected' : '' }}>
-                                                        Cusco</option>
-                                                    <option value="huancavelica"
-                                                        {{ old('provincia', $province->provincia) == 'huancavelica' ? 'selected' : '' }}>
-                                                        Huancavelica</option>
-                                                    <option value="huanuco"
-                                                        {{ old('provincia', $province->provincia) == 'huanuco' ? 'selected' : '' }}>
-                                                        Huanuco</option>
-                                                    <option value="ica"
-                                                        {{ old('provincia', $province->provincia) == 'ica' ? 'selected' : '' }}>
-                                                        Ica</option>
-                                                    <option
-                                                        value="junín"{{ old('provincia', $province->provincia) == 'junín' ? 'selected' : '' }}>
-                                                        Junín</option>
-                                                    <option
-                                                        value="la_libertad"{{ old('provincia', $province->provincia) == 'la_libertad' ? 'selected' : '' }}>
-                                                        La Libertad</option>
-                                                    <option
-                                                        value="lambayeque"{{ old('provincia', $province->provincia) == 'lambayeque' ? 'selected' : '' }}>
-                                                        Lambayeque</option>
-                                                    <option
-                                                        value="lima"{{ old('provincia', $province->provincia) == 'lima' ? 'selected' : '' }}>
-                                                        Lima</option>
-                                                    <option
-                                                        value="loreto"{{ old('provincia', $province->provincia) == 'loreto' ? 'selected' : '' }}>
-                                                        Loreto</option>
-                                                    <option
-                                                        value="madre_de_dios"{{ old('provincia', $province->provincia) == 'madre_de_dios' ? 'selected' : '' }}>
-                                                        Madre de Dios</option>
-                                                    <option
-                                                        value="moquegua"{{ old('provincia', $province->provincia) == 'moquegua' ? 'selected' : '' }}>
-                                                        Moquegua</option>
-                                                    <option
-                                                        value="pasco"{{ old('provincia', $province->provincia) == 'pasco' ? 'selected' : '' }}>
-                                                        Pasco</option>
-                                                    <option
-                                                        value="piura"{{ old('provincia', $province->provincia) == 'piura' ? 'selected' : '' }}>
-                                                        Piura</option>
-                                                    <option
-                                                        value="puno"{{ old('provincia', $province->provincia) == 'puno' ? 'selected' : '' }}>
-                                                        Puno</option>
-                                                    <option
-                                                        value="san_martín"{{ old('provincia', $province->provincia) == 'san_martín' ? 'selected' : '' }}>
-                                                        San Martín</option>
-                                                    <option
-                                                        value="tacna"{{ old('provincia', $province->provincia) == 'tacna' ? 'selected' : '' }}>
-                                                        Tacna</option>
-                                                    <option
-                                                        value="tumbes"{{ old('provincia', $province->provincia) == 'tumbes' ? 'selected' : '' }}>
-                                                        Tumbes</option>
-                                                    <option
-                                                        value="ucayali"{{ old('provincia', $province->provincia) == 'ucayali' ? 'selected' : '' }}>
-                                                        Ucayali</option>
-                                                </select>
+                <div class="modal left fade" id="editprovincias" tabindex="-1" role="dialog"
+                    aria-labelledby="modelTitleId" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title font-family-Outfit-SemiBold">Actualizar
+                                    Provincia</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            @isset($province)
+                                <form action="{{ route('update.province', $province->id) }}" method="POST"
+                                    class="formulario-modal" id="editprovinceForm">
+                                    @csrf
+                                    <div class="modal-body body_modal">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label for="provincia">Nombre de
+                                                        Provincia</label>
+                                                    <select class="custom-select form-control" name="provincia"
+                                                        id="edit-provincia">
+                                                        <option value="">Seleccionar opción
+                                                        </option>
+                                                        <option value="amazonas"
+                                                            {{ old('provincia', $province->provincia) == 'amazonas' ? 'selected' : '' }}>
+                                                            Amazonas</option>
+                                                        <option value="ancash"
+                                                            {{ old('provincia', $province->provincia) == 'ancash' ? 'selected' : '' }}>
+                                                            Ancash</option>
+                                                        <option value="apurimac"
+                                                            {{ old('provincia', $province->provincia) == 'apurimac' ? 'selected' : '' }}>
+                                                            Apurimac</option>
+                                                        <option value="arequipa"
+                                                            {{ old('provincia', $province->provincia) == 'arequipa' ? 'selected' : '' }}>
+                                                            Arequipa</option>
+                                                        <option value="ayacucho"
+                                                            {{ old('provincia', $province->provincia) == 'ayacucho' ? 'selected' : '' }}>
+                                                            Ayacucho</option>
+                                                        <option value="cajamarca"
+                                                            {{ old('provincia', $province->provincia) == 'cajamarca' ? 'selected' : '' }}>
+                                                            Cajamarca</option>
+                                                        <option value="callao"
+                                                            {{ old('provincia', $province->provincia) == 'callao' ? 'selected' : '' }}>
+                                                            Callao</option>
+                                                        <option value="cusco"
+                                                            {{ old('provincia', $province->provincia) == 'cusco' ? 'selected' : '' }}>
+                                                            Cusco</option>
+                                                        <option value="huancavelica"
+                                                            {{ old('provincia', $province->provincia) == 'huancavelica' ? 'selected' : '' }}>
+                                                            Huancavelica</option>
+                                                        <option value="huanuco"
+                                                            {{ old('provincia', $province->provincia) == 'huanuco' ? 'selected' : '' }}>
+                                                            Huanuco</option>
+                                                        <option value="ica"
+                                                            {{ old('provincia', $province->provincia) == 'ica' ? 'selected' : '' }}>
+                                                            Ica</option>
+                                                        <option
+                                                            value="junín"{{ old('provincia', $province->provincia) == 'junín' ? 'selected' : '' }}>
+                                                            Junín</option>
+                                                        <option
+                                                            value="la_libertad"{{ old('provincia', $province->provincia) == 'la_libertad' ? 'selected' : '' }}>
+                                                            La Libertad</option>
+                                                        <option
+                                                            value="lambayeque"{{ old('provincia', $province->provincia) == 'lambayeque' ? 'selected' : '' }}>
+                                                            Lambayeque</option>
+                                                        <option
+                                                            value="lima"{{ old('provincia', $province->provincia) == 'lima' ? 'selected' : '' }}>
+                                                            Lima</option>
+                                                        <option
+                                                            value="loreto"{{ old('provincia', $province->provincia) == 'loreto' ? 'selected' : '' }}>
+                                                            Loreto</option>
+                                                        <option
+                                                            value="madre_de_dios"{{ old('provincia', $province->provincia) == 'madre_de_dios' ? 'selected' : '' }}>
+                                                            Madre de Dios</option>
+                                                        <option
+                                                            value="moquegua"{{ old('provincia', $province->provincia) == 'moquegua' ? 'selected' : '' }}>
+                                                            Moquegua</option>
+                                                        <option
+                                                            value="pasco"{{ old('provincia', $province->provincia) == 'pasco' ? 'selected' : '' }}>
+                                                            Pasco</option>
+                                                        <option
+                                                            value="piura"{{ old('provincia', $province->provincia) == 'piura' ? 'selected' : '' }}>
+                                                            Piura</option>
+                                                        <option
+                                                            value="puno"{{ old('provincia', $province->provincia) == 'puno' ? 'selected' : '' }}>
+                                                            Puno</option>
+                                                        <option
+                                                            value="san_martín"{{ old('provincia', $province->provincia) == 'san_martín' ? 'selected' : '' }}>
+                                                            San Martín</option>
+                                                        <option
+                                                            value="tacna"{{ old('provincia', $province->provincia) == 'tacna' ? 'selected' : '' }}>
+                                                            Tacna</option>
+                                                        <option
+                                                            value="tumbes"{{ old('provincia', $province->provincia) == 'tumbes' ? 'selected' : '' }}>
+                                                            Tumbes</option>
+                                                        <option
+                                                            value="ucayali"{{ old('provincia', $province->provincia) == 'ucayali' ? 'selected' : '' }}>
+                                                            Ucayali</option>
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div
-                                    class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
-                                    <button type="submit"
-                                        class="btn-gris btn-red mr-2">Actualizar cambios
-                                    </button>
-                                    <button type="button" class="btn-gris btn-border"
-                                        data-dismiss="modal">Cancelar</button>
-                                </div>
-                            </form>
-                        @endisset
+                                    <div class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
+                                        <button type="submit" class="btn-gris btn-red mr-2">Actualizar cambios
+                                        </button>
+                                        <button type="button" class="btn-gris btn-border"
+                                            data-dismiss="modal">Cancelar</button>
+                                    </div>
+                                </form>
+                            @endisset
+                        </div>
                     </div>
                 </div>
-            </div>
 
                 <!-- Modal Eliminar-->
                 <div class="modal fade" id="modalEliminar" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
@@ -736,6 +719,88 @@
                 $('#edit-provincia').val(province.provincia);
                 $('#editprovinceForm').attr('action', '/provincia/actualizar/' + province.id);
 
+            });
+
+            $('#editsparepart').validate({
+                rules: {
+                    nombre: "required",
+                    precio: {
+                        required: true,
+                        number: true
+                    },
+                    descripción: "required",
+                    frecuencia_de_limpieza: {
+                        required: true,
+                        number: true
+                    },
+                    frecuencia_de_lubricación: {
+                        required: true,
+                        number: true
+                    },
+                    frecuencia_de_ajuste: {
+                        required: true,
+                        number: true
+                    },
+                    frecuencia_de_revisión: {
+                        number: true
+                    },
+                    frecuencia_de_cambio: {
+                        number: true
+                    },
+                    frecuencia_de_solicitud: {
+                        number: true
+                    }
+                },
+                messages: {
+                    nombre: "Por favor, ingrese el nombre del repuesto",
+                    precio: {
+                        required: "Por favor, ingrese el precio",
+                        number: "Por favor, ingrese un valor numérico para el precio"
+                    },
+                    frecuencia_de_limpieza: {
+                        required: "Por favor, ingrese la frecuencia de limpieza",
+                        number: "Por favor, ingrese un valor numérico para la frecuencia de limpieza"
+                    },
+                    frecuencia_de_lubricación: {
+                        required: "Por favor, ingrese la frecuencia de lubricación",
+                        number: "Por favor, ingrese un valor numérico para la frecuencia de lubricación"
+                    },
+                    frecuencia_de_ajuste: {
+                        required: "Por favor, ingrese la frecuencia de ajuste",
+                        number: "Por favor, ingrese un valor numérico para la frecuencia de ajuste"
+                    }
+                },
+                errorElement: "span",
+                errorPlacement: function(error, element) {
+                    // Add the `invalid-feedback` class to the error element
+                    error.addClass("invalid-feedback");
+                    // Add error message after the invalid element
+                    error.insertAfter(element);
+                },
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass("is-invalid").removeClass("is-valid");
+                },
+                unhighlight: function(element, errorClass, validClass) {
+                    $(element).removeClass("is-invalid").addClass("is-valid");
+                }
+            });
+
+            $('.edit-sparepart').on('click', function() {
+                var sparepart = $(this).data('sparepart');
+                console.log(sparepart);
+                // Populate the modal with customer data
+                $('#edit-nombre').val(sparepart.nombre);
+                $('#edit-precio').val(sparepart.precio);
+                $('#edit-descripción').val(sparepart.descripción);
+                $('#edit-frecuencia_de_limpieza').val(sparepart.frecuencia_de_limpieza);
+                $('#edit-frecuencia_de_lubricación').val(sparepart.frecuencia_de_lubricación);
+                $('#edit-frecuencia_de_ajuste').val(sparepart.frecuencia_de_ajuste);
+                $('#edit-frecuencia_de_revisión').val(sparepart.frecuencia_de_revisión);
+                $('#edit-frecuencia_de_cambio').val(sparepart.frecuencia_de_cambio);
+                $('#edit-frecuencia_de_solicitud').val(sparepart.frecuencia_de_solicitud);
+
+                // Set the form action to the correct route
+                $('#editsparepart').attr('action', '/repuestos/actualizar/' + sparepart.id);
             });
 
         });

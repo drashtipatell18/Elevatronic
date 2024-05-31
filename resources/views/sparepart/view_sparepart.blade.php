@@ -346,6 +346,7 @@
                     <form action="{{ route('update.sparepart', $sparepart->id) }}" method="POST" class="formulario-modal"
                         enctype="multipart/form-data" id="editsparepart">
                         @csrf
+                        @method('PUT')
                         <div class="modal-body body_modal">
                             <div class="row">
                                 <div class="col-md-12">

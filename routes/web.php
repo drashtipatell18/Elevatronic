@@ -119,7 +119,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/repuestos/insertar',[SparePartController::class,'sparepartInsert'])->name('insert.sparepart');
     Route::get('/repuestos/editar/{id}', [SparePartController::class, 'sparepartEdit'])->name('edit.sparepart');
     Route::get('/repuestos/vista/{id}', [SparePartController::class, 'sparepartView'])->name('view.sparepart');
-    Route::post('/repuestos/actualizar/{id}', [SparePartController::class, 'sparepartUpdate'])->name('update.sparepart');
+    Route::put('/repuestos/actualizar/{id}', [SparePartController::class, 'sparepartUpdate'])->name('update.sparepart');
     Route::delete ('/repuestos/destruir/{id}',[SparePartController::class,'sparepartDestroy'])->name('destroy.sparepart');
 
     //Staff

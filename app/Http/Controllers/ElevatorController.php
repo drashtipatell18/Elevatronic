@@ -163,8 +163,9 @@ class ElevatorController extends Controller
         $customers = Cliente::pluck('nombre','nombre');
         $provinces = Province::pluck('provincia','provincia');
         $maint_in_reviews = MaintInReview::all();
+        $elevatornumber = Elevators::pluck('nombre','nombre');
         $review_types  = ReviewType::pluck('nombre','nombre');
-        return view('elevator.view_elevator_details',compact('elevators','review_types', 'maint_in_reviews','spareparts','customers','provinces','contracts'));
+        return view('elevator.view_elevator_details',compact('elevators','elevatornumber','review_types', 'maint_in_reviews','spareparts','customers','provinces','contracts'));
     }
 
     public function contractInsert(Request $request){

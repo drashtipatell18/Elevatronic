@@ -4,6 +4,9 @@
         .dt-head-center {
             text-align: center;
         }
+        .error{
+            color: red;
+        }
     </style>
     <div class="w-100 contenido">
         <div class="container-fluid container-mod">
@@ -100,9 +103,10 @@
                                                             <a class="dropdown-item"
                                                                 href="{{ route('details.maint.in.review', $maint_in_rev->id) }}">Ver
                                                                 detalles</a>
-                                                            <a class="dropdown-item" href="{{ route('edit.maint.in.review', $maint_in_rev->id) }}"
+                                                            <a class="dropdown-item edit-mantenimiento" href="#"
+                                                                data-mantenimiento="{{ json_encode($maint_in_rev) }}"
                                                                 data-toggle="modal"
-                                                                data-target="#editorMantenimiento{{ $maint_in_rev->id }}">Editar</a>
+                                                                data-target="#editorMantenimiento">Editar</a>
                                                             <a class="dropdown-item" href="javascript:void(0)"
                                                                 data-toggle="modal"
                                                                 data-target="#modalEliminar{{ $maint_in_rev->id }}">Eliminar</a>
@@ -134,322 +138,6 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <!-- Modal Editor Mantenimiento-->
-                                            <div class="modal left fade" id="editorMantenimiento{{ $maint_in_rev->id }}"
-                                                tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
-                                                aria-hidden="true">
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title font-family-Outfit-SemiBold">Edición De
-                                                                Mantenimiento</h5>
-                                                            <button type="button" class="close" data-dismiss="modal"
-                                                                aria-label="Close">
-                                                                <span aria-hidden="true">×</span>
-                                                            </button>
-                                                        </div>
-                                                        @isset($maint_in_rev)
-                                                            <form
-                                                                action="{{ route('update.maint.in.review', $maint_in_rev->id) }}"
-                                                                method="POST" class="formulario-modal" id="editmaintreview">
-
-                                                                @csrf
-                                                                <div class="modal-body body_modal">
-                                                                    <div class="row">
-                                                                        <div class="col-md-12">
-                                                                            <div class="form-group">
-                                                                                <label for="TRevision">Tipo de revisión</label>
-                                                                                <select
-                                                                                    class="custom-select @error('tipo_de_revisión') is-invalid @enderror"
-                                                                                    name="tipo_de_revisión" id="TRevision">
-                                                                                    <option disabled>Seleccionar tipo de
-                                                                                        revisión</option>
-                                                                                    @foreach ($review_types as $key => $value)
-                                                                                        <option value="{{ $key }}"
-                                                                                            {{ old('tipo_de_revisión', $maint_in_rev->tipo_de_revisión ?? '') == $key ? 'selected' : '' }}>
-                                                                                            {{ $value }}
-                                                                                        </option>
-                                                                                    @endforeach
-                                                                                </select>
-                                                                                @error('tipo_de_revisión')
-                                                                                    <span class="invalid-feedback" role="alert">
-                                                                                        <strong>{{ $message }}</strong>
-                                                                                    </span>
-                                                                                @enderror
-                                                                            </div>
-
-
-                                                                            <div class="form-group">
-                                                                                <label for="MAscensor">Ascensor</label>
-                                                                                <select
-                                                                                    class="custom-select @error('ascensor') is-invalid @enderror"
-                                                                                    name="ascensor" id="MAscensor">
-                                                                                    @foreach ($elevators as $key => $value)
-                                                                                        <option value="{{ $key }}"
-                                                                                            {{ old('ascensor') == $key ? 'selected' : '' }}>
-                                                                                            {{ $value }}
-                                                                                        </option>
-                                                                                    @endforeach
-                                                                                </select>
-                                                                                @error('ascensor')
-                                                                                    <span class="invalid-feedback" role="alert">
-                                                                                        <strong>{{ $message }}</strong>
-                                                                                    </span>
-                                                                                @enderror
-                                                                            </div>
-
-                                                                            <div class="form-group">
-                                                                                <label for="Direccion">Dirección</label>
-                                                                                <input type="text" placeholder="Dirección"
-                                                                                    name="dirección" id="dirección"
-                                                                                    class="form-control @error('dirección') is-invalid @enderror"
-                                                                                    value="{{ old('dirección', $maint_in_rev->dirección ?? '') }}">
-                                                                                @error('dirección')
-                                                                                    <span class="invalid-feedback"
-                                                                                        style="color: red">
-                                                                                        <strong>{{ $message }}</strong>
-                                                                                    </span>
-                                                                                @enderror
-                                                                            </div>
-
-
-                                                                            <div class="form-group">
-                                                                                <label for="provinciaAs">Provincia</label>
-                                                                                <select id="provincia" name="provincia" class="form-control">
-                                                                                    <option value="">Select Province</option>
-                                                                                    @foreach ($provinces as $province)
-                                                                                        <option value="{{ $province }}" {{ old('provincia', $maint_in_rev->provincia ?? '') == $province ? 'selected' : '' }}>
-                                                                                            {{ $province }}
-                                                                                        </option>
-                                                                                    @endforeach
-                                                                                </select>
-                                                                                @error('provincia')
-                                                                                    <span class="invalid-feedback" role="alert">
-                                                                                        <strong>{{ $message }}</strong>
-                                                                                    </span>
-                                                                                @enderror
-                                                                            </div>
-
-                                                                            <div class="row">
-                                                                                <div class="col-md-6">
-                                                                                    <div class="form-group">
-                                                                                        <label for="NCertificado">Núm
-                                                                                            Certificado</label>
-                                                                                        <input type="text"
-                                                                                            placeholder="Núm Certificado"
-                                                                                            name="núm_certificado"
-                                                                                            id="NCertificado"
-                                                                                            value="{{ old('núm_certificado', $maint_in_rev->provincia ?? '') }}"
-                                                                                            class="form-control @error('núm_certificado') is-invalid @enderror">
-                                                                                        @error('núm_certificado')
-                                                                                            <span class="invalid-feedback"
-                                                                                                role="alert">
-                                                                                                <strong>{{ $message }}</strong>
-                                                                                            </span>
-                                                                                        @enderror
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col-md-6">
-                                                                                    <div class="form-group">
-                                                                                        <label for="NMaquina">#Máquina</label>
-                                                                                        <input type="text"
-                                                                                            placeholder="#Máquina"
-                                                                                            name="máquina" id="NMaquina"
-                                                                                            value="{{ old('máquina', $maint_in_rev->máquina ?? '') }}"
-                                                                                            class="form-control @error('máquina') is-invalid @enderror">
-                                                                                        @error('máquina')
-                                                                                            <span class="invalid-feedback"
-                                                                                                role="alert">
-                                                                                                <strong>{{ $message }}</strong>
-                                                                                            </span>
-                                                                                        @enderror
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-
-
-                                                                            <div class="form-group">
-                                                                                <label for="Supervisor">Supervisor</label>
-                                                                                <select
-                                                                                    class="custom-select  @error('máquina') is-invalid @enderror"
-                                                                                    name="supervisor" id="Supervisor">
-                                                                                    <option value="" class="d-none">
-                                                                                        Seleccionar opción</option>
-                                                                                    <option value="supervisor_1"
-                                                                                        {{ old('supervisor') == 'supervisor_1' ? 'selected' : ($maint_in_rev->supervisor == 'supervisor_1' ? 'selected' : '') }}>
-                                                                                        Supervisor 1</option>
-                                                                                    <option value="supervisor_2"
-                                                                                        {{ old('supervisor') == 'supervisor_2' ? 'selected' : ($maint_in_rev->supervisor == 'supervisor_2' ? 'selected' : '') }}>
-                                                                                        Supervisor 2</option>
-                                                                                    <option value="supervisor_3"
-                                                                                        {{ old('supervisor') == 'supervisor_3' ? 'selected' : ($maint_in_rev->supervisor == 'supervisor_3' ? 'selected' : '') }}>
-                                                                                        Supervisor 3</option>
-                                                                                </select>
-                                                                                @error('supervisor')
-                                                                                    <span class="invalid-feedback" role="alert">
-                                                                                        <strong>{{ $message }}</strong>
-                                                                                    </span>
-                                                                                @enderror
-                                                                            </div>
-
-
-                                                                            <div class="form-group">
-                                                                                <label for="tecnico">Técnico</label>
-                                                                                <select class="custom-select" name="técnico"
-                                                                                    id="tecnico">
-                                                                                    <option value=""
-                                                                                        class="d-none  @error('técnico') is-invalid @enderror">
-                                                                                        Seleccionar opción</option>
-                                                                                    <option value="técnico_1"
-                                                                                        {{ old('técnico') == 'técnico_1' ? 'selected' : ($maint_in_rev->técnico == 'técnico_1' ? 'selected' : '') }}>
-                                                                                        Técnico 1</option>
-                                                                                    <option value="técnico_2"
-                                                                                        {{ old('técnico') == 'técnico_2' ? 'selected' : ($maint_in_rev->técnico == 'técnico_2' ? 'selected' : '') }}>
-                                                                                        Técnico 2</option>
-                                                                                    <option value="técnico_3"
-                                                                                        {{ old('técnico') == 'técnico_3' ? 'selected' : ($maint_in_rev->técnico == 'técnico_3' ? 'selected' : '') }}>
-                                                                                        Técnico 3</option>
-                                                                                </select>
-                                                                                @error('técnico')
-                                                                                    <span class="invalid-feedback" role="alert">
-                                                                                        <strong>{{ $message }}</strong>
-                                                                                    </span>
-                                                                                @enderror
-                                                                            </div>
-
-
-                                                                            <div class="row">
-                                                                                <div class="col-md-6">
-                                                                                    <div class="form-group">
-                                                                                        <label for="Mprogramado">Mes
-                                                                                            programado</label>
-                                                                                        <select
-                                                                                            class="custom-select @error('mes_programado') is-invalid @enderror"
-                                                                                            name="mes_programado"
-                                                                                            id="Mprogramado">
-                                                                                            <option value=""
-                                                                                                class="d-none">Seleccionar
-                                                                                                opción</option>
-                                                                                            <option value="mes_programado_1"
-                                                                                                {{ old('mes_programado', $maint_in_rev->mes_programado ?? '') == 'mes_programado_1' ? 'selected' : '' }}>
-                                                                                                Mes programado 1</option>
-                                                                                            <option value="mes_programado_2"
-                                                                                                {{ old('mes_programado', $maint_in_rev->mes_programado ?? '') == 'mes_programado_2' ? 'selected' : '' }}>
-                                                                                                Mes programado 2</option>
-                                                                                            <option value="mes_programado_3"
-                                                                                                {{ old('mes_programado', $maint_in_rev->mes_programado ?? '') == 'mes_programado_3' ? 'selected' : '' }}>
-                                                                                                Mes programado 3</option>
-                                                                                        </select>
-                                                                                        @error('mes_programado')
-                                                                                            <span class="invalid-feedback"
-                                                                                                role="alert">
-                                                                                                <strong>{{ $message }}</strong>
-                                                                                            </span>
-                                                                                        @enderror
-                                                                                    </div>
-                                                                                </div>
-
-
-                                                                                <div class="col-md-6">
-                                                                                    <div class="form-group">
-                                                                                        <label for="FMantenimiento">Fecha de
-                                                                                            mantenimiento</label>
-                                                                                        <input type="date"
-                                                                                            placeholder="dd/mm/aaaa"
-                                                                                            name="fecha_de_mantenimiento"
-                                                                                            id="FMantenimiento"
-                                                                                            class="form-control @error('fecha_de_mantenimiento') is-invalid @enderror"
-                                                                                            value="{{ old('fecha_de_mantenimiento', $maint_in_rev->fecha_de_mantenimiento ?? '') }}">
-                                                                                        @error('fecha_de_mantenimiento')
-                                                                                            <span class="invalid-feedback"
-                                                                                                style="color: red">
-                                                                                                <strong>{{ $message }}</strong>
-                                                                                            </span>
-                                                                                        @enderror
-                                                                                    </div>
-                                                                                </div>
-
-
-                                                                                <div class="col-md-6">
-                                                                                    <div class="form-group">
-                                                                                        <label for="FInicio">Hora
-                                                                                            inicio</label>
-                                                                                        <input type="time"
-                                                                                            placeholder="Hora inicio"
-                                                                                            name="hora_inicio" id="FInicio"
-                                                                                            class="form-control @error('hora_inicio') is-invalid @enderror"
-                                                                                            value="{{ old('hora_inicio', $maint_in_rev->hora_inicio ?? '') }}">
-                                                                                        @error('hora_inicio')
-                                                                                            <span class="invalid-feedback"
-                                                                                                style="color: red">
-                                                                                                <strong>{{ $message }}</strong>
-                                                                                            </span>
-                                                                                        @enderror
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <div class="col-md-6">
-                                                                                    <div class="form-group">
-                                                                                        <label for="HFin">Hora fin</label>
-                                                                                        <input type="time"
-                                                                                            placeholder="Hora fin"
-                                                                                            name="hora_fin" id="HFin"
-                                                                                            class="form-control @error('hora_fin') is-invalid @enderror"
-                                                                                            value="{{ old('hora_fin', $maint_in_rev->hora_fin ?? '') }}">
-                                                                                        @error('hora_fin')
-                                                                                            <span class="invalid-feedback"
-                                                                                                style="color: red">
-                                                                                                <strong>{{ $message }}</strong>
-                                                                                            </span>
-                                                                                        @enderror
-                                                                                    </div>
-                                                                                </div>
-
-
-                                                                                <div class="col-md-12">
-                                                                                    <div class="form-group">
-                                                                                        <label
-                                                                                            for="observaciónes">Observaciones</label>
-                                                                                        <textarea name="observaciónes" id="observaciónes" placeholder="Comentario de contrato" cols="30"
-                                                                                            rows="5">{{ old('observaciónes', $maint_in_rev->observaciónes ?? '') }}</textarea>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <div class="col-md-12">
-                                                                                    <div class="form-group">
-                                                                                        <label
-                                                                                            for="observacionesInternas">Observaciones
-                                                                                            internas</label>
-                                                                                        <textarea name="observaciónes_internas" id="observacionesInternas" placeholder="Observaciones internas"
-                                                                                            cols="30" rows="5">{{ old('observaciónes_internas', $maint_in_rev->observaciónes_internas ?? '') }}</textarea>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <div class="col-md-12">
-                                                                                    <div class="form-group">
-                                                                                        <label for="solucion">Solución</label>
-                                                                                        <textarea name="solución" id="solucion" placeholder="Solución" cols="30" rows="5">{{ old('solución', $maint_in_rev->solución ?? '') }}</textarea>
-                                                                                    </div>
-                                                                                </div>
-
-
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div
-                                                                    class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
-                                                                    <button type="submit"
-                                                                        class="btn-gris btn-red mr-2">Guardar Cambios</button>
-                                                                    <button type="button" class="btn-gris btn-border"
-                                                                        data-dismiss="modal">Cancelar</button>
-                                                                </div>
-                                                            </form>
-                                                        @endisset
                                                     </div>
                                                 </div>
                                             </div>
@@ -526,7 +214,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="tipo_de_revisión">Tipo de revisión</label>
-                                    <select class="custom-select" name="tipo_de_revisión" id="tipo_de_revisión"
+                                    <select class="custom-select" name="tipo_de_revisión" id="edit-tipo_de_revisión"
                                         class="form-control">
                                         <option value="">Seleccionar tipo de revisión</option>
                                         @foreach ($review_types as $key => $value)
@@ -568,7 +256,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="núm_certificado">Núm Certificado</label>
-                                            <input type="text" placeholder="Núm Certificado" name="núm_certificado"
+                                            <input type="number" placeholder="Núm Certificado" name="núm_certificado"
                                                 id="núm_certificado" class="form-control">
                                         </div>
                                     </div>
@@ -663,6 +351,289 @@
                     </div>
                 </form>
 
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal Editor Mantenimiento-->
+    <div class="modal left fade" id="editorMantenimiento" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title font-family-Outfit-SemiBold">Edición De
+                        Mantenimiento</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <form action="" class="formulario-modal" enctype="multipart/form-data" method="POST"
+                    id="editmaintreview">
+                    @method('PUT')
+                    @csrf
+                    <div class="modal-body body_modal">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="TRevision">Tipo de revisión</label>
+                                    <select class="custom-select @error('tipo_de_revisión') is-invalid @enderror"
+                                        name="tipo_de_revisión" id="edit-tipo_de_revisión">
+                                        <option disabled>Seleccionar tipo de
+                                            revisión</option>
+                                        @foreach ($review_types as $key => $value)
+                                            <option value="{{ $key }}"
+                                                {{ old('tipo_de_revisión', $maint_in_rev->tipo_de_revisión ?? '') == $key ? 'selected' : '' }}>
+                                                {{ $value }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('tipo_de_revisión')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="MAscensor">Ascensor</label>
+                                    <select class="custom-select @error('ascensor') is-invalid @enderror" name="ascensor"
+                                        id="edit-MAscensor">
+                                        @foreach ($elevators as $key => $value)
+                                            <option value="{{ $key }}"
+                                                {{ old('ascensor') == $key ? 'selected' : '' }}>
+                                                {{ $value }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('ascensor')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="Direccion">Dirección</label>
+                                    <input type="text" placeholder="Dirección" name="dirección" id="edit-dirección"
+                                        class="form-control @error('dirección') is-invalid @enderror"
+                                        value="">
+                                    @error('dirección')
+                                        <span class="invalid-feedback" style="color: red">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="provinciaAs">Provincia</label>
+                                    <select id="edit-provincia" name="provincia" class="form-control">
+                                        <option value="">Select Province</option>
+                                        @foreach ($provinces as $province)
+                                            <option value="{{ $province }}"
+                                                {{ old('provincia', $maint_in_rev->provincia ?? '') == $province ? 'selected' : '' }}>
+                                                {{ $province }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('provincia')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="NCertificado">Núm
+                                                Certificado</label>
+                                            <input type="number" placeholder="Núm Certificado" name="núm_certificado"
+                                                id="edit-NCertificado"
+                                                value=""
+                                                class="form-control @error('núm_certificado') is-invalid @enderror">
+                                            @error('núm_certificado')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="NMaquina">#Máquina</label>
+                                            <input type="text" placeholder="#Máquina" name="máquina" id="edit-NMaquina"
+                                                value=""
+                                                class="form-control @error('máquina') is-invalid @enderror">
+                                            @error('máquina')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="Supervisor">Supervisor</label>
+                                    <select class="custom-select  @error('máquina') is-invalid @enderror"
+                                        name="supervisor" id="edit-Supervisor">
+                                        <option value="" class="">
+                                            Seleccionar opción</option>
+                                        <option value="supervisor_1"
+                                            {{ old('supervisor') == 'supervisor_1' ? 'selected' : ($maint_in_rev->supervisor == 'supervisor_1' ? 'selected' : '') }}>
+                                            Supervisor 1</option>
+                                        <option value="supervisor_2"
+                                            {{ old('supervisor') == 'supervisor_2' ? 'selected' : ($maint_in_rev->supervisor == 'supervisor_2' ? 'selected' : '') }}>
+                                            Supervisor 2</option>
+                                        <option value="supervisor_3"
+                                            {{ old('supervisor') == 'supervisor_3' ? 'selected' : ($maint_in_rev->supervisor == 'supervisor_3' ? 'selected' : '') }}>
+                                            Supervisor 3</option>
+                                    </select>
+                                    @error('supervisor')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="tecnico">Técnico</label>
+                                    <select class="custom-select" name="técnico" id="edit-técnico">
+                                        <option value="" class="d-none  @error('técnico') is-invalid @enderror">
+                                            Seleccionar opción</option>
+                                        <option value="técnico_1"
+                                            {{ old('técnico') == 'técnico_1' ? 'selected' : ($maint_in_rev->técnico == 'técnico_1' ? 'selected' : '') }}>
+                                            Técnico 1</option>
+                                        <option value="técnico_2"
+                                            {{ old('técnico') == 'técnico_2' ? 'selected' : ($maint_in_rev->técnico == 'técnico_2' ? 'selected' : '') }}>
+                                            Técnico 2</option>
+                                        <option value="técnico_3"
+                                            {{ old('técnico') == 'técnico_3' ? 'selected' : ($maint_in_rev->técnico == 'técnico_3' ? 'selected' : '') }}>
+                                            Técnico 3</option>
+                                    </select>
+                                    @error('técnico')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="Mprogramado">Mes
+                                                programado</label>
+                                            <select class="custom-select @error('mes_programado') is-invalid @enderror"
+                                                name="mes_programado" id="edit-Mprogramado">
+                                                <option value="" class="">Seleccionar
+                                                    opción</option>
+                                                <option value="mes_programado_1"
+                                                    {{ old('mes_programado', $maint_in_rev->mes_programado ?? '') == 'mes_programado_1' ? 'selected' : '' }}>
+                                                    Mes programado 1</option>
+                                                <option value="mes_programado_2"
+                                                    {{ old('mes_programado', $maint_in_rev->mes_programado ?? '') == 'mes_programado_2' ? 'selected' : '' }}>
+                                                    Mes programado 2</option>
+                                                <option value="mes_programado_3"
+                                                    {{ old('mes_programado', $maint_in_rev->mes_programado ?? '') == 'mes_programado_3' ? 'selected' : '' }}>
+                                                    Mes programado 3</option>
+                                            </select>
+                                            @error('mes_programado')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="FMantenimiento">Fecha de
+                                                mantenimiento</label>
+                                            <input type="date" placeholder="dd/mm/aaaa" name="fecha_de_mantenimiento"
+                                                id="edit-FMantenimiento"
+                                                class="form-control @error('fecha_de_mantenimiento') is-invalid @enderror"
+                                                value="">
+                                            @error('fecha_de_mantenimiento')
+                                                <span class="invalid-feedback" style="color: red">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="FInicio">Hora
+                                                inicio</label>
+                                            <input type="time" placeholder="Hora inicio" name="hora_inicio"
+                                                id="edit-FInicio"
+                                                class="form-control @error('hora_inicio') is-invalid @enderror"
+                                                value="">
+                                            @error('hora_inicio')
+                                                <span class="invalid-feedback" style="color: red">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="HFin">Hora fin</label>
+                                            <input type="time" placeholder="Hora fin" name="hora_fin" id="edit-HFin"
+                                                class="form-control @error('hora_fin') is-invalid @enderror"
+                                                value="">
+                                            @error('hora_fin')
+                                                <span class="invalid-feedback" style="color: red">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="observaciónes">Observaciones</label>
+                                            <textarea name="observaciónes" id="edit-observaciónes" placeholder="Comentario de contrato" cols="30"
+                                                rows="5"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="observacionesInternas">Observaciones
+                                                internas</label>
+                                            <textarea name="observaciónes_internas" id="edit-observacionesInternas" placeholder="Observaciones internas"
+                                                cols="30" rows="5"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="solucion">Solución</label>
+                                            <textarea name="solución" id="edit-solucion" placeholder="Solución" cols="30" rows="5"></textarea>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
+                        <button type="submit" class="btn-gris btn-red mr-2">Guardar Cambios</button>
+                        <button type="button" class="btn-gris btn-border" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -781,7 +752,6 @@
                     hora_inicio: "required",
                     hora_fin: "required",
                     observaciónes: "required",
-                    observaciónes_internas: "required",
                     solución: "required"
                 },
                 messages: {
@@ -799,7 +769,6 @@
                     hora_inicio: "Por favor, ingrese la hora de inicio.",
                     hora_fin: "Por favor, ingrese la hora de fin.",
                     observaciónes: "Por favor, ingrese las observaciones.",
-                    observaciónes_internas: "Por favor, ingrese las observaciones internas.",
                     solución: "Por favor, ingrese la solución."
                 },
                 errorElement: "span",
@@ -833,7 +802,6 @@
                     hora_inicio: "required",
                     hora_fin: "required",
                     observaciónes: "required",
-                    observaciónes_internas: "required",
                     solución: "required",
                 },
                 messages: {
@@ -849,7 +817,6 @@
                     hora_inicio: "Por favor, ingrese la hora de inicio.",
                     hora_fin: "Por favor, ingrese la hora de fin.",
                     observaciónes: "Por favor, ingrese las observaciones.",
-                    observaciónes_internas: "Por favor, ingrese las observaciones internas.",
                     solución: "Por favor, ingrese la solución."
                 },
                 errorElement: "span",
@@ -864,6 +831,30 @@
                     $(element).removeClass("is-invalid").addClass("is-valid");
                 }
             });
+
+            $('.edit-mantenimiento').on('click', function() {
+
+                var mantenimiento = $(this).data('mantenimiento');
+                console.log(mantenimiento);
+                $('#edit-tipo_de_revisión').val(mantenimiento.tipo_de_revisión);
+                $('#edit-MAscensor').val(mantenimiento.ascensor);
+                $('#edit-dirección').val(mantenimiento.dirección);
+                $('#edit-provincia').val(mantenimiento.provincia);
+                $('#edit-NCertificado').val(mantenimiento.núm_certificado);
+                $('#edit-NMaquina').val(mantenimiento.máquina);
+                $('#edit-Supervisor').val(mantenimiento.supervisor);
+                $('#edit-técnico').val(mantenimiento.técnico);
+                $('#edit-Mprogramado').val(mantenimiento.mes_programado);
+                $('#edit-FMantenimiento').val(mantenimiento.fecha_de_mantenimiento);
+                $('#edit-FInicio').val(mantenimiento.hora_inicio);
+                $('#edit-HFin').val(mantenimiento.hora_fin);
+                $('#edit-observaciónes').val(mantenimiento.observaciónes);
+                $('#edit-observacionesInternas').val(mantenimiento.observaciónes_internas);
+                $('#edit-solucion').val(mantenimiento.solución);
+
+                $('#editmaintreview').attr('action', '/mant/en/revisión/actualizar/' + mantenimiento.id);
+            });
+
 
         });
     </script>

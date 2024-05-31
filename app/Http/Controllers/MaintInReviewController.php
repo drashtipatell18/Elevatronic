@@ -119,7 +119,8 @@ class MaintInReviewController extends Controller
         $review_types = ReviewType::pluck('nombre','nombre');
         $elevators = Elevators::pluck('nombre','nombre');
         $spareparts = SparePart::all();
-        return view('Maint.view_maint_in_review_record', compact('spareparts','maint_in_review','review_types','elevators'));
+        $provinces = Province::pluck('provincia', 'provincia');
+        return view('Maint.view_maint_in_review_record', compact('spareparts','provinces','maint_in_review','review_types','elevators'));
 
     }
 }

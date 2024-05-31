@@ -88,7 +88,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/mant/en/revisión/editar/{id}', [MaintInReviewController::class, 'maintInReviewEdit'])->name('edit.maint.in.review');
     Route::get('/mant/en/revisión/vista/{id}', [MaintInReviewController::class, 'maintInReviewView'])->name('view.maint.in.review');
     Route::get('/mant/en/revisión/detalle/{id}', [MaintInReviewController::class, 'maintInReviewDetails'])->name('details.maint.in.review');
-    Route::post('/mant/en/revisión/actualizar/{id}', [MaintInReviewController::class, 'maintInReviewUpdate'])->name('update.maint.in.review');
+    Route::put('/mant/en/revisión/actualizar/{id}', [MaintInReviewController::class, 'maintInReviewUpdate'])->name('update.maint.in.review');
     Route::delete ('/mant/en/revisión/destruir/{id}',[MaintInReviewController::class,'maintInReviewDestroy'])->name('destroy.maint.in.review');
     Route::get('/mant/en/revisión/recuento_total_de_registros', [MaintInReviewController::class, 'totalRecordCount']);
 
@@ -149,7 +149,7 @@ Route::group(['middleware' => 'auth'], function () {
     // cargaarchivos
     Route::get('/cargaarchivos', [FileUploadController::class, 'fileupload'])->name('fileupload');
     Route::post('/subir-excel', [FileUploadController::class, 'uploadExcel'])->name('upload.excel');
-    
+
     // Contrato //
     Route::post('/contrato/insertar',[ElevatorController::class,'contractInsert'])->name('insert.contract');
     Route::get('/contrato/editar/{id}', [ElevatorController::class, 'contractEdit'])->name('edit.contract');

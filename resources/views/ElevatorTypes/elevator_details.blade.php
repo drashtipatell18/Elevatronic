@@ -195,18 +195,18 @@
                                             <div class="dropdown-menu dropdown-menu-right"
                                                 aria-labelledby="dropdownMenuButton">
                                                 <button class="dropdown-item export_excel"
-                                                    data-table="#AscensoresTipo">Excel</button>
+                                                    data-table="#repuestosAsignados">Excel</button>
                                                 <button class="dropdown-item export_pdf"
-                                                    data-table="#AscensoresTipo">PDF</button>
+                                                    data-table="#repuestosAsignados">PDF</button>
                                                 <button class="dropdown-item export_copy"
-                                                    data-table="#AscensoresTipo">Copiar</button>
+                                                    data-table="#repuestosAsignados">Copiar</button>
                                                 <button class="dropdown-item export_print"
-                                                    data-table="#AscensoresTipo">Imprimir</button>
+                                                    data-table="#repuestosAsignados">Imprimir</button>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-12">
-                                        <table id="AscensoresTipo" class="table" style="width:100%">
+                                        <table id="repuestosAsignados" class="table" style="width:100%">
                                             <thead>
                                                 <tr>
                                                     <th>ID</th>

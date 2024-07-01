@@ -250,7 +250,7 @@ class ElevatorController extends Controller
         $elevator = Elevators::find($id);
         $elevator->delete();
         session()->flash('danger', 'Ascensores eliminar exitosamente!');
-        return redirect()->back();
+        return redirect()->route('elevator');
     }
 
 }

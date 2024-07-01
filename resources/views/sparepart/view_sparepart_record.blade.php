@@ -423,6 +423,20 @@
                 // Set the form action to the correct route
                 $('#editsparepart').attr('action', '/repuestos/actualizar/' + sparepart.id);
             });
+
+            $('#editcargarimagen').click(function() {
+                $('#editimageUpload1').click();
+            });
+
+            $('#editimageUpload1').change(function() {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#editimagenPrevio').css('background-image', 'url(' + e.target.result +
+                        ')');
+                    $('#editimagenPrevio').show();
+                }
+                reader.readAsDataURL(this.files[0]);
+            });
         });
     </script>
 @endpush

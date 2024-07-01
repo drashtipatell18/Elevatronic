@@ -142,11 +142,14 @@
                                                         una
                                                         imagen</label>
                                                     <input type="file" id="editimageUploadUsuario" name="image"
-                                                        style="display: none;" accept="image/*" />
+                                                        style="display:none;"accept="image/*" />
                                                     <button type="button" id="editcargarimagenUsuario" class="btn-gris">
                                                         <i class="fas fa-arrow-to-top mr-2"></i>Subir
                                                         Imagen
                                                     </button>
+
+
+
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
@@ -346,6 +349,22 @@
                 // Set the form action to the correct route
                 $('#edituserform').attr('action', '/usuarios/actualizar/' + user.id);
             });
+
+
+            $('#editcargarimagenUsuario').click(function() {
+                $('#editimageUploadUsuario').click();
+            });
+
+            $('#editimageUploadUsuario').change(function() {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#editimagenPrevioUsuario').css('background-image', 'url(' + e.target.result +
+                        ')');
+                    $('#editimagenPrevioUsuario').show();
+                }
+                reader.readAsDataURL(this.files[0]);
+            });
+
         });
     </script>
 @endpush

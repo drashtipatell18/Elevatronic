@@ -2528,6 +2528,20 @@
                 $('#edit-descripcion1').val(elevator.descripcion1);
 
             });
+
+            $('#edituploadButton').click(function() {
+                $('#editimageUpload').click();
+            });
+
+            $('#editimageUpload').change(function() {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#editimagePreview').css('background-image', 'url(' + e.target.result + ')');
+                    $('#editimagePreview').show();
+                }
+                reader.readAsDataURL(this.files[0]);
+            });
+
         });
     </script>
 @endpush

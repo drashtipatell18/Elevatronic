@@ -134,9 +134,9 @@
                                                 <select class="custom-select form-control" name="tipo_de_cliente"
                                                     id="Tcliente">
                                                     <option value="">Seleccionar opción</option>
-                                                    <option value="person1">Cliente 1</option>
-                                                    <option value="person2">Cliente 2</option>
-                                                    <option value="person3">Cliente 3</option>
+                                                    <option value="cilente1">Cliente 1</option>
+                                                    <option value="cilente2">Cliente 2</option>
+                                                    <option value="cilente3">Cliente 3</option>
                                                 </select>
 
 
@@ -225,38 +225,46 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         @isset($customer)
-                                            <form action="" method="POST"
-                                                class="formulario-modal" id="EditcustomerForm">
+                                            <form action="" method="POST" class="formulario-modal"
+                                                id="EditcustomerForm">
                                                 @csrf
+                                                @method('PUT')
                                                 <div class="form-group">
                                                     <label for="nombreRuc">Nombre o Razón
                                                         Social</label>
                                                     <input type="text" placeholder="Nombre o Razón Social" name="nombre"
-                                                        id="edit-nombre" value=""
-                                                        class="form-control">
+                                                        id="edit-nombre" value="" class="form-control">
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="tipo_de_cliente">Tipo de
                                                         Cliente</label>
-                                                        <select class="custom-select form-control" name="tipo_de_cliente" id="edit-tipo_de_cliente">
-                                                            <option value="">Seleccionar opción</option>
-                                                            <option value="person1" {{ $customer->tipo_de_cliente == 'person1' ? 'selected' : '' }}>Cliente 1</option>
-                                                            <option value="person2" {{ $customer->tipo_de_cliente == 'person2' ? 'selected' : '' }}>Cliente 2</option>
-                                                            <option value="person3" {{ $customer->tipo_de_cliente == 'person3' ? 'selected' : '' }}>Cliente 3</option>
-                                                        </select>
+                                                    <select class="custom-select form-control" name="tipo_de_cliente"
+                                                        id="edit-tipo_de_cliente">
+                                                        <option value="">Seleccionar opción</option>
+                                                        <option value="cilente1"
+                                                            {{ $customer->tipo_de_cliente == 'cilente1' ? 'selected' : '' }}>
+                                                            Cliente 1</option>
+                                                        <option value="cilente2"
+                                                            {{ $customer->tipo_de_cliente == 'cilente2' ? 'selected' : '' }}>
+                                                            Cliente 2</option>
+                                                        <option value="cilente3"
+                                                            {{ $customer->tipo_de_cliente == 'cilente3' ? 'selected' : '' }}>
+                                                            Cliente 3</option>
+                                                    </select>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="RUC">RUC o DNI</label>
                                                     <input type="number" placeholder="RUC o DNI" name="ruc"
-                                                        id="edit-ruc" value=""
-                                                        class="form-control">
+                                                        id="edit-ruc" value="" class="form-control">
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="pais">País</label>
                                                     <select class="custom-select form-control" name="país" id="edit-país">
                                                         <option value="">Seleccionar opción
                                                         </option>
-                                                        <option value="perú"{{ $customer->país == 'perú' ? 'selected': ''}}> Perú </option>
+                                                        <option
+                                                            value="perú"{{ $customer->país == 'perú' ? 'selected' : '' }}>
+                                                            Perú </option>
                                                     </select>
                                                 </div>
                                                 <div class="form-group">
@@ -269,7 +277,7 @@
                                                         </option>
                                                         @foreach ($provinces as $province)
                                                             <option value="{{ $province }}"
-                                                                {{ $customer->provincia == $province ? 'selected' : ''}}>
+                                                                {{ $customer->provincia == $province ? 'selected' : '' }}>
                                                                 {{ $province }}
                                                             </option>
                                                         @endforeach
@@ -283,31 +291,24 @@
                                                 <div class="form-group">
                                                     <label for="dirección">Dirección</label>
                                                     <input type="text" placeholder="Dirección" name="dirección"
-                                                        id="edit-dirección"
-                                                        value=""
-                                                        class="form-control">
+                                                        id="edit-dirección" value="" class="form-control">
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="teléfono">Teléfono</label>
                                                     <input type="number" placeholder="Teléfono" name="teléfono"
-                                                        id="edit-teléfono"
-                                                        value=""
-                                                        class="form-control">
+                                                        id="edit-teléfono" value="" class="form-control">
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="teléfono_móvil">Teléfono
                                                         Móvil</label>
                                                     <input type="number" placeholder="Teléfono Móvil" name="teléfono_móvil"
-                                                        id="edit-teléfono_móvil"
-                                                        value=""
-                                                        class="form-control">
+                                                        id="edit-teléfono_móvil" value="" class="form-control">
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="correo">Correo
                                                         electrónico</label>
                                                     <input type="text" placeholder="Correo electrónico"
-                                                        name="correo_electrónico" id="edit-correo_electrónico"
-                                                        value=""
+                                                        name="correo_electrónico" id="edit-correo_electrónico" value=""
                                                         class="form-control">
                                                 </div>
                                                 <div class="form-group">
@@ -315,15 +316,12 @@
                                                         conctacto</label>
                                                     <input type="text" placeholder="Nombre del conctacto"
                                                         name="nombre_del_contacto" id="edit-nombre_del_contacto"
-                                                        value=""
-                                                        class="form-control">
+                                                        value="" class="form-control">
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="posición">Posición</label>
                                                     <input type="text" placeholder="Posición" name="posición"
-                                                        id="edit-posición"
-                                                        value=""
-                                                        class="form-control">
+                                                        id="edit-posición" value="" class="form-control">
                                                 </div>
                                                 <div class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
                                                     <button type="submit" class="btn-gris btn-red mr-2">
@@ -344,42 +342,43 @@
                 </div>
 
                 <!-- Modal Eliminar-->
-                <div class="modal fade" id="modalEliminar{{ $customer->id }}" tabindex="-1" role="dialog"
-                    aria-labelledby="modelTitleId" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content border-radius-12">
-                            <div class="modal-body">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">×</span>
-                                        </button>
-                                        <div class="box1">
-                                            <img src="{{ asset('img/iconos/trash.svg') }}" alt="trash"
-                                                width="76">
-                                            <p class="mt-3 mb-0">
-                                                ¿Seguro que quieres eliminar <span id="item-name"></span>?
-                                            </p>
+                @isset($customer)
+                    <div class="modal fade" id="modalEliminar{{ $customer->id }}" tabindex="-1" role="dialog"
+                        aria-labelledby="modelTitleId" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content border-radius-12">
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">×</span>
+                                            </button>
+                                            <div class="box1">
+                                                <img src="{{ asset('img/iconos/trash.svg') }}" alt="trash"
+                                                    width="76">
+                                                <p class="mt-3 mb-0">
+                                                    ¿Seguro que quieres eliminar <span id="item-name"></span>?
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="modal-footer align-items-center justify-content-center">
-                                @isset($customer)
-                                    <form id="delete-form" action="{{ route('destroy.customer', $customer->id) }}"
-                                        method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn-gris btn-red">Sí</button>
-                                        <button type="button" class="btn-gris btn-border" data-dismiss="modal">No</button>
-                                    </form>
-                                @endisset
+                                <div class="modal-footer align-items-center justify-content-center">
+                                    @isset($customer)
+                                        <form id="delete-form" action="{{ route('destroy.customer', $customer->id) }}"
+                                            method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn-gris btn-red">Sí</button>
+                                            <button type="button" class="btn-gris btn-border" data-dismiss="modal">No</button>
+                                        </form>
+                                    @endisset
 
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-
+                @endisset
             </div>
         </div>
     </div>
@@ -491,32 +490,32 @@
                         nombre: 'required',
                         tipo_de_cliente: 'required',
                         ruc: {
-                            required: true,
+                            // required: true,
                             digits: true,
-                            minlength: 8,
-                            maxlength: 8
+                            minlength: 11,
+                            maxlength: 11
                         },
                         país: 'required',
-                        provincia: 'required',
-                        dirección: 'required',
+                        // provincia: 'required',
+                        // dirección: 'required',
                         teléfono: {
-                            required: true,
+                            // required: true,
                             digits: true,
-                            minlength: 8,
-                            maxlength: 8
+                            minlength: 9,
+                            maxlength: 9
                         },
                         teléfono_móvil: {
-                            required: true,
+                            // required: true,
                             digits: true,
-                            minlength: 8,
-                            maxlength: 8
+                            minlength: 9,
+                            maxlength: 9
                         },
                         correo_electrónico: {
-                            required: true,
+                            // required: true,
                             email: true
                         },
-                        nombre_del_contacto: 'required',
-                        posición: 'required'
+                        // nombre_del_contacto: 'required',
+                        // posición: 'required'
                     },
                     messages: {
                         nombre: 'Por favor, ingresa el nombre o razón social',
@@ -524,8 +523,8 @@
                         ruc: {
                             required: 'Por favor, ingresa el RUC o DNI',
                             digits: 'Por favor, ingresa solo dígitos',
-                            minlength: 'El RUC debe tener exactamente 8 dígitos',
-                            maxlength: 'El RUC debe tener exactamente 8 dígitos'
+                            minlength: 'El RUC debe tener exactamente 11 dígitos',
+                            maxlength: 'El RUC debe tener exactamente 11 dígitos'
                         },
                         país: 'Por favor, selecciona el país',
                         provincia: 'Por favor, selecciona la provincia',
@@ -533,14 +532,14 @@
                         teléfono: {
                             required: 'Por favor, ingresa el teléfono',
                             digits: 'Por favor, ingresa solo dígitos',
-                            minlength: 'El teléfono debe tener exactamente 8 dígitos',
-                            maxlength: 'El teléfono debe tener exactamente 8 dígitos'
+                            minlength: 'El teléfono debe tener exactamente 9 dígitos',
+                            maxlength: 'El teléfono debe tener exactamente 9 dígitos'
                         },
                         teléfono_móvil: {
                             required: 'Por favor, ingresa el teléfono móvil',
                             digits: 'Por favor, ingresa solo dígitos',
-                            minlength: 'El teléfono móvil debe tener exactamente 8 dígitos',
-                            maxlength: 'El teléfono móvil debe tener exactamente 8 dígitos'
+                            minlength: 'El teléfono móvil debe tener exactamente 9 dígitos',
+                            maxlength: 'El teléfono móvil debe tener exactamente 9 dígitos'
                         },
                         correo_electrónico: {
                             required: 'Por favor, ingresa un correo electrónico',
@@ -586,32 +585,32 @@
                     nombre: 'required',
                     tipo_de_cliente: 'required',
                     ruc: {
-                        required: true,
+                        // required: true,
                         digits: true,
-                        minlength: 8,
-                        maxlength: 8
+                        minlength: 11,
+                        maxlength: 11
                     },
                     país: 'required',
                     provincia: 'required',
-                    dirección: 'required',
+                    // dirección: 'required',
                     teléfono: {
-                        required: true,
+                        // required: true,
                         digits: true,
-                        minlength: 8,
-                        maxlength: 8
+                        minlength: 9,
+                        maxlength: 9
                     },
                     teléfono_móvil: {
-                        required: true,
+                        // required: true,
                         digits: true,
-                        minlength: 8,
-                        maxlength: 8
+                        minlength: 9,
+                        maxlength: 9
                     },
                     correo_electrónico: {
-                        required: true,
+                        // required: true,
                         email: true
                     },
-                    nombre_del_contacto: 'required',
-                    posición: 'required'
+                    // nombre_del_contacto: 'required',
+                    // posición: 'required'
                 },
                 messages: {
                     nombre: 'Por favor, ingresa el nombre o razón social',
@@ -619,8 +618,8 @@
                     ruc: {
                         required: 'Por favor, ingresa el RUC o DNI',
                         digits: 'Por favor, ingresa solo dígitos',
-                        minlength: 'El RUC debe tener exactamente 8 dígitos',
-                        maxlength: 'El RUC debe tener exactamente 8 dígitos'
+                        minlength: 'El RUC debe tener exactamente 11 dígitos',
+                        maxlength: 'El RUC debe tener exactamente 11 dígitos'
                     },
                     país: 'Por favor, selecciona el país',
                     provincia: 'Por favor, selecciona la provincia',
@@ -628,14 +627,14 @@
                     teléfono: {
                         required: 'Por favor, ingresa el teléfono',
                         digits: 'Por favor, ingresa solo dígitos',
-                        minlength: 'El teléfono debe tener exactamente 8 dígitos',
-                        maxlength: 'El teléfono debe tener exactamente 8 dígitos'
+                        minlength: 'El teléfono debe tener exactamente 9 dígitos',
+                        maxlength: 'El teléfono debe tener exactamente 9 dígitos'
                     },
                     teléfono_móvil: {
                         required: 'Por favor, ingresa el teléfono móvil',
                         digits: 'Por favor, ingresa solo dígitos',
-                        minlength: 'El teléfono móvil debe tener exactamente 8 dígitos',
-                        maxlength: 'El teléfono móvil debe tener exactamente 8 dígitos'
+                        minlength: 'El teléfono móvil debe tener exactamente 9 dígitos',
+                        maxlength: 'El teléfono móvil debe tener exactamente 9 dígitos'
                     },
                     correo_electrónico: {
                         required: 'Por favor, ingresa un correo electrónico',

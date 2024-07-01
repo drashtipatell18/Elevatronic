@@ -83,7 +83,7 @@ class StaffController extends Controller
         $staffs = Staff::find($id);
         $staffs->delete();
         session()->flash('danger', 'Personal eliminar exitosamente!');
-        return redirect()->back();
+        return redirect()->route('staff');
     }
 
 }

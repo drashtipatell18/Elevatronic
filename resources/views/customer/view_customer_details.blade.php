@@ -20,8 +20,8 @@
                             <a class="dropdown-item edit-customer" href="#"
                                 data-customer="{{ json_encode($customer) }}" data-toggle="modal"
                                 data-target="#editarCliente">Editar</a>
-                            <a class="dropdown-item" href="{{ route('destroy.customer', $customer->id) }}"
-                                data-toggle="modal" data-target="#modalEliminar">Eliminar</a>
+                            <a class="dropdown-item" href=""
+                                data-toggle="modal" data-target="#modalEliminar{{ $customer->id }}">Eliminar</a>
                         </div>
                     </div>
                 </div>
@@ -145,6 +145,7 @@
                                 <form action="" method="POST"
                                     class="formulario-modal" id="EditcustomerForm">
                                     @csrf
+                                    @method('PUT')
                                     <div class="form-group">
                                         <label for="nombreRuc">Nombre o Razón
                                             Social</label>
@@ -157,9 +158,9 @@
                                             Cliente</label>
                                             <select class="custom-select form-control" name="tipo_de_cliente" id="edit-tipo_de_cliente">
                                                 <option value="">Seleccionar opción</option>
-                                                <option value="person1" {{ $customer->tipo_de_cliente == 'person1' ? 'selected' : '' }}>Cliente 1</option>
-                                                <option value="person2" {{ $customer->tipo_de_cliente == 'person2' ? 'selected' : '' }}>Cliente 2</option>
-                                                <option value="person3" {{ $customer->tipo_de_cliente == 'person3' ? 'selected' : '' }}>Cliente 3</option>
+                                                <option value="cilente1" {{ $customer->tipo_de_cliente == 'cilente1' ? 'selected' : '' }}>Cliente 1</option>
+                                                <option value="cilente2" {{ $customer->tipo_de_cliente == 'cilente2' ? 'selected' : '' }}>Cliente 2</option>
+                                                <option value="cilente3" {{ $customer->tipo_de_cliente == 'cilente3' ? 'selected' : '' }}>Cliente 3</option>
                                             </select>
                                     </div>
                                     <div class="form-group">
@@ -261,7 +262,7 @@
     </div>
 
     <!-- Modal Eliminar-->
-    <div class="modal fade" id="modalEliminar" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+    <div class="modal fade" id="modalEliminar{{ $customer->id }}" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content border-radius-12">
@@ -305,32 +306,32 @@
                     nombre: 'required',
                     tipo_de_cliente: 'required',
                     ruc: {
-                        required: true,
+                        // required: true,
                         digits: true,
-                        minlength: 8,
-                        maxlength: 8
+                        minlength: 11,
+                        maxlength: 11
                     },
                     país: 'required',
-                    provincia: 'required',
-                    dirección: 'required',
+                    // provincia: 'required',
+                    // dirección: 'required',
                     teléfono: {
-                        required: true,
+                        // required: true,
                         digits: true,
-                        minlength: 8,
-                        maxlength: 8
+                        minlength: 9,
+                        maxlength: 9
                     },
                     teléfono_móvil: {
-                        required: true,
+                        // required: true,
                         digits: true,
-                        minlength: 8,
-                        maxlength: 8
+                        minlength: 9,
+                        maxlength: 9
                     },
                     correo_electrónico: {
-                        required: true,
+                        // required: true,
                         email: true
                     },
-                    nombre_del_contacto: 'required',
-                    posición: 'required'
+                    // nombre_del_contacto: 'required',
+                    // posición: 'required'
                 },
                 messages: {
                     nombre: 'Por favor, ingresa el nombre o razón social',

@@ -102,6 +102,6 @@ class SparePartController extends Controller
         $sparepart = SparePart::find($id);
         $sparepart->delete();
         session()->flash('danger', 'Piezas de repuesto eliminar exitosamente!');
-        return redirect()->back();
+        return redirect()->route('sparepart');
     }
 }

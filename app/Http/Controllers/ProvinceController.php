@@ -80,7 +80,7 @@ class ProvinceController extends Controller
 
         $province->delete();
         session()->flash('success', 'Provincia eliminada exitosamente!');
-        return redirect()->back();
+        return redirect()->route('province');
     }
 
     public function provinceForceDestroy(Request $request, $id)

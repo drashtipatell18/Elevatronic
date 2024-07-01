@@ -18,12 +18,12 @@ class CustomerController extends Controller
         $validatedData = $request->validate([
             'nombre' => 'required',
             'tipo_de_cliente' => 'required',
-            'ruc' => 'required|numeric|digits:8',
+            'ruc' => 'required|numeric|digits:11',
             'país' => 'required',
             'provincia' => 'required',
             'dirección' => 'required',
-            'teléfono' => 'required|numeric|digits:8',
-            'teléfono_móvil' => 'required|numeric|digits:8',
+            'teléfono' => 'required|numeric|digits:9',
+            'teléfono_móvil' => 'required|numeric|digits:9',
             'correo_electrónico' => 'required',
             'nombre_del_contacto' => 'required',
             'posición' => 'required',
@@ -67,12 +67,12 @@ class CustomerController extends Controller
         $validatedData = $request->validate([
             'nombre' => 'required',
             'tipo_de_cliente' => 'required',
-            'ruc' => 'required|numeric|digits:8',
+            'ruc' => 'required|numeric|digits:11',
             'país' => 'required',
             'provincia' => 'required',
             'dirección' => 'required',
-            'teléfono' => 'required|numeric|digits:8',
-            'teléfono_móvil' => 'required|numeric|digits:8',
+            'teléfono' => 'required|numeric|digits:9',
+            'teléfono_móvil' => 'required|numeric|digits:9',
             'correo_electrónico' => 'required',
             'nombre_del_contacto' => 'required',
             'posición' => 'required',
@@ -103,6 +103,6 @@ class CustomerController extends Controller
         $customers = Cliente::find($id);
         $customers->delete();
         session()->flash('danger', 'Cliente eliminar exitosamente!');
-        return redirect()->back();
+        return redirect()->route('customer');
     }
 }

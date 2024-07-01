@@ -111,7 +111,7 @@ class MaintInReviewController extends Controller
         $maint_in_review = MaintInReview::find($id);
         $maint_in_review->delete();
         session()->flash('danger', 'Mant En Revisión eliminar exitosamente!');
-        return redirect()->back();
+        return redirect()->route('maint_in_review');
     }
 
     public function maintInReviewDetails($id){

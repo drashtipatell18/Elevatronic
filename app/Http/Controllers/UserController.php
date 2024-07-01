@@ -94,7 +94,7 @@ class UserController extends Controller
         $users = User::find($id);
         $users->delete();
         session()->flash('danger', 'Usuario eliminar exitosamente!');
-        return redirect()->back();
+        return redirect()->route('user');
     }
 
 }

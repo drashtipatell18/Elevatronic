@@ -307,7 +307,7 @@
                         required: true,
                         digits: true
                     },
-                    employee: "required",
+                    // employee: "required",
                 },
                 messages: {
                     username: "Por favor, ingrese el nombre de usuario",

@@ -483,7 +483,7 @@
                                                         <td>{{ $contra->monto_de_propuesta }}</td>
                                                         <td>{{ $contra->fecha_de_inicio }}</td>
                                                         <td>{{ $contra->fecha_de_fin }}</td>
-                                                        <td>{{ $contra->estado_cuenta_del_contrato }}
+                                                        <td>{{ $contra->monto_de_contrato }}
                                                         <td>
                                                             @if ($contra->estado == 'activo')
                                                                 <div class="alerta boton-activo">
@@ -2424,28 +2424,28 @@
                         required: true,
                         extension: "jpg|jpeg|png|gif"
                     },
-                    contrato: "required",
+                    // contrato: "required",
                     nombre: "required",
-                    código: "required",
-                    marca: "required",
+                    // código: "required",
+                    // marca: "required",
                     cliente: "required",
-                    fecha: "required",
-                    garantizar: "required",
+                    // fecha: "required",
+                    // garantizar: "required",
                     dirección: "required",
                     // ubigeo: "required",
-                    provincia: "required",
-                    técnico_instalador: "required",
-                    técnico_ajustador: "required",
-                    tipo_de_ascensor: "required",
-                    cantidad: "required",
-                    npisos: "required",
+                    // provincia: "required",
+                    // técnico_instalador: "required",
+                    // técnico_ajustador: "required",
+                    // tipo_de_ascensor: "required",
+                    // cantidad: "required",
+                    // npisos: "required",
                     ncontacto: "required",
                     teléfono: {
-                        required: true,
+                        // required: true,
                         digits: true
                     },
                     correo: {
-                        required: true,
+                        // required: true,
                         email: true
                     },
                     descripcion1: "required",

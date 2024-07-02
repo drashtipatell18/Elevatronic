@@ -507,8 +507,9 @@
                                                                         data-toggle="modal"
                                                                         data-target="#crearContratos">Ver
                                                                         detalles</a>
-                                                                    <a class="dropdown-item"
-                                                                        href="{{ route('edit.contract', $contra->id) }}"
+                                                                    <a class="dropdown-item editContract"
+                                                                        href=""
+                                                                        data-id="{{ $contra->id }}"
                                                                         data-toggle="modal"
                                                                         data-target="#editarContratos">Editar</a>
 
@@ -816,7 +817,7 @@
                             </div>
 
                             <!-- Modal Eliminar-->
-                            <div class="modal fade" id="modalEliminar" tabindex="-1" role="dialog"
+                            <div class="modal fade" id="modalEliminar{{ $contra->id }} " tabindex="-1" role="dialog"
                                 aria-labelledby="modelTitleId" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content border-radius-12">
@@ -2541,6 +2542,22 @@
                 }
                 reader.readAsDataURL(this.files[0]);
             });
+
+            $(".editContract").click(function(){
+                let id = $(this).data('id');
+                $.ajax({
+                    type: "GET",
+                    method: "GET",
+                    dataType: "JSON",
+                    url: `/contract/get/${id}`,
+                    success: function(response){
+                        $("#editcontratos").attr("action", "/contrato/actualizar/" + id);
+                        for(var key in response) {
+                            $("#editcontratos").find("input[name='"+ key +"']").val(response[key])
+                        }
+                    }
+                })
+            })
 
         });
     </script>

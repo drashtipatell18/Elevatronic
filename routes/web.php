@@ -80,6 +80,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/ascensore/vista/{id}', [ElevatorController::class, 'elevatorView'])->name('view.elevator');
     Route::post('/ascensore/actualizar/{id}', [ElevatorController::class, 'elevatorUpdate'])->name('update.elevator');
     Route::delete ('/ascensore/destruir/{id}',[ElevatorController::class,'elevatorDestroy'])->name('destroy.elevator');
+    Route::get('/contract/get/{id}', [ElevatorController::class, 'getContract']);
 
     // Maint In Review //
 
@@ -91,6 +92,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('/mant/en/revisión/actualizar/{id}', [MaintInReviewController::class, 'maintInReviewUpdate'])->name('update.maint.in.review');
     Route::delete ('/mant/en/revisión/destruir/{id}',[MaintInReviewController::class,'maintInReviewDestroy'])->name('destroy.maint.in.review');
     Route::get('/mant/en/revisión/recuento_total_de_registros', [MaintInReviewController::class, 'totalRecordCount']);
+    Route::post('/mant/en/revisión/detalle/{id}/saveImage', [MaintInReviewController::class, 'saveImage']);
 
 
     // Maintenance //
@@ -155,4 +157,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/contrato/editar/{id}', [ElevatorController::class, 'contractEdit'])->name('edit.contract');
     Route::post('/contrato/actualizar/{id}', [ElevatorController::class, 'contractUpdate'])->name('update.contract');
     Route::delete ('/contrato/destruir/{id}',[ElevatorController::class,'contractDestroy'])->name('destroy.contract');
+
+    Route::get('/contract/get/{id}', [ElevatorController::class, 'getContract']);
 });

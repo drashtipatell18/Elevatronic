@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Elevators;
 use App\Models\Elevatortypes\Elevatortypes;
+use App\Models\ImagePdfs;
 use App\Models\MaintInReview;
 use App\Models\ReviewType;
 use App\Models\Province;
@@ -120,7 +121,20 @@ class MaintInReviewController extends Controller
         $elevators = Elevators::pluck('nombre','nombre');
         $spareparts = SparePart::all();
         $provinces = Province::pluck('provincia', 'provincia');
-        return view('Maint.view_maint_in_review_record', compact('spareparts','provinces','maint_in_review','review_types','elevators'));
+        $images = ImagePdfs::where('mant_en_revisións_id', $id)->get();
+        return view('Maint.view_maint_in_review_record', compact('spareparts','provinces','maint_in_review','review_types','elevators', 'id', 'images'));
+    }
 
+    public function saveImage(Request $request, $id)
+    {
+        foreach ($request->image as $image) {
+            $filename = time() . '.' . $image->getClientOriginalExtension();
+            $image->move('images', $filename);
+
+            ImagePdfs::create([
+                'image' => $filename,
+                'mant_en_revisións_id' => $request->id
+            ]);
+        }
     }
 }

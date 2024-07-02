@@ -253,4 +253,9 @@ class ElevatorController extends Controller
         return redirect()->route('elevator');
     }
 
+    public function getContract($id){
+        $contracts = Contract::find($id);
+        return response()->json($contracts);
+    }
+
 }

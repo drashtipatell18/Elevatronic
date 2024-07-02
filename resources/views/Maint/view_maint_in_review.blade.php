@@ -67,7 +67,7 @@
                                             <th>ID</th>
                                             <th>TIPO DE REVISIÓN</th>
                                             <th>ASCENSOR</th>
-                                            <th>#CERTIFICADO</th>
+                                            {{-- <th>#CERTIFICADO</th> --}}
                                             <th>FECHA</th>
                                             <th>HOR. INI</th>
                                             <th>HOR. FIN</th>
@@ -82,7 +82,7 @@
                                                 <td>{{ $index + 1 }}</td>
                                                 <td>{{ $maint_in_rev->tipo_de_revisión }}</td>
                                                 <td>{{ $maint_in_rev->ascensor }}</td>
-                                                <td>{{ $maint_in_rev->núm_certificado }}</td>
+                                                {{-- <td>{{ $maint_in_rev->núm_certificado }}</td> --}}
                                                 <td>{{ $maint_in_rev->fecha_de_mantenimiento }}</td>
                                                 <td>{{ $maint_in_rev->hora_inicio }}</td>
                                                 <td>{{ $maint_in_rev->hora_fin }}</td>
@@ -252,7 +252,7 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="row">
+                                {{-- <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="núm_certificado">Núm Certificado</label>
@@ -267,7 +267,7 @@
                                                 class="form-control">
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="form-group">
                                     <label for="supervisor">Supervisor</label>
                                     <select class="custom-select" name="supervisor" id="supervisor">
@@ -371,6 +371,7 @@
                 <form action="" class="formulario-modal" enctype="multipart/form-data" method="POST"
                     id="editmaintreview">
                     @csrf
+                    @method('PUT')
                     <div class="modal-body body_modal">
                         <div class="row">
                             <div class="col-md-12">
@@ -444,7 +445,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="row">
+                                {{-- <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="NCertificado">Núm
@@ -473,7 +474,7 @@
                                             @enderror
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
 
 
                                 <div class="form-group">
@@ -745,12 +746,12 @@
                     // núm_certificado: "required",
                     // máquina: "required",
                     // supervisor: "required",
-                    // técnico: "required",
+                    técnico: "required",
                     // mes_programado: "required",
-                    // fecha_de_mantenimiento: "required",
-                    // hora_inicio: "required",
-                    // hora_fin: "required",
-                    // observaciónes: "required",
+                    fecha_de_mantenimiento: "required",
+                    hora_inicio: "required",
+                    hora_fin: "required",
+                    observaciónes: "required",
                     // solución: "required"
                 },
                 messages: {
@@ -762,12 +763,12 @@
                     // núm_certificado: "Por favor, ingrese el número de certificado.",
                     // máquina: "Por favor, ingrese el número de máquina.",
                     // supervisor: "Por favor, seleccione el supervisor.",
-                    // técnico: "Por favor, seleccione el técnico.",
+                    técnico: "Por favor, seleccione el técnico.",
                     // mes_programado: "Por favor, seleccione el mes programado.",
-                    // fecha_de_mantenimiento: "Por favor, ingrese la fecha de mantenimiento.",
-                    // hora_inicio: "Por favor, ingrese la hora de inicio.",
-                    // hora_fin: "Por favor, ingrese la hora de fin.",
-                    // observaciónes: "Por favor, ingrese las observaciones.",
+                    fecha_de_mantenimiento: "Por favor, ingrese la fecha de mantenimiento.",
+                    hora_inicio: "Por favor, ingrese la hora de inicio.",
+                    hora_fin: "Por favor, ingrese la hora de fin.",
+                    observaciónes: "Por favor, ingrese las observaciones.",
                     // solución: "Por favor, ingrese la solución."
                 },
                 errorElement: "span",
@@ -795,12 +796,12 @@
                     // núm_certificado: "required",
                     // máquina: "required",
                     // supervisor: "required",
-                    // técnico: "required",
+                    técnico: "required",
                     // mes_programado: "required",
-                    // fecha_de_mantenimiento: "required",
-                    // hora_inicio: "required",
-                    // hora_fin: "required",
-                    // observaciónes: "required",
+                    fecha_de_mantenimiento: "required",
+                    hora_inicio: "required",
+                    hora_fin: "required",
+                    observaciónes: "required",
                     // solución: "required",
                 },
                 messages: {
@@ -810,12 +811,12 @@
                     // núm_certificado: "Por favor, ingrese el número de certificado.",
                     // máquina: "Por favor, ingrese el número de máquina.",
                     // supervisor: "Por favor, seleccione el supervisor.",
-                    // técnico: "Por favor, seleccione el técnico.",
+                    técnico: "Por favor, seleccione el técnico.",
                     // mes_programado: "Por favor, seleccione el mes programado.",
-                    // fecha_de_mantenimiento: "Por favor, ingrese la fecha de mantenimiento.",
-                    // hora_inicio: "Por favor, ingrese la hora de inicio.",
-                    // hora_fin: "Por favor, ingrese la hora de fin.",
-                    // observaciónes: "Por favor, ingrese las observaciones.",
+                    fecha_de_mantenimiento: "Por favor, ingrese la fecha de mantenimiento.",
+                    hora_inicio: "Por favor, ingrese la hora de inicio.",
+                    hora_fin: "Por favor, ingrese la hora de fin.",
+                    observaciónes: "Por favor, ingrese las observaciones.",
                     // solución: "Por favor, ingrese la solución."
                 },
                 errorElement: "span",

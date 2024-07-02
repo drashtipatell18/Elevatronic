@@ -508,13 +508,13 @@
                                                                         data-target="#crearContratos">Ver
                                                                         detalles</a>
                                                                     <a class="dropdown-item"
-                                                                        href="{{ route('edit.contract', $contra->id) }}"
+                                                                        href=""
                                                                         data-toggle="modal"
-                                                                        data-target="#editarContratos">Editar</a>
+                                                                        data-target="#editarContratos{{ $contra->id }}">Editar</a>
 
                                                                     <a class="dropdown-item" href="javascript:void(0)"
                                                                         data-toggle="modal"
-                                                                        data-target="#modalEliminar">Eliminar</a>
+                                                                        data-target="#modalEliminar{{ $contra->id }}">Eliminar</a>
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -659,7 +659,7 @@
 
 
                             <!-- Modal editar Contrato-->
-                            <div class="modal left fade" id="editarContratos" tabindex="-1" role="dialog"
+                            <div class="modal left fade" id="editarContratos{{ $contra->id }}" tabindex="-1" role="dialog"
                                 aria-labelledby="modelTitleId" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
@@ -816,7 +816,7 @@
                             </div>
 
                             <!-- Modal Eliminar-->
-                            <div class="modal fade" id="modalEliminar" tabindex="-1" role="dialog"
+                            <div class="modal fade" id="modalEliminar{{ $contra->id }} " tabindex="-1" role="dialog"
                                 aria-labelledby="modelTitleId" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content border-radius-12">

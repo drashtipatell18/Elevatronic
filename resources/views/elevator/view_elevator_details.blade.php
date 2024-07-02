@@ -483,7 +483,7 @@
                                                         <td>{{ $contra->monto_de_propuesta }}</td>
                                                         <td>{{ $contra->fecha_de_inicio }}</td>
                                                         <td>{{ $contra->fecha_de_fin }}</td>
-                                                        <td>{{ $contra->estado_cuenta_del_contrato }}
+                                                        <td>{{ $contra->monto_de_contrato }}
                                                         <td>
                                                             @if ($contra->estado == 'activo')
                                                                 <div class="alerta boton-activo">

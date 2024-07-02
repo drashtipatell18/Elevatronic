@@ -260,12 +260,12 @@
                                                 <div class="form-group">
                                                     <label for="pais">País</label>
                                                     <select class="custom-select form-control" name="país" id="edit-país">
-                                                        <option value="">Seleccionar opción
-                                                        </option>
+                                                        <option value="">Seleccionar opción</option>
                                                         <option
                                                             value="perú"{{ $customer->país == 'perú' ? 'selected' : '' }}>
                                                             Perú </option>
                                                     </select>
+                                                   
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="provincia">Provincia</label>
@@ -490,31 +490,31 @@
                         nombre: 'required',
                         tipo_de_cliente: 'required',
                         ruc: {
-                            // required: true,
+                            required: true,
                             digits: true,
                             minlength: 11,
                             maxlength: 11
                         },
                         país: 'required',
-                        // provincia: 'required',
-                        // dirección: 'required',
+                        provincia: 'required',
+                        dirección: 'required',
                         teléfono: {
-                            // required: true,
+                            required: true,
                             digits: true,
                             minlength: 9,
                             maxlength: 9
                         },
                         teléfono_móvil: {
-                            // required: true,
+                            required: true,
                             digits: true,
                             minlength: 9,
                             maxlength: 9
                         },
                         correo_electrónico: {
-                            // required: true,
+                            required: true,
                             email: true
                         },
-                        // nombre_del_contacto: 'required',
+                        nombre_del_contacto: 'required',
                         // posición: 'required'
                     },
                     messages: {
@@ -591,10 +591,10 @@
                         maxlength: 11
                     },
                     país: 'required',
-                    // provincia: 'required',
+                    provincia: 'required',
                     dirección: 'required',
                     teléfono: {
-                        // required: true,
+                        required: true,
                         digits: true,
                         minlength: 9,
                         maxlength: 9

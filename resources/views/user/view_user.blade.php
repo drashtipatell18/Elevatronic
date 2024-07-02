@@ -580,7 +580,7 @@
                         required: true,
                         digits: true
                     },
-                    employee: "required",
+                    // employee: "required",
                     password: {
                         required: true,
                         minlength: 8, // Adjusted minlength to 8 characters
@@ -631,7 +631,7 @@
                         required: true,
                         digits: true
                     },
-                    employee: "required",
+                    // employee: "required",
                 },
                 messages: {
                     username: "Por favor, ingrese el nombre de usuario",

@@ -312,10 +312,10 @@
                         maxlength: 11
                     },
                     país: 'required',
-                    // provincia: 'required',
+                    provincia: 'required',
                     dirección: 'required',
                     teléfono: {
-                        // required: true,
+                        required: true,
                         digits: true,
                         minlength: 9,
                         maxlength: 9

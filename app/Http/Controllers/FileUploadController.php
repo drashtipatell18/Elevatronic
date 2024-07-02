@@ -22,10 +22,10 @@ class FileUploadController extends Controller
             'file' => 'required|mimes:xlsx',
             'tipoArchivo' => 'required|in:mantenimiento,contratos,repuestos'
         ]);
-    
-        $tipoArchivo = $request->input('tipoArchivo');
+
+        $tipoArchivo = $request->input('tipoArchivos');
         $file = $request->file('file');
-    
+
         // Check if file was uploaded successfully
         if ($file->isValid()) {
             try {
@@ -50,5 +50,5 @@ class FileUploadController extends Controller
             return redirect()->back()->with('danger', 'Failed to upload Excel file.');
         }
     }
-    
+
 }

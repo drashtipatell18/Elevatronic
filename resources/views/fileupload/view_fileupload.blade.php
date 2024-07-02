@@ -9,7 +9,10 @@
                         <span>Carga de Archivos</span>
                     </div>
                 </div>
-
+                <div id="alertaCarga" class="alert alert-elevatronic alert-dismissible" style="display: none;">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong class="mr-2"><img src=" {{ asset('img/iconos/check.svg') }}" alt="icono"></strong>
+                </div>
                 <div class="col-md-12">
                     <div class="box-contenido contenido-elevatronic">
                         <div class="row">
@@ -30,9 +33,9 @@
                                         {{ session('danger') }}
                                     </div>
                                 @endif
+
                                 <form id="uploadForm" method="POST" action="{{ route('upload.excel') }}"
                                     enctype="multipart/form-data">
-
                                     @csrf
                                     <div class="row">
                                         <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 mb-4">
@@ -89,7 +92,6 @@
             $('#fileInput').on('change', function() {
                 // Create FormData object to store form data
                 var formData = new FormData($('#uploadForm')[0]);
-
                 // Send AJAX request
                 $.ajax({
                     url: $('#uploadForm').attr('action'),
@@ -98,17 +100,20 @@
                     processData: false,
                     contentType: false,
                     success: function(response) {
-                        // Handle success response
                         console.log(response);
-                        // You can redirect or show a success message here
+                        var successMessage = "Carga de archivo exitosa";
+                        $('#alertaCarga').html('<strong class="mr-2"><img src="{{ asset('img/iconos/check.svg') }}" alt="icono"></strong>' + successMessage).show();
+                        setTimeout(function() {
+                            location.reload();
+                        }, 9000);
                     },
+
                     error: function(xhr, status, error) {
-                        // Handle error response
                         console.error(xhr.responseText);
-                        // You can display an error message here
                     }
                 });
             });
         });
     </script>
+
 @endpush

@@ -17,12 +17,12 @@ class SparePartController extends Controller
             'nombre' => 'required',
             'precio' => 'required',
             'descripción' => 'required',
-            'frecuencia_de_limpieza' => 'required',
-            'frecuencia_de_lubricación' => 'required',
-            'frecuencia_de_ajuste' => 'required',
-            'frecuencia_de_revisión' => 'required',
-            'frecuencia_de_cambio' => 'required',
-            'frecuencia_de_solicitud' => 'required',
+            // 'frecuencia_de_limpieza' => 'required',
+            // 'frecuencia_de_lubricación' => 'required',
+            // 'frecuencia_de_ajuste' => 'required',
+            // 'frecuencia_de_revisión' => 'required',
+            // 'frecuencia_de_cambio' => 'required',
+            // 'frecuencia_de_solicitud' => 'required',
         ]); 
       
         
@@ -56,12 +56,12 @@ class SparePartController extends Controller
             'nombre' => 'required',
             'precio' => 'required',
             'descripción' => 'required',
-            'frecuencia_de_limpieza' => 'required',
-            'frecuencia_de_lubricación' => 'required',
-            'frecuencia_de_ajuste' => 'required',
-            'frecuencia_de_revisión' => 'required',
-            'frecuencia_de_cambio' => 'required',
-            'frecuencia_de_solicitud' => 'required',
+            // 'frecuencia_de_limpieza' => 'required',
+            // 'frecuencia_de_lubricación' => 'required',
+            // 'frecuencia_de_ajuste' => 'required',
+            // 'frecuencia_de_revisión' => 'required',
+            // 'frecuencia_de_cambio' => 'required',
+            // 'frecuencia_de_solicitud' => 'required',
         ]); 
       
         $sparepart = SparePart::findOrFail($id);

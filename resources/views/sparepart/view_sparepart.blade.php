@@ -629,29 +629,29 @@
                         required: true,
                         number: true
                     },
-                    descripción: "required",
+                    // descripción: "required",
                     frecuencia_de_limpieza: {
-                        required: true,
+                        // required: true,
                         number: true
                     },
                     frecuencia_de_lubricación: {
-                        required: true,
+                        // required: true,
                         number: true
                     },
                     frecuencia_de_ajuste: {
-                        required: true,
+                        // required: true,
                         number: true
                     },
                     frecuencia_de_revisión: {
-                        required: true,
+                        // required: true,
                         number: true
                     },
                     frecuencia_de_cambio: {
-                        required: true,
+                        // required: true,
                         number: true
                     },
                     frecuencia_de_solicitud: {
-                        required: true,
+                        // required: true,
                         number: true
                     }
                 },
@@ -662,27 +662,27 @@
                         number: "Por favor, ingrese un valor numérico para el precio"
                     },
                     frecuencia_de_limpieza: {
-                        required: "Por favor, ingrese la frecuencia de limpieza",
+                        // required: "Por favor, ingrese la frecuencia de limpieza",
                         number: "Por favor, ingrese un valor numérico para la frecuencia de limpieza"
                     },
                     frecuencia_de_lubricación: {
-                        required: "Por favor, ingrese la frecuencia de lubricación",
+                        // required: "Por favor, ingrese la frecuencia de lubricación",
                         number: "Por favor, ingrese un valor numérico para la frecuencia de lubricación"
                     },
                     frecuencia_de_ajuste: {
-                        required: "Por favor, ingrese la frecuencia de ajuste",
+                        // required: "Por favor, ingrese la frecuencia de ajuste",
                         number: "Por favor, ingrese un valor numérico para la frecuencia de ajuste"
                     },
                     frecuencia_de_revisión: {
-                        required: "Por favor, ingrese la frecuencia de revisión",
+                        // required: "Por favor, ingrese la frecuencia de revisión",
                         number: "Por favor, ingrese un valor numérico para la frecuencia de revisión"
                     },
                     frecuencia_de_cambio: {
-                        required: "Por favor, ingrese la frecuencia de cambio",
+                        // required: "Por favor, ingrese la frecuencia de cambio",
                         number: "Por favor, ingrese un valor numérico para la frecuencia de cambio"
                     },
                     frecuencia_de_solicitud: {
-                        required: "Por favor, ingrese la frecuencia de solicitud",
+                        // required: "Por favor, ingrese la frecuencia de solicitud",
                         number: "Por favor, ingrese un valor numérico para la frecuencia de solicitud"
                     }
                 },
@@ -708,17 +708,17 @@
                         required: true,
                         number: true
                     },
-                    descripción: "required",
+                    // descripción: "required",
                     frecuencia_de_limpieza: {
                         required: true,
                         number: true
                     },
                     frecuencia_de_lubricación: {
-                        required: true,
+                        // required: true,
                         number: true
                     },
                     frecuencia_de_ajuste: {
-                        required: true,
+                        // required: true,
                         number: true
                     },
                     frecuencia_de_revisión: {
@@ -738,15 +738,15 @@
                         number: "Por favor, ingrese un valor numérico para el precio"
                     },
                     frecuencia_de_limpieza: {
-                        required: "Por favor, ingrese la frecuencia de limpieza",
+                        // required: "Por favor, ingrese la frecuencia de limpieza",
                         number: "Por favor, ingrese un valor numérico para la frecuencia de limpieza"
                     },
                     frecuencia_de_lubricación: {
-                        required: "Por favor, ingrese la frecuencia de lubricación",
+                        // required: "Por favor, ingrese la frecuencia de lubricación",
                         number: "Por favor, ingrese un valor numérico para la frecuencia de lubricación"
                     },
                     frecuencia_de_ajuste: {
-                        required: "Por favor, ingrese la frecuencia de ajuste",
+                        // required: "Por favor, ingrese la frecuencia de ajuste",
                         number: "Por favor, ingrese un valor numérico para la frecuencia de ajuste"
                     }
                 },

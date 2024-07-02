@@ -370,7 +370,6 @@
                 </div>
                 <form action="" class="formulario-modal" enctype="multipart/form-data" method="POST"
                     id="editmaintreview">
-                    @method('PUT')
                     @csrf
                     <div class="modal-body body_modal">
                         <div class="row">

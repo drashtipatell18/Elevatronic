@@ -591,7 +591,7 @@
                         maxlength: 11
                     },
                     país: 'required',
-                    provincia: 'required',
+                    // provincia: 'required',
                     // dirección: 'required',
                     teléfono: {
                         // required: true,

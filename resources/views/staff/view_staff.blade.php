@@ -552,11 +552,11 @@
                     nombre: "required",
                     posición: "required",
                     correo: {
-                        required: true,
+                        // required: true,
                         email: true
                     },
                     teléfono: {
-                        required: true,
+                        // required: true,
                         digits: true
                     }
                 },
@@ -592,11 +592,11 @@
                     nombre: "required",
                     posición: "required",
                     correo: {
-                        required: true,
+                        // required: true,
                         email: true
                     },
                     teléfono: {
-                        required: true,
+                        // required: true,
                         digits: true
                     }
                 },
@@ -604,11 +604,11 @@
                     nombre: "Por favor, ingrese el nombre",
                     posición: "Por favor, seleccione la posición",
                     correo: {
-                        required: "Por favor, ingrese el correo",
+                        // required: "Por favor, ingrese el correo",
                         email: "Por favor, ingrese un correo válido"
                     },
                     teléfono: {
-                        required: "Por favor, ingrese el teléfono",
+                        // required: "Por favor, ingrese el teléfono",
                         digits: "Por favor, ingrese solo números"
                     }
                 },

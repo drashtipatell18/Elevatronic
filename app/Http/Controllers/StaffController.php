@@ -16,8 +16,8 @@ class StaffController extends Controller
         $validatedData = $request->validate([
             'nombre' => 'required',
             'posición' => 'required',
-            'correo' => 'required',
-            'teléfono' => 'required',
+            // 'correo' => 'required',
+            // 'teléfono' => 'required',
         ]);
 
         $filename = '';
@@ -44,8 +44,8 @@ class StaffController extends Controller
         $validatedData = $request->validate([
             'nombre' => 'required',
             'posición' => 'required',
-            'correo' => 'required',
-            'teléfono' => 'required',
+            // 'correo' => 'required',
+            // 'teléfono' => 'required',
         ]);
 
         $staff = Staff::findOrFail($id);

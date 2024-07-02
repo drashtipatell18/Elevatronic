@@ -483,7 +483,7 @@
                                                         <td>{{ $contra->monto_de_propuesta }}</td>
                                                         <td>{{ $contra->fecha_de_inicio }}</td>
                                                         <td>{{ $contra->fecha_de_fin }}</td>
-                                                        <td>{{ $contra->estado_cuenta_del_contrato }}
+                                                        <td>{{ $contra->monto_de_contrato }}
                                                         <td>
                                                             @if ($contra->estado == 'activo')
                                                                 <div class="alerta boton-activo">
@@ -507,14 +507,15 @@
                                                                         data-toggle="modal"
                                                                         data-target="#crearContratos">Ver
                                                                         detalles</a>
-                                                                    <a class="dropdown-item"
+                                                                    <a class="dropdown-item editContract"
                                                                         href=""
+                                                                        data-id="{{ $contra->id }}"
                                                                         data-toggle="modal"
-                                                                        data-target="#editarContratos{{ $contra->id }}">Editar</a>
+                                                                        data-target="#editarContratos">Editar</a>
 
                                                                     <a class="dropdown-item" href="javascript:void(0)"
                                                                         data-toggle="modal"
-                                                                        data-target="#modalEliminar{{ $contra->id }}">Eliminar</a>
+                                                                        data-target="#modalEliminar">Eliminar</a>
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -659,7 +660,7 @@
 
 
                             <!-- Modal editar Contrato-->
-                            <div class="modal left fade" id="editarContratos{{ $contra->id }}" tabindex="-1" role="dialog"
+                            <div class="modal left fade" id="editarContratos" tabindex="-1" role="dialog"
                                 aria-labelledby="modelTitleId" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
@@ -2541,6 +2542,22 @@
                 }
                 reader.readAsDataURL(this.files[0]);
             });
+
+            $(".editContract").click(function(){
+                let id = $(this).data('id');
+                $.ajax({
+                    type: "GET",
+                    method: "GET",
+                    dataType: "JSON",
+                    url: `/contract/get/${id}`,
+                    success: function(response){
+                        $("#editcontratos").attr("action", "/contrato/actualizar/" + id);
+                        for(var key in response) {
+                            $("#editcontratos").find("input[name='"+ key +"']").val(response[key])
+                        }
+                    }
+                })
+            })
 
         });
     </script>

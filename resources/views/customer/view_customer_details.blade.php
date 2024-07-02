@@ -306,14 +306,14 @@
                     nombre: 'required',
                     tipo_de_cliente: 'required',
                     ruc: {
-                        // required: true,
+                        required: true,
                         digits: true,
                         minlength: 11,
                         maxlength: 11
                     },
                     país: 'required',
                     // provincia: 'required',
-                    // dirección: 'required',
+                    dirección: 'required',
                     teléfono: {
                         // required: true,
                         digits: true,
@@ -321,16 +321,16 @@
                         maxlength: 9
                     },
                     teléfono_móvil: {
-                        // required: true,
+                        required: true,
                         digits: true,
                         minlength: 9,
                         maxlength: 9
                     },
                     correo_electrónico: {
-                        // required: true,
+                        required: true,
                         email: true
                     },
-                    // nombre_del_contacto: 'required',
+                    nombre_del_contacto: 'required',
                     // posición: 'required'
                 },
                 messages: {

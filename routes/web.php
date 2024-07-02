@@ -91,6 +91,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('/mant/en/revisión/actualizar/{id}', [MaintInReviewController::class, 'maintInReviewUpdate'])->name('update.maint.in.review');
     Route::delete ('/mant/en/revisión/destruir/{id}',[MaintInReviewController::class,'maintInReviewDestroy'])->name('destroy.maint.in.review');
     Route::get('/mant/en/revisión/recuento_total_de_registros', [MaintInReviewController::class, 'totalRecordCount']);
+    Route::post('/mant/en/revisión/detalle/{id}/saveImage', [MaintInReviewController::class, 'saveImage']);
 
 
     // Maintenance //

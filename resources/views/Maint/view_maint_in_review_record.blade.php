@@ -8,6 +8,7 @@
             color: red;
         }
     </style>
+    @csrf
     <div class="w-100 contenido">
         <div class="container-fluid container-mod">
             <div class="row">
@@ -290,7 +291,7 @@
                                         <h3 id="imageCount" class="mb-3">Imágenes (2)</h3>
                                         <div class="gallery">
                                             <div class="row">
-                                                <div class="col-md-6 mb-4">
+                                                {{-- <div class="col-md-6 mb-4">
                                                     <div class="img-container">
                                                         <img src=" {{ asset('img/galery1.png') }} " alt="galeria">
                                                     </div>
@@ -299,11 +300,25 @@
                                                     <div class="img-container">
                                                         <img src="{{ asset('img/galery2.png') }} " alt="galeria">
                                                     </div>
-                                                </div>
+                                                </div> --}}
+                                                @if(isset($images) && !empty($images))
+                                                    @foreach($images as $image)
+                                                        <div class="col-md-6 mb-4">
+                                                            <div class="img-container">
+                                                                <img src="{{ url('/images/' . $image->image) }} " alt="galeria">
+                                                            </div>
+                                                        </div>  
+                                                    @endforeach
+                                                @endif
                                             </div>
                                         </div>
                                         <input type="file" id="imageUpload" accept="image/*" multiple class="d-none">
-                                        <button id="uploadButton10" class="btn-gris"><i
+                                        <button data-id="@php
+                                            if(isset($id))
+                                            {
+                                                echo $id;
+                                            }
+                                        @endphp" id="uploadButton10" class="btn-gris"><i
                                                 class="fas fa-arrow-to-top mr-2"></i> Subir Imagen</button>
                                     </div>
                                 </div>
@@ -324,7 +339,12 @@
 
                                         <input type="file" id="fileUpload" accept=".pdf,.xlsx,.xls,.doc,.docx"
                                             multiple class="d-none">
-                                        <button id="uploadButton11" class="btn-gris mt-4"><i
+                                        <button id="uploadButton11" data-id="@php
+                                        if(isset($id))
+                                        {
+                                            echo $id;
+                                        }
+                                    @endphp" class="btn-gris mt-4"><i
                                                 class="fas fa-arrow-to-top mr-2"></i> Cargar archivo</button>
                                     </div>
                                 </div>
@@ -877,7 +897,11 @@
                     var filesCount = this.files.length; // Número de archivos seleccionados
                     count = $('.gallery img').length + filesCount; // Sumar al total actual de imágenes
 
+                    var formData = new FormData();
+                    formData.append("_token", $("input[name='_token']").val());
+
                     for (var i = 0; i < filesCount; i++) {
+                        formData.append('image[]', this.files[i]);
                         var reader = new FileReader();
                         reader.onload = function(e) {
                             var imgHtml = $(
@@ -889,6 +913,21 @@
                         }
                         reader.readAsDataURL(this.files[i]);
                     }
+
+                    let id = $("#uploadButton10").data('id');
+                    formData.append('id', id)
+                    $.ajax({
+                        type: "POST",
+                        method: "POST",
+                        data: formData,
+                        processData: false, 
+                        dataType: "JSON",
+                        contentType: false,
+                        url: `/mant/en/revisión/detalle/${id}/saveImage`,
+                        success: function(response){
+                            console.log(response);
+                        }
+                    })
                 }
             });
 

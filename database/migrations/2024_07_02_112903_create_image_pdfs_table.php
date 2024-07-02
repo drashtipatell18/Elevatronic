@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('image_pdfs', function (Blueprint $table) {
             $table->id();
-            $table->string('image');
-            $table->string('document');
+            $table->string('image')->nullable();
+            $table->string('document')->nullable();
             $table->unsignedBigInteger('mant_en_revisións_id');
             $table->timestamps();
             $table->softDeletes();

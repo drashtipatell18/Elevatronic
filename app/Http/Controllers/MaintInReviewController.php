@@ -121,8 +121,9 @@ class MaintInReviewController extends Controller
         $elevators = Elevators::pluck('nombre','nombre');
         $spareparts = SparePart::all();
         $provinces = Province::pluck('provincia', 'provincia');
-        $images = ImagePdfs::where('mant_en_revisións_id', $id)->get();
-        return view('Maint.view_maint_in_review_record', compact('spareparts','provinces','maint_in_review','review_types','elevators', 'id', 'images'));
+        $images = ImagePdfs::where('mant_en_revisións_id', $id)->whereNull('document')->get();
+        $documents = ImagePdfs::where('mant_en_revisións_id', $id)->whereNull('image')->get();
+        return view('Maint.view_maint_in_review_record', compact('spareparts','provinces','maint_in_review','review_types','elevators', 'id', 'images', 'documents'));
     }
 
     public function saveImage(Request $request, $id)
@@ -136,5 +137,24 @@ class MaintInReviewController extends Controller
                 'mant_en_revisións_id' => $request->id
             ]);
         }
+    }
+
+    public function saveDocument(Request $request, $id)
+    {
+        foreach ($request->image as $image) {
+            $filename = time() . '.' . $image->getClientOriginalExtension();
+            $image->move('documents', $filename);
+
+            ImagePdfs::create([
+                'document' => $filename,
+                'mant_en_revisións_id' => $request->id
+            ]);
+        }
+    }
+
+    public function deleteDocument($id)
+    {
+        $image = ImagePdfs::find($id);
+        $image->delete();
     }
 }

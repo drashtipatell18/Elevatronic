@@ -93,6 +93,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::delete ('/mant/en/revisión/destruir/{id}',[MaintInReviewController::class,'maintInReviewDestroy'])->name('destroy.maint.in.review');
     Route::get('/mant/en/revisión/recuento_total_de_registros', [MaintInReviewController::class, 'totalRecordCount']);
     Route::post('/mant/en/revisión/detalle/{id}/saveImage', [MaintInReviewController::class, 'saveImage']);
+    Route::post('/mant/en/revisión/detalle/{id}/saveDocument', [MaintInReviewController::class, 'saveDocument']);
+    Route::get('/document/{id}/delete', [MaintInReviewController::class, 'deleteDocument']);
 
 
     // Maintenance //

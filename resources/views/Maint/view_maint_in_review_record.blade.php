@@ -327,14 +327,22 @@
                                         <h3 id="fileCount" class="mb-3">Archivos (2)</h3>
 
                                         <div id="fileList" class="file-list">
-                                            <div class="file-entry">
+                                            {{-- <div class="file-entry">
                                                 <span class="file-info">Nombre-de-archivo.pdf (0.2 MB)</span>
                                                 <button class="remove-file"><i class="fal fa-trash-alt"></i></button>
                                             </div>
                                             <div class="file-entry">
                                                 <span class="file-info">Nombre-de-archivo.pdf (0.2 MB)</span>
                                                 <button class="remove-file"><i class="fal fa-trash-alt"></i></button>
-                                            </div>
+                                            </div> --}}
+                                            @if(isset($documents) && !empty($documents))
+                                                @foreach($documents as $document)
+                                                    <div class="file-entry">
+                                                        <span class="file-info">{{ $document->document }} (0.2 MB)</span>
+                                                        <button data-id="{{ $document->id }}" class="remove-file"><i class="fal fa-trash-alt"></i></button>
+                                                    </div>
+                                                @endforeach
+                                            @endif
                                         </div>
 
                                         <input type="file" id="fileUpload" accept=".pdf,.xlsx,.xls,.doc,.docx"
@@ -937,10 +945,15 @@
             });
 
             $('#fileUpload').on('change', function() {
+                console.log(this.files[0]);
                 var files = this.files;
                 var fileCount = $('#fileList').children().length;
 
+                var formData = new FormData();
+                formData.append("_token", $("input[name='_token']").val());
+
                 $.each(files, function(i, file) {
+                    formData.append('image[]', file);
                     fileCount++;
                     var fileName = file.name;
                     var fileSize = (file.size / 1024 / 1024).toFixed(2) + ' MB';
@@ -953,11 +966,28 @@
                     $('#fileList').append(fileEntry);
                 });
 
+                let id = $("#uploadButton10").data('id');
+                formData.append('id', id)
+                $.ajax({
+                    type: "POST",
+                    method: "POST",
+                    data: formData,
+                    processData: false, 
+                    dataType: "JSON",
+                    contentType: false,
+                    url: `/mant/en/revisión/detalle/${id}/saveDocument`,
+                    success: function(response){
+                        console.log(response);
+                    }
+                })
+
                 $('#fileCount').text('Archivos (' + fileCount + ')');
             });
 
             // Evento para el botón de eliminar
             $('#fileList').on('click', '.remove-file', function() {
+                let id = $(this).data('id');
+                $.get('/document/'+ id +'/delete');
                 $(this).parent().remove(); // Elimina la entrada del archivo
                 var fileCount = $('#fileList').children().length; // Recuenta los archivos
                 $('#fileCount').text('Archivos (' + fileCount + ')'); // Actualiza el contador

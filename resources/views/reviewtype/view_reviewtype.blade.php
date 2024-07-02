@@ -63,7 +63,7 @@
                                         <tr>
                                             <th>ID</th>
                                             <th class="text-center">NOMBRE DE TIPO</th>
-                                            <th class="text-center">DESCRIPCIÓN</th>
+                                            {{-- <th class="text-center">DESCRIPCIÓN</th> --}}
                                             <th align="right" class="text-right">ACCIONES</th>
                                         </tr>
                                     </thead>
@@ -72,7 +72,7 @@
                                             <tr class="td-head-center">
                                                 <td>{{ $index + 1 }}</td>
                                                 <td class="text-center">{{ $reviewtype->nombre }}</td>
-                                                <td class="text-center">{{ $reviewtype->descripción }}</td>
+                                                {{-- <td class="text-center">{{ $reviewtype->descripción }}</td> --}}
                                                 <td align="right">
                                                     <div class="dropdown">
                                                         <button type="button" class="btn-action dropdown-toggle"
@@ -169,11 +169,11 @@
                                                     </span>
                                                 @enderror
                                             </div>
-                                            <div class="form-group">
+                                            {{-- <div class="form-group">
                                                 <label for="provincia">Descripción</label>
                                                 <input type="text" placeholder="Descripción" name="descripción"
                                                     class="form-control" id="descripción">
-                                            </div>
+                                            </div> --}}
                                         </div>
                                     </div>
                                 </div>
@@ -225,14 +225,14 @@
                                                                                     </span>
                                                                                 @enderror
                                                                             </div>
-                                                                            <div class="form-group">
+                                                                            {{-- <div class="form-group">
                                                                                 <label for="provincia">Descripción</label>
                                                                                 <input type="text"
                                                                                     placeholder="Descripción"
                                                                                     name="descripción" class="form-control"
                                                                                     id="edit-descripción"
                                                                                     value="{{ old('descripción', isset($reviewtype) ? $reviewtype->descripción : '') }}">
-                                                                            </div>
+                                                                            </div> --}}
                                                                         </div>
                                                                     </div>
                                                                 </div>

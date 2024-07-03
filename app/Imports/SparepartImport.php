@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
-use App\Models\Sparepart;
+use App\Models\SparePart;
 
 class SparepartImport implements ToCollection
 {
@@ -12,7 +12,7 @@ class SparepartImport implements ToCollection
             if ($key === 0) {
                 continue;
             }
-            Sparepart::create([
+            SparePart::create([
                 'nombre' => $row[0],
                 'precio' => $row[1],
                 'frecuencia_de_limpieza' => $row[2],

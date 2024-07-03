@@ -357,6 +357,9 @@
                                                 @if ($sparepart->foto_de_repuesto)
                                                     <img src="{{ asset('images/' . $sparepart->foto_de_repuesto) }}"
                                                         width="200" height="200" alt="Existing Image">
+                                                @else
+                                                    <img src="{{ asset('img/bydefult.png') }}" width="52" height="52"
+                                                        class="img-table" alt="user">
                                                 @endif
                                             </div>
                                         </div>

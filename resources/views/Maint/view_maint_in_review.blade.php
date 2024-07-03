@@ -372,6 +372,7 @@
                     id="editmaintreview">
                     @csrf
                     @method('PUT')
+                    @isset($maint_in_rev)
                     <div class="modal-body body_modal">
                         <div class="row">
                             <div class="col-md-12">
@@ -633,6 +634,8 @@
                         <button type="submit" class="btn-gris btn-red mr-2">Guardar Cambios</button>
                         <button type="button" class="btn-gris btn-border" data-dismiss="modal">Cancelar</button>
                     </div>
+                    @endisset
+                   
                 </form>
             </div>
         </div>

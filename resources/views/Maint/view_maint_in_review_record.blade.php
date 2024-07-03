@@ -288,7 +288,7 @@
                             <div class="row">
                                 <div class="col-md-6 mb-4">
                                     <div class="box-contenido contenido-elevatronic">
-                                        <h3 id="imageCount" class="mb-3">Imágenes (2)</h3>
+                                        <h3 id="imageCount" class="mb-3">Imágenes</h3>
                                         <div class="gallery">
                                             <div class="row">
                                                 {{-- <div class="col-md-6 mb-4">
@@ -324,7 +324,7 @@
                                 </div>
                                 <div class="col-md-6 mb-4">
                                     <div class="box-contenido contenido-elevatronic">
-                                        <h3 id="fileCount" class="mb-3">Archivos (2)</h3>
+                                        <h3 id="fileCount" class="mb-3">Archivos</h3>
 
                                         <div id="fileList" class="file-list">
                                             {{-- <div class="file-entry">

@@ -710,7 +710,7 @@
                     },
                     // descripción: "required",
                     frecuencia_de_limpieza: {
-                        required: true,
+                        // required: true,
                         number: true
                     },
                     frecuencia_de_lubricación: {

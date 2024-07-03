@@ -105,7 +105,7 @@
                         $('#alertaCarga').html('<strong class="mr-2"><img src="{{ asset('img/iconos/check.svg') }}" alt="icono"></strong>' + successMessage).show();
                         setTimeout(function() {
                             location.reload();
-                        }, 9000);
+                        }, 1000);
                     },
 
                     error: function(xhr, status, error) {

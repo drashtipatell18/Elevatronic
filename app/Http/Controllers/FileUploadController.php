@@ -22,7 +22,6 @@ class FileUploadController extends Controller
             'file' => 'required|mimes:xlsx',
             'tipoArchivo' => 'required|in:mantenimiento,contratos,repuestos'
         ]);
-
         $tipoArchivo = $request->input('tipoArchivos');
         $file = $request->file('file');
 

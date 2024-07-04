@@ -10,6 +10,8 @@ use App\Models\SparePart;
 use App\Models\Contract;
 use App\Models\MaintInReview;
 use App\Models\ReviewType;
+use App\Models\Elevatortypes\Elevatortypes;
+use App\Models\Staff;
 
 class ElevatorController extends Controller
 {
@@ -17,7 +19,9 @@ class ElevatorController extends Controller
         $elevators = Elevators::all();
         $customers = Cliente::pluck('nombre','nombre');
         $provinces = Province::pluck('provincia','provincia');
-        return view('elevator.view_elevator',compact('elevators','customers','provinces'));
+        $elevatortypes = Elevatortypes::pluck('nombre_de_tipo_de_ascensor','nombre_de_tipo_de_ascensor');
+        $staffs = Staff::pluck('nombre','nombre');
+        return view('elevator.view_elevator',compact('elevators','customers','provinces','elevatortypes','staffs'));
     }
 
     public function elevatorInsert(Request $request){
@@ -165,7 +169,9 @@ class ElevatorController extends Controller
         $maint_in_reviews = MaintInReview::all();
         $elevatornumber = Elevators::pluck('nombre','nombre');
         $review_types  = ReviewType::pluck('nombre','nombre');
-        return view('elevator.view_elevator_details',compact('elevators','elevatornumber','review_types', 'maint_in_reviews','spareparts','customers','provinces','contracts'));
+        $elevatortypes = Elevatortypes::pluck('nombre_de_tipo_de_ascensor','nombre_de_tipo_de_ascensor');
+        $staffs = Staff::pluck('nombre','nombre');
+        return view('elevator.view_elevator_details',compact('elevatortypes','staffs','elevators','elevatornumber','review_types', 'maint_in_reviews','spareparts','customers','provinces','contracts'));
     }
 
     public function contractInsert(Request $request){

@@ -507,10 +507,8 @@
                                                                         data-toggle="modal"
                                                                         data-target="#crearContratos">Ver
                                                                         detalles</a>
-                                                                    <a class="dropdown-item editContract"
-                                                                        href=""
-                                                                        data-id="{{ $contra->id }}"
-                                                                        data-toggle="modal"
+                                                                    <a class="dropdown-item editContract" href=""
+                                                                        data-id="{{ $contra->id }}" data-toggle="modal"
                                                                         data-target="#editarContratos">Editar</a>
 
                                                                     <a class="dropdown-item" href="javascript:void(0)"
@@ -817,8 +815,8 @@
                             </div>
 
                             <!-- Modal Eliminar-->
-                            <div class="modal fade" id="modalEliminar{{ $contra->id }} " tabindex="-1" role="dialog"
-                                aria-labelledby="modelTitleId" aria-hidden="true">
+                            <div class="modal fade" id="modalEliminar{{ $contra->id }} " tabindex="-1"
+                                role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content border-radius-12">
                                         <divw class="modal-body">
@@ -1051,15 +1049,16 @@
                                                     <div class="col-md-12">
                                                         <div class="form-group">
                                                             <label for="TRevision">Tipo de revisión</label>
-                                                            <select class="custom-select @error('tipo_de_revisión') is-invalid @enderror"
-                                                            name="tipo_de_revisión" id="edit-tipo_de_revisión">
-                                                        <option>Seleccionar tipo de revisión</option>
-                                                        @foreach ($review_types as $key => $value)
-                                                            <option value="{{ $key }}">
-                                                                {{ $value }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
+                                                            <select
+                                                                class="custom-select @error('tipo_de_revisión') is-invalid @enderror"
+                                                                name="tipo_de_revisión" id="edit-tipo_de_revisión">
+                                                                <option>Seleccionar tipo de revisión</option>
+                                                                @foreach ($review_types as $key => $value)
+                                                                    <option value="{{ $key }}">
+                                                                        {{ $value }}
+                                                                    </option>
+                                                                @endforeach
+                                                            </select>
 
 
                                                             @error('tipo_de_revisión')
@@ -1105,7 +1104,8 @@
 
                                                         <div class="form-group">
                                                             <label for="provinciaAs">Provincia</label>
-                                                            <select id="edit-provincia" name="provincia" class="form-control">
+                                                            <select id="edit-provincia" name="provincia"
+                                                                class="form-control">
                                                                 <option value="">Select Province</option>
                                                                 @foreach ($provinces as $province)
                                                                     <option value="{{ $province }}">
@@ -1154,15 +1154,17 @@
 
                                                         <div class="form-group">
                                                             <label for="Supervisor">Supervisor</label>
-                                                            <select class="custom-select @error('supervisor') is-invalid @enderror"
-                                                                    name="supervisor" id="edit-Supervisor">
-                                                                <option value="" class="">Seleccionar opción</option>
+                                                            <select
+                                                                class="custom-select @error('supervisor') is-invalid @enderror"
+                                                                name="supervisor" id="edit-Supervisor">
+                                                                <option value="" class="">Seleccionar opción
+                                                                </option>
                                                                 <option value="supervisor_1"
                                                                     {{ $maint_in_rev->supervisor == 'supervisor_1' ? 'selected' : '' }}>
                                                                     Supervisor 1
                                                                 </option>
                                                                 <option value="supervisor_2"
-                                                                    {{$maint_in_rev->supervisor == 'supervisor_2' ? 'selected' : '' }}>
+                                                                    {{ $maint_in_rev->supervisor == 'supervisor_2' ? 'selected' : '' }}>
                                                                     Supervisor 2
                                                                 </option>
                                                                 <option value="supervisor_3"
@@ -1617,26 +1619,15 @@
                                                         <div class="form-group">
                                                             <label for="tecnicoInstalador">Técnico
                                                                 instalador</label>
-                                                            <select
-                                                                class="custom-select form-control @error('técnico_instalador') is-invalid @enderror"
-                                                                name="técnico_instalador" id="técnico_instalador">
-                                                                <option selected disabled>Seleccionar opción
-                                                                </option>
-                                                                <option value="tecnico_1"
-                                                                    {{ old('técnico_instalador', $elevators->técnico_instalador ?? '') == 'tecnico_1' ? 'selected' : '' }}>
-                                                                    Técnico 1</option>
-                                                                <option value="tecnico_2"
-                                                                    {{ old('técnico_instalador', $elevators->técnico_instalador ?? '') == 'tecnico_2' ? 'selected' : '' }}>
-                                                                    Técnico 2</option>
-                                                                <option value="tecnico_3"
-                                                                    {{ old('técnico_instalador', $elevators->técnico_instalador ?? '') == 'tecnico_3' ? 'selected' : '' }}>
-                                                                    Técnico 3</option>
+                                                            <select class="custom-select form-control"
+                                                                name="técnico_instalador" id="edit-técnico_instalador">
+                                                                <option value="">Seleccionar opción</option>
+                                                                @foreach ($staffs as $staff)
+                                                                    <option value="{{ $staff }}"
+                                                                        {{ $elevators->técnico_instalador == $staff ? 'selected' : '' }}>
+                                                                        {{ $staff }}</option>
+                                                                @endforeach
                                                             </select>
-                                                            @error('técnico_instalador')
-                                                                <span class="invalid-feedback" style="color: red">
-                                                                    <strong>{{ $message }}</strong>
-                                                                </span>
-                                                            @enderror
                                                         </div>
                                                     </div>
 
@@ -1644,52 +1635,30 @@
                                                         <div class="form-group">
                                                             <label for="técnico_ajustador">Técnico
                                                                 ajustador</label>
-                                                            <select
-                                                                class="custom-select form-control @error('técnico_ajustador') is-invalid @enderror"
-                                                                name="técnico_ajustador" id="técnico_ajustador">
-                                                                <option selected disabled>Seleccionar opción
-                                                                </option>
-                                                                <option value="tecnico_1"
-                                                                    {{ old('técnico_ajustador', $elevators->técnico_ajustador ?? '') == 'tecnico_1' ? 'selected' : '' }}>
-                                                                    Técnico 1</option>
-                                                                <option value="tecnico_2"
-                                                                    {{ old('técnico_ajustador', $elevators->técnico_ajustador ?? '') == 'tecnico_2' ? 'selected' : '' }}>
-                                                                    Técnico 2</option>
-                                                                <option value="tecnico_3"
-                                                                    {{ old('técnico_ajustador', $elevators->técnico_ajustador ?? '') == 'tecnico_3' ? 'selected' : '' }}>
-                                                                    Técnico 3</option>
+                                                            <select class="custom-select form-control"
+                                                                name="técnico_ajustador" id="edit-técnico_ajustador">
+                                                                <option value="">Seleccionar opción</option>
+                                                                @foreach ($staffs as $staff)
+                                                                    <option value="{{ $staff }}"
+                                                                        {{ $elevators->técnico_ajustador == $staff ? 'selected' : '' }}>
+                                                                        {{ $staff }}</option>
+                                                                @endforeach
                                                             </select>
-                                                            @error('técnico_ajustador')
-                                                                <span class="invalid-feedback" style="color: red">
-                                                                    <strong>{{ $message }}</strong>
-                                                                </span>
-                                                            @enderror
                                                         </div>
                                                     </div>
 
                                                     <div class="col-md-12">
                                                         <div class="form-group">
                                                             <label for="tipo_de_ascensor">Tipo de ascensor</label>
-                                                            <select
-                                                                class="custom-select form-control @error('tipo_de_ascensor') is-invalid @enderror"
-                                                                name="tipo_de_ascensor" id="tipo_de_ascensor">
-                                                                <option selected disabled>Seleccionar opción
-                                                                </option>
-                                                                <option value="tipo_1"
-                                                                    {{ old('tipo_de_ascensor', $elevators->tipo_de_ascensor ?? '') == 'tipo_1' ? 'selected' : '' }}>
-                                                                    Tipo 1</option>
-                                                                <option value="tipo_2"
-                                                                    {{ old('tipo_de_ascensor', $elevators->tipo_de_ascensor ?? '') == 'tipo_2' ? 'selected' : '' }}>
-                                                                    Tipo 2</option>
-                                                                <option value="tipo_3"
-                                                                    {{ old('tipo_de_ascensor', $elevators->tipo_de_ascensor ?? '') == 'tipo_3' ? 'selected' : '' }}>
-                                                                    Tipo 3</option>
+                                                            <select class="custom-select form-control"
+                                                                name="tipo_de_ascensor" id="edit-tipo_de_ascensor">
+                                                                <option value="">Seleccionar opción</option>
+                                                                @foreach ($elevatortypes as $elevatortype)
+                                                                    <option value="{{ $elevatortype }}"
+                                                                        {{ $elevators->tipo_de_ascensor == $elevatortype ? 'selected' : '' }}>
+                                                                        {{ $elevatortype }}</option>
+                                                                @endforeach
                                                             </select>
-                                                            @error('tipo_de_ascensor')
-                                                                <span class="invalid-feedback" style="color: red">
-                                                                    <strong>{{ $message }}</strong>
-                                                                </span>
-                                                            @enderror
                                                         </div>
                                                     </div>
 
@@ -2543,17 +2512,18 @@
                 reader.readAsDataURL(this.files[0]);
             });
 
-            $(".editContract").click(function(){
+            $(".editContract").click(function() {
                 let id = $(this).data('id');
                 $.ajax({
                     type: "GET",
                     method: "GET",
                     dataType: "JSON",
                     url: `/contract/get/${id}`,
-                    success: function(response){
+                    success: function(response) {
                         $("#editcontratos").attr("action", "/contrato/actualizar/" + id);
-                        for(var key in response) {
-                            $("#editcontratos").find("input[name='"+ key +"']").val(response[key])
+                        for (var key in response) {
+                            $("#editcontratos").find("input[name='" + key + "']").val(response[
+                                key])
                         }
                     }
                 })

@@ -260,7 +260,7 @@
                                             <div class="form-group">
                                                 <label for="nombre_del_tipo_de_ascensor">Nombre de Tipo de Ascensor</label>
                                                 <input type="text" placeholder="Nombre de Tipo de Ascensor"
-                                                    name="nombre_del_tipo_de_ascensor" id="nombre_del_tipo_de_ascensor">
+                                                    name="nombre_del_tipo_de_ascensor" id="nombre_del_tipo_de_ascensor" value="{{ $elevator_type->nombre_de_tipo_de_ascensor}}" disabled>
                                                 @error('nombre_del_tipo_de_ascensor')
                                                     <span class="invalid-feedback" style="color: red">
                                                         <strong>{{ $message }}</strong>

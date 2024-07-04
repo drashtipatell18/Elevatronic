@@ -293,9 +293,10 @@
                                                                         <option value="" class="d-none">Seleccionar
                                                                             opción
                                                                         </option>
-                                                                        <option value="tecnico_1">Tecnico 1</option>
-                                                                        <option value="tecnico_2">Tecnico 2</option>
-                                                                        <option value="tecnico_3">Tecnico 3</option>
+                                                                        @foreach ($staffs as $staff)
+                                                                            <option value="{{ $staff }}">
+                                                                                {{ $staff }}</option>
+                                                                        @endforeach
                                                                     </select>
                                                                 </div>
                                                             </div>
@@ -308,9 +309,10 @@
                                                                         <option value="" class="d-none">Seleccionar
                                                                             opción
                                                                         </option>
-                                                                        <option value="tecnico_1">Tecnico 1</option>
-                                                                        <option value="tecnico_2">Tecnico 2</option>
-                                                                        <option value="tecnico_3">Tecnico 3</option>
+                                                                        @foreach ($staffs as $staff)
+                                                                            <option value="{{ $staff }}">
+                                                                                {{ $staff }}</option>
+                                                                        @endforeach
                                                                     </select>
                                                                 </div>
                                                             </div>
@@ -322,9 +324,10 @@
                                                                         <option value="" class="d-none">Seleccionar
                                                                             opción
                                                                         </option>
-                                                                        <option value="tipo_1">Tipo 1</option>
-                                                                        <option value="tipo_2">Tipo 2</option>
-                                                                        <option value="tipo_3">Tipo 3</option>
+                                                                        @foreach ($elevatortypes as $elevatortype)
+                                                                            <option value="{{ $elevatortype }}">
+                                                                                {{ $elevatortype }}</option>
+                                                                        @endforeach
                                                                     </select>
                                                                 </div>
                                                             </div>
@@ -591,9 +594,7 @@
                                                                         <label for="provincia">Provincia</label>
                                                                         <select class="custom-select form-control"
                                                                             name="provincia" id="edit-provincia">
-                                                                            <option value="">Seleccionar
-                                                                                opción
-                                                                            </option>
+                                                                            <option value="">Seleccionar opción</option>
                                                                             @foreach ($provinces as $province)
                                                                                 <option value="{{ $province }}"
                                                                                     {{ $elevator->provincia == $province ? 'selected' : '' }}>
@@ -611,18 +612,12 @@
                                                                         <select class="custom-select form-control"
                                                                             name="técnico_instalador"
                                                                             id="edit-técnico_instalador">
-                                                                            <option value="">
-                                                                                Seleccionar opción
-                                                                            </option>
-                                                                            <option value="tecnico_1"
-                                                                                {{ old('técnico_instalador', $elevator->técnico_instalador ?? '') == 'tecnico_1' ? 'selected' : '' }}>
-                                                                                Técnico 1</option>
-                                                                            <option value="tecnico_2"
-                                                                                {{ old('técnico_instalador', $elevator->técnico_instalador ?? '') == 'tecnico_2' ? 'selected' : '' }}>
-                                                                                Técnico 2</option>
-                                                                            <option value="tecnico_3"
-                                                                                {{ old('técnico_instalador', $elevator->técnico_instalador ?? '') == 'tecnico_3' ? 'selected' : '' }}>
-                                                                                Técnico 3</option>
+                                                                            <option value="">Seleccionar opción</option>
+                                                                            @foreach ($staffs as $staff)
+                                                                                <option value="{{ $staff }}"
+                                                                                    {{ $elevator->técnico_instalador == $staff ? 'selected' : '' }}>
+                                                                                    {{ $staff }}</option>
+                                                                            @endforeach
                                                                         </select>
                                                                     </div>
                                                                 </div>
@@ -634,44 +629,32 @@
                                                                         <select class="custom-select form-control"
                                                                             name="técnico_ajustador"
                                                                             id="edit-técnico_ajustador">
-                                                                            <option value="">
-                                                                                Seleccionar opción
-                                                                            </option>
-                                                                            <option value="tecnico_1"
-                                                                                {{ old('técnico_ajustador', $elevator->técnico_ajustador ?? '') == 'tecnico_1' ? 'selected' : '' }}>
-                                                                                Técnico 1</option>
-                                                                            <option value="tecnico_2"
-                                                                                {{ old('técnico_ajustador', $elevator->técnico_ajustador ?? '') == 'tecnico_2' ? 'selected' : '' }}>
-                                                                                Técnico 2</option>
-                                                                            <option value="tecnico_3"
-                                                                                {{ old('técnico_ajustador', $elevator->técnico_ajustador ?? '') == 'tecnico_3' ? 'selected' : '' }}>
-                                                                                Técnico 3</option>
+                                                                            <option value="">Seleccionar opción</option>
+                                                                            @foreach ($staffs as $staff)
+                                                                                <option value="{{ $staff }}"
+                                                                                    {{ $elevator->técnico_ajustador == $staff ? 'selected' : '' }}>
+                                                                                    {{ $staff }}</option>
+                                                                            @endforeach
                                                                         </select>
                                                                     </div>
                                                                 </div>
 
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
-                                                                        <label for="tipo_de_ascensor">Tipo de
-                                                                            ascensor</label>
+                                                                        <label for="tipo_de_ascensor">Tipo de ascensor</label>
                                                                         <select class="custom-select form-control"
                                                                             name="tipo_de_ascensor"
                                                                             id="edit-tipo_de_ascensor">
-                                                                            <option value="">
-                                                                                Seleccionar opción
-                                                                            </option>
-                                                                            <option value="tipo_1"
-                                                                                {{ old('tipo_de_ascensor', $elevator->tipo_de_ascensor ?? '') == 'tipo_1' ? 'selected' : '' }}>
-                                                                                Tipo 1</option>
-                                                                            <option value="tipo_2"
-                                                                                {{ old('tipo_de_ascensor', $elevator->tipo_de_ascensor ?? '') == 'tipo_2' ? 'selected' : '' }}>
-                                                                                Tipo 2</option>
-                                                                            <option value="tipo_3"
-                                                                                {{ old('tipo_de_ascensor', $elevator->tipo_de_ascensor ?? '') == 'tipo_3' ? 'selected' : '' }}>
-                                                                                Tipo 3</option>
+                                                                            <option value="">Seleccionar opción</option>
+                                                                            @foreach ($elevatortypes as $elevatortype)
+                                                                                <option value="{{ $elevatortype }}"
+                                                                                    {{ $elevator->tipo_de_ascensor == $elevatortype ? 'selected' : '' }}>
+                                                                                    {{ $elevatortype }}</option>
+                                                                            @endforeach
                                                                         </select>
                                                                     </div>
                                                                 </div>
+
 
                                                                 <div class="col-md-6">
                                                                     <div class="form-group">
@@ -697,28 +680,37 @@
                                                                 <div class="col-md-6">
                                                                     <div class="adornoinput mb-3">
                                                                         <div class="custom-control custom-checkbox">
-                                                                            <input type="checkbox" class="custom-control-input" id="mgratuito" name="quarters[]" value="mgratuito">
-                                                                            <label class="custom-control-label" for="mgratuito">Mantenimiento gratuito?</label>
+                                                                            <input type="checkbox"
+                                                                                class="custom-control-input" id="mgratuito"
+                                                                                name="quarters[]" value="mgratuito">
+                                                                            <label class="custom-control-label"
+                                                                                for="mgratuito">Mantenimiento gratuito?</label>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-6">
                                                                     <div class="adornoinput mb-3">
                                                                         <div class="custom-control custom-checkbox">
-                                                                            <input type="checkbox" class="custom-control-input" id="sincuarto" name="quarters[]" value="sincuarto">
-                                                                            <label class="custom-control-label" for="sincuarto">Sin cuarto de maquina?</label>
+                                                                            <input type="checkbox"
+                                                                                class="custom-control-input" id="sincuarto"
+                                                                                name="quarters[]" value="sincuarto">
+                                                                            <label class="custom-control-label"
+                                                                                for="sincuarto">Sin cuarto de maquina?</label>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-6">
                                                                     <div class="adornoinput mb-3">
                                                                         <div class="custom-control custom-checkbox">
-                                                                            <input type="checkbox" class="custom-control-input" id="concuarto" name="quarters[]" value="concuarto">
-                                                                            <label class="custom-control-label" for="concuarto">Con cuarto de maquina?</label>
+                                                                            <input type="checkbox"
+                                                                                class="custom-control-input" id="concuarto"
+                                                                                name="quarters[]" value="concuarto">
+                                                                            <label class="custom-control-label"
+                                                                                for="concuarto">Con cuarto de maquina?</label>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                
+
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
                                                                         <label for="Npisos"># de

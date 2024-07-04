@@ -469,42 +469,6 @@
                                 </div>
                             </div>
 
-                            {{-- Model Crear Marcas --}}
-                            <div class="modal left fade" id="crearMarcas" tabindex="-1" role="dialog"
-                                aria-labelledby="modelTitleId" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title font-family-Outfit-SemiBold">Crear Ascensor</h5>
-                                            <button type="button" class="close" data-dismiss="modal"
-                                                aria-label="Close">
-                                                <span aria-hidden="true">×</span>
-                                            </button>
-                                        </div>
-                                        <div class="col-md-12" id="marcaInputSection" style="display: none;">
-                                            <form method="POST" id="brandForm">
-                                                @csrf
-                                                <div class="form-group">
-                                                    <label>Ingresar marca</label>
-                                                    <input type="text" placeholder="Ingresar marca"
-                                                        name="marca_nombre" id="marca_nombre" class="form-control">
-                                                </div>
-                                                <div class="form-group">
-                                                    <button type="button" class="btn-primario w-auto pl-3 pr-3"
-                                                        id="submitBrand">
-                                                        Entregar
-                                                    </button>
-                                                    <button type="button" class="btn-primario w-auto pl-3 pr-3"
-                                                        id="cancelMarca">
-                                                        Cancelar
-                                                    </button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
                             <!-- Modal actualizar Ascensor-->
                             <div class="modal left fade" id="editarAscensor" tabindex="-1" role="dialog"
                                 aria-labelledby="modelTitleId" aria-hidden="true">
@@ -570,7 +534,16 @@
                                                                             class="form-control" value="">
                                                                     </div>
                                                                 </div>
-
+                                                                <div class="text-right mb-3 w-100">
+                                                                    <div class="form-group">
+                                                                        <button type="button" data-toggle="modal"
+                                                                            data-target="#crearMarcas"
+                                                                            class="btn-primario w-auto pl-3 pr-3"
+                                                                            id="toggleMarcaInput">
+                                                                            + Agregar marca
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
                                                                 <div class="col-md-6">
                                                                     <div class="form-group">
                                                                         <label for="código">Código</label>
@@ -580,13 +553,24 @@
                                                                     </div>
                                                                 </div>
 
-                                                                <div class="col-md-6">
+                                                                {{-- <div class="col-md-6">
                                                                     <div class="form-group">
                                                                         <label for="marca">Marca</label>
                                                                         <input type="text" placeholder="Marca"
                                                                             name="marca" id="edit-marca"
                                                                             class="form-control"
                                                                             value="{{ old('marca', $elevator->marca ?? '') }}">
+                                                                    </div>
+                                                                </div> --}}
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label for="marca">Marca</label>
+                                                                        <select class="custom-select form-control marcaItems"
+                                                                            name="marca" id="marca1">
+                                                                            <option value="" class="d-none">Seleccionar
+                                                                                opción
+                                                                            </option>
+                                                                        </select>
                                                                     </div>
                                                                 </div>
 
@@ -847,6 +831,42 @@
                                 </div>
                             </div>
 
+                            {{-- Model Crear Marcas --}}
+                            <div class="modal left fade" id="crearMarcas" tabindex="-1" role="dialog"
+                                aria-labelledby="modelTitleId" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title font-family-Outfit-SemiBold">Crear Ascensor</h5>
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close">
+                                                <span aria-hidden="true">×</span>
+                                            </button>
+                                        </div>
+                                        <div class="col-md-12" id="marcaInputSection" style="">
+                                            <form method="POST" id="brandForm">
+                                                @csrf
+                                                <div class="form-group">
+                                                    <label>Ingresar marca</label>
+                                                    <input type="text" placeholder="Ingresar marca"
+                                                        name="marca_nombre" id="marca_nombre" class="form-control">
+                                                </div>
+                                                <div class="form-group">
+                                                    <button type="button" class="btn-primario w-auto pl-3 pr-3"
+                                                        id="submitBrand">
+                                                        Entregar
+                                                    </button>
+                                                    <button type="button" class="btn-primario w-auto pl-3 pr-3"
+                                                        id="cancelMarca">
+                                                        Cancelar
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -866,15 +886,20 @@
     <script>
         $(document).ready(function() {
             let selectize;
+            let selectize1;
             // $("#marca").select2({
             //     placeholder: 'Select an option',
             //     width: 'resolve'
             // });
 
-            function getBrand() {
+            function getBrand(edit) {
                 if (selectize) {
                     selectize.destroy()
                     selectize = null
+                }
+                if (selectize1) {
+                    selectize1.destroy()
+                    selectize1 = null
                 }
                 $.ajax({
                     type: "GET",
@@ -882,22 +907,30 @@
                     url: "{{ route('getBrands') }}",
                     dataType: "JSON",
                     success: function(response) {
-                        console.log(selectize);
                         $.each(response, function() {
-                            $("#marca").append(
+                            $("#marca, #marca1").append(
                                 `<option value='${this.id}'>${this['marca_nombre']}</option>`
                                 );
                         });
 
-                        selectize = $('#marca').selectize({})[0].selectize;
+                        selectize = $('#marca1').selectize({})[0].selectize;
+                        if(edit)
+                        {
+                            selectize1 = $('#marca').selectize({})[0].selectize;
+                            console.log(edit);
+                        }
+                        else
+                        {
+                            selectize1 = $('#marca').selectize({})[0].selectize;
+                        }
                     }
                 })
             }
 
             getBrand();
-            $('#toggleMarcaInput').click(function() {
-                $('#marcaInputSection').toggle(); // Toggle the visibility of marcaInputSection
-            });
+            // $('#toggleMarcaInput').click(function() {
+            //     $('#marcaInputSection').toggle(); // Toggle the visibility of marcaInputSection
+            // });
             $('#submitBrand').click(function(e) {
                 e.preventDefault(); // Prevent default form submission
                 var formData = new FormData();
@@ -1233,11 +1266,14 @@
                 $('#edit-cantidad').val(elevator.cantidad);
 
                 // Check if quarters contain specific values
-                var quarters = elevator.quarters.split(',');
-
-                $('#mgratuito').prop('checked', quarters.includes('mgratuito'));
-                $('#sincuarto').prop('checked', quarters.includes('sincuarto'));
-                $('#concuarto').prop('checked', quarters.includes('concuarto'));
+                if(elevator.quarters)
+                {
+                    var quarters = elevator.quarters.split(',');
+    
+                    $('#mgratuito').prop('checked', quarters.includes('mgratuito'));
+                    $('#sincuarto').prop('checked', quarters.includes('sincuarto'));
+                    $('#concuarto').prop('checked', quarters.includes('concuarto'));
+                }
 
                 $('#edit-npisos').val(elevator.npisos);
                 $('#edit-ncontacto').val(elevator.ncontacto);
@@ -1245,6 +1281,8 @@
                 $('#edit-correo').val(elevator.correo);
                 $('#edit-descripcion1').val(elevator.descripcion1);
                 $('#edit-descripcion2').val(elevator.descripcion2);
+
+                getBrand(elevator.marca);
             });
         });
     </script>

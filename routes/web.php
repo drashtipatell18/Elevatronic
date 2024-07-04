@@ -82,6 +82,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/ascensore/actualizar/{id}', [ElevatorController::class, 'elevatorUpdate'])->name('update.elevator');
     Route::delete ('/ascensore/destruir/{id}',[ElevatorController::class,'elevatorDestroy'])->name('destroy.elevator');
     Route::get('/contract/get/{id}', [ElevatorController::class, 'getContract']);
+    Route::get('/getBrands', [ElevatorController::class, 'getBrands'])->name('getBrands');
 
     // Maint In Review //
 

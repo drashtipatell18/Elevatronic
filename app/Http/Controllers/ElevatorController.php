@@ -25,23 +25,18 @@ class ElevatorController extends Controller
         return view('elevator.view_elevator',compact('elevators','customers','provinces','elevatortypes','staffs'));
     }
 
+    public function getBrands()
+    {
+        return response()->json(Marca::all());
+    }
+
     public function insertBrand(Request $request)
     {
-        echo '<pre>';
-        print_r($request->all());
-        echo '</pre>';exit;
-        try {
-            // Save to database
-            Marca::create([
-                'marca_nombre' => $request->input('marca_nombre'),
-            ]);
+        Marca::create([
+            'marca_nombre' => $request->input('marca_nombre'),
+        ]);
 
-            // Return success response
-            return response()->json(['success' => 'Brand added successfully!']);
-        } catch (\Exception $e) {
-            // Return error response
-            return response()->json(['error' => 'Failed to add brand. Please try again later.'], 500);
-        }
+        return response()->json(['success' => 'Brand added successfully!']);
     }
     public function elevatorInsert(Request $request){
         $validatedData = $request->validate([

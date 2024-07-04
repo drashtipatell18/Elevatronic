@@ -1412,6 +1412,8 @@
                     </div>
                 </div>
 
+                
+
                 <!-- Modal actualizar Ascensor-->
                 <div class="modal left fade" id="editarAscensor" tabindex="-1" role="dialog"
                     aria-labelledby="modelTitleId" aria-hidden="true">
@@ -1478,6 +1480,17 @@
                                                                     <strong>{{ $message }}</strong>
                                                                 </span>
                                                             @enderror
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="text-right mb-3 w-100">
+                                                        <div class="form-group">
+                                                            <button type="button" data-toggle="modal"
+                                                                data-target="#crearMarcas"
+                                                                class="btn-primario w-auto pl-3 pr-3 brandbtn"
+                                                                id="toggleMarcaInput">
+                                                                + Agregar marca
+                                                            </button>
                                                         </div>
                                                     </div>
 
@@ -1816,6 +1829,39 @@
                                     </div>
                                 </form>
                             @endisset
+                        </div>
+                    </div>
+                </div>
+
+                {{-- Model Crear Marcas --}}
+                <div class="modal left fade" id="crearMarcas" tabindex="-1" role="dialog"
+                    aria-labelledby="modelTitleId" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title font-family-Outfit-SemiBold">Crear Ascensor</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="col-md-12" id="marcaInputSection" style="">
+                                <form method="POST" id="brandForm">
+                                    @csrf
+                                    <div class="form-group">
+                                        <label>Ingresar marca</label>
+                                        <input type="text" placeholder="Ingresar marca" name="marca_nombre"
+                                            id="marca_nombre" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="button" class="btn-primario w-auto pl-3 pr-3" id="submitBrand">
+                                            Entregar
+                                        </button>
+                                        <button type="button" class="btn-primario w-auto pl-3 pr-3" id="cancelMarca">
+                                            Cancelar
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>

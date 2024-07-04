@@ -257,6 +257,7 @@
                                 <div class="modal-body body_modal">
                                     <div class="row">
                                         <div class="col-md-12">
+                                            <input type="hidden" name="tipos_de_ascensors_id" value="{{ $elevator_type->id }}"> <!-- Hidden field for ID -->
                                             <div class="form-group">
                                                 <label for="nombre_del_tipo_de_ascensor">Nombre de Tipo de Ascensor</label>
                                                 <input type="text" placeholder="Nombre de Tipo de Ascensor"

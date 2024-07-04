@@ -26,7 +26,7 @@
                                 data-elevator-type="{{ json_encode($elevator_type) }}" data-toggle="modal"
                                 data-target="#editartiposAscensores">Editar</a>
                             <a class="dropdown-item texto-1 font-family-Inter-Regular"
-                                href="href="{{ route('destroy.elevatortypes', $elevator_type->id) }}"" data-toggle="modal"
+                                href="{{ route('destroy.elevatortypes', $elevator_type->id) }}" data-toggle="modal"
                                 data-target="#modalEliminar{{ $elevator_type->id }}">Eliminar</a>
                         </div>
                     </div>
@@ -260,7 +260,7 @@
                                             <div class="form-group">
                                                 <label for="nombre_del_tipo_de_ascensor">Nombre de Tipo de Ascensor</label>
                                                 <input type="text" placeholder="Nombre de Tipo de Ascensor"
-                                                    name="nombre_del_tipo_de_ascensor" id="nombre_del_tipo_de_ascensor" value="{{ $elevator_type->nombre_de_tipo_de_ascensor}}" disabled>
+                                                    name="nombre_del_tipo_de_ascensor" id="nombre_del_tipo_de_ascensor" value="{{ $elevator_type->nombre_de_tipo_de_ascensor}}" readonly>
                                                 @error('nombre_del_tipo_de_ascensor')
                                                     <span class="invalid-feedback" style="color: red">
                                                         <strong>{{ $message }}</strong>

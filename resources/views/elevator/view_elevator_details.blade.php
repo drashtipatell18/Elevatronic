@@ -1,4 +1,5 @@
 @extends('layouts.main')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css">
 @section('content')
     <style>
         .qrcode {
@@ -1509,7 +1510,7 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-6">
+                                                    {{-- <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="marca">Marca</label>
                                                             <input type="text" placeholder="Marca" name="marca"
@@ -1521,6 +1522,17 @@
                                                                     <strong>{{ $message }}</strong>
                                                                 </span>
                                                             @enderror
+                                                        </div>
+                                                    </div> --}}
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="marca">Marca</label>
+                                                            <select class="custom-select form-control"
+                                                                name="marca" id="marca">
+                                                                <option value="" class="d-none">Seleccionar
+                                                                    opción
+                                                                </option>
+                                                            </select>
                                                         </div>
                                                     </div>
 
@@ -2098,8 +2110,77 @@
     </div>
 @endsection
 @push('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/js/jquery.dataTables.min.js"
+        integrity="sha512-BkpSL20WETFylMrcirBahHfSnY++H2O1W+UnEEO4yNIl+jI2+zowyoGJpbtk6bx97fBXf++WJHSSK2MV4ghPcg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/js/selectize.min.js"
+        integrity="sha512-IOebNkvA/HZjMM7MxL0NYeLYEalloZ8ckak+NDtOViP7oiYzG5vn6WVXyrJDiJPhl4yRdmNAG49iuLmhkUdVsQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         $(document).ready(function() {
+            let selectize;
+
+            function getBrand(edit) {
+                if (selectize) {
+                    selectize.destroy()
+                    selectize = null
+                }
+                $.ajax({
+                    type: "GET",
+                    method: "GET",
+                    url: "{{ route('getBrands') }}",
+                    dataType: "JSON",
+                    success: function(response) {
+                        $.each(response, function() {
+                            $("#marca").append(
+                                `<option value='${this.id}'>${this['marca_nombre']}</option>`
+                                );
+                        });
+
+                        selectize = $('#marca').selectize({})[0].selectize;
+                        if(edit)
+                        {
+                            selectize = $('#marca').selectize({})[0].selectize;
+                        }
+                        else
+                        {
+                            selectize = $('#marca').selectize({})[0].selectize;
+                        }
+                    }
+                })
+            }
+
+            getBrand();
+            // $('#toggleMarcaInput').click(function() {
+            //     $('#marcaInputSection').toggle(); // Toggle the visibility of marcaInputSection
+            // });
+            $('#submitBrand').click(function(e) {
+                e.preventDefault(); // Prevent default form submission
+                var formData = new FormData();
+                formData.append('marca_nombre', $('#marca_nombre').val());
+                // Send AJAX request
+                $.ajax({
+                    type: "POST",
+                    method: "POST",
+                    dataType: "JSON",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: "{{ route('insert.brand') }}",
+                    success: function(response) {
+                        getBrand();
+                        $('#cancelMarca').click();
+                    }
+                })
+            });
+
+            $('#cancelMarca').click(function() {
+                $("#crearMarcas").modal('hide')
+            });
 
             var table = $('#contratosTable').DataTable({
                 responsive: true,
@@ -2542,6 +2623,8 @@
                 $('#edit-teléfono').val(elevator.teléfono);
                 $('#edit-correo').val(elevator.correo);
                 $('#edit-descripcion1').val(elevator.descripcion1);
+
+                getBrand(elevator.marca);
 
             });
 

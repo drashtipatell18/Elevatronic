@@ -1,4 +1,5 @@
 @extends('layouts.main')
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 @section('content')
     <style>
         .dt-head-center {
@@ -206,6 +207,34 @@
                                                                         class="form-control">
                                                                 </div>
                                                             </div>
+
+                                                            <div class="col-md-6 text-right mb-3">
+                                                                <div class="form-group">
+                                                                    <button type="button"
+                                                                        class="btn-primario w-auto pl-3 pr-3"
+                                                                        id="toggleMarcaInput">
+                                                                        + Agregar marca
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                            {{-- style="display: none;" --}}
+                                                            <div class="col-md-12" id="marcaInputSection">
+                                                                <form method="POST" id="brandForm">
+                                                                    @csrf
+                                                                    <div class="form-group">
+                                                                        <label>Ingresar marca</label>
+                                                                        <input type="text" placeholder="Ingresar marca" name="marca_nombre" id="marca_nombre" class="form-control">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <button type="button" class="btn-primario w-auto pl-3 pr-3" id="submitBrand">
+                                                                            Entregar
+                                                                        </button>
+                                                                        <button type="button" class="btn-primario w-auto pl-3 pr-3" id="cancelMarca">
+                                                                            Cancelar
+                                                                        </button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label for="código">Código</label>
@@ -217,9 +246,16 @@
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label for="marca">Marca</label>
-                                                                    <input type="text" placeholder="Marca"
-                                                                        name="marca" id="marca"
-                                                                        class="form-control">
+                                                                    <select class="custom-select form-control"
+                                                                        name="marca" id="marca">
+                                                                        <option value="" class="d-none">Seleccionar
+                                                                            opción
+                                                                        </option>
+                                                                        @foreach ($provinces as $province)
+                                                                            <option value="{{ $province }}">
+                                                                                {{ $province }}</option>
+                                                                        @endforeach
+                                                                    </select>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-12">
@@ -797,9 +833,66 @@
     </div>
 @endsection
 @push('scripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <script>
         $(document).ready(function() {
+            $("#marca").select2({
+                placeholder: "Select a programming language",
+                allowClear: true
+            });
+            $('#toggleMarcaInput').click(function() {
+                $('#marcaInputSection').toggle(); // Toggle the visibility of marcaInputSection
+            });
+            $('#submitBrand').click(function(e) {
+                e.preventDefault(); // Prevent default form submission
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                // Serialize form data
+                var formData = $('#marca_nombre').val();
+                console.log(formData);
+                // Send AJAX request
+                $.ajax({
+                    url: "{{ route('insert.brand') }}",
+                    type: "POST",
+                    data: formData,
+                    success: function(response) {
+                        console.log(response);
+                        // Handle success response
+                        $('#message').html(
+                            '<div class="alert alert-success">Brand added successfully!</div>'
+                        );
 
+                    },
+                    error: function(xhr) {
+                        // Handle validation errors or other errors
+                        if (xhr.status === 422) {
+                            var errors = xhr.responseJSON.errors;
+                            var errorHtml = '<div class="alert alert-danger"><ul>';
+
+                            $.each(errors, function(key, value) {
+                                errorHtml += '<li>' + value + '</li>';
+                            });
+
+                            errorHtml += '</ul></div>';
+                            $('#message').html(errorHtml);
+                        } else {
+                            $('#message').html(
+                                '<div class="alert alert-danger">Failed to add brand. Please try again later.</div>'
+                            );
+                        }
+                    }
+                });
+            });
+
+            $('#cancelBrand').click(function() {
+                // Optionally handle cancellation action
+                // $('#marca_nombre').val(''); // Clear input field
+                $('#message').html(''); // Clear any messages
+            });
             var table = $('#ascensores').DataTable({
                 responsive: true,
                 dom: 'tp',
@@ -1122,7 +1215,6 @@
                 $('#edit-descripcion1').val(elevator.descripcion1);
                 $('#edit-descripcion2').val(elevator.descripcion2);
             });
-
         });
     </script>
 @endpush

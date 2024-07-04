@@ -7,6 +7,7 @@ use App\Models\Elevators;
 use App\Models\Cliente;
 use App\Models\Province;
 use App\Models\SparePart;
+use App\Models\Marca;
 use App\Models\Contract;
 use App\Models\MaintInReview;
 use App\Models\ReviewType;
@@ -24,6 +25,24 @@ class ElevatorController extends Controller
         return view('elevator.view_elevator',compact('elevators','customers','provinces','elevatortypes','staffs'));
     }
 
+    public function insertBrand(Request $request)
+    {
+        echo '<pre>';
+        print_r($request->all());
+        echo '</pre>';exit;
+        try {
+            // Save to database
+            Marca::create([
+                'marca_nombre' => $request->input('marca_nombre'),
+            ]);
+
+            // Return success response
+            return response()->json(['success' => 'Brand added successfully!']);
+        } catch (\Exception $e) {
+            // Return error response
+            return response()->json(['error' => 'Failed to add brand. Please try again later.'], 500);
+        }
+    }
     public function elevatorInsert(Request $request){
         $validatedData = $request->validate([
             'contrato' => 'required',

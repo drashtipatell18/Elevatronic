@@ -37,7 +37,7 @@
                                 <div class="form-group">
                                     <label for="Empleado">Seleccione la provincia que desea consulta</label>
                                     <select id="province" name="province" class="form-control">
-                                        <option value="">Select Province</option>
+                                        <option value="">Seleccionar Provincia</option>
                                         @foreach ($provinces as $province)
                                             <option value="{{ $province }}">{{ $province }}</option>
                                         @endforeach
@@ -81,7 +81,7 @@
                                             <label for="Ascensor">Ascensor</label>
                                             <select name="ascensor" id="ascensor"
                                                 class="form-control  @error('ascensor') is-invalid @enderror">
-                                                <option value="">Select an elevator</option>
+                                                <option value="">Seleccione un ascensor</option>
                                                 @foreach ($elevators as $elevator)
                                                     <option value="{{ $elevator }}">{{ $elevator }}</option>
                                                 @endforeach
@@ -98,7 +98,7 @@
                                             <label for="TipoRevision">Tipo de revisión</label>
                                             <select class="custom-select  @error('revisar') is-invalid @enderror"
                                                 name="revisar" id="revisar">
-                                                <option value="">Select a review type</option>
+                                                <option value="">Seleccione un tipo de reseña</option>
                                                 @foreach ($reviewtypes as $reviewtype)
                                                     <option value="{{ $reviewtype }}">{{ $reviewtype }}</option>
                                                 @endforeach

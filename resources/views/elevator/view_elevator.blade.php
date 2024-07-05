@@ -215,16 +215,6 @@
                                                                 </div>
                                                             </div>
 
-                                                            <div class="text-right mb-3 w-100">
-                                                                <div class="form-group">
-                                                                    <button type="button" data-toggle="modal"
-                                                                        data-target="#crearMarcas"
-                                                                        class="btn-primario w-auto pl-3 pr-3 brandbtn"
-                                                                        id="toggleMarcaInput">
-                                                                        + Agregar marca
-                                                                    </button>
-                                                                </div>
-                                                            </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label for="código">Código</label>
@@ -244,6 +234,18 @@
                                                                     </select>
                                                                 </div>
                                                             </div>
+
+                                                            <div class="text-right mb-3 w-100">
+                                                                <div class="form-group">
+                                                                    <button type="button" data-toggle="modal"
+                                                                        data-target="#crearMarcas"
+                                                                        class="btn-gris"
+                                                                        id="toggleMarcaInput">
+                                                                        + Agregar marca
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                            
                                                             <div class="col-md-12">
                                                                 <div class="form-group">
                                                                     <label for="clienteAscensor">Cliente del
@@ -538,7 +540,7 @@
                                                                     <div class="form-group">
                                                                         <button type="button" data-toggle="modal"
                                                                             data-target="#crearMarcas"
-                                                                            class="btn-primario w-auto pl-3 pr-3"
+                                                                            class="btn-gris"
                                                                             id="toggleMarcaInput">
                                                                             + Agregar marca
                                                                         </button>
@@ -573,6 +575,17 @@
                                                                         </select>
                                                                     </div>
                                                                 </div>
+                                                                {{-- <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label for="marca">Marca</label>
+                                                                        <select class="custom-select form-control marcaItems"
+                                                                            name="marca" id="marca1">
+                                                                            <option value="" class="d-none">Seleccionar
+                                                                                opción
+                                                                            </option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div> --}}
 
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">

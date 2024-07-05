@@ -84,7 +84,7 @@
                                                                 data-reviewtype="{{ json_encode($reviewtype) }}"
                                                                 data-toggle="modal"
                                                                 data-target="#editarTipoRevision">Editar</a>
-                                                            <a class="dropdown-item" data-toggle="modal"
+                                                            <a class="dropdown-item" data-toggle="modal" href="#"
                                                                 data-target="#modalEliminar{{ $reviewtype->id }}">Eliminar</a>
                                                         </div>
                                                     </div>

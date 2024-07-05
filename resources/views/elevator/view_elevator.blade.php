@@ -1,5 +1,6 @@
 @extends('layouts.main')
 <!-- Select2 CSS -->
+{{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"> --}}
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 @section('content')
     <style>
@@ -31,6 +32,9 @@
 
         .select2-container--default {
             width: 100% !important;
+        }
+        .select2-container--default .select2-selection--single .select2-selection__clear {
+            display: none;
         }
     </style>
     <div class="w-100 contenido">
@@ -255,7 +259,7 @@
                                                                 </div>
                                                             </div>
 
-                                                            <div class="text-right mb-3 w-100">
+                                                            <div class="text-right w-100">
                                                                 <div class="form-group">
                                                                     <button type="button" data-toggle="modal"
                                                                         data-target="#crearMarcas"
@@ -576,7 +580,7 @@
                                                                         </select>
                                                                     </div>
                                                                 </div>
-                                                                <div class="text-right mb-3 w-100">
+                                                                <div class="text-right w-100">
                                                                     <div class="form-group">
                                                                         <button type="button" data-toggle="modal"
                                                                             data-target="#crearMarcas"

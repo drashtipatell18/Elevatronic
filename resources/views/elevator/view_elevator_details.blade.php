@@ -9,6 +9,32 @@
         .dt-head-center {
             text-align: center;
         }
+
+        .brandbtn {
+            margin-right: 15px;
+            font-size: 14px;
+            padding: 2px 8px !important;
+        }
+
+        .select2-selection__arrow {
+            top: 7px !important;
+            width: 24px !important;
+        }
+
+        .select2-selection__placeholder {
+            margin-bottom: 53px !important;
+        }
+
+        .select2-selection--single {
+            height: 39px !important;
+            display: flex !important;
+            align-items: center !important;
+            width: 100% !important;
+        }
+
+        .select2-container--default {
+            width: 100% !important;
+        }
     </style>
     <div class="w-100 contenido">
         <div class="container-fluid container-mod">
@@ -1413,8 +1439,6 @@
                     </div>
                 </div>
 
-                
-
                 <!-- Modal actualizar Ascensor-->
                 <div class="modal left fade" id="editarAscensor" tabindex="-1" role="dialog"
                     aria-labelledby="modelTitleId" aria-hidden="true">
@@ -1484,17 +1508,6 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="text-right mb-3 w-100">
-                                                        <div class="form-group">
-                                                            <button type="button" data-toggle="modal"
-                                                                data-target="#crearMarcas"
-                                                                class="btn-primario w-auto pl-3 pr-3 brandbtn"
-                                                                id="toggleMarcaInput">
-                                                                + Agregar marca
-                                                            </button>
-                                                        </div>
-                                                    </div>
-
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="código">Código</label>
@@ -1510,29 +1523,25 @@
                                                         </div>
                                                     </div>
 
-                                                    {{-- <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="marca">Marca</label>
-                                                            <input type="text" placeholder="Marca" name="marca"
-                                                                id="marca"
-                                                                class="form-control @error('marca') is-invalid @enderror"
-                                                                value="{{ old('marca', $elevators->marca ?? '') }}">
-                                                            @error('marca')
-                                                                <span class="invalid-feedback" style="color: red">
-                                                                    <strong>{{ $message }}</strong>
-                                                                </span>
-                                                            @enderror
-                                                        </div>
-                                                    </div> --}}
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="marca">Marca</label>
-                                                            <select class="custom-select form-control"
-                                                                name="marca" id="marca">
+                                                            <select class="custom-select form-control" name="marca"
+                                                                id="marca">
                                                                 <option value="" class="d-none">Seleccionar
                                                                     opción
                                                                 </option>
                                                             </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="text-right mb-3 w-100">
+                                                        <div class="form-group">
+                                                            <button type="button" data-toggle="modal"
+                                                                data-target="#crearMarcas" class="btn-gris brandbtn"
+                                                                id="toggleMarcaInput">
+                                                                + Agregar marca
+                                                            </button>
                                                         </div>
                                                     </div>
 
@@ -2122,39 +2131,44 @@
             let selectize;
 
             function getBrand(edit) {
-                if (selectize) {
-                    selectize.destroy()
-                    selectize = null
+                // Destroy existing Select2 instances if they exist
+                if ($('#marca').data('select2')) {
+                    $('#marca').select2('destroy');
                 }
+
+                // Perform the AJAX call to get brand data
                 $.ajax({
                     type: "GET",
-                    method: "GET",
                     url: "{{ route('getBrands') }}",
                     dataType: "JSON",
                     success: function(response) {
+                        // Clear the current options and append the retrieved options to the select elements
+                        $("#marca").empty();
+                        $("#marca").append(
+                            '<option value="" class="d-none">Seleccionar opción</option>'
+                        ); // Add placeholder option
+
                         $.each(response, function() {
                             $("#marca").append(
                                 `<option value='${this.id}'>${this['marca_nombre']}</option>`
-                                );
+                            );
                         });
 
-                        selectize = $('#marca').selectize({})[0].selectize;
-                        if(edit)
-                        {
-                            selectize = $('#marca').selectize({})[0].selectize;
-                        }
-                        else
-                        {
-                            selectize = $('#marca').selectize({})[0].selectize;
+                        // Initialize Select2 on the select elements with placeholder
+                        $('#marca').select2({
+                            placeholder: "Seleccionar marca",
+                            allowClear: true
+                        });
+
+                        // If edit is true and has a valid ID, set the selected value
+                        if (edit) {
+                            $('#marca').val(edit).trigger('change');
+                            console.log(edit);
                         }
                     }
-                })
+                });
             }
-
             getBrand();
-            // $('#toggleMarcaInput').click(function() {
-            //     $('#marcaInputSection').toggle(); // Toggle the visibility of marcaInputSection
-            // });
             $('#submitBrand').click(function(e) {
                 e.preventDefault(); // Prevent default form submission
                 var formData = new FormData();

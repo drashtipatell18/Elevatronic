@@ -1,6 +1,6 @@
 @extends('layouts.main')
-{{-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" /> --}}
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css">
+<!-- Select2 CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 @section('content')
     <style>
         .dt-head-center {
@@ -11,6 +11,26 @@
             margin-right: 15px;
             font-size: 14px;
             padding: 2px 8px !important;
+        }
+
+        .select2-selection__arrow {
+            top: 7px !important;
+            width: 24px !important;
+        }
+
+        .select2-selection__placeholder {
+            margin-bottom: 53px !important;
+        }
+
+        .select2-selection--single {
+            height: 39px !important;
+            display: flex !important;
+            align-items: center !important;
+            width: 100% !important;
+        }
+
+        .select2-container--default {
+            width: 100% !important;
         }
     </style>
     <div class="w-100 contenido">
@@ -228,7 +248,7 @@
                                                                     <label for="marca">Marca</label>
                                                                     <select class="custom-select form-control"
                                                                         name="marca" id="marca">
-                                                                        <option value="" class="d-none">Seleccionar
+                                                                        <option value="">Seleccionar
                                                                             opción
                                                                         </option>
                                                                     </select>
@@ -239,13 +259,12 @@
                                                                 <div class="form-group">
                                                                     <button type="button" data-toggle="modal"
                                                                         data-target="#crearMarcas"
-                                                                        class="btn-gris"
-                                                                        id="toggleMarcaInput">
+                                                                        class="btn-gris brandbtn" id="toggleMarcaInput">
                                                                         + Agregar marca
                                                                     </button>
                                                                 </div>
                                                             </div>
-                                                            
+
                                                             <div class="col-md-12">
                                                                 <div class="form-group">
                                                                     <label for="clienteAscensor">Cliente del
@@ -536,16 +555,7 @@
                                                                             class="form-control" value="">
                                                                     </div>
                                                                 </div>
-                                                                <div class="text-right mb-3 w-100">
-                                                                    <div class="form-group">
-                                                                        <button type="button" data-toggle="modal"
-                                                                            data-target="#crearMarcas"
-                                                                            class="btn-gris"
-                                                                            id="toggleMarcaInput">
-                                                                            + Agregar marca
-                                                                        </button>
-                                                                    </div>
-                                                                </div>
+
                                                                 <div class="col-md-6">
                                                                     <div class="form-group">
                                                                         <label for="código">Código</label>
@@ -555,15 +565,6 @@
                                                                     </div>
                                                                 </div>
 
-                                                                {{-- <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <label for="marca">Marca</label>
-                                                                        <input type="text" placeholder="Marca"
-                                                                            name="marca" id="edit-marca"
-                                                                            class="form-control"
-                                                                            value="{{ old('marca', $elevator->marca ?? '') }}">
-                                                                    </div>
-                                                                </div> --}}
                                                                 <div class="col-md-6">
                                                                     <div class="form-group">
                                                                         <label for="marca">Marca</label>
@@ -575,18 +576,15 @@
                                                                         </select>
                                                                     </div>
                                                                 </div>
-                                                                {{-- <div class="col-md-6">
+                                                                <div class="text-right mb-3 w-100">
                                                                     <div class="form-group">
-                                                                        <label for="marca">Marca</label>
-                                                                        <select class="custom-select form-control marcaItems"
-                                                                            name="marca" id="marca1">
-                                                                            <option value="" class="d-none">Seleccionar
-                                                                                opción
-                                                                            </option>
-                                                                        </select>
+                                                                        <button type="button" data-toggle="modal"
+                                                                            data-target="#crearMarcas"
+                                                                            class="btn-gris brandbtn" id="toggleMarcaInput">
+                                                                            + Agregar marca
+                                                                        </button>
                                                                     </div>
-                                                                </div> --}}
-
+                                                                </div>
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
                                                                         <label for="clienteAscensor">Cliente
@@ -888,62 +886,58 @@
     </div>
 @endsection
 @push('scripts')
-    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> --}}
-    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/js/jquery.dataTables.min.js"
-        integrity="sha512-BkpSL20WETFylMrcirBahHfSnY++H2O1W+UnEEO4yNIl+jI2+zowyoGJpbtk6bx97fBXf++WJHSSK2MV4ghPcg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/js/selectize.min.js"
-        integrity="sha512-IOebNkvA/HZjMM7MxL0NYeLYEalloZ8ckak+NDtOViP7oiYzG5vn6WVXyrJDiJPhl4yRdmNAG49iuLmhkUdVsQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- Select2 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <script>
         $(document).ready(function() {
-            let selectize;
-            let selectize1;
-            // $("#marca").select2({
-            //     placeholder: 'Select an option',
-            //     width: 'resolve'
-            // });
 
             function getBrand(edit) {
-                if (selectize) {
-                    selectize.destroy()
-                    selectize = null
+                // Destroy existing Select2 instances if they exist
+                if ($('#marca').data('select2')) {
+                    $('#marca').select2('destroy');
                 }
-                if (selectize1) {
-                    selectize1.destroy()
-                    selectize1 = null
+                if ($('#marca1').data('select2')) {
+                    $('#marca1').select2('destroy');
                 }
+
+                // Perform the AJAX call to get brand data
                 $.ajax({
                     type: "GET",
-                    method: "GET",
                     url: "{{ route('getBrands') }}",
                     dataType: "JSON",
                     success: function(response) {
+                        // Clear the current options and append the retrieved options to the select elements
+                        $("#marca, #marca1").empty();
+                        $("#marca, #marca1").append(
+                            '<option value="" class="d-none">Seleccionar opción</option>'
+                            ); // Add placeholder option
+
                         $.each(response, function() {
                             $("#marca, #marca1").append(
                                 `<option value='${this.id}'>${this['marca_nombre']}</option>`
-                                );
+                            );
                         });
 
-                        selectize = $('#marca1').selectize({})[0].selectize;
-                        if(edit)
-                        {
-                            selectize1 = $('#marca').selectize({})[0].selectize;
+                        // Initialize Select2 on the select elements with placeholder
+                        $('#marca1').select2({
+                            placeholder: "Seleccionar marca",
+                            allowClear: true
+                        });
+                        $('#marca').select2({
+                            placeholder: "Seleccionar marca",
+                            allowClear: true
+                        });
+
+                        // If edit is true and has a valid ID, set the selected value
+                        if (edit) {
+                            $('#marca1').val(edit).trigger('change');
                             console.log(edit);
                         }
-                        else
-                        {
-                            selectize1 = $('#marca').selectize({})[0].selectize;
-                        }
                     }
-                })
+                });
             }
 
             getBrand();
-            // $('#toggleMarcaInput').click(function() {
-            //     $('#marcaInputSection').toggle(); // Toggle the visibility of marcaInputSection
-            // });
             $('#submitBrand').click(function(e) {
                 e.preventDefault(); // Prevent default form submission
                 var formData = new FormData();
@@ -1279,10 +1273,9 @@
                 $('#edit-cantidad').val(elevator.cantidad);
 
                 // Check if quarters contain specific values
-                if(elevator.quarters)
-                {
+                if (elevator.quarters) {
                     var quarters = elevator.quarters.split(',');
-    
+
                     $('#mgratuito').prop('checked', quarters.includes('mgratuito'));
                     $('#sincuarto').prop('checked', quarters.includes('sincuarto'));
                     $('#concuarto').prop('checked', quarters.includes('concuarto'));

@@ -201,7 +201,7 @@
     </div>
     @foreach ($schedules as $schedule)
         <!-- Modal Agregar Cromograma-->
-        <div class="modal left fade" id="editCronograma{{ $schedule->id }}" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+        <div class="modal left fade" id="editCronograma" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
             aria-hidden="true" data-event-id="">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -223,7 +223,7 @@
                                                 <div class="form-group">
                                                     <label for="Ascensor">Ascensor</label>
                                                     <select name="ascensor" id="ascensor"
-                                                        class="form-control  @error('ascensor') is-invalid @enderror">
+                                                        class="form-control @error('ascensor') is-invalid @enderror">
                                                         <option value="">Select an elevator</option>
                                                         @foreach ($elevators as $elevator)
                                                             <option value="{{ $elevator }}"
@@ -231,7 +231,6 @@
                                                                 {{ $elevator }}
                                                             </option>
                                                         @endforeach
-
                                                     </select>
                                                     @error('ascensor')
                                                         <span class="invalid-feedback" style="color: red">
@@ -243,8 +242,8 @@
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label for="TipoRevision">Tipo de revisión</label>
-                                                    <select class="custom-select  @error('revisar') is-invalid @enderror"
-                                                        name="revisar" id="revisar">
+                                                    <select name="revisar" id="revisar"
+                                                        class="custom-select @error('revisar') is-invalid @enderror">
                                                         <option value="">Select a review type</option>
                                                         @foreach ($reviewtypes as $reviewtype)
                                                             <option value="{{ $reviewtype }}"
@@ -252,7 +251,6 @@
                                                                 {{ $reviewtype }}
                                                             </option>
                                                         @endforeach
-
                                                     </select>
                                                     @error('revisar')
                                                         <span class="invalid-feedback" style="color: red">
@@ -265,10 +263,9 @@
 
                                                 <div class="form-group">
                                                     <label for="tecnico">Técnico</label>
-                                                    <select class="custom-select" name="técnico" id="tecnico">
-                                                        <option value=""
-                                                            class="form-control @error('técnico') is-invalid @enderror">
-                                                            Seleccionar opción</option>
+                                                    <select name="técnico" id="técnico"
+                                                        class="custom-select @error('técnico') is-invalid @enderror">
+                                                        <option value="">Seleccionar opción</option>
                                                         <option value="técnico_1"
                                                             {{ old('técnico') == 'técnico_1' ? 'selected' : ($schedule->técnico == 'técnico_1' ? 'selected' : '') }}>
                                                             Técnico 1</option>
@@ -334,9 +331,8 @@
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label for="Estado">Estado</label>
-                                                    <select
-                                                        class="custom-select form-control @error('estado') is-invalid @enderror"
-                                                        name="estado" id="estado">
+                                                    <select name="estado" id="estado"
+                                                        class="custom-select form-control @error('estado') is-invalid @enderror">
                                                         <option value="" disabled>Seleccionar opción</option>
                                                         <option value="activo"
                                                             {{ old('estado', isset($schedule) && $schedule->estado == 'activo' ? 'selected' : '') }}>
@@ -401,9 +397,9 @@
                             // Iterate over each event in the response
                             var formattedEvents = response.map(function(event) {
                                 return {
-                                    id:event.id,
+                                    id: event.id,
                                     title: event.ascensor,
-                                    tipoRevision:event.revisar,
+                                    tipoRevision: event.revisar,
                                     técnico: event.técnico,
                                     start: event.mantenimiento,
                                     hora_de_inicio: event.hora_de_inicio,
@@ -415,6 +411,7 @@
                             callback(
                                 formattedEvents
                             ); // Pass the formatted events to FullCalendar
+
                         },
                         error: function(xhr, status, error) {
                             console.error('Error fetching events:', error);
@@ -423,15 +420,18 @@
                 },
 
                 dayClick: function(date, jsEvent, view) {
+                    console.log('dayClick');
                     resetForm();
                     var formattedDate = date.format('YYYY-MM-DD');
                     $('#mantenimiento').val(formattedDate);
                     $("#editCronograma").modal();
                 },
                 eventClick: function(calEvent, jsEvent, view) {
-
+                    jsEvent.preventDefault(); // Prevent the default action
                     var eventId = calEvent.id;
-                    $('#editCronograma' + eventId).attr('data-event-id', eventId);
+                    // window.reload();
+
+                    $('#editCronograma').attr('data-event-id', eventId);
                     $('#ascensor').val(calEvent.title);
                     $('#revisar').val(calEvent.tipoRevision);
                     $('#técnico').val(calEvent.técnico);
@@ -439,8 +439,10 @@
                     $('#horah_de_finalización').val(moment(calEvent.hora_de_inicio).format('HH:mm'));
                     $('#hora_de_inicio').val(moment(calEvent.horah_de_finalización).format('HH:mm'));
                     $('#estado').val(calEvent.estado);
-                    $("#editCronograma" + eventId).modal(); // Show the modal
+                    $('#editCronograma').modal('show'); // Show the modal
                 }
+
+
             });
 
             $('#submitFormButton').on('click', function(e) {

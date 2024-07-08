@@ -784,6 +784,19 @@
                 // Set the form action to the correct route
                 $('#editsparepart').attr('action', '/repuestos/actualizar/' + sparepart.id);
             });
+
+            $('#crearRepuesto').on('hidden.bs.modal', function() {
+                var form = $('#createspartpart');
+                form.validate().resetForm();
+                form.find('.is-invalid').removeClass('is-invalid');
+                form.find('.is-valid').removeClass('is-valid');
+            });
+            $('#editorRepuesto').on('hidden.bs.modal', function() {
+                var form = $('#editsparepart');
+                form.validate().resetForm();
+                form.find('.is-invalid').removeClass('is-invalid');
+                form.find('.is-valid').removeClass('is-valid');
+            });
         });
     </script>
 @endpush

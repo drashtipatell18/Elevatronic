@@ -2672,6 +2672,38 @@
                 })
             })
 
+            $('#editarAscensor').on('hidden.bs.modal', function() {
+                var form = $('#editelevatform');
+                form.validate().resetForm();
+                form.find('.is-invalid').removeClass('is-invalid');
+                form.find('.is-valid').removeClass('is-valid');
+            });
+
+            $('#crearMantenimiento').on('hidden.bs.modal', function() {
+                var form = $('#createmaintreview');
+                form.validate().resetForm();
+                form.find('.is-invalid').removeClass('is-invalid');
+                form.find('.is-valid').removeClass('is-valid');
+            });
+            $('#editorMantenimiento').on('hidden.bs.modal', function() {
+                var form = $('#editmaintreview');
+                form.validate().resetForm();
+                form.find('.is-invalid').removeClass('is-invalid');
+                form.find('.is-valid').removeClass('is-valid');
+            });
+
+            $('#crearContratos').on('hidden.bs.modal', function() {
+                var form = $('#createcontratos');
+                form.validate().resetForm();
+                form.find('.is-invalid').removeClass('is-invalid');
+                form.find('.is-valid').removeClass('is-valid');
+            });
+            $('#editarContratos').on('hidden.bs.modal', function() {
+                var form = $('#editcontratos');
+                form.validate().resetForm();
+                form.find('.is-invalid').removeClass('is-invalid');
+                form.find('.is-valid').removeClass('is-valid');
+            });
         });
     </script>
 @endpush

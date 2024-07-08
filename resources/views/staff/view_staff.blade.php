@@ -637,6 +637,19 @@
                 // Set the form action to the correct route
                 $('#editstaff').attr('action', '/personal/actualizar/' + staff.id);
             });
+
+            $('#crearPersonal').on('hidden.bs.modal', function() {
+                var form = $('#createstaff');
+                form.validate().resetForm();
+                form.find('.is-invalid').removeClass('is-invalid');
+                form.find('.is-valid').removeClass('is-valid');
+            });
+            $('#editarPersonal').on('hidden.bs.modal', function() {
+                var form = $('#editstaff');
+                form.validate().resetForm();
+                form.find('.is-invalid').removeClass('is-invalid');
+                form.find('.is-valid').removeClass('is-valid');
+            });
         });
     </script>
 @endpush

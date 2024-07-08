@@ -1100,6 +1100,14 @@
 
                 $('#editmaintreview').attr('action', '/mant/en/revisión/actualizar/' + mantenimiento.id);
             });
+
+            $('#editorMantenimiento').on('hidden.bs.modal', function() {
+                var form = $('#editmaintreview');
+                form.validate().resetForm();
+                form.find('.is-invalid').removeClass('is-invalid');
+                form.find('.is-valid').removeClass('is-valid');
+            });
+            
         });
     </script>
 @endpush

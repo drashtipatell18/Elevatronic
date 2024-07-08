@@ -233,149 +233,162 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
-                    var table = $('#TiposAscensores').DataTable({
-                        responsive: true,
-                        dom: 'tp',
-                        pageLength: 8, // Establece el número de registros por página a 8
-                        language: {
-                            "decimal": "",
-                            "emptyTable": "No hay información",
-                            "info": "Mostrando _START_ a _END_ de _TOTAL_ Reistros",
-                            "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
-                            "infoFiltered": "(Filtrado de _MAX_ total registros)",
-                            "infoPostFix": "",
-                            "thousands": ",",
-                            "lengthMenu": "Mostrar _MENU_ Registros",
-                            "loadingRecords": "Cargando...",
-                            "processing": "Procesando...",
-                            "search": "Buscar:",
-                            "zeroRecords": "Sin resultados encontrados",
-                            "paginate": {
-                                "first": "Primero",
-                                "last": "Último",
-                                "next": "Siguiente",
-                                "previous": "Anterior"
-                            },
-                        },
-                        buttons: [{
-                                extend: 'copy',
-                                exportOptions: {
-                                    columns: ':not(:last-child)' // Excluye la última columna
-                                }
-                            },
-                            {
-                                extend: 'excel',
-                                exportOptions: {
-                                    columns: ':not(:last-child)' // Excluye la última columna
-                                }
-                            },
-                            {
-                                extend: 'csv',
-                                exportOptions: {
-                                    columns: ':not(:last-child)' // Excluye la última columna
-                                }
-                            },
-                            {
-                                extend: 'pdf',
-                                exportOptions: {
-                                    columns: ':not(:last-child)' // Excluye la última columna
-                                },
-                                customize: function(doc) {
-                                    doc.content[1].table.widths = Array(doc.content[1].table.body[0]
-                                        .length + 1).join('*').split('');
-                                    var columnCount = doc.content[1].table.body[0].length;
-                                    doc.content[1].table.body.forEach(function(row) {
-                                        row[0].alignment =
-                                            'center'; // Center align the first column
-                                        row[columnCount - 1].alignment =
-                                            'center'; // Center align the last column
-                                    });
-                                }
-                            },
-                            {
-                                extend: 'print',
-                                exportOptions: {
-                                    columns: ':not(:last-child)' // Excluye la última columna
-                                }
-                            }
-                            // 'copy', 'csv', 'excel', 'pdf', 'print'
-                        ]
-                    });
-
-                    // Mover el contenedor de búsqueda (filtro) a la izquierda
-                    $("#miTabla_filter").css('float', 'left');
-
-                    // Manejadores para los botones de exportación personalizados
-                    $("#export_excel").on("click", function() {
-                        table.button('.buttons-csv').trigger();
-                    });
-                    $("#export_pdf").on("click", function() {
-                        table.button('.buttons-pdf').trigger();
-                    });
-                    $("#export_copy").on("click", function() {
-                        table.button('.buttons-copy').trigger();
-                    });
-                    $("#export_print").on("click", function() {
-                        table.button('.buttons-print').trigger();
-                    });
-                    $('#customSearchBox').keyup(function() {
-                        table.search($(this).val()).draw();
-                    });
-                    setTimeout(function() {
-                        $(".alert-success").fadeOut(1000);
-                    }, 1000);
-                    setTimeout(function() {
-                        $(".alert-danger").fadeOut(1000);
-                    }, 1000);
-                    $('#createelevatorForm').validate({
-                        rules: {
-                            nombre_de_tipo_de_ascensor: 'required'
-                        },
-                        messages: {
-                            nombre_de_tipo_de_ascensor: 'Por favor, ingresa el nombre de tipo de ascensor'
-                        },
-                        errorElement: 'span',
-                        errorPlacement: function(error, element) {
-                            error.addClass('invalid-feedback');
-                            element.closest('.form-group').append(error);
-                        },
-                        highlight: function(element, errorClass, validClass) {
-                            $(element).addClass('is-invalid').removeClass('is-valid');
-                        },
-                        unhighlight: function(element, errorClass, validClass) {
-                            $(element).removeClass('is-invalid').addClass('is-valid');
+            var table = $('#TiposAscensores').DataTable({
+                responsive: true,
+                dom: 'tp',
+                pageLength: 8, // Establece el número de registros por página a 8
+                language: {
+                    "decimal": "",
+                    "emptyTable": "No hay información",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Reistros",
+                    "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+                    "infoFiltered": "(Filtrado de _MAX_ total registros)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "lengthMenu": "Mostrar _MENU_ Registros",
+                    "loadingRecords": "Cargando...",
+                    "processing": "Procesando...",
+                    "search": "Buscar:",
+                    "zeroRecords": "Sin resultados encontrados",
+                    "paginate": {
+                        "first": "Primero",
+                        "last": "Último",
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    },
+                },
+                buttons: [{
+                        extend: 'copy',
+                        exportOptions: {
+                            columns: ':not(:last-child)' // Excluye la última columna
                         }
-                    });
+                    },
+                    {
+                        extend: 'excel',
+                        exportOptions: {
+                            columns: ':not(:last-child)' // Excluye la última columna
+                        }
+                    },
+                    {
+                        extend: 'csv',
+                        exportOptions: {
+                            columns: ':not(:last-child)' // Excluye la última columna
+                        }
+                    },
+                    {
+                        extend: 'pdf',
+                        exportOptions: {
+                            columns: ':not(:last-child)' // Excluye la última columna
+                        },
+                        customize: function(doc) {
+                            doc.content[1].table.widths = Array(doc.content[1].table.body[0]
+                                .length + 1).join('*').split('');
+                            var columnCount = doc.content[1].table.body[0].length;
+                            doc.content[1].table.body.forEach(function(row) {
+                                row[0].alignment =
+                                    'center'; // Center align the first column
+                                row[columnCount - 1].alignment =
+                                    'center'; // Center align the last column
+                            });
+                        }
+                    },
+                    {
+                        extend: 'print',
+                        exportOptions: {
+                            columns: ':not(:last-child)' // Excluye la última columna
+                        }
+                    }
+                    // 'copy', 'csv', 'excel', 'pdf', 'print'
+                ]
+            });
 
-                    $('#editartiposAscensores').on('shown.bs.modal', function() {
-                        const formId = $(this).find('form').attr('id');
-                        $('#' + formId).validate({
-                            rules: {
-                                nombre_de_tipo_de_ascensor: 'required'
-                            },
-                            messages: {
-                                nombre_de_tipo_de_ascensor: 'Por favor, ingresa el nombre de tipo de ascensor'
-                            },
-                            errorElement: 'span',
-                            errorPlacement: function(error, element) {
-                                error.addClass('invalid-feedback');
-                                element.closest('.form-group').append(error);
-                            },
-                            highlight: function(element, errorClass, validClass) {
-                                $(element).addClass('is-invalid').removeClass('is-valid');
-                            },
-                            unhighlight: function(element, errorClass, validClass) {
-                                $(element).removeClass('is-invalid').addClass('is-valid');
-                            }
-                        });
-                    });
+            // Mover el contenedor de búsqueda (filtro) a la izquierda
+            $("#miTabla_filter").css('float', 'left');
 
-                    $('.edit-elevator-type').on('click', function() {
-                        var elevator_type = $(this).data('elevator-type');
+            // Manejadores para los botones de exportación personalizados
+            $("#export_excel").on("click", function() {
+                table.button('.buttons-csv').trigger();
+            });
+            $("#export_pdf").on("click", function() {
+                table.button('.buttons-pdf').trigger();
+            });
+            $("#export_copy").on("click", function() {
+                table.button('.buttons-copy').trigger();
+            });
+            $("#export_print").on("click", function() {
+                table.button('.buttons-print').trigger();
+            });
+            $('#customSearchBox').keyup(function() {
+                table.search($(this).val()).draw();
+            });
+            setTimeout(function() {
+                $(".alert-success").fadeOut(1000);
+            }, 1000);
+            setTimeout(function() {
+                $(".alert-danger").fadeOut(1000);
+            }, 1000);
+            $('#createelevatorForm').validate({
+                rules: {
+                    nombre_de_tipo_de_ascensor: 'required'
+                },
+                messages: {
+                    nombre_de_tipo_de_ascensor: 'Por favor, ingresa el nombre de tipo de ascensor'
+                },
+                errorElement: 'span',
+                errorPlacement: function(error, element) {
+                    error.addClass('invalid-feedback');
+                    element.closest('.form-group').append(error);
+                },
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass('is-invalid').removeClass('is-valid');
+                },
+                unhighlight: function(element, errorClass, validClass) {
+                    $(element).removeClass('is-invalid').addClass('is-valid');
+                }
+            });
 
-                        $('#edit-nombre_de_tipo_de_ascensor').val(elevator_type.nombre_de_tipo_de_ascensor);
-                        $('#editelevatorForm').attr('action', '/tipos/de/ascensor/actualizar/' + elevator_type.id);
-                    });
+            $('#editartiposAscensores').on('shown.bs.modal', function() {
+                const formId = $(this).find('form').attr('id');
+                $('#' + formId).validate({
+                    rules: {
+                        nombre_de_tipo_de_ascensor: 'required'
+                    },
+                    messages: {
+                        nombre_de_tipo_de_ascensor: 'Por favor, ingresa el nombre de tipo de ascensor'
+                    },
+                    errorElement: 'span',
+                    errorPlacement: function(error, element) {
+                        error.addClass('invalid-feedback');
+                        element.closest('.form-group').append(error);
+                    },
+                    highlight: function(element, errorClass, validClass) {
+                        $(element).addClass('is-invalid').removeClass('is-valid');
+                    },
+                    unhighlight: function(element, errorClass, validClass) {
+                        $(element).removeClass('is-invalid').addClass('is-valid');
+                    }
+                });
+            });
+
+            $('.edit-elevator-type').on('click', function() {
+                var elevator_type = $(this).data('elevator-type');
+
+                $('#edit-nombre_de_tipo_de_ascensor').val(elevator_type.nombre_de_tipo_de_ascensor);
+                $('#editelevatorForm').attr('action', '/tipos/de/ascensor/actualizar/' + elevator_type.id);
+            });
+
+            $('#tiposAscensores').on('hidden.bs.modal', function() {
+                var form = $('#createelevatorForm');
+                form.validate().resetForm();
+                form.find('.is-invalid').removeClass('is-invalid');
+                form.find('.is-valid').removeClass('is-valid');
+            });
+            $('#editartiposAscensores').on('hidden.bs.modal', function() {
+                var form = $('#editelevatorForm');
+                form.validate().resetForm();
+                form.find('.is-invalid').removeClass('is-invalid');
+                form.find('.is-valid').removeClass('is-valid');
+            });
         });
     </script>
 @endpush

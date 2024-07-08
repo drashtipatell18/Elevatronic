@@ -1294,6 +1294,19 @@
 
                 getBrand(elevator.marca);
             });
+
+            $('#crearAscensor').on('hidden.bs.modal', function() {
+                var form = $('#createelevatform');
+                form.validate().resetForm();
+                form.find('.is-invalid').removeClass('is-invalid');
+                form.find('.is-valid').removeClass('is-valid');
+            });
+            $('#editarAscensor').on('hidden.bs.modal', function() {
+                var form = $('#editelevatform');
+                form.validate().resetForm();
+                form.find('.is-invalid').removeClass('is-invalid');
+                form.find('.is-valid').removeClass('is-valid');
+            });
         });
     </script>
 @endpush

@@ -592,6 +592,19 @@
                 }
             });
 
+            $('#crearCronograma').on('hidden.bs.modal', function() {
+                var form = $('#eventForm');
+                form.validate().resetForm();
+                form.find('.is-invalid').removeClass('is-invalid');
+                form.find('.is-valid').removeClass('is-valid');
+            });
+
+            $('#editCronograma').on('hidden.bs.modal', function() {
+                var form = $('#editeventForm');
+                form.validate().resetForm();
+                form.find('.is-invalid').removeClass('is-invalid');
+                form.find('.is-valid').removeClass('is-valid');
+            });
         });
     </script>
 @endpush

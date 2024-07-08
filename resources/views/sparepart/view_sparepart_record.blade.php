@@ -436,6 +436,13 @@
                 }
                 reader.readAsDataURL(this.files[0]);
             });
+
+            $('#editorRepuesto').on('hidden.bs.modal', function() {
+                var form = $('#editsparepart');
+                form.validate().resetForm();
+                form.find('.is-invalid').removeClass('is-invalid');
+                form.find('.is-valid').removeClass('is-valid');
+            });
         });
     </script>
 @endpush

@@ -673,6 +673,19 @@
                 // Set the form action to the correct route
                 $('#edituserform').attr('action', '/usuarios/actualizar/' + user.id);
             });
+
+            $('#crearUsuario').on('hidden.bs.modal', function() {
+                var form = $('#createuserform');
+                form.validate().resetForm();
+                form.find('.is-invalid').removeClass('is-invalid');
+                form.find('.is-valid').removeClass('is-valid');
+            });
+            $('#editorUsuario').on('hidden.bs.modal', function() {
+                var form = $('#edituserform');
+                form.validate().resetForm();
+                form.find('.is-invalid').removeClass('is-invalid');
+                form.find('.is-valid').removeClass('is-valid');
+            });
         });
     </script>
 @endpush

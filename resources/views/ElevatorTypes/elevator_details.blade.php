@@ -511,6 +511,18 @@
                     $(element).removeClass("is-invalid").addClass("is-valid");
                 }
             });
+            $('#editartiposAscensores').on('hidden.bs.modal', function() {
+                var form = $('#editelevatorForm');
+                form.validate().resetForm();
+                form.find('.is-invalid').removeClass('is-invalid');
+                form.find('.is-valid').removeClass('is-valid');
+            });
+            $('#asignarRepuestos').on('hidden.bs.modal', function() {
+                var form = $('#assginsparpart');
+                form.validate().resetForm();
+                form.find('.is-invalid').removeClass('is-invalid');
+                form.find('.is-valid').removeClass('is-valid');
+            });
         });
     </script>
 @endpush

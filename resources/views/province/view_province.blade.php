@@ -548,6 +548,19 @@
                 $('#editprovinceForm').attr('action', '/provincia/actualizar/' + province.id);
 
             });
+
+            $('#createprovincias').on('hidden.bs.modal', function() {
+                var form = $('#createprovinceForm');
+                form.validate().resetForm();
+                form.find('.is-invalid').removeClass('is-invalid');
+                form.find('.is-valid').removeClass('is-valid');
+            });
+            $('#editprovincias').on('hidden.bs.modal', function() {
+                var form = $('#editprovinceForm');
+                form.validate().resetForm();
+                form.find('.is-invalid').removeClass('is-invalid');
+                form.find('.is-valid').removeClass('is-valid');
+            });
         });
     </script>
 @endpush

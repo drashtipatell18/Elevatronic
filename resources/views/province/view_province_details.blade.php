@@ -755,7 +755,13 @@
                 // Set the form action to the correct route
                 $('#editsparepart').attr('action', '/repuestos/actualizar/' + sparepart.id);
             });
-
+ 
+            $('#editprovincias').on('hidden.bs.modal', function() {
+                var form = $('#editprovinceForm');
+                form.validate().resetForm();
+                form.find('.is-invalid').removeClass('is-invalid');
+                form.find('.is-valid').removeClass('is-valid');
+            }); 
         });
     </script>
 @endpush

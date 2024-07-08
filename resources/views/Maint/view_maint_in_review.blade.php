@@ -858,6 +858,18 @@
                 $('#editmaintreview').attr('action', '/mant/en/revisión/actualizar/' + mantenimiento.id);
             });
 
+            $('#crearMantenimiento').on('hidden.bs.modal', function() {
+                var form = $('#createmaintreview');
+                form.validate().resetForm();
+                form.find('.is-invalid').removeClass('is-invalid');
+                form.find('.is-valid').removeClass('is-valid');
+            });
+            $('#editorMantenimiento').on('hidden.bs.modal', function() {
+                var form = $('#editmaintreview');
+                form.validate().resetForm();
+                form.find('.is-invalid').removeClass('is-invalid');
+                form.find('.is-valid').removeClass('is-valid');
+            });
 
         });
     </script>

@@ -396,6 +396,12 @@
             // Set the form action to the correct route
             $('#EditcustomerForm').attr('action', '/clientes/actualizar/' + customer.id);
         });
+        $('#editarCliente').on('hidden.bs.modal', function() {
+            var form = $('#EditcustomerForm');
+            form.validate().resetForm();
+            form.find('.is-invalid').removeClass('is-invalid');
+            form.find('.is-valid').removeClass('is-valid');
+        });
 
     });
 </script>

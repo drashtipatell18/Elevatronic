@@ -404,6 +404,18 @@
                 $('#editreviewtypeForm').attr('action', '/tiposderevision/actualizar/' + reviewtype.id);
 
             });
+            $('#CrearTipoRevision').on('hidden.bs.modal', function() {
+                var form = $('#createreviewtype');
+                form.validate().resetForm();
+                form.find('.is-invalid').removeClass('is-invalid');
+                form.find('.is-valid').removeClass('is-valid');
+            });
+            $('#editarTipoRevision').on('hidden.bs.modal', function() {
+                var form = $('#editreviewtypeForm');
+                form.validate().resetForm();
+                form.find('.is-invalid').removeClass('is-invalid');
+                form.find('.is-valid').removeClass('is-valid');
+            });
         });
     </script>
 @endpush

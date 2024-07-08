@@ -265,7 +265,7 @@
                                                             value="perú"{{ $customer->país == 'perú' ? 'selected' : '' }}>
                                                             Perú </option>
                                                     </select>
-                                                   
+
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="provincia">Provincia</label>
@@ -655,7 +655,18 @@
                     $(element).removeClass('is-invalid').addClass('is-valid');
                 }
             });
-
+            $('#crearCliente').on('hidden.bs.modal', function() {
+                var form = $('#customerForm');
+                form.validate().resetForm();
+                form.find('.is-invalid').removeClass('is-invalid');
+                form.find('.is-valid').removeClass('is-valid');
+            });
+            $('#editarCliente').on('hidden.bs.modal', function() {
+                var form = $('#EditcustomerForm');
+                form.validate().resetForm();
+                form.find('.is-invalid').removeClass('is-invalid');
+                form.find('.is-valid').removeClass('is-valid');
+            });
         });
     </script>
 @endpush

@@ -220,12 +220,16 @@
                                     <div class="col-md-12">
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <div class="form-group">
+                                                <div class="form-group">    
                                                     <label for="Ascensor">Ascensor</label>
                                                     <select name="ascensor" id="ascensor"
                                                         class="form-control @error('ascensor') is-invalid @enderror">
-                                                        <option value="">Select an elevator</option>
+                                                        <option value="">Seleccione un ascensor</option>
                                                         @foreach ($elevators as $elevator)
+                                                            {{-- <option value="{{ $elevator }}"
+                                                                {{ $elevator == old('ascensor', $schedule->ascensor) ? 'selected' : '' }}>
+                                                                {{ $elevator }}
+                                                            </option> --}}
                                                             <option value="{{ $elevator }}"
                                                                 {{ $elevator == old('ascensor', $schedule->ascensor) ? 'selected' : '' }}>
                                                                 {{ $elevator }}
@@ -244,7 +248,7 @@
                                                     <label for="TipoRevision">Tipo de revisión</label>
                                                     <select name="revisar" id="revisar"
                                                         class="custom-select @error('revisar') is-invalid @enderror">
-                                                        <option value="">Select a review type</option>
+                                                        <option value="">Seleccione un tipo de reseña</option>
                                                         @foreach ($reviewtypes as $reviewtype)
                                                             <option value="{{ $reviewtype }}"
                                                                 {{ $reviewtype == old('revisar', $schedule->revisar) ? 'selected' : '' }}>
@@ -592,19 +596,6 @@
                 }
             });
 
-            $('#crearCronograma').on('hidden.bs.modal', function() {
-                var form = $('#eventForm');
-                form.validate().resetForm();
-                form.find('.is-invalid').removeClass('is-invalid');
-                form.find('.is-valid').removeClass('is-valid');
-            });
-
-            $('#editCronograma').on('hidden.bs.modal', function() {
-                var form = $('#editeventForm');
-                form.validate().resetForm();
-                form.find('.is-invalid').removeClass('is-invalid');
-                form.find('.is-valid').removeClass('is-valid');
-            });
         });
     </script>
 @endpush

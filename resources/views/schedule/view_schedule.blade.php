@@ -597,6 +597,7 @@
                 form.validate().resetForm();
                 form.find('.is-invalid').removeClass('is-invalid');
                 form.find('.is-valid').removeClass('is-valid');
+                location.reload();
             });
 
             $('#editCronograma').on('hidden.bs.modal', function() {

@@ -307,7 +307,7 @@
                                             <label>Foto de usuario</label>
                                             <div id="editimagenPrevioUsuario">
                                                 @if ($user->image)
-                                                    <img src="{{ asset('images/' . $user->image) }}" width="200"
+                                                    <img src="{{ asset('images/' . $user->image) }}" id="edituser-image" width="200"
                                                         height="200" alt="Existing Image">
                                                 @endif
                                             </div>
@@ -672,6 +672,9 @@
                 $('#edit-employee').val(user.employee);
                 // Set the form action to the correct route
                 $('#edituserform').attr('action', '/usuarios/actualizar/' + user.id);
+                var imageUrl = "{{ asset('images/') }}" + "/" + user.image;
+                $('#edituser-image').attr('src', imageUrl);
+
             });
 
             $('#crearUsuario').on('hidden.bs.modal', function() {

@@ -296,7 +296,7 @@
                                             <div id="editimagenPrevioPersonal">
                                                 @if ($staff->personalfoto)
                                                     <img src="{{ asset('images/' . $staff->personalfoto) }}"
-                                                        width="200" height="200"
+                                                        width="200" id="editstaff-image" height="200"
                                                         alt="Existing Image">
                                                 @endif
                                             </div>
@@ -634,6 +634,8 @@
                 $('#edit-posición').val(staff.posición);
                 $('#edit-correo').val(staff.correo);
                 $('#edit-teléfono').val(staff.teléfono);
+                var imageUrl = "{{ asset('images/') }}" + "/" + staff.personalfoto;
+                $('#editstaff-image').attr('src', imageUrl);
                 // Set the form action to the correct route
                 $('#editstaff').attr('action', '/personal/actualizar/' + staff.id);
             });

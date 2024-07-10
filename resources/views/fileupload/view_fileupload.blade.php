@@ -28,11 +28,12 @@
                                         {{ session('success') }}
                                     </div>
                                 @endif
-                                @if (session('danger'))
+                                @if (session('error'))
                                     <div class="alert alert-danger">
-                                        {{ session('danger') }}
+                                        {{ session('error') }}
                                     </div>
                                 @endif
+
 
                                 <form id="uploadForm" method="POST" action="{{ route('upload.excel') }}"
                                     enctype="multipart/form-data">
@@ -44,6 +45,7 @@
                                                     value="mantenimiento" class="custom-control-input">
                                                 <label class="custom-control-label"
                                                     for="mantenimiento">Mantenimientos</label>
+                                                    <input type="hidden" name="tipoArchivo_mantenimiento" value="mantenimiento">
                                             </div>
                                         </div>
                                         <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 mb-4">
@@ -110,6 +112,8 @@
 
                     error: function(xhr, status, error) {
                         console.error(xhr.responseText);
+                        var errorMessage = "Error al cargar el archivo";
+                        $('#alertaCarga').html('<strong class="mr-2"><img src="{{ asset('img/iconos/error.svg') }}" alt="icono"></strong>' + errorMessage).show();
                     }
                 });
             });

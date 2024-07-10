@@ -596,6 +596,23 @@
                 }
             });
 
+<<<<<<< HEAD
+            $('#crearCronograma').on('hidden.bs.modal', function() {
+                var form = $('#eventForm');
+                form.validate().resetForm();
+                form.find('.is-invalid').removeClass('is-invalid');
+                form.find('.is-valid').removeClass('is-valid');
+                location.reload();
+            });
+
+            $('#editCronograma').on('hidden.bs.modal', function() {
+                var form = $('#editeventForm');
+                form.validate().resetForm();
+                form.find('.is-invalid').removeClass('is-invalid');
+                form.find('.is-valid').removeClass('is-valid');
+            });
+=======
+>>>>>>> 93bdd47545d00c9466da0fae30db07db6745618a
         });
     </script>
 @endpush

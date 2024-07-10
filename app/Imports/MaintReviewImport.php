@@ -4,8 +4,9 @@ use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use App\Models\MaintInReview;
 use Carbon\Carbon;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class MaintReviewImport implements ToCollection
+class MaintReviewImport implements ToCollection, WithHeadingRow
 {
     public function collection(Collection $rows)
     {
@@ -13,12 +14,12 @@ class MaintReviewImport implements ToCollection
             try {
             // Convert Excel date serial number to a valid date format
             $fecha_de_mantenimiento = $this->convertToDate($row[3]);
-            
+
             MaintInReview::create([
                 'tipo_de_revisión' => $row[0] ?? null,
                 'ascensor' => $row[1] ?? null,
                 'núm_certificado' => $row[2] ?? null,
-                'fecha_de_mantenimiento' => $fecha_de_mantenimiento,
+                'fecha_de_mantenimiento' =>  $fecha_de_mantenimiento,
                 'hora_inicio' => $row[4] ?? null,
                 'hora_fin' => $row[5] ?? null,
                 'técnico' => $row[6] ?? null,
@@ -69,7 +70,7 @@ class MaintReviewImport implements ToCollection
 //             try {
 //                 // Convert Excel date serial number to a valid date format
 //                 $fecha_de_mantenimiento = $this->convertToDate($row[4]);
-                
+
 //                 MaintInReview::create([
 //                     'id' => $row[0] ?? null,
 //                     'tipo_de_revisión' => $row[1] ?? null,

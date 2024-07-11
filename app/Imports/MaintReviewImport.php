@@ -4,9 +4,11 @@ use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use App\Models\MaintInReview;
 use Carbon\Carbon;
-use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Illuminate\Support\Facades\Log;
 
-class MaintReviewImport implements ToCollection, WithHeadingRow
+
+
+class MaintReviewImport implements ToCollection
 {
     public function collection(Collection $rows)
     {
@@ -26,7 +28,7 @@ class MaintReviewImport implements ToCollection, WithHeadingRow
                 'observaciónes' => $row[7] ?? null,
             ]);
              } catch (\Exception $e) {
-                \Log::error('Failed to insert row: ' . $e->getMessage());
+                Log::error('Failed to insert row: ' . $e->getMessage());
             }
         }
     }

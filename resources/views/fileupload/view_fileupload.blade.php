@@ -45,7 +45,8 @@
                                                     value="mantenimiento" class="custom-control-input">
                                                 <label class="custom-control-label"
                                                     for="mantenimiento">Mantenimientos</label>
-                                                    <input type="hidden" name="tipoArchivo_mantenimiento" value="mantenimiento">
+                                                <input type="hidden" name="tipoArchivo_mantenimiento"
+                                                    value="mantenimiento">
                                             </div>
                                         </div>
                                         <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 mb-4">
@@ -92,9 +93,8 @@
             });
 
             $('#fileInput').on('change', function() {
-                // Create FormData object to store form data
                 var formData = new FormData($('#uploadForm')[0]);
-                // Send AJAX request
+                console.log(formData);
                 $.ajax({
                     url: $('#uploadForm').attr('action'),
                     method: $('#uploadForm').attr('method'),
@@ -103,21 +103,27 @@
                     contentType: false,
                     success: function(response) {
                         console.log(response);
-                        var successMessage = "Carga de archivo exitosa";
-                        $('#alertaCarga').html('<strong class="mr-2"><img src="{{ asset('img/iconos/check.svg') }}" alt="icono"></strong>' + successMessage).show();
-                        setTimeout(function() {
-                            location.reload();
-                        }, 1000);
+                        if (response.status === 'success') {
+                            var successMessage = "Carga de archivo exitosa";
+                            $('#alertaCarga').html(
+                                '<strong class="mr-2"><img src="/path/to/check.svg" alt="icono"></strong>' +
+                                successMessage).show();
+                            setTimeout(function() {
+                                location.reload();
+                            }, 6000);
+                        }
+                        if (response.status === 'danger') {
+                            var errorMessage = "Error en la carga del archivo:";
+                            $('#alertaCarga').html(
+                                '<strong class="mr-2"><img src="/path/to/check.svg" alt="icono"></strong>' +
+                                errorMessage).show();
+                            setTimeout(function() {
+                                location.reload();
+                            }, 2000);
+                        }
                     },
-
-                    error: function(xhr, status, error) {
-                        console.error(xhr.responseText);
-                        var errorMessage = "Error al cargar el archivo";
-                        $('#alertaCarga').html('<strong class="mr-2"><img src="{{ asset('img/iconos/error.svg') }}" alt="icono"></strong>' + errorMessage).show();
-                    }
                 });
             });
         });
     </script>
-
 @endpush

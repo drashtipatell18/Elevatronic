@@ -1093,7 +1093,7 @@
                 // Specify validation rules
                 rules: {
                     imagen: {
-                        required: true,
+                        // required: true,
                         extension: "jpg|jpeg|png|gif"
                     },
                     // contrato: "required",
@@ -1126,31 +1126,31 @@
                 // Specify validation error messages
                 messages: {
                     imagen: {
-                        required: "Por favor, seleccione una imagen.",
+                        // required: "Por favor, seleccione una imagen.",
                         extension: "Por favor, seleccione un archivo de imagen válido (jpg, jpeg, png, gif)."
                     },
-                    contrato: "Por favor, ingrese el número de contrato.",
+                    // contrato: "Por favor, ingrese el número de contrato.",
                     nombre: "Por favor, ingrese el nombre del ascensor.",
-                    código: "Por favor, ingrese el código.",
-                    marca: "Por favor, ingrese la marca.",
+                    // código: "Por favor, ingrese el código.",
+                    // marca: "Por favor, ingrese la marca.",
                     cliente: "Por favor, seleccione un cliente.",
-                    fecha: "Por favor, seleccione una fecha de entrega.",
-                    garantizar: "Por favor, ingrese la garantía.",
+                    // fecha: "Por favor, seleccione una fecha de entrega.",
+                    // garantizar: "Por favor, ingrese la garantía.",
                     dirección: "Por favor, ingrese la dirección.",
                     // ubigeo: "Por favor, ingrese el ubigeo.",
-                    provincia: "Por favor, seleccione una provincia.",
-                    técnico_instalador: "Por favor, seleccione un técnico instalador.",
-                    técnico_ajustador: "Por favor, seleccione un técnico ajustador.",
-                    tipo_de_ascensor: "Por favor, seleccione un tipo de ascensor.",
-                    cantidad: "Por favor, seleccione una cantidad.",
-                    npisos: "Por favor, ingrese el número de pisos.",
+                    // provincia: "Por favor, seleccione una provincia.",
+                    // técnico_instalador: "Por favor, seleccione un técnico instalador.",
+                    // técnico_ajustador: "Por favor, seleccione un técnico ajustador.",
+                    // tipo_de_ascensor: "Por favor, seleccione un tipo de ascensor.",
+                    // cantidad: "Por favor, seleccione una cantidad.",
+                    // npisos: "Por favor, ingrese el número de pisos.",
                     ncontacto: "Por favor, ingrese el nombre del contacto.",
                     teléfono: {
-                        required: "Por favor, ingrese un número de teléfono.",
+                        // required: "Por favor, ingrese un número de teléfono.",
                         digits: "Por favor, ingrese solo dígitos para el número de teléfono."
                     },
                     correo: {
-                        required: "Por favor, ingrese una dirección de correo electrónico.",
+                        // required: "Por favor, ingrese una dirección de correo electrónico.",Por favor, ingrese el nombre del ascensor.
                         email: "Por favor, ingrese una dirección de correo electrónico válida."
                     },
                     descripcion1: "Por favor, ingrese una descripción.",

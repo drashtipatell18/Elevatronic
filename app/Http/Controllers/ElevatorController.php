@@ -38,36 +38,21 @@ class ElevatorController extends Controller
 
         return response()->json(['success' => 'Brand added successfully!']);
     }
-    public function elevatorInsert(Request $request){
-        $validatedData = $request->validate([
-            'contrato' => 'required',
-            'nombre' => 'required',
-            'código' => 'required',
-            'marca' => 'required',
-            'cliente' => 'required',
-            'fecha' => 'required',
-            'garantizar' => 'required',
-            'dirección' => 'required',
-            'ubigeo' => 'required',
-            'provincia' => 'required',
-            'técnico_instalador' => 'required',
-            'técnico_ajustador' => 'required',
-            'tipo_de_ascensor' => 'required',
-            'cantidad' => 'required',
-            'quarters' => 'required',
-            'npisos' => 'required',
-            'ncontacto' => 'required',
-            'teléfono' => 'required',
-            'correo' => 'required',
-        ]);
-
+    public function elevatorInsert(Request $request)
+    {
         $filename = '';
         if ($request->hasFile('imagen')){
             $image = $request->file('imagen');
             $filename = time() . '.' . $image->getClientOriginalExtension();
             $image->move('images', $filename);
         }
-        $quarters = implode(',', $request->input('quarters'));
+
+        if (is_array($request->input('quarters'))) {
+            $quarters = implode(',', $request->input('quarters'));
+        } else {
+            $quarters = $request->input('quarters');
+        }
+
 
         // Create a new Elevators instance
         $elevators = Elevators::create([
@@ -109,27 +94,27 @@ class ElevatorController extends Controller
 
     public function elevatorUpdate(Request $request,$id){
         // dd($request->all());
-        $validatedData = $request->validate([
-            'contrato' => 'required',
-            'nombre' => 'required',
-            'código' => 'required',
-            'marca' => 'required',
-            'cliente' => 'required',
-            'fecha' => 'required',
-            'garantizar' => 'required',
-            'dirección' => 'required',
-            'ubigeo' => 'required',
-            'provincia' => 'required',
-            'técnico_instalador' => 'required',
-            'técnico_ajustador' => 'required',
-            'tipo_de_ascensor' => 'required',
-            'cantidad' => 'required',
-            'quarters' => 'required',
-            'npisos' => 'required',
-            'ncontacto' => 'required',
-            'teléfono' => 'required',
-            'correo' => 'required',
-        ]);
+        // $validatedData = $request->validate([
+        //     'contrato' => 'required',
+        //     'nombre' => 'required',
+        //     'código' => 'required',
+        //     'marca' => 'required',
+        //     'cliente' => 'required',
+        //     'fecha' => 'required',
+        //     'garantizar' => 'required',
+        //     'dirección' => 'required',
+        //     'ubigeo' => 'required',
+        //     'provincia' => 'required',
+        //     'técnico_instalador' => 'required',
+        //     'técnico_ajustador' => 'required',
+        //     'tipo_de_ascensor' => 'required',
+        //     'cantidad' => 'required',
+        //     'quarters' => 'required',
+        //     'npisos' => 'required',
+        //     'ncontacto' => 'required',
+        //     'teléfono' => 'required',
+        //     'correo' => 'required',
+        // ]);
 
         $elevator = Elevators::findOrFail($id);
 
@@ -141,7 +126,11 @@ class ElevatorController extends Controller
             // Update the imagen attribute with the new filename
             $elevator->imagen = $filename;
         }
-        $quarters = implode(',', $request->input('quarters'));
+        if (is_array($request->input('quarters'))) {
+            $quarters = implode(',', $request->input('quarters'));
+        } else {
+            $quarters = $request->input('quarters');
+        }
 
         //  update Elevators instance
         $elevator->update([

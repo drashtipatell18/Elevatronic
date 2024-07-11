@@ -24,14 +24,13 @@ class UserController extends Controller
             'phone' => 'required',
             'employee' => 'required',
             'password' => ['required', new PasswordFormat()],
-            'image' => 'nullable|image|max:2048', // Optional image validation
         ]);
 
         $filename = '';
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $filename = time() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('images'), $filename); // Save the image to the public/images directory
+            $image->move('images', $filename); // Save the image to the public/images directory
         }
 
         $user = User::create([

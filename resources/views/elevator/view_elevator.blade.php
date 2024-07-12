@@ -33,6 +33,7 @@
         .select2-container--default {
             width: 100% !important;
         }
+
         .select2-container--default .select2-selection--single .select2-selection__clear {
             display: none;
         }
@@ -914,7 +915,7 @@
                         $("#marca, #marca1").empty();
                         $("#marca, #marca1").append(
                             '<option value="" class="d-none">Seleccionar opción</option>'
-                            ); // Add placeholder option
+                        ); // Add placeholder option
 
                         $.each(response, function() {
                             $("#marca, #marca1").append(
@@ -1089,174 +1090,99 @@
                 reader.readAsDataURL(this.files[0]);
             });
 
-            $("#createelevatform").validate({
-                // Specify validation rules
-                rules: {
-                    imagen: {
-                        // required: true,
-                        extension: "jpg|jpeg|png|gif"
+            // Custom alphanumeric validation method
+            $.validator.addMethod("alphanumeric", function(value, element) {
+                return this.optional(element) || /^[a-zA-Z0-9\s]+$/.test(value);
+            }, "Por favor, ingrese solo letras, números y espacios.");
+
+            // Initialize validation
+            function initializeValidation(formId, rules, messages) {
+                $(formId).validate({
+                    rules: rules,
+                    messages: messages,
+                    errorElement: "span",
+                    errorPlacement: function(error, element) {
+                        error.addClass("invalid-feedback");
+                        element.closest(".form-group").append(error);
                     },
-                    // contrato: "required",
-                    nombre: "required",
-                    // código: "required",
-                    // marca: "required",
-                    cliente: "required",
-                    // fecha: "required",
-                    // garantizar: "required",
-                    dirección: "required",
-                    // ubigeo: "required",
-                    // provincia: "required",
-                    // técnico_instalador: "required",
-                    // técnico_ajustador: "required",
-                    // tipo_de_ascensor: "required",
-                    // cantidad: "required",
-                    // npisos: "required",
-                    ncontacto: "required",
-                    teléfono: {
-                        // required: true,
-                        digits: true
+                    highlight: function(element, errorClass, validClass) {
+                        $(element).addClass("is-invalid").removeClass("is-valid");
                     },
-                    correo: {
-                        // required: true,
-                        email: true
-                    },
-                    descripcion1: "required",
-                    // Add more rules for other fields as needed
+                    unhighlight: function(element, errorClass, validClass) {
+                        $(element).removeClass("is-invalid").addClass("is-valid");
+                    }
+                });
+            }
+
+            // Define validation rules
+            var validationRules = {
+                imagen: {
+                    extension: "jpg|jpeg|png|gif"
                 },
-                // Specify validation error messages
-                messages: {
-                    imagen: {
-                        // required: "Por favor, seleccione una imagen.",
-                        extension: "Por favor, seleccione un archivo de imagen válido (jpg, jpeg, png, gif)."
-                    },
-                    // contrato: "Por favor, ingrese el número de contrato.",
-                    nombre: "Por favor, ingrese el nombre del ascensor.",
-                    // código: "Por favor, ingrese el código.",
-                    // marca: "Por favor, ingrese la marca.",
-                    cliente: "Por favor, seleccione un cliente.",
-                    // fecha: "Por favor, seleccione una fecha de entrega.",
-                    // garantizar: "Por favor, ingrese la garantía.",
-                    dirección: "Por favor, ingrese la dirección.",
-                    // ubigeo: "Por favor, ingrese el ubigeo.",
-                    // provincia: "Por favor, seleccione una provincia.",
-                    // técnico_instalador: "Por favor, seleccione un técnico instalador.",
-                    // técnico_ajustador: "Por favor, seleccione un técnico ajustador.",
-                    // tipo_de_ascensor: "Por favor, seleccione un tipo de ascensor.",
-                    // cantidad: "Por favor, seleccione una cantidad.",
-                    // npisos: "Por favor, ingrese el número de pisos.",
-                    ncontacto: "Por favor, ingrese el nombre del contacto.",
-                    teléfono: {
-                        // required: "Por favor, ingrese un número de teléfono.",
-                        digits: "Por favor, ingrese solo dígitos para el número de teléfono."
-                    },
-                    correo: {
-                        // required: "Por favor, ingrese una dirección de correo electrónico.",Por favor, ingrese el nombre del ascensor.
-                        email: "Por favor, ingrese una dirección de correo electrónico válida."
-                    },
-                    descripcion1: "Por favor, ingrese una descripción.",
-                    // Add more messages for other fields as needed
+                nombre: {
+                    required: true,
+                    alphanumeric: true
                 },
-                // Make sure the error messages are displayed in a Bootstrap-friendly way
-                errorElement: "span",
-                errorPlacement: function(error, element) {
-                    // Add the `invalid-feedback` class to the error element
-                    error.addClass("invalid-feedback");
-                    // Add error message after the invalid element
-                    element.closest(".form-group").append(error);
+                cliente: {
+                    required: true,
+                    alphanumeric: true
                 },
-                // Highlight the invalid fields
-                highlight: function(element, errorClass, validClass) {
-                    $(element).addClass("is-invalid").removeClass("is-valid");
+                dirección: {
+                    required: true,
+                    alphanumeric: true
                 },
-                // Remove the error message and green border when the field is valid
-                unhighlight: function(element, errorClass, validClass) {
-                    $(element).removeClass("is-invalid").addClass("is-valid");
+                ncontacto: {
+                    required: true,
+                    alphanumeric: true
+                },
+                teléfono: {
+                    digits: true
+                },
+                correo: {
+                    email: true
+                },
+                descripcion1: {
+                    required: true,
+                    alphanumeric: true
                 }
-            });
-            $("#editelevatform").validate({
-                // Specify validation rules
-                rules: {
-                    imagen: {
-                        required: true,
-                        extension: "jpg|jpeg|png|gif"
-                    },
-                    // contrato: "required",
-                    nombre: "required",
-                    // código: "required",
-                    // marca: "required",
-                    cliente: "required",
-                    // fecha: "required",
-                    // garantizar: "required",
-                    dirección: "required",
-                    // ubigeo: "required",
-                    // provincia: "required",
-                    // técnico_instalador: "required",
-                    // técnico_ajustador: "required",
-                    // tipo_de_ascensor: "required",
-                    // cantidad: "required",
-                    // npisos: "required",
-                    ncontacto: "required",
-                    teléfono: {
-                        // required: true,
-                        digits: true
-                    },
-                    correo: {
-                        // required: true,
-                        email: true
-                    },
-                    descripcion1: "required",
-                    // Add more rules for other fields as needed
+            };
+
+            // Define validation messages
+            var validationMessages = {
+                imagen: {
+                    extension: "Por favor, seleccione un archivo de imagen válido (jpg, jpeg, png, gif)."
                 },
-                // Specify validation error messages
-                messages: {
-                    imagen: {
-                        required: "Por favor, seleccione una imagen.",
-                        extension: "Por favor, seleccione un archivo de imagen válido (jpg, jpeg, png, gif)."
-                    },
-                    contrato: "Por favor, ingrese el número de contrato.",
-                    nombre: "Por favor, ingrese el nombre del ascensor.",
-                    código: "Por favor, ingrese el código.",
-                    marca: "Por favor, ingrese la marca.",
-                    cliente: "Por favor, seleccione un cliente.",
-                    fecha: "Por favor, seleccione una fecha de entrega.",
-                    garantizar: "Por favor, ingrese la garantía.",
-                    dirección: "Por favor, ingrese la dirección.",
-                    // ubigeo: "Por favor, ingrese el ubigeo.",
-                    provincia: "Por favor, seleccione una provincia.",
-                    técnico_instalador: "Por favor, seleccione un técnico instalador.",
-                    técnico_ajustador: "Por favor, seleccione un técnico ajustador.",
-                    tipo_de_ascensor: "Por favor, seleccione un tipo de ascensor.",
-                    cantidad: "Por favor, seleccione una cantidad.",
-                    npisos: "Por favor, ingrese el número de pisos.",
-                    ncontacto: "Por favor, ingrese el nombre del contacto.",
-                    teléfono: {
-                        required: "Por favor, ingrese un número de teléfono.",
-                        digits: "Por favor, ingrese solo dígitos para el número de teléfono."
-                    },
-                    correo: {
-                        required: "Por favor, ingrese una dirección de correo electrónico.",
-                        email: "Por favor, ingrese una dirección de correo electrónico válida."
-                    },
-                    descripcion1: "Por favor, ingrese una descripción.",
-                    // Add more messages for other fields as needed
+                nombre: {
+                    required: "Por favor, ingrese el nombre del ascensor.",
+                    alphanumeric: "Por favor, ingrese solo letras, números y espacios."
                 },
-                // Make sure the error messages are displayed in a Bootstrap-friendly way
-                errorElement: "span",
-                errorPlacement: function(error, element) {
-                    // Add the `invalid-feedback` class to the error element
-                    error.addClass("invalid-feedback");
-                    // Add error message after the invalid element
-                    element.closest(".form-group").append(error);
+                cliente: {
+                    required: "Por favor, seleccione un cliente.",
+                    alphanumeric: "Por favor, ingrese solo letras, números y espacios."
                 },
-                // Highlight the invalid fields
-                highlight: function(element, errorClass, validClass) {
-                    $(element).addClass("is-invalid").removeClass("is-valid");
+                dirección: {
+                    required: "Por favor, ingrese la dirección.",
+                    alphanumeric: "Por favor, ingrese solo letras, números y espacios."
                 },
-                // Remove the error message and green border when the field is valid
-                unhighlight: function(element, errorClass, validClass) {
-                    $(element).removeClass("is-invalid").addClass("is-valid");
+                ncontacto: {
+                    required: "Por favor, ingrese el nombre del contacto.",
+                    alphanumeric: "Por favor, ingrese solo letras, números y espacios."
+                },
+                teléfono: {
+                    digits: "Por favor, ingrese solo dígitos para el número de teléfono."
+                },
+                correo: {
+                    email: "Por favor, ingrese una dirección de correo electrónico válida."
+                },
+                descripcion1: {
+                    required: "Por favor, ingrese una descripción.",
+                    alphanumeric: "Por favor, ingrese solo letras, números y espacios."
                 }
-            });
+            };
+
+            // Apply validation to both forms
+            initializeValidation("#createelevatform", validationRules, validationMessages);
+            initializeValidation("#editelevatform", validationRules, validationMessages);
 
             $('.edit-elevator').on('click', function() {
                 var elevator = $(this).data('elevator');

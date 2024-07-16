@@ -22,7 +22,7 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|email',
             'phone' => 'required',
-            'employee' => 'required',
+            // 'employee' => 'required',
             'password' => ['required', new PasswordFormat()],
         ]);
 
@@ -55,7 +55,7 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required',
             'phone' => 'required',
-            'employee' => 'required',
+            // 'employee' => 'required',
         ]);
 
         $user = User::findOrFail($id);

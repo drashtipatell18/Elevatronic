@@ -79,53 +79,35 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="Ascensor">Ascensor</label>
-                                            <select name="ascensor" id="ascensor"
-                                                class="form-control  @error('ascensor') is-invalid @enderror">
+                                            <select name="ascensor" id="ascensor" class="form-control">
                                                 <option value="">Seleccione un ascensor</option>
                                                 @foreach ($elevators as $elevator)
                                                     <option value="{{ $elevator }}">{{ $elevator }}</option>
                                                 @endforeach
                                             </select>
-                                            @error('ascensor')
-                                                <span class="invalid-feedback" style="color: red">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="TipoRevision">Tipo de revisión</label>
-                                            <select class="custom-select  @error('revisar') is-invalid @enderror"
-                                                name="revisar" id="revisar">
+                                            <select class="custom-select" name="revisar" id="revisar">
                                                 <option value="">Seleccione un tipo de reseña</option>
                                                 @foreach ($reviewtypes as $reviewtype)
                                                     <option value="{{ $reviewtype }}">{{ $reviewtype }}</option>
                                                 @endforeach
                                             </select>
-                                            @error('revisar')
-                                                <span class="invalid-feedback" style="color: red">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
                                         </div>
                                     </div>
 
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="Técnico">Técnico</label>
-                                            <select class="custom-select  @error('técnico') is-invalid @enderror"
-                                                name="técnico" id="técnico">
+                                            <select class="custom-select" name="técnico" id="técnico">
                                                 <option value="">Seleccione un técnico</option>
                                                 <option value="técnico_1">Técnico 1</option>
                                                 <option value="técnico_2">Técnico 2</option>
                                                 <option value="técnico_3">Técnico 3</option>
                                             </select>
-                                            @error('técnico')
-                                                <span class="invalid-feedback" style="color: red">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
                                         </div>
                                     </div>
 
@@ -133,13 +115,7 @@
                                         <div class="form-group">
                                             <label for="mantenimiento">Fecha de mantenimiento</label>
                                             <input type="date" placeholder="Fecha de mantenimiento" name="mantenimiento"
-                                                id="mantenimiento"
-                                                class="form-control @error('mantenimiento') is-invalid @enderror">
-                                            @error('mantenimiento')
-                                                <span class="invalid-feedback" style="color: red">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
+                                                id="mantenimiento" class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-md-12"></div>
@@ -147,43 +123,25 @@
                                         <div class="form-group">
                                             <label for="hora_de_inicio">Hora inicio</label>
                                             <input type="time" placeholder="Hora inicio" name="hora_de_inicio"
-                                                class="form-control @error('hora_de_inicio') is-invalid @enderror"
-                                                id="hora_de_inicio">
-                                            @error('hora_de_inicio')
-                                                <span class="invalid-feedback" style="color: red">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
+                                                class="form-control" id="hora_de_inicio">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="HoraFin">Hora fin</label>
                                             <input type="time" name="hora_de_finalización" id="hora_de_finalización"
-                                                placeholder="Hora fin"
-                                                class="form-control @error('hora_de_finalización') is-invalid @enderror">
-                                            @error('hora_de_finalización')
-                                                <span class="invalid-feedback" style="color: red">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
+                                                placeholder="Hora fin" class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="Estado">Estado</label>
-                                            <select
-                                                class="custom-select form-control @error('estado') is-invalid @enderror"
-                                                name="estado" id="estado">
+                                            <select class="custom-select form-control" name="estado" id="estado">
                                                 <option selected disabled>Seleccionar opción</option>
                                                 <option value="activo">Activo</option>
                                                 <option value="no_activo">No activo</option>
                                             </select>
-                                            @error('estado')
-                                                <span class="invalid-feedback" style="color: red">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
+
                                         </div>
                                     </div>
                                 </div>
@@ -220,34 +178,23 @@
                                     <div class="col-md-12">
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <div class="form-group">    
+                                                <div class="form-group">
                                                     <label for="Ascensor">Ascensor</label>
-                                                    <select name="ascensor" id="ascensor"
-                                                        class="form-control @error('ascensor') is-invalid @enderror">
+                                                    <select name="ascensor" id="ascensor" class="form-control">
                                                         <option value="">Seleccione un ascensor</option>
                                                         @foreach ($elevators as $elevator)
-                                                            {{-- <option value="{{ $elevator }}"
-                                                                {{ $elevator == old('ascensor', $schedule->ascensor) ? 'selected' : '' }}>
-                                                                {{ $elevator }}
-                                                            </option> --}}
                                                             <option value="{{ $elevator }}"
                                                                 {{ $elevator == old('ascensor', $schedule->ascensor) ? 'selected' : '' }}>
                                                                 {{ $elevator }}
                                                             </option>
                                                         @endforeach
                                                     </select>
-                                                    @error('ascensor')
-                                                        <span class="invalid-feedback" style="color: red">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
-                                                    @enderror
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label for="TipoRevision">Tipo de revisión</label>
-                                                    <select name="revisar" id="revisar"
-                                                        class="custom-select @error('revisar') is-invalid @enderror">
+                                                    <select name="revisar" id="revisar" class="custom-select">
                                                         <option value="">Seleccione un tipo de reseña</option>
                                                         @foreach ($reviewtypes as $reviewtype)
                                                             <option value="{{ $reviewtype }}"
@@ -256,19 +203,13 @@
                                                             </option>
                                                         @endforeach
                                                     </select>
-                                                    @error('revisar')
-                                                        <span class="invalid-feedback" style="color: red">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
-                                                    @enderror
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
 
                                                 <div class="form-group">
                                                     <label for="tecnico">Técnico</label>
-                                                    <select name="técnico" id="técnico"
-                                                        class="custom-select @error('técnico') is-invalid @enderror">
+                                                    <select name="técnico" id="técnico" class="custom-select">
                                                         <option value="">Seleccionar opción</option>
                                                         <option value="técnico_1"
                                                             {{ old('técnico') == 'técnico_1' ? 'selected' : ($schedule->técnico == 'técnico_1' ? 'selected' : '') }}>
@@ -280,25 +221,14 @@
                                                             {{ old('técnico') == 'técnico_3' ? 'selected' : ($schedule->técnico == 'técnico_3' ? 'selected' : '') }}>
                                                             Técnico 3</option>
                                                     </select>
-                                                    @error('técnico')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
-                                                    @enderror
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="mantenimiento">Fecha de mantenimiento</label>
                                                     <input type="date" placeholder="Fecha de mantenimiento"
-                                                        name="mantenimiento" id="mantenimiento"
-                                                        class="form-control @error('mantenimiento') is-invalid @enderror"
+                                                        name="mantenimiento" id="mantenimiento" class="form-control"
                                                         value="{{ old('mantenimiento', isset($schedule) ? $schedule->mantenimiento : '') }}">
-                                                    @error('mantenimiento')
-                                                        <span class="invalid-feedback" style="color: red">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
-                                                    @enderror
                                                 </div>
                                             </div>
                                             <div class="col-md-12"></div>
@@ -306,14 +236,8 @@
                                                 <div class="form-group">
                                                     <label for="hora_de_inicio">Hora inicio</label>
                                                     <input type="time" placeholder="Hora inicio" name="hora_de_inicio"
-                                                        class="form-control @error('hora_de_inicio') is-invalid @enderror"
-                                                        id="hora_de_inicio"
+                                                        class="form-control" id="hora_de_inicio"
                                                         value="{{ old('hora_de_inicio', isset($schedule) ? $schedule->hora_de_inicio : '') }}">
-                                                    @error('hora_de_inicio')
-                                                        <span class="invalid-feedback" style="color: red">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
-                                                    @enderror
                                                 </div>
                                             </div>
 
@@ -321,22 +245,15 @@
                                                 <div class="form-group">
                                                     <label for="HoraFin">Hora fin</label>
                                                     <input type="time" name="hora_de_finalización"
-                                                        id="hora_de_finalización" placeholder="Hora fin"
-                                                        class="form-control @error('hora_de_finalización') is-invalid @enderror"
+                                                        id="hora_de_finalización" placeholder="Hora fin" class="form-control"
                                                         value="{{ old('hora_de_finalización', isset($schedule) ? $schedule->hora_de_finalización : '') }}">
-                                                    @error('hora_de_finalización')
-                                                        <span class="invalid-feedback" style="color: red">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
-                                                    @enderror
                                                 </div>
                                             </div>
 
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label for="Estado">Estado</label>
-                                                    <select name="estado" id="estado"
-                                                        class="custom-select form-control @error('estado') is-invalid @enderror">
+                                                    <select name="estado" id="estado" class="custom-select form-control">
                                                         <option value="" disabled>Seleccionar opción</option>
                                                         <option value="activo"
                                                             {{ old('estado', isset($schedule) && $schedule->estado == 'activo' ? 'selected' : '') }}>
@@ -345,11 +262,6 @@
                                                             {{ old('estado', isset($schedule) && $schedule->estado == 'no_activo' ? 'selected' : '') }}>
                                                             No activo</option>
                                                     </select>
-                                                    @error('estado')
-                                                        <span class="invalid-feedback" style="color: red">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
-                                                    @enderror
                                                 </div>
                                             </div>
 
@@ -535,16 +447,17 @@
                     estado: "Por favor, seleccione un estado."
                     // Add messages for other fields here
                 },
-                errorElement: "span",
+                errorElement: 'span',
                 errorPlacement: function(error, element) {
-                    error.addClass("error");
-                    error.insertAfter(element);
+                    error.addClass('invalid-feedback');
+                    element.closest('.form-group').append(error);
                 },
                 highlight: function(element, errorClass, validClass) {
-                    $(element).addClass("is-invalid").removeClass("is-valid");
+                    $(element).addClass('is-invalid').removeClass('is-valid');
                 },
                 unhighlight: function(element, errorClass, validClass) {
-                    $(element).removeClass("is-invalid").addClass("is-valid");
+                    $(element).removeClass('is-invalid').addClass('is-valid');
+                    $(element).closest('.form-group').find('.invalid-feedback').remove();
                 }
             });
             $("#editeventForm").validate({
@@ -583,26 +496,25 @@
                     estado: "Por favor, seleccione un estado."
                     // Add messages for other fields here
                 },
-                errorElement: "span",
+                errorElement: 'span',
                 errorPlacement: function(error, element) {
-                    error.addClass("error");
-                    error.insertAfter(element);
+                    error.addClass('invalid-feedback');
+                    element.closest('.form-group').append(error);
                 },
                 highlight: function(element, errorClass, validClass) {
-                    $(element).addClass("is-invalid").removeClass("is-valid");
+                    $(element).addClass('is-invalid').removeClass('is-valid');
                 },
                 unhighlight: function(element, errorClass, validClass) {
-                    $(element).removeClass("is-invalid").addClass("is-valid");
+                    $(element).removeClass('is-invalid').addClass('is-valid');
+                    $(element).closest('.form-group').find('.invalid-feedback').remove();
                 }
             });
-
-<<<<<<< HEAD
             $('#crearCronograma').on('hidden.bs.modal', function() {
                 var form = $('#eventForm');
                 form.validate().resetForm();
                 form.find('.is-invalid').removeClass('is-invalid');
                 form.find('.is-valid').removeClass('is-valid');
-                location.reload();
+                // location.reload();
             });
 
             $('#editCronograma').on('hidden.bs.modal', function() {
@@ -611,8 +523,7 @@
                 form.find('.is-invalid').removeClass('is-invalid');
                 form.find('.is-valid').removeClass('is-valid');
             });
-=======
->>>>>>> 93bdd47545d00c9466da0fae30db07db6745618a
+
         });
     </script>
 @endpush

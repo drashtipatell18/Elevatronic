@@ -264,6 +264,21 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
+
+            $('#editcargarimagenpersonal').click(function() {
+                $('#editimageUpload10').click();
+            });
+
+            $('#editimageUpload10').change(function() {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#editimagenPrevioPersonal').css('background-image', 'url(' + e.target.result +
+                        ')');
+                    $('#editimagenPrevioPersonal').show();
+                }
+                reader.readAsDataURL(this.files[0]);
+            });
+            
             $('#editstaff').validate({
                 rules: {
                     nombre: "required",

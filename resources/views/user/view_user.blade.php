@@ -195,7 +195,7 @@
                                             <label for="Nombre de usuario">Nombre de usuario</label>
                                             <input type="text" placeholder="username" name="username"
                                                 class="form-control @error('username') is-invalid @enderror"
-                                                id="username">
+                                                id="username" autocomplete="new-email" autoFill="off"/>
                                             @error('username')
                                                 <span class="invalid-feedback" style="color: red">
                                                     <strong>{{ $message }}</strong>
@@ -261,7 +261,7 @@
                                             <label for="contrasenaUser">Contraseña</label>
                                             <input type="password" name="password" id="password"
                                                 class="form-control @error('password') is-invalid @enderror"
-                                                placeholder="Contraseña">
+                                                placeholder="Contraseña" autocomplete="new-password">
                                             @error('password')
                                                 <span class="invalid-feedback" style="color: red">
                                                     <strong>{{ $message }}</strong>
@@ -561,7 +561,7 @@
             // Define the custom password validation method before initializing validation
             $.validator.addMethod("passwordFormat", function(value, element) {
                     // Password must contain at least one uppercase letter, one special character, and be at least 8 characters long
-                    return this.optional(element) || /^(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
+                    return this.optional(element) || /^(?=.*[A-Z])(?=.*[@$!%*?&.,-_])[A-Za-z\d@$!%*?&.,-_]{8,}$/.test(
                         value);
                 },
                 "La contraseña debe tener al menos 8 caracteres, comenzar con una letra mayúscula y contener al menos un carácter especial."

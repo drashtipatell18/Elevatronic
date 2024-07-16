@@ -26,7 +26,7 @@ class CustomerController extends Controller
             'teléfono_móvil' => 'required|numeric|digits:9',
             'correo_electrónico' => 'required',
             'nombre_del_contacto' => 'required',
-            'posición' => 'required',
+            // 'posición' => 'required',
         ]);
 
         // Create a new Customer instance
@@ -75,7 +75,7 @@ class CustomerController extends Controller
             'teléfono_móvil' => 'required|numeric|digits:9',
             'correo_electrónico' => 'required',
             'nombre_del_contacto' => 'required',
-            'posición' => 'required',
+            // 'posición' => 'required',
         ]);
 
         $customers = Cliente::findOrFail($id);

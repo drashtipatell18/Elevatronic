@@ -59,8 +59,10 @@
                             <a class="dropdown-item edit-elevator" href="#"
                                 data-elevator="{{ json_encode($elevators) }}" data-toggle="modal"
                                 data-target="#editarAscensor">Editar</a>
-                            <a class="dropdown-item texto-1 font-family-Inter-Regular" data-toggle="modal"
-                                data-target="#modalEliminar">Eliminar</a>
+                                <a class="dropdown-item"
+                                href=""
+                                data-toggle="modal"
+                                data-target="#modalEliminar{{ $elevators->id }}">Eliminar</a>
                         </div>
 
                     </div>
@@ -2052,14 +2054,14 @@
                 </div>
 
 
-                {{--  <!-- Modal Eliminar-->
-                <div class="modal fade" id="modalEliminar" tabindex="-1" role="dialog"
+                 <!-- Modal Eliminar-->
+                <div class="modal fade" id="modalEliminar{{ $elevators->id }}" tabindex="-1" role="dialog"
                     aria-labelledby="modelTitleId" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content border-radius-12">
                             <divw class="modal-body">
                                 <div class="row">
-                                    <div class="col-md-12">
+                                     <div class="col-md-12">
                                         <button type="button" class="close" data-dismiss="modal"
                                             aria-label="Close">
                                             <span aria-hidden="true">×</span>
@@ -2075,8 +2077,8 @@
                                 </div>
                             </divw>
                             <div class="modal-footer align-items-center justify-content-center">
-                                @isset($elevator)
-                                    <form id="delete-form" action="{{ route('destroy.elevator', $elevator->id) }}"
+                                @isset($elevators)
+                                    <form id="delete-form" action="{{ route('destroy.elevator', $elevators->id) }}"
                                         method="POST">
                                         @csrf
                                         @method('DELETE')
@@ -2089,7 +2091,7 @@
 
                         </div>
                     </div>
-                </div>  --}}
+                </div> 
 
                 <div class="modal fade text-left" id="showQrCodeModal" role="dialog"
                     aria-labelledby="showQrCodeModal" aria-hidden="true">

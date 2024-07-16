@@ -283,7 +283,7 @@
     @endforeach
 @endsection
 @push('scripts')
-<script src='https://cdn.jsdelivr.net/npm/@fullcalendar/core@4.4.0/locales/es.js'></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/locale/es.js"></script>
     <script>
         $(document).ready(function() {
             function resetForm() {

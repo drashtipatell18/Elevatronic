@@ -127,6 +127,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/repuestos/vista/{id}', [SparePartController::class, 'sparepartView'])->name('view.sparepart');
     Route::put('/repuestos/actualizar/{id}', [SparePartController::class, 'sparepartUpdate'])->name('update.sparepart');
     Route::delete ('/repuestos/destruir/{id}',[SparePartController::class,'sparepartDestroy'])->name('destroy.sparepart');
+    Route::post('/repuestos/frecuencia_de_actualización', [SparePartController::class, 'updateFrequency'])->name('sparepart.updateFrequency');
 
     //Staff
 

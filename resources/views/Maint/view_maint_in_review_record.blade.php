@@ -4,7 +4,8 @@
         .qrcode {
             text-align: center;
         }
-         .error{
+
+        .error {
             color: red;
         }
     </style>
@@ -301,25 +302,27 @@
                                                         <img src="{{ asset('img/galery2.png') }} " alt="galeria">
                                                     </div>
                                                 </div> --}}
-                                                @if(isset($images) && !empty($images))
-                                                    @foreach($images as $image)
+                                                @if (isset($images) && !empty($images))
+                                                    @foreach ($images as $image)
                                                         <div class="col-md-6 mb-4">
                                                             <div class="img-container">
-                                                                <img src="{{ url('/images/' . $image->image) }} " alt="galeria">
+                                                                <img src="{{ url('/images/' . $image->image) }} "
+                                                                    alt="galeria">
                                                             </div>
-                                                        </div>  
+                                                        </div>
                                                     @endforeach
                                                 @endif
                                             </div>
                                         </div>
                                         <input type="file" id="imageUpload" accept="image/*" multiple class="d-none">
-                                        <button data-id="@php
-                                            if(isset($id))
+                                        <button
+                                            data-id="@php
+if(isset($id))
                                             {
                                                 echo $id;
-                                            }
-                                        @endphp" id="uploadButton10" class="btn-gris"><i
-                                                class="fas fa-arrow-to-top mr-2"></i> Subir Imagen</button>
+                                            } @endphp"
+                                            id="uploadButton10" class="btn-gris"><i class="fas fa-arrow-to-top mr-2"></i>
+                                            Subir Imagen</button>
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-4">
@@ -335,11 +338,12 @@
                                                 <span class="file-info">Nombre-de-archivo.pdf (0.2 MB)</span>
                                                 <button class="remove-file"><i class="fal fa-trash-alt"></i></button>
                                             </div> --}}
-                                            @if(isset($documents) && !empty($documents))
-                                                @foreach($documents as $document)
+                                            @if (isset($documents) && !empty($documents))
+                                                @foreach ($documents as $document)
                                                     <div class="file-entry">
                                                         <span class="file-info">{{ $document->document }} (0.2 MB)</span>
-                                                        <button data-id="{{ $document->id }}" class="remove-file"><i class="fal fa-trash-alt"></i></button>
+                                                        <button data-id="{{ $document->id }}" class="remove-file"><i
+                                                                class="fal fa-trash-alt"></i></button>
                                                     </div>
                                                 @endforeach
                                             @endif
@@ -347,13 +351,14 @@
 
                                         <input type="file" id="fileUpload" accept=".pdf,.xlsx,.xls,.doc,.docx"
                                             multiple class="d-none">
-                                        <button id="uploadButton11" data-id="@php
-                                        if(isset($id))
+                                        <button id="uploadButton11"
+                                            data-id="@php
+if(isset($id))
                                         {
                                             echo $id;
-                                        }
-                                    @endphp" class="btn-gris mt-4"><i
-                                                class="fas fa-arrow-to-top mr-2"></i> Cargar archivo</button>
+                                        } @endphp"
+                                            class="btn-gris mt-4"><i class="fas fa-arrow-to-top mr-2"></i> Cargar
+                                            archivo</button>
                                     </div>
                                 </div>
                             </div>
@@ -387,63 +392,6 @@
                                                     <th>SOLICITUD</th>
                                                 </tr>
                                             </thead>
-                                            {{-- <tbody>
-                                                @foreach ($spareparts as $index => $sparepart)
-                                                    <tr>
-                                                        <td>{{ $sparepart->nombre }}</td>
-                                                        <td>
-                                                            <div class="custom-control custom-checkbox">
-                                                                <input type="checkbox" class="custom-control-input"
-                                                                    id="limpieza" name="limpieza">
-                                                                <label class="custom-control-label"
-                                                                    for="limpieza"></label>
-                                                            </div>
-                                                            {{ $sparepart->frecuencia_de_limpieza }}
-                                                        </td>
-                                                        <td>
-                                                            <div class="custom-control custom-checkbox">
-                                                                <input type="checkbox" class="custom-control-input"
-                                                                    id="limpieza" name="limpieza">
-                                                                <label class="custom-control-label"
-                                                                    for="limpieza"></label>
-                                                            </div>
-                                                            {{ $sparepart->frecuencia_de_lubricación }}
-                                                        </td>
-                                                        <td>
-                                                            <div class="custom-control custom-checkbox">
-                                                                <input type="checkbox" class="custom-control-input"
-                                                                    id="limpieza" name="limpieza">
-                                                                <label class="custom-control-label"
-                                                                    for="limpieza"></label>
-                                                            </div>{{ $sparepart->frecuencia_de_ajuste }}
-                                                        </td>
-                                                        <td>
-                                                            <div class="custom-control custom-checkbox">
-                                                                <input type="checkbox" class="custom-control-input"
-                                                                    id="limpieza" name="limpieza">
-                                                                <label class="custom-control-label"
-                                                                    for="limpieza"></label>
-                                                            </div>{{ $sparepart->frecuencia_de_revisión }}
-                                                        </td>
-                                                        <td>
-                                                            <div class="custom-control custom-checkbox">
-                                                                <input type="checkbox" class="custom-control-input"
-                                                                    id="limpieza" name="limpieza">
-                                                                <label class="custom-control-label"
-                                                                    for="limpieza"></label>
-                                                            </div>{{ $sparepart->frecuencia_de_cambio }}
-                                                        </td>
-                                                        <td>
-                                                            <div class="custom-control custom-checkbox">
-                                                                <input type="checkbox" class="custom-control-input"
-                                                                    id="limpieza" name="limpieza">
-                                                                <label class="custom-control-label"
-                                                                    for="limpieza"></label>
-                                                            </div>{{ $sparepart->frecuencia_de_solicitud }}
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
-                                            </tbody> --}}
                                             <tbody>
                                                 @foreach ($spareparts as $index => $sparepart)
                                                     <tr>
@@ -452,8 +400,9 @@
                                                             <div class="custom-control custom-checkbox">
                                                                 <input type="checkbox" class="custom-control-input"
                                                                     id="limpieza-{{ $index }}" name="limpieza[]"
-                                                                    {{ $sparepart->frecuencia_de_limpieza ? 'checked' : '' }}
-                                                                    disabled>
+                                                                    data-id="{{ $sparepart->id }}"
+                                                                    data-type="frecuencia_de_limpieza"
+                                                                    {{ $sparepart->frecuencia_de_limpieza ? 'checked' : '' }}>
                                                                 <label class="custom-control-label"
                                                                     for="limpieza-{{ $index }}"></label>
                                                             </div>
@@ -462,9 +411,9 @@
                                                             <div class="custom-control custom-checkbox">
                                                                 <input type="checkbox" class="custom-control-input"
                                                                     id="lubricacion-{{ $index }}"
-                                                                    name="lubricacion[]"
-                                                                    {{ $sparepart->frecuencia_de_lubricación ? 'checked' : '' }}
-                                                                    disabled>
+                                                                    name="lubricacion[]" data-id="{{ $sparepart->id }}"
+                                                                    data-type="frecuencia_de_lubricación"
+                                                                    {{ $sparepart->frecuencia_de_lubricación ? 'checked' : '' }}>
                                                                 <label class="custom-control-label"
                                                                     for="lubricacion-{{ $index }}"></label>
                                                             </div>
@@ -473,8 +422,9 @@
                                                             <div class="custom-control custom-checkbox">
                                                                 <input type="checkbox" class="custom-control-input"
                                                                     id="ajuste-{{ $index }}" name="ajuste[]"
-                                                                    {{ $sparepart->frecuencia_de_ajuste ? 'checked' : '' }}
-                                                                    disabled>
+                                                                    data-id="{{ $sparepart->id }}"
+                                                                    data-type="frecuencia_de_ajuste"
+                                                                    {{ $sparepart->frecuencia_de_ajuste ? 'checked' : '' }}>
                                                                 <label class="custom-control-label"
                                                                     for="ajuste-{{ $index }}"></label>
                                                             </div>
@@ -483,8 +433,9 @@
                                                             <div class="custom-control custom-checkbox">
                                                                 <input type="checkbox" class="custom-control-input"
                                                                     id="revision-{{ $index }}" name="revision[]"
-                                                                    {{ $sparepart->frecuencia_de_revisión ? 'checked' : '' }}
-                                                                    disabled>
+                                                                    data-id="{{ $sparepart->id }}"
+                                                                    data-type="frecuencia_de_revisión"
+                                                                    {{ $sparepart->frecuencia_de_revisión ? 'checked' : '' }}>
                                                                 <label class="custom-control-label"
                                                                     for="revision-{{ $index }}"></label>
                                                             </div>
@@ -493,8 +444,9 @@
                                                             <div class="custom-control custom-checkbox">
                                                                 <input type="checkbox" class="custom-control-input"
                                                                     id="cambio-{{ $index }}" name="cambio[]"
-                                                                    {{ $sparepart->frecuencia_de_cambio ? 'checked' : '' }}
-                                                                    disabled>
+                                                                    data-id="{{ $sparepart->id }}"
+                                                                    data-type="frecuencia_de_cambio"
+                                                                    {{ $sparepart->frecuencia_de_cambio ? 'checked' : '' }}>
                                                                 <label class="custom-control-label"
                                                                     for="cambio-{{ $index }}"></label>
                                                             </div>
@@ -503,8 +455,9 @@
                                                             <div class="custom-control custom-checkbox">
                                                                 <input type="checkbox" class="custom-control-input"
                                                                     id="solicitud-{{ $index }}" name="solicitud[]"
-                                                                    {{ $sparepart->frecuencia_de_solicitud ? 'checked' : '' }}
-                                                                    disabled>
+                                                                    data-id="{{ $sparepart->id }}"
+                                                                    data-type="frecuencia_de_solicitud"
+                                                                    {{ $sparepart->frecuencia_de_solicitud ? 'checked' : '' }}>
                                                                 <label class="custom-control-label"
                                                                     for="solicitud-{{ $index }}"></label>
                                                             </div>
@@ -512,6 +465,7 @@
                                                     </tr>
                                                 @endforeach
                                             </tbody>
+
 
                                         </table>
                                     </div>
@@ -892,6 +846,14 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
+            // Add event listeners to checkboxes
+            $('.custom-control-input').on('change', function() {
+                if ($(this).is(':checked')) {
+                    console.log($(this).attr('id') + ' is checked');
+                } else {
+                    console.log($(this).attr('id') + ' is unchecked');
+                }
+            });
 
             $('#uploadButton10').click(function() {
                 $('#imageUpload').click();
@@ -928,11 +890,11 @@
                         type: "POST",
                         method: "POST",
                         data: formData,
-                        processData: false, 
+                        processData: false,
                         dataType: "JSON",
                         contentType: false,
                         url: `/mant/en/revisión/detalle/${id}/saveImage`,
-                        success: function(response){
+                        success: function(response) {
                             console.log(response);
                         }
                     })
@@ -972,11 +934,11 @@
                     type: "POST",
                     method: "POST",
                     data: formData,
-                    processData: false, 
+                    processData: false,
                     dataType: "JSON",
                     contentType: false,
                     url: `/mant/en/revisión/detalle/${id}/saveDocument`,
-                    success: function(response){
+                    success: function(response) {
                         console.log(response);
                     }
                 })
@@ -987,7 +949,7 @@
             // Evento para el botón de eliminar
             $('#fileList').on('click', '.remove-file', function() {
                 let id = $(this).data('id');
-                $.get('/document/'+ id +'/delete');
+                $.get('/document/' + id + '/delete');
                 $(this).parent().remove(); // Elimina la entrada del archivo
                 var fileCount = $('#fileList').children().length; // Recuenta los archivos
                 $('#fileCount').text('Archivos (' + fileCount + ')'); // Actualiza el contador
@@ -1107,7 +1069,31 @@
                 form.find('.is-invalid').removeClass('is-invalid');
                 form.find('.is-valid').removeClass('is-valid');
             });
-            
+
+            $('.custom-control-input').on('change', function() {
+                var sparepartId = $(this).data('id');
+                console.log(sparepartId);
+                var type = $(this).data('type');
+                var isChecked = $(this).is(':checked');
+
+                $.ajax({
+                    url: "{{ route('sparepart.updateFrequency') }}", // Update with your route
+                    type: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        id: sparepartId,
+                        type: type,
+                        value: isChecked ? 1 : 0
+                    },
+                    success: function(response) {
+                        console.log('Update successful:', response);
+                    },
+                    error: function(xhr) {
+                        console.log('Error:', xhr);
+                    }
+                });
+            });
+
         });
     </script>
 @endpush

@@ -283,6 +283,7 @@
     @endforeach
 @endsection
 @push('scripts')
+<script src='https://cdn.jsdelivr.net/npm/@fullcalendar/core@4.4.0/locales/es.js'></script>
     <script>
         $(document).ready(function() {
             function resetForm() {
@@ -294,6 +295,7 @@
 
             // Initialize FullCalendar
             var calendar = $('#calendar').fullCalendar({
+                locale: 'es', // Add this line to set the locale to Spanish
                 themeSystem: 'bootstrap4',
                 header: {
                     left: 'prev,next today',

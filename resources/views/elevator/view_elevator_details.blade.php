@@ -1,5 +1,4 @@
 @extends('layouts.main')
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css">
 @section('content')
     <style>
         .qrcode {
@@ -59,9 +58,7 @@
                             <a class="dropdown-item edit-elevator" href="#"
                                 data-elevator="{{ json_encode($elevators) }}" data-toggle="modal"
                                 data-target="#editarAscensor">Editar</a>
-                                <a class="dropdown-item"
-                                href=""
-                                data-toggle="modal"
+                            <a class="dropdown-item" href="" data-toggle="modal"
                                 data-target="#modalEliminar{{ $elevators->id }}">Eliminar</a>
                         </div>
 
@@ -542,13 +539,53 @@
 
                                                                     <a class="dropdown-item" href="javascript:void(0)"
                                                                         data-toggle="modal"
-                                                                        data-target="#modalEliminar">Eliminar</a>
+                                                                        data-target="#modalEliminar{{ $contra->id }}">Eliminar</a>
                                                                 </div>
                                                             </div>
                                                         </td>
                                                     </tr>
+                                                    <!-- Modal Eliminar-->
+                                                    <div class="modal fade" id="modalEliminar{{ $contra->id }}"
+                                                        tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+                                                        aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                                            <div class="modal-content border-radius-12">
+                                                                <divw class="modal-body">
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+                                                                            <button type="button" class="close"
+                                                                                data-dismiss="modal" aria-label="Close">
+                                                                                <span aria-hidden="true">×</span>
+                                                                            </button>
+                                                                            <div class="box1">
+                                                                                <img src="{{ asset('img/iconos/trash.svg') }}"
+                                                                                    alt="trash" width="76">
+                                                                                <p class="mt-3 mb-0">
+                                                                                    ¿Seguro que quieres eliminar <span
+                                                                                        id="item-name"></span>?
+                                                                                </p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </divw>
+                                                                <div
+                                                                    class="modal-footer align-items-center justify-content-center">
+                                                                    @isset($contra)
+                                                                        <form id="delete-form"
+                                                                            action="{{ route('destroy.contract', $contra->id) }}"
+                                                                            method="POST">
+                                                                            @csrf
+                                                                            @method('DELETE')
+                                                                            <button type="submit"
+                                                                                class="btn-gris btn-red">Sí</button>
+                                                                            <button type="button" class="btn-gris btn-border"
+                                                                                data-dismiss="modal">No</button>
+                                                                        </form>
+                                                                    @endisset
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                 @endforeach
-
                                             </tbody>
                                         </table>
                                     </div>
@@ -844,8 +881,8 @@
                             </div>
 
                             <!-- Modal Eliminar-->
-                            <div class="modal fade" id="modalEliminar{{ $contra->id }} " tabindex="-1"
-                                role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                            <div class="modal fade" id="modalEliminar{{ $contra->id }}" tabindex="-1" role="dialog"
+                                aria-labelledby="modelTitleId" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content border-radius-12">
                                         <divw class="modal-body">
@@ -909,7 +946,8 @@
                                             <button class="btn-gris" type="button" id="dropdownMenuButton1"
                                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <img src="{{ asset('img/iconos/export.svg') }}" alt="icono"
-                                                    class="mr-2"> Exportar
+                                                    class="mr-2">
+                                                Exportar
                                                 Datos <i class="iconoir-nav-arrow-down"></i>
                                             </button>
                                             <div class="dropdown-menu dropdown-menu-right"
@@ -1374,7 +1412,8 @@
                                             <button class="btn-gris" type="button" id="dropdownMenuButton2"
                                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <img src="{{ asset('img/iconos/export.svg') }}" alt="icono"
-                                                    class="mr-2"> Exportar
+                                                    class="mr-2">
+                                                Exportar
                                                 Datos <i class="iconoir-nav-arrow-down"></i>
                                             </button>
                                             <div class="dropdown-menu dropdown-menu-right"
@@ -2054,14 +2093,14 @@
                 </div>
 
 
-                 <!-- Modal Eliminar-->
+                <!-- Modal Eliminar-->
                 <div class="modal fade" id="modalEliminar{{ $elevators->id }}" tabindex="-1" role="dialog"
                     aria-labelledby="modelTitleId" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content border-radius-12">
                             <divw class="modal-body">
                                 <div class="row">
-                                     <div class="col-md-12">
+                                    <div class="col-md-12">
                                         <button type="button" class="close" data-dismiss="modal"
                                             aria-label="Close">
                                             <span aria-hidden="true">×</span>
@@ -2091,7 +2130,7 @@
 
                         </div>
                     </div>
-                </div> 
+                </div>
 
                 <div class="modal fade text-left" id="showQrCodeModal" role="dialog"
                     aria-labelledby="showQrCodeModal" aria-hidden="true">
@@ -2121,13 +2160,6 @@
     </div>
 @endsection
 @push('scripts')
-    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/js/jquery.dataTables.min.js"
-        integrity="sha512-BkpSL20WETFylMrcirBahHfSnY++H2O1W+UnEEO4yNIl+jI2+zowyoGJpbtk6bx97fBXf++WJHSSK2MV4ghPcg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/js/selectize.min.js"
-        integrity="sha512-IOebNkvA/HZjMM7MxL0NYeLYEalloZ8ckak+NDtOViP7oiYzG5vn6WVXyrJDiJPhl4yRdmNAG49iuLmhkUdVsQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         $(document).ready(function() {
             let selectize;

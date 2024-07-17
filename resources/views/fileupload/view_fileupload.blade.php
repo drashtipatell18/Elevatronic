@@ -106,22 +106,32 @@
                         if (response.status === 'success') {
                             var successMessage = "Carga de archivo exitosa";
                             $('#alertaCarga').html(
-                                '<strong class="mr-2"><img src="/path/to/check.svg" alt="icono"></strong>' +
+                                '<strong class="mr-2"><img src="{{ asset('img/iconos/check.svg') }}" alt="icono" style="width:35px"></strong>' +
                                 successMessage).show();
                             setTimeout(function() {
                                 location.reload();
-                            }, 6000);
-                        }
-                        if (response.status === 'danger') {
-                            var errorMessage = "Error en la carga del archivo:";
+                            }, 4000);
+                        } else if (response.status === 'danger') {
+                            var errorMessage = "Error en la carga del archivo";
                             $('#alertaCarga').html(
-                                '<strong class="mr-2"><img src="/path/to/check.svg" alt="icono"></strong>' +
+                                '<strong class="mr-2"><img src="{{ asset('img/iconos/incheck.png') }}" alt="icono" style="width:35px"></strong>' +
                                 errorMessage).show();
                             setTimeout(function() {
                                 location.reload();
-                            }, 2000);
+                            }, 4000);
                         }
                     },
+
+                    error: function(xhr, status, error) {
+                        console.error(xhr.responseText);
+                        var errorMessage = "Error en la carga del archivo";
+                        $('#alertaCarga').html(
+                            '<strong class="mr-2"><img src="{{ asset('img/iconos/incheck.png') }}" alt="icono" style="width:35px"></strong>' +
+                            errorMessage).show();
+                        setTimeout(function() {
+                            location.reload();
+                        }, 4000);
+                    }
                 });
             });
         });

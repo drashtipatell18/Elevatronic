@@ -615,8 +615,8 @@
                                                                 <div class="form-group">
                                                                     <label for="ascensor">Ascensor</label>
                                                                     <input type="text" placeholder="Ascensor"
-                                                                        name="ascensor" id="ascensor"
-                                                                        class="form-control">
+                                                                        name="ascensor" value="{{ $elevators->nombre }}" id="ascensor"
+                                                                        class="form-control" readonly>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
@@ -749,7 +749,7 @@
                                                                         <input type="text" placeholder="Ascensor"
                                                                             name="ascensor" id="ascensor"
                                                                             class="form-control"
-                                                                            value="{{ old('ascensor', $contra->ascensor ?? '') }}">
+                                                                            value="{{ old('ascensor', $contra->ascensor ?? '') }}" readonly>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-6">
@@ -880,7 +880,8 @@
                                 </div>
                             </div>
 
-                            <!-- Modal Eliminar-->
+                            @isset($contra)
+                                <!-- Modal Eliminar-->
                             <div class="modal fade" id="modalEliminar{{ $contra->id }}" tabindex="-1" role="dialog"
                                 aria-labelledby="modelTitleId" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
@@ -918,6 +919,8 @@
                                     </div>
                                 </div>
                             </div>
+                            @endisset
+                            
 
                             {{-- mantenimientos --}}
                             <div id="mantenimientos" class="tab-pane">

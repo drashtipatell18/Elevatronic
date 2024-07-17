@@ -290,7 +290,7 @@
                 // Clear the form fields
                 $('#eventForm').find('input[type="text"], input[type="date"], input[type="time"], select').val('');
                 // Set the default value for the <select> elements
-                $('#ascensor, #revisar, #estado').prop('selectedIndex', 0);
+                // $('#ascensor, #revisar, #estado').prop('selectedIndex', 0);
             }
 
             // Initialize FullCalendar

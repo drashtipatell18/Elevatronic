@@ -47,7 +47,7 @@
                                             <p class="mb-0">ID elemento</p>
                                         </div>
                                         <div class="option">
-                                            <h4>{{ $sparepart->created_at->format('d M Y, g:i a') }}</h4>
+                                            <h4>{{ $sparepart->created_at->locale('es')->isoFormat('D MMM YYYY, h:mm a') }}</h4>
                                             <p class="mb-0">Fecha registro</p>
                                         </div>
                                     </div>

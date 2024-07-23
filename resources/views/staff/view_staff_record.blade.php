@@ -46,7 +46,8 @@
                                             <p class="mb-0">Puesto</p>
                                         </div>
                                         <div class="option">
-                                            <h4>{{ $staffs->created_at->format('d M Y, g:i a') }}</h4>
+                                            <h4>{{ $staffs->created_at->locale('es')->isoFormat('D MMM YYYY, h:mm a') }}
+                                            </h4>
                                             <p class="mb-0">Fecha registro</p>
                                         </div>
                                     </div>
@@ -278,7 +279,7 @@
                 }
                 reader.readAsDataURL(this.files[0]);
             });
-            
+
             $('#editstaff').validate({
                 rules: {
                     nombre: "required",

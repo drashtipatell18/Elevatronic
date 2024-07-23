@@ -65,7 +65,7 @@
                                             <p class="mb-0">Archivos</p>
                                         </div>
                                         <div class="option">
-                                            <h4>{{ $maint_in_review->created_at->format('d M Y, g:i a') }}</h4>
+                                            <h4>{{ $maint_in_review->created_at->locale('es')->isoFormat('D MMM YYYY, h:mm a') }}</h4>
                                             <p class="mb-0">Fecha registro</p>
                                         </div>
                                     </div>

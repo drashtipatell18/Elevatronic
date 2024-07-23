@@ -89,7 +89,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="text-gris">Precio</td>
-                                                    <td>-</td>
+                                                    <td>{{ $sparepart->precio }}</td>
                                                 </tr>
                                                 <tr>
                                                     <td class="text-gris">Descripción</td>
@@ -119,7 +119,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="text-gris">Frecuencia de solicitud (días)</td>
-                                                    <td>-</td>
+                                                    <td> {{ $sparepart->frecuencia_de_solicitud }}</td>
                                                 </tr>
                                             </tbody>
                                         </table>

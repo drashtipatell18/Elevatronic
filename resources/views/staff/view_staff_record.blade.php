@@ -46,7 +46,7 @@
                                             <p class="mb-0">Puesto</p>
                                         </div>
                                         <div class="option">
-                                            <h4>{{ $staffs->created_at->locale('es')->isoFormat('D MMM YYYY, h:mm a') }}
+                                            <h4>{{ $staffs->created_at->locale('es')->isoFormat('D MMMM YYYY, h:mm a') }}
                                             </h4>
                                             <p class="mb-0">Fecha registro</p>
                                         </div>

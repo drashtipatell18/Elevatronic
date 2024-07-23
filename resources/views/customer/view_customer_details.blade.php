@@ -47,7 +47,7 @@
                                             <p class="mb-0">Tipo de cliente</p>
                                         </div>
                                         <div class="option">
-                                            <h4>{{ $customer->created_at->locale('es')->isoFormat('D MMM YYYY, h:mm a') }}</h4>
+                                            <h4>{{ $customer->created_at->locale('es')->isoFormat('D MMMM YYYY, h:mm a') }}</h4>
                                             <p class="mb-0">Fecha registro</p>
                                         </div>
                                     </div>

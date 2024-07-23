@@ -43,10 +43,10 @@
                                         </div>
                                         <div class="option">
                                             <h4>{{ $users->username }}</h4>
-                                            <p class="mb-0">Username</p>
+                                            <p class="mb-0">Nombre de usuario</p>
                                         </div>
                                         <div class="option">
-                                            <h4>{{ $users->created_at->locale('es')->isoFormat('D MMM YYYY, h:mm a') }}</h4>
+                                            <h4>{{ $users->created_at->locale('es')->isoFormat('D MMMM YYYY, h:mm a') }}</h4>
                                             <p class="mb-0">Fecha registro</p>
                                         </div>
                                     </div>

@@ -193,7 +193,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="Nombre de usuario">Nombre de usuario</label>
-                                            <input type="text" placeholder="username" name="username"
+                                            <input type="text" placeholder="nombre de usuario" name="username"
                                                 class="form-control @error('username') is-invalid @enderror"
                                                 id="username" autocomplete="new-email" autoFill="off"/>
                                             @error('username')
@@ -329,7 +329,7 @@
                                             <div class="form-group">
                                                 <label for="Nombre de usuario">Nombre
                                                     de usuario</label>
-                                                <input type="text" placeholder="nombredeusuario" name="username"
+                                                <input type="text" placeholder="nombre de usuario" name="username"
                                                     class="form-control @error('username') is-invalid @enderror"
                                                     value="" id="edit-username">
                                                 @error('username')
@@ -578,7 +578,9 @@
                     },
                     phone: {
                         required: true,
-                        digits: true
+                        digits: true,
+                        minlength: 9,
+                        maxlength: 9
                     },
                     // employee: "required",
                     password: {
@@ -629,7 +631,9 @@
                     },
                     phone: {
                         required: true,
-                        digits: true
+                        digits: true,
+                        minlength: 9,
+                        maxlength: 9
                     },
                     // employee: "required",
                 },

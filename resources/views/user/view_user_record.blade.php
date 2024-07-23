@@ -305,7 +305,9 @@
                     },
                     phone: {
                         required: true,
-                        digits: true
+                        digits: true,
+                        minlength: 9,
+                        maxlength: 9
                     },
                     // employee: "required",
                 },

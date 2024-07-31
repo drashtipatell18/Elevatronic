@@ -460,7 +460,7 @@
                                             <div class="form-group position-relative">
                                                 <label for="customSearchBox"><i class="fal fa-search"></i></label>
                                                 <input type="text" id="customSearchBox" placeholder="Buscar"
-                                                    class="w-auto customSearchBox">
+                                                    class="w-auto">
                                             </div>
                                         </div>
                                     </div>
@@ -937,9 +937,9 @@
                                     <div class="col-md-6 mb-3">
                                         <div class="buscador">
                                             <div class="form-group position-relative">
-                                                <label for="customSearchBox"><i class="fal fa-search"></i></label>
-                                                <input type="text" id="customSearchBox" placeholder="Buscar"
-                                                    class="w-auto customSearchBox">
+                                                <label for="customSearchBox2"><i class="fal fa-search"></i></label>
+                                                <input type="text" id="customSearchBox2" placeholder="Buscar"
+                                                    class="w-auto">
                                             </div>
                                         </div>
                                     </div>
@@ -2233,7 +2233,7 @@
                 $("#crearMarcas").modal('hide')
             });
 
-            var table = $('#contratosTable').DataTable({
+            var table1 = $('#contratosTable').DataTable({
                 responsive: true,
                 dom: 'tp',
                 pageLength: 8, // Establece el número de registros por página a 8
@@ -2263,39 +2263,40 @@
             });
 
             // Mover el contenedor de búsqueda (filtro) a la izquierda
-            // $("#miTabla_filter").css('float', 'left');
+            $("#miTabla_filter").css('float', 'left');
 
             // Manejadores para los botones de exportación personalizados
             $(".export_excel").on("click", function() {
                 var tableId = $(this).data("table");
-                var table = $(tableId).DataTable();
-                table.button('.buttons-csv').trigger();
+                var table1 = $(tableId).DataTable();
+                table1.button('.buttons-csv').trigger();
             });
             $(".export_pdf").on("click", function() {
                 var tableId = $(this).data("table");
-                var table = $(tableId).DataTable();
-                table.button('.buttons-pdf').trigger();
+                var table1 = $(tableId).DataTable();
+                table1.button('.buttons-pdf').trigger();
             });
             $(".export_copy").on("click", function() {
                 var tableId = $(this).data("table");
-                var table = $(tableId).DataTable();
-                table.button('.buttons-copy').trigger();
+                var table1 = $(tableId).DataTable();
+                table1.button('.buttons-copy').trigger();
             });
             $(".export_print").on("click", function() {
                 var tableId = $(this).data("table");
-                var table = $(tableId).DataTable();
-                table.button('.buttons-print').trigger();
+                var table1 = $(tableId).DataTable();
+                table1.button('.buttons-print').trigger();
             });
 
-            // $('#customSearchBox').keyup(function(){
-            //     table.search($(this).val()).draw();
-            // });
-            $('.customSearchBox').keyup(function() {
-                table.search($(this).val()).draw();
+            $('#customSearchBox').keyup(function() {
+                console.log('uyuytuytu');
+                table1.search($(this).val()).draw();
+            });
+            $('#customSearchBox2').keyup(function() {
+                table2.search($(this).val()).draw();
             });
 
 
-            var table = $('#mantenimientosTable').DataTable({
+            var table2 = $('#mantenimientosTable').DataTable({
                 responsive: true,
                 dom: 'tp',
                 pageLength: 8, // Establece el número de registros por página a 8

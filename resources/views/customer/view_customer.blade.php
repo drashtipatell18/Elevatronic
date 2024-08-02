@@ -138,8 +138,6 @@
                                                     <option value="cilente2">Cliente 2</option>
                                                     <option value="cilente3">Cliente 3</option>
                                                 </select>
-
-
                                             </div>
                                             <div class="form-group">
                                                 <label for="RUC">RUC o DNI</label>
@@ -156,7 +154,7 @@
                                             <div class="form-group">
                                                 <label for="provincia">Provincia</label>
                                                 <select id="provincia" name="provincia" class="form-control">
-                                                    <option value="">Select Province</option>
+                                                    <option value="">Seleccionar Province</option>
                                                     @foreach ($provinces as $province)
                                                         <option value="{{ $province }}">{{ $province }}</option>
                                                     @endforeach

@@ -1747,20 +1747,6 @@
                                                             <input type="number" placeholder="Cantidad"
                                                             class="form-control" name="cantidad"
                                                             id="cantidad" value="">
-                                                            {{-- <select
-                                                                class="custom-select @error('cantidad') is-invalid @enderror"
-                                                                name="cantidad" id="cantidad">
-                                                                <option selected disabled>Seleccionar</option>
-                                                                <option value="cantidad_1"
-                                                                    {{ old('cantidad', $elevators->cantidad ?? '') == 'cantidad_1' ? 'selected' : '' }}>
-                                                                    Cantidad 1</option>
-                                                                <option value="cantidad_2"
-                                                                    {{ old('cantidad', $elevators->cantidad ?? '') == 'cantidad_2' ? 'selected' : '' }}>
-                                                                    Cantidad 2</option>
-                                                                <option value="cantidad_3"
-                                                                    {{ old('cantidad', $elevators->cantidad ?? '') == 'cantidad_3' ? 'selected' : '' }}>
-                                                                    Cantidad 3</option>
-                                                            </select> --}}
                                                             @error('cantidad')
                                                                 <span class="invalid-feedback" style="color: red">
                                                                     <strong>{{ $message }}</strong>

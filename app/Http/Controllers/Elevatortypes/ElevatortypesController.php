@@ -71,17 +71,21 @@ class ElevatortypesController extends Controller
         $validatedData = $request->validate([
             'nombre_de_tipo_de_ascensor' => 'required',
         ]);
-
         $elevator_type = Elevatortypes::findOrFail($id);
         $oldTypeName = $elevator_type->nombre_de_tipo_de_ascensor;
         $elevator_type->update([
             'nombre_de_tipo_de_ascensor' => $request->input('nombre_de_tipo_de_ascensor'),
         ]);
+        AssginSpare::where('nombre_del_tipo_de_ascensor', $oldTypeName)
+                   ->update(['nombre_del_tipo_de_ascensor' => $request->input('nombre_de_tipo_de_ascensor')]);
+
         Elevators::where('tipo_de_ascensor', $oldTypeName)
-                  ->update(['tipo_de_ascensor' => $request->input('nombre_de_tipo_de_ascensor')]);
+                 ->update(['tipo_de_ascensor' => $request->input('nombre_de_tipo_de_ascensor')]);
+
         session()->flash('success', 'Tipos de ascensor actualizado exitosamente!');
         return redirect()->route('elevatortypes');
     }
+
 
 
     public function elevatortypesDestroy($id){

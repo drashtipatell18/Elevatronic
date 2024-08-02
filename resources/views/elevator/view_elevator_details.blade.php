@@ -920,7 +920,7 @@
                                 </div>
                             </div>
                             @endisset
-                            
+
 
                             {{-- mantenimientos --}}
                             <div id="mantenimientos" class="tab-pane">
@@ -1743,7 +1743,11 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="tiposAscensor">Cantidad</label>
-                                                            <select
+
+                                                            <input type="number" placeholder="Cantidad"
+                                                            class="form-control" name="cantidad"
+                                                            id="cantidad" value="">
+                                                            {{-- <select
                                                                 class="custom-select @error('cantidad') is-invalid @enderror"
                                                                 name="cantidad" id="cantidad">
                                                                 <option selected disabled>Seleccionar</option>
@@ -1756,7 +1760,7 @@
                                                                 <option value="cantidad_3"
                                                                     {{ old('cantidad', $elevators->cantidad ?? '') == 'cantidad_3' ? 'selected' : '' }}>
                                                                     Cantidad 3</option>
-                                                            </select>
+                                                            </select> --}}
                                                             @error('cantidad')
                                                                 <span class="invalid-feedback" style="color: red">
                                                                     <strong>{{ $message }}</strong>
@@ -2590,6 +2594,10 @@
                     // npisos: "required",
                     ncontacto: "required",
                     teléfono: {
+                        // required: true,
+                        digits: true
+                    },
+                    cantidad: {
                         // required: true,
                         digits: true
                     },

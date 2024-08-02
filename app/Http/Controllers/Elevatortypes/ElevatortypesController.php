@@ -13,6 +13,7 @@ class ElevatortypesController extends Controller
 {
     public function Elevatortypes(){
         $elevator_types = Elevatortypes::all();
+        // dd($elevator_types);
         return view('ElevatorTypes.view_elevator_types',compact('elevator_types'));
     }
 
@@ -65,23 +66,23 @@ class ElevatortypesController extends Controller
         return redirect()->route('elevatortypes');
     }
 
-    public function elevatortypesUpdate(Request $request,$id){
+    public function elevatortypesUpdate(Request $request, $id)
+    {
         $validatedData = $request->validate([
             'nombre_de_tipo_de_ascensor' => 'required',
         ]);
 
         $elevator_type = Elevatortypes::findOrFail($id);
-
-        // Create a new elevator_type instance
+        $oldTypeName = $elevator_type->nombre_de_tipo_de_ascensor;
         $elevator_type->update([
-            'nombre_de_tipo_de_ascensor'  => $request->input('nombre_de_tipo_de_ascensor'),
-
+            'nombre_de_tipo_de_ascensor' => $request->input('nombre_de_tipo_de_ascensor'),
         ]);
-
-        // Redirect back with success message
+        Elevators::where('tipo_de_ascensor', $oldTypeName)
+                  ->update(['tipo_de_ascensor' => $request->input('nombre_de_tipo_de_ascensor')]);
         session()->flash('success', 'Tipos de ascensor actualizado exitosamente!');
         return redirect()->route('elevatortypes');
     }
+
 
     public function elevatortypesDestroy($id){
         $elevator_type = Elevatortypes::find($id);

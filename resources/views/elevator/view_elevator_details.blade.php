@@ -1953,7 +1953,7 @@
                                             <div class="form-group">
                                                 <label for="ascensor">Ascensor</label>
                                                 <select class="custom-select" name="ascensor" id="ascensor"
-                                                    class="form-control">
+                                                    class="form-control" autocomplete="new-ascensor" autoFill="off">
                                                     <option selected disabled>Seleccionar opción</option>
                                                     @foreach ($elevatornumber as $value)
                                                         <option value="{{ $value }}">{{ $value }}
@@ -1965,7 +1965,7 @@
                                             <div class="form-group">
                                                 <label for="dirección">Dirección</label>
                                                 <input type="text" placeholder="Dirección" name="dirección"
-                                                    id="dirección" class="form-control">
+                                                    id="dirección" class="form-control" autocomplete="new-dirección" autoFill="off">
                                                 @error('dirección')
                                                     <span class="invalid-feedback" style="color: red">
                                                         <strong>{{ $message }}</strong>
@@ -1975,7 +1975,7 @@
                                             <div class="form-group">
                                                 <label for="provincia">Provincia</label>
                                                 <input type="text" placeholder="Provincia" name="provincia"
-                                                    id="provincia" class="form-control">
+                                                    id="provincia" class="form-control" autocomplete="new-provincia" autoFill="off">
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-6">

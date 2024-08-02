@@ -1974,8 +1974,12 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="provincia">Provincia</label>
-                                                <input type="text" placeholder="Provincia" name="provincia"
-                                                    id="provincia" class="form-control" autocomplete="new-provincia" autoFill="off">
+                                                <select id="provincia" name="provincia" class="form-control">
+                                                    <option value="">Seleccionar Province</option>
+                                                    @foreach ($provinces as $province)
+                                                        <option value="{{ $province }}">{{ $province }}</option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-6">

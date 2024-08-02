@@ -390,9 +390,13 @@
                             // allowClear: true
                         });
                         // If edit is true and has a valid ID, set the selected value
-                        if (edit) {
-                            $('#tipo_de_cliente').val(edit).trigger('change');
-                            console.log('Selected value set to:', edit); // Debugging
+                        if (edit && edit !== '') {
+                            console.log('Attempting to set value:', edit);
+                            setTimeout(function() {
+                                $('#tipo_de_cliente').val(edit).trigger('change');
+                                console.log('Selected value set to:', $('#tipo_de_cliente')
+                                .val());
+                            }, 100);
                         }
                     },
                     error: function(xhr) {
@@ -515,7 +519,7 @@
                 var customer = $(this).data('customer');
                 // Populate the modal with customer data
                 $('#edit-nombre').val(customer.nombre);
-                $('#tipo_de_cliente').val(customer.tipo_de_cliente);
+                $('#tipo_de_cliente').val(customer.tipo_de_cliente).trigger('change');
                 $('#edit-ruc').val(customer.ruc);
                 $('#edit-país').val(customer.país);
                 $('#edit-provincia').val(customer.provincia);

@@ -70,8 +70,13 @@
                             <div class="col-md-12 d-flex align-items-start justify-content-start gap-20 mb-6 box-detalle">
                                 @if (isset($elevators))
                                     <div class="contenido-img">
-                                        <img src="{{ asset('images/' . $elevators->imagen) }}" alt="user"
-                                            width="160">
+                                        @if ($elevators->imagen)
+                                            <img src="{{ asset('images/' . $elevators->imagen) }}" alt="user"
+                                                width="160">
+                                        @else
+                                            <img src="{{ asset('img/bydefult.png') }}" width="160" class="img-table"
+                                                alt="user">
+                                        @endif
                                     </div>
                                 @endif
                                 <div class="align-items-start d-flex flex-column h-100 justify-content-between">
@@ -615,8 +620,8 @@
                                                                 <div class="form-group">
                                                                     <label for="ascensor">Ascensor</label>
                                                                     <input type="text" placeholder="Ascensor"
-                                                                        name="ascensor" value="{{ $elevators->nombre }}" id="ascensor"
-                                                                        class="form-control" readonly>
+                                                                        name="ascensor" value="{{ $elevators->nombre }}"
+                                                                        id="ascensor" class="form-control" readonly>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
@@ -749,7 +754,8 @@
                                                                         <input type="text" placeholder="Ascensor"
                                                                             name="ascensor" id="ascensor"
                                                                             class="form-control"
-                                                                            value="{{ old('ascensor', $contra->ascensor ?? '') }}" readonly>
+                                                                            value="{{ old('ascensor', $contra->ascensor ?? '') }}"
+                                                                            readonly>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-6">
@@ -882,43 +888,43 @@
 
                             @isset($contra)
                                 <!-- Modal Eliminar-->
-                            <div class="modal fade" id="modalEliminar{{ $contra->id }}" tabindex="-1" role="dialog"
-                                aria-labelledby="modelTitleId" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content border-radius-12">
-                                        <divw class="modal-body">
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close">
-                                                        <span aria-hidden="true">×</span>
-                                                    </button>
-                                                    <div class="box1">
-                                                        <img src="{{ asset('img/iconos/trash.svg') }}" alt="trash"
-                                                            width="76">
-                                                        <p class="mt-3 mb-0">
-                                                            ¿Seguro que quieres eliminar <span id="item-name"></span>?
-                                                        </p>
+                                <div class="modal fade" id="modalEliminar{{ $contra->id }}" tabindex="-1" role="dialog"
+                                    aria-labelledby="modelTitleId" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content border-radius-12">
+                                            <divw class="modal-body">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                            <span aria-hidden="true">×</span>
+                                                        </button>
+                                                        <div class="box1">
+                                                            <img src="{{ asset('img/iconos/trash.svg') }}" alt="trash"
+                                                                width="76">
+                                                            <p class="mt-3 mb-0">
+                                                                ¿Seguro que quieres eliminar <span id="item-name"></span>?
+                                                            </p>
+                                                        </div>
                                                     </div>
                                                 </div>
+                                            </divw>
+                                            <div class="modal-footer align-items-center justify-content-center">
+                                                @isset($contra)
+                                                    <form id="delete-form" action="{{ route('destroy.contract', $contra->id) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn-gris btn-red">Sí</button>
+                                                        <button type="button" class="btn-gris btn-border"
+                                                            data-dismiss="modal">No</button>
+                                                    </form>
+                                                @endisset
                                             </div>
-                                        </divw>
-                                        <div class="modal-footer align-items-center justify-content-center">
-                                            @isset($contra)
-                                                <form id="delete-form" action="{{ route('destroy.contract', $contra->id) }}"
-                                                    method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn-gris btn-red">Sí</button>
-                                                    <button type="button" class="btn-gris btn-border"
-                                                        data-dismiss="modal">No</button>
-                                                </form>
-                                            @endisset
-                                        </div>
 
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
                             @endisset
 
 
@@ -1745,8 +1751,8 @@
                                                             <label for="tiposAscensor">Cantidad</label>
 
                                                             <input type="number" placeholder="Cantidad"
-                                                            class="form-control" name="cantidad"
-                                                            id="cantidad" value="">
+                                                                class="form-control" name="cantidad" id="cantidad"
+                                                                value="">
                                                             @error('cantidad')
                                                                 <span class="invalid-feedback" style="color: red">
                                                                     <strong>{{ $message }}</strong>
@@ -1965,7 +1971,8 @@
                                             <div class="form-group">
                                                 <label for="dirección">Dirección</label>
                                                 <input type="text" placeholder="Dirección" name="dirección"
-                                                    id="dirección" class="form-control" autocomplete="new-dirección" autoFill="off">
+                                                    id="dirección" class="form-control" autocomplete="new-dirección"
+                                                    autoFill="off">
                                                 @error('dirección')
                                                     <span class="invalid-feedback" style="color: red">
                                                         <strong>{{ $message }}</strong>
@@ -1977,7 +1984,8 @@
                                                 <select id="provincia" name="provincia" class="form-control">
                                                     <option value="">Seleccionar Province</option>
                                                     @foreach ($provinces as $province)
-                                                        <option value="{{ $province }}">{{ $province }}</option>
+                                                        <option value="{{ $province }}">{{ $province }}
+                                                        </option>
                                                     @endforeach
                                                 </select>
                                             </div>

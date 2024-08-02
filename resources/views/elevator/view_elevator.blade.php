@@ -382,14 +382,18 @@
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label for="tiposAscensor">Cantidad</label>
-                                                                    <select class="custom-select" name="cantidad"
+
+                                                                    <input type="text" placeholder="Seleccionar"
+                                                                        class="form-control" name="cantidad"
+                                                                        id="cantidad">
+                                                                    {{-- <select class="custom-select" name="cantidad"
                                                                         id="cantidad">
                                                                         <option value="" class="d-none">Seleccionar
                                                                         </option>
                                                                         <option value="cantidad_1">Cantidad 1</option>
                                                                         <option value="cantidad_2">Cantidad 2</option>
                                                                         <option value="cantidad_3">Cantidad 3</option>
-                                                                    </select>
+                                                                    </select> --}}
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-12"></div>
@@ -717,7 +721,7 @@
                                                                 <div class="col-md-6">
                                                                     <div class="form-group">
                                                                         <label for="tiposAscensor">Cantidad</label>
-                                                                        <select class="custom-select" name="cantidad"
+                                                                        {{-- <select class="custom-select" name="cantidad"
                                                                             id="edit-cantidad">
                                                                             <option value="">
                                                                                 Seleccionar</option>
@@ -730,7 +734,10 @@
                                                                             <option value="cantidad_3"
                                                                                 {{ old('cantidad', $elevator->cantidad ?? '') == 'cantidad_3' ? 'selected' : '' }}>
                                                                                 Cantidad 3</option>
-                                                                        </select>
+                                                                        </select> --}}
+                                                                        <input type="number" placeholder="Seleccionar"
+                                                                            class="form-control" name="cantidad"
+                                                                            id="edit-cantidad" value="">
                                                                     </div>
                                                                 </div>
 
@@ -1138,6 +1145,9 @@
                 teléfono: {
                     digits: true
                 },
+                cantidad: {
+                    digits: true
+                },
                 correo: {
                     email: true
                 },
@@ -1170,6 +1180,9 @@
                 },
                 teléfono: {
                     digits: "Por favor, ingrese solo dígitos para el número de teléfono."
+                },
+                cantidad: {
+                    digits: "Por favor, ingrese solo dígitos para el número de cantidad."
                 },
                 correo: {
                     email: "Por favor, ingrese una dirección de correo electrónico válida."

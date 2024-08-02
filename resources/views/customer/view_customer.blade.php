@@ -537,7 +537,7 @@
             var table = $('#clientes').DataTable({
                 responsive: true,
                 dom: 'tp',
-                pageLength: 8, // Establece el número de registros por página a 8
+                pageLength: 20, // Establece el número de registros por página a 8
                 language: {
                     "decimal": "",
                     "emptyTable": "No hay información",

@@ -1229,7 +1229,7 @@
                                                                 name="supervisor" id="edit-Supervisor">
                                                                 <option value="" class="">Seleccionar opción
                                                                 </option>
-                                                                <option value="supervisor_1"
+                                                                {{-- <option value="supervisor_1"
                                                                     {{ $maint_in_rev->supervisor == 'supervisor_1' ? 'selected' : '' }}>
                                                                     Supervisor 1
                                                                 </option>
@@ -1240,7 +1240,7 @@
                                                                 <option value="supervisor_3"
                                                                     {{ $maint_in_rev->supervisor == 'supervisor_3' ? 'selected' : '' }}>
                                                                     Supervisor 3
-                                                                </option>
+                                                                </option> --}}
                                                             </select>
 
                                                             @error('supervisor')
@@ -1258,7 +1258,7 @@
                                                                 <option value=""
                                                                     class="d-none  @error('técnico') is-invalid @enderror">
                                                                     Seleccionar opción</option>
-                                                                <option value="técnico_1"
+                                                                {{-- <option value="técnico_1"
                                                                     {{ old('técnico') == 'técnico_1' ? 'selected' : ($maint_in_rev->técnico == 'técnico_1' ? 'selected' : '') }}>
                                                                     Técnico 1</option>
                                                                 <option value="técnico_2"
@@ -1266,7 +1266,7 @@
                                                                     Técnico 2</option>
                                                                 <option value="técnico_3"
                                                                     {{ old('técnico') == 'técnico_3' ? 'selected' : ($maint_in_rev->técnico == 'técnico_3' ? 'selected' : '') }}>
-                                                                    Técnico 3</option>
+                                                                    Técnico 3</option> --}}
                                                             </select>
                                                             @error('técnico')
                                                                 <span class="invalid-feedback" role="alert">
@@ -1286,7 +1286,7 @@
                                                                         name="mes_programado" id="edit-Mprogramado">
                                                                         <option value="" class="">Seleccionar
                                                                             opción</option>
-                                                                        <option value="mes_programado_1"
+                                                                        {{-- <option value="mes_programado_1"
                                                                             {{ old('mes_programado', $maint_in_rev->mes_programado ?? '') == 'mes_programado_1' ? 'selected' : '' }}>
                                                                             Mes programado 1</option>
                                                                         <option value="mes_programado_2"
@@ -1294,7 +1294,7 @@
                                                                             Mes programado 2</option>
                                                                         <option value="mes_programado_3"
                                                                             {{ old('mes_programado', $maint_in_rev->mes_programado ?? '') == 'mes_programado_3' ? 'selected' : '' }}>
-                                                                            Mes programado 3</option>
+                                                                            Mes programado 3</option> --}}
                                                                     </select>
                                                                     @error('mes_programado')
                                                                         <span class="invalid-feedback" role="alert">

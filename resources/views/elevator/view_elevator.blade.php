@@ -383,7 +383,7 @@
                                                                 <div class="form-group">
                                                                     <label for="tiposAscensor">Cantidad</label>
 
-                                                                    <input type="text" placeholder="Seleccionar"
+                                                                    <input type="number" placeholder="Cantidad"
                                                                         class="form-control" name="cantidad"
                                                                         id="cantidad">
                                                                     {{-- <select class="custom-select" name="cantidad"
@@ -735,7 +735,7 @@
                                                                                 {{ old('cantidad', $elevator->cantidad ?? '') == 'cantidad_3' ? 'selected' : '' }}>
                                                                                 Cantidad 3</option>
                                                                         </select> --}}
-                                                                        <input type="number" placeholder="Seleccionar"
+                                                                        <input type="number" placeholder="Cantidad"
                                                                             class="form-control" name="cantidad"
                                                                             id="edit-cantidad" value="">
                                                                     </div>

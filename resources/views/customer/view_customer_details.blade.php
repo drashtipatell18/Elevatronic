@@ -220,8 +220,7 @@
                                         <label for="provincia">Provincia</label>
                                         <select class="custom-select form-control" name="provincia" id="edit-provincia">
                                             <option value="">
-                                                Seleccionar
-                                                opción
+                                                Seleccionar Provincia
                                             </option>
                                             @foreach ($provinces as $province)
                                                 <option value="{{ $province }}"

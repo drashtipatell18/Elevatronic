@@ -118,7 +118,7 @@ class CustomerController extends Controller
     }
 
     public function customerDestroy($id){
-        $customers = Cliente::find($id);
+        $customers = Cliente::findOrFail($id);
         $customers->delete();
         session()->flash('danger', 'Cliente eliminar exitosamente!');
         return redirect()->route('customer');

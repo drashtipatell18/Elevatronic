@@ -149,7 +149,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/usuarios/vista/{id}', [UserController::class, 'userView'])->name('view.user');
     Route::put('/usuarios/actualizar/{id}', [UserController::class, 'userUpdate'])->name('update.user');
     Route::delete ('/usuarios/destruir/{id}',[UserController::class,'userDestroy'])->name('destroy.user');
-
+    Route::post('/empleado/insertar',[UserController::class,'insertEmployee'])->name('insert.employee');
+    Route::get('/conseguir/empleado', [UserController::class, 'getEmployee'])->name('getEmployee');
+   
     // cronograma
     Route::get('/cronograma', [ScheduleController::class, 'schedule'])->name('schedule');
     Route::post('/cronograma/insertar',[ScheduleController::class,'scheduleInsert'])->name('insert.schedule');

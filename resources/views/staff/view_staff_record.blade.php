@@ -65,8 +65,11 @@
                         <div class="row">
                             <div class="col-md-12 d-flex align-items-start justify-content-start gap-20 mb-6 box-detalle">
                                 <div class="">
-                                    <img src="{{ asset('images/' . ($staffs->personalfoto ?? 'fondo.png')) }}"
-                                        alt="Personal Photo">
+                                    @if ($staffs->personalfoto)
+                                        <img src="{{ asset('images/' . $staffs->personalfoto) }}" alt="Personal Photo">
+                                    @else
+                                        <img src="{{ asset('img/fondo.png') }}" alt="Personal Photo">
+                                    @endif
                                 </div>
                                 <div class="align-items-start d-flex flex-column h-100 justify-content-between">
                                     <div>
@@ -166,9 +169,13 @@
                                         <label>Foto de Personal</label>
                                         <div id="editimagenPrevioPersonal">
                                             @if ($staffs->personalfoto)
-                                                <img src="{{ asset('images/' . ($staffs->personalfoto ?? 'fondo.png')) }}"
+                                                <img src="{{ asset('images/' . $staffs->personalfoto) }}"
                                                     width="200" height="200" alt="Personal Image">
+                                            @else
+                                                <img src="{{ asset('img/fondo.png')) }}"
+                                                width="200" height="200" alt="Personal Image">
                                             @endif
+
                                         </div>
                                     </div>
                                     <div class="col-md-6 mb-3">
@@ -335,7 +342,7 @@
                 if ($('#position').data('select2')) {
                     $('#position').select2('destroy');
                 }
-        
+
                 // Perform the AJAX call to get position data
                 $.ajax({
                     type: "GET",

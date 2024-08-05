@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Rules\PasswordFormat;
 use App\Models\Staff;
+use App\Models\Employee;
 
 class UserController extends Controller
 {
@@ -81,6 +82,20 @@ class UserController extends Controller
         // Redirect back with success message
         session()->flash('success', 'Usuario actualizado exitosamente!');
         return redirect()->route('user');
+    }
+
+    public function getEmployee()
+    {
+        return response()->json(Employee::all());
+    }
+
+    public function insertEmployee(Request $request)
+    {
+        Employee::create([
+            'empleado' => $request->input('empleado'),
+        ]);
+
+        return response()->json(['success' => 'Employee added successfully!']);
     }
 
     public function userView(Request $request, $id){

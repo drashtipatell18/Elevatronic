@@ -1,5 +1,41 @@
 @extends('layouts.main')
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 @section('content')
+    <style>
+        .dt-head-center {
+            text-align: center;
+        }
+
+        .employeebtn {
+            margin-right: 15px;
+            font-size: 14px;
+            padding: 2px 8px !important;
+        }
+
+        .select2-selection__arrow {
+            top: 7px !important;
+            width: 24px !important;
+        }
+
+        .select2-selection__placeholder {
+            margin-bottom: 53px !important;
+        }
+
+        .select2-selection--single {
+            height: 39px !important;
+            display: flex !important;
+            align-items: center !important;
+            width: 100% !important;
+        }
+
+        .select2-container--default {
+            width: 100% !important;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__clear {
+            display: none;
+        }
+    </style>
     <div class="w-100 contenido">
         <div class="container-fluid container-mod">
             <div class="row">
@@ -222,22 +258,25 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="Empleado">Empleado</label>
-                                                <select id="edit-employee" name="employee"
+                                                <select id="employee" name="employee"
                                                     class="form-control @error('employee') is-invalid @enderror">
                                                     <option value="">Seleccionar
                                                         empleado</option>
-                                                    @foreach ($staffs as $staff)
-                                                        <option value="{{ $staff }}"
-                                                            {{ old('employee', $users->employee ?? '') == $staff ? 'selected' : '' }}>
-                                                            {{ $staff }}
-                                                        </option>
-                                                    @endforeach
                                                 </select>
                                                 @error('employee')
                                                     <span class="invalid-feedback" style="color: red">
                                                         <strong>{{ $message }}</strong>
                                                     </span>
                                                 @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="text-right w-100">
+                                            <div class="form-group">
+                                                <button type="button" data-toggle="modal" data-target="#crearempleado"
+                                                    class="btn-gris employeebtn" id="toggleMarcaInput">
+                                                    + Agregar Empleado
+                                                </button>
                                             </div>
                                         </div>
 
@@ -304,10 +343,117 @@
             </div>
         </div>
     </div>
+    {{-- Model Crear Employee --}}
+    <div class="modal left fade" id="crearempleado" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title font-family-Outfit-SemiBold">Crear Empleado</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="col-md-12" id="marcaInputSection" style="">
+                    <form method="POST" id="empledoForm">
+                        @csrf
+                        <div class="form-group">
+                            <label>Insertar Empleado</label>
+                            <input type="text" placeholder="Insertar Empleado" name="empleado" id="empleado"
+                                class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <button type="button" class="btn-primario w-auto pl-3 pr-3" id="submitEmpleado">
+                                Entregar
+                            </button>
+                            <button type="button" class="btn-primario w-auto pl-3 pr-3" id="cancelEmpleado">
+                                Cancelar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 @push('scripts')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <script>
         $(document).ready(function() {
+            function getEmployees(edit) {
+                // Destroy existing Select2 instances if they exist
+                if ($('#employee').data('select2')) {
+                    $('#employee').select2('destroy');
+                }
+
+                // Perform the AJAX call to get employee data
+                $.ajax({
+                    type: "GET",
+                    url: "{{ route('getEmployee') }}", // Ensure this route exists
+                    dataType: "JSON",
+                    success: function(response) {
+                        // Clear the current options and append the retrieved options to the select elements
+                        $("#employee").empty();
+                        $("#employee").append(
+                            '<option value="" class="d-none">Seleccionar empleado</option>'
+                        );
+
+                        $.each(response, function() {
+                            $("#employee").append(
+                                `<option value='${this.id}'>${this['empleado']}</option>`
+                            );
+                        });
+
+                        // Initialize Select2 on the select elements
+                        $('#employee').select2({
+                            placeholder: "Seleccionar empleado",
+                            allowClear: true
+                        });
+
+                        // If edit is true and has a valid ID, set the selected value
+                        if (edit) {
+                            $('#employee').val(edit).trigger('change');
+                        }
+                    }
+                });
+            }
+
+            // Initial call to populate employees
+            getEmployees();
+
+            // Handle the submit button click
+            $('#submitEmpleado').click(function(e) {
+                e.preventDefault(); // Prevent default form submission
+                var formData = new FormData();
+                formData.append('empleado', $('#empleado').val());
+
+                // Send AJAX request
+                $.ajax({
+                    type: "POST",
+                    url: "{{ route('insert.employee') }}", // Ensure this route exists
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(response) {
+                        // Handle success response
+                        getEmployees(); // Refresh the employee list
+                        $("#cancelEmpleado").click(); // Close the modal
+                    },
+                    error: function(xhr) {
+                        // Handle error response
+                        console.error('Error:', xhr.responseText);
+                    }
+                });
+            });
+
+            // Handle the cancel button click
+            $('#cancelEmpleado').click(function() {
+                $("#crearempleado").modal('hide');
+            });
+
             $('#edituserform').validate({
                 rules: {
                     username: "required",
@@ -360,7 +506,8 @@
                 $('#edit-name').val(user.name);
                 $('#edit-email').val(user.email);
                 $('#edit-phone').val(user.phone);
-                $('#edit-employee').val(user.employee);
+                // $('#edit-employee').val(user.employee);
+                $('#employee').val(user.employee).trigger('change');
                 // Set the form action to the correct route
                 $('#edituserform').attr('action', '/usuarios/actualizar/' + user.id);
             });

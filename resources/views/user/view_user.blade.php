@@ -591,7 +591,7 @@
                     success: function(response) {
                         // Handle success response
                         getEmployees(); // Refresh the employee list
-                        $("#cancelEmpleado").modal('hide'); // Close the modal
+                        $("#cancelEmpleado").click(); // Close the modal
                     },
                     error: function(xhr) {
                         // Handle error response

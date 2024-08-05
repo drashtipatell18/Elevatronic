@@ -11,7 +11,7 @@
                 </div>
                 <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 col-4 d-flex align-items-center justify-content-end">
                     <div class="dropdown btn-new">
-                    <a class="btn-action dropdownMenuLink d-inline-block" href="#" role="button"
+                        <a class="btn-action dropdownMenuLink d-inline-block" href="#" role="button"
                             id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Acción <i class="fas fa-chevron-down"></i>
                         </a>
@@ -158,8 +158,11 @@
                                                 <label>Foto de repuesto</label>
                                                 <div id="editimagenPrevio">
                                                     @if ($sparepart->foto_de_repuesto)
-                                                        <img src="{{ asset('images/' . ($sparepart->foto_de_repuesto ?? 'fondo.png')) }}"
+                                                        <img src="{{ asset('images/' . $sparepart->foto_de_repuesto) }}"
                                                             width="200" height="200" alt="Spare Part Image">
+                                                    @else
+                                                        <img src="{{ asset('img/fondo.png') }}" width="200"
+                                                            height="200" alt="Spare Part Image">
                                                     @endif
                                                 </div>
                                             </div>

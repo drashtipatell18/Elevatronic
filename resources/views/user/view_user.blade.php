@@ -263,12 +263,32 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="col-md-12">
+                                    {{-- <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="contrasenaUser">Contraseña</label>
                                             <input type="password" name="password" id="password"
                                                 class="form-control @error('password') is-invalid @enderror"
                                                 placeholder="Contraseña" autocomplete="new-password">
+                                            @error('password')
+                                                <span class="invalid-feedback" style="color: red">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div> --}}
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="contrasenaUser">Contraseña</label>
+                                            <div class="input-group">
+                                                <input type="password" name="password" id="password"
+                                                    class="form-control @error('password') is-invalid @enderror"
+                                                    placeholder="Contraseña" autocomplete="new-password">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">
+                                                        <i class="fas fa-eye" id="togglePassword" style="cursor: pointer;"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
                                             @error('password')
                                                 <span class="invalid-feedback" style="color: red">
                                                     <strong>{{ $message }}</strong>
@@ -699,4 +719,20 @@
             });
         });
     </script>
+
+<script>
+    document.getElementById('togglePassword').addEventListener('click', function () {
+        var passwordField = document.getElementById('password');
+        var passwordFieldType = passwordField.getAttribute('type');
+        if (passwordFieldType === 'password') {
+            passwordField.setAttribute('type', 'text');
+            this.classList.remove('fa-eye');
+            this.classList.add('fa-eye-slash');
+        } else {
+            passwordField.setAttribute('type', 'password');
+            this.classList.remove('fa-eye-slash');
+            this.classList.add('fa-eye');
+        }
+    });
+</script>
 @endpush

@@ -16,7 +16,7 @@
                 <div class="col-xl-10 col-lg-10 col-md-8 col-sm-8 col-8 mb-4">
                     <div class="titulo">
                         <h4>{{ $maint_in_review->tipo_de_revisión }}</h4>
-                        <span>Mantenimiento en revisión >> MANTENIMIENTO PREVENTIVO</span>
+                        <span>Mantenimiento en revisión >> {{ $maint_in_review->tipo_de_revisión }}</span>
                     </div>
                 </div>
                 <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 col-4 d-flex align-items-center justify-content-end">

@@ -304,6 +304,22 @@
                 },
                 editable: true,
                 eventLimit: true,
+                height: 'auto',
+                views: {
+                    week: {
+                        slotLabelFormat: 'HH:mm'
+                    },
+                    day: {
+                        slotLabelFormat: 'HH:mm'
+                    }
+                },
+                eventTimeFormat: {
+                    // Format for event times
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    meridiem: false // Use 24-hour format
+                },
+
                 events: function(start, end, timezone, callback) {
                     // Retrieve events from the server
 
@@ -336,6 +352,7 @@
                         }
                     });
                 },
+
 
                 dayClick: function(date, jsEvent, view) {
                     console.log('dayClick');

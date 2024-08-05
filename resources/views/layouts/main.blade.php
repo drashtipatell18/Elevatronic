@@ -103,9 +103,12 @@
                             <div class="col-auto d-flex align-items-center justify-content-center" id="noMobil">
                                 <div id="toggle-search" class="position-relative"></div>
                                 <!-- Input de búsqueda inicialmente oculto -->
-                                <div id="search-container" style="display: none;">
-                                    <input type="text" id="search-input" placeholder="Escribe para buscar...">
-                                </div>
+                                <form action="{{route('search.query')}}" method="POST">
+                                    @csrf
+                                    <div id="search-container" style="display: none;">
+                                        <input type="text" id="query" name="query" placeholder="Escribe para buscar...">
+                                    </div>
+                                </form>
                             </div>
                             <div class="col-auto d-flex align-items-center justify-content-center">
                                 <div class="alerta_mensajes position-relative" data-toggle="modal"

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DashboardController;
@@ -165,4 +166,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::delete ('/contrato/destruir/{id}',[ElevatorController::class,'contractDestroy'])->name('destroy.contract');
 
     Route::get('/contract/get/{id}', [ElevatorController::class, 'getContract']);
+
+    // Searching from Navbar
+    Route::post('/search', [SearchController::class,'search'])->name('search.query');
 });

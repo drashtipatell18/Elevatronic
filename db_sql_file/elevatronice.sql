@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 07, 2024 at 06:24 AM
+-- Generation Time: Aug 02, 2024 at 06:54 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -44,6 +44,7 @@ CREATE TABLE `ascensores` (
   `técnico_ajustador` varchar(255) DEFAULT NULL,
   `tipo_de_ascensor` varchar(255) DEFAULT NULL,
   `cantidad` varchar(255) DEFAULT NULL,
+  `quarters` varchar(255) DEFAULT NULL,
   `mgratuito` varchar(255) DEFAULT NULL,
   `sincuarto` varchar(255) DEFAULT NULL,
   `concuarto` varchar(255) DEFAULT NULL,
@@ -61,9 +62,22 @@ CREATE TABLE `ascensores` (
 -- Dumping data for table `ascensores`
 --
 
-INSERT INTO `ascensores` (`id`, `imagen`, `contrato`, `nombre`, `código`, `marca`, `cliente`, `fecha`, `garantizar`, `dirección`, `ubigeo`, `provincia`, `técnico_instalador`, `técnico_ajustador`, `tipo_de_ascensor`, ``, `mgratuito`, `sincuarto`, `concuarto`, `npisos`, `ncontacto`, `teléfono`, `correo`, `descripcion1`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, '1713939118.jpg', 'asdad', 'asdasd', 'asdasd', 'sadasd', 'qwe', '2024-04-24', 'asdasd', 'dasdas', 'dasdas', 'jjhkjh', 'tecnico_1', 'tecnico_2', 'tipo_1', 'cantidad_1', NULL, NULL, NULL, 'asdas', '321457457', '57575455', 'sdasd', 'sadasds', '2024-04-23 23:21:00', '2024-04-24 04:11:49', NULL),
-(2, '1713939118.jpg', 'asdads', 'dasdas', 'asdasd', 'sadasd', 'tyty', '2024-04-25', 'dasd', 'dasd', 'dasdas', 'arequipa', 'tecnico_2', 'tecnico_2', 'tipo_1', 'cantidad_2', NULL, NULL, NULL, 'dasdasd', '9876453', '67867867', '86788', 'hjghjghjghjgh', '2024-04-23 23:31:49', '2024-04-24 01:28:31', '2024-04-24 01:28:31');
+INSERT INTO `ascensores` (`id`, `imagen`, `contrato`, `nombre`, `código`, `marca`, `cliente`, `fecha`, `garantizar`, `dirección`, `ubigeo`, `provincia`, `técnico_instalador`, `técnico_ajustador`, `tipo_de_ascensor`, `cantidad`, `quarters`, `mgratuito`, `sincuarto`, `concuarto`, `npisos`, `ncontacto`, `teléfono`, `correo`, `descripcion1`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(2, '', 'asdad', 'tyty', 'asdasd', '10', 'tyty', '2024-07-04', 'asdasd', 'vedroad gurukul 4564', 'dasdas', 'huanuco', 'isha12', 'tyty', 'hello', 'cantidad_2', 'mgratuito,concuarto,mgratuito,concuarto,mgratuito,concuarto,mgratuito,concuarto', NULL, NULL, NULL, 'asdas', 'hello', '9875512112', 'sdasd@gmail.com', '[op[', '2024-07-03 23:40:49', '2024-07-05 04:22:52', NULL),
+(3, '', 'asdad', 'tyty', 'asdasd', '4', 'tyty', '2024-07-04', 'asdasd', 'vedroad gurukul 4564', 'dasdas', 'huanuco', 'isha12', 'tyty', 'hello', 'cantidad_2', 'mgratuito,concuarto', NULL, NULL, NULL, 'asdas', 'hello', '9875512112', 'sdasd@gmail.com', '[op[', '2024-07-05 04:08:23', '2024-07-05 04:22:30', NULL),
+(4, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-07-11 22:35:09', '2024-07-11 22:35:18', '2024-07-11 22:35:18'),
+(5, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-07-11 22:35:10', '2024-07-11 22:35:15', '2024-07-11 22:35:15'),
+(6, '', NULL, '546546', '6456', '3', 'tyty', NULL, NULL, '6456', '6456', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '6456', '45654', NULL, NULL, NULL, '2024-07-11 22:35:41', '2024-07-11 22:50:48', '2024-07-11 22:50:48'),
+(7, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-07-11 22:44:33', '2024-07-11 22:50:41', '2024-07-11 22:50:41'),
+(8, '', NULL, '445', NULL, NULL, 'tyty', NULL, NULL, '645654', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '6456', '64566456', NULL, '56456', '2024-07-11 22:51:20', '2024-07-11 22:51:36', '2024-07-11 22:51:36'),
+(9, '', '897897', '7567', NULL, NULL, 'tyty', NULL, NULL, '7567657', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '657567', '756756', NULL, '7567567', '2024-07-11 22:52:30', '2024-07-11 22:58:01', '2024-07-11 22:58:01'),
+(10, '', NULL, '7567', NULL, NULL, 'tyty', NULL, NULL, '756756', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '75676', NULL, NULL, '756756', '2024-07-11 23:04:19', '2024-07-31 05:33:19', '2024-07-31 05:33:19'),
+(11, '', NULL, '45654', NULL, NULL, 'tyty', NULL, NULL, '645654', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '645645', '645654', 'sdasd@gmail.com', '645645', '2024-07-11 23:05:03', '2024-07-31 05:33:15', '2024-07-31 05:33:15'),
+(12, '', 'asdad', 'iyu', NULL, '10', 'tyty', '2024-07-04', 'asdasd', '789789', 'dasdas', NULL, 'isha12', NULL, 'hello', 'cantidad_2', 'mgratuito,concuarto', NULL, NULL, NULL, 'asdas', 'iuyiuy', '9875512112', NULL, 'iuyi', '2024-07-11 23:05:25', '2024-07-16 00:04:02', '2024-07-16 00:04:02'),
+(13, '', 'asdad', 'isha12', '77713', '2', 'tyty', '2024-07-31', 'dasd', 'vedroad gurukul 4564 fdfsd', 'hgfhgf', 'arequipa', 'tyty', 'tyty', 'hello', 'cantidad_1', 'mgratuito', NULL, NULL, NULL, '7', 'nbnbmbmbb', '987654321', 'sdasd@gmail.com', 'uyuty', '2024-07-30 22:47:01', '2024-07-31 06:14:41', '2024-07-31 06:14:41'),
+(14, '', 'asdad', 'tyty', 'asdasd', '3', 'tyty', '2024-07-31', 'jghj', 'vedroad gurukul 4564 fdfsd', 'jhj', 'arequipa', 'tyty', 'isha12', 'hello', 'cantidad_2', 'mgratuito', NULL, NULL, NULL, '7', 'dasdas', '98755121', 'sdasd@gmail.com', 'wqwq', '2024-07-31 04:22:44', '2024-07-31 04:22:44', NULL),
+(15, '', 'sdffds', 'sdfsd', 'fsd', '2', 'hgfhfg', '2024-07-31', 'gfdg', 'gdfg', 'gdfg', 'arequipa', 'tyty', 'isha12', 'xvzvzx', 'cantidad_3', 'mgratuito', NULL, NULL, NULL, '8', 'dasdas', '67567887878', 'abc@gmail.com', 'yty', '2024-07-31 04:31:03', '2024-07-31 04:31:03', NULL),
+(16, '', 'asdad', 'tyty', NULL, '2', 'tyty', '2024-08-06', '123133', 'vedroad gurukul 4564', 'dasdas', 'callao', 'isha12', 'tyty', 'xvzvzx', 'cantidad_2', 'mgratuito', NULL, NULL, NULL, '7', 'hello', '123454', 'fdf@gmail.com', 'kljkl', '2024-07-31 06:15:29', '2024-07-31 06:15:29', NULL);
 
 -- --------------------------------------------------------
 
@@ -73,6 +87,7 @@ INSERT INTO `ascensores` (`id`, `imagen`, `contrato`, `nombre`, `código`, `marc
 
 CREATE TABLE `asignar_repuestos` (
   `id` bigint(20) UNSIGNED NOT NULL,
+  `tipos_de_ascensors_id` bigint(20) UNSIGNED DEFAULT NULL,
   `nombre_del_tipo_de_ascensor` varchar(255) DEFAULT NULL,
   `reemplazo` varchar(255) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -84,8 +99,8 @@ CREATE TABLE `asignar_repuestos` (
 -- Dumping data for table `asignar_repuestos`
 --
 
-INSERT INTO `asignar_repuestos` (`id`, `nombre_del_tipo_de_ascensor`, `reemplazo`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'ererw', 'khhjk', '2024-04-30 23:05:23', '2024-04-30 23:05:23', NULL);
+INSERT INTO `asignar_repuestos` (`id`, `tipos_de_ascensors_id`, `nombre_del_tipo_de_ascensor`, `reemplazo`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 1, 'hello', 'FGDFGGD', '2024-07-04 00:48:14', '2024-07-04 00:48:14', NULL);
 
 -- --------------------------------------------------------
 
@@ -116,9 +131,16 @@ CREATE TABLE `clientes` (
 --
 
 INSERT INTO `clientes` (`id`, `nombre`, `tipo_de_cliente`, `ruc`, `país`, `provincia`, `dirección`, `teléfono`, `teléfono_móvil`, `correo_electrónico`, `nombre_del_contacto`, `posición`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'qwe', 'person1', 'fdsfd', 'perú', 'lima', 'fsdfsdf', '6756785686', '567867876867', 'admin@gmail.com', '7645654645', 'fggdfgdf', '2024-04-22 23:22:16', '2024-04-22 23:22:16', NULL),
-(2, 'isha12', 'person2', '12302121', 'chile', 'arequipa', 'vedroad gurukul 4564', '67567887878', '5678678768876', 'isha1@gmail.com', '764565465', 'laravel123', '2024-04-22 23:35:31', '2024-04-23 01:16:06', '2024-04-23 01:16:06'),
-(3, 'tyty', 'person2', '12305', 'perú', 'arequipa', 'fsdfsdf', '6756785686', '567867876867', 'fefsdfsd@gmail.com', '7645654645', 'fggdfgdf', '2024-04-23 03:41:00', '2024-04-23 03:41:00', NULL);
+(1, 'isha12', 'cilente1', '12302121123', 'perú', 'arequipa', 'fsdfsdf', '675678878', '675678878', 'admin@gmail.com', 'jghjghjgh', 'laravel', '2024-07-01 00:56:15', '2024-07-01 00:56:34', '2024-07-01 00:56:34'),
+(2, 'tyty', 'cilente1', '12302121123', 'perú', 'huanuco', 'fsdfsdf', '675678568', '567867876', 'admin@gmail.com', 'admin', 'xzczx', '2024-07-01 00:58:34', '2024-07-01 00:58:42', '2024-07-01 00:58:42'),
+(3, 'isha12', 'cilente1', '12302121123', 'perú', 'huanuco', 'fsdfsdf', '675678568', '567867876', 'admin@gmail.com', 'jghjghjgh', 'xzczx', '2024-07-01 01:00:56', '2024-07-01 01:01:04', '2024-07-01 01:01:04'),
+(4, 'isha12', 'cilente2', '12302121123', 'perú', 'arequipa', 'fsdfsdf', '675678878', '567867876', 'isha@gmail.com', 'jghjghjgh', 'laravel', '2024-07-01 01:04:03', '2024-07-31 06:01:00', '2024-07-31 06:01:00'),
+(5, 'tyty', 'cilente1', '12345645647', 'perú', 'arequipa', 'fsdfsdf', '675678568', '567867876', 'admin@gmail.com', 'gdfgdfgdf', 'sdsdsdsds', '2024-07-04 23:45:12', '2024-07-31 06:01:00', '2024-07-31 06:01:00'),
+(6, 'tyty', 'cilente3', '12302121123', 'perú', 'arequipa', 'fsdfsdf', '675678568', '675678568', 'admin@gmail.com', 'admin', 'sdsdsdsds', '2024-07-08 01:43:33', '2024-07-31 06:01:00', '2024-07-31 06:01:00'),
+(7, 'trt', 'cilente2', '46546556565', 'perú', 'arequipa', 'fdgdfg', '565654665', '565465464', 'gfdfg@gmail.com', 'fsdfsd', 'fsdfsd', '2024-07-16 00:06:09', '2024-07-31 06:01:00', '2024-07-31 06:01:00'),
+(8, 'hgfhfg', 'cilente1', '56564454534', 'perú', 'arequipa', 'fdgxfgfxg', '575656665', '576767676', 'hgfh@gmail.com', 'hgfhg', NULL, '2024-07-16 00:11:21', '2024-07-31 06:01:00', '2024-07-31 06:01:00'),
+(9, 'tyty', 'cilente2', '12345678997', 'perú', 'arequipa', 'fsdfsdf', '675678568', '567867876', 'admin@gmail.com', 'gdfgdfgdf', 'xzczx', '2024-07-31 06:14:21', '2024-07-31 06:14:21', NULL),
+(10, 'tyty', 'cilente1', '12302121124', 'perú', 'arequipa', 'fsdfsdf', '675678568', '567867876', 'admin@gmail.com', 'admin', 'laravel123', '2024-08-01 17:45:23', '2024-08-01 17:45:23', NULL);
 
 -- --------------------------------------------------------
 
@@ -149,13 +171,8 @@ CREATE TABLE `contratos` (
 --
 
 INSERT INTO `contratos` (`id`, `ascensor`, `fecha_de_propuesta`, `monto_de_propuesta`, `monto_de_contrato`, `fecha_de_inicio`, `fecha_de_fin`, `renovación`, `cada_cuantos_meses`, `observación`, `estado_cuenta_del_contrato`, `estado`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'fdgdg', '2024-05-01', '122', '122', '2024-05-01', '2024-05-01', 'on', 'yguy', 'ytuy', 'uytu', 'utyuy', '2024-05-01 05:21:10', '2024-05-01 05:43:19', '2024-05-01 05:43:19'),
-(2, 'idhdfh', '2024-05-01', '122', '122', '2024-05-02', '2024-05-10', 'on', 'hhfghfg', 'hfghfg', 'fghfg', 'hfgh', '2024-05-01 05:24:31', '2024-05-01 05:42:40', '2024-05-01 05:42:40'),
-(3, 'fdgdg', '2024-05-01', '122', '122', '2024-05-02', '2024-05-09', 'on', 'hhfghfg', 'hghg', 'fghg', 'inactiva', '2024-05-01 05:28:32', '2024-05-01 05:42:29', '2024-05-01 05:42:29'),
-(4, 'idhdfh', '2024-05-01', '122', '122', '2024-05-01', '2024-05-02', 'on', 'hhfghfg', 'hgh', 'fghfg', 'inactivo', '2024-05-01 05:43:41', '2024-05-01 05:43:41', NULL),
-(5, 'idhdfh', '2024-05-16', '122', '122', '2024-05-16', '2024-05-16', 'on', 'hhfghfg', 'ghj', 'hgjh', 'activo', '2024-05-01 05:45:33', '2024-05-01 05:45:33', NULL),
-(6, 'fdgg', '2024-05-03', '120', '120', '2024-05-03', '2024-05-03', 'on', '120', 'hjj', 'jhk', 'inactivo', '2024-05-01 05:48:34', '2024-05-01 05:48:34', NULL),
-(7, 'sdfsdf', '2024-05-05', '120', '128', '2024-05-05', '2024-05-05', 'on', 'ishaaa', 'ghfg', 'fghfg', 'activo', '2024-05-01 05:49:05', '2024-05-01 06:09:42', '2024-05-01 06:09:42');
+(1, 'tyty', '2024-07-17', '122', '122', '2024-07-18', '2024-07-18', 'on', '45', 'erwer', 'rwer', 'activo', '2024-07-17 01:58:12', '2024-07-17 01:58:12', NULL),
+(2, 'tyty', '2024-07-31', '98', '98', '2024-08-01', '2024-07-31', 'on', 'hhfghfg', 'wew', 'eqwe', 'inactivo', '2024-07-30 22:25:29', '2024-07-30 22:25:29', NULL);
 
 -- --------------------------------------------------------
 
@@ -167,6 +184,7 @@ CREATE TABLE `cronogramas` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `ascensor` varchar(255) DEFAULT NULL,
   `revisar` varchar(255) DEFAULT NULL,
+  `técnico` varchar(255) DEFAULT NULL,
   `mantenimiento` date DEFAULT NULL,
   `hora_de_inicio` varchar(255) DEFAULT NULL,
   `hora_de_finalización` varchar(255) DEFAULT NULL,
@@ -180,9 +198,30 @@ CREATE TABLE `cronogramas` (
 -- Dumping data for table `cronogramas`
 --
 
-INSERT INTO `cronogramas` (`id`, `ascensor`, `revisar`, `mantenimiento`, `hora_de_inicio`, `hora_de_finalización`, `estado`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'asdasd', 'isha12', '2024-04-29', '10:19', '16:59', 'no_activo', '2024-04-28 23:19:45', '2024-05-06 05:58:17', NULL),
-(2, 'fghfghgfhgf', 'isha12', '2024-04-27', '10:26', '00:24', 'activo', '2024-04-28 23:24:17', '2024-04-28 23:24:17', NULL);
+INSERT INTO `cronogramas` (`id`, `ascensor`, `revisar`, `técnico`, `mantenimiento`, `hora_de_inicio`, `hora_de_finalización`, `estado`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'tyty', 'jjljk', 'técnico_2', '2024-07-01', '10:51', '11:51', 'activo', '2024-07-07 23:51:59', '2024-07-17 01:01:23', NULL),
+(2, 'tyty', 'jjljk', 'técnico_1', '2024-07-02', '10:56', '11:56', 'activo', '2024-07-07 23:56:57', '2024-07-07 23:56:57', NULL),
+(3, 'tyty', 'drashttii', 'técnico_2', '2024-07-10', '11:22', '00:22', 'no_activo', '2024-07-08 00:22:38', '2024-07-08 00:22:38', NULL),
+(4, 'tyty', 'drashttii', 'técnico_3', '2024-07-13', '11:38', '01:38', 'no_activo', '2024-07-08 00:38:09', '2024-07-08 00:38:09', NULL),
+(5, 'tyty', 'drashttii', 'técnico_2', '2024-07-10', '11:41', '01:42', 'no_activo', '2024-07-08 00:42:29', '2024-07-08 00:42:29', NULL),
+(6, 'tyty', 'yuiyui', 'técnico_2', '2024-07-26', '16:40', '17:40', 'no_activo', '2024-07-08 05:41:01', '2024-07-08 05:41:01', NULL),
+(7, 'tyty', 'drashttii', 'técnico_1', '2024-07-22', '16:49', '18:49', 'no_activo', '2024-07-08 05:49:16', '2024-07-08 05:49:16', NULL),
+(8, 'tyty', 'jjljk', 'técnico_1', '2024-07-18', '16:51', '18:51', 'activo', '2024-07-08 05:51:52', '2024-07-08 05:51:52', NULL),
+(9, 'tyty', 'yuiyui', 'técnico_3', '2024-07-19', '16:58', '16:59', 'activo', '2024-07-08 05:58:16', '2024-07-08 05:58:16', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `customer_types`
+--
+
+CREATE TABLE `customer_types` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `tipo_de_client` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -203,6 +242,22 @@ CREATE TABLE `failed_jobs` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `image_pdfs`
+--
+
+CREATE TABLE `image_pdfs` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `document` varchar(255) DEFAULT NULL,
+  `mant_en_revisións_id` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `mant_en_revisións`
 --
 
@@ -212,8 +267,6 @@ CREATE TABLE `mant_en_revisións` (
   `ascensor` varchar(255) DEFAULT NULL,
   `dirección` varchar(255) DEFAULT NULL,
   `provincia` varchar(255) DEFAULT NULL,
-  `núm_certificado` varchar(255) DEFAULT NULL,
-  `máquina` varchar(255) DEFAULT NULL,
   `supervisor` varchar(255) DEFAULT NULL,
   `técnico` varchar(255) DEFAULT NULL,
   `mes_programado` varchar(255) DEFAULT NULL,
@@ -232,9 +285,44 @@ CREATE TABLE `mant_en_revisións` (
 -- Dumping data for table `mant_en_revisións`
 --
 
-INSERT INTO `mant_en_revisións` (`id`, `tipo_de_revisión`, `ascensor`, `dirección`, `provincia`, `núm_certificado`, `máquina`, `supervisor`, `técnico`, `mes_programado`, `fecha_de_mantenimiento`, `hora_inicio`, `hora_fin`, `observaciónes`, `observaciónes_internas`, `solución`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'isha12', 'asdasd', 'fsdfsdf', 'jjhkjh', '12', '12', 'supervisor_1', 'técnico_1', 'mes_programado_2', '2024-05-01', '14:27:00', '15:28:00', 'fghfg', 'fghh', 'fghg', '2024-05-01 03:28:52', '2024-05-01 03:28:52', NULL),
-(2, 'isha12', 'asdasd', 'fsdfsdf', 'jjhkjh', '12', '12', 'supervisor_1', 'técnico_1', 'mes_programado_2', '2024-05-01', '14:27:00', '15:28:00', 'fghfg', 'fghh', 'fghg', '2024-05-01 03:28:52', '2024-05-01 03:28:52', NULL);
+INSERT INTO `mant_en_revisións` (`id`, `tipo_de_revisión`, `ascensor`, `dirección`, `provincia`, `supervisor`, `técnico`, `mes_programado`, `fecha_de_mantenimiento`, `hora_inicio`, `hora_fin`, `observaciónes`, `observaciónes_internas`, `solución`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'drashttii', 'tyty', 'vedroad gurukul 4564 fdfsd', 'huanuco', 'supervisor_2', 'técnico_2', 'mes_programado_1', '2024-05-31', '09:42:00', '09:42:00', 'yiyuiyui', 'iyuu', 'iyui', '2024-05-30 04:20:55', '2024-07-02 23:34:29', NULL),
+(2, 'jjljk', 'tyty', 'Robert Robertson, 1234 NW Bobcat Lane, St. Robert, MO 65584-5678.', 'huanuco', 'supervisor_2', 'técnico_2', 'mes_programado_1', '2024-05-30', '15:48:00', '16:48:00', 'utyu', 'iuouio', 'uytu', '2024-05-30 04:48:10', '2024-07-04 23:47:20', NULL),
+(3, 'drashttii', 'asdasd', 'fsdfsdf', 'arequipa', 'supervisor_2', 'técnico_1', 'mes_programado_1', '2024-07-02', '11:08:00', '01:08:00', 'fgdf', 'dfg', 'dfgdf', '2024-07-02 00:08:29', '2024-07-02 04:13:13', '2024-07-02 04:13:13'),
+(4, 'isha12', 'asdasd', NULL, NULL, NULL, 'técnico_2', NULL, '2024-05-10', '10:09:00', '00:00:00', 'Ver observación', NULL, NULL, '2024-07-03 00:25:16', '2024-07-03 00:25:16', NULL),
+(5, 'drashttii', 'asdasd', NULL, NULL, NULL, 'técnico_2', NULL, '2024-05-10', '10:10:00', '11:10:00', 'Ver observación', NULL, NULL, '2024-07-03 00:25:16', '2024-07-03 00:25:16', NULL),
+(6, 'yuiyui', 'asdasd', NULL, NULL, NULL, 'técnico_1', NULL, '2024-05-24', '10:24:00', '11:24:00', 'Ver observación', NULL, NULL, '2024-07-03 00:25:16', '2024-07-03 00:25:16', NULL),
+(7, 'jjljk', 'tyty', 'fsdfsdf', 'arequipa', 'supervisor_2', 'técnico_1', 'mes_programado_2', '2024-07-10', '00:50:00', '02:50:00', 'grt', 'ter', 'ter', '2024-07-31 05:20:47', '2024-07-31 05:20:47', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `marcas`
+--
+
+CREATE TABLE `marcas` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `marca_nombre` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `marcas`
+--
+
+INSERT INTO `marcas` (`id`, `marca_nombre`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'ouio', '2024-07-05 00:37:37', '2024-07-05 00:37:37', NULL),
+(2, 'dasd', '2024-07-05 00:51:36', '2024-07-05 00:51:36', NULL),
+(3, 'dasd', '2024-07-05 00:51:38', '2024-07-05 00:51:38', NULL),
+(4, 'bnhfghgf', '2024-07-05 00:53:18', '2024-07-05 00:53:18', NULL),
+(5, 'dasdas', '2024-07-05 01:02:57', '2024-07-05 01:02:57', NULL),
+(6, 'dasdas', '2024-07-05 01:02:58', '2024-07-05 01:02:58', NULL),
+(7, 'dfgdfgdf', '2024-07-05 01:03:04', '2024-07-05 01:03:04', NULL),
+(8, 'ertert', '2024-07-05 03:30:24', '2024-07-05 03:30:24', NULL),
+(9, 'ertert', '2024-07-05 04:15:48', '2024-07-05 04:15:48', NULL),
+(10, 'iyuiyu', '2024-07-05 04:20:44', '2024-07-05 04:20:44', NULL);
 
 -- --------------------------------------------------------
 
@@ -272,7 +360,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (17, '2024_05_01_034222_create_asignar_repuestos_table', 12),
 (18, '2024_04_29_055632_create_mant_en_revisións_table', 13),
 (19, '2024_04_30_110633_create_contratos_table', 13),
-(20, '2024_05_01_061101_create_users_table', 14);
+(20, '2024_05_01_061101_create_users_table', 14),
+(21, '2024_07_04_083731_create_marcas_table', 15),
+(22, '2024_08_01_234705_create_customer_types_table', 16);
 
 -- --------------------------------------------------------
 
@@ -321,8 +411,11 @@ CREATE TABLE `personals` (
 --
 
 INSERT INTO `personals` (`id`, `personalfoto`, `nombre`, `posición`, `correo`, `teléfono`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, '1714370866.jpg', 'isha', 'posición_1', 'sdasd', '6756785686', '2024-04-29 00:37:46', '2024-04-29 01:29:26', NULL),
-(2, '1714450056.jpg', 'tyty', 'posición_2', 'tyty@gmail.com', '9876543211', '2024-04-29 22:37:36', '2024-04-29 22:37:36', NULL);
+(1, '1721114741.jpg', 'isha12', 'posición_1', 'sdasd@gmail.com', '6756785686', '2024-04-29 00:37:46', '2024-07-16 01:55:41', NULL),
+(2, '1714450056.jpg', 'tyty', 'posición_2', 'tyty@gmail.com', '9876543211', '2024-04-29 22:37:36', '2024-04-29 22:37:36', NULL),
+(3, '1716266348.jpg', 'tyrtyt', 'posición_1', 'sdasd@gmail.com', '6756785686', '2024-05-20 23:09:08', '2024-05-20 23:09:43', '2024-05-20 23:09:43'),
+(4, '1716284294.jpg', 'isha1', 'posición_1', 'isha@gmail.com', '67567856', '2024-05-21 04:07:53', '2024-07-01 01:07:31', '2024-07-01 01:07:31'),
+(5, '', 'tyty', 'posición_1', 'sdasd@gmail.com', '6756785686', '2024-07-02 00:34:42', '2024-07-02 00:34:47', '2024-07-02 00:34:47');
 
 -- --------------------------------------------------------
 
@@ -362,7 +455,20 @@ CREATE TABLE `provincias` (
 --
 
 INSERT INTO `provincias` (`id`, `provincia`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'jjhkjh', '2024-04-23 04:08:31', '2024-04-23 04:08:31', NULL);
+(1, 'apurimac', '2024-04-23 04:08:31', '2024-05-23 06:30:43', '2024-05-23 06:30:43'),
+(3, 'jjhkjh', '2024-05-20 22:42:06', '2024-05-20 22:42:10', '2024-05-20 22:42:10'),
+(4, 'fsdfsdf', '2024-05-21 22:15:23', '2024-05-22 01:00:55', '2024-05-22 01:00:55'),
+(5, 'ica', '2024-05-22 01:01:14', '2024-05-23 06:30:37', '2024-05-23 06:30:37'),
+(6, 'ancash', '2024-05-23 01:30:43', '2024-05-23 06:23:14', '2024-05-23 06:23:14'),
+(7, 'arequipa', '2024-05-23 06:31:10', '2024-07-05 06:43:07', NULL),
+(8, 'ayacucho', '2024-05-23 06:31:14', '2024-05-23 22:30:06', '2024-05-23 22:30:06'),
+(9, 'huancavelica', '2024-05-23 06:31:18', '2024-05-23 22:28:54', '2024-05-23 22:28:54'),
+(10, 'arequipa', '2024-05-23 22:30:12', '2024-07-31 06:01:00', '2024-07-31 06:01:00'),
+(11, 'huanuco', '2024-05-23 22:30:15', '2024-05-23 22:43:50', '2024-05-23 22:43:50'),
+(12, 'loreto', '2024-05-23 22:44:02', '2024-05-23 22:44:05', '2024-05-23 22:44:05'),
+(13, 'cajamarca', '2024-05-23 22:47:46', '2024-05-23 22:48:56', '2024-05-23 22:48:56'),
+(14, 'lima', '2024-05-23 22:47:51', '2024-05-23 22:49:09', '2024-05-23 22:49:09'),
+(15, 'callao', '2024-07-31 05:21:53', '2024-07-31 05:21:53', NULL);
 
 -- --------------------------------------------------------
 
@@ -392,7 +498,9 @@ CREATE TABLE `repuestos` (
 --
 
 INSERT INTO `repuestos` (`id`, `foto_de_repuesto`, `nombre`, `precio`, `descripción`, `frecuencia_de_limpieza`, `frecuencia_de_lubricación`, `frecuencia_de_ajuste`, `frecuencia_de_revisión`, `frecuencia_de_cambio`, `frecuencia_de_solicitud`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, '1714475237.jpg', 'khhjk', 'fdfgdf', 'jhkh', '13', '12', '18', '24', '12', '42', '2024-04-30 04:57:03', '2024-04-30 05:37:26', NULL);
+(1, '1721114227.png', 'FGDFGGD', '8978', 'jhkh', '1', '0', '0', '0', '1', '0', '2024-04-30 04:57:03', '2024-07-16 06:21:32', NULL),
+(2, '1719909783.jpg', 'isha12', '9887656544', 'bbgdf', '0', '1', '0', '0', '0', '0', '2024-05-22 05:26:10', '2024-07-16 06:21:13', NULL),
+(4, '1722403370.jpg', 'tyty', '8978', 'sdffsd', '12', '12', '18', '24', '12', '1', '2024-07-31 05:22:50', '2024-07-31 05:22:50', NULL);
 
 -- --------------------------------------------------------
 
@@ -413,9 +521,12 @@ CREATE TABLE `tipos_de_ascensors` (
 --
 
 INSERT INTO `tipos_de_ascensors` (`id`, `nombre_de_tipo_de_ascensor`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'xvzvzx', '2024-04-23 04:34:44', '2024-04-23 04:34:44', NULL),
-(2, 'fd', '2024-04-23 05:07:17', '2024-04-23 05:07:17', NULL),
-(3, 'isghaaaa', '2024-04-23 05:08:25', '2024-04-23 05:28:07', NULL);
+(1, 'hello', '2024-04-23 04:34:44', '2024-05-21 05:25:51', NULL),
+(2, 'fd', '2024-04-23 05:07:17', '2024-05-29 05:42:03', '2024-05-29 05:42:03'),
+(3, 'isghaaaa', '2024-04-23 05:08:25', '2024-05-29 05:38:07', '2024-05-29 05:38:07'),
+(4, 'yuiyu', '2024-05-29 05:42:30', '2024-07-02 03:26:22', '2024-07-02 03:26:22'),
+(5, 'iyuiyu', '2024-05-29 05:42:35', '2024-05-29 05:42:41', '2024-05-29 05:42:41'),
+(6, 'xvzvzx', '2024-07-04 00:28:33', '2024-07-04 00:28:33', NULL);
 
 -- --------------------------------------------------------
 
@@ -436,9 +547,11 @@ CREATE TABLE `tipos_revisión` (
 --
 
 INSERT INTO `tipos_revisión` (`id`, `nombre`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'isha12', '2024-04-24 03:56:29', '2024-04-24 03:56:29', NULL),
-(2, 'drashttii', '2024-04-24 03:58:15', '2024-04-24 03:58:15', NULL),
-(3, 'jensi', '2024-04-24 03:58:16', '2024-04-24 04:03:58', '2024-04-24 04:03:58');
+(1, 'jjljk', '2024-04-24 03:56:29', '2024-05-31 00:15:20', NULL),
+(2, 'drashttii', '2024-04-24 03:58:15', '2024-05-21 00:43:24', NULL),
+(3, 'jensi', '2024-04-24 03:58:16', '2024-04-24 04:03:58', '2024-04-24 04:03:58'),
+(4, 'yuiyui', '2024-05-21 00:44:12', '2024-05-21 00:44:12', NULL),
+(5, 'drashti', '2024-07-01 23:56:43', '2024-07-01 23:56:57', NULL);
 
 -- --------------------------------------------------------
 
@@ -453,7 +566,7 @@ CREATE TABLE `users` (
   `name` varchar(255) NOT NULL COMMENT 'nombre',
   `email` varchar(255) NOT NULL,
   `phone` varchar(255) NOT NULL COMMENT 'teléfono',
-  `employee` varchar(255) NOT NULL COMMENT 'empleado',
+  `employee` varchar(255) DEFAULT NULL COMMENT 'empleado',
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) NOT NULL COMMENT 'contraseña',
   `remember_token` varchar(100) DEFAULT NULL,
@@ -467,7 +580,12 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `image`, `username`, `name`, `email`, `phone`, `employee`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, '1714716082.jpg', 'drashtipatel', 'drashti', 'drashti.kalathiyainfotech@gmail.com', '9875654745', 'empleado_1', '2024-05-06 03:30:51', '$2y$10$osifzgu1HvNQhW5xQyUJaOzBxptiFLnN9vnNZo4Y5/zGAOxi2o4ji', 'qKxPawOKWRbKM5EZwcUhkIZp8jSkiSpNoKMlssz9', '2024-05-03 00:31:22', '2024-05-06 03:39:52', NULL);
+(1, '1720587709.png', 'drashtipatel', 'drashti', 'drashti.kalathiyainfotech@gmail.com', '9875654745', 'isha12', '2024-05-06 03:30:51', '$2y$10$8c5ZdmDbiOVizW2Sing8Zeieifq/TdDZYx72NqHK0H0fX.ubuHaj2', 'UHDfli2xqiDIHTgPcKwPW7fscHK9j9HFsvIei0EwN6Nz60Tv3iVSFRCZJmMF', '2024-05-03 00:31:22', '2024-07-09 23:31:49', NULL),
+(2, '1720158152.png', 'std1', 'Rolex', 'isha.kalathiyaiasasnfotech@gmail.com', '4546213221', 'isha12', NULL, '$2y$10$ljG4tGEe1bGebe8Xx/EwPeuQU4Zxwz1znUvDNUj2OQ/tB/408A5Qi', NULL, '2024-05-21 01:53:10', '2024-07-05 00:12:32', NULL),
+(3, '1716352037.jpg', 'parent9', 'fdgfd', 'gdfgf@gmail.com', '8776756464', 'empleado_2', NULL, '$2y$10$gTY40KDShBC92QR5SVMuhejvqAe7BROAYP7tmbX/QP8aE/n.Nsq3u', NULL, '2024-05-21 22:52:42', '2024-07-01 00:22:57', '2024-07-01 00:22:57'),
+(5, '1720677204.png', 'yuyt', 'uytu', 'uytuyt@gmail.com', '4546213221', 'isha12', NULL, '$2y$10$eG6wCcL0g3yF.snCao/91eqp4LFT1JsAGEhH7edTl.4mSZRbWu2cy', NULL, '2024-07-11 00:23:24', '2024-07-11 00:23:24', NULL),
+(6, '', 'erter', 'terter', 'tert@gmail.com', '4546213221', NULL, NULL, '$2y$10$1V1Zj4CBTk2aPN.Oceqa8OdCesaq9u1JHFaFkorKsBjZJDNTowKPO', NULL, '2024-07-16 03:05:34', '2024-07-16 03:05:34', NULL),
+(7, '', 'khjk', 'khjkjh', 'kjhz@gmail.com', '21311214', NULL, NULL, '$2y$10$y3EzSaSc/sFMiVz2iF5KtelU8YOwAtmOl1nROp.HXGt.8f7KVhU/q', NULL, '2024-07-16 03:09:39', '2024-07-16 03:09:39', NULL);
 
 -- --------------------------------------------------------
 
@@ -532,6 +650,12 @@ ALTER TABLE `cronogramas`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `customer_types`
+--
+ALTER TABLE `customer_types`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
@@ -539,9 +663,22 @@ ALTER TABLE `failed_jobs`
   ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
 
 --
+-- Indexes for table `image_pdfs`
+--
+ALTER TABLE `image_pdfs`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `image_pdfs_mant_en_revisións_id_foreign` (`mant_en_revisións_id`);
+
+--
 -- Indexes for table `mant_en_revisións`
 --
 ALTER TABLE `mant_en_revisións`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `marcas`
+--
+ALTER TABLE `marcas`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -621,7 +758,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT for table `ascensores`
 --
 ALTER TABLE `ascensores`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `asignar_repuestos`
@@ -633,19 +770,25 @@ ALTER TABLE `asignar_repuestos`
 -- AUTO_INCREMENT for table `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `contratos`
 --
 ALTER TABLE `contratos`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `cronogramas`
 --
 ALTER TABLE `cronogramas`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `customer_types`
+--
+ALTER TABLE `customer_types`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -654,22 +797,34 @@ ALTER TABLE `failed_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `image_pdfs`
+--
+ALTER TABLE `image_pdfs`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `mant_en_revisións`
 --
 ALTER TABLE `mant_en_revisións`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `marcas`
+--
+ALTER TABLE `marcas`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `personals`
 --
 ALTER TABLE `personals`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -681,37 +836,53 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `provincias`
 --
 ALTER TABLE `provincias`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `repuestos`
 --
 ALTER TABLE `repuestos`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tipos_de_ascensors`
 --
 ALTER TABLE `tipos_de_ascensors`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tipos_revisión`
 --
 ALTER TABLE `tipos_revisión`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `usuarios`
 --
 ALTER TABLE `usuarios`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `asignar_repuestos`
+--
+ALTER TABLE `asignar_repuestos`
+  ADD CONSTRAINT `fkey_tipo_de_id` FOREIGN KEY (`tipos_de_ascensors_id`) REFERENCES `tipos_de_ascensors` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `image_pdfs`
+--
+ALTER TABLE `image_pdfs`
+  ADD CONSTRAINT `image_pdfs_mant_en_revisións_id_foreign` FOREIGN KEY (`mant_en_revisións_id`) REFERENCES `mant_en_revisións` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

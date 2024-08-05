@@ -99,7 +99,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/mant/en/revisión/detalle/{id}/saveImage', [MaintInReviewController::class, 'saveImage']);
     Route::post('/mant/en/revisión/detalle/{id}/saveDocument', [MaintInReviewController::class, 'saveDocument']);
     Route::get('/document/{id}/delete', [MaintInReviewController::class, 'deleteDocument']);
-
+    Route::delete('/images/{id}', [MaintInReviewController::class, 'destroy'])->name('images.destroy');
 
     // Maintenance //
 

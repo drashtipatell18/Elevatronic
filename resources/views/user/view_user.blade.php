@@ -285,17 +285,14 @@
                                                     placeholder="Contraseña" autocomplete="new-password">
                                                 <div class="input-group-append">
                                                     <span class="input-group-text">
-                                                        <i class="fas fa-eye" id="togglePassword" style="cursor: pointer;"></i>
+                                                        <i class="fas fa-eye" id="togglePassword"
+                                                            style="cursor: pointer;"></i>
                                                     </span>
                                                 </div>
                                             </div>
-                                            @error('password')
-                                                <span class="invalid-feedback" style="color: red">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
@@ -583,13 +580,23 @@
 
             // Define the custom password validation method before initializing validation
             $.validator.addMethod("passwordFormat", function(value, element) {
-                    // Password must contain at least one uppercase letter, one special character, and be at least 8 characters long
                     return this.optional(element) || /^(?=.*[A-Z])(?=.*[@$!%*?&.,-_])[A-Za-z\d@$!%*?&.,-_]{8,}$/
-                        .test(
-                            value);
+                        .test(value);
                 },
                 "La contraseña debe tener al menos 8 caracteres, comenzar con una letra mayúscula y contener al menos un carácter especial."
-            );
+                );
+
+            // Real-time feedback for password field
+            $('#password').on('input', function() {
+                var password = $(this).val();
+                var icon = $('#passwordCheckIcon');
+
+                if (/^(?=.*[A-Z])(?=.*[@$!%*?&.,-_])[A-Za-z\d@$!%*?&.,-_]{8,}$/.test(password)) {
+                    icon.removeClass('fa-times').addClass('fa-check').css('color', 'green');
+                } else {
+                    icon.removeClass('fa-check').addClass('fa-times').css('color', 'red');
+                }
+            });
 
             // Initialize jQuery Validation plugin on the form
             $('#createuserform').validate({
@@ -720,19 +727,19 @@
         });
     </script>
 
-<script>
-    document.getElementById('togglePassword').addEventListener('click', function () {
-        var passwordField = document.getElementById('password');
-        var passwordFieldType = passwordField.getAttribute('type');
-        if (passwordFieldType === 'password') {
-            passwordField.setAttribute('type', 'text');
-            this.classList.remove('fa-eye');
-            this.classList.add('fa-eye-slash');
-        } else {
-            passwordField.setAttribute('type', 'password');
-            this.classList.remove('fa-eye-slash');
-            this.classList.add('fa-eye');
-        }
-    });
-</script>
+    <script>
+        document.getElementById('togglePassword').addEventListener('click', function() {
+            var passwordField = document.getElementById('password');
+            var passwordFieldType = passwordField.getAttribute('type');
+            if (passwordFieldType === 'password') {
+                passwordField.setAttribute('type', 'text');
+                this.classList.remove('fa-eye');
+                this.classList.add('fa-eye-slash');
+            } else {
+                passwordField.setAttribute('type', 'password');
+                this.classList.remove('fa-eye-slash');
+                this.classList.add('fa-eye');
+            }
+        });
+    </script>
 @endpush

@@ -6,12 +6,12 @@
                 <div class="col-xl-10 col-lg-10 col-md-8 col-sm-8 col-8 mb-4">
                     <div class="titulo">
                         <h4>{{ $sparepart->nombre }}</h4>
-                        <span>Repuestos >> CHAPA TRINCO</span>
+                        <span>Repuestos >> {{ $sparepart->nombre }}</span>
                     </div>
                 </div>
                 <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 col-4 d-flex align-items-center justify-content-end">
                     <div class="dropdown btn-new">
-                        <a class="btn-action dropdownMenuLink d-inline-block" href="#" role="button"
+                    <a class="btn-action dropdownMenuLink d-inline-block" href="#" role="button"
                             id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Acción <i class="fas fa-chevron-down"></i>
                         </a>

@@ -707,8 +707,14 @@
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
                                                                         <label for="estado">Estado</label>
-                                                                        <input type="text" placeholder="Activo"
-                                                                            name="estado" id="estado">
+                                                                        {{-- <input type="text" placeholder="Activo"
+                                                                            name="estado" id="estado"> --}}
+                                                                        <select class="custom-select form-control" name="estado" id="estado">
+                                                                            <option selected disabled>Seleccionar opción</option>
+                                                                            <option value="activo">Activo</option>
+                                                                            <option value="inactivo">Inactivo</option>
+                                                                        </select>
+
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -861,13 +867,19 @@
 
                                                                     <div class="col-md-12">
                                                                         <div class="form-group">
-                                                                            <label for="estado">Estado</label>
-                                                                            <input type="text" placeholder="Activo"
-                                                                                name="estado" id="estado"
-                                                                                class="form-control"
-                                                                                value="{{ old('estado', $contra->estado ?? '') }}">
+                                                                            <label for="Estado">Estado</label>
+                                                                            <select name="estado" id="estado" class="custom-select form-control">
+                                                                                <option value="" disabled>Seleccionar opción</option>
+                                                                                <option value="activo"
+                                                                                    {{ old('estado', isset($contra) && $contra->estado == 'activo' ? 'selected' : '') }}>
+                                                                                    Activo</option>
+                                                                                <option value="no_activo"
+                                                                                    {{ old('estado', isset($contra) && $contra->estado == 'inactivo' ? 'selected' : '') }}>
+                                                                                    Inactivo</option>
+                                                                            </select>
                                                                         </div>
                                                                     </div>
+
 
                                                                 </div>
                                                             </div>

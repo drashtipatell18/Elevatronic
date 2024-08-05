@@ -65,7 +65,8 @@
                                             <p class="mb-0">Archivos</p>
                                         </div>
                                         <div class="option">
-                                            <h4>{{ $maint_in_review->created_at->locale('es')->isoFormat('D MMMM YYYY, h:mm a') }}</h4>
+                                            <h4>{{ $maint_in_review->created_at->locale('es')->isoFormat('D MMMM YYYY, h:mm a') }}
+                                            </h4>
                                             <p class="mb-0">Fecha registro</p>
                                         </div>
                                     </div>
@@ -656,20 +657,20 @@ if(isset($id))
                                         @endforeach
                                     </select>
                                 </div> --}}
-                                
+
                                 <div class="form-group">
                                     <label for="técnico">Técnico</label>
-                                    <select class="custom-select" name="técnico" id="técnico">
+                                    <select class="custom-select" name="técnico" id="edit-técnico">
                                         <option value="">Seleccionar opción</option>
                                         @foreach ($personals as $personal)
                                             <option value="{{ $personal }}"
-                                                {{ (old('técnico') == $personal || (isset($maintInRev) && $maintInRev->técnico == $personal)) ? 'selected' : '' }}>
+                                                {{ old('técnico') == $personal || (isset($maintInRev) && $maintInRev->técnico == $personal) ? 'selected' : '' }}>
                                                 {{ $personal }}
                                             </option>
                                         @endforeach
                                     </select>
                                 </div>
-                                
+
 
                                 <div class="row">
                                     <div class="col-md-6">

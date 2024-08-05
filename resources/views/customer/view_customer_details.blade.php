@@ -41,8 +41,8 @@
             <div class="row">
                 <div class="col-xl-10 col-lg-10 col-md-8 col-sm-8 col-8 mb-4">
                     <div class="titulo">
-                        <h4>EDIFICIO DEL MARE</h4>
-                        <span>Clientes >> EDIFICIO DEL MARE</span>
+                        <h4>{{ $customer->nombre }}</h4>
+                        <span>Clientes >> {{ $customer->nombre }}</span>
                     </div>
                 </div>
                 <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 col-4 d-flex align-items-center justify-content-end">

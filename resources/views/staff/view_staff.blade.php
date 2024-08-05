@@ -35,6 +35,25 @@
         .select2-container--default .select2-selection--single .select2-selection__clear {
             display: none;
         }
+
+        #editimagenPrevioPersonal {
+            width: 200px;
+            height: 200px;
+            overflow: hidden;
+            /* Ensures that any overflowed part of the image is hidden */
+            display: flex;
+            align-items: center;
+            /* Centers the image vertically */
+            justify-content: center;
+            /* Centers the image horizontally */
+        }
+
+        #editimagenPrevioPersonal img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* Ensures that the image covers the container without distortion */
+        }
     </style>
     <div class="w-100 contenido">
         <div class="container-fluid container-mod">
@@ -332,13 +351,20 @@
                                     <div class="row">
                                         <div class="col-md-6 mb-3">
                                             <label>Foto de Personal</label>
-                                            <div id="editimagenPrevioPersonal">
+                                            {{-- <div id="editimagenPrevioPersonal">
                                                 @if ($staff->personalfoto)
                                                     <img src="{{ asset('images/' . ($staff->personalfoto ?? 'fondo.png')) }}"
                                                         width="200" id="editstaff-image" height="200"
                                                         alt="Staff Image">
                                                 @endif
+                                            </div> --}}
+                                            <div id="editimagenPrevioPersonal">
+                                                @if ($staff->personalfoto)
+                                                    <img src="{{ asset('images/' . ($staff->personalfoto ?? 'fondo.png')) }}"
+                                                        id="editstaff-image" alt="Staff Image">
+                                                @endif
                                             </div>
+
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             <div class="">

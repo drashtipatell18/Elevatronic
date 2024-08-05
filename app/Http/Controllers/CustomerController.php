@@ -11,6 +11,7 @@ class CustomerController extends Controller
 {
     public function customer(){
         $customers = Cliente::all();
+        // dd($customers);
         $provinces = Province::pluck('provincia', 'provincia');
         return view('customer.view_customer',compact('customers','provinces'));
     }
@@ -65,7 +66,10 @@ class CustomerController extends Controller
     }
 
     public function customerView(Request $request, $id){
-        $customer = Cliente::find($id);
+        $customer = Cliente::findOrFail($id);
+        if (!$customer) {
+            return response()->view('errors.client_not_found', [], 404);
+        }
         $provinces = Province::pluck('provincia', 'provincia');
         return view('customer.view_customer_details',compact('customer','provinces'));
 

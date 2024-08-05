@@ -125,9 +125,9 @@ class MaintInReviewController extends Controller
         $spareparts = SparePart::all();
         $provinces = Province::pluck('provincia', 'provincia');
         $personals = Staff::pluck('nombre', 'nombre');
-        $images = ImagePdfs::where('mant_en_revisións_id', $id)->whereNull('document')->get();
+        $main_image = ImagePdfs::where('mant_en_revisións_id', $id)->whereNull('document')->get();
         $documents = ImagePdfs::where('mant_en_revisións_id', $id)->whereNull('image')->get();
-        return view('Maint.view_maint_in_review_record', compact('spareparts','provinces','personals','maint_in_review','review_types','elevators', 'id', 'images', 'documents'));
+        return view('Maint.view_maint_in_review_record', compact('spareparts','provinces','personals','maint_in_review','review_types','elevators', 'id', 'main_image', 'documents'));
     }
 
     public function saveImage(Request $request, $id)

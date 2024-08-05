@@ -1,3 +1,6 @@
+@php
+    use App\Models\ImagePdfs;
+@endphp
 @extends('layouts.main')
 @section('content')
     <style>
@@ -57,11 +60,17 @@
                                             <p class="mb-0"># de certificado</p>
                                         </div>
                                         <div class="option">
-                                            <h4>2</h4>
+                                            <h4>@php
+                                                $images = ImagePdfs::whereNotNull('image')->where('mant_en_revisións_id', $maint_in_review->id)->get();
+                                                echo count($images);
+                                            @endphp</h4>
                                             <p class="mb-0">Imágenes</p>
                                         </div>
                                         <div class="option">
-                                            <h4>2</h4>
+                                            <h4>@php
+                                                $images = ImagePdfs::whereNotNull('document')->where('mant_en_revisións_id', $maint_in_review->id)->get();
+                                                echo count($images);
+                                            @endphp</h4>
                                             <p class="mb-0">Archivos</p>
                                         </div>
                                         <div class="option">
@@ -303,8 +312,8 @@
                                                         <img src="{{ asset('img/galery2.png') }} " alt="galeria">
                                                     </div>
                                                 </div> --}}
-                                                @if (isset($images) && !empty($images))
-                                                    @foreach ($images as $image)
+                                                @isset($main_image)
+                                                    @foreach ($main_image as $image)
                                                         <div class="col-md-6 mb-4">
                                                             <div class="img-container">
                                                                 <img src="{{ url('/images/' . $image->image) }} "
@@ -312,13 +321,13 @@
                                                             </div>
                                                         </div>
                                                     @endforeach
-                                                @endif
+                                                @endisset
                                             </div>
                                         </div>
                                         <input type="file" id="imageUpload" accept="image/*" multiple class="d-none">
                                         <button
                                             data-id="@php
-if(isset($id))
+                                            if(isset($id))
                                             {
                                                 echo $id;
                                             } @endphp"
@@ -342,7 +351,8 @@ if(isset($id))
                                             @if (isset($documents) && !empty($documents))
                                                 @foreach ($documents as $document)
                                                     <div class="file-entry">
-                                                        <span class="file-info">{{ $document->document }} (0.2 MB)</span>
+                                                        <span class="file-info">
+                                                            <a href="/documents/{{ $document->document }}" download="/documents/{{ $document->document }}">{{ $document->document }}</a> (0.2 MB)</span>
                                                         <button data-id="{{ $document->id }}" class="remove-file"><i
                                                                 class="fal fa-trash-alt"></i></button>
                                                     </div>

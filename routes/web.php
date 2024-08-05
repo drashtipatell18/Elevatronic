@@ -47,11 +47,12 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/clientes', [CustomerController::class, 'customer'])->name('customer');
     Route::post('/clientes/insertar',[CustomerController::class,'customerInsert'])->name('insert.customer');
+    Route::post('/tipodeclientes/insertar',[CustomerController::class,'insertCustomerType'])->name('insert.customertype');
     Route::get('/clientes/editar/{id}', [CustomerController::class, 'customerEdit'])->name('edit.customer');
     Route::get('/clientes/vista/{id}', [CustomerController::class, 'customerView'])->name('view.customer');
     Route::put('/clientes/actualizar/{id}', [CustomerController::class, 'customerUpdate'])->name('update.customer');
     Route::delete ('/clientes/destruir/{id}',[CustomerController::class,'customerDestroy'])->name('destroy.customer');
-
+    Route::get('/tipodecliente', [CustomerController::class, 'getCustomerTypes'])->name('customertype');
     // ElevatorType//
 
     Route::get('/tipos/de/ascensor', [ElevatortypesController::class, 'elevatortypes'])->name('elevatortypes');

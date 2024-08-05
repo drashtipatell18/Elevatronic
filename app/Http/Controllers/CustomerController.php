@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Cliente;
 use App\Models\Province;
+use App\Models\CustomerType;
 
 class CustomerController extends Controller
 {
@@ -48,6 +49,19 @@ class CustomerController extends Controller
         session()->flash('success', 'Cliente creado exitosamente!');
         return redirect()->route('customer');
 
+    }
+
+    public function insertCustomerType(Request $request)
+    {
+        CustomerType::create([
+            'tipo_de_client' => $request->input('tipo_de_client'),
+        ]);
+
+        return response()->json(['success' => 'CustomerType added successfully!']);
+    }
+
+    public function getCustomerTypes(){
+        return response()->json(CustomerType::all());
     }
 
     public function customerView(Request $request, $id){

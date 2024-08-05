@@ -382,14 +382,9 @@
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label for="tiposAscensor">Cantidad</label>
-                                                                    <select class="custom-select" name="cantidad"
+                                                                    <input type="number" placeholder="Cantidad"
+                                                                        class="form-control" name="cantidad"
                                                                         id="cantidad">
-                                                                        <option value="" class="d-none">Seleccionar
-                                                                        </option>
-                                                                        <option value="cantidad_1">Cantidad 1</option>
-                                                                        <option value="cantidad_2">Cantidad 2</option>
-                                                                        <option value="cantidad_3">Cantidad 3</option>
-                                                                    </select>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-12"></div>
@@ -717,20 +712,9 @@
                                                                 <div class="col-md-6">
                                                                     <div class="form-group">
                                                                         <label for="tiposAscensor">Cantidad</label>
-                                                                        <select class="custom-select" name="cantidad"
-                                                                            id="edit-cantidad">
-                                                                            <option value="">
-                                                                                Seleccionar</option>
-                                                                            <option value="cantidad_1"
-                                                                                {{ old('cantidad', $elevator->cantidad ?? '') == 'cantidad_1' ? 'selected' : '' }}>
-                                                                                Cantidad 1</option>
-                                                                            <option value="cantidad_2"
-                                                                                {{ old('cantidad', $elevator->cantidad ?? '') == 'cantidad_2' ? 'selected' : '' }}>
-                                                                                Cantidad 2</option>
-                                                                            <option value="cantidad_3"
-                                                                                {{ old('cantidad', $elevator->cantidad ?? '') == 'cantidad_3' ? 'selected' : '' }}>
-                                                                                Cantidad 3</option>
-                                                                        </select>
+                                                                        <input type="number" placeholder="Cantidad"
+                                                                            class="form-control" name="cantidad"
+                                                                            id="edit-cantidad" value="">
                                                                     </div>
                                                                 </div>
 
@@ -972,7 +956,7 @@
             var table = $('#ascensores').DataTable({
                 responsive: true,
                 dom: 'tp',
-                pageLength: 8, // Establece el número de registros por página a 8
+                pageLength: 20, // Establece el número de registros por página a 8
                 language: {
                     "decimal": "",
                     "emptyTable": "No hay información",
@@ -1138,6 +1122,9 @@
                 teléfono: {
                     digits: true
                 },
+                cantidad: {
+                    digits: true
+                },
                 correo: {
                     email: true
                 },
@@ -1170,6 +1157,9 @@
                 },
                 teléfono: {
                     digits: "Por favor, ingrese solo dígitos para el número de teléfono."
+                },
+                cantidad: {
+                    digits: "Por favor, ingrese solo dígitos para el número de cantidad."
                 },
                 correo: {
                     email: "Por favor, ingrese una dirección de correo electrónico válida."

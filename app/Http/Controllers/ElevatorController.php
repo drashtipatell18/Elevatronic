@@ -16,13 +16,14 @@ use App\Models\Staff;
 
 class ElevatorController extends Controller
 {
-    public function elevator(){
+    public function elevator()
+    {
         $elevators = Elevators::all();
-        $customers = Cliente::pluck('nombre','nombre');
-        $provinces = Province::pluck('provincia','provincia');
-        $elevatortypes = Elevatortypes::pluck('nombre_de_tipo_de_ascensor','nombre_de_tipo_de_ascensor');
-        $staffs = Staff::pluck('nombre','nombre');
-        return view('elevator.view_elevator',compact('elevators','customers','provinces','elevatortypes','staffs'));
+        $customers = Cliente::pluck('nombre', 'nombre');
+        $provinces = Province::pluck('provincia', 'provincia');
+        $elevatortypes = Elevatortypes::pluck('nombre_de_tipo_de_ascensor', 'nombre_de_tipo_de_ascensor');
+        $staffs = Staff::pluck('nombre', 'nombre');
+        return view('elevator.view_elevator', compact('elevators', 'customers', 'provinces', 'elevatortypes', 'staffs'));
     }
 
     public function getBrands()
@@ -41,7 +42,7 @@ class ElevatorController extends Controller
     public function elevatorInsert(Request $request)
     {
         $filename = '';
-        if ($request->hasFile('imagen')){
+        if ($request->hasFile('imagen')) {
             $image = $request->file('imagen');
             $filename = time() . '.' . $image->getClientOriginalExtension();
             $image->move('images', $filename);
@@ -83,42 +84,21 @@ class ElevatorController extends Controller
         // Redirect back with success message
         session()->flash('success', 'Ascensores creado exitosamente!');
         return redirect()->route('elevator');
-
     }
 
-    public function elevatorEdit($id){
+    public function elevatorEdit($id)
+    {
         $elevator = Elevators::findOrFail($id);
-        return view('elevator.view_elevator',compact('elevator'));
+        return view('elevator.view_elevator', compact('elevator'));
     }
 
 
-    public function elevatorUpdate(Request $request,$id){
-        // dd($request->all());
-        // $validatedData = $request->validate([
-        //     'contrato' => 'required',
-        //     'nombre' => 'required',
-        //     'código' => 'required',
-        //     'marca' => 'required',
-        //     'cliente' => 'required',
-        //     'fecha' => 'required',
-        //     'garantizar' => 'required',
-        //     'dirección' => 'required',
-        //     'ubigeo' => 'required',
-        //     'provincia' => 'required',
-        //     'técnico_instalador' => 'required',
-        //     'técnico_ajustador' => 'required',
-        //     'tipo_de_ascensor' => 'required',
-        //     'cantidad' => 'required',
-        //     'quarters' => 'required',
-        //     'npisos' => 'required',
-        //     'ncontacto' => 'required',
-        //     'teléfono' => 'required',
-        //     'correo' => 'required',
-        // ]);
+    public function elevatorUpdate(Request $request, $id)
+    {
 
         $elevator = Elevators::findOrFail($id);
 
-        if ($request->hasFile('imagen')){
+        if ($request->hasFile('imagen')) {
             $image = $request->file('imagen');
             $filename = time() . '.' . $image->getClientOriginalExtension();
             $image->move('images', $filename);
@@ -131,6 +111,7 @@ class ElevatorController extends Controller
         } else {
             $quarters = $request->input('quarters');
         }
+        $oldElevatorName = $elevator->nombre;
 
         //  update Elevators instance
         $elevator->update([
@@ -156,28 +137,33 @@ class ElevatorController extends Controller
             'descripcion1'        => $request->input('descripcion1'),
             'descripcion2'        => $request->input('descripcion2'),
         ]);
+        Contract::where('ascensor', $oldElevatorName)
+            ->update(['ascensor' => $request->input('nombre')]);
+        MaintInReview::where('ascensor', $oldElevatorName)
+            ->update(['ascensor' => $request->input('nombre')]);
 
         // Redirect back with success message
         session()->flash('success', 'Ascensores actualizado exitosamente!');
         return redirect()->route('elevator');
-
     }
 
-    public function elevatorView(Request $request, $id){
+    public function elevatorView(Request $request, $id)
+    {
         $elevators = Elevators::find($id);
-        $contracts = Contract::all();
+        $contracts = Contract::where('ascensor', $elevators->nombre)->get();
         $spareparts = SparePart::all();
-        $customers = Cliente::pluck('nombre','nombre');
-        $provinces = Province::pluck('provincia','provincia');
-        $maint_in_reviews = MaintInReview::all();
-        $elevatornumber = Elevators::pluck('nombre','nombre');
-        $review_types  = ReviewType::pluck('nombre','nombre');
-        $elevatortypes = Elevatortypes::pluck('nombre_de_tipo_de_ascensor','nombre_de_tipo_de_ascensor');
-        $staffs = Staff::pluck('nombre','nombre');
-        return view('elevator.view_elevator_details',compact('elevatortypes','staffs','elevators','elevatornumber','review_types', 'maint_in_reviews','spareparts','customers','provinces','contracts'));
+        $customers = Cliente::pluck('nombre', 'nombre');
+        $provinces = Province::pluck('provincia', 'provincia');
+        $maint_in_reviews = MaintInReview::where('ascensor', $elevators->nombre)->get();
+        $elevatornumber = Elevators::pluck('nombre', 'nombre');
+        $review_types  = ReviewType::pluck('nombre', 'nombre');
+        $elevatortypes = Elevatortypes::pluck('nombre_de_tipo_de_ascensor', 'nombre_de_tipo_de_ascensor');
+        $staffs = Staff::pluck('nombre', 'nombre');
+        return view('elevator.view_elevator_details', compact('elevatortypes', 'staffs', 'elevators', 'elevatornumber', 'review_types', 'maint_in_reviews', 'spareparts', 'customers', 'provinces', 'contracts'));
     }
 
-    public function contractInsert(Request $request){
+    public function contractInsert(Request $request)
+    {
         $validatedData = $request->validate([
             'ascensor' => 'required',
             'fecha_de_propuesta' => 'required',
@@ -209,10 +195,10 @@ class ElevatorController extends Controller
         // Redirect back with success message
         session()->flash('success', 'creado Contract exitosamente!');
         return redirect()->route('elevator');
-
     }
 
-    public function contractUpdate(Request $request,$id){
+    public function contractUpdate(Request $request, $id)
+    {
         $validatedData = $request->validate([
             'ascensor' => 'required',
             'fecha_de_propuesta' => 'required',
@@ -244,10 +230,10 @@ class ElevatorController extends Controller
 
         session()->flash('success', 'Contract actualizado exitosamente!');
         return redirect()->route('elevator');
-
     }
 
-    public function contractDestroy($id){
+    public function contractDestroy($id)
+    {
         $contract = Contract::find($id);
         $contract->delete();
         session()->flash('danger', 'Contract eliminado exitosamente!');
@@ -255,16 +241,17 @@ class ElevatorController extends Controller
     }
 
 
-    public function elevatorDestroy($id){
+    public function elevatorDestroy($id)
+    {
         $elevator = Elevators::find($id);
         $elevator->delete();
         session()->flash('danger', 'Ascensores eliminar exitosamente!');
         return redirect()->route('elevator');
     }
 
-    public function getContract($id){
+    public function getContract($id)
+    {
         $contracts = Contract::find($id);
         return response()->json($contracts);
     }
-
 }

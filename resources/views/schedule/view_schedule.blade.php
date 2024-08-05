@@ -45,11 +45,6 @@
                                 </div>
                             </div>
                             <div class="col-md-3"></div>
-                            <div class="col-md-6 mb-3 text-right">
-                                <input type="file" id="fileInput" style="display: none;">
-                                <button id="cargarArchivo" class="btn-gris"><i class="fas fa-upload"></i> Cargar
-                                    cronograma</button>
-                            </div>
                             <div class="col-md-12">
                                 <div id='calendar'></div>
                             </div>

@@ -7,6 +7,9 @@ use App\Models\Province;
 use App\Models\SparePart;
 use App\Models\Cliente;
 use Illuminate\Support\Facades\DB;
+use App\Models\Elevators;
+use App\Models\Staff;
+use App\Models\Elevatortypes\Elevatortypes;
 
 class ProvinceController extends Controller
 {
@@ -36,11 +39,23 @@ class ProvinceController extends Controller
         return view('provice.view_provice',compact('province'));
     }
 
-    public function provinceView($id){
+    public function provinceView(Request $request, $id)
+    {
         $province = Province::findOrFail($id);
+        // echo '<pre>';
+        // print_r($province);
+        // echo '</pre>';
+        $customers = Cliente::pluck('nombre','nombre');
+        $staffs = Staff::pluck('nombre','nombre');
+        $elevatortypes = Elevatortypes::pluck('nombre_de_tipo_de_ascensor','nombre_de_tipo_de_ascensor');
+        $elevators = Elevators::where('provincia', $province->provincia)->get();
+        // echo '<pre>';
+        // print_r($elevators);
+        // echo '</pre>';exit;
         $spareparts = SparePart::all();
-        return view('province.view_province_details',compact('province','spareparts'));
+        return view('province.view_province_details', compact('province','staffs', 'customers', 'elevators', 'elevatortypes','spareparts'));
     }
+    
 
     public function provinceUpdate(Request $request,$id){
         $validatedData = $request->validate([

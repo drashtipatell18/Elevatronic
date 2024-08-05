@@ -44,7 +44,8 @@
                                             <p class="mb-0">ID elemento</p>
                                         </div>
                                         <div class="option">
-                                            <h4>{{ $province->created_at->locale('es')->isoFormat('D MMMM YYYY, h:mm a') }}</h4>
+                                            <h4>{{ $province->created_at->locale('es')->isoFormat('D MMMM YYYY, h:mm a') }}
+                                            </h4>
                                             <p class="mb-0">Fecha registro</p>
                                         </div>
                                     </div>
@@ -105,39 +106,34 @@
                                         <table id="repuestosAsignados" class="table" style="width:100%">
                                             <thead>
                                                 <tr>
-                                                    <th>FOTO</th>
                                                     <th>ID</th>
+                                                    <th>FECHA ENTREGA</th>
+                                                    <th>TIPO DE ASCENSOR</th>
                                                     <th>NOMBRE</th>
-                                                    <th>PRECIO</th>
-                                                    <th>LIMPIEZA</th>
-                                                    <th>LUBRICACIÓN</th>
-                                                    <th>AJUSTE</th>
-                                                    <th>REVISIÓN</th>
-                                                    <th>CAMBIO</th>
-                                                    <th>SOLICITUD</th>
+                                                    <th>CLIENTE</th>
+                                                    <th>PROVINCIA</th>
                                                     <th align="right" class="text-right">ACCIONES</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($spareparts as $index => $sparepart)
-                                                    <tr class="">
-                                                        <td><img src="{{ asset('images/' . $sparepart->foto_de_repuesto) }}"
-                                                                alt="personal" width="52" height="52"
-                                                                class="img-table"></td>
+                                                @foreach ($elevators as $index => $elevator)
+                                                    <tr class="td-head-center">
                                                         <td>{{ $index + 1 }}</td>
+                                                        <td>{{ $elevator->fecha }}</td>
+                                                        <td>{{ $elevator->tipo_de_ascensor }}</td>
                                                         <td>
-                                                            <a href="{{ route('view.sparepart', $sparepart->id) }}"
+                                                            <a href="{{ route('view.elevator', $elevator->id) }}"
                                                                 class="text-blue">
-                                                                {{ $sparepart->nombre }}
+                                                                {{ $elevator->nombre }}
                                                             </a>
                                                         </td>
-                                                        <td>{{ $sparepart->precio }}</td>
-                                                        <td>{{ $sparepart->frecuencia_de_limpieza }}</td>
-                                                        <td>{{ $sparepart->frecuencia_de_lubricación }}</td>
-                                                        <td>{{ $sparepart->frecuencia_de_ajuste }}</td>
-                                                        <td>{{ $sparepart->frecuencia_de_revisión }}</td>
-                                                        <td>{{ $sparepart->frecuencia_de_cambio }}</td>
-                                                        <td>{{ $sparepart->frecuencia_de_solicitud }}</td>
+                                                        <td>
+                                                            <a href="{{ route('view.customer', $elevator->id) }}"
+                                                                class="text-blue">
+                                                                {{ $elevator->cliente }}
+                                                            </a>
+                                                        </td>
+                                                        <td>{{ $elevator->provincia }}</td>
                                                         <td align="right">
                                                             <div class="dropdown">
                                                                 <button type="button" class="btn-action dropdown-toggle"
@@ -146,23 +142,23 @@
                                                                 </button>
                                                                 <div class="dropdown-menu dropdown-menu-right">
                                                                     <a class="dropdown-item"
-                                                                        href="{{ route('view.sparepart', $sparepart->id) }}">Ver
+                                                                        href="{{ route('view.elevator', $elevator->id) }}">Ver
                                                                         detalles</a>
-                                                                    <a class="dropdown-item edit-sparepart" href="#"
-                                                                        data-sparepart="{{ json_encode($sparepart) }}"
+                                                                    <a class="dropdown-item edit-elevator" href="#"
+                                                                        data-elevator="{{ json_encode($elevator) }}"
                                                                         data-toggle="modal"
-                                                                        data-target="#editorRepuesto">Editar</a>
-                                                                    <a class="dropdown-item" href="javascript:void(0)"
+                                                                        data-target="#editarAscensor">Editar</a>
+                                                                    <a class="dropdown-item"
+                                                                        href="{{ route('destroy.elevator', $elevator->id) }}"
                                                                         data-toggle="modal"
-                                                                        data-target="#modalEliminar{{ $sparepart->id }}">Eliminar</a>
+                                                                        data-target="#modalEliminar{{ $elevator->id }}">Eliminar</a>
                                                                 </div>
                                                             </div>
                                                         </td>
                                                     </tr>
 
-
                                                     <!-- Modal Eliminar-->
-                                                    <div class="modal fade" id="modalEliminar{{ $sparepart->id }}"
+                                                    <div class="modal fade" id="modalEliminar{{ $elevator->id }}"
                                                         tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
                                                         aria-hidden="true">
                                                         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -187,18 +183,18 @@
                                                                 </div>
                                                                 <div
                                                                     class="modal-footer align-items-center justify-content-center">
-                                                                    @isset($sparepart)
+                                                                    @isset($elevator)
                                                                         <form id="delete-form"
-                                                                            action="{{ route('destroy.sparepart', $sparepart->id) }}"
+                                                                            action="{{ route('destroy.elevator', $elevator->id) }}"
                                                                             method="POST">
                                                                             @csrf
                                                                             @method('DELETE')
                                                                             <button type="submit"
                                                                                 class="btn-gris btn-red">Sí</button>
-                                                                            <button type="button" class="btn-gris btn-border"
-                                                                                data-dismiss="modal">No</button>
                                                                         </form>
                                                                     @endisset
+                                                                    <button type="button" class="btn-gris btn-border"
+                                                                        data-dismiss="modal">No</button>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -367,175 +363,329 @@
                     </div>
                 </div>
 
-                <!-- Modal Editor Repuesto-->
-                <div class="modal left fade" id="editorRepuesto" tabindex="-1" role="dialog"
+                <!-- Modal actualizar Ascensor-->
+                <div class="modal left fade" id="editarAscensor" tabindex="-1" role="dialog"
                     aria-labelledby="modelTitleId" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title font-family-Outfit-SemiBold">Editar
-                                    Repuesto</h5>
+                                    Ascensor</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">×</span>
                                 </button>
                             </div>
-                            @isset($sparepart)
-                                <form action="{{ route('update.sparepart', $sparepart->id) }}" method="POST"
-                                    class="formulario-modal" enctype="multipart/form-data" id="editsparepart">
+                            @isset($elevator)
+                                <form action="{{ route('update.elevator', $elevator->id) }}" class="formulario-modal"
+                                    enctype="multipart/form-data" method="POST" id="editelevatform">
                                     @csrf
                                     <div class="modal-body body_modal">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="row">
                                                     <div class="col-md-6 mb-3">
-                                                        <label>Foto de repuesto</label>
-                                                        <div id="editimagenPrevio">
-                                                            @if ($sparepart->foto_de_repuesto)
-                                                                <img src="{{ asset('images/' . $sparepart->foto_de_repuesto) }}"
-                                                                    width="200" height="200" alt="Existing Image">
+                                                        <label>Foto de Ascensor</label>
+                                                        <div id="editimagePreview">
+                                                            @if ($elevator->imagen)
+                                                                <img src="{{ asset('images/' . $elevator->imagen) }}"
+                                                                    alt="Existing Image" width="200px" height="200px">
                                                             @endif
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-6 mb-3">
+                                                    <div
+                                                        class="align-items-start col-md-6 d-flex flex-column justify-content-between mb-3">
                                                         <div class="">
-                                                            <label for="editimageUpload1" class="text-gris mt-4">Seleccione
+                                                            <label for="imageUpload" class="text-gris mt-4">Seleccione
                                                                 una
                                                                 imagen</label>
-                                                            <input type="file" id="editimageUpload1"
-                                                                name="foto_de_repuesto" style="display: none;"
-                                                                accept="image/*" />
-                                                            <button type="button" id="editcargarimagen" class="btn-gris">
+                                                            <input type="file" id="editimageUpload" name="imagen"
+                                                                style="display: none;" accept="image/*" />
+                                                            <button type="button" id="edituploadButton" class="btn-gris">
                                                                 <i class="fas fa-arrow-to-top mr-2"></i>Subir
                                                                 Imagen
+                                                            </button>
+                                                        </div>
+                                                        <div class="form-group mb-0">
+                                                            <label for="contrato"># de
+                                                                contrato</label>
+                                                            <input type="text" placeholder="# de contrato" name="contrato"
+                                                                id="edit-contrato" class="form-control" value="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label for="nombre">Nombre
+                                                                ascensor</label>
+                                                            <input type="text" placeholder="Nombre ascensor"
+                                                                name="nombre" id="edit-nombre" class="form-control"
+                                                                value="">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="código">Código</label>
+                                                            <input type="text" placeholder="Código" name="código"
+                                                                id="edit-código" class="form-control" value="">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="marca">Marca</label>
+                                                            <select class="custom-select form-control marcaItems"
+                                                                name="marca" id="marca1">
+                                                                <option value="" class="d-none">Seleccionar
+                                                                    opción
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="text-right w-100">
+                                                        <div class="form-group">
+                                                            <button type="button" data-toggle="modal"
+                                                                data-target="#crearMarcas" class="btn-gris brandbtn"
+                                                                id="toggleMarcaInput">
+                                                                + Agregar marca
                                                             </button>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-12">
                                                         <div class="form-group">
-                                                            <label for="NombreRepuesto">Nombre</label>
-                                                            <input type="text" placeholder="Nombre"
-                                                                class="form-control @error('nombre') is-invalid @enderror"
-                                                                value="" name="nombre" id="edit-nombre">
-                                                            @error('nombre')
-                                                                <span class="invalid-feedback" style="color: red">
-                                                                    <strong>{{ $message }}</strong>
-                                                                </span>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-12">
-                                                        <div class="form-group">
-                                                            <label for="precioRepuesto">Precio</label>
-                                                            <input type="text" placeholder="Precio"
-                                                                class="form-control @error('precio') is-invalid @enderror"
-                                                                value="" name="precio" id="edit-precio">
-                                                            @error('precio')
-                                                                <span class="invalid-feedback" style="color: red">
-                                                                    <strong>{{ $message }}</strong>
-                                                                </span>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-md-12">
-                                                        <div class="form-group">
-                                                            <label for="DescripcionRepuesto">Descripción</label>
-                                                            <textarea name="descripción" id="edit-descripción" placeholder="Descripción" cols="30" rows="5">{{ old('descripción', $sparepart->descripción ?? '') }}</textarea>
-                                                            @error('descripción')
-                                                                <span class="invalid-feedback" style="color: red">
-                                                                    <strong>{{ $message }}</strong>
-                                                                </span>
-                                                            @enderror
+                                                            <label for="clienteAscensor">Cliente
+                                                                del
+                                                                ascensor</label>
+                                                            <select class="custom-select form-control" name="cliente"
+                                                                id="edit-cliente">
+                                                                <option value="" disabled>
+                                                                    Seleccionar opción
+                                                                </option>
+                                                                @foreach ($customers as $key => $value)
+                                                                    <option value="{{ $key }}"
+                                                                        {{ old('cliente', $elevator->cliente ?? '') == $key ? 'selected' : '' }}>
+                                                                        {{ $value }}
+                                                                    </option>
+                                                                @endforeach
+                                                            </select>
                                                         </div>
                                                     </div>
 
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="Flimpieza">Frecuencia de
-                                                                limpieza (días)</label>
-                                                            <input type="number" placeholder="Frecuencia de limpieza (días)"
-                                                                name="frecuencia_de_limpieza" id="edit-frecuencia_de_limpieza"
-                                                                class="form-control @error('frecuencia_de_limpieza') is-invalid @enderror"
+                                                            <label for="fechaEntrega">Fecha de
+                                                                entrega</label>
+                                                            <input type="date" placeholder="dd/mm/aaaa"
+                                                                class="form-control" name="fecha" id="edit-fecha"
                                                                 value="">
-                                                            @error('frecuencia_de_limpieza')
-                                                                <span class="invalid-feedback" style="color: red">
-                                                                    <strong>{{ $message }}</strong>
-                                                                </span>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="Flubricacion">Frecuencia de
-                                                                lubricación (días)</label>
-                                                            <input type="number"
-                                                                placeholder="Frecuencia de lubricación (días)"
-                                                                name="frecuencia_de_lubricación"
-                                                                id="edit-frecuencia_de_lubricación"
-                                                                class="form-control @error('frecuencia_de_lubricación') is-invalid @enderror"
-                                                                value="{{ old('frecuencia_de_lubricación', $sparepart->frecuencia_de_lubricación ?? '') }}">
-                                                            @error('frecuencia_de_lubricación')
-                                                                <span class="invalid-feedback" style="color: red">
-                                                                    <strong>{{ $message }}</strong>
-                                                                </span>
-                                                            @enderror
                                                         </div>
                                                     </div>
 
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="FAjustes">Frecuencia de
-                                                                ajuste (días)</label>
-                                                            <input type="number" placeholder="Frecuencia de ajuste (días)"
-                                                                name="frecuencia_de_ajuste" id="edit-frecuencia_de_ajuste"
-                                                                class="form-control @error('frecuencia_de_ajuste') is-invalid @enderror"
-                                                                value="{{ old('frecuencia_de_ajuste', $sparepart->frecuencia_de_ajuste ?? '') }}">
-                                                            @error('frecuencia_de_ajuste')
-                                                                <span class="invalid-feedback" style="color: red">
-                                                                    <strong>{{ $message }}</strong>
-                                                                </span>
-                                                            @enderror
+                                                            <label for="garantia">Garantía</label>
+                                                            <input type="text" placeholder="Garantizar"
+                                                                class="form-control" name="garantizar" id="edit-garantizar"
+                                                                value="">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label for="dirección">Dirección</label>
+                                                            <input type="text" placeholder="Dirección"
+                                                                class="form-control" name="dirección" id="edit-dirección"
+                                                                value="">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="ubigeo">Ubigeo</label>
+                                                            <input type="text" placeholder="Ubigeo" class="form-control"
+                                                                name="ubigeo" id="edit-ubigeo" value="">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="provincia">Provincia</label>
+                                                            <select class="custom-select form-control" name="provincia"
+                                                                id="edit-provincia">
+                                                                <option value="">Seleccionar opción</option>
+                                                                @foreach ($province as $provinc)
+                                                                    <option value="{{ $provinc }}"
+                                                                        {{ $elevator->provincia == $provinc ? 'selected' : '' }}>
+                                                                        {{ $provinc }}
+                                                                    </option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label for="tecnicoInstalador">Técnico
+                                                                instalador</label>
+                                                            <select class="custom-select form-control"
+                                                                name="técnico_instalador" id="edit-técnico_instalador">
+                                                                <option value="">Seleccionar opción</option>
+                                                                @foreach ($staffs as $staff)
+                                                                    <option value="{{ $staff }}"
+                                                                        {{ $elevator->técnico_instalador == $staff ? 'selected' : '' }}>
+                                                                        {{ $staff }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label for="técnico_ajustador">Técnico
+                                                                ajustador</label>
+                                                            <select class="custom-select form-control"
+                                                                name="técnico_ajustador" id="edit-técnico_ajustador">
+                                                                <option value="">Seleccionar opción</option>
+                                                                @foreach ($staffs as $staff)
+                                                                    <option value="{{ $staff }}"
+                                                                        {{ $elevator->técnico_ajustador == $staff ? 'selected' : '' }}>
+                                                                        {{ $staff }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label for="tipo_de_ascensor">Tipo de ascensor</label>
+                                                            <select class="custom-select form-control" name="tipo_de_ascensor"
+                                                                id="edit-tipo_de_ascensor">
+                                                                <option value="">Seleccionar opción</option>
+                                                                @foreach ($elevatortypes as $elevatortype)
+                                                                    <option value="{{ $elevatortype }}"
+                                                                        {{ $elevator->tipo_de_ascensor == $elevatortype ? 'selected' : '' }}>
+                                                                        {{ $elevatortype }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="tiposAscensor">Cantidad</label>
+                                                            <select class="custom-select" name="cantidad" id="edit-cantidad">
+                                                                <option value="">
+                                                                    Seleccionar</option>
+                                                                <option value="cantidad_1"
+                                                                    {{ old('cantidad', $elevator->cantidad ?? '') == 'cantidad_1' ? 'selected' : '' }}>
+                                                                    Cantidad 1</option>
+                                                                <option value="cantidad_2"
+                                                                    {{ old('cantidad', $elevator->cantidad ?? '') == 'cantidad_2' ? 'selected' : '' }}>
+                                                                    Cantidad 2</option>
+                                                                <option value="cantidad_3"
+                                                                    {{ old('cantidad', $elevator->cantidad ?? '') == 'cantidad_3' ? 'selected' : '' }}>
+                                                                    Cantidad 3</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-12"></div>
+                                                    <div class="col-md-6">
+                                                        <div class="adornoinput mb-3">
+                                                            <div class="custom-control custom-checkbox">
+                                                                <input type="checkbox" class="custom-control-input"
+                                                                    id="mgratuito" name="quarters[]" value="mgratuito">
+                                                                <label class="custom-control-label"
+                                                                    for="mgratuito">Mantenimiento gratuito?</label>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="FRevision">Frecuencia de
-                                                                revisión (días)</label>
-                                                            <input type="number" placeholder="Frecuencia de revisión (días)"
-                                                                class="form-control @error('frecuencia_de_revisión') is-invalid @enderror"
-                                                                value="{{ old('frecuencia_de_revisión', $sparepart->frecuencia_de_revisión ?? '') }}"
-                                                                name="frecuencia_de_revisión"
-                                                                id="edit-frecuencia_de_revisión">
+                                                        <div class="adornoinput mb-3">
+                                                            <div class="custom-control custom-checkbox">
+                                                                <input type="checkbox" class="custom-control-input"
+                                                                    id="sincuarto" name="quarters[]" value="sincuarto">
+                                                                <label class="custom-control-label" for="sincuarto">Sin cuarto
+                                                                    de maquina?</label>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="FCambio">Frecuencia de
-                                                                cambio (días)</label>
-                                                            <input type="number" placeholder="Frecuencia de cambio (días)"
-                                                                class="form-control @error('frecuencia_de_cambio') is-invalid @enderror"
-                                                                value="{{ old('frecuencia_de_cambio', $sparepart->frecuencia_de_cambio ?? '') }}"
-                                                                name="frecuencia_de_cambio" id="edit-frecuencia_de_cambio">
+                                                        <div class="adornoinput mb-3">
+                                                            <div class="custom-control custom-checkbox">
+                                                                <input type="checkbox" class="custom-control-input"
+                                                                    id="concuarto" name="quarters[]" value="concuarto">
+                                                                <label class="custom-control-label" for="concuarto">Con cuarto
+                                                                    de maquina?</label>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-6">
+
+                                                    <div class="col-md-12">
                                                         <div class="form-group">
-                                                            <label for="FSolicitud">Frecuencia de
-                                                                solicitud (días)</label>
-                                                            <input type="number" placeholder="Frecuencia de solicitud (días)"
-                                                                class="form-control @error('frecuencia_de_solicitud') is-invalid @enderror"
-                                                                value="{{ old('frecuencia_de_solicitud', $sparepart->frecuencia_de_solicitud ?? '') }}"
-                                                                name="frecuencia_de_solicitud"
-                                                                id="edit-frecuencia_de_solicitud">
+                                                            <label for="Npisos"># de
+                                                                pisos</label>
+                                                            <input type="text" placeholder="#" name="npisos"
+                                                                id="edit-npisos" class="form-control" value="">
                                                         </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label for="Ncontacto">Nombre del
+                                                                Contacto</label>
+                                                            <input type="text" placeholder="Nombre del contacto"
+                                                                name="ncontacto" id="edit-ncontacto" class="form-control"
+                                                                value="">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label for="telefono">Teléfono</label>
+                                                            <input type="number" placeholder="Teléfono" class="form-control"
+                                                                name="teléfono" id="edit-teléfono" value="">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label for="correo">Correo
+                                                                electrónico</label>
+                                                            <input type="text" placeholder="Correo electrónico"
+                                                                class="form-control" name="correo" id="edit-correo"
+                                                                value="">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label for="Descripcion1">Descripción
+                                                                1</label>
+                                                            <textarea name="descripcion1" id="edit-descripcion1" placeholder="Descripción" cols="30" rows="5"
+                                                                class="form-control"></textarea>
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-12 d-none position-relative" id="DAdicional">
+                                                        <div class="form-group">
+                                                            <label for="Descripcion2">Descripción
+                                                                2</label>
+                                                            <textarea name="descripcion2" id="descripcion2" placeholder="Descripción" cols="30" rows="5">{{ old('descripcion1', isset($elevator) ? $elevator->descripcion1 : '') }}</textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <button type="button" class="btn-gris" id="AgregarDescripcion">+
+                                                            Agregar
+                                                            Descripción</button>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
-                                        <button type="submit" class="btn-gris btn-red mr-2">Actualizar
-                                            cambios</button>
+                                        <button type="submit" class="btn-gris btn-red mr-2">actualizar cambios
+                                        </button>
                                         <button type="button" class="btn-gris btn-border"
                                             data-dismiss="modal">Cancelar</button>
                                     </div>
@@ -555,7 +705,7 @@
             var table = $('#repuestosAsignados').DataTable({
                 responsive: true,
                 dom: 'tp',
-                pageLength: 8, // Establece el número de registros por página a 8
+                pageLength: 20, // Establece el número de registros por página a 8
                 language: {
                     "decimal": "",
                     "emptyTable": "No hay información",
@@ -617,7 +767,7 @@
             var table = $('#AscensoresTipo').DataTable({
                 responsive: true,
                 dom: 'tp',
-                pageLength: 8, // Establece el número de registros por página a 8
+                pageLength: 20, // Establece el número de registros por página a 8
                 language: {
                     "decimal": "",
                     "emptyTable": "No hay información",
@@ -674,94 +824,127 @@
 
             });
 
-            $('#editsparepart').validate({
+            $("#editelevatform").validate({
+                // Specify validation rules
                 rules: {
+                    imagen: {
+                        required: true,
+                        extension: "jpg|jpeg|png|gif"
+                    },
+                    // contrato: "required",
                     nombre: "required",
-                    precio: {
-                        required: true,
-                        number: true
+                    // código: "required",
+                    // marca: "required",
+                    cliente: "required",
+                    // fecha: "required",
+                    // garantizar: "required",
+                    dirección: "required",
+                    // ubigeo: "required",
+                    // provincia: "required",
+                    // técnico_instalador: "required",
+                    // técnico_ajustador: "required",
+                    // tipo_de_ascensor: "required",
+                    // cantidad: "required",
+                    // npisos: "required",
+                    ncontacto: "required",
+                    teléfono: {
+                        // required: true,
+                        digits: true
                     },
-                    descripción: "required",
-                    frecuencia_de_limpieza: {
-                        required: true,
-                        number: true
+                    correo: {
+                        // required: true,
+                        email: true
                     },
-                    frecuencia_de_lubricación: {
-                        required: true,
-                        number: true
-                    },
-                    frecuencia_de_ajuste: {
-                        required: true,
-                        number: true
-                    },
-                    frecuencia_de_revisión: {
-                        number: true
-                    },
-                    frecuencia_de_cambio: {
-                        number: true
-                    },
-                    frecuencia_de_solicitud: {
-                        number: true
-                    }
+                    descripcion1: "required",
+                    // Add more rules for other fields as needed
                 },
+                // Specify validation error messages
                 messages: {
-                    nombre: "Por favor, ingrese el nombre del repuesto",
-                    precio: {
-                        required: "Por favor, ingrese el precio",
-                        number: "Por favor, ingrese un valor numérico para el precio"
+                    imagen: {
+                        required: "Por favor, seleccione una imagen.",
+                        extension: "Por favor, seleccione un archivo de imagen válido (jpg, jpeg, png, gif)."
                     },
-                    frecuencia_de_limpieza: {
-                        required: "Por favor, ingrese la frecuencia de limpieza",
-                        number: "Por favor, ingrese un valor numérico para la frecuencia de limpieza"
+                    contrato: "Por favor, ingrese el número de contrato.",
+                    nombre: "Por favor, ingrese el nombre del ascensor.",
+                    código: "Por favor, ingrese el código.",
+                    marca: "Por favor, ingrese la marca.",
+                    cliente: "Por favor, seleccione un cliente.",
+                    fecha: "Por favor, seleccione una fecha de entrega.",
+                    garantizar: "Por favor, ingrese la garantía.",
+                    dirección: "Por favor, ingrese la dirección.",
+                    // ubigeo: "Por favor, ingrese el ubigeo.",
+                    provincia: "Por favor, seleccione una provincia.",
+                    técnico_instalador: "Por favor, seleccione un técnico instalador.",
+                    técnico_ajustador: "Por favor, seleccione un técnico ajustador.",
+                    tipo_de_ascensor: "Por favor, seleccione un tipo de ascensor.",
+                    cantidad: "Por favor, seleccione una cantidad.",
+                    npisos: "Por favor, ingrese el número de pisos.",
+                    ncontacto: "Por favor, ingrese el nombre del contacto.",
+                    teléfono: {
+                        required: "Por favor, ingrese un número de teléfono.",
+                        digits: "Por favor, ingrese solo dígitos para el número de teléfono."
                     },
-                    frecuencia_de_lubricación: {
-                        required: "Por favor, ingrese la frecuencia de lubricación",
-                        number: "Por favor, ingrese un valor numérico para la frecuencia de lubricación"
+                    correo: {
+                        required: "Por favor, ingrese una dirección de correo electrónico.",
+                        email: "Por favor, ingrese una dirección de correo electrónico válida."
                     },
-                    frecuencia_de_ajuste: {
-                        required: "Por favor, ingrese la frecuencia de ajuste",
-                        number: "Por favor, ingrese un valor numérico para la frecuencia de ajuste"
-                    }
+                    descripcion1: "Por favor, ingrese una descripción.",
+                    // Add more messages for other fields as needed
                 },
+                // Make sure the error messages are displayed in a Bootstrap-friendly way
                 errorElement: "span",
                 errorPlacement: function(error, element) {
                     // Add the `invalid-feedback` class to the error element
                     error.addClass("invalid-feedback");
                     // Add error message after the invalid element
-                    error.insertAfter(element);
+                    element.closest(".form-group").append(error);
                 },
+                // Highlight the invalid fields
                 highlight: function(element, errorClass, validClass) {
                     $(element).addClass("is-invalid").removeClass("is-valid");
                 },
+                // Remove the error message and green border when the field is valid
                 unhighlight: function(element, errorClass, validClass) {
                     $(element).removeClass("is-invalid").addClass("is-valid");
                 }
             });
 
-            $('.edit-sparepart').on('click', function() {
-                var sparepart = $(this).data('sparepart');
-                console.log(sparepart);
-                // Populate the modal with customer data
-                $('#edit-nombre').val(sparepart.nombre);
-                $('#edit-precio').val(sparepart.precio);
-                $('#edit-descripción').val(sparepart.descripción);
-                $('#edit-frecuencia_de_limpieza').val(sparepart.frecuencia_de_limpieza);
-                $('#edit-frecuencia_de_lubricación').val(sparepart.frecuencia_de_lubricación);
-                $('#edit-frecuencia_de_ajuste').val(sparepart.frecuencia_de_ajuste);
-                $('#edit-frecuencia_de_revisión').val(sparepart.frecuencia_de_revisión);
-                $('#edit-frecuencia_de_cambio').val(sparepart.frecuencia_de_cambio);
-                $('#edit-frecuencia_de_solicitud').val(sparepart.frecuencia_de_solicitud);
+            $('.edit-elevator').on('click', function() {
+                var elevator = $(this).data('elevator');
+                console.log(elevator);
+                $('#edit-contrato').val(elevator.contrato);
+                $('#edit-nombre').val(elevator.nombre);
+                $('#edit-código').val(elevator.código);
+                $('#edit-marca').val(elevator.marca);
+                $('#edit-cliente').val(elevator.cliente);
+                $('#edit-fecha').val(elevator.fecha);
+                $('#edit-garantizar').val(elevator.garantizar);
+                $('#edit-dirección').val(elevator.dirección);
+                $('#edit-ubigeo').val(elevator.ubigeo);
+                $('#edit-provincia').val(elevator.provincia);
+                $('#edit-técnico_instalador').val(elevator.técnico_instalador);
+                $('#edit-técnico_ajustador').val(elevator.técnico_ajustador);
+                $('#edit-tipo_de_ascensor').val(elevator.tipo_de_ascensor);
+                $('#edit-cantidad').val(elevator.cantidad);
 
-                // Set the form action to the correct route
-                $('#editsparepart').attr('action', '/repuestos/actualizar/' + sparepart.id);
+                // Check if quarters contain specific values
+                if (elevator.quarters) {
+                    var quarters = elevator.quarters.split(',');
+
+                    $('#mgratuito').prop('checked', quarters.includes('mgratuito'));
+                    $('#sincuarto').prop('checked', quarters.includes('sincuarto'));
+                    $('#concuarto').prop('checked', quarters.includes('concuarto'));
+                }
+
+                $('#edit-npisos').val(elevator.npisos);
+                $('#edit-ncontacto').val(elevator.ncontacto);
+                $('#edit-teléfono').val(elevator.teléfono);
+                $('#edit-correo').val(elevator.correo);
+                $('#edit-descripcion1').val(elevator.descripcion1);
+                $('#edit-descripcion2').val(elevator.descripcion2);
+
+                getBrand(elevator.marca);
             });
- 
-            $('#editprovincias').on('hidden.bs.modal', function() {
-                var form = $('#editprovinceForm');
-                form.validate().resetForm();
-                form.find('.is-invalid').removeClass('is-invalid');
-                form.find('.is-valid').removeClass('is-valid');
-            }); 
         });
     </script>
 @endpush

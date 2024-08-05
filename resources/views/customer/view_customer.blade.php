@@ -1,8 +1,39 @@
 @extends('layouts.main')
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 @section('content')
     <style>
         .dt-head-center {
             text-align: center;
+        }
+
+        .clienttypebtn {
+            margin-right: 15px;
+            font-size: 14px;
+            padding: 2px 8px !important;
+        }
+
+        .select2-selection__arrow {
+            top: 7px !important;
+            width: 24px !important;
+        }
+
+        .select2-selection__placeholder {
+            margin-bottom: 53px !important;
+        }
+
+        .select2-selection--single {
+            height: 39px !important;
+            display: flex !important;
+            align-items: center !important;
+            width: 100% !important;
+        }
+
+        .select2-container--default {
+            width: 100% !important;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__clear {
+            display: none;
         }
     </style>
     <div class="w-100 contenido">
@@ -129,14 +160,19 @@
                                                 <input type="text" placeholder="Nombre o Razón Social" name="nombre"
                                                     id="nombre" class="form-control">
                                             </div>
+                                            <div class="text-right w-100">
+                                                <div class="form-group">
+                                                    <button type="button" data-toggle="modal"
+                                                        data-target="#crearTipodeclient" class="btn-gris clienttypebtn"
+                                                        id="toggleMarcaInput">
+                                                        + Agregar Tipo de Cliente
+                                                    </button>
+                                                </div>
+                                            </div>
                                             <div class="form-group">
                                                 <label for="tipo_de_cliente">Tipo de Cliente</label>
                                                 <select class="custom-select form-control" name="tipo_de_cliente"
-                                                    id="Tcliente">
-                                                    <option value="">Seleccionar opción</option>
-                                                    <option value="cilente1">Cliente 1</option>
-                                                    <option value="cilente2">Cliente 2</option>
-                                                    <option value="cilente3">Cliente 3</option>
+                                                    id="tipo_de_cliente">
                                                 </select>
                                             </div>
                                             <div class="form-group">
@@ -233,21 +269,19 @@
                                                     <input type="text" placeholder="Nombre o Razón Social" name="nombre"
                                                         id="edit-nombre" value="" class="form-control">
                                                 </div>
+                                                <div class="text-right w-100">
+                                                    <div class="form-group">
+                                                        <button type="button" data-toggle="modal"
+                                                            data-target="#crearTipodeclient" class="btn-gris clienttypebtn"
+                                                            id="toggleMarcaInput">
+                                                            + Agregar Tipo de Cliente
+                                                        </button>
+                                                    </div>
+                                                </div>
                                                 <div class="form-group">
-                                                    <label for="tipo_de_cliente">Tipo de
-                                                        Cliente</label>
+                                                    <label for="tipo_de_cliente">Tipo de Cliente</label>
                                                     <select class="custom-select form-control" name="tipo_de_cliente"
-                                                        id="edit-tipo_de_cliente">
-                                                        <option value="">Seleccionar opción</option>
-                                                        <option value="cilente1"
-                                                            {{ $customer->tipo_de_cliente == 'cilente1' ? 'selected' : '' }}>
-                                                            Cliente 1</option>
-                                                        <option value="cilente2"
-                                                            {{ $customer->tipo_de_cliente == 'cilente2' ? 'selected' : '' }}>
-                                                            Cliente 2</option>
-                                                        <option value="cilente3"
-                                                            {{ $customer->tipo_de_cliente == 'cilente3' ? 'selected' : '' }}>
-                                                            Cliente 3</option>
+                                                        id="tipo_de_cliente1">
                                                     </select>
                                                 </div>
                                                 <div class="form-group">
@@ -379,16 +413,131 @@
                 @endisset
             </div>
         </div>
+
+        {{-- Model Crear Tipodeclient --}}
+        <div class="modal left fade" id="crearTipodeclient" tabindex="-1" role="dialog"
+            aria-labelledby="modelTitleId" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title font-family-Outfit-SemiBold">Crear Tipo De Clients</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="col-md-12" id="marcaInputSection" style="">
+                        <form method="POST" id="brandForm">
+                            @csrf
+                            <div class="form-group">
+                                <label>Ingresar Tipo De Clients</label>
+                                <input type="text" placeholder="Ingresar Tipo De Clients" name="tipo_de_client"
+                                    id="tipo_de_client" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <button type="button" class="btn-primario w-auto pl-3 pr-3" id="submitClientType">
+                                    Entregar
+                                </button>
+                                <button type="button" class="btn-primario w-auto pl-3 pr-3" id="cancelClientType">
+                                    Cancelar
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
 @push('scripts')
+    <!-- Select2 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <script>
         $(document).ready(function() {
 
+            function getClientTypes(edit) {
+                // Destroy existing Select2 instances if they exist
+                if ($('#tipo_de_cliente').data('select2')) {
+                    $('#tipo_de_cliente').select2('destroy');
+                }
+                if ($('#tipo_de_cliente1').data('select2')) {
+                    $('#tipo_de_cliente1').select2('destroy');
+                }
+
+                // Perform the AJAX call to get client type data
+                $.ajax({
+                    type: "GET",
+                    url: "{{ route('customertype') }}", // Ensure this route is correct
+                    dataType: "JSON",
+                    success: function(response) {
+                        // Clear the current options and append the retrieved options to the select elements
+                        $("#tipo_de_cliente, #tipo_de_cliente1").empty();
+                        $("#tipo_de_cliente, #tipo_de_cliente1").append(
+                            '<option value="" class="d-none">Seleccionar opción</option>'
+                        ); // Add placeholder option
+
+                        $.each(response, function() {
+                            $("#tipo_de_cliente, #tipo_de_cliente1").append(
+                                `<option value='${this.tipo_de_client}'>${this.tipo_de_client}</option>`
+                            );
+                        });
+
+                        // // Initialize Select2 on the select elements with placeholder
+                        $('#tipo_de_cliente1').select2({
+                            // placeholder: "Seleccionar tipo de cliente",
+                            // allowClear: true
+                        });
+                        $('#tipo_de_cliente').select2({
+                            // placeholder: "Seleccionar tipo de cliente",
+                            // allowClear: true
+                        });
+
+                        // If edit is true and has a valid ID, set the selected value
+                        if (edit) {
+                            $('#tipo_de_cliente1').val(edit).trigger('change');
+                            console.log('Selected value set to:', edit); // Debugging
+                        }
+                    },
+                    error: function(xhr) {
+                        console.error('Error fetching client types:', xhr.responseText); // Debugging
+                    }
+                });
+            }
+
+            // Example call with an edit ID if applicable
+            const editValue = '{{ $editValue ?? '' }}'; // Replace with actual edit value if available
+            getClientTypes(editValue);
+
+
+            $('#submitClientType').click(function(e) {
+                e.preventDefault(); // Prevent default form submission
+                var formData = new FormData();
+                formData.append('tipo_de_client', $('#tipo_de_client').val());
+                // Send AJAX request
+                $.ajax({
+                    type: "POST",
+                    method: "POST",
+                    dataType: "JSON",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: "{{ route('insert.customertype') }}", // Make sure to create this route
+                    success: function(response) {
+                        getClientTypes();
+                        $('#cancelClientType').click();
+                    }
+                })
+            });
+
+            $('#cancelClientType').click(function() {
+                $("#crearTipodeclient").modal('hide')
+            });
             var table = $('#clientes').DataTable({
                 responsive: true,
                 dom: 'tp',
-                pageLength: 8, // Establece el número de registros por página a 8
+                pageLength: 20, // Establece el número de registros por página a 8
                 language: {
                     "decimal": "",
                     "emptyTable": "No hay información",
@@ -564,7 +713,7 @@
                 var customer = $(this).data('customer');
                 // Populate the modal with customer data
                 $('#edit-nombre').val(customer.nombre);
-                $('#edit-tipo_de_cliente').val(customer.tipo_de_cliente);
+                $('#tipo_de_cliente1').val(customer.tipo_de_cliente).trigger('change');
                 $('#edit-ruc').val(customer.ruc);
                 $('#edit-país').val(customer.país);
                 $('#edit-provincia').val(customer.provincia);

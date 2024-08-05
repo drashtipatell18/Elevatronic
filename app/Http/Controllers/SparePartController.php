@@ -18,7 +18,7 @@ class SparePartController extends Controller
         $validatedData = $request->validate([
             'nombre' => 'required',
             'precio' => 'required',
-            'descripción' => 'required',
+            // 'descripción' => 'required',
             // 'frecuencia_de_limpieza' => 'required',
             // 'frecuencia_de_lubricación' => 'required',
             // 'frecuencia_de_ajuste' => 'required',
@@ -58,7 +58,7 @@ class SparePartController extends Controller
         $validatedData = $request->validate([
             'nombre' => 'required',
             'precio' => 'required',
-            'descripción' => 'required',
+            // 'descripción' => 'required',
             // 'frecuencia_de_limpieza' => 'required',
             // 'frecuencia_de_lubricación' => 'required',
             // 'frecuencia_de_ajuste' => 'required',

@@ -139,6 +139,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/personal/vista/{id}', [StaffController::class, 'staffView'])->name('view.staff');
     Route::post('/personal/actualizar/{id}', [StaffController::class, 'staffUpdate'])->name('update.staff');
     Route::delete ('/personal/destruir/{id}',[StaffController::class,'staffDestroy'])->name('destroy.staff');
+    Route::post('/posición/insertar',[StaffController::class,'insertPosition'])->name('insert.position');
+    Route::get('/conseguir/posición', [StaffController::class, 'getPosition'])->name('getPosition');
 
     // usuarios
     Route::get('/usuarios', [UserController::class, 'user'])->name('user');

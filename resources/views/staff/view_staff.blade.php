@@ -1,8 +1,39 @@
 @extends('layouts.main')
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 @section('content')
     <style>
         .dt-head-center {
             text-align: center;
+        }
+
+        .positionbtn {
+            margin-right: 15px;
+            font-size: 14px;
+            padding: 2px 8px !important;
+        }
+
+        .select2-selection__arrow {
+            top: 7px !important;
+            width: 24px !important;
+        }
+
+        .select2-selection__placeholder {
+            margin-bottom: 53px !important;
+        }
+
+        .select2-selection--single {
+            height: 39px !important;
+            display: flex !important;
+            align-items: center !important;
+            width: 100% !important;
+        }
+
+        .select2-container--default {
+            width: 100% !important;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__clear {
+            display: none;
         }
     </style>
     <div class="w-100 contenido">
@@ -224,16 +255,20 @@
                                             <select
                                                 class="custom-select form-control @error('posición') is-invalid @enderror"
                                                 name="posición" id="posición">
-                                                <option value="">Seleccionar opción</option>
-                                                <option value="posición_1">Posición 1</option>
-                                                <option value="posición_2">Posición 2</option>
-                                                <option value="posición_3">Posición 3</option>
                                             </select>
                                             @error('posición')
                                                 <span class="invalid-feedback" style="color: red">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
+                                        </div>
+                                    </div>
+                                    <div class="text-right w-100">
+                                        <div class="form-group">
+                                            <button type="button" data-toggle="modal" data-target="#crearposición"
+                                                class="btn-gris positionbtn" id="toggleMarcaInput">
+                                                + Agregar posición
+                                            </button>
                                         </div>
                                     </div>
                                     <div class="col-md-12">
@@ -336,27 +371,21 @@
                                                 <label for="posición">Posición</label>
                                                 <select
                                                     class="custom-select form-control @error('posición') is-invalid @enderror"
-                                                    name="posición" id="edit-posición">
-                                                    <option value="" class="">Seleccionar
-                                                        opción</option>
-                                                    <option value="posición_1"
-                                                        {{ $staff->posición == 'posición_1' ? 'selected' : '' }}>
-                                                        Posición 1
-                                                    </option>
-                                                    <option value="posición_2"
-                                                        {{ $staff->posición == 'posición_2' ? 'selected' : '' }}>
-                                                        Posición 2
-                                                    </option>
-                                                    <option value="posición_3"
-                                                        {{ $staff->posición == 'posición_3' ? 'selected' : '' }}>
-                                                        Posición 3
-                                                    </option>
+                                                    name="posición" id="posición1">
                                                 </select>
                                                 @error('posición')
                                                     <span class="invalid-feedback" style="color: red">
                                                         <strong>{{ $message }}</strong>
                                                     </span>
                                                 @enderror
+                                            </div>
+                                        </div>
+                                        <div class="text-right w-100">
+                                            <div class="form-group">
+                                                <button type="button" data-toggle="modal" data-target="#crearposición"
+                                                    class="btn-gris positionbtn" id="toggleMarcaInput">
+                                                    + Agregar posición
+                                                </button>
                                             </div>
                                         </div>
                                         <div class="col-md-12">
@@ -400,10 +429,127 @@
         </div>
     </div>
 
+    {{-- Model Crear Posición --}}
+    <div class="modal left fade" id="crearposición" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title font-family-Outfit-SemiBold">Crear Posición</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="col-md-12" id="marcaInputSection" style="">
+                    <form method="POST" id="posiciónForm">
+                        @csrf
+                        <div class="form-group">
+                            <label>Ingresar Posición</label>
+                            <input type="text" placeholder="Ingresar posición" name="position" id="position"
+                                class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <button type="button" class="btn-primario w-auto pl-3 pr-3" id="submitPosición">
+                                Entregar
+                            </button>
+                            <button type="button" class="btn-primario w-auto pl-3 pr-3" id="cancelPosición">
+                                Cancelar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 @push('scripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <script>
         $(document).ready(function() {
+
+            function getPosition(edit) {
+                // Destroy existing Select2 instances if they exist
+                if ($('#position').data('select2')) {
+                    $('#position').select2('destroy');
+                }
+                if ($('#position1').data('select2')) {
+                    $('#position1').select2('destroy');
+                }
+
+                // Perform the AJAX call to get position data
+                $.ajax({
+                    type: "GET",
+                    url: "{{ route('getPosition') }}",
+                    dataType: "JSON",
+                    success: function(response) {
+                        // Clear the current options and append the retrieved options to the select elements
+                        $("#posición, #posición1").empty();
+                        $("#posición, #posición1").append(
+                            '<option value="" class="d-none">Seleccionar opción</option>'
+                        ); // Add placeholder option
+
+                        $.each(response, function() {
+                            $("#posición, #posición1").append(
+                                `<option value='${this.id}'>${this['position']}</option>`
+                            );
+                        });
+
+                        // Initialize Select2 on the select element with placeholder
+                        $('#posición').select2({
+                            placeholder: "Seleccionar posición",
+                            allowClear: true
+                        });
+
+                        // Initialize Select2 on the select element with placeholder
+                        $('#posición1').select2({
+                            placeholder: "Seleccionar posición",
+                            allowClear: true
+                        });
+
+                        // If edit is true and has a valid ID, set the selected value
+                        if (edit) {
+                            $('#position1').val(edit).trigger('change');
+                            console.log(edit);
+                        }
+                    }
+                });
+            }
+
+            // Initial call to populate positions
+            getPosition();
+
+            // Handle the submit button click
+            $('#submitPosición').click(function(e) {
+                e.preventDefault(); // Prevent default form submission
+                var formData = new FormData();
+                formData.append('position', $('#position').val());
+
+                // Send AJAX request
+                $.ajax({
+                    type: "POST",
+                    url: "{{ route('insert.position') }}",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(response) {
+                        // Handle success response
+                        getPosition(); // Refresh the position list
+                        $('#cancelPosición').click(); // Close the modal
+                    },
+                    error: function(xhr) {
+                        // Handle error response
+                        console.error('Error:', xhr.responseText);
+                    }
+                });
+            });
+
+            // Handle the cancel button click
+            $('#cancelPosición').click(function() {
+                $("#crearposición").modal('hide');
+            });
 
             var table = $('#TiposAscensores').DataTable({
                 responsive: true,
@@ -611,7 +757,7 @@
                 var staff = $(this).data('staff');
                 // Populate the modal with customer data
                 $('#edit-nombre').val(staff.nombre);
-                $('#edit-posición').val(staff.posición);
+                $('#posición1').val(staff.posición).trigger('change');
                 $('#edit-correo').val(staff.correo);
                 $('#edit-teléfono').val(staff.teléfono);
                 var imageUrl = "{{ asset('images/') }}" + "/" + staff.personalfoto;

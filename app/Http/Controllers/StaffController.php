@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Staff;
+use App\Models\Position;
 
 class StaffController extends Controller
 {
@@ -40,6 +41,19 @@ class StaffController extends Controller
         return redirect()->route('staff');
     }
 
+    public function getPosition()
+    {
+        return response()->json(Position::all());
+    }
+
+    public function insertPosition(Request $request)
+    {
+        Position::create([
+            'position' => $request->input('position'),
+        ]);
+
+        return response()->json(['success' => 'Position added successfully!']);
+    }
     public function staffUpdate(Request $request,$id){
         $validatedData = $request->validate([
             'nombre' => 'required',

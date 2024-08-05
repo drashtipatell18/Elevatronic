@@ -136,7 +136,7 @@
                                         <div id="editimagenPrevio">
                                             @if ($sparepart->foto_de_repuesto)
                                                 <img src="{{ asset('images/' . $sparepart->foto_de_repuesto) }}"
-                                                    width="200" height="200" id="edit-sparepart"  alt="Existing Image">
+                                                    width="200" height="200" id="edit-sparepart">
                                             @else
                                                 <img src="{{ asset('img/fondo.png') }}" width="200" height="200"
                                                     class="img-table" alt="user">

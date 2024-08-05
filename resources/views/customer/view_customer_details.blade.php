@@ -41,8 +41,8 @@
             <div class="row">
                 <div class="col-xl-10 col-lg-10 col-md-8 col-sm-8 col-8 mb-4">
                     <div class="titulo">
-                        <h4>EDIFICIO DEL MARE</h4>
-                        <span>Clientes >> EDIFICIO DEL MARE</span>
+                        <h4>{{ $customer->nombre }}</h4>
+                        <span>Clientes >> {{ $customer->nombre }}</span>
                     </div>
                 </div>
                 <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 col-4 d-flex align-items-center justify-content-end">
@@ -187,6 +187,12 @@
                                             Social</label>
                                         <input type="text" placeholder="Nombre o Razón Social" name="nombre"
                                             id="edit-nombre" value="" class="form-control">
+                                    </div>  
+                                    <div class="form-group">
+                                        <label for="tipo_de_cliente">Tipo de Cliente</label>
+                                        <select class="custom-select form-control" name="tipo_de_cliente"
+                                            id="tipo_de_cliente">
+                                        </select>
                                     </div>
                                     <div class="text-right w-100">
                                         <div class="form-group">
@@ -195,12 +201,6 @@
                                                 + Agregar Tipo de Cliente
                                             </button>
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="tipo_de_cliente">Tipo de Cliente</label>
-                                        <select class="custom-select form-control" name="tipo_de_cliente"
-                                            id="tipo_de_cliente">
-                                        </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="RUC">RUC o DNI</label>
@@ -220,8 +220,7 @@
                                         <label for="provincia">Provincia</label>
                                         <select class="custom-select form-control" name="provincia" id="edit-provincia">
                                             <option value="">
-                                                Seleccionar
-                                                opción
+                                                Seleccionar Provincia
                                             </option>
                                             @foreach ($provinces as $province)
                                                 <option value="{{ $province }}"

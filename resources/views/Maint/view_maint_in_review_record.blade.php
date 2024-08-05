@@ -622,7 +622,7 @@ if(isset($id))
                                 </div>
 
 
-                                <div class="form-group">
+                                {{-- <div class="form-group">
                                     <label for="tecnico">Técnico</label>
                                     <select class="custom-select" name="técnico" id="edit-técnico">
                                         <option value="" class="d-none  @error('técnico') is-invalid @enderror">
@@ -642,8 +642,34 @@ if(isset($id))
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
-                                </div>
+                                </div> --}}
 
+                                {{-- <div class="form-group">
+                                    <label for="técnico">Técnico</label>
+                                    <select class="custom-select" name="técnico" id="técnico">
+                                        <option value="">Seleccionar opción</option>
+                                        @foreach ($personals as $personal) <!-- Use lowercase $personals here -->
+                                            <option value="{{ $personal }}"
+                                                {{ old('técnico', $maintInRev->técnico ?? '') == $personal ? 'selected' : '' }}>
+                                                {{ $personal }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div> --}}
+                                
+                                <div class="form-group">
+                                    <label for="técnico">Técnico</label>
+                                    <select class="custom-select" name="técnico" id="técnico">
+                                        <option value="">Seleccionar opción</option>
+                                        @foreach ($personals as $personal)
+                                            <option value="{{ $personal }}"
+                                                {{ (old('técnico') == $personal || (isset($maintInRev) && $maintInRev->técnico == $personal)) ? 'selected' : '' }}>
+                                                {{ $personal }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                
 
                                 <div class="row">
                                     <div class="col-md-6">

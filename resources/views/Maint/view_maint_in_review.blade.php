@@ -277,7 +277,7 @@
                                         <option value="supervisor_3">Supervisor 3</option>
                                     </select>
                                 </div>
-                                <div class="form-group">
+                                {{-- <div class="form-group">
                                     <label for="técnico">Técnico</label>
                                     <select class="custom-select" name="técnico" id="técnico">
                                         <option value="">Seleccionar opción</option>
@@ -285,7 +285,21 @@
                                         <option value="técnico_2">Técnico 2</option>
                                         <option value="técnico_3">Técnico 3</option>
                                     </select>
+                                </div> --}}
+                                <div class="form-group">
+                                    <label for="técnico">Técnico</label>
+                                    <select class="custom-select" name="técnico" id="técnico">
+                                        <option value="">Seleccionar opción</option>
+                                        {{-- @foreach($Personals as $Personal)
+                                            <option value="{{ $Personal->id }}">{{ $Personal->nombre }}</option>
+                                        @endforeach --}}
+                                        @foreach ($Personals as $Personal)
+                                        <option value="{{ $Personal }}">{{ $Personal }}</option>
+                                    @endforeach
+                                    </select>
                                 </div>
+                                
+                                
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
@@ -502,7 +516,7 @@
                                 </div>
 
 
-                                <div class="form-group">
+                                {{-- <div class="form-group">
                                     <label for="tecnico">Técnico</label>
                                     <select class="custom-select" name="técnico" id="edit-técnico">
                                         <option value="" class="d-none  @error('técnico') is-invalid @enderror">
@@ -522,8 +536,23 @@
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
-                                </div>
+                                </div> --}}
+                    
 
+                                <div class="form-group">
+                                    <label for="técnico">Técnico</label>
+                                    <select class="custom-select" name="técnico" id="técnico">
+                                        <option value="">Seleccionar opción</option>
+                                        @foreach ($Personals as $personal)
+                                        <option value="{{ $personal }}"
+                                            {{ old('técnico', $maint_in_rev->técnico ?? '') == $personal ? 'selected' : '' }}>
+                                            {{ $personal }}
+                                        </option>
+                                    @endforeach
+                                    </select>
+                                </div>
+                                
+                                
 
                                 <div class="row">
                                     <div class="col-md-6">

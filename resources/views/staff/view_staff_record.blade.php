@@ -1,4 +1,4 @@
-@extends('layouts.main')
+    @extends('layouts.main')
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 @section('content')
     <style>
@@ -34,6 +34,24 @@
 
         .select2-container--default .select2-selection--single .select2-selection__clear {
             display: none;
+        }
+        #editimagenPrevioPersonal {
+            width: 200px;
+            height: 200px;
+            overflow: hidden;
+            /* Ensures that any overflowed part of the image is hidden */
+            display: flex;
+            align-items: center;
+            /* Centers the image vertically */
+            justify-content: center;
+            /* Centers the image horizontally */
+        }
+
+        #editimagenPrevioPersonal img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* Ensures that the image covers the container without distortion */
         }
     </style>
     <div class="w-100 contenido">

@@ -167,7 +167,7 @@
                                         <div id="editimagenPrevioPersonal">
                                             @if ($staffs->personalfoto)
                                                 <img src="{{ asset('images/' . ($staffs->personalfoto ?? 'fondo.png')) }}"
-                                                    width="200" height="200" alt="Personal Image">
+                                                    width="200" id="editstaff-image" height="200" alt="Personal Image">
                                             @endif
                                         </div>
                                     </div>
@@ -335,7 +335,7 @@
                 if ($('#position').data('select2')) {
                     $('#position').select2('destroy');
                 }
-        
+
                 // Perform the AJAX call to get position data
                 $.ajax({
                     type: "GET",
@@ -412,12 +412,30 @@
             $('#editimageUpload10').change(function() {
                 var reader = new FileReader();
                 reader.onload = function(e) {
-                    $('#editimagenPrevioPersonal').css('background-image', 'url(' + e.target.result +
-                        ')');
+                    // Update the background image of the preview div
+                    $('#editimagenPrevioPersonal').css('background-image', 'url(' + e.target.result + ')');
+
+                    // Hide any existing image tags inside the preview div
+                    $('#editimagenPrevioPersonal').find('img').remove();
+
+                    // Show the preview div (in case it was hidden)
                     $('#editimagenPrevioPersonal').show();
+
+                    // Optionally, add a new img element if needed
+                    $('#editimagenPrevioPersonal').append('<img src="' + e.target.result + '" width="200" height="200" alt="Preview Image">');
                 }
                 reader.readAsDataURL(this.files[0]);
             });
+
+            // $('#editimageUpload10').change(function() {
+            //     var reader = new FileReader();
+            //     reader.onload = function(e) {
+            //         $('#editimagenPrevioPersonal').css('background-image', 'url(' + e.target.result +
+            //             ')');
+            //         $('#editimagenPrevioPersonal').show();
+            //     }
+            //     reader.readAsDataURL(this.files[0]);
+            // });
 
             $('#editstaff').validate({
                 rules: {

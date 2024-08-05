@@ -72,8 +72,15 @@
                                     <tbody>
                                         @foreach ($users as $index => $user)
                                             <tr class="td-head-center">
-                                                <td><img src="{{ asset('images/' . $user->image) }}" alt="personal"
-                                                        width="52" height="52" class="img-table"></td>
+                                                <td>
+                                                    @if ($user->image)
+                                                        <img src="{{ asset('images/' . $user->image) }}" alt="personal"
+                                                            width="52" height="52" class="img-table">
+                                                    @else
+                                                        <img src="{{ asset('img/fondo.png') }}" alt="user"
+                                                            width="52" height="52" class="img-table">
+                                                    @endif
+                                                </td>
                                                 <td>{{ $index + 1 }}</td>
                                                 <td>
                                                     <a href="{{ route('view.user', $user->id) }}" class="text-blue">
@@ -195,7 +202,7 @@
                                             <label for="Nombre de usuario">Nombre de usuario</label>
                                             <input type="text" placeholder="nombre de usuario" name="username"
                                                 class="form-control @error('username') is-invalid @enderror"
-                                                id="username" autocomplete="new-email" autoFill="off"/>
+                                                id="username" autocomplete="new-email" autoFill="off" />
                                             @error('username')
                                                 <span class="invalid-feedback" style="color: red">
                                                     <strong>{{ $message }}</strong>
@@ -283,8 +290,8 @@
     </div>
 
     <!-- Modal Editor Usuario-->
-    <div class="modal left fade" id="editorUsuario" tabindex="-1" role="dialog"
-        aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal left fade" id="editorUsuario" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -295,8 +302,7 @@
                     </button>
                 </div>
                 @isset($user)
-                    <form action="" method="POST" enctype="multipart/form-data"
-                        id="edituserform">
+                    <form action="" method="POST" enctype="multipart/form-data" id="edituserform">
                         @csrf
                         @method('PUT')
                         <div class="modal-body body_modal">
@@ -307,8 +313,8 @@
                                             <label>Foto de usuario</label>
                                             <div id="editimagenPrevioUsuario">
                                                 @if ($user->image)
-                                                    <img src="{{ asset('images/' . $user->image) }}" id="edituser-image" width="200"
-                                                        height="200" alt="Existing Image">
+                                                    <img src="{{ asset('images/' . ($user->image ?? 'fondo.png')) }}"
+                                                        id="edituser-image" width="200" height="200" alt="User Image">
                                                 @endif
                                             </div>
                                         </div>
@@ -343,8 +349,7 @@
                                             <div class="form-group">
                                                 <label for="NombreUsuario">Nombre</label>
                                                 <input type="text" placeholder="Nombre" name="name" id="edit-name"
-                                                    class="form-control @error('name') is-invalid @enderror"
-                                                    value="">
+                                                    class="form-control @error('name') is-invalid @enderror" value="">
                                                 @error('name')
                                                     <span class="invalid-feedback" style="color: red">
                                                         <strong>{{ $message }}</strong>
@@ -356,8 +361,7 @@
                                             <div class="form-group">
                                                 <label for="correoUsuario">Correo</label>
                                                 <input type="email" placeholder="Correo" name="email" id="edit-email"
-                                                    class="form-control @error('email') is-invalid @enderror"
-                                                    value="">
+                                                    class="form-control @error('email') is-invalid @enderror" value="">
                                                 @error('email')
                                                     <span class="invalid-feedback" style="color: red">
                                                         <strong>{{ $message }}</strong>
@@ -369,8 +373,7 @@
                                             <div class="form-group">
                                                 <label for="telefonoUsuario">Teléfono</label>
                                                 <input type="number" name="phone" id="edit-phone" placeholder="Teléfono"
-                                                    value=""
-                                                    class="form-control @error('phone') is-invalid @enderror">
+                                                    value="" class="form-control @error('phone') is-invalid @enderror">
                                                 @error('phone')
                                                     <span class="invalid-feedback" style="color: red">
                                                         <strong>{{ $message }}</strong>
@@ -561,8 +564,9 @@
             // Define the custom password validation method before initializing validation
             $.validator.addMethod("passwordFormat", function(value, element) {
                     // Password must contain at least one uppercase letter, one special character, and be at least 8 characters long
-                    return this.optional(element) || /^(?=.*[A-Z])(?=.*[@$!%*?&.,-_])[A-Za-z\d@$!%*?&.,-_]{8,}$/.test(
-                        value);
+                    return this.optional(element) || /^(?=.*[A-Z])(?=.*[@$!%*?&.,-_])[A-Za-z\d@$!%*?&.,-_]{8,}$/
+                        .test(
+                            value);
                 },
                 "La contraseña debe tener al menos 8 caracteres, comenzar con una letra mayúscula y contener al menos un carácter especial."
             );

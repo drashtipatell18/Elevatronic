@@ -386,11 +386,9 @@
                                                     <div class="col-md-6 mb-3">
                                                         <label>Foto de Ascensor</label>
                                                         <div id="editimagePreview">
-                                                            @if ($elevator->imagen)
-                                                                <img src="{{ asset('images/' . $elevator->imagen) }}"
-                                                                    alt="Existing Image" width="200px" height="200px">
-                                                            @endif
-                                                        </div>
+                                                            <img src="{{ asset('images/' . ($elevator->imagen ?? 'fondo.png')) }}" 
+                                                                 alt="Image Preview" width="200px" height="200px">
+                                                        </div>                                                        
                                                     </div>
                                                     <div
                                                         class="align-items-start col-md-6 d-flex flex-column justify-content-between mb-3">

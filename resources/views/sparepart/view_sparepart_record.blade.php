@@ -33,7 +33,7 @@
                                     @if ($sparepart->foto_de_repuesto)
                                         <img src="{{ asset('images/' . $sparepart->foto_de_repuesto) }}" alt="repuesto">
                                     @else
-                                        <img src="{{ asset('img/bydefult.png') }}" alt="user">
+                                        <img src="{{ asset('img/fondo.png') }}" alt="user">
                                     @endif
                                 </div>
                                 <div class="align-items-start d-flex flex-column h-100 justify-content-between">
@@ -47,7 +47,8 @@
                                             <p class="mb-0">ID elemento</p>
                                         </div>
                                         <div class="option">
-                                            <h4>{{ $sparepart->created_at->locale('es')->isoFormat('D MMMM YYYY, h:mm a') }}</h4>
+                                            <h4>{{ $sparepart->created_at->locale('es')->isoFormat('D MMMM YYYY, h:mm a') }}
+                                            </h4>
                                             <p class="mb-0">Fecha registro</p>
                                         </div>
                                     </div>
@@ -74,7 +75,7 @@
                                             <img src="{{ asset('images/' . $sparepart->foto_de_repuesto) }}" alt="personal"
                                                 class="w-100">
                                         @else
-                                            <img src="{{ asset('img/bydefult.png') }}" class="w-100" alt="personal">
+                                            <img src="{{ asset('img/fondo.png') }}" class="w-100" alt="personal">
                                         @endif
                                     </div>
                                 </div>
@@ -157,8 +158,8 @@
                                                 <label>Foto de repuesto</label>
                                                 <div id="editimagenPrevio">
                                                     @if ($sparepart->foto_de_repuesto)
-                                                        <img src="{{ asset('images/' . $sparepart->foto_de_repuesto) }}"
-                                                            width="200" height="200" alt="Existing Image">
+                                                        <img src="{{ asset('images/' . ($sparepart->foto_de_repuesto ?? 'fondo.png')) }}"
+                                                            width="200" height="200" alt="Spare Part Image">
                                                     @endif
                                                 </div>
                                             </div>

@@ -29,7 +29,8 @@
                         <div class="row">
                             <div class="col-md-12 d-flex align-items-start justify-content-start gap-20 mb-6 box-detalle">
                                 <div class="">
-                                    <img src="{{ asset('images/' . $staffs->personalfoto) }}" alt="repuesto">
+                                    <img src="{{ asset('images/' . ($staffs->personalfoto ?? 'fondo.png')) }}"
+                                        alt="Personal Photo">
                                 </div>
                                 <div class="align-items-start d-flex flex-column h-100 justify-content-between">
                                     <div>
@@ -70,8 +71,8 @@
                                 <div class="col-md-4 mb-4">
                                     <div class="box-contenido">
                                         <h3>Foto de personal</h3>
-                                        <img src="{{ asset('images/' . $staffs->personalfoto) }}" alt="personal"
-                                            class="w-100">
+                                        <img src="{{ asset('images/' . ($staffs->personalfoto ?: 'fondo.png')) }}"
+                                            alt="personal" class="w-100">
                                     </div>
                                 </div>
                                 <div class="col-md-8 mb-4">
@@ -129,8 +130,8 @@
                                         <label>Foto de Personal</label>
                                         <div id="editimagenPrevioPersonal">
                                             @if ($staffs->personalfoto)
-                                                <img src="{{ asset('images/' . $staffs->personalfoto) }}" width="200"
-                                                    height="200" alt="Existing Image">
+                                                <img src="{{ asset('images/' . ($staffs->personalfoto ?? 'fondo.png')) }}"
+                                                    width="200" height="200" alt="Personal Image">
                                             @endif
                                         </div>
                                     </div>

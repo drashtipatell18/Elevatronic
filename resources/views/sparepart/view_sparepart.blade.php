@@ -72,7 +72,7 @@
                                                         <img src="{{ asset('images/' . $sparepart->foto_de_repuesto) }}"
                                                             alt="personal" width="52" height="52" class="img-table">
                                                     @else
-                                                        <img src="{{ asset('img/bydefult.png') }}" width="52"
+                                                        <img src="{{ asset('img/fondo.png') }}" width="52"
                                                             height="52" class="img-table" alt="user">
                                                     @endif
                                                 </td>
@@ -138,7 +138,7 @@
                                                 <img src="{{ asset('images/' . $sparepart->foto_de_repuesto) }}"
                                                     width="200" height="200" id="edit-sparepart"  alt="Existing Image">
                                             @else
-                                                <img src="{{ asset('img/bydefult.png') }}" width="200" height="200"
+                                                <img src="{{ asset('img/fondo.png') }}" width="200" height="200"
                                                     class="img-table" alt="user">
                                             @endif
                                         </div>

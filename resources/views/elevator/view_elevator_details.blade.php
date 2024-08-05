@@ -74,7 +74,7 @@
                                             <img src="{{ asset('images/' . $elevators->imagen) }}" alt="user"
                                                 width="160">
                                         @else
-                                            <img src="{{ asset('img/bydefult.png') }}" width="160" class="img-table"
+                                            <img src="{{ asset('img/fondo.png') }}" width="160" class="img-table"
                                                 alt="user">
                                         @endif
                                     </div>
@@ -1514,7 +1514,10 @@
                                                         <div id="editimagePreview">
                                                             @if ($elevators->imagen)
                                                                 <img src="{{ asset('images/' . $elevators->imagen) }}"
-                                                                    alt="Existing Image" width="200px" height="200px">
+                                                                    alt="user" width="200px" height="200px">
+                                                            @else
+                                                                <img src="{{ asset('img/fondo.png') }}" width="200px"
+                                                                    height="200px" class="img-table" alt="user">
                                                             @endif
                                                         </div>
                                                     </div>

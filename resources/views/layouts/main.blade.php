@@ -31,9 +31,9 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <style>
-  .spacing{
-    margin-left: 13px;
-  }
+    .spacing {
+        margin-left: 13px;
+    }
 </style>
 <div class="wrapper">
     <nav id="sidebar">
@@ -59,7 +59,8 @@
             </li>
             <li class="">
                 <a href="{{ route('maint_in_review') }}" class="position-relative">
-                    <i class="iconoir-search-window"></i> Mant. en revisión <span class="adorno-num">{{ $totalRecordCount }}</span>
+                    <i class="iconoir-search-window"></i> Mant. en revisión <span
+                        class="adorno-num">{{ $totalRecordCount }}</span>
                 </a>
             </li>
             <li class="">
@@ -118,10 +119,12 @@
                                     <!-- cuadro para hacer click ocultar / aparecer -->
                                     <div class="d-flex align-items-center justify-content-start" id="abrirperfil">
                                         <i class="iconoir-nav-arrow-down"></i>
-                                        @if (auth()->user())
-                                            <img src="{{ asset('images/' . auth()->user()->image) }}"
-                                                alt="User Image" width="100" height="50px"
-                                                class="img-circle profile_img">
+                                        @if (auth()->check())
+                                            @php
+                                                $image = auth()->user()->image ?? 'fondo.png';
+                                            @endphp
+                                            <img src="{{ asset('images/' . $image) }}" alt="User Image"
+                                                width="100" height="50" class="img-circle profile_img">
                                         @else
                                             <p>No user image available</p>
                                         @endif
@@ -134,13 +137,16 @@
                                     <div class="perfil_abs" id="perfil_abs" style="display: none;">
                                         <div class="d-flex align-items-center justify-content-between con_perfil">
                                             <div class="">
-                                                @if (auth()->user())
-                                                <img src="{{ asset('images/' . auth()->user()->image) }}"
-                                                    alt="User Image" width="100" height="50px"
-                                                    class="img-circle profile_img">
-                                            @else
-                                                <p>No user image available</p>
-                                            @endif                                            </div>
+                                                @if (auth()->check())
+                                                    @php
+                                                        $image = auth()->user()->image ?? 'fondo.png';
+                                                    @endphp
+                                                    <img src="{{ asset('images/' . $image) }}" alt="User Image"
+                                                        width="100" height="50" class="img-circle profile_img">
+                                                @else
+                                                    <p>No user image available</p>
+                                                @endif
+                                            </div>
                                             <div class="spacing">
                                                 <p>{{ auth()->user()->name }}</p>
                                                 <span class="m-0">{{ auth()->user()->email }}</span>
@@ -392,7 +398,8 @@
 <!-- alerta carga-->
 <div id="alertaCarga" class="alert alert-elevatronic alert-dismissible" style="display: none;">
     <button type="button" class="close" data-dismiss="alert">&times;</button>
-    <strong class="mr-2"><img src=" {{ asset('img/iconos/check.svg') }}" alt="icono"></strong> Carga de archivo exitosa
+    <strong class="mr-2"><img src=" {{ asset('img/iconos/check.svg') }}" alt="icono"></strong> Carga de archivo
+    exitosa
 </div>
 
 <!-- alerta envio-->

@@ -79,7 +79,7 @@
                                                         <img src="{{ asset('images/' . $staff->personalfoto) }}"
                                                             alt="personal" width="52" height="52" class="img-table">
                                                     @else
-                                                        <img src="{{ asset('img/bydefulatuser.jpg') }}" width="52"
+                                                        <img src="{{ asset('img/fondo.png') }}" width="52"
                                                             height="52" class="img-table" alt="user">
                                                     @endif
                                                 </td>
@@ -299,8 +299,9 @@
                                             <label>Foto de Personal</label>
                                             <div id="editimagenPrevioPersonal">
                                                 @if ($staff->personalfoto)
-                                                    <img src="{{ asset('images/' . $staff->personalfoto) }}" width="200"
-                                                        id="editstaff-image" height="200" alt="Existing Image">
+                                                    <img src="{{ asset('images/' . ($staff->personalfoto ?? 'fondo.png')) }}"
+                                                        width="200" id="editstaff-image" height="200"
+                                                        alt="Staff Image">
                                                 @endif
                                             </div>
                                         </div>

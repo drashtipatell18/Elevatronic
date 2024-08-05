@@ -187,6 +187,12 @@
                                             Social</label>
                                         <input type="text" placeholder="Nombre o Razón Social" name="nombre"
                                             id="edit-nombre" value="" class="form-control">
+                                    </div>  
+                                    <div class="form-group">
+                                        <label for="tipo_de_cliente">Tipo de Cliente</label>
+                                        <select class="custom-select form-control" name="tipo_de_cliente"
+                                            id="tipo_de_cliente">
+                                        </select>
                                     </div>
                                     <div class="text-right w-100">
                                         <div class="form-group">
@@ -195,12 +201,6 @@
                                                 + Agregar Tipo de Cliente
                                             </button>
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="tipo_de_cliente">Tipo de Cliente</label>
-                                        <select class="custom-select form-control" name="tipo_de_cliente"
-                                            id="tipo_de_cliente">
-                                        </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="RUC">RUC o DNI</label>

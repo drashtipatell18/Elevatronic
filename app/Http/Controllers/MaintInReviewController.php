@@ -161,4 +161,22 @@ class MaintInReviewController extends Controller
         $image = ImagePdfs::find($id);
         $image->delete();
     }
+
+    public function deleteImage(Request $request, $imageId)
+    {
+        $image = ImagePdfs::findOrFail($imageId);
+
+        // Delete the image file
+        $imagePath = public_path('images/' . $image->image);
+        if (file_exists($imagePath)) {
+            unlink($imagePath);
+        }
+
+        // Remove image entry from database
+        $image->delete();
+
+        return response()->json(['success' => true]);
+    }
+
+    
 }

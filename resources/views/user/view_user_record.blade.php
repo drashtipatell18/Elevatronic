@@ -29,7 +29,11 @@
                         <div class="row">
                             <div class="col-md-12 d-flex align-items-start justify-content-start gap-20 mb-6 box-detalle">
                                 <div class="">
-                                    <img src="{{ asset('images/' . ($users->image ?? 'fondo.png')) }}" alt="User Image">
+                                    @if ($users->image)
+                                        <img src="{{ asset('images/' . $users->image) }}" alt="User Image">
+                                    @else
+                                        <img src="{{ asset('img/fondo.png') }}" alt="User Image">
+                                    @endif
                                 </div>
                                 <div class="align-items-start d-flex flex-column h-100 justify-content-between">
                                     <div>
@@ -70,8 +74,12 @@
                                 <div class="col-md-4 mb-4">
                                     <div class="box-contenido">
                                         <h3>Foto de usuario</h3>
-                                        <img src="{{ asset('images/' . ($users->image ?? 'fondo.png')) }}" alt="personal"
-                                            class="w-100">
+                                        @if ($users->image)
+                                            <img src="{{ asset('images/' . $users->image) }}" alt="personal"
+                                                class="w-100">
+                                        @else
+                                            <img src="{{ asset('img/fondo.png') }}" alt="personal" class="w-100">
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="col-md-8 mb-4">

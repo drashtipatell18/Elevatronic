@@ -70,8 +70,13 @@
                             <div class="col-md-12 d-flex align-items-start justify-content-start gap-20 mb-6 box-detalle">
                                 @if (isset($elevators))
                                     <div class="contenido-img">
-                                        <img src="{{ asset('images/' . $elevators->imagen) }}" alt="user"
-                                            width="160">
+                                        @if ($elevators->imagen)
+                                            <img src="{{ asset('images/' . $elevators->imagen) }}" alt="user"
+                                                width="160">
+                                        @else
+                                            <img src="{{ asset('img/bydefult.png') }}" width="160" class="img-table"
+                                                alt="user">
+                                        @endif
                                     </div>
                                 @endif
                                 <div class="align-items-start d-flex flex-column h-100 justify-content-between">
@@ -615,8 +620,8 @@
                                                                 <div class="form-group">
                                                                     <label for="ascensor">Ascensor</label>
                                                                     <input type="text" placeholder="Ascensor"
-                                                                        name="ascensor" value="{{ $elevators->nombre }}" id="ascensor"
-                                                                        class="form-control" readonly>
+                                                                        name="ascensor" value="{{ $elevators->nombre }}"
+                                                                        id="ascensor" class="form-control" readonly>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
@@ -749,7 +754,8 @@
                                                                         <input type="text" placeholder="Ascensor"
                                                                             name="ascensor" id="ascensor"
                                                                             class="form-control"
-                                                                            value="{{ old('ascensor', $contra->ascensor ?? '') }}" readonly>
+                                                                            value="{{ old('ascensor', $contra->ascensor ?? '') }}"
+                                                                            readonly>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-6">
@@ -882,43 +888,43 @@
 
                             @isset($contra)
                                 <!-- Modal Eliminar-->
-                            <div class="modal fade" id="modalEliminar{{ $contra->id }}" tabindex="-1" role="dialog"
-                                aria-labelledby="modelTitleId" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content border-radius-12">
-                                        <divw class="modal-body">
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close">
-                                                        <span aria-hidden="true">×</span>
-                                                    </button>
-                                                    <div class="box1">
-                                                        <img src="{{ asset('img/iconos/trash.svg') }}" alt="trash"
-                                                            width="76">
-                                                        <p class="mt-3 mb-0">
-                                                            ¿Seguro que quieres eliminar <span id="item-name"></span>?
-                                                        </p>
+                                <div class="modal fade" id="modalEliminar{{ $contra->id }}" tabindex="-1" role="dialog"
+                                    aria-labelledby="modelTitleId" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content border-radius-12">
+                                            <divw class="modal-body">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                            <span aria-hidden="true">×</span>
+                                                        </button>
+                                                        <div class="box1">
+                                                            <img src="{{ asset('img/iconos/trash.svg') }}" alt="trash"
+                                                                width="76">
+                                                            <p class="mt-3 mb-0">
+                                                                ¿Seguro que quieres eliminar <span id="item-name"></span>?
+                                                            </p>
+                                                        </div>
                                                     </div>
                                                 </div>
+                                            </divw>
+                                            <div class="modal-footer align-items-center justify-content-center">
+                                                @isset($contra)
+                                                    <form id="delete-form" action="{{ route('destroy.contract', $contra->id) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn-gris btn-red">Sí</button>
+                                                        <button type="button" class="btn-gris btn-border"
+                                                            data-dismiss="modal">No</button>
+                                                    </form>
+                                                @endisset
                                             </div>
-                                        </divw>
-                                        <div class="modal-footer align-items-center justify-content-center">
-                                            @isset($contra)
-                                                <form id="delete-form" action="{{ route('destroy.contract', $contra->id) }}"
-                                                    method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn-gris btn-red">Sí</button>
-                                                    <button type="button" class="btn-gris btn-border"
-                                                        data-dismiss="modal">No</button>
-                                                </form>
-                                            @endisset
-                                        </div>
 
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
                             @endisset
 
 
@@ -1229,7 +1235,7 @@
                                                                 name="supervisor" id="edit-Supervisor">
                                                                 <option value="" class="">Seleccionar opción
                                                                 </option>
-                                                                <option value="supervisor_1"
+                                                                {{-- <option value="supervisor_1"
                                                                     {{ $maint_in_rev->supervisor == 'supervisor_1' ? 'selected' : '' }}>
                                                                     Supervisor 1
                                                                 </option>
@@ -1240,7 +1246,7 @@
                                                                 <option value="supervisor_3"
                                                                     {{ $maint_in_rev->supervisor == 'supervisor_3' ? 'selected' : '' }}>
                                                                     Supervisor 3
-                                                                </option>
+                                                                </option> --}}
                                                             </select>
 
                                                             @error('supervisor')
@@ -1258,7 +1264,7 @@
                                                                 <option value=""
                                                                     class="d-none  @error('técnico') is-invalid @enderror">
                                                                     Seleccionar opción</option>
-                                                                <option value="técnico_1"
+                                                                {{-- <option value="técnico_1"
                                                                     {{ old('técnico') == 'técnico_1' ? 'selected' : ($maint_in_rev->técnico == 'técnico_1' ? 'selected' : '') }}>
                                                                     Técnico 1</option>
                                                                 <option value="técnico_2"
@@ -1266,7 +1272,7 @@
                                                                     Técnico 2</option>
                                                                 <option value="técnico_3"
                                                                     {{ old('técnico') == 'técnico_3' ? 'selected' : ($maint_in_rev->técnico == 'técnico_3' ? 'selected' : '') }}>
-                                                                    Técnico 3</option>
+                                                                    Técnico 3</option> --}}
                                                             </select>
                                                             @error('técnico')
                                                                 <span class="invalid-feedback" role="alert">
@@ -1286,7 +1292,7 @@
                                                                         name="mes_programado" id="edit-Mprogramado">
                                                                         <option value="" class="">Seleccionar
                                                                             opción</option>
-                                                                        <option value="mes_programado_1"
+                                                                        {{-- <option value="mes_programado_1"
                                                                             {{ old('mes_programado', $maint_in_rev->mes_programado ?? '') == 'mes_programado_1' ? 'selected' : '' }}>
                                                                             Mes programado 1</option>
                                                                         <option value="mes_programado_2"
@@ -1294,7 +1300,7 @@
                                                                             Mes programado 2</option>
                                                                         <option value="mes_programado_3"
                                                                             {{ old('mes_programado', $maint_in_rev->mes_programado ?? '') == 'mes_programado_3' ? 'selected' : '' }}>
-                                                                            Mes programado 3</option>
+                                                                            Mes programado 3</option> --}}
                                                                     </select>
                                                                     @error('mes_programado')
                                                                         <span class="invalid-feedback" role="alert">
@@ -1745,22 +1751,8 @@
                                                             <label for="tiposAscensor">Cantidad</label>
 
                                                             <input type="number" placeholder="Cantidad"
-                                                            class="form-control" name="cantidad"
-                                                            id="cantidad" value="">
-                                                            {{-- <select
-                                                                class="custom-select @error('cantidad') is-invalid @enderror"
-                                                                name="cantidad" id="cantidad">
-                                                                <option selected disabled>Seleccionar</option>
-                                                                <option value="cantidad_1"
-                                                                    {{ old('cantidad', $elevators->cantidad ?? '') == 'cantidad_1' ? 'selected' : '' }}>
-                                                                    Cantidad 1</option>
-                                                                <option value="cantidad_2"
-                                                                    {{ old('cantidad', $elevators->cantidad ?? '') == 'cantidad_2' ? 'selected' : '' }}>
-                                                                    Cantidad 2</option>
-                                                                <option value="cantidad_3"
-                                                                    {{ old('cantidad', $elevators->cantidad ?? '') == 'cantidad_3' ? 'selected' : '' }}>
-                                                                    Cantidad 3</option>
-                                                            </select> --}}
+                                                                class="form-control" name="cantidad" id="cantidad"
+                                                                value="">
                                                             @error('cantidad')
                                                                 <span class="invalid-feedback" style="color: red">
                                                                     <strong>{{ $message }}</strong>
@@ -1967,7 +1959,7 @@
                                             <div class="form-group">
                                                 <label for="ascensor">Ascensor</label>
                                                 <select class="custom-select" name="ascensor" id="ascensor"
-                                                    class="form-control">
+                                                    class="form-control" autocomplete="new-ascensor" autoFill="off">
                                                     <option selected disabled>Seleccionar opción</option>
                                                     @foreach ($elevatornumber as $value)
                                                         <option value="{{ $value }}">{{ $value }}
@@ -1979,7 +1971,8 @@
                                             <div class="form-group">
                                                 <label for="dirección">Dirección</label>
                                                 <input type="text" placeholder="Dirección" name="dirección"
-                                                    id="dirección" class="form-control">
+                                                    id="dirección" class="form-control" autocomplete="new-dirección"
+                                                    autoFill="off">
                                                 @error('dirección')
                                                     <span class="invalid-feedback" style="color: red">
                                                         <strong>{{ $message }}</strong>
@@ -1988,8 +1981,13 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="provincia">Provincia</label>
-                                                <input type="text" placeholder="Provincia" name="provincia"
-                                                    id="provincia" class="form-control">
+                                                <select id="provincia" name="provincia" class="form-control">
+                                                    <option value="">Seleccionar Province</option>
+                                                    @foreach ($provinces as $province)
+                                                        <option value="{{ $province }}">{{ $province }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-6">

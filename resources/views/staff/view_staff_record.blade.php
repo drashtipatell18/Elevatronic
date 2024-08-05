@@ -1,4 +1,4 @@
-@extends('layouts.main')
+    @extends('layouts.main')
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 @section('content')
     <style>
@@ -34,6 +34,24 @@
 
         .select2-container--default .select2-selection--single .select2-selection__clear {
             display: none;
+        }
+        #editimagenPrevioPersonal {
+            width: 200px;
+            height: 200px;
+            overflow: hidden;
+            /* Ensures that any overflowed part of the image is hidden */
+            display: flex;
+            align-items: center;
+            /* Centers the image vertically */
+            justify-content: center;
+            /* Centers the image horizontally */
+        }
+
+        #editimagenPrevioPersonal img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* Ensures that the image covers the container without distortion */
         }
     </style>
     <div class="w-100 contenido">
@@ -175,7 +193,6 @@
                                                 <img src="{{ asset('img/fondo.png')) }}"
                                                 width="200" height="200" alt="Personal Image">
                                             @endif
-
                                         </div>
                                     </div>
                                     <div class="col-md-6 mb-3">
@@ -419,12 +436,30 @@
             $('#editimageUpload10').change(function() {
                 var reader = new FileReader();
                 reader.onload = function(e) {
-                    $('#editimagenPrevioPersonal').css('background-image', 'url(' + e.target.result +
-                        ')');
+                    // Update the background image of the preview div
+                    $('#editimagenPrevioPersonal').css('background-image', 'url(' + e.target.result + ')');
+
+                    // Hide any existing image tags inside the preview div
+                    $('#editimagenPrevioPersonal').find('img').remove();
+
+                    // Show the preview div (in case it was hidden)
                     $('#editimagenPrevioPersonal').show();
+
+                    // Optionally, add a new img element if needed
+                    $('#editimagenPrevioPersonal').append('<img src="' + e.target.result + '" width="200" height="200" alt="Preview Image">');
                 }
                 reader.readAsDataURL(this.files[0]);
             });
+
+            // $('#editimageUpload10').change(function() {
+            //     var reader = new FileReader();
+            //     reader.onload = function(e) {
+            //         $('#editimagenPrevioPersonal').css('background-image', 'url(' + e.target.result +
+            //             ')');
+            //         $('#editimagenPrevioPersonal').show();
+            //     }
+            //     reader.readAsDataURL(this.files[0]);
+            // });
 
             $('#editstaff').validate({
                 rules: {

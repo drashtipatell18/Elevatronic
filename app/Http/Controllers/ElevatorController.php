@@ -18,12 +18,14 @@ class ElevatorController extends Controller
 {
     public function elevator()
     {
-        $elevators = Elevators::with('client')->get();
+        // $elevators = Elevators::with('client')->get();
+        $elevators = Elevators::all();
         $customers = Cliente::pluck('nombre', 'id');
+        $allCustomers = Cliente::all();
         $provinces = Province::pluck('provincia', 'provincia');
         $elevatortypes = Elevatortypes::pluck('nombre_de_tipo_de_ascensor', 'nombre_de_tipo_de_ascensor');
         $staffs = Staff::pluck('nombre', 'nombre');
-        return view('elevator.view_elevator', compact('elevators', 'customers', 'provinces', 'elevatortypes', 'staffs'));
+        return view('elevator.view_elevator', compact('elevators','allCustomers', 'customers', 'provinces', 'elevatortypes', 'staffs'));
     }
 
     public function getBrands()
@@ -62,7 +64,7 @@ class ElevatorController extends Controller
             'nombre'              => $request->input('nombre'),
             'código'              => $request->input('código'),
             'marca'               => $request->input('marca'),
-            'client_id'           => $request->input('client_id'),
+            'cliente'           => $request->input('cliente'),
             'fecha'               => $request->input('fecha'),
             'garantizar'          => $request->input('garantizar'),
             'dirección'           => $request->input('dirección'),
@@ -91,7 +93,8 @@ class ElevatorController extends Controller
     public function elevatorEdit($id)
     {
         $elevator = Elevators::findOrFail($id);
-        return view('elevator.view_elevator', compact('elevator'));
+        $allCustomers = Cliente::all();
+        return view('elevator.view_elevator', compact('elevator','allCustomers'));
     }
 
 

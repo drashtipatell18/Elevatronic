@@ -4,6 +4,24 @@
         .dt-head-center {
             text-align: center;
         }
+        #editimagenPrevio {
+            width: 200px;
+            height: 200px;
+            overflow: hidden;
+            /* Ensures that any overflowed part of the image is hidden */
+            display: flex;
+            align-items: center;
+            /* Centers the image vertically */
+            justify-content: center;
+            /* Centers the image horizontally */
+        }
+
+        #editimagenPrevio img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* Ensures that the image covers the container without distortion */
+        }
     </style>
     <div class="w-100 contenido">
         <div class="container-fluid container-mod">

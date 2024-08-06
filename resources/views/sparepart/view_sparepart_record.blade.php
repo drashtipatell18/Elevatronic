@@ -1,5 +1,25 @@
 @extends('layouts.main')
 @section('content')
+<style>
+       #editimagenPrevio {
+            width: 200px;
+            height: 200px;
+            overflow: hidden;
+            /* Ensures that any overflowed part of the image is hidden */
+            display: flex;
+            align-items: center;
+            /* Centers the image vertically */
+            justify-content: center;
+            /* Centers the image horizontally */
+            }
+
+            #editimagenPrevio img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                /* Ensures that the image covers the container without distortion */
+            }
+</style>
     <div class="w-100 contenido">
         <div class="container-fluid container-mod">
             <div class="row">
@@ -432,15 +452,45 @@
                 $('#editimageUpload1').click();
             });
 
+            // $('#editimageUpload1').change(function() {
+            //     var reader = new FileReader();
+            //     reader.onload = function(e) {
+            //         $('#editimagenPrevio').css('background-image', 'url(' + e.target.result +
+            //             ')');
+            //         $('#editimagenPrevio').show();
+            //     }
+            //     reader.readAsDataURL(this.files[0]);
+            // });
+
             $('#editimageUpload1').change(function() {
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                    $('#editimagenPrevio').css('background-image', 'url(' + e.target.result +
-                        ')');
-                    $('#editimagenPrevio').show();
-                }
-                reader.readAsDataURL(this.files[0]);
-            });
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        // Update the background image of the preview div
+                        $('#editimagenPrevio').css('background-image', 'url(' + e.target.result +
+                            ')');
+
+                        // Hide any existing image tags inside the preview div
+                        $('#editimagenPrevio').find('img').remove();
+
+                        // Show the preview div (in case it was hidden)
+                        $('#editimagenPrevio').show();
+
+                        // Optionally, add a new img element if needed
+                        $('#editimagenPrevio').append('<img src="' + e.target.result +
+                            '" width="200" height="200" alt="Preview Image">');
+                    }
+                    reader.readAsDataURL(this.files[0]);
+                });
+
+                $('#editimageUpload1').change(function() {
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        $('#editimagenPrevio').css('background-image', 'url(' + e.target.result +
+                            ')');
+                        $('#editimagenPrevio').show();
+                    }
+                    reader.readAsDataURL(this.files[0]);
+                });
 
             $('#editorRepuesto').on('hidden.bs.modal', function() {
                 var form = $('#editsparepart');

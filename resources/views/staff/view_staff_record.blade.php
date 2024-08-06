@@ -190,7 +190,7 @@
                                                 <img src="{{ asset('images/' . $staffs->personalfoto) }}"
                                                     width="200" height="200" alt="Personal Image">
                                             @else
-                                                <img src="{{ asset('img/fondo.png')) }}"
+                                                <img src="{{ asset('img/fondo.png') }}"
                                                 width="200" height="200" alt="Personal Image">
                                             @endif
                                         </div>

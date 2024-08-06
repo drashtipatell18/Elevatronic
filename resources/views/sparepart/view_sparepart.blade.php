@@ -136,12 +136,13 @@
                                                                                 <div class="col-md-6 mb-3">
                                                                                     <lael>Foto de repuesto</lael>
                                                                                     <div id="editimagenPrevio">
-                                                                                        @if ($sparepart->foto_de_repuesto)
+
+                                                                                        @if ($sparepart->foto_de_repuesto && !empty($sparepart->foto_de_repuesto))
                                                                                             <img src="{{ asset('images/' . $sparepart->foto_de_repuesto) }}"
                                                                                                 width="200" height="200"
                                                                                                 id="edit-sparepart">
                                                                                         @else
-                                                                                            <img src="{{ asset('img/fondo.png') }}"
+                                                                                            <img src="{{ url('img/fondo.png') }}"
                                                                                                 width="200" height="200"
                                                                                                 class="img-table"
                                                                                                 alt="user">
@@ -208,7 +209,7 @@
                                                                                         <label
                                                                                             for="DescripcionRepuesto">Descripción</label>
                                                                                         <textarea name="descripción" id="edit-descripción" placeholder="Descripción" cols="30" rows="5">{{ old('descripción', $sparepart->descripción ?? '') }}</textarea>
-                                                                                        
+
                                                                                     </div>
                                                                                 </div>
 
@@ -221,7 +222,7 @@
                                                                                             name="frecuencia_de_limpieza"
                                                                                             id="edit-frecuencia_de_limpieza"
                                                                                             class="form-control"
-                                                                                            value="">  
+                                                                                            value="">
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="col-md-6">
@@ -793,6 +794,7 @@
 
             $('.edit-sparepart').on('click', function() {
                 var sparepart = $(this).data('sparepart');
+
                 // Populate the modal with customer data
                 $('#edit-nombre').val(sparepart.nombre);
                 $('#edit-precio').val(sparepart.precio);
@@ -806,7 +808,9 @@
 
                 // Set the form action to the correct route
                 $('#editsparepart').attr('action', '/repuestos/actualizar/' + sparepart.id);
-                var imageUrl = "{{ asset('images/') }}" + "/" + sparepart.foto_de_repuesto;
+                var imageUrl = sparepart.foto_de_repuesto ?
+                    "{{ asset('images/') }}" + "/" + sparepart.foto_de_repuesto :
+                    "{{ url('img/fondo.png') }}";
                 $('#edit-sparepart').attr('src', imageUrl);
 
             });

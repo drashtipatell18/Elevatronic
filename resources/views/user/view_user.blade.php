@@ -35,6 +35,24 @@
         .select2-container--default .select2-selection--single .select2-selection__clear {
             display: none;
         }
+        #editimagenPrevioUsuario {
+            width: 200px;
+            height: 200px;
+            overflow: hidden;
+            /* Ensures that any overflowed part of the image is hidden */
+            display: flex;
+            align-items: center;
+            /* Centers the image vertically */
+            justify-content: center;
+            /* Centers the image horizontally */
+        }
+
+        #editimagenPrevioUsuario img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* Ensures that the image covers the container without distortion */
+        }
     </style>
     <div class="w-100 contenido">
         <div class="container-fluid container-mod">
@@ -364,12 +382,25 @@
                                     <div class="row">
                                         <div class="col-md-6 mb-3">
                                             <label>Foto de usuario</label>
-                                            <div id="editimagenPrevioUsuario">
+                                            {{-- <div id="editimagenPrevioUsuario">
                                                 @if ($user->image)
                                                     <img src="{{ asset('images/' . ($user->image ?? 'fondo.png')) }}"
                                                         id="edituser-image" width="200" height="200" alt="User Image">
                                                 @endif
-                                            </div>
+                                            </div> --}}
+
+                                                <div id="editimagenPrevioUsuario">
+                                                    @if ($user->image)
+                                                        <img src="{{ asset('images/' . $user->image) }}"
+                                                            id="edituser-image" alt="Staff Image">
+                                                    @else
+                                                        <img src="{{ asset('img/fondo.png') }}" id="edituser-image"
+                                                            alt="Staff Image">
+                                                    @endif
+                                                </div>
+
+
+
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             <div class="">
@@ -534,7 +565,7 @@
                     return false;
                 }
             });
-            
+
             // Function to get employees (similar to getPosition)
             function getEmployees(edit) {
                 // Destroy existing Select2 instances if they exist
@@ -719,6 +750,7 @@
                 reader.readAsDataURL(this.files[0]);
             });
 
+
             $('#editcargarimagenUsuario').click(function() {
                 $('#editimageUploadUsuario').click();
             });
@@ -732,6 +764,28 @@
                 }
                 reader.readAsDataURL(this.files[0]);
             });
+
+            $('#editimageUploadUsuario').change(function() {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    // Update the background image of the preview div
+                    $('#editimagenPrevioUsuario').css('background-image', 'url(' + e.target.result +
+                        ')');
+
+                    // Hide any existing image tags inside the preview div
+                    $('#editimagenPrevioUsuario').find('img').remove();
+
+                    // Show the preview div (in case it was hidden)
+                    $('#editimagenPrevioUsuario').show();
+
+                    // Optionally, add a new img element if needed
+                    $('#editimagenPrevioUsuario').append('<img src="' + e.target.result +
+                        '" width="200" height="200" alt="Preview Image">');
+                }
+                reader.readAsDataURL(this.files[0]);
+            });
+
+
 
             setTimeout(function() {
                 $(".alert-success").fadeOut(1000);

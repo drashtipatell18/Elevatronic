@@ -2058,7 +2058,6 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-<<<<<<< Updated upstream
                                                             <label for="máquina">#Máquina</label>
                                                             <input type="text" placeholder="#Máquina"
                                                                 name="máquina" id="máquina" class="form-control">

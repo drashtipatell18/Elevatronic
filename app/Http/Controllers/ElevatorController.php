@@ -57,8 +57,6 @@ class ElevatorController extends Controller
             $quarters = $request->input('quarters');
         }
 
-        $request_id = $request->input('request_id');
-
         // Create a new Elevators instance
         $elevators = Elevators::create([
             'imagen'              => $filename,
@@ -83,7 +81,7 @@ class ElevatorController extends Controller
             'correo'              => $request->input('correo'),
             'descripcion1'        => $request->input('descripcion1'),
             'descripcion2'        => $request->input('descripcion2'),
-            'request_id'          => $request_id,
+
         ]);
 
 

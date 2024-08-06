@@ -67,7 +67,8 @@
                     <div class="col-md-12 mb-4">
                         <div class="box-contenido pb-0">
                             <div class="row">
-                                <div class="col-md-12 d-flex align-items-start justify-content-start gap-20 mb-6 box-detalle">
+                                <div
+                                    class="col-md-12 d-flex align-items-start justify-content-start gap-20 mb-6 box-detalle">
                                     @if (isset($elevators))
                                         <div class="contenido-img">
                                             @if ($elevators->imagen)
@@ -337,7 +338,8 @@
                                                                 id="MGratuito" name="mgratuito" value="mgratuito"
                                                                 {{ in_array('mgratuito', explode(',', $elevators->quarters)) ? 'checked' : '' }}
                                                                 disabled>
-                                                            <label class="custom-control-label" for="MGratuito">Mantenimiento
+                                                            <label class="custom-control-label"
+                                                                for="MGratuito">Mantenimiento
                                                                 gratuito?</label>
                                                         </div>
                                                     </div>
@@ -455,8 +457,8 @@
                                             <h3 class="mb-0">Contratos</h3>
                                         </div>
                                         <div class="col-md-6 mb-3 text-right">
-                                            <button type="button" class="btn-primario w-auto pl-3 pr-3" data-toggle="modal"
-                                                data-target="#crearContratos">
+                                            <button type="button" class="btn-primario w-auto pl-3 pr-3"
+                                                data-toggle="modal" data-target="#crearContratos">
                                                 + Agregar
                                             </button>
                                         </div>
@@ -483,7 +485,8 @@
                                                     <button class="dropdown-item export_excel"
                                                         data-table="#contratosTable">Excel
                                                     </button>
-                                                    <button class="dropdown-item export_pdf" data-table="#contratosTable">PDF
+                                                    <button class="dropdown-item export_pdf"
+                                                        data-table="#contratosTable">PDF
                                                     </button>
                                                     <button class="dropdown-item export_copy"
                                                         data-table="#contratosTable">Copiar
@@ -529,7 +532,8 @@
 
                                                             <td align="right">
                                                                 <div class="dropdown">
-                                                                    <button type="button" class="btn-action dropdown-toggle"
+                                                                    <button type="button"
+                                                                        class="btn-action dropdown-toggle"
                                                                         data-toggle="dropdown">
                                                                         Acción <i class="fas fa-chevron-down"></i>
                                                                     </button>
@@ -538,8 +542,9 @@
                                                                             data-toggle="modal"
                                                                             data-target="#crearContratos">Ver
                                                                             detalles</a>
-                                                                        <a class="dropdown-item editContract" href=""
-                                                                            data-id="{{ $contra->id }}" data-toggle="modal"
+                                                                        <a class="dropdown-item editContract"
+                                                                            href="" data-id="{{ $contra->id }}"
+                                                                            data-toggle="modal"
                                                                             data-target="#editarContratos">Editar</a>
 
                                                                         <a class="dropdown-item" href="javascript:void(0)"
@@ -553,13 +558,15 @@
                                                         <div class="modal fade" id="modalEliminar{{ $contra->id }}"
                                                             tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
                                                             aria-hidden="true">
-                                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                            <div class="modal-dialog modal-dialog-centered"
+                                                                role="document">
                                                                 <div class="modal-content border-radius-12">
                                                                     <divw class="modal-body">
                                                                         <div class="row">
                                                                             <div class="col-md-12">
                                                                                 <button type="button" class="close"
-                                                                                    data-dismiss="modal" aria-label="Close">
+                                                                                    data-dismiss="modal"
+                                                                                    aria-label="Close">
                                                                                     <span aria-hidden="true">×</span>
                                                                                 </button>
                                                                                 <div class="box1">
@@ -583,7 +590,8 @@
                                                                                 @method('DELETE')
                                                                                 <button type="submit"
                                                                                     class="btn-gris btn-red">Sí</button>
-                                                                                <button type="button" class="btn-gris btn-border"
+                                                                                <button type="button"
+                                                                                    class="btn-gris btn-border"
                                                                                     data-dismiss="modal">No</button>
                                                                             </form>
                                                                         @endisset
@@ -620,7 +628,8 @@
                                                                     <div class="form-group">
                                                                         <label for="ascensor">Ascensor</label>
                                                                         <input type="text" placeholder="Ascensor"
-                                                                            name="ascensor" value="{{ $elevators->nombre }}"
+                                                                            name="ascensor"
+                                                                            value="{{ $elevators->nombre }}"
                                                                             id="ascensor" class="form-control" readonly>
                                                                     </div>
                                                                 </div>
@@ -629,8 +638,8 @@
                                                                         <label for="fecha_de_propuesta">Fecha de
                                                                             propuesta</label>
                                                                         <input type="date" placeholder="dd/mm/aaaa"
-                                                                            name="fecha_de_propuesta" id="fecha_de_propuesta"
-                                                                            class="form-control">
+                                                                            name="fecha_de_propuesta"
+                                                                            id="fecha_de_propuesta" class="form-control">
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-6">
@@ -638,8 +647,8 @@
                                                                         <label for="monto_de_propuesta">Monto de
                                                                             propuesta</label>
                                                                         <input type="number" placeholder="S/ 300 mensual"
-                                                                            name="monto_de_propuesta" id="monto_de_propuesta"
-                                                                            class="form-control">
+                                                                            name="monto_de_propuesta"
+                                                                            id="monto_de_propuesta" class="form-control">
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-6">
@@ -647,13 +656,14 @@
                                                                         <label for="monto_de_contrato">Monto de
                                                                             contrato</label>
                                                                         <input type="number" placeholder="S/ 300 mensual"
-                                                                            name="monto_de_contrato" id="monto_de_contrato"
-                                                                            class="form-control">
+                                                                            name="monto_de_contrato"
+                                                                            id="monto_de_contrato" class="form-control">
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-6">
                                                                     <div class="form-group">
-                                                                        <label for="fecha_de_inicio">Fecha de inicio</label>
+                                                                        <label for="fecha_de_inicio">Fecha de
+                                                                            inicio</label>
                                                                         <input type="date" placeholder="dd/mm/aaaa"
                                                                             name="fecha_de_inicio" id="fecha_de_inicio"
                                                                             class="form-control">
@@ -672,8 +682,8 @@
                                                                     <div class="adornoinput mb-3">
                                                                         <div class="custom-control custom-checkbox">
                                                                             <input type="checkbox"
-                                                                                class="custom-control-input" id="renovación"
-                                                                                name="renovación">
+                                                                                class="custom-control-input"
+                                                                                id="renovación" name="renovación">
                                                                             <label class="custom-control-label"
                                                                                 for="renovación">Renovación</label>
                                                                         </div>
@@ -685,8 +695,8 @@
                                                                         <label for="cada_cuantos_meses">Cada cuantos
                                                                             meses?</label>
                                                                         <input type="text" placeholder="Meses"
-                                                                            name="cada_cuantos_meses" id="cada_cuantos_meses"
-                                                                            class="form-control">
+                                                                            name="cada_cuantos_meses"
+                                                                            id="cada_cuantos_meses" class="form-control">
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-12">
@@ -697,7 +707,8 @@
                                                                 </div>
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
-                                                                        <label for="estado_cuenta_del_contrato">Estado cuenta
+                                                                        <label for="estado_cuenta_del_contrato">Estado
+                                                                            cuenta
                                                                             del
                                                                             contrato</label>
                                                                         <textarea name="estado_cuenta_del_contrato" id="estado_cuenta_del_contrato" placeholder="Estado cuenta del contrato"
@@ -709,8 +720,10 @@
                                                                         <label for="estado">Estado</label>
                                                                         {{-- <input type="text" placeholder="Activo"
                                                                             name="estado" id="estado"> --}}
-                                                                        <select class="custom-select form-control" name="estado" id="estado">
-                                                                            <option selected disabled>Seleccionar opción</option>
+                                                                        <select class="custom-select form-control"
+                                                                            name="estado" id="estado">
+                                                                            <option selected disabled>Seleccionar opción
+                                                                            </option>
                                                                             <option value="activo">Activo</option>
                                                                             <option value="inactivo">Inactivo</option>
                                                                         </select>
@@ -722,7 +735,8 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
+                                                <div
+                                                    class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
                                                     <button type="submit" class="btn-gris btn-red mr-2">Guardar cambios
                                                     </button>
                                                     <button type="button" class="btn-gris btn-border"
@@ -740,7 +754,8 @@
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title font-family-Outfit-SemiBold">Contrato De Edición</h5>
+                                                <h5 class="modal-title font-family-Outfit-SemiBold">Contrato De Edición
+                                                </h5>
                                                 <button type="button" class="close" data-dismiss="modal"
                                                     aria-label="Close">
                                                     <span aria-hidden="true">×</span>
@@ -769,8 +784,8 @@
                                                                             <label for="fecha_de_propuesta">Fecha de
                                                                                 propuesta</label>
                                                                             <input type="date" placeholder="dd/mm/aaaa"
-                                                                                name="fecha_de_propuesta" id="fecha_de_propuesta"
-                                                                                class="form-control"
+                                                                                name="fecha_de_propuesta"
+                                                                                id="fecha_de_propuesta" class="form-control"
                                                                                 value="{{ old('fecha_de_propuesta', $contra->fecha_de_propuesta ?? '') }}">
                                                                         </div>
                                                                     </div>
@@ -779,8 +794,8 @@
                                                                             <label for="monto_de_propuesta">Monto de
                                                                                 propuesta</label>
                                                                             <input type="number" placeholder="S/ 300 mensual"
-                                                                                name="monto_de_propuesta" id="monto_de_propuesta"
-                                                                                class="form-control"
+                                                                                name="monto_de_propuesta"
+                                                                                id="monto_de_propuesta" class="form-control"
                                                                                 value="{{ old('monto_de_propuesta', $contra->monto_de_propuesta ?? '') }}">
                                                                         </div>
                                                                     </div>
@@ -790,15 +805,16 @@
                                                                             <label for="monto_de_contrato">Monto de
                                                                                 contrato</label>
                                                                             <input type="number" placeholder="S/ 300 mensual"
-                                                                                name="monto_de_contrato" id="monto_de_contrato"
-                                                                                class="form-control"
+                                                                                name="monto_de_contrato"
+                                                                                id="monto_de_contrato" class="form-control"
                                                                                 value="{{ old('monto_de_contrato', $contra->monto_de_contrato ?? '') }}">
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="col-md-6">
                                                                         <div class="form-group">
-                                                                            <label for="fecha_de_inicio">Fecha de inicio</label>
+                                                                            <label for="fecha_de_inicio">Fecha de
+                                                                                inicio</label>
                                                                             <input type="date" placeholder="dd/mm/aaaa"
                                                                                 name="fecha_de_inicio" id="fecha_de_inicio"
                                                                                 class="form-control"
@@ -821,8 +837,9 @@
                                                                         <div class="adornoinput mb-3">
                                                                             <div class="custom-control custom-checkbox">
                                                                                 <input type="checkbox"
-                                                                                    class="custom-control-input" id="renovación"
-                                                                                    name="renovación" class="form-control"
+                                                                                    class="custom-control-input"
+                                                                                    id="renovación" name="renovación"
+                                                                                    class="form-control"
                                                                                     {{ $contra->renovación ? 'checked' : '' }}>
                                                                                 <label class="custom-control-label"
                                                                                     for="renovación">Renovación</label>
@@ -836,8 +853,8 @@
                                                                             <label for="cada_cuantos_meses">Cada cuántos
                                                                                 meses?</label>
                                                                             <input type="text" placeholder="Meses"
-                                                                                name="cada_cuantos_meses" id="cada_cuantos_meses"
-                                                                                class="form-control"
+                                                                                name="cada_cuantos_meses"
+                                                                                id="cada_cuantos_meses" class="form-control"
                                                                                 value="{{ old('cada_cuantos_meses', $contra->cada_cuantos_meses ?? '') }}">
                                                                         </div>
                                                                     </div>
@@ -852,7 +869,8 @@
 
                                                                     <div class="col-md-12">
                                                                         <div class="form-group">
-                                                                            <label for="estado_cuenta_del_contrato">Estado cuenta
+                                                                            <label for="estado_cuenta_del_contrato">Estado
+                                                                                cuenta
                                                                                 del contrato</label>
                                                                             <textarea name="estado_cuenta_del_contrato" id="estado_cuenta_del_contrato" placeholder="Estado cuenta del contrato"
                                                                                 class="form-control" cols="30" rows="5"
@@ -868,8 +886,10 @@
                                                                     <div class="col-md-12">
                                                                         <div class="form-group">
                                                                             <label for="Estado">Estado</label>
-                                                                            <select name="estado" id="estado" class="custom-select form-control">
-                                                                                <option value="" disabled>Seleccionar opción</option>
+                                                                            <select name="estado" id="estado"
+                                                                                class="custom-select form-control">
+                                                                                <option value="" disabled>Seleccionar
+                                                                                    opción</option>
                                                                                 <option value="activo"
                                                                                     {{ old('estado', isset($contra) && $contra->estado == 'activo' ? 'selected' : '') }}>
                                                                                     Activo</option>
@@ -885,7 +905,8 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
+                                                    <div
+                                                        class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
                                                         <button type="submit" class="btn-gris btn-red mr-2">Actualizar cambio
                                                         </button>
                                                         <button type="button" class="btn-gris btn-border"
@@ -900,8 +921,8 @@
 
                                 @isset($contra)
                                     <!-- Modal Eliminar-->
-                                    <div class="modal fade" id="modalEliminar{{ $contra->id }}" tabindex="-1" role="dialog"
-                                        aria-labelledby="modelTitleId" aria-hidden="true">
+                                    <div class="modal fade" id="modalEliminar{{ $contra->id }}" tabindex="-1"
+                                        role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content border-radius-12">
                                                 <divw class="modal-body">
@@ -923,8 +944,8 @@
                                                 </divw>
                                                 <div class="modal-footer align-items-center justify-content-center">
                                                     @isset($contra)
-                                                        <form id="delete-form" action="{{ route('destroy.contract', $contra->id) }}"
-                                                            method="POST">
+                                                        <form id="delete-form"
+                                                            action="{{ route('destroy.contract', $contra->id) }}" method="POST">
                                                             @csrf
                                                             @method('DELETE')
                                                             <button type="submit" class="btn-gris btn-red">Sí</button>
@@ -947,8 +968,8 @@
                                             <h3 class="mb-0">Mantenimientos</h3>
                                         </div>
                                         <div class="col-md-6 mb-3 text-right">
-                                            <button type="button" class="btn-primario w-auto pl-3 pr-3" data-toggle="modal"
-                                                data-target="#crearMantenimiento">
+                                            <button type="button" class="btn-primario w-auto pl-3 pr-3"
+                                                data-toggle="modal" data-target="#crearMantenimiento">
                                                 + Agregar
                                             </button>
                                         </div>
@@ -1017,7 +1038,8 @@
                                                             </td>
                                                             <td align="right">
                                                                 <div class="dropdown">
-                                                                    <button type="button" class="btn-action dropdown-toggle"
+                                                                    <button type="button"
+                                                                        class="btn-action dropdown-toggle"
                                                                         data-toggle="dropdown">
                                                                         Acción <i class="fas fa-chevron-down"></i>
                                                                     </button>
@@ -1040,9 +1062,10 @@
 
                                                         <!-- Modal for observation -->
                                                         <div class="modal fade" id="observacion{{ $maint_in_rev->id }}"
-                                                            tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                                                            aria-hidden="true">
-                                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                            tabindex="-1" role="dialog"
+                                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                            <div class="modal-dialog modal-dialog-centered"
+                                                                role="document">
                                                                 <div class="modal-content" style="border-radius: 10px;">
                                                                     <div class="modal-header">
                                                                         <h5 class="modal-title">Observación</h5>
@@ -1070,13 +1093,15 @@
                                                         <div class="modal fade" id="modalEliminar{{ $maint_in_rev->id }}"
                                                             tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
                                                             aria-hidden="true">
-                                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                            <div class="modal-dialog modal-dialog-centered"
+                                                                role="document">
                                                                 <div class="modal-content border-radius-12">
                                                                     <div class="modal-body">
                                                                         <div class="row">
                                                                             <div class="col-md-12">
                                                                                 <button type="button" class="close"
-                                                                                    data-dismiss="modal" aria-label="Close">
+                                                                                    data-dismiss="modal"
+                                                                                    aria-label="Close">
                                                                                     <span aria-hidden="true">×</span>
                                                                                 </button>
                                                                                 <div class="box1">
@@ -1100,7 +1125,8 @@
                                                                                 @method('DELETE')
                                                                                 <button type="submit"
                                                                                     class="btn-gris btn-red">Sí</button>
-                                                                                <button type="button" class="btn-gris btn-border"
+                                                                                <button type="button"
+                                                                                    class="btn-gris btn-border"
                                                                                     data-dismiss="modal">No</button>
                                                                             </form>
                                                                         @endisset
@@ -1213,7 +1239,8 @@
                                                                     <div class="form-group">
                                                                         <label for="NCertificado">Núm
                                                                             Certificado</label>
-                                                                        <input type="number" placeholder="Núm Certificado"
+                                                                        <input type="number"
+                                                                            placeholder="Núm Certificado"
                                                                             name="núm_certificado" id="edit-NCertificado"
                                                                             value=""
                                                                             class="form-control @error('núm_certificado') is-invalid @enderror">
@@ -1228,7 +1255,8 @@
                                                                     <div class="form-group">
                                                                         <label for="NMaquina">#Máquina</label>
                                                                         <input type="text" placeholder="#Máquina"
-                                                                            name="máquina" id="edit-NMaquina" value=""
+                                                                            name="máquina" id="edit-NMaquina"
+                                                                            value=""
                                                                             class="form-control @error('máquina') is-invalid @enderror">
                                                                         @error('máquina')
                                                                             <span class="invalid-feedback" role="alert">
@@ -1245,7 +1273,8 @@
                                                                 <select
                                                                     class="custom-select @error('supervisor') is-invalid @enderror"
                                                                     name="supervisor" id="edit-Supervisor">
-                                                                    <option value="" class="">Seleccionar opción
+                                                                    <option value="" class="">Seleccionar
+                                                                        opción
                                                                     </option>
                                                                     {{-- <option value="supervisor_1"
                                                                         {{ $maint_in_rev->supervisor == 'supervisor_1' ? 'selected' : '' }}>
@@ -1302,7 +1331,8 @@
                                                                         <select
                                                                             class="custom-select @error('mes_programado') is-invalid @enderror"
                                                                             name="mes_programado" id="edit-Mprogramado">
-                                                                            <option value="" class="">Seleccionar
+                                                                            <option value="" class="">
+                                                                                Seleccionar
                                                                                 opción</option>
                                                                             {{-- <option value="mes_programado_1"
                                                                                 {{ old('mes_programado', $maint_in_rev->mes_programado ?? '') == 'mes_programado_1' ? 'selected' : '' }}>
@@ -1402,7 +1432,8 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
+                                                <div
+                                                    class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
                                                     <button type="submit" class="btn-gris btn-red mr-2">Guardar
                                                         Cambios</button>
                                                     <button type="button" class="btn-gris btn-border"
@@ -1547,15 +1578,16 @@
                                                                     imagen</label>
                                                                 <input type="file" id="editimageUpload" name="imagen"
                                                                     style="display: none;" accept="image/*" />
-                                                                <button type="button" id="edituploadButton" class="btn-gris">
+                                                                <button type="button" id="edituploadButton"
+                                                                    class="btn-gris">
                                                                     <i class="fas fa-arrow-to-top mr-2"></i>Subir
                                                                     Imagen
                                                                 </button>
                                                             </div>
                                                             <div class="form-group mb-0">
                                                                 <label for="contrato"># de contrato</label>
-                                                                <input type="text" placeholder="# de contrato" name="contrato"
-                                                                    id="contrato"
+                                                                <input type="text" placeholder="# de contrato"
+                                                                    name="contrato" id="contrato"
                                                                     class="form-control @error('contrato') is-invalid @enderror"
                                                                     value="{{ old('contrato', $elevators->contrato ?? '') }}">
                                                                 @error('contrato')
@@ -1896,7 +1928,8 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-md-12">
-                                                            <button type="button" class="btn-gris" id="AgregarDescripcion">+
+                                                            <button type="button" class="btn-gris"
+                                                                id="AgregarDescripcion">+
                                                                 Agregar
                                                                 Descripción</button>
                                                         </div>
@@ -1936,10 +1969,12 @@
                                                 id="marca_nombre" class="form-control">
                                         </div>
                                         <div class="form-group">
-                                            <button type="button" class="btn-primario w-auto pl-3 pr-3" id="submitBrand">
+                                            <button type="button" class="btn-primario w-auto pl-3 pr-3"
+                                                id="submitBrand">
                                                 Entregar
                                             </button>
-                                            <button type="button" class="btn-primario w-auto pl-3 pr-3" id="cancelMarca">
+                                            <button type="button" class="btn-primario w-auto pl-3 pr-3"
+                                                id="cancelMarca">
                                                 Cancelar
                                             </button>
                                         </div>
@@ -1981,7 +2016,8 @@
                                                 <div class="form-group">
                                                     <label for="ascensor">Ascensor</label>
                                                     <select class="custom-select" name="ascensor" id="ascensor"
-                                                        class="form-control" autocomplete="new-ascensor" autoFill="off">
+                                                        class="form-control" autocomplete="new-ascensor"
+                                                        autoFill="off">
                                                         <option selected disabled>Seleccionar opción</option>
                                                         @foreach ($elevatornumber as $value)
                                                             <option value="{{ $value }}">{{ $value }}
@@ -1993,8 +2029,8 @@
                                                 <div class="form-group">
                                                     <label for="dirección">Dirección</label>
                                                     <input type="text" placeholder="Dirección" name="dirección"
-                                                        id="dirección" class="form-control" autocomplete="new-dirección"
-                                                        autoFill="off">
+                                                        id="dirección" class="form-control"
+                                                        autocomplete="new-dirección" autoFill="off">
                                                     @error('dirección')
                                                         <span class="invalid-feedback" style="color: red">
                                                             <strong>{{ $message }}</strong>
@@ -2023,15 +2059,16 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="máquina">#Máquina</label>
-                                                            <input type="text" placeholder="#Máquina" name="máquina"
-                                                                id="máquina" class="form-control">
+                                                            <input type="text" placeholder="#Máquina"
+                                                                name="máquina" id="máquina" class="form-control">
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="supervisor">Supervisor</label>
                                                     <select class="custom-select" name="supervisor" id="supervisor">
-                                                        <option selected disabled class="d-none">Seleccionar opción</option>
+                                                        <option selected disabled class="d-none">Seleccionar opción
+                                                        </option>
                                                         <option value="supervisor_1">Supervisor 1</option>
                                                         <option value="supervisor_2">Supervisor 2</option>
                                                         <option value="supervisor_3">Supervisor 3</option>
@@ -2040,7 +2077,8 @@
                                                 <div class="form-group">
                                                     <label for="técnico">Técnico</label>
                                                     <select class="custom-select" name="técnico" id="técnico">
-                                                        <option selected disabled class="d-none">Seleccionar opción</option>
+                                                        <option selected disabled class="d-none">Seleccionar opción
+                                                        </option>
                                                         <option value="técnico_1">Técnico 1</option>
                                                         <option value="técnico_2">Técnico 2</option>
                                                         <option value="técnico_3">Técnico 3</option>
@@ -2052,7 +2090,8 @@
                                                             <label for="Mprogramado">Mes programado</label>
                                                             <select class="custom-select" name="mes_programado"
                                                                 id="Mprogramado">
-                                                                <option selected disabled class="d-none">Seleccionar opción
+                                                                <option selected disabled class="d-none">Seleccionar
+                                                                    opción
                                                                 </option>
                                                                 <option value="mes_programado_1">Mes programado 1</option>
                                                                 <option value="mes_programado_2">Mes programado 2</option>
@@ -2073,14 +2112,15 @@
                                                         <div class="form-group">
                                                             <label for="FInicio">Hora inicio</label>
                                                             <input type="time" placeholder="dd/mm/aaaa"
-                                                                name="hora_inicio" id="FInicio" class="form-control">
+                                                                name="hora_inicio" id="FInicio"
+                                                                class="form-control">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="HFin">Hora fin</label>
-                                                            <input type="time" placeholder="dd/mm/aaaa" name="hora_fin"
-                                                                id="HFin" class="form-control">
+                                                            <input type="time" placeholder="dd/mm/aaaa"
+                                                                name="hora_fin" id="HFin" class="form-control">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-12">
@@ -2092,7 +2132,8 @@
                                                     </div>
                                                     <div class="col-md-12">
                                                         <div class="form-group">
-                                                            <label for="observacionesInternas">Observaciónes internas</label>
+                                                            <label for="observacionesInternas">Observaciónes
+                                                                internas</label>
                                                             <textarea name="observaciónes_internas" id="observacionesInternas" placeholder="Observaciónes internas"
                                                                 cols="30" rows="5" class="form-control"></textarea>
                                                         </div>
@@ -2189,6 +2230,12 @@
     @push('scripts')
         <script>
             $(document).ready(function() {
+                $('#brandForm').on('keypress', function(e) {
+                    if (e.which === 13) { // 13 is the Enter key code
+                        e.preventDefault();
+                        return false;
+                    }
+                });
                 let selectize;
 
                 function getBrand(edit) {

@@ -187,7 +187,7 @@
                                             Social</label>
                                         <input type="text" placeholder="Nombre o Razón Social" name="nombre"
                                             id="edit-nombre" value="" class="form-control">
-                                    </div>  
+                                    </div>
                                     <div class="form-group">
                                         <label for="tipo_de_cliente">Tipo de Cliente</label>
                                         <select class="custom-select form-control" name="tipo_de_cliente"
@@ -333,7 +333,7 @@
                     </button>
                 </div>
                 <div class="col-md-12" id="marcaInputSection" style="">
-                    <form method="POST" id="brandForm">
+                    <form method="POST" id="CilentForm">
                         @csrf
                         <div class="form-group">
                             <label>Ingresar Tipo De Clients</label>
@@ -359,6 +359,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <script>
         $(document).ready(function() {
+            $('#CilentForm').on('keypress', function(e) {
+                if (e.which === 13) { // 13 is the Enter key code
+                    e.preventDefault();
+                    return false;
+                }
+            });
 
             function getClientTypes(edit) {
                 // Destroy existing Select2 instances if they exist
@@ -394,7 +400,7 @@
                             setTimeout(function() {
                                 $('#tipo_de_cliente').val(edit).trigger('change');
                                 console.log('Selected value set to:', $('#tipo_de_cliente')
-                                .val());
+                                    .val());
                             }, 100);
                         }
                     },

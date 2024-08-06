@@ -492,6 +492,13 @@
     <script>
         $(document).ready(function() {
 
+            $('#posiciónForm').on('keypress', function(e) {
+                if (e.which === 13) { // 13 is the Enter key code
+                    e.preventDefault();
+                    return false;
+                }
+            });
+
             function getPosition(edit) {
                 // Destroy existing Select2 instances if they exist
                 if ($('#position').data('select2')) {

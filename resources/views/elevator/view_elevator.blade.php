@@ -882,6 +882,13 @@
     <script>
         $(document).ready(function() {
 
+            $('#brandForm').on('keypress', function(e) {
+                if (e.which === 13) { // 13 is the Enter key code
+                    e.preventDefault();
+                    return false;
+                }
+            });
+
             function getBrand(edit) {
                 // Destroy existing Select2 instances if they exist
                 if ($('#marca').data('select2')) {
@@ -1068,7 +1075,7 @@
             });
 
             $('#editimageUpload').change(function() {
-                
+
                 var reader = new FileReader();
                 reader.onload = function(e) {
                     $('#editimagePreview').css('background-image', 'url(' + e.target.result + ')');

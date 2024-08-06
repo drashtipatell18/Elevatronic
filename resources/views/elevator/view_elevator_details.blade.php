@@ -1654,17 +1654,16 @@
                                                                 <label for="clienteAscensor">Cliente del
                                                                     ascensor</label>
                                                                 <select
-                                                                    class="custom-select form-control @error('cliente') is-invalid @enderror"
-                                                                    name="cliente" id="cliente">
-                                                                    <option selected disabled>Seleccionar opción
-                                                                    </option>
+                                                                    class="custom-select form-control @error('client_id') is-invalid @enderror"
+                                                                    name="client_id" id="client_id">
                                                                     @foreach ($customers as $key => $value)
                                                                         <option value="{{ $key }}"
-                                                                            {{ old('cliente', $elevators->cliente ?? '') == $key ? 'selected' : '' }}>
-                                                                            {{ $value }}</option>
+                                                                            {{ old('client_id', $elevators->client_id ?? '') == $key ? 'selected' : '' }}>
+                                                                            {{ $value }}
+                                                                        </option>
                                                                     @endforeach
                                                                 </select>
-                                                                @error('cliente')
+                                                                @error('client_id')
                                                                     <span class="invalid-feedback" style="color: red">
                                                                         <strong>{{ $message }}</strong>
                                                                     </span>
@@ -2744,7 +2743,7 @@
                     $('#edit-nombre').val(elevator.nombre);
                     $('#edit-código').val(elevator.código);
                     $('#edit-marca').val(elevator.marca);
-                    $('#edit-cliente').val(elevator.cliente);
+                    $('#client_id').val(elevator.client_id);
                     $('#edit-fecha').val(elevator.fecha);
                     $('#edit-garantizar').val(elevator.garantizar);
                     $('#edit-dirección').val(elevator.dirección);

@@ -18,10 +18,8 @@ class ElevatorController extends Controller
 {
     public function elevator()
     {
-        $elevators = Elevators::all();
-        // $customers = Cliente::pluck('nombre', 'nombre');
-        $customers = Cliente ::all();
-
+        $elevators = Elevators::with('client')->get();
+        $customers = Cliente::pluck('nombre', 'id');
         $provinces = Province::pluck('provincia', 'provincia');
         $elevatortypes = Elevatortypes::pluck('nombre_de_tipo_de_ascensor', 'nombre_de_tipo_de_ascensor');
         $staffs = Staff::pluck('nombre', 'nombre');
@@ -64,7 +62,7 @@ class ElevatorController extends Controller
             'nombre'              => $request->input('nombre'),
             'código'              => $request->input('código'),
             'marca'               => $request->input('marca'),
-            'cliente'             => $request->input('cliente'),
+            'client_id'           => $request->input('client_id'),
             'fecha'               => $request->input('fecha'),
             'garantizar'          => $request->input('garantizar'),
             'dirección'           => $request->input('dirección'),
@@ -156,7 +154,7 @@ class ElevatorController extends Controller
         $elevators = Elevators::find($id);
         $contracts = Contract::where('ascensor', $elevators->nombre)->get();
         $spareparts = SparePart::all();
-        $customers = Cliente::pluck('nombre', 'nombre');
+        $customers = Cliente::pluck('nombre', 'id');
         $provinces = Province::pluck('provincia', 'provincia');
         $maint_in_reviews = MaintInReview::where('ascensor', $elevators->nombre)->get();
         $elevatornumber = Elevators::pluck('nombre', 'nombre');

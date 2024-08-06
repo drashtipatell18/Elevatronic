@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Cliente;
 
 class Elevators extends Model
 {
@@ -16,6 +17,6 @@ class Elevators extends Model
 
     public function client()
     {
-        return $this->belongsTo(Cliente::class, 'cliente', 'id'); // Adjust the keys if necessary
+        return $this->belongsTo(Cliente::class, 'client_id');
     }
 }

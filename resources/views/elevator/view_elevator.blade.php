@@ -114,22 +114,17 @@
                                                         {{ $elevator->nombre }}
                                                     </a>
                                                 </td>
-                                                {{-- <td> --}}
-                                                    {{-- <a href="{{ route('view.customer', $elevator->id) }}" class="text-blue">
-                                                        {{ $elevator->cliente }}
-                                                    </a> --}}
-                                                {{-- </td> --}}
                                                 <td>
+
                                                     @if ($elevator->client)
-                                                        <a href="{{ route('view.customer', $elevator->client->id) }}" class="text-blue">
+                                                        <a href="{{ route('view.customer', $elevator->client->id) }}"
+                                                            class="text-blue">
                                                             {{ $elevator->client->nombre }}
                                                         </a>
                                                     @else
-                                                        No client assigned
+                                                        N/A
                                                     @endif
                                                 </td>
-
-
                                                 <td>{{ $elevator->provincia }}</td>
                                                 <td align="right">
                                                     <div class="dropdown">
@@ -286,17 +281,12 @@
                                                                     <label for="clienteAscensor">Cliente del
                                                                         ascensor</label>
                                                                     <select class="custom-select form-control"
-                                                                        name="cliente" id="cliente">
+                                                                        name="client_id" id="client_id">
                                                                         <option value="" class="d-none">Seleccionar
                                                                             opción</option>
-                                                                        {{-- @foreach ($customers as $key => $value)
+                                                                        @foreach ($customers as $key => $value)
                                                                             <option value="{{ $key }}">
                                                                                 {{ $value }}</option>
-                                                                        @endforeach --}}
-
-                                                                        @foreach ($customers as $customer)
-                                                                            <option value="{{ $customer->id }}">
-                                                                                {{ $customer->nombre }}</option>
                                                                         @endforeach
                                                                     </select>
                                                                 </div>
@@ -608,18 +598,14 @@
                                                                         <label for="clienteAscensor">Cliente
                                                                             del
                                                                             ascensor</label>
-                                                                        <select class="custom-select form-control"
-                                                                            name="cliente" id="edit-cliente">
-                                                                            <option value="" disabled>
-                                                                                Seleccionar opción
-                                                                            </option>
-                                                                            @foreach ($customers as $customer)
-                                                                                <option value="{{ $customer->id }}"
-                                                                                    {{ old('cliente', $elevator->cliente ?? '') == $customer->id  ? 'selected' : '' }}>
-                                                                                    {{ $customer->nombre }}
-                                                                                </option>
-                                                                            @endforeach
-                                                                        </select>
+                                                                            <select name="client_id" class="ustom-select form-control" id="edit-cliente">
+                                                                                @foreach ($customers as $key => $value)
+                                                                                    <option value="{{ $key }}" 
+                                                                                        {{ old('client_id', $elevator->client_id ?? '') == $key ? 'selected' : '' }}>
+                                                                                        {{ $value }}
+                                                                                    </option>
+                                                                                @endforeach
+                                                                            </select>                                                                            
                                                                     </div>
                                                                 </div>
 
@@ -1227,7 +1213,7 @@
                 $('#edit-nombre').val(elevator.nombre);
                 $('#edit-código').val(elevator.código);
                 $('#edit-marca').val(elevator.marca);
-                $('#edit-cliente').val(elevator.cliente);
+                $('#edit-cliente').val(elevator.client_id);
                 $('#edit-fecha').val(elevator.fecha);
                 $('#edit-garantizar').val(elevator.garantizar);
                 $('#edit-dirección').val(elevator.dirección);

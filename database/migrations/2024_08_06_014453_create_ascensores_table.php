@@ -28,9 +28,7 @@ return new class extends Migration
             $table->string('técnico_ajustador')->nullable();
             $table->string('tipo_de_ascensor')->nullable();
             $table->string('cantidad')->nullable();
-            $table->string('mgratuito')->nullable();
-            $table->string('sincuarto')->nullable();
-            $table->string('concuarto')->nullable();
+            $table->string('quarters')->nullable();
             $table->string('npisos')->nullable();
             $table->string('ncontacto')->nullable();
             $table->string('teléfono')->nullable();

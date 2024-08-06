@@ -1,4 +1,5 @@
 @extends('layouts.main')
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 @section('content')
     <style>
         .dt-head-center {
@@ -7,6 +8,36 @@
 
         .error {
             color: red;
+        }
+
+        .supervisorbtn {
+            margin-right: 15px;
+            font-size: 14px;
+            padding: 2px 8px !important;
+        }
+
+        .select2-selection__arrow {
+            top: 7px !important;
+            width: 24px !important;
+        }
+
+        .select2-selection__placeholder {
+            margin-bottom: 53px !important;
+        }
+
+        .select2-selection--single {
+            height: 39px !important;
+            display: flex !important;
+            align-items: center !important;
+            width: 100% !important;
+        }
+
+        .select2-container--default {
+            width: 100% !important;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__clear {
+            display: none;
         }
     </style>
     <div class="w-100 contenido">
@@ -215,54 +246,12 @@
                                                                                 @enderror
                                                                             </div>
 
-                                                                            {{-- <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="NCertificado">Núm
-                                            Certificado</label>
-                                        <input type="number" placeholder="Núm Certificado" name="núm_certificado"
-                                            id="edit-NCertificado"
-                                            value=""
-                                            class="form-control @error('núm_certificado') is-invalid @enderror">
-                                        @error('núm_certificado')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="NMaquina">#Máquina</label>
-                                        <input type="text" placeholder="#Máquina" name="máquina" id="edit-NMaquina"
-                                            value=""
-                                            class="form-control @error('máquina') is-invalid @enderror">
-                                        @error('máquina')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                            </div> --}}
-
-
                                                                             <div class="form-group">
                                                                                 <label for="Supervisor">Supervisor</label>
                                                                                 <select
-                                                                                    class="custom-select  @error('máquina') is-invalid @enderror"
-                                                                                    name="supervisor" id="edit-Supervisor">
-                                                                                    <option value="" class="">
-                                                                                        Seleccionar opción</option>
-                                                                                    <option value="supervisor_1"
-                                                                                        {{ old('supervisor') == 'supervisor_1' ? 'selected' : ($maint_in_rev->supervisor == 'supervisor_1' ? 'selected' : '') }}>
-                                                                                        Supervisor 1</option>
-                                                                                    <option value="supervisor_2"
-                                                                                        {{ old('supervisor') == 'supervisor_2' ? 'selected' : ($maint_in_rev->supervisor == 'supervisor_2' ? 'selected' : '') }}>
-                                                                                        Supervisor 2</option>
-                                                                                    <option value="supervisor_3"
-                                                                                        {{ old('supervisor') == 'supervisor_3' ? 'selected' : ($maint_in_rev->supervisor == 'supervisor_3' ? 'selected' : '') }}>
-                                                                                        Supervisor 3</option>
+                                                                                    class="custom-select  @error('supervisor') is-invalid @enderror"
+                                                                                    name="supervisor" id="supervisor1">
+
                                                                                 </select>
                                                                                 @error('supervisor')
                                                                                     <span class="invalid-feedback" role="alert">
@@ -271,29 +260,16 @@
                                                                                 @enderror
                                                                             </div>
 
-
-                                                                            {{-- <div class="form-group">
-                                <label for="tecnico">Técnico</label>
-                                <select class="custom-select" name="técnico" id="edit-técnico">
-                                    <option value="" class="d-none  @error('técnico') is-invalid @enderror">
-                                        Seleccionar opción</option>
-                                    <option value="técnico_1"
-                                        {{ old('técnico') == 'técnico_1' ? 'selected' : ($maint_in_rev->técnico == 'técnico_1' ? 'selected' : '') }}>
-                                        Técnico 1</option>
-                                    <option value="técnico_2"
-                                        {{ old('técnico') == 'técnico_2' ? 'selected' : ($maint_in_rev->técnico == 'técnico_2' ? 'selected' : '') }}>
-                                        Técnico 2</option>
-                                    <option value="técnico_3"
-                                        {{ old('técnico') == 'técnico_3' ? 'selected' : ($maint_in_rev->técnico == 'técnico_3' ? 'selected' : '') }}>
-                                        Técnico 3</option>
-                                </select>
-                                @error('técnico')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div> --}}
-
+                                                                            <div class="text-right w-100">
+                                                                                <div class="form-group">
+                                                                                    <button type="button" data-toggle="modal"
+                                                                                        data-target="#crearSupervisor"
+                                                                                        class="btn-gris supervisorbtn"
+                                                                                        id="toggleMarcaInput">
+                                                                                        + Agregar Supervisor
+                                                                                    </button>
+                                                                                </div>
+                                                                            </div>
 
                                                                             <div class="form-group">
                                                                                 <label for="técnico">Técnico</label>
@@ -309,8 +285,6 @@
                                                                                     @endforeach
                                                                                 </select>
                                                                             </div>
-
-
 
                                                                             <div class="row">
                                                                                 <div class="col-md-6">
@@ -583,47 +557,26 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                {{-- <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="núm_certificado">Núm Certificado</label>
-                                            <input type="number" placeholder="Núm Certificado" name="núm_certificado"
-                                                id="núm_certificado" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="máquina">#Máquina</label>
-                                            <input type="text" placeholder="#Máquina" name="máquina" id="máquina"
-                                                class="form-control">
-                                        </div>
-                                    </div>
-                                </div> --}}
                                 <div class="form-group">
                                     <label for="supervisor">Supervisor</label>
                                     <select class="custom-select" name="supervisor" id="supervisor">
-                                        <option value="">Seleccionar opción</option>
-                                        <option value="supervisor_1">Supervisor 1</option>
-                                        <option value="supervisor_2">Supervisor 2</option>
-                                        <option value="supervisor_3">Supervisor 3</option>
+
                                     </select>
                                 </div>
-                                {{-- <div class="form-group">
-                                    <label for="técnico">Técnico</label>
-                                    <select class="custom-select" name="técnico" id="técnico">
-                                        <option value="">Seleccionar opción</option>
-                                        <option value="técnico_1">Técnico 1</option>
-                                        <option value="técnico_2">Técnico 2</option>
-                                        <option value="técnico_3">Técnico 3</option>
-                                    </select>
-                                </div> --}}
+
+                                <div class="text-right w-100">
+                                    <div class="form-group">
+                                        <button type="button" data-toggle="modal" data-target="#crearSupervisor"
+                                            class="btn-gris supervisorbtn" id="toggleMarcaInput">
+                                            + Agregar Supervisor
+                                        </button>
+                                    </div>
+                                </div>
+
                                 <div class="form-group">
                                     <label for="técnico">Técnico</label>
                                     <select class="custom-select" name="técnico" id="técnico">
                                         <option value="">Seleccionar opción</option>
-                                        {{-- @foreach ($Personals as $Personal)
-                                            <option value="{{ $Personal->id }}">{{ $Personal->nombre }}</option>
-                                        @endforeach --}}
                                         @foreach ($Personals as $Personal)
                                             <option value="{{ $Personal }}">{{ $Personal }}</option>
                                         @endforeach
@@ -699,11 +652,143 @@
             </div>
         </div>
     </div>
+
+    {{-- Model Crear Supervisor --}}
+    <div class="modal left fade" id="crearSupervisor" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title font-family-Outfit-SemiBold">Crear Supervisor</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="col-md-12" id="marcaInputSection" style="">
+                    <form method="POST" id="SupervisorForm">
+                        @csrf
+                        <div class="form-group">
+                            <label>Ingresar Supervisor</label>
+                            <input type="text" placeholder="Ingresar Supervisor" name="nomber" id="nomber"
+                                class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <button type="button" class="btn-primario w-auto pl-3 pr-3" id="submitSupervisor">
+                                Entregar
+                            </button>
+                            <button type="button" class="btn-primario w-auto pl-3 pr-3" id="cancelSupervisor">
+                                Cancelar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 @push('scripts')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <script>
         $(document).ready(function() {
+            // Prevent form submission on Enter key press
+            $('#SupervisorForm').on('keypress', function(e) {
+                if (e.which === 13) { // 13 is the Enter key code
+                    e.preventDefault();
+                    return false;
+                }
+            });
 
+            function getSupervisors(edit) {
+                // Destroy existing Select2 instance if it exists
+                if ($('#supervisor').data('select2')) {
+                    $('#supervisor').select2('destroy');
+                }
+                if ($('#supervisor1').data('select2')) {
+                    $('#supervisor1').select2('destroy');
+                }
+
+                // Perform the AJAX call to get supervisor data
+                $.ajax({
+                    type: "GET",
+                    url: "{{ route('supervisors') }}", // Ensure this route is correct
+                    dataType: "JSON",
+                    success: function(response) {
+                        // Clear the current options and append the retrieved options to the select element
+                        $("#supervisor,#supervisor1").empty();
+                        $("#supervisor,supervisor1").append(
+                            '<option value="" class="d-none">Seleccionar Supervisor</option>'
+                        ); // Add placeholder option
+
+                        $.each(response, function() {
+                            $("#supervisor,#supervisor1").append(
+                                `<option value='${this.id}'>${this.nomber}</option>`
+                            );
+                        });
+
+                        // Initialize Select2 on the select element
+                        $('#supervisor').select2({
+                            placeholder: "Seleccionar Supervisor",
+                            allowClear: true
+                        });
+
+                        $('#supervisor1').select2({
+                            placeholder: "Seleccionar Supervisor",
+                            allowClear: true
+                        });
+
+                        // If edit is true and has a valid ID, set the selected value
+                        if (edit) {
+                            $('#supervisor1').val(edit).trigger('change');
+                            console.log('Selected supervisor set to:', edit);
+                        }
+                    },
+                    error: function(xhr) {
+                        console.error('Error fetching supervisors:', xhr.responseText);
+                    }
+                });
+            }
+
+            // Call the function when needed, e.g., when opening the modal
+            const editValue = '{{ $editValue ?? '' }}'; // Replace with actual edit value if available
+            getSupervisors(editValue);
+
+            // Handle form submission
+            $('#submitSupervisor').click(function(e) {
+                e.preventDefault(); // Prevent default form submission
+                var formData = new FormData();
+                formData.append('nomber', $('#nomber').val());
+
+                // Send AJAX request
+                $.ajax({
+                    type: "POST",
+                    method: "POST",
+                    dataType: "JSON",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: "{{ route('insert.supervisor') }}", // Make sure to create this route
+                    success: function(response) {
+                        // Handle success (e.g., close modal, clear form, update supervisor list)
+                        $('#crearSupervisor').modal('hide');
+                        $('#supervisor').val(''); // Clear the input
+                        // You might want to add a function here to update the supervisor list
+                        // updateSupervisorList();
+                    },
+                    error: function(xhr) {
+                        console.error('Error creating supervisor:', xhr.responseText);
+                        // Handle error (e.g., show error message to user)
+                    }
+                });
+            });
+
+            // Handle modal close on cancel button click
+            $('#cancelSupervisor').click(function() {
+                $("#crearSupervisor").modal('hide');
+            });
+            
             var table = $('#ascensores').DataTable({
                 responsive: true,
                 dom: 'tp',
@@ -904,7 +989,7 @@
                 $('#edit-provincia').val(mantenimiento.provincia);
                 $('#edit-NCertificado').val(mantenimiento.núm_certificado);
                 $('#edit-NMaquina').val(mantenimiento.máquina);
-                $('#edit-Supervisor').val(mantenimiento.supervisor);
+                $('#supervisor1').val(mantenimiento.supervisor).trigger('change');
                 $('#edit-técnico').val(mantenimiento.técnico);
                 $('#edit-Mprogramado').val(mantenimiento.mes_programado);
                 $('#edit-FMantenimiento').val(mantenimiento.fecha_de_mantenimiento);

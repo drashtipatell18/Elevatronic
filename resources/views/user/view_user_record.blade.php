@@ -377,9 +377,16 @@
     </div>
 @endsection
 @push('scripts')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <script>
         $(document).ready(function() {
+            $('#empledoForm').on('keypress', function(e) {
+                if (e.which === 13) { // 13 is the Enter key code
+                    e.preventDefault();
+                    return false;
+                }
+            });
+
             function getEmployees(edit) {
                 // Destroy existing Select2 instances if they exist
                 if ($('#employee').data('select2')) {

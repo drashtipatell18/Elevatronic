@@ -351,24 +351,14 @@
                                     <div class="row">
                                         <div class="col-md-6 mb-3">
                                             <label>Foto de Personal</label>
-                                            {{-- <div id="editimagenPrevioPersonal">
-                                                @if ($staff->personalfoto)
-                                                    <img src="{{ asset('images/' . ($staff->personalfoto ?? 'fondo.png')) }}"
-                                                        width="200" id="editstaff-image" height="200"
-                                                        alt="Staff Image">
-                                                @endif
-                                            </div> --}}
-                                            {{-- <div id="editimagenPrevioPersonal">
-                                                @if ($staff->personalfoto)
-                                                    <img src="{{ asset('images/' . ($staff->personalfoto ?? 'fondo.png')) }}"
-                                                        id="editstaff-image" alt="Staff Image">
-                                                @endif
-                                            </div> --}}
                                             {{-- <input type="file" id="editimageUpload10"> --}}
                                             <div id="editimagenPrevioPersonal">
                                                 @if ($staff->personalfoto)
-                                                    <img src="{{ asset('images/' . ($staff->personalfoto ?? 'fondo.png')) }}"
+                                                    <img src="{{ asset('images/' . $staff->personalfoto) }}"
                                                         id="editstaff-image" alt="Staff Image">
+                                                @else
+                                                    <img src="{{ asset('img/fondo.png') }}" id="editstaff-image"
+                                                        alt="Staff Image">
                                                 @endif
                                             </div>
 
@@ -501,6 +491,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <script>
         $(document).ready(function() {
+
+            $('#posiciónForm').on('keypress', function(e) {
+                if (e.which === 13) { // 13 is the Enter key code
+                    e.preventDefault();
+                    return false;
+                }
+            });
 
             function getPosition(edit) {
                 // Destroy existing Select2 instances if they exist
@@ -698,15 +695,15 @@
                 $('#editimageUpload10').click();
             });
 
-            // $('#editimageUpload10').change(function() {
-            //     var reader = new FileReader();
-            //     reader.onload = function(e) {
-            //         $('#editimagenPrevioPersonal').css('background-image', 'url(' + e.target.result +
-            //             ')');
-            //         $('#editimagenPrevioPersonal').show();
-            //     }
-            //     reader.readAsDataURL(this.files[0]);
-            // });
+            $('#editimageUpload10').change(function() {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#editimagenPrevioPersonal').css('background-image', 'url(' + e.target.result +
+                        ')');
+                    $('#editimagenPrevioPersonal').show();
+                }
+                reader.readAsDataURL(this.files[0]);
+            });
 
             $('#editimageUpload10').change(function() {
                 var reader = new FileReader();
@@ -816,7 +813,9 @@
                 $('#posición1').val(staff.posición).trigger('change');
                 $('#edit-correo').val(staff.correo);
                 $('#edit-teléfono').val(staff.teléfono);
-                var imageUrl = "{{ asset('images/') }}" + "/" + staff.personalfoto;
+                var imageUrl = staff.personalfoto ?
+                    "{{ asset('images/') }}" + "/" + staff.personalfoto :
+                    "{{ asset('img/fondo.png') }}";
                 $('#editstaff-image').attr('src', imageUrl);
                 // Set the form action to the correct route
                 $('#editstaff').attr('action', '/personal/actualizar/' + staff.id);

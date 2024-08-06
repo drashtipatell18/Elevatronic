@@ -11,26 +11,44 @@ use App\Models\Province;
 use App\Models\Staff;
 use Illuminate\Http\Request;
 use App\Models\SparePart;
+use App\Models\Supervisor;
 
 class MaintInReviewController extends Controller
 {
-    public function maintInReview(){
+    public function maintInReview()
+    {
         $maint_in_reviews = MaintInReview::all();
-        $review_types = ReviewType::pluck('nombre','nombre');
-        $elevators = Elevators::pluck('nombre','nombre');
+        $review_types = ReviewType::pluck('nombre', 'nombre');
+        $elevators = Elevators::pluck('nombre', 'nombre');
         $provinces = Province::pluck('provincia', 'provincia');
         $Personals = Staff::pluck('nombre', 'nombre');
 
-        return view('Maint.view_maint_in_review',compact('maint_in_reviews','review_types','elevators','provinces','Personals'));
+        return view('Maint.view_maint_in_review', compact('maint_in_reviews', 'review_types', 'elevators', 'provinces', 'Personals'));
     }
 
-    public function totalRecordCount(){
+    public function totalRecordCount()
+    {
         $maint_in_reviews = MaintInReview::all();
         $totalRecordCount = $maint_in_reviews->count();
-        return view('layouts.main',compact('totalRecordCount'));
+        return view('layouts.main', compact('totalRecordCount'));
     }
 
-    public function maintInReviewInsert(Request $request){
+    public function insertSupervisor(Request $request)
+    {
+        $supervisor = Supervisor::create([
+            'nomber' => $request->input('nomber'),
+        ]);
+
+        return response()->json(['success' => 'Supervisor added successfully!', 'supervisor' => $supervisor]);
+    }
+
+    public function getSupervisors()
+    {
+        return response()->json(Supervisor::all());
+    }
+
+    public function maintInReviewInsert(Request $request)
+    {
         $validatedData = $request->validate([
             'tipo_de_revisión' => 'required',
             'ascensor' => 'required',
@@ -68,10 +86,10 @@ class MaintInReviewController extends Controller
         // Redirect back with success message
         session()->flash('success', 'Mant En Revisión creado exitosamente!');
         return redirect()->route('maint_in_review');
-
     }
 
-    public function maintInReviewUpdate(Request $request,$id){
+    public function maintInReviewUpdate(Request $request, $id)
+    {
         $validatedData = $request->validate([
             'tipo_de_revisión' => 'required',
             'ascensor' => 'required',
@@ -109,25 +127,26 @@ class MaintInReviewController extends Controller
 
         session()->flash('success', 'Mant En Revisión actualizado exitosamente!');
         return redirect()->route('maint_in_review');
-
     }
-    public function maintInReviewDestroy($id){
+    public function maintInReviewDestroy($id)
+    {
         $maint_in_review = MaintInReview::find($id);
         $maint_in_review->delete();
         session()->flash('danger', 'Mant En Revisión eliminar exitosamente!');
         return redirect()->route('maint_in_review');
     }
 
-    public function maintInReviewDetails($id){
+    public function maintInReviewDetails($id)
+    {
         $maint_in_review = MaintInReview::findOrFail($id);
-        $review_types = ReviewType::pluck('nombre','nombre');
-        $elevators = Elevators::pluck('nombre','nombre');
+        $review_types = ReviewType::pluck('nombre', 'nombre');
+        $elevators = Elevators::pluck('nombre', 'nombre');
         $spareparts = SparePart::all();
         $provinces = Province::pluck('provincia', 'provincia');
         $personals = Staff::pluck('nombre', 'nombre');
         $main_image = ImagePdfs::where('mant_en_revisións_id', $id)->whereNull('document')->get();
         $documents = ImagePdfs::where('mant_en_revisións_id', $id)->whereNull('image')->get();
-        return view('Maint.view_maint_in_review_record', compact('spareparts','provinces','personals','maint_in_review','review_types','elevators', 'id', 'main_image', 'documents'));
+        return view('Maint.view_maint_in_review_record', compact('spareparts', 'provinces', 'personals', 'maint_in_review', 'review_types', 'elevators', 'id', 'main_image', 'documents'));
     }
 
     public function saveImage(Request $request, $id)
@@ -177,6 +196,4 @@ class MaintInReviewController extends Controller
 
         return response()->json(['success' => true]);
     }
-
-    
 }

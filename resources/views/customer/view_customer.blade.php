@@ -426,7 +426,7 @@
                         </button>
                     </div>
                     <div class="col-md-12" id="marcaInputSection" style="">
-                        <form method="POST" id="brandForm">
+                        <form method="POST" id="CilentForm">
                             @csrf
                             <div class="form-group">
                                 <label>Ingresar Tipo De Clients</label>
@@ -453,6 +453,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <script>
         $(document).ready(function() {
+            $('#CilentForm').on('keypress', function(e) {
+                if (e.which === 13) { // 13 is the Enter key code
+                    e.preventDefault();
+                    return false;
+                }
+            });
 
             function getClientTypes(edit) {
                 // Destroy existing Select2 instances if they exist

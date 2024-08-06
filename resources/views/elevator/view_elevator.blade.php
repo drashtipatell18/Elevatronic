@@ -898,6 +898,13 @@
     <script>
         $(document).ready(function() {
 
+            $('#brandForm').on('keypress', function(e) {
+                if (e.which === 13) { // 13 is the Enter key code
+                    e.preventDefault();
+                    return false;
+                }
+            });
+
             function getBrand(edit) {
                 // Destroy existing Select2 instances if they exist
                 if ($('#marca').data('select2')) {
@@ -1084,10 +1091,31 @@
             });
 
             $('#editimageUpload').change(function() {
+
                 var reader = new FileReader();
                 reader.onload = function(e) {
                     $('#editimagePreview').css('background-image', 'url(' + e.target.result + ')');
                     $('#editimagePreview').show();
+                }
+                reader.readAsDataURL(this.files[0]);
+            });
+
+            $('#editimageUpload').change(function() {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    // Update the background image of the preview div
+                    $('#editimagePreview').css('background-image', 'url(' + e.target.result +
+                        ')');
+
+                    // Hide any existing image tags inside the preview div
+                    $('#editimagePreview').find('img').remove();
+
+                    // Show the preview div (in case it was hidden)
+                    $('#editimagePreview').show();
+
+                    // Optionally, add a new img element if needed
+                    $('#editimagePreview').append('<img src="' + e.target.result +
+                        '" width="200" height="200" alt="Preview Image">');
                 }
                 reader.readAsDataURL(this.files[0]);
             });

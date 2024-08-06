@@ -140,7 +140,14 @@
                                                         <td>{{ $index + 1 }}</td>
                                                         <td class="text-center">
                                                             {{ $assginspare->nombre_del_tipo_de_ascensor }}</td>
-                                                        <td>{{ $assginspare->reemplazo }}</td>
+                                                            {{-- <td>{{ $assginspare->reemplazo }}</td> --}}
+
+                                                            <td>
+                                                                @foreach ($assginspare->spareParts as $sparepart)  {{-- Assuming you have a relationship for spare parts --}}
+                                                                {{ $sparepart->nombre }}@if (!$loop->last), @endif
+                                                                @endforeach
+                                                            </td>
+
                                                     </tr>
                                                 @endforeach
                                                 {{-- @foreach ($spareparts as $index => $sparepart)
@@ -274,7 +281,7 @@
                                                     id="reemplazo">
                                                     <option value="" selected disabled>Seleccionar opción</option>
                                                     @foreach ($spareparts as $sparepart)
-                                                        <option value="{{ $sparepart->nombre }}">{{ $sparepart->nombre }}
+                                                        <option value="{{ $sparepart->id }}">{{ $sparepart->nombre }}
                                                         </option>
                                                     @endforeach
                                                 </select>

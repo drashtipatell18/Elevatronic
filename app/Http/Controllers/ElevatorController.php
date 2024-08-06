@@ -19,7 +19,9 @@ class ElevatorController extends Controller
     public function elevator()
     {
         $elevators = Elevators::all();
-        $customers = Cliente::pluck('nombre', 'nombre');
+        // $customers = Cliente::pluck('nombre', 'nombre');
+        $customers = Cliente ::all();
+
         $provinces = Province::pluck('provincia', 'provincia');
         $elevatortypes = Elevatortypes::pluck('nombre_de_tipo_de_ascensor', 'nombre_de_tipo_de_ascensor');
         $staffs = Staff::pluck('nombre', 'nombre');
@@ -41,6 +43,7 @@ class ElevatorController extends Controller
     }
     public function elevatorInsert(Request $request)
     {
+
         $filename = '';
         if ($request->hasFile('imagen')) {
             $image = $request->file('imagen');
@@ -54,6 +57,7 @@ class ElevatorController extends Controller
             $quarters = $request->input('quarters');
         }
 
+        $request_id = $request->input('request_id');
 
         // Create a new Elevators instance
         $elevators = Elevators::create([
@@ -79,7 +83,9 @@ class ElevatorController extends Controller
             'correo'              => $request->input('correo'),
             'descripcion1'        => $request->input('descripcion1'),
             'descripcion2'        => $request->input('descripcion2'),
+            'request_id'          => $request_id,
         ]);
+
 
         // Redirect back with success message
         session()->flash('success', 'Ascensores creado exitosamente!');

@@ -12,4 +12,11 @@ class AssginSpare extends Model
     protected $dates = ['eliminado_en'];
     protected $table = 'asignar_repuestos';
     protected $fillable = ['nombre_del_tipo_de_ascensor','reemplazo'];
+
+
+    public function spareParts()
+    {
+        return $this->hasMany(SparePart::class, 'id'); // Adjust foreign keys accordingly
+    }
+
 }

@@ -13,4 +13,9 @@ class Elevators extends Model
     protected $table = 'ascensores';
     protected $fillable = ['imagen','contrato','nombre','código','marca','cliente','fecha','garantizar','dirección','ubigeo','provincia','técnico_instalador','técnico_ajustador','tipo_de_ascensor','cantidad','quarters','npisos','ncontacto','teléfono','correo','descripcion1'];
 
+
+    public function client()
+    {
+        return $this->belongsTo(Cliente::class, 'cliente', 'id'); // Adjust the keys if necessary
+    }
 }

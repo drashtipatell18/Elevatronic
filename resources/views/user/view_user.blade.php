@@ -334,15 +334,16 @@
                                         <div class="form-group">
                                             <label for="contrasenaUser">Contraseña</label>
                                             <div class="input-group">
-                                                <input type="password" name="password" id="password"
-                                                    class="form-control @error('password') is-invalid @enderror"
-                                                    placeholder="Contraseña" autocomplete="new-password">
                                                 <div class="input-group-append">
                                                     <span class="input-group-text">
                                                         <i class="fas fa-eye" id="togglePassword"
                                                             style="cursor: pointer;"></i>
                                                     </span>
                                                 </div>
+                                                <input type="password" name="password" id="password"
+                                                    class="form-control @error('password') is-invalid @enderror"
+                                                    placeholder="Contraseña" autocomplete="new-password">
+
                                             </div>
                                         </div>
                                     </div>
@@ -794,25 +795,27 @@
                 $(".alert-danger").fadeOut(1000);
             }, 1000);
 
-            // Define the custom password validation method before initializing validation
-            $.validator.addMethod("passwordFormat", function(value, element) {
-                    return this.optional(element) || /^(?=.*[A-Z])(?=.*[@$!%*?&.,-_])[A-Za-z\d@$!%*?&.,-_]{8,}$/
-                        .test(value);
-                },
-                "La contraseña debe tener al menos 8 caracteres, comenzar con una letra mayúscula y contener al menos un carácter especial."
-            );
+
 
             // Real-time feedback for password field
-            $('#password').on('input', function() {
-                var password = $(this).val();
-                var icon = $('#passwordCheckIcon');
+            // $('#password').on('input', function() {
+            //     var password = $(this).val();
+            //     var icon = $('#passwordCheckIcon');
 
-                if (/^(?=.*[A-Z])(?=.*[@$!%*?&.,-_])[A-Za-z\d@$!%*?&.,-_]{8,}$/.test(password)) {
-                    icon.removeClass('fa-times').addClass('fa-check').css('color', 'green');
-                } else {
-                    icon.removeClass('fa-check').addClass('fa-times').css('color', 'red');
-                }
-            });
+            //     if (/^(?=.*[A-Z])(?=.*[@$!%*?&.,-_])[A-Za-z\d@$!%*?&.,-_]{8,}$/.test(password)) {
+            //         icon.removeClass('fa-times').addClass('fa-check').css('color', 'green');
+            //     } else {
+            //         icon.removeClass('fa-check').addClass('fa-times').css('color', 'red');
+            //     }
+            // });
+            $.validator.addMethod("passwordFormat", function(value, element) {
+                    return this.optional(element) || (
+                        /^(?=.*[A-Z])(?=.*[a-z])(?=.*[@$!%*?&.,-]).{8,}$/.test(value)
+                    );
+                },
+                "The password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, and one special character from @$!%*?&.,-."
+            );
+
 
             // Initialize jQuery Validation plugin on the form
             $('#createuserform').validate({

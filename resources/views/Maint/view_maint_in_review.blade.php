@@ -771,11 +771,8 @@
                     },
                     url: "{{ route('insert.supervisor') }}", // Make sure to create this route
                     success: function(response) {
-                        // Handle success (e.g., close modal, clear form, update supervisor list)
-                        $('#crearSupervisor').modal('hide');
-                        $('#supervisor').val(''); // Clear the input
-                        // You might want to add a function here to update the supervisor list
-                        // updateSupervisorList();
+                        getSupervisors();
+                        $('#cancelSupervisor').click();
                     },
                     error: function(xhr) {
                         console.error('Error creating supervisor:', xhr.responseText);

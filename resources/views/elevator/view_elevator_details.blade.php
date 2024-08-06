@@ -5,9 +5,29 @@
                 text-align: center;
             }
 
+<<<<<<< Updated upstream
             .dt-head-center {
                 text-align: center;
             }
+=======
+        .dt-head-center {
+            text-align: center;
+        }
+        .selectize-input items not-full focus input-active{
+            padding: 0px !important;
+        }
+    </style>
+    <div class="w-100 contenido">
+        <div class="container-fluid container-mod">
+            <div class="row">
+                <div class="col-xl-10 col-lg-10 col-md-8 col-sm-8 col-8 mb-4">
+                    <div class="titulo">
+                        @isset($elevator)
+                            <h4>{{ $elevator->nombre }}</h4>
+                            <span>Ascensores >> {{ $elevator->nombre }}</span>
+                        @endisset
+                    </div>
+>>>>>>> Stashed changes
 
             .brandbtn {
                 margin-right: 15px;
@@ -1508,6 +1528,7 @@
                         </div>
                     </div>
 
+<<<<<<< Updated upstream
                     <!-- Modal actualizar Ascensor-->
                     <div class="modal left fade" id="editarAscensor" tabindex="-1" role="dialog"
                         aria-labelledby="modelTitleId" aria-hidden="true">
@@ -1519,6 +1540,9 @@
                                         <span aria-hidden="true">×</span>
                                     </button>
                                 </div>
+=======
+
+>>>>>>> Stashed changes
 
                                 @isset($elevators)
                                     <form action="{{ route('update.elevator', $elevators->id) }}" class="formulario-modal"
@@ -2022,6 +2046,7 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
+<<<<<<< Updated upstream
                                                             <label for="máquina">#Máquina</label>
                                                             <input type="text" placeholder="#Máquina" name="máquina"
                                                                 id="máquina" class="form-control">
@@ -2053,6 +2078,13 @@
                                                             <select class="custom-select" name="mes_programado"
                                                                 id="Mprogramado">
                                                                 <option selected disabled class="d-none">Seleccionar opción
+=======
+                                                            <label for="marca">Marca</label>
+                                                            <select class="custom-select form-control"
+                                                                name="marca" id="marca">
+                                                                <option value="" >Seleccionar
+                                                                    opción
+>>>>>>> Stashed changes
                                                                 </option>
                                                                 <option value="mes_programado_1">Mes programado 1</option>
                                                                 <option value="mes_programado_2">Mes programado 2</option>

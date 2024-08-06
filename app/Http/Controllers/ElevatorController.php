@@ -18,8 +18,7 @@ class ElevatorController extends Controller
 {
     public function elevator()
     {
-        // $elevators = Elevators::with('client')->get();
-        $elevators = Elevators::all();
+        $elevators = Elevators::with('client')->get();
         $customers = Cliente::pluck('nombre', 'id');
         $allCustomers = Cliente::all();
         $provinces = Province::pluck('provincia', 'provincia');
@@ -43,7 +42,6 @@ class ElevatorController extends Controller
     }
     public function elevatorInsert(Request $request)
     {
-
         $filename = '';
         if ($request->hasFile('imagen')) {
             $image = $request->file('imagen');
@@ -64,7 +62,7 @@ class ElevatorController extends Controller
             'nombre'              => $request->input('nombre'),
             'código'              => $request->input('código'),
             'marca'               => $request->input('marca'),
-            'cliente'           => $request->input('cliente'),
+            'client_id'           => $request->input('client_id'),
             'fecha'               => $request->input('fecha'),
             'garantizar'          => $request->input('garantizar'),
             'dirección'           => $request->input('dirección'),
@@ -93,8 +91,8 @@ class ElevatorController extends Controller
     public function elevatorEdit($id)
     {
         $elevator = Elevators::findOrFail($id);
-        $allCustomers = Cliente::all();
-        return view('elevator.view_elevator', compact('elevator','allCustomers'));
+         $allCustomers = Cliente::all();
+        return view('elevator.view_elevator', compact('elevator'));
     }
 
 
@@ -124,7 +122,7 @@ class ElevatorController extends Controller
             'nombre'              => $request->input('nombre'),
             'código'              => $request->input('código'),
             'marca'               => $request->input('marca'),
-            'cliente'             => $request->input('cliente'),
+            'client_id'             => $request->input('client_id'),
             'fecha'               => $request->input('fecha'),
             'garantizar'          => $request->input('garantizar'),
             'dirección'           => $request->input('dirección'),

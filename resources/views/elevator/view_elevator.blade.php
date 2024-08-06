@@ -37,24 +37,6 @@
         .select2-container--default .select2-selection--single .select2-selection__clear {
             display: none;
         }
-        #editimagePreview {
-            width: 200px;
-            height: 200px;
-            overflow: hidden;
-            /* Ensures that any overflowed part of the image is hidden */
-            display: flex;
-            align-items: center;
-            /* Centers the image vertically */
-            justify-content: center;
-            /* Centers the image horizontally */
-        }
-
-        #editimagePreview img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            /* Ensures that the image covers the container without distortion */
-        }
     </style>
     <div class="w-100 contenido">
         <div class="container-fluid container-mod">
@@ -134,7 +116,7 @@
                                                 </td>
                                                 <td>
                                                     @if ($elevator->client)
-                                                        <a href="{{ route('view.customer', $elevator->client->id) }}" class="text-blue">
+                                                        <a href="{{ route('view.customer', $elevator->client_id) }}" class="text-blue">
                                                             {{ $elevator->client->nombre }}
                                                         </a>
                                                     @else
@@ -299,7 +281,7 @@
                                                                     <label for="clienteAscensor">Cliente del
                                                                         ascensor</label>
                                                                     <select class="custom-select form-control"
-                                                                        name="cliente" id="client_id">
+                                                                        name="client_id" id="client_id">
                                                                         <option value="" class="d-none">Seleccionar
                                                                             opción</option>
                                                                         @foreach ($allCustomers as $customer)
@@ -613,20 +595,19 @@
                                                                 </div>
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
-                                                                        <label for="clienteAscensor">Cliente del ascensor</label>
-                                                                        <select name="cliente" class="custom-select form-control" id="edit-cliente">
-                                                                            <option value="">Seleccione un cliente</option> <!-- Optional placeholder -->
-                                                                            @foreach ($allCustomers as $customer)
-                                                                                <option value="{{ $customer->id }}"
-                                                                                    {{ old('cliente', $elevator->cliente ?? '') == $customer->id  ? 'selected' : '' }}>
-                                                                                    {{ $customer->nombre }}
-                                                                                </option>
-                                                                        @endforeach
-                                                                        </select>
+                                                                        <label for="clienteAscensor">Cliente
+                                                                            del
+                                                                            ascensor</label>
+                                                                            <select name="client_id" class="ustom-select form-control" id="edit-cliente">
+                                                                                @foreach ($customers as $key => $value)
+                                                                                    <option value="{{ $key }}"
+                                                                                        {{ old('client_id', $elevator->client_id ?? '') == $key ? 'selected' : '' }}>
+                                                                                        {{ $value }}
+                                                                                    </option>
+                                                                            @endforeach
+                                                                            </select>
                                                                     </div>
                                                                 </div>
-
-
 
                                                                 <div class="col-md-6">
                                                                     <div class="form-group">
@@ -1096,34 +1077,34 @@
             });
 
             $('#editimageUpload').change(function() {
-                    var reader = new FileReader();
-                    reader.onload = function(e) {
-                        // Update the background image of the preview div
-                        $('#editimagePreview').css('background-image', 'url(' + e.target.result +
-                            ')');
 
-                        // Hide any existing image tags inside the preview div
-                        $('#editimagePreview').find('img').remove();
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#editimagePreview').css('background-image', 'url(' + e.target.result + ')');
+                    $('#editimagePreview').show();
+                }
+                reader.readAsDataURL(this.files[0]);
+            });
 
-                        // Show the preview div (in case it was hidden)
-                        $('#editimagePreview').show();
+            $('#editimageUpload').change(function() {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    // Update the background image of the preview div
+                    $('#editimagePreview').css('background-image', 'url(' + e.target.result +
+                        ')');
 
-                        // Optionally, add a new img element if needed
-                        $('#editimagePreview').append('<img src="' + e.target.result +
-                            '" width="200" height="200" alt="Preview Image">');
-                    }
-                    reader.readAsDataURL(this.files[0]);
-                });
+                    // Hide any existing image tags inside the preview div
+                    $('#editimagePreview').find('img').remove();
 
-                $('#editimageUpload').change(function() {
-                    var reader = new FileReader();
-                    reader.onload = function(e) {
-                        $('#editimagePreview').css('background-image', 'url(' + e.target.result +
-                            ')');
-                        $('#editimagePreview').show();
-                    }
-                    reader.readAsDataURL(this.files[0]);
-                });
+                    // Show the preview div (in case it was hidden)
+                    $('#editimagePreview').show();
+
+                    // Optionally, add a new img element if needed
+                    $('#editimagePreview').append('<img src="' + e.target.result +
+                        '" width="200" height="200" alt="Preview Image">');
+                }
+                reader.readAsDataURL(this.files[0]);
+            });
 
             // Custom alphanumeric validation method
             $.validator.addMethod("alphanumeric", function(value, element) {

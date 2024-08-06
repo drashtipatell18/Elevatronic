@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('ascensores', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('client_id');
             $table->string('imagen')->nullable();
             $table->string('contrato')->nullable();
             $table->string('nombre')->nullable();
             $table->string('código')->nullable();
             $table->string('marca')->nullable();
-            $table->string('cliente')->nullable();
             $table->date('fecha')->nullable();
             $table->string('garantizar')->nullable();
             $table->string('dirección')->nullable();
@@ -36,6 +36,7 @@ return new class extends Migration
             $table->string('teléfono')->nullable();
             $table->string('correo')->nullable();
             $table->string('descripcion1')->nullable();
+            $table->foreign('client_id')->references('id')->on('clientes')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });

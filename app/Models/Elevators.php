@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Cliente;
+use App\Models\Schedule;
 
 class Elevators extends Model
 {
@@ -18,5 +19,10 @@ class Elevators extends Model
     public function client()
     {
         return $this->belongsTo(Cliente::class, 'client_id');
+    }
+
+    public function schedules()
+    {
+        return $this->hasMany(Schedule::class, 'ascensor', 'name');
     }
 }

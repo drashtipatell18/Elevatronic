@@ -91,7 +91,7 @@ class ElevatorController extends Controller
     public function elevatorEdit($id)
     {
         $elevator = Elevators::findOrFail($id);
-         $allCustomers = Cliente::all();
+        $allCustomers = Cliente::all();
         return view('elevator.view_elevator', compact('elevator'));
     }
 

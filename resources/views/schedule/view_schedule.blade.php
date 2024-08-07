@@ -3,6 +3,9 @@
     .error {
         color: red;
     }
+    .fc-time{
+        display: none !important;
+    }
 </style>
 @section('content')
     <div class="w-100 contenido">
@@ -287,7 +290,52 @@
                 // Set the default value for the <select> elements
                 // $('#ascensor, #revisar, #estado').prop('selectedIndex', 0);
             }
+            $('#province').on('change', function() {
+                var selectedProvince = $(this).val();
+                console.log('Selected Province:', selectedProvince);
 
+                updateElevatorOptions(selectedProvince);
+            });
+
+            function updateElevatorOptions(province) {
+                console.log('Updating elevators for province:', province);
+
+                $.ajax({
+                    url: '/get-elevators',
+                    method: 'GET',
+                    data: {
+                        province: province
+                    },
+                    dataType: 'json',
+                    success: function(elevators) {
+                        console.log('Received elevators:', elevators);
+
+                        var select = $('#ascensor');
+                        select.empty();
+                        select.append($('<option>', {
+                            value: '',
+                            text: 'Select an elevator'
+                        }));
+
+                        $.each(elevators, function(id, nombre) {
+                            select.append($('<option>', {
+                                value: id,
+                                text: nombre
+                            }));
+                        });
+
+                        console.log('Elevator options updated');
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error fetching elevators:', error);
+                        console.error('Status:', status);
+                        console.error('Response:', xhr.responseText);
+                    }
+                });
+            }
+            $('#province, #ascensor').on('change', function() {
+                calendar.fullCalendar('refetchEvents');
+            });
             // Initialize FullCalendar
             var calendar = $('#calendar').fullCalendar({
                 locale: 'es', // Add this line to set the locale to Spanish
@@ -316,31 +364,31 @@
                 },
 
                 events: function(start, end, timezone, callback) {
-                    // Retrieve events from the server
+                    var selectedProvince = $('#province').val();
 
                     $.ajax({
-                        url: '/get-events', // Change this URL to your server endpoint
+                        url: '/get-events',
                         method: 'GET',
+                        data: {
+                            province: selectedProvince,
+                        },
                         dataType: 'json',
                         success: function(response) {
-                            // Iterate over each event in the response
                             var formattedEvents = response.map(function(event) {
+                                console.log('Type of event.ascensor:', typeof event.ascensor);
                                 return {
                                     id: event.id,
-                                    title: event.ascensor,
+                                    title: typeof event.ascensor === 'string' ? event.ascensor : JSON.stringify(event.ascensor),
                                     tipoRevision: event.revisar,
                                     técnico: event.técnico,
-                                    start: event.mantenimiento,
-                                    hora_de_inicio: event.hora_de_inicio,
-                                    hora_de_finalización: event
-                                        .hora_de_finalización,
+                                    start: moment(event.mantenimiento + ' ' + event
+                                        .hora_de_inicio).format(),
+                                    end: moment(event.mantenimiento + ' ' + event
+                                        .hora_de_finalización).format(),
                                     estado: event.estado
                                 };
                             });
-                            callback(
-                                formattedEvents
-                            ); // Pass the formatted events to FullCalendar
-
+                            callback(formattedEvents);
                         },
                         error: function(xhr, status, error) {
                             console.error('Error fetching events:', error);
@@ -360,6 +408,7 @@
                     jsEvent.preventDefault(); // Prevent the default action
                     var eventId = calEvent.id;
                     // window.reload();
+                    console.log('Type of calEvent.title:', typeof calEvent.title);
 
                     $('#editCronograma').attr('data-event-id', eventId);
                     $('#ascensor').val(calEvent.title);

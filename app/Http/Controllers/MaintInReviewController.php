@@ -164,16 +164,27 @@ class MaintInReviewController extends Controller
 
     public function saveDocument(Request $request, $id)
     {
-        foreach ($request->image as $image) {
-            $filename = time() . '.' . $image->getClientOriginalExtension();
-            $image->move('documents', $filename);
+        $documents = [];
 
-            ImagePdfs::create([
+        foreach ($request->file('files') as $file) {
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('documents'), $filename);
+
+            $document = ImagePdfs::create([
                 'document' => $filename,
-                'mant_en_revisións_id' => $request->id
+                'mant_en_revisións_id' => $id
             ]);
+
+            $documents[] = [
+                'id' => $document->id,
+                'filename' => $filename,
+            ];
         }
+
+        return response()->json(['success' => true, 'documents' => $documents]);
     }
+
+
 
     public function deleteDocument($id)
     {
@@ -187,9 +198,6 @@ class MaintInReviewController extends Controller
 
         // Delete the image file
         $imagePath = public_path('images/' . $image->image);
-        if (file_exists($imagePath)) {
-            unlink($imagePath);
-        }
 
         // Remove image entry from database
         $image->delete();

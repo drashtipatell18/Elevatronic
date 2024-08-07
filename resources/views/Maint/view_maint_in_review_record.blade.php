@@ -378,29 +378,20 @@
                                                 <button class="remove-file"><i class="fal fa-trash-alt"></i></button>
                                             </div> --}}
                                             @if (isset($documents) && !empty($documents))
-                                                @foreach ($documents as $document)
-                                                    <div class="file-entry">
-                                                        <span class="file-info">
-                                                            <a href="/documents/{{ $document->document }}"
-                                                                download="/documents/{{ $document->document }}">{{ $document->document }}</a>
-                                                            (0.2 MB)
-                                                        </span>
-                                                        <button data-id="{{ $document->id }}" class="remove-file"><i
-                                                                class="fal fa-trash-alt"></i></button>
-                                                    </div>
-                                                @endforeach
-                                            @endif
+                                            @foreach ($documents as $document)
+                                                <div class="file-entry" data-id="{{ $document->id }}">
+                                                    <span class="file-info">
+                                                        <a href="/documents/{{ $document->document }}" download>{{ $document->document }}</a>(0.2 MB)
+                                                    </span>
+                                                    <button data-id="{{ $document->id }}" class="remove-file"><i class="fal fa-trash-alt"></i></button>
+                                                </div>
+                                            @endforeach
+                                        @endif
                                         </div>
 
                                         <input type="file" id="fileUpload" accept=".pdf,.xlsx,.xls,.doc,.docx"
                                             multiple class="d-none">
-                                        <button id="uploadButton11"
-                                            data-id="@php
-if(isset($id))
-                                        {
-                                            echo $id;
-                                        } @endphp"
-                                            class="btn-gris mt-4"><i class="fas fa-arrow-to-top mr-2"></i> Cargar
+                                        <button id="uploadButton11" data-id="@php if(isset($id)) { echo $id; } @endphp" class="btn-gris mt-4"><i class="fas fa-arrow-to-top mr-2"></i> Cargar
                                             archivo</button>
                                     </div>
                                 </div>
@@ -1022,53 +1013,69 @@ if(isset($id))
             });
 
             $('#fileUpload').on('change', function() {
-                console.log(this.files[0]);
                 var files = this.files;
                 var fileCount = $('#fileList').children().length;
-
                 var formData = new FormData();
                 formData.append("_token", $("input[name='_token']").val());
 
                 $.each(files, function(i, file) {
-                    formData.append('image[]', file);
-                    fileCount++;
-                    var fileName = file.name;
-                    var fileSize = (file.size / 1024 / 1024).toFixed(2) + ' MB';
-                    var fileEntry = $('<div class="file-entry">' +
-                        '<span class="file-info">' +
-                        fileName + ' (' + fileSize + ')' +
-                        '</span>' +
-                        '<button class="remove-file"><i class="fal fa-trash-alt"></i></button>' +
-                        '</div>');
-                    $('#fileList').append(fileEntry);
+                    formData.append('files[]', file);
                 });
 
                 let id = $("#uploadButton10").data('id');
                 formData.append('id', id)
                 $.ajax({
-                    type: "POST",
-                    method: "POST",
-                    data: formData,
-                    processData: false,
-                    dataType: "JSON",
-                    contentType: false,
-                    url: `/mant/en/revisión/detalle/${id}/saveDocument`,
-                    success: function(response) {
-                        console.log(response);
+                type: "POST",
+                url: `/mant/en/revisión/detalle/${id}/saveDocument`,
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    if (response.success) {
+                        $.each(response.documents, function(index, document) {
+                            var fileEntry = $('<div class="file-entry" data-id="' + document.id + '">' +
+                                '<span class="file-info">' +
+                                '<a href="/documents/' + document.filename + '" download>' + document.filename + '</a> (0.2 MB)' +
+                                '</span>' +
+                                '<button data-id="' + document.id + '" class="remove-file"><i class="fal fa-trash-alt"></i></button>' +
+                                '</div>');
+                            $('#fileList').append(fileEntry);
+                            fileCount++;
+                        });
+                        $('#fileCount').text('Archivos (' + fileCount + ')');
                     }
-                })
+                },
+                error: function(xhr) {
+                    console.error('Error uploading file:', xhr.responseText);
+                }
 
-                $('#fileCount').text('Archivos (' + fileCount + ')');
+                });
+
+
             });
 
             // Evento para el botón de eliminar
             $('#fileList').on('click', '.remove-file', function() {
-                let id = $(this).data('id');
-                $.get('/document/' + id + '/delete');
-                $(this).parent().remove(); // Elimina la entrada del archivo
-                var fileCount = $('#fileList').children().length; // Recuenta los archivos
-                $('#fileCount').text('Archivos (' + fileCount + ')'); // Actualiza el contador
+                let button = $(this);
+            let id = $(this).data('id');
+            $.ajax({
+                type: "DELETE",
+                url: `/document/${id}/delete`,
+                data: {
+                    _token: $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    if (response.success) {
+                        button.closest('.file-entry').remove();
+                        var fileCount = $('#fileList').children().length;
+                        $('#fileCount').text('Archivos (' + fileCount + ')');
+                    }
+                },
+                error: function(xhr) {
+                    console.error('Error deleting file:', xhr.responseText);
+                }
             });
+        });
 
 
             var table = $('#contratosTable').DataTable({

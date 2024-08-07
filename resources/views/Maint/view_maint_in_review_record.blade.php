@@ -556,7 +556,7 @@
                                 <div class="form-group">
                                     <label for="MAscensor">Ascensor</label>
                                     <select class="custom-select @error('ascensor') is-invalid @enderror" name="ascensor"
-                                        id="edit-MAscensor">
+                                        id="edit-MAscensor" autocomplete="new-ascensor" autoFill="off">
                                         @foreach ($elevators as $key => $value)
                                             <option value="{{ $key }}"
                                                 {{ old('ascensor') == $key ? 'selected' : '' }}>
@@ -574,7 +574,7 @@
                                 <div class="form-group">
                                     <label for="Direccion">Dirección</label>
                                     <input type="text" placeholder="Dirección" name="dirección" id="edit-dirección"
-                                        class="form-control @error('dirección') is-invalid @enderror" value="">
+                                        class="form-control @error('dirección') is-invalid @enderror" value="" autocomplete="new-dirección" autoFill="off">
                                     @error('dirección')
                                         <span class="invalid-feedback" style="color: red">
                                             <strong>{{ $message }}</strong>
@@ -585,7 +585,7 @@
 
                                 <div class="form-group">
                                     <label for="provinciaAs">Provincia</label>
-                                    <select id="edit-provincia" name="provincia" class="form-control">
+                                    <select id="edit-provincia" name="provincia" class="form-control" autocomplete="new-provincia" autoFill="off">
                                         <option value="">Select Province</option>
                                         @foreach ($provinces as $province)
                                             <option value="{{ $province }}"

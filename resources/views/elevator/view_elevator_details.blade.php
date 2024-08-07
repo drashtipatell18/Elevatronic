@@ -2056,7 +2056,7 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="provincia">Provincia</label>
-                                                    <select id="provincia" name="provincia" class="form-control">
+                                                    <select id="provincia" name="provincia" class="form-control" autocomplete="new-provincia" autoFill="off">
                                                         <option value="">Seleccionar Province</option>
                                                         @foreach ($provinces as $province)
                                                             <option value="{{ $province }}">{{ $province }}

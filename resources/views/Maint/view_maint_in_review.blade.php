@@ -530,7 +530,7 @@
 
                                 <div class="form-group">
                                     <label for="ascensor">Ascensor</label>
-                                    <select class="custom-select" name="ascensor" id="ascensor" class="form-control">
+                                    <select class="custom-select" name="ascensor" id="ascensor" class="form-control" autocomplete="new-ascensor" autoFill="off">
                                         <option value="">Seleccionar opción</option>
                                         @foreach ($elevators as $key => $value)
                                             <option value="{{ $key }}">{{ $value }}</option>
@@ -541,7 +541,7 @@
                                 <div class="form-group">
                                     <label for="dirección">Dirección</label>
                                     <input type="text" placeholder="Dirección" name="dirección" id="dirección"
-                                        class="form-control">
+                                        class="form-control" autocomplete="new-dirección" autoFill="off">
                                     @error('dirección')
                                         <span class="invalid-feedback" style="color: red">
                                             <strong>{{ $message }}</strong>
@@ -550,7 +550,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="provincia">Provincia</label>
-                                    <select id="provincia" name="provincia" class="form-control">
+                                    <select id="provincia" name="provincia" class="form-control" autocomplete="new-provincia" autoFill="off">
                                         <option value="">Select Province</option>
                                         @foreach ($provinces as $province)
                                             <option value="{{ $province }}">{{ $province }}</option>

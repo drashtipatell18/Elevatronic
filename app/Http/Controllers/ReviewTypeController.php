@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ReviewType;
-use App\Models\SparePart;
+use App\Models\MaintInReview;
 
 class ReviewTypeController extends Controller
 {
@@ -42,12 +42,15 @@ class ReviewTypeController extends Controller
         ]);
 
         $reviewtype = ReviewType::findOrFail($id);
+        $oldTypeName = $reviewtype->nombre;
 
         // Update a new Province instance
         $reviewtype->update([
             'nombre' => $request->input('nombre'),
             // 'descripción' => $request->input('descripción')
         ]);
+        MaintInReview::where('tipo_de_revisión', $oldTypeName)
+        ->update(['tipo_de_revisión' => $request->input('nombre')]);
 
         // Redirect back with success message
         session()->flash('success', 'Tipo de revisión actualizado exitosamente!');

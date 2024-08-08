@@ -189,7 +189,7 @@
                         </div>
                     </div>
                 </div>
-
+                @isset($elevator_type)
                 <!-- Modal Eliminar-->
                 <div class="modal fade" id="modalEliminar{{ $elevator_type->id }}" tabindex="-1" role="dialog"
                     aria-labelledby="modelTitleId" aria-hidden="true">
@@ -226,6 +226,7 @@
                         </div>
                     </div>
                 </div>
+                @endisset
             </div>
         </div>
     </div>

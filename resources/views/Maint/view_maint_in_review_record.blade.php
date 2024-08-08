@@ -966,43 +966,43 @@
             });
 
             $('#imageUpload').change(function() {
-                var imageCount = $('#imageCount'); // Selector para el contador de imágenes
-                var count = 0; // Inicializar contador
-
+                var imageCount = $('#imageCount');
+                var count = 0;
                 if (this.files) {
-                    var filesCount = this.files.length; // Número de archivos seleccionados
-                    count = $('.gallery img').length + filesCount; // Sumar al total actual de imágenes
+                    var filesCount = this.files.length;
+                    count = $('.gallery img').length + filesCount;
 
                     var formData = new FormData();
                     formData.append("_token", $("input[name='_token']").val());
 
+
                     for (var i = 0; i < filesCount; i++) {
                         formData.append('image[]', this.files[i]);
-                        var reader = new FileReader();
-                        reader.onload = function(e) {
-                            var imgHtml = $(
-                                '<div class="col-md-6 mb-4"><div class="img-container"><img src="' +
-                                e.target.result + '" /></div></div>');
-                            $('.gallery .row').append(imgHtml);
-                            imageCount.text('Imágenes (' + count +
-                                ')'); // Actualizar el texto del contador
-                        }
-                        reader.readAsDataURL(this.files[i]);
                     }
 
                     let id = $("#uploadButton10").data('id');
-                    formData.append('id', id)
+                    formData.append('id', id);
+
                     $.ajax({
                         type: "POST",
-                        method: "POST",
-                        data: formData,
-                        processData: false,
-                        dataType: "JSON",
-                        contentType: false,
-                        url: `/mant/en/revisión/detalle/${id}/saveImage`,
-                        success: function(response) {
-                            console.log(response);
-                        }
+                            data: formData,
+                            processData: false,
+                            dataType: "JSON",
+                            contentType: false,
+                            url: `/mant/en/revisión/detalle/${id}/saveImage`,
+                                success: function(response) {
+                                    response.forEach(function(image) {
+                                        var imgHtml = $(
+                                        '<div class="col-md-6 mb-4" data-image-id="' + image.id + '"><div class="img-container"><img src="' +
+                                        '/images/' + image.filename + '" alt="galeria" /><button class="btn-delete-image btn btn-light mt-2" data-image-id="' + image.id + '"><i class="fal fa-trash-alt"></i></button></div></div>'
+                                    );
+                                    $('.gallery .row').append(imgHtml);
+                                        });
+                                        imageCount.text('Imágenes (' + count + ')');
+                                },
+                                error: function(xhr) {
+                                console.error('Error uploading images:', xhr.responseText);
+                            }
                     })
                 }
             });
@@ -1054,28 +1054,28 @@
 
             });
 
-            // Evento para el botón de eliminar
             $('#fileList').on('click', '.remove-file', function() {
-                let button = $(this);
-            let id = $(this).data('id');
-            $.ajax({
-                type: "DELETE",
-                url: `/document/${id}/delete`,
-                data: {
-                    _token: $('meta[name="csrf-token"]').attr('content')
-                },
-                success: function(response) {
-                    if (response.success) {
-                        button.closest('.file-entry').remove();
-                        var fileCount = $('#fileList').children().length;
-                        $('#fileCount').text('Archivos (' + fileCount + ')');
-                    }
-                },
-                error: function(xhr) {
-                    console.error('Error deleting file:', xhr.responseText);
+        let button = $(this);
+        let id = button.data('id');
+
+        $.ajax({
+            type: "DELETE",
+            url: `/document/${id}/delete`,
+            data: {
+                _token: $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(response) {
+                if (response.success) {
+                    button.closest('.file-entry').remove();
+                    var fileCount = $('#fileList').children().length;
+                    $('#fileCount').text('Archivos (' + fileCount + ')');
                 }
-            });
+            },
+            error: function(xhr) {
+                console.error('Error deleting file:', xhr.responseText);
+            }
         });
+    });
 
 
             var table = $('#contratosTable').DataTable({

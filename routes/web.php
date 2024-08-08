@@ -79,6 +79,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/ascensore', [ElevatorController::class, 'elevator'])->name('elevator');
     Route::post('/ascensore/insertar',[ElevatorController::class,'elevatorInsert'])->name('insert.elevator');
     Route::post('/marca/insertar',[ElevatorController::class,'insertBrand'])->name('insert.brand');
+    Route::post('/mant/en/revisión/ascensore/insertar/{id}', [ElevatorController::class, 'maintInReviewInsertelevator'])->name('maintInReviewInsert.elevator');
     Route::get('/ascensore/editar/{id}', [ElevatorController::class, 'elevatorEdit'])->name('edit.elevator');
     Route::get('/ascensore/vista/{id}', [ElevatorController::class, 'elevatorView'])->name('view.elevator');
     Route::post('/ascensore/actualizar/{id}', [ElevatorController::class, 'elevatorUpdate'])->name('update.elevator');

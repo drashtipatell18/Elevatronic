@@ -24,7 +24,7 @@ class ElevatorController extends Controller
         $provinces = Province::pluck('provincia', 'provincia');
         $elevatortypes = Elevatortypes::pluck('nombre_de_tipo_de_ascensor', 'nombre_de_tipo_de_ascensor');
         $staffs = Staff::pluck('nombre', 'nombre');
-        return view('elevator.view_elevator', compact('elevators','allCustomers', 'customers', 'provinces', 'elevatortypes', 'staffs'));
+        return view('elevator.view_elevator', compact('elevators', 'allCustomers', 'customers', 'provinces', 'elevatortypes', 'staffs'));
     }
 
     public function getBrands()
@@ -86,6 +86,49 @@ class ElevatorController extends Controller
         // Redirect back with success message
         session()->flash('success', 'Ascensores creado exitosamente!');
         return redirect()->route('elevator');
+    }
+
+    public function maintInReviewInsertelevator(Request $request,$id)
+    {
+        $validatedData = $request->validate([
+            'tipo_de_revisión' => 'required',
+            'ascensor' => 'required',
+            'dirección' => 'required',
+            'provincia' => 'required',
+            // 'núm_certificado' => 'required',
+            // 'máquina' => 'required',
+            // 'supervisor' => 'required',
+            'técnico' => 'required',
+            // 'mes_programado' => 'required',
+            'fecha_de_mantenimiento' => 'required',
+            'hora_inicio' => 'required',
+            'hora_fin' => 'required',
+        ]);
+
+        // Fetch the elevator data
+        $elevator = Elevators::findOrFail($id);
+
+        // Create a new MaintInReview instance
+        $maintinreview = MaintInReview::create([
+            'tipo_de_revisión' => $request->input('tipo_de_revisión'),
+            'ascensor' => $elevator->ascensor, // Use elevator name
+            'dirección' => $elevator->dirección, // Use elevator address
+            'provincia' => $elevator->provincia, // Use elevator province
+            'supervisor' => $request->input('supervisor'),
+            'técnico' => $request->input('técnico'),
+            'mes_programado' => $request->input('mes_programado'),
+            'fecha_de_mantenimiento' => $request->input('fecha_de_mantenimiento'),
+            'hora_inicio' => $request->input('hora_inicio'),
+            'hora_fin' => $request->input('hora_fin'),
+            'observaciónes' => $request->input('observaciónes'),
+            'observaciónes_internas' => $request->input('observaciónes_internas'),
+            'solución' => $request->input('solución'),
+            'ascensor_id' => $request->input('ascensor_id'),
+        ]);
+
+        // Redirect back with success message
+        session()->flash('success', 'Mant En Revisión creado exitosamente!');
+        return redirect()->route('maint_in_review');
     }
 
     public function elevatorEdit($id)

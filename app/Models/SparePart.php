@@ -12,4 +12,8 @@ class SparePart extends Model
     protected $dates = ['eliminado_en'];
     protected $table = 'repuestos';
     protected $fillable = ['foto_de_repuesto','nombre','precio','descripción','frecuencia_de_limpieza','frecuencia_de_lubricación','frecuencia_de_ajuste','frecuencia_de_revisión','frecuencia_de_cambio','frecuencia_de_solicitud'];
+    public function assginSpares()
+    {
+        return $this->hasMany(AssginSpare::class, 'repuesto_id');
+    }
 }

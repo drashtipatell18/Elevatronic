@@ -10,13 +10,11 @@ class AssginSpare extends Model
 {
     use HasFactory, SoftDeletes;
     protected $dates = ['eliminado_en'];
-    protected $table = 'asignar_repuestos';
-    protected $fillable = ['nombre_del_tipo_de_ascensor','reemplazo'];
+    protected $table = 'assgin_spares';
+    protected $fillable = ['nombre_del_tipo_de_ascensor','repuesto_id'];
 
-
-    public function spareParts()
+    public function sparePart()
     {
-        return $this->hasMany(SparePart::class, 'id'); // Adjust foreign keys accordingly
+        return $this->belongsTo(SparePart::class, 'id');
     }
-
 }

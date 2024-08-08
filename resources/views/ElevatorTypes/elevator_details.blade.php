@@ -49,7 +49,8 @@
                                             <p class="mb-0">ID elemento</p>
                                         </div>
                                         <div class="option">
-                                            <h4>{{ $elevator_type->created_at->locale('es')->isoFormat('D MMMM YYYY, h:mm a') }}</h4>
+                                            <h4>{{ $elevator_type->created_at->locale('es')->isoFormat('D MMMM YYYY, h:mm a') }}
+                                            </h4>
                                             <p class="mb-0">Fecha registro</p>
                                         </div>
                                     </div>
@@ -116,18 +117,6 @@
                                     <div class="col-md-12">
                                         <table id="repuestosAsignados" class="table" style="width:100%">
                                             <thead>
-                                                {{-- <tr>
-                                                    <th>FOTO</th>
-                                                    <th>ID</th>
-                                                    <th>NOMBRE</th>
-                                                    <th>PRECIO</th>
-                                                    <th>LIMPIEZA</th>
-                                                    <th>LUBRICACIÓN</th>
-                                                    <th>AJUSTE</th>
-                                                    <th>REVISIÓN</th>
-                                                    <th>CAMBIO</th>
-                                                    <th>SOLICITUD</th>
-                                                </tr> --}}
                                                 <tr>
                                                     <th>ID</th>
                                                     <th class="text-center">Nombre de Tipo de Ascensor</th>
@@ -136,41 +125,21 @@
                                             </thead>
                                             <tbody>
                                                 @foreach ($assginspares as $index => $assginspare)
-                                                    <tr class="">
+                                                    @php $assginspare->load('sparePart'); @endphp
+                                                    <tr>
                                                         <td>{{ $index + 1 }}</td>
                                                         <td class="text-center">
                                                             {{ $assginspare->nombre_del_tipo_de_ascensor }}</td>
-                                                            {{-- <td>{{ $assginspare->reemplazo }}</td> --}}
-
-                                                            <td>
-                                                                @foreach ($assginspare->spareParts as $sparepart)  {{-- Assuming you have a relationship for spare parts --}}
-                                                                {{ $sparepart->nombre }}@if (!$loop->last), @endif
-                                                                @endforeach
-                                                            </td>
-
+                                                        <td>
+                                                            @if ($assginspare->sparePart)
+                                                                {{ $assginspare->sparePart->nombre }}
+                                                            @else
+                                                                No spare part assigned
+                                                            @endif
+                                                        </td>
                                                     </tr>
                                                 @endforeach
-                                                {{-- @foreach ($spareparts as $index => $sparepart)
-                                                    <tr class="">
-                                                        <td><img src="{{ asset('images/' . $sparepart->foto_de_repuesto) }}"
-                                                                alt="personal" width="52" height="52"
-                                                                class="img-table"></td>
-                                                        <td>{{ $index + 1 }}</td>
-                                                        <td>
-                                                            <a href="{{ route('view.sparepart', $sparepart->id) }}"
-                                                                class="text-blue">
-                                                                {{ $sparepart->nombre }}
-                                                            </a>
-                                                        </td>
-                                                        <td>{{ $sparepart->precio }}</td>
-                                                        <td>{{ $sparepart->frecuencia_de_limpieza }}</td>
-                                                        <td>{{ $sparepart->frecuencia_de_lubricación }}</td>
-                                                        <td>{{ $sparepart->frecuencia_de_ajuste }}</td>
-                                                        <td>{{ $sparepart->frecuencia_de_revisión }}</td>
-                                                        <td>{{ $sparepart->frecuencia_de_cambio }}</td>
-                                                        <td>{{ $sparepart->frecuencia_de_solicitud }}</td>
-                                                    </tr>
-                                                @endforeach --}}
+
                                             </tbody>
                                         </table>
                                     </div>
@@ -264,11 +233,13 @@
                                 <div class="modal-body body_modal">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <input type="hidden" name="tipos_de_ascensors_id" value="{{ $elevator_type->id }}"> <!-- Hidden field for ID -->
+                                            <input type="hidden" name="tipos_de_ascensors_id"
+                                                value="{{ $elevator_type->id }}"> <!-- Hidden field for ID -->
                                             <div class="form-group">
                                                 <label for="nombre_del_tipo_de_ascensor">Nombre de Tipo de Ascensor</label>
                                                 <input type="text" placeholder="Nombre de Tipo de Ascensor"
-                                                    name="nombre_del_tipo_de_ascensor" id="nombre_del_tipo_de_ascensor" value="{{ $elevator_type->nombre_de_tipo_de_ascensor}}" readonly>
+                                                    name="nombre_del_tipo_de_ascensor" id="nombre_del_tipo_de_ascensor"
+                                                    value="{{ $elevator_type->nombre_de_tipo_de_ascensor }}" readonly>
                                                 @error('nombre_del_tipo_de_ascensor')
                                                     <span class="invalid-feedback" style="color: red">
                                                         <strong>{{ $message }}</strong>
@@ -277,15 +248,15 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="repuesto">Repuesto</label>
-                                                <select class="custom-select form-control" name="reemplazo"
-                                                    id="reemplazo">
+                                                <select class="custom-select form-control" name="repuesto_id"
+                                                    id="repuesto_id">
                                                     <option value="" selected disabled>Seleccionar opción</option>
                                                     @foreach ($spareparts as $sparepart)
                                                         <option value="{{ $sparepart->id }}">{{ $sparepart->nombre }}
                                                         </option>
                                                     @endforeach
                                                 </select>
-                                                @error('reemplazo')
+                                                @error('repuesto_id')
                                                     <span class="invalid-feedback" style="color: red">
                                                         <strong>{{ $message }}</strong>
                                                     </span>

@@ -11,10 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('asignar_repuestos', function (Blueprint $table) {
+        Schema::create('assgin_spares', function (Blueprint $table) {
             $table->id();
             $table->string('nombre_del_tipo_de_ascensor')->nullable();
-            $table->string('reemplazo')->nullable();
+            $table->unsignedBigInteger('repuesto_id')->nullable();
+            // Setting up the foreign key constraint
+            $table->foreign('repuesto_id')->references('id')->on('repuestos')
+                ->onDelete('cascade');
+            
             $table->timestamps();
             $table->softDeletes();
         });
@@ -25,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('asignar_repuestos');
+        Schema::dropIfExists('assgin_spares');
     }
 };

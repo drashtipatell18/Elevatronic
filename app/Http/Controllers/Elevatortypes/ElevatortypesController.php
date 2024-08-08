@@ -43,21 +43,21 @@ class ElevatortypesController extends Controller
         $elevator_type = Elevatortypes::findOrFail($id);
         $spareparts = SparePart::all();
         $elevators = Elevators::where('tipo_de_ascensor', $elevator_type->nombre_de_tipo_de_ascensor)->get();
-        $assginspares = AssginSpare::where('nombre_del_tipo_de_ascensor', $elevator_type->nombre_de_tipo_de_ascensor)->get();
-
+        $assginspares = AssginSpare::where('nombre_del_tipo_de_ascensor', $elevator_type->nombre_de_tipo_de_ascensor)
+        ->get();
         return view('ElevatorTypes.elevator_details', compact('assginspares','elevators','spareparts','elevator_type'));
     }
 
     public function AsignarRepuesto(Request $request){
         $validatedData = $request->validate([
             'nombre_del_tipo_de_ascensor' => 'required',
-            'reemplazo' => 'required',
+            'repuesto_id' => 'required',
         ]);
 
         // Create a new Customer instance
         $assginspare = AssginSpare::create([
             'nombre_del_tipo_de_ascensor'  => $request->input('nombre_del_tipo_de_ascensor'),
-            'reemplazo'                   => $request->input('reemplazo'),
+            'repuesto_id'                   => $request->input('repuesto_id'),
 
         ]);
 

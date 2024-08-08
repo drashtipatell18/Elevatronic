@@ -1318,21 +1318,16 @@
 
                                                             <div class="form-group">
                                                                 <label for="tecnico">Técnico</label>
-                                                                <select class="custom-select" name="técnico"
-                                                                    id="edit-técnico">
-                                                                    <option value=""
-                                                                        class="d-none  @error('técnico') is-invalid @enderror">
-                                                                        Seleccionar opción</option>
-                                                                    {{-- <option value="técnico_1"
-                                                                        {{ old('técnico') == 'técnico_1' ? 'selected' : ($maint_in_rev->técnico == 'técnico_1' ? 'selected' : '') }}>
-                                                                        Técnico 1</option>
-                                                                    <option value="técnico_2"
-                                                                        {{ old('técnico') == 'técnico_2' ? 'selected' : ($maint_in_rev->técnico == 'técnico_2' ? 'selected' : '') }}>
-                                                                        Técnico 2</option>
-                                                                    <option value="técnico_3"
-                                                                        {{ old('técnico') == 'técnico_3' ? 'selected' : ($maint_in_rev->técnico == 'técnico_3' ? 'selected' : '') }}>
-                                                                        Técnico 3</option> --}}
-                                                                </select>
+                                                                <select class="custom-select form-control"
+                                                                        name="técnico_instalador" id="técnico_instalador">
+                                                                        <option value="" class="d-none">Seleccionar
+                                                                            opción
+                                                                        </option>
+                                                                        @foreach ($staffs as $staff)
+                                                                            <option value="{{ $staff }}">
+                                                                                {{ $staff }}</option>
+                                                                        @endforeach
+                                                                    </select>
                                                                 @error('técnico')
                                                                     <span class="invalid-feedback" role="alert">
                                                                         <strong>{{ $message }}</strong>
@@ -2057,7 +2052,7 @@
                                                 <div class="form-group">
                                                     <label for="provincia">Provincia</label>
                                                     <select id="provincia" name="provincia" class="form-control" autocomplete="new-provincia" autoFill="off">
-                                                        <option value="">Seleccionar Province</option>
+                                                        <option value="">Seleccionar Provincia</option>
                                                         @foreach ($provinces as $province)
                                                             <option value="{{ $province }}">{{ $province }}
                                                             </option>
@@ -2093,13 +2088,16 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="técnico">Técnico</label>
-                                                    <select class="custom-select" name="técnico" id="técnico">
-                                                        <option selected disabled class="d-none">Seleccionar opción
-                                                        </option>
-                                                        <option value="técnico_1">Técnico 1</option>
-                                                        <option value="técnico_2">Técnico 2</option>
-                                                        <option value="técnico_3">Técnico 3</option>
-                                                    </select>
+                                                    <select class="custom-select form-control"
+                                                                        name="técnico_instalador" id="técnico_instalador">
+                                                                        <option value="" class="d-none">Seleccionar
+                                                                            opción
+                                                                        </option>
+                                                                        @foreach ($staffs as $staff)
+                                                                            <option value="{{ $staff }}">
+                                                                                {{ $staff }}</option>
+                                                                        @endforeach
+                                                                    </select>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-6">
@@ -2107,19 +2105,8 @@
                                                             <label for="Mprogramado">Mes programado</label>
                                                             <select class="custom-select" name="mes_programado"
                                                                 id="Mprogramado">
-
-                                                                <option selected disabled class="d-none">Seleccionar opción
-
-                                                            <label for="marca">Marca</label>
-                                                            <select class="custom-select form-control"
-                                                                name="marca" id="marca">
-                                                                <option value="" >Seleccionar
-                                                                    opción
-
-
                                                                 <option selected disabled class="d-none">Seleccionar
                                                                     opción
-
                                                                 </option>
                                                                 <option value="mes_programado_1">Mes programado 1</option>
                                                                 <option value="mes_programado_2">Mes programado 2</option>

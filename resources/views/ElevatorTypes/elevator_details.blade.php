@@ -130,13 +130,13 @@
                                                         <td>{{ $index + 1 }}</td>
                                                         <td class="text-center">
                                                             {{ $assginspare->nombre_del_tipo_de_ascensor }}</td>
-                                                        <td>
-                                                            @if ($assginspare->sparePart)
-                                                                {{ $assginspare->sparePart->nombre }}
-                                                            @else
-                                                                No spare part assigned
-                                                            @endif
-                                                        </td>
+                                                            <td>
+                                                                @if ($assginspare->sparePart && !empty($assginspare->sparePart->nombre))
+                                                                    {{ $assginspare->sparePart->nombre }}
+                                                                @else
+                                                                    No spare part assigned
+                                                                @endif
+                                                            </td>
                                                     </tr>
                                                 @endforeach
 

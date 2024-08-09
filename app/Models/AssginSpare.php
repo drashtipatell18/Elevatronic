@@ -15,6 +15,6 @@ class AssginSpare extends Model
 
     public function sparePart()
     {
-        return $this->belongsTo(SparePart::class, 'id');
+        return $this->belongsTo(SparePart::class, 'repuesto_id'); // Corrected from 'id' to 'repuesto_id'
     }
 }

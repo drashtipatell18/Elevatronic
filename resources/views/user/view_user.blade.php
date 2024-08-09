@@ -859,7 +859,8 @@
 
             $.validator.addMethod("passwordFormat", function(value, element) {
                     return this.optional(element) || (
-                        /(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.,-])[A-Za-z\d@$!%*?&.,-]{8,}/.test(value)
+                        /(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.,-])[A-Za-z\d@$!%*?&.,-]{8,}/.test(
+                            value)
                     );
                 },
                 "The password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, and one special character from @$!%*?&.,-."
@@ -989,6 +990,18 @@
                 form.validate().resetForm();
                 form.find('.is-invalid').removeClass('is-invalid');
                 form.find('.is-valid').removeClass('is-valid');
+
+                // Clear all input fields
+                form.find('input').val('');
+
+                // Reset select fields
+                form.find('select').val('').trigger('change');
+
+                // Clear any file input
+                form.find('input[type="file"]').val('');
+
+                // Clear any preview image
+                $('#imagenPrevioUsuario').css('background-image', 'none').hide();
             });
             $('#editorUsuario').on('hidden.bs.modal', function() {
                 var form = $('#edituserform');

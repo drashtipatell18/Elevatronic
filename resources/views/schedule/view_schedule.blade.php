@@ -3,9 +3,9 @@
     .error {
         color: red;
     }
-    .fc-time{
+    /* .fc-time{
         display: none !important;
-    }
+    } */
 </style>
 @section('content')
     <div class="w-100 contenido">
@@ -353,12 +353,12 @@
                         slotLabelFormat: 'HH:mm'
                     }
                 },
-                eventTimeFormat: {
-                    // Format for event times
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    meridiem: false // Use 24-hour format
-                },
+                // eventTimeFormat: {
+                //     // Format for event times
+                //     hour: '2-digit',
+                //     minute: '2-digit',
+                //     meridiem: true // Use 24-hour format
+                // },
 
                 events: function(start, end, timezone, callback) {
                     var selectedProvince = $('#province').val();
@@ -371,22 +371,22 @@
                         },
                         dataType: 'json',
                         success: function(response) {
-                            var formattedEvents = response.map(function(event) {
-                                console.log('Type of event.ascensor:', typeof event.ascensor);
-                                return {
-                                    id: event.id,
-                                    title: typeof event.ascensor === 'string' ? event.ascensor : JSON.stringify(event.ascensor),
-                                    tipoRevision: event.revisar,
-                                    técnico: event.técnico,
-                                    start: moment(event.mantenimiento + ' ' + event
-                                        .hora_de_inicio).format(),
-                                    end: moment(event.mantenimiento + ' ' + event
-                                        .hora_de_finalización).format(),
-                                    estado: event.estado
-                                };
-                            });
-                            callback(formattedEvents);
-                        },
+                        var formattedEvents = response.map(function(event) {
+                            // Safely ensure 'event.ascensor' is a string before using it
+                            var ascensorName = event.ascensor ? event.ascensor.toString().toUpperCase() : '';
+
+                            return {
+                                id: event.id,
+                                title: ascensorName,
+                                tipoRevision: event.revisar,
+                                técnico: event.técnico,
+                                start: moment(event.mantenimiento + ' ' + event.hora_de_inicio).format(),
+                                end: moment(event.mantenimiento + ' ' + event.hora_de_finalización).format(),
+                                estado: event.estado
+                            };
+                        });
+                        callback(formattedEvents);
+                    },
                         error: function(xhr, status, error) {
                             console.error('Error fetching events:', error);
                         }
@@ -395,7 +395,6 @@
 
 
                 dayClick: function(date, jsEvent, view) {
-                    console.log('dayClick');
                     resetForm();
                     var formattedDate = date.format('YYYY-MM-DD');
                     $('#mantenimiento').val(formattedDate);
@@ -404,9 +403,8 @@
                 eventClick: function(calEvent, jsEvent, view) {
                     jsEvent.preventDefault(); // Prevent the default action
                     var eventId = calEvent.id;
-                    // window.reload();
                     console.log(calEvent);
-                    
+
                     $('#editCronograma').attr('data-event-id', eventId);
                     $('#ascensor').val(calEvent.title);
                     $('#revisar').val(calEvent.tipoRevision);
@@ -417,7 +415,6 @@
                     $('#estado').val(calEvent.estado);
                     $('#editCronograma').modal('show'); // Show the modal
                 }
-
 
             });
 

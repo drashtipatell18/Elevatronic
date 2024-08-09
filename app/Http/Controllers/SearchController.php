@@ -5,9 +5,20 @@ namespace App\Http\Controllers;
 use App\Models\AssginSpare;
 use App\Models\Cliente;
 use App\Models\Contract;
+use App\Models\CustomerType;
 use App\Models\Elevators;
+use App\Models\ImagePdfs;
+use App\Models\Maintenance;
+use App\Models\MaintInReview;
 use App\Models\Marca;
+use App\Models\Position;
+use App\Models\Province;
+use App\Models\ReviewType;
+use App\Models\Schedule;
 use App\Models\SparePart;
+use App\Models\Staff;
+use App\Models\Supervisor;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class SearchController extends Controller
@@ -49,6 +60,52 @@ class SearchController extends Controller
             ->orWhere('estado', 'LIKE', "%{$query}%")
             ->get();
 
+        // Search in Custimer Type table
+        $customerTypes = CustomerType::where('tipo_de_client', 'LIKE', "%{$query}%")->get();
+
+
+        // MaintinRevieew search table
+        $maininReview = MaintInReview::where('tipo_de_revisión', 'LIKE', "%{$query}%")
+        ->orWhere('ascensor', 'LIKE', "%{$query}%")
+        ->orWhere('dirección', 'LIKE', "%{$query}%")
+        ->orWhere('provincia', 'LIKE', "%{$query}%")
+        ->orWhere('supervisor', 'LIKE', "%{$query}%")
+        ->orWhere('técnico', 'LIKE', "%{$query}%")
+        ->orWhere('mes_programado', 'LIKE', "%{$query}%")
+        ->orWhere('fecha_de_mantenimiento', 'LIKE', "%{$query}%")
+        ->orWhere('hora_inicio', 'LIKE', "%{$query}%")
+        ->orWhere('hora_fin', 'LIKE', "%{$query}%")
+        ->orWhere('observaciónes', 'LIKE', "%{$query}%")
+        ->orWhere('observaciónes_internas', 'LIKE', "%{$query}%")
+        ->orWhere('solución', 'LIKE', "%{$query}%")
+        ->get();
+
+        //Position table search
+        $positions = Position::where('position', 'LIKE', "%{$query}%")->get();
+
+        //Province table search
+        $province = Province::where('provincia', 'LIKE', "%{$query}%")->get();
+
+        // Review type search
+        $reviewType = ReviewType::where('nombre', 'LIKE', "%{$query}%")->get();
+
+        // Staff Search table
+        $staff = Staff::where('personalfoto', 'LIKE', "%{$query}%")
+        ->orWhere('nombre', 'LIKE', "%{$query}%")
+        ->orWhere('posición', 'LIKE', "%{$query}%")
+        ->orWhere('correo', 'LIKE', "%{$query}%")
+        ->orWhere('teléfono', 'LIKE', "%{$query}%")
+        ->get();
+
+
+        // User search
+        $users = User::where('username', 'LIKE', "%{$query}%")
+        ->orWhere('name', 'LIKE', "%{$query}%")
+        ->orWhere('email', 'LIKE', "%{$query}%")
+        ->orWhere('phone', 'LIKE', "%{$query}%")
+        ->orWhere('employee', 'LIKE', "%{$query}%")
+        ->get();
+
         // Search in Elevators table
         $elevators = Elevators::where('imagen', 'LIKE', "%{$query}%")
             ->orWhere('contrato', 'LIKE', "%{$query}%")
@@ -89,6 +146,6 @@ class SearchController extends Controller
             ->orWhere('frecuencia_de_cambio', 'LIKE', "%{$query}%")
             ->orWhere('frecuencia_de_solicitud', 'LIKE', "%{$query}%")
             ->get();
-        return view('search.results', compact('assignSpares', 'clientes', 'contracts', 'elevators', 'marcas', 'spareParts'));
+        return view('search.results', compact('assignSpares', 'clientes', 'contracts','customerTypes','maininReview','positions','province','reviewType','staff','users', 'elevators', 'marcas', 'spareParts'));
     }
 }

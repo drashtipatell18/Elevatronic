@@ -17,8 +17,13 @@
                 <tbody>
                     @foreach($assignSpares as $item)
                         <tr>
-                            <td>{{ $item->nombre_del_tipo_de_ascensor }}</td>
-                            <td>{{ $item->reemplazo }}</td>
+                            {{-- <td>{{ $item->nombre_del_tipo_de_ascensor }}</td> --}}
+                            <td>
+                                <a href="{{ route('details.elevatortypes', $item->id) }}" class="text-blue">
+                                    {{ $item->nombre_del_tipo_de_ascensor }}
+                                </a>
+                            </td>
+                            <td>{{ $item->sparePart->nombre }}</td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -47,7 +52,7 @@
                     @foreach($clientes as $item)
                         <tr>
                             <td>
-                                <a href="{{ route('view.customer', $item->id) }}" class="text-blue">
+                                <a href="{{ route('customer', $item->id) }}" class="text-blue">
                                     {{ $item->nombre }}
                                 </a>
                             </td>
@@ -88,9 +93,8 @@
                 <tbody>
                     @foreach($contracts as $item)
                         <tr>
-                            {{-- <td>{{ $item->ascensor }}</td> --}}
                             <td>
-                                <a href="{{ route('getContract', $item->id) }}" class="text-blue">
+                                <a href="{{ route('ascensore', $item->id) }}" class="text-blue">
                                     {{ $item->ascensor }}
                                 </a>
                             </td>
@@ -109,6 +113,201 @@
                 </tbody>
             </table>
         @endif
+
+
+        @if(!$customerTypes->isEmpty())
+            <h2>CustomerTypes</h2>
+            <table class="table datatable">
+                <thead>
+                    <tr>
+                        <th>tipo_de_client</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($customerTypes as $item)
+                        <tr>
+                            <td>
+                                <a href="{{ route('customer', $item->id) }}" class="text-blue">
+                                    {{ $item->tipo_de_client }}
+                                </a>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        @endif
+
+        @if(!$maininReview->isEmpty())
+            <h2>MaintinRevieew</h2>
+            <table class="table datatable">
+                <thead>
+                    <tr>
+                        <th>tipo_de_revisión</th>
+                        <th>ascensor</th>
+                        <th>dirección</th>
+                        <th>provincia</th>
+                        <th>supervisor</th>
+                        <th>técnico</th>
+                        <th>mes_programado</th>
+                        <th>fecha_de_mantenimiento</th>
+                        <th>hora_inicio</th>
+                        <th>hora_fin</th>
+                        <th>observaciónes</th>
+                        <th>observaciónes_internas</th>
+                        <th>solución</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($maininReview as $item)
+                        <tr>
+                            <td>
+                                <a href="{{ route('maint_in_review', $item->id) }}" class="text-blue">
+                                    {{ $item->tipo_de_revisión }}
+                                </a>
+                            </td>
+                            <td>{{ $item->ascensor }}</td>
+                            <td>{{ $item->dirección }}</td>
+                            <td>{{ $item->provincia }}</td>
+                            <td>{{ $item->supervisor }}</td>
+                            <td>{{ $item->técnico }}</td>
+                            <td>{{ $item->mes_programado }}</td>
+                            <td>{{ $item->fecha_de_mantenimiento }}</td>
+                            <td>{{ $item->hora_inicio }}</td>
+                            <td>{{ $item->hora_fin }}</td>
+                            <td>{{ $item->observaciónes }}</td>
+                            <td>{{ $item->observaciónes_internas }}</td>
+                            <td>{{ $item->solución }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        @endif
+
+        @if(!$positions->isEmpty())
+            <h2>Positions</h2>
+            <table class="table datatable">
+                <thead>
+                    <tr>
+                        <th>position</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($positions as $item)
+                        <tr>
+                            <td>
+                                <a href="{{ route('staff', $item->id) }}" class="text-blue">
+                                    {{ $item->position }}
+                                </a>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        @endif
+
+
+        @if(!$province->isEmpty())
+            <h2>Provincias</h2>
+            <table class="table datatable">
+                <thead>
+                    <tr>
+                        <th>Province</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($province as $item)
+                        <tr>
+                            <td>
+                                <a href="{{ route('province', $item->id) }}" class="text-blue">
+                                    {{ $item->provincia }}
+                                </a>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        @endif
+
+        @if(!$reviewType->isEmpty())
+            <h2>Review Type</h2>
+            <table class="table datatable">
+                <thead>
+                    <tr>
+                        <th>nombre</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($reviewType as $item)
+                        <tr>
+                            <td>
+                                <a href="{{ route('reviewtype', $item->id) }}" class="text-blue">
+                                    {{ $item->nombre }}
+                                </a>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        @endif
+
+        @if(!$staff->isEmpty())
+            <h2>Personal</h2>
+            <table class="table datatable">
+                <thead>
+                    <tr>
+                        <th>nombre</th>
+                        <th>posición</th>
+                        <th>correo</th>
+                        <th>teléfono</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($staff as $item)
+                        <tr>
+                            <td>
+                                <a href="{{ route('staff', $item->id) }}" class="text-blue">
+                                    {{ $item->nombre }}
+                                </a>
+                            </td>
+                            <td>{{ $item->posición }}</td>
+                            <td>{{ $item->correo }}</td>
+                            <td>{{ $item->teléfono }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        @endif
+
+        @if(!$users->isEmpty())
+            <h2>Users</h2>
+            <table class="table datatable">
+                <thead>
+                    <tr>
+                        <th>username</th>
+                        <th>name</th>
+                        <th>email</th>
+                        <th>phone</th>
+                        <th>employee</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($users as $item)
+                        <tr>
+                            <td>{{ $item->username }}</td>
+                            <td>
+                                <a href="{{ route('user', $item->id) }}" class="text-blue">
+                                    {{ $item->name }}
+                                </a>
+                            </td>
+                            <td>{{ $item->email  }}</td>
+                            <td>{{ $item->phone }}</td>
+                            <td>{{ $item->employee }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        @endif
+
 
         @if(!$elevators->isEmpty())
             <h2>Elevators</h2>
@@ -144,7 +343,7 @@
                             <td>{{ $item->imagen }}</td>
                             <td>{{ $item->contrato }}</td>
                             <td>
-                                <a href="{{ route('view.elevator', $item->id) }}" class="text-blue">
+                                <a href="{{ route('elevator', $item->id) }}" class="text-blue">
                                     {{ $item->nombre }}
                                 </a>
                             </td>
@@ -219,7 +418,7 @@
                             <td>{{ $item->foto_de_repuesto }}</td>
                             {{-- <td>{{ $item->nombre }}</td> --}}
                             <td>
-                                <a href="{{ route('view.sparepart', $item->id) }}" class="text-blue">
+                                <a href="{{ route('sparepart', $item->id) }}" class="text-blue">
                                     {{ $item->nombre }}
                                 </a>
                             </td>

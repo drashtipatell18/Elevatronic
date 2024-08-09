@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Elevators;
-use App\Models\Elevatortypes\Elevatortypes;
 use App\Models\ImagePdfs;
 use App\Models\MaintInReview;
 use App\Models\ReviewType;
@@ -12,7 +11,7 @@ use App\Models\Staff;
 use Illuminate\Http\Request;
 use App\Models\SparePart;
 use App\Models\Supervisor;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
+
 
 class MaintInReviewController extends Controller
 {
@@ -172,71 +171,45 @@ class MaintInReviewController extends Controller
         return response()->json($savedImages);
     }
 
-
     public function saveDocument(Request $request, $id)
     {
         $documents = [];
 
         foreach ($request->file('files') as $file) {
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('documents'), $filename);
-
+            $originalName = $file->getClientOriginalName();
+            $extension = $file->getClientOriginalExtension();
+            $uniqueName = pathinfo($originalName, PATHINFO_FILENAME) . '_' . uniqid() . '.' . $extension;
+            $destinationPath = public_path('documents');
+            $file->move($destinationPath, $uniqueName);
             $document = ImagePdfs::create([
-                'document' => $filename,
+                'document' => $uniqueName,
                 'mant_en_revisións_id' => $id
             ]);
-
             $documents[] = [
                 'id' => $document->id,
-                'filename' => $filename,
+                'filename' => $uniqueName,
             ];
         }
 
         return response()->json(['success' => true, 'documents' => $documents]);
     }
 
-
-
-    // public function deleteDocument($imageId)
-    // {
-    //     $image = ImagePdfs::find($imageId);
-    //     $image->delete();
-    // }
-
-    public function deleteDocument($id)
+    public function deleteDocument($imageId)
     {
-        try {
-            $document = ImagePdfs::find($id);
+        $image = ImagePdfs::find($imageId);
 
-            // Delete the file from the filesystem
-            $filePath = public_path('documents/' . $document->file_name);
-            if (file_exists($filePath)) {
-                unlink($filePath);
-            }
+        if ($image) {
+            $image->delete();
 
-            // Delete the document entry from the database
-            $document->delete();
-
-            return response()->json(['success' => true]);
-        } catch (\Exception $e) {
-            return response()->json(['success' => false, 'message' => $e->getMessage()]);
         }
+        return response()->json(['success' => true]);
     }
-
 
     public function deleteImage(Request $request, $imageId)
     {
         $image = ImagePdfs::findOrFail($imageId);
-
-        // Delete the image file
         $imagePath = public_path('images/' . $image->image);
-        if (file_exists($imagePath)) {
-            unlink($imagePath);
-        }
-
-        // Remove image entry from database
         $image->delete();
-
         return response()->json(['success' => true]);
     }
 }

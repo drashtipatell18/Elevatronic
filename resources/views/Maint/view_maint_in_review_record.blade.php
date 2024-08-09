@@ -340,8 +340,6 @@
                                                 @isset($main_image)
                                                     @foreach ($main_image as $image)
                                                         <div class="col-md-6 mb-4" data-image-id="{{ $image->id }}">
-
-
                                                             <div class="img-container">
                                                                 <img src="{{ url('/images/' . $image->image) }}"
                                                                     alt="galeria">
@@ -349,8 +347,6 @@
                                                                     data-image-id="{{ $image->id }}"><i
                                                                         class="fal fa-trash-alt"></i></button>
                                                             </div>
-
-
                                                         </div>
                                                     @endforeach
                                                 @endisset
@@ -961,6 +957,9 @@
                 }
             });
 
+
+            // Image Deleted
+
             $('#uploadButton10').click(function() {
                 $('#imageUpload').click();
             });
@@ -1007,6 +1006,39 @@
                 }
             });
 
+              $('.gallery').on('click', '.btn-delete-image', function(e) {
+                e.preventDefault(); // Prevent default action of the button
+                var imageId = $(this).data('image-id');
+                var parentDiv = $(this).closest('.col-md-6');
+
+                // Confirm deletion
+                if (confirm('¿Estás seguro de que deseas eliminar esta imagen?')) {
+                    $.ajax({
+                        type: "DELETE",
+                        url: `/document/${imageId}/delete`, // Ensure this URL matches your route
+                        data: {
+                            _token: $('meta[name="csrf-token"]').attr(
+                                'content') // Include CSRF token
+                        },
+                        success: function(response) {
+                            if (response.success) {
+                                parentDiv.remove(); // Remove the image element from the DOM
+                                var count = $('.gallery .img-container').length;
+                                $('#imageCount').text('Imágenes (' + count +
+                                    ')'); // Update the counter
+                                console.log('Image deleted successfully.');
+                            } else {
+                                console.log('Error deleting image.');
+                            }
+                        },
+                        error: function(xhr) {
+                            console.log('Request failed: ' + xhr.status + ' ' + xhr.statusText);
+                        }
+                    });
+                }
+            });
+
+        // File Deleted
 
             $('#uploadButton11').on('click', function() {
                 $('#fileUpload').trigger('click');
@@ -1022,60 +1054,76 @@
                     formData.append('files[]', file);
                 });
 
-                let id = $("#uploadButton10").data('id');
-                formData.append('id', id)
+                let id = $("#uploadButton11").data('id');
+                formData.append('id', id);
+
                 $.ajax({
-                type: "POST",
-                url: `/mant/en/revisión/detalle/${id}/saveDocument`,
-                data: formData,
-                processData: false,
-                contentType: false,
+                    type: "POST",
+                    url: `/mant/en/revisión/detalle/${id}/saveDocument`,
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        if (response.success) {
+                            $.each(response.documents, function(index, document) {
+                                // Check if document is already in the list
+                                let existing = $('#fileList').find(`[data-id="${document.id}"]`);
+                                if (existing.length) {
+                                    existing.replaceWith(createFileEntry(document));
+                                } else {
+                                    $('#fileList').append(createFileEntry(document));
+                                    fileCount++;
+                                }
+                            });
+                            $('#fileCount').text('Archivos (' + fileCount + ')');
+                        } else {
+                            console.error('Upload failed:', response.message);
+                        }
+                    },
+                    error: function(xhr) {
+                        console.error('Error uploading file:', xhr.responseText);
+                    }
+                });
+            });
+
+            $('#fileList').on('click', '.remove-file', function(event) {
+            event.preventDefault();
+            let button = $(this);
+            let id = button.data('id');
+
+            $.ajax({
+                type: "DELETE",
+                url: `/document/${id}/delete`,
+                data: {
+                    _token: $('meta[name="csrf-token"]').attr('content')
+                },
                 success: function(response) {
                     if (response.success) {
-                        $.each(response.documents, function(index, document) {
-                            var fileEntry = $('<div class="file-entry" data-id="' + document.id + '">' +
-                                '<span class="file-info">' +
-                                '<a href="/documents/' + document.filename + '" download>' + document.filename + '</a> (0.2 MB)' +
-                                '</span>' +
-                                '<button data-id="' + document.id + '" class="remove-file"><i class="fal fa-trash-alt"></i></button>' +
-                                '</div>');
-                            $('#fileList').append(fileEntry);
-                            fileCount++;
-                        });
-                        $('#fileCount').text('Archivos (' + fileCount + ')');
+                        // Refresh the page
+                        location.reload();
+                    } else {
+                        console.error('Delete failed:', response.message);
                     }
                 },
                 error: function(xhr) {
-                    console.error('Error uploading file:', xhr.responseText);
+                    console.error('Error deleting file:', xhr.responseText);
                 }
-
-                });
-
-
             });
-
-            $('#fileList').on('click', '.remove-file', function() {
-        let button = $(this);
-        let id = button.data('id');
-
-        $.ajax({
-            type: "DELETE",
-            url: `/document/${id}/delete`,
-            data: {
-                _token: $('meta[name="csrf-token"]').attr('content')
-            },
-            success: function(response) {
-                if (response.success) {
-                    button.closest('.file-entry').remove();
-                    var fileCount = $('#fileList').children().length;
-                    $('#fileCount').text('Archivos (' + fileCount + ')');
-                }
-            },
-            error: function(xhr) {
-                console.error('Error deleting file:', xhr.responseText);
-            }
         });
-    });
+
+        function createFileEntry(document) {
+            // Static file size set to 0.2 MB
+            var fileSize = '0.2 MB';
+
+            return $('<div class="file-entry" data-id="' + document.id + '">' +
+                '<span class="file-info">' +
+                '<a href="/documents/' + document.filename + '" download>' + document.filename + '</a>' +
+                ' (' + fileSize + ')' + // Display static file size in MB
+                '</span>' +
+                '<button data-id="' + document.id + '" class="remove-file"><i class="fal fa-trash-alt"></i></button>' +
+                '</div>');
+        }
+
 
 
             var table = $('#contratosTable').DataTable({
@@ -1215,38 +1263,8 @@
                     }
                 });
             });
-            // image delete
-            $('.gallery').on('click', '.btn-delete-image', function(e) {
-                e.preventDefault(); // Prevent default action of the button
-                var imageId = $(this).data('image-id');
-                var parentDiv = $(this).closest('.col-md-6');
 
-                // Confirm deletion
-                if (confirm('¿Estás seguro de que deseas eliminar esta imagen?')) {
-                    $.ajax({
-                        type: "DELETE",
-                        url: `/document/${imageId}/delete`, // Ensure this URL matches your route
-                        data: {
-                            _token: $('meta[name="csrf-token"]').attr(
-                                'content') // Include CSRF token
-                        },
-                        success: function(response) {
-                            if (response.success) {
-                                parentDiv.remove(); // Remove the image element from the DOM
-                                var count = $('.gallery .img-container').length;
-                                $('#imageCount').text('Imágenes (' + count +
-                                    ')'); // Update the counter
-                                console.log('Image deleted successfully.');
-                            } else {
-                                console.log('Error deleting image.');
-                            }
-                        },
-                        error: function(xhr) {
-                            console.log('Request failed: ' + xhr.status + ' ' + xhr.statusText);
-                        }
-                    });
-                }
-            });
+
 
 
         });

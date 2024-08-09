@@ -365,29 +365,24 @@
                                         <h3 id="fileCount" class="mb-3">Archivos</h3>
 
                                         <div id="fileList" class="file-list">
-                                            {{-- <div class="file-entry">
-                                                <span class="file-info">Nombre-de-archivo.pdf (0.2 MB)</span>
-                                                <button class="remove-file"><i class="fal fa-trash-alt"></i></button>
-                                            </div>
-                                            <div class="file-entry">
-                                                <span class="file-info">Nombre-de-archivo.pdf (0.2 MB)</span>
-                                                <button class="remove-file"><i class="fal fa-trash-alt"></i></button>
-                                            </div> --}}
                                             @if (isset($documents) && !empty($documents))
-                                            @foreach ($documents as $document)
-                                                <div class="file-entry" data-id="{{ $document->id }}">
-                                                    <span class="file-info">
-                                                        <a href="/documents/{{ $document->document }}" download>{{ $document->document }}</a>(0.2 MB)
-                                                    </span>
-                                                    <button data-id="{{ $document->id }}" class="remove-file"><i class="fal fa-trash-alt"></i></button>
-                                                </div>
-                                            @endforeach
-                                        @endif
+                                                @foreach ($documents as $document)
+                                                    <div class="file-entry" data-id="{{ $document->id }}">
+                                                        <span class="file-info">
+                                                            <a href="/documents/{{ $document->document }}"
+                                                                download>{{ $document->document }}</a>(0.2 MB)
+                                                        </span>
+                                                        <button data-id="{{ $document->id }}" class="remove-file"><i
+                                                                class="fal fa-trash-alt"></i></button>
+                                                    </div>
+                                                @endforeach
+                                            @endif
                                         </div>
 
                                         <input type="file" id="fileUpload" accept=".pdf,.xlsx,.xls,.doc,.docx"
                                             multiple class="d-none">
-                                        <button id="uploadButton11" data-id="@php if(isset($id)) { echo $id; } @endphp" class="btn-gris mt-4"><i class="fas fa-arrow-to-top mr-2"></i> Cargar
+                                        <button id="uploadButton11" data-id="@php if(isset($id)) { echo $id; } @endphp"
+                                            class="btn-gris mt-4"><i class="fas fa-arrow-to-top mr-2"></i> Cargar
                                             archivo</button>
                                     </div>
                                 </div>
@@ -570,7 +565,8 @@
                                 <div class="form-group">
                                     <label for="Direccion">Dirección</label>
                                     <input type="text" placeholder="Dirección" name="dirección" id="edit-dirección"
-                                        class="form-control @error('dirección') is-invalid @enderror" value="" autocomplete="new-dirección" autoFill="off">
+                                        class="form-control @error('dirección') is-invalid @enderror" value=""
+                                        autocomplete="new-dirección" autoFill="off">
                                     @error('dirección')
                                         <span class="invalid-feedback" style="color: red">
                                             <strong>{{ $message }}</strong>
@@ -581,8 +577,9 @@
 
                                 <div class="form-group">
                                     <label for="provinciaAs">Provincia</label>
-                                    <select id="edit-provincia" name="provincia" class="form-control" autocomplete="new-provincia" autoFill="off">
-                                        <option value="">Select Province</option>
+                                    <select id="edit-provincia" name="provincia" class="form-control"
+                                        autocomplete="new-provincia" autoFill="off">
+                                        <option value="">Seleccionar Provincia</option>
                                         @foreach ($provinces as $province)
                                             <option value="{{ $province }}"
                                                 {{ old('provincia', $maint_in_review->provincia ?? '') == $province ? 'selected' : '' }}>
@@ -596,6 +593,23 @@
                                         </span>
                                     @enderror
                                 </div>
+
+                                {{-- <div class="row"> --}}
+                                {{-- <div class="col-md-6"> --}}
+                                <div class="form-group">
+                                    <label for="núm_certificado">Núm Certificado</label>
+                                    <input type="number" placeholder="Núm Certificado" name="núm_certificado"
+                                        id="edit-NCertificado" class="form-control">
+                                </div>
+                                {{-- </div> --}}
+                                {{-- <div class="col-md-6">
+                                                                                    <div class="form-group">
+                                                                                        <label for="máquina">#Máquina</label>
+                                                                                        <input type="text" placeholder="#Máquina" name="máquina" id="máquina"
+                                                                                            class="form-control">
+                                                                                    </div>
+                                                                                </div> --}}
+                                {{-- </div> --}}
 
                                 <div class="form-group">
                                     <label for="Supervisor">Supervisor</label>
@@ -855,418 +869,418 @@
     </div>
 @endsection
 @push('scripts')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
-    <script>
-        $(document).ready(function() {
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+<script>
+    $(document).ready(function() {
 
-            $('#SupervisorForm').on('keypress', function(e) {
-                if (e.which === 13) { // 13 is the Enter key code
-                    e.preventDefault();
-                    return false;
-                }
-            });
+        $('#SupervisorForm').on('keypress', function(e) {
+            if (e.which === 13) { // 13 is the Enter key code
+                e.preventDefault();
+                return false;
+            }
+        });
 
-            function getSupervisors(edit) {
-                // Destroy existing Select2 instance if it exists
-                if ($('#supervisor').data('select2')) {
-                    $('#supervisor').select2('destroy');
-                }
-
-                // Perform the AJAX call to get supervisor data
-                $.ajax({
-                    type: "GET",
-                    url: "{{ route('supervisors') }}", // Ensure this route is correct
-                    dataType: "JSON",
-                    success: function(response) {
-                        // Clear the current options and append the retrieved options to the select element
-                        $("#supervisor").empty();
-                        $("#supervisor").append(
-                            '<option value="" class="d-none">Seleccionar Supervisor</option>'
-                        ); // Add placeholder option
-
-                        $.each(response, function() {
-                            $("#supervisor").append(
-                                `<option value='${this.id}'>${this.nomber}</option>`
-                            );
-                        });
-
-                        // Initialize Select2 on the select element
-                        $('#supervisor').select2({
-                            // placeholder: "Seleccionar Supervisor",
-                            // allowClear: true
-                        });
-
-                        if (edit && edit !== '') {
-                            console.log('Attempting to set value:', edit);
-                            setTimeout(function() {
-                                $('#supervisor').val(edit).trigger('change');
-                                console.log('Selected value set to:', $('#supervisor')
-                                    .val());
-                            }, 100);
-                        }
-                    },
-                    error: function(xhr) {
-                        console.error('Error fetching supervisors:', xhr.responseText);
-                    }
-                });
+        function getSupervisors(edit) {
+            // Destroy existing Select2 instance if it exists
+            if ($('#supervisor').data('select2')) {
+                $('#supervisor').select2('destroy');
             }
 
-            // Call the function when needed, e.g., when opening the modal
-            const editValue = '{{ $editValue ?? '' }}'; // Replace with actual edit value if available
-            getSupervisors(editValue);
+            // Perform the AJAX call to get supervisor data
+            $.ajax({
+                type: "GET",
+                url: "{{ route('supervisors') }}", // Ensure this route is correct
+                dataType: "JSON",
+                success: function(response) {
+                    // Clear the current options and append the retrieved options to the select element
+                    $("#supervisor").empty();
+                    $("#supervisor").append(
+                        '<option value="" class="d-none">Seleccionar Supervisor</option>'
+                    ); // Add placeholder option
 
-            // Handle form submission
-            $('#submitSupervisor').click(function(e) {
-                e.preventDefault(); // Prevent default form submission
-                var formData = new FormData();
-                formData.append('nomber', $('#nomber').val());
-
-                // Send AJAX request
-                $.ajax({
-                    type: "POST",
-                    method: "POST",
-                    dataType: "JSON",
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    url: "{{ route('insert.supervisor') }}", // Make sure to create this route
-                    success: function(response) {
-                        getSupervisors();
-                        $('#cancelSupervisor').click();
-                    },
-                    error: function(xhr) {
-                        console.error('Error creating supervisor:', xhr.responseText);
-                        // Handle error (e.g., show error message to user)
-                    }
-                });
-            });
-
-            // Handle modal close on cancel button click
-            $('#cancelSupervisor').click(function() {
-                $("#crearSupervisor").modal('hide');
-            });
-            // Add event listeners to checkboxes
-            $('.custom-control-input').on('change', function() {
-                if ($(this).is(':checked')) {
-                    console.log($(this).attr('id') + ' is checked');
-                } else {
-                    console.log($(this).attr('id') + ' is unchecked');
-                }
-            });
-
-
-            // Image Deleted
-
-            $('#uploadButton10').click(function() {
-                $('#imageUpload').click();
-            });
-
-            $('#imageUpload').change(function() {
-                var imageCount = $('#imageCount');
-                var count = 0;
-                if (this.files) {
-                    var filesCount = this.files.length;
-                    count = $('.gallery img').length + filesCount;
-
-                    var formData = new FormData();
-                    formData.append("_token", $("input[name='_token']").val());
-
-
-                    for (var i = 0; i < filesCount; i++) {
-                        formData.append('image[]', this.files[i]);
-                    }
-
-                    let id = $("#uploadButton10").data('id');
-                    formData.append('id', id);
-
-                    $.ajax({
-                        type: "POST",
-                            data: formData,
-                            processData: false,
-                            dataType: "JSON",
-                            contentType: false,
-                            url: `/mant/en/revisión/detalle/${id}/saveImage`,
-                                success: function(response) {
-                                    response.forEach(function(image) {
-                                        var imgHtml = $(
-                                        '<div class="col-md-6 mb-4" data-image-id="' + image.id + '"><div class="img-container"><img src="' +
-                                        '/images/' + image.filename + '" alt="galeria" /><button class="btn-delete-image btn btn-light mt-2" data-image-id="' + image.id + '"><i class="fal fa-trash-alt"></i></button></div></div>'
-                                    );
-                                    $('.gallery .row').append(imgHtml);
-                                        });
-                                        imageCount.text('Imágenes (' + count + ')');
-                                },
-                                error: function(xhr) {
-                                console.error('Error uploading images:', xhr.responseText);
-                            }
-                    })
-                }
-            });
-
-              $('.gallery').on('click', '.btn-delete-image', function(e) {
-                e.preventDefault(); // Prevent default action of the button
-                var imageId = $(this).data('image-id');
-                var parentDiv = $(this).closest('.col-md-6');
-
-                // Confirm deletion
-                if (confirm('¿Estás seguro de que deseas eliminar esta imagen?')) {
-                    $.ajax({
-                        type: "DELETE",
-                        url: `/document/${imageId}/delete`, // Ensure this URL matches your route
-                        data: {
-                            _token: $('meta[name="csrf-token"]').attr(
-                                'content') // Include CSRF token
-                        },
-                        success: function(response) {
-                            if (response.success) {
-                                parentDiv.remove(); // Remove the image element from the DOM
-                                var count = $('.gallery .img-container').length;
-                                $('#imageCount').text('Imágenes (' + count +
-                                    ')'); // Update the counter
-                                console.log('Image deleted successfully.');
-                            } else {
-                                console.log('Error deleting image.');
-                            }
-                        },
-                        error: function(xhr) {
-                            console.log('Request failed: ' + xhr.status + ' ' + xhr.statusText);
-                        }
+                    $.each(response, function() {
+                        $("#supervisor").append(
+                            `<option value='${this.id}'>${this.nomber}</option>`
+                        );
                     });
+
+                    // Initialize Select2 on the select element
+                    $('#supervisor').select2({
+                        // placeholder: "Seleccionar Supervisor",
+                        // allowClear: true
+                    });
+
+                    if (edit && edit !== '') {
+                        console.log('Attempting to set value:', edit);
+                        setTimeout(function() {
+                            $('#supervisor').val(edit).trigger('change');
+                            console.log('Selected value set to:', $('#supervisor')
+                                .val());
+                        }, 100);
+                    }
+                },
+                error: function(xhr) {
+                    console.error('Error fetching supervisors:', xhr.responseText);
                 }
             });
+        }
 
-        // File Deleted
+        // Call the function when needed, e.g., when opening the modal
+        const editValue = '{{ $editValue ?? '' }}'; // Replace with actual edit value if available
+        getSupervisors(editValue);
 
-            $('#uploadButton11').on('click', function() {
-                $('#fileUpload').trigger('click');
+        // Handle form submission
+        $('#submitSupervisor').click(function(e) {
+            e.preventDefault(); // Prevent default form submission
+            var formData = new FormData();
+            formData.append('nomber', $('#nomber').val());
+
+            // Send AJAX request
+            $.ajax({
+                type: "POST",
+                method: "POST",
+                dataType: "JSON",
+                data: formData,
+                processData: false,
+                contentType: false,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: "{{ route('insert.supervisor') }}", // Make sure to create this route
+                success: function(response) {
+                    getSupervisors();
+                    $('#cancelSupervisor').click();
+                },
+                error: function(xhr) {
+                    console.error('Error creating supervisor:', xhr.responseText);
+                    // Handle error (e.g., show error message to user)
+                }
             });
+        });
 
-            $('#fileUpload').on('change', function() {
-                var files = this.files;
-                var fileCount = $('#fileList').children().length;
+        // Handle modal close on cancel button click
+        $('#cancelSupervisor').click(function() {
+            $("#crearSupervisor").modal('hide');
+        });
+        // Add event listeners to checkboxes
+        $('.custom-control-input').on('change', function() {
+            if ($(this).is(':checked')) {
+                console.log($(this).attr('id') + ' is checked');
+            } else {
+                console.log($(this).attr('id') + ' is unchecked');
+            }
+        });
+
+
+        // Image Deleted
+
+        $('#uploadButton10').click(function() {
+            $('#imageUpload').click();
+        });
+
+        $('#imageUpload').change(function() {
+            var imageCount = $('#imageCount');
+            var count = 0;
+            if (this.files) {
+                var filesCount = this.files.length;
+                count = $('.gallery img').length + filesCount;
+
                 var formData = new FormData();
                 formData.append("_token", $("input[name='_token']").val());
 
-                $.each(files, function(i, file) {
-                    formData.append('files[]', file);
-                });
 
-                let id = $("#uploadButton11").data('id');
+                for (var i = 0; i < filesCount; i++) {
+                    formData.append('image[]', this.files[i]);
+                }
+
+                let id = $("#uploadButton10").data('id');
                 formData.append('id', id);
 
                 $.ajax({
                     type: "POST",
-                    url: `/mant/en/revisión/detalle/${id}/saveDocument`,
-                    data: formData,
-                    processData: false,
-                    contentType: false,
+                        data: formData,
+                        processData: false,
+                        dataType: "JSON",
+                        contentType: false,
+                        url: `/mant/en/revisión/detalle/${id}/saveImage`,
+                            success: function(response) {
+                                response.forEach(function(image) {
+                                    var imgHtml = $(
+                                    '<div class="col-md-6 mb-4" data-image-id="' + image.id + '"><div class="img-container"><img src="' +
+                                    '/images/' + image.filename + '" alt="galeria" /><button class="btn-delete-image btn btn-light mt-2" data-image-id="' + image.id + '"><i class="fal fa-trash-alt"></i></button></div></div>'
+                                );
+                                $('.gallery .row').append(imgHtml);
+                                    });
+                                    imageCount.text('Imágenes (' + count + ')');
+                            },
+                            error: function(xhr) {
+                            console.error('Error uploading images:', xhr.responseText);
+                        }
+                })
+            }
+        });
+
+          $('.gallery').on('click', '.btn-delete-image', function(e) {
+            e.preventDefault(); // Prevent default action of the button
+            var imageId = $(this).data('image-id');
+            var parentDiv = $(this).closest('.col-md-6');
+
+            // Confirm deletion
+            if (confirm('¿Estás seguro de que deseas eliminar esta imagen?')) {
+                $.ajax({
+                    type: "DELETE",
+                    url: `/document/${imageId}/delete`, // Ensure this URL matches your route
+                    data: {
+                        _token: $('meta[name="csrf-token"]').attr(
+                            'content') // Include CSRF token
+                    },
                     success: function(response) {
                         if (response.success) {
-                            $.each(response.documents, function(index, document) {
-                                // Check if document is already in the list
-                                let existing = $('#fileList').find(`[data-id="${document.id}"]`);
-                                if (existing.length) {
-                                    existing.replaceWith(createFileEntry(document));
-                                } else {
-                                    $('#fileList').append(createFileEntry(document));
-                                    fileCount++;
-                                }
-                            });
-                            $('#fileCount').text('Archivos (' + fileCount + ')');
+                            parentDiv.remove(); // Remove the image element from the DOM
+                            var count = $('.gallery .img-container').length;
+                            $('#imageCount').text('Imágenes (' + count +
+                                ')'); // Update the counter
+                            console.log('Image deleted successfully.');
                         } else {
-                            console.error('Upload failed:', response.message);
+                            console.log('Error deleting image.');
                         }
                     },
                     error: function(xhr) {
-                        console.error('Error uploading file:', xhr.responseText);
+                        console.log('Request failed: ' + xhr.status + ' ' + xhr.statusText);
                     }
                 });
+            }
+        });
+
+    // File Deleted
+
+        $('#uploadButton11').on('click', function() {
+            $('#fileUpload').trigger('click');
+        });
+
+        $('#fileUpload').on('change', function() {
+            var files = this.files;
+            var fileCount = $('#fileList').children().length;
+            var formData = new FormData();
+            formData.append("_token", $("input[name='_token']").val());
+
+            $.each(files, function(i, file) {
+                formData.append('files[]', file);
             });
 
-            $('#fileList').on('click', '.remove-file', function(event) {
-            event.preventDefault();
-            let button = $(this);
-            let id = button.data('id');
+            let id = $("#uploadButton11").data('id');
+            formData.append('id', id);
 
             $.ajax({
-                type: "DELETE",
-                url: `/document/${id}/delete`,
-                data: {
-                    _token: $('meta[name="csrf-token"]').attr('content')
-                },
+                type: "POST",
+                url: `/mant/en/revisión/detalle/${id}/saveDocument`,
+                data: formData,
+                processData: false,
+                contentType: false,
                 success: function(response) {
                     if (response.success) {
-                        // Refresh the page
-                        location.reload();
+                        $.each(response.documents, function(index, document) {
+                            // Check if document is already in the list
+                            let existing = $('#fileList').find(`[data-id="${document.id}"]`);
+                            if (existing.length) {
+                                existing.replaceWith(createFileEntry(document));
+                            } else {
+                                $('#fileList').append(createFileEntry(document));
+                                fileCount++;
+                            }
+                        });
+                        $('#fileCount').text('Archivos (' + fileCount + ')');
                     } else {
-                        console.error('Delete failed:', response.message);
+                        console.error('Upload failed:', response.message);
                     }
                 },
                 error: function(xhr) {
-                    console.error('Error deleting file:', xhr.responseText);
+                    console.error('Error uploading file:', xhr.responseText);
                 }
             });
         });
 
-        function createFileEntry(document) {
-            // Static file size set to 0.2 MB
-            var fileSize = '0.2 MB';
+        $('#fileList').on('click', '.remove-file', function(event) {
+        event.preventDefault();
+        let button = $(this);
+        let id = button.data('id');
 
-            return $('<div class="file-entry" data-id="' + document.id + '">' +
-                '<span class="file-info">' +
-                '<a href="/documents/' + document.filename + '" download>' + document.filename + '</a>' +
-                ' (' + fileSize + ')' + // Display static file size in MB
-                '</span>' +
-                '<button data-id="' + document.id + '" class="remove-file"><i class="fal fa-trash-alt"></i></button>' +
-                '</div>');
-        }
+        $.ajax({
+            type: "DELETE",
+            url: `/document/${id}/delete`,
+            data: {
+                _token: $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(response) {
+                if (response.success) {
+                    // Refresh the page
+                    location.reload();
+                } else {
+                    console.error('Delete failed:', response.message);
+                }
+            },
+            error: function(xhr) {
+                console.error('Error deleting file:', xhr.responseText);
+            }
+        });
+    });
+
+    function createFileEntry(document) {
+        // Static file size set to 0.2 MB
+        var fileSize = '0.2 MB';
+
+        return $('<div class="file-entry" data-id="' + document.id + '">' +
+            '<span class="file-info">' +
+            '<a href="/documents/' + document.filename + '" download>' + document.filename + '</a>' +
+            ' (' + fileSize + ')' + // Display static file size in MB
+            '</span>' +
+            '<button data-id="' + document.id + '" class="remove-file"><i class="fal fa-trash-alt"></i></button>' +
+            '</div>');
+    }
 
 
 
-            var table = $('#contratosTable').DataTable({
-                responsive: true,
-                dom: 'tp',
-                pageLength: 20, // Establece el número de registros por página a 8
-                language: {
-                    "decimal": "",
-                    "emptyTable": "No hay información",
-                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Reistros",
-                    "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
-                    "infoFiltered": "(Filtrado de _MAX_ total registros)",
-                    "infoPostFix": "",
-                    "thousands": ",",
-                    "lengthMenu": "Mostrar _MENU_ Registros",
-                    "loadingRecords": "Cargando...",
-                    "processing": "Procesando...",
-                    "search": "Buscar:",
-                    "zeroRecords": "Sin resultados encontrados",
-                    "paginate": {
-                        "first": "Primero",
-                        "last": "Último",
-                        "next": "Siguiente",
-                        "previous": "Anterior"
-                    },
+        var table = $('#contratosTable').DataTable({
+            responsive: true,
+            dom: 'tp',
+            pageLength: 20, // Establece el número de registros por página a 8
+            language: {
+                "decimal": "",
+                "emptyTable": "No hay información",
+                "info": "Mostrando START a END de TOTAL Reistros",
+                "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+                "infoFiltered": "(Filtrado de MAX total registros)",
+                "infoPostFix": "",
+                "thousands": ",",
+                "lengthMenu": "Mostrar MENU Registros",
+                "loadingRecords": "Cargando...",
+                "processing": "Procesando...",
+                "search": "Buscar:",
+                "zeroRecords": "Sin resultados encontrados",
+                "paginate": {
+                    "first": "Primero",
+                    "last": "Último",
+                    "next": "Siguiente",
+                    "previous": "Anterior"
                 },
-                buttons: [
-                    'copy', 'csv', 'excel', 'pdf', 'print'
-                ]
-            });
+            },
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ]
+        });
 
-            // $('#customSearchBox').keyup(function(){
-            //     table.search($(this).val()).draw();
-            // });
-            $('.customSearchBox').keyup(function() {
-                table.search($(this).val()).draw();
-            });
+        // $('#customSearchBox').keyup(function(){
+        //     table.search($(this).val()).draw();
+        // });
+        $('.customSearchBox').keyup(function() {
+            table.search($(this).val()).draw();
+        });
 
-            $("#qrButton").click(function() {
-                $('#showQrCodeModal').modal('show');
-            });
+        $("#qrButton").click(function() {
+            $('#showQrCodeModal').modal('show');
+        });
 
-            $("#editmaintreview").validate({
-                rules: {
-                    tipo_de_revisión: "required",
-                    dirección: "required",
-                    provincia: "required",
-                    // núm_certificado: "required",
-                    // máquina: "required",
-                    // supervisor: "required",
-                    técnico: "required",
-                    // mes_programado: "required",
-                    fecha_de_mantenimiento: "required",
-                    hora_inicio: "required",
-                    hora_fin: "required",
-                    observaciónes: "required",
-                    // solución: "required",
+        $("#editmaintreview").validate({
+            rules: {
+                tipo_de_revisión: "required",
+                dirección: "required",
+                provincia: "required",
+                // núm_certificado: "required",
+                // máquina: "required",
+                // supervisor: "required",
+                técnico: "required",
+                // mes_programado: "required",
+                fecha_de_mantenimiento: "required",
+                hora_inicio: "required",
+                hora_fin: "required",
+                observaciónes: "required",
+                // solución: "required",
+            },
+            messages: {
+                tipo_de_revisión: "Por favor, seleccione el tipo de revisión.",
+                dirección: "Por favor, ingrese la dirección.",
+                provincia: 'Por favor, selecciona la provincia',
+                // núm_certificado: "Por favor, ingrese el número de certificado.",
+                // máquina: "Por favor, ingrese el número de máquina.",
+                // supervisor: "Por favor, seleccione el supervisor.",
+                técnico: "Por favor, seleccione el técnico.",
+                // mes_programado: "Por favor, seleccione el mes programado.",
+                fecha_de_mantenimiento: "Por favor, ingrese la fecha de mantenimiento.",
+                hora_inicio: "Por favor, ingrese la hora de inicio.",
+                hora_fin: "Por favor, ingrese la hora de fin.",
+                observaciónes: "Por favor, ingrese las observaciones.",
+                // solución: "Por favor, ingrese la solución."
+            },
+            errorElement: "span",
+            errorPlacement: function(error, element) {
+                error.addClass("error");
+                error.insertAfter(element);
+            },
+            highlight: function(element, errorClass, validClass) {
+                $(element).addClass("is-invalid").removeClass("is-valid");
+            },
+            unhighlight: function(element, errorClass, validClass) {
+                $(element).removeClass("is-invalid").addClass("is-valid");
+            }
+        });
+
+        $('.edit-mantenimiento').on('click', function() {
+
+            var mantenimiento = $(this).data('mantenimiento');
+            console.log(mantenimiento);
+            $('#edit-tipo_de_revisión').val(mantenimiento.tipo_de_revisión);
+            $('#edit-MAscensor').val(mantenimiento.ascensor);
+            $('#edit-dirección').val(mantenimiento.dirección);
+            $('#edit-provincia').val(mantenimiento.provincia);
+            $('#edit-NCertificado').val(mantenimiento.núm_certificado);
+            $('#edit-NMaquina').val(mantenimiento.máquina);
+            $('#supervisor').val(mantenimiento.supervisor).trigger('change');
+            $('#edit-técnico').val(mantenimiento.técnico);
+            $('#edit-Mprogramado').val(mantenimiento.mes_programado);
+            $('#edit-FMantenimiento').val(mantenimiento.fecha_de_mantenimiento);
+            $('#edit-FInicio').val(mantenimiento.hora_inicio);
+            $('#edit-HFin').val(mantenimiento.hora_fin);
+            $('#edit-observaciónes').val(mantenimiento.observaciónes);
+            $('#edit-observacionesInternas').val(mantenimiento.observaciónes_internas);
+            $('#edit-solucion').val(mantenimiento.solución);
+
+            $('#editmaintreview').attr('action', '/mant/en/revisión/actualizar/' + mantenimiento.id);
+        });
+
+        $('#editorMantenimiento').on('hidden.bs.modal', function() {
+            var form = $('#editmaintreview');
+            form.validate().resetForm();
+            form.find('.is-invalid').removeClass('is-invalid');
+            form.find('.is-valid').removeClass('is-valid');
+        });
+
+        $('.custom-control-input').on('change', function() {
+            var sparepartId = $(this).data('id');
+            console.log(sparepartId);
+            var type = $(this).data('type');
+            var isChecked = $(this).is(':checked');
+
+            $.ajax({
+                url: "{{ route('sparepart.updateFrequency') }}", // Update with your route
+                type: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    id: sparepartId,
+                    type: type,
+                    value: isChecked ? 1 : 0
                 },
-                messages: {
-                    tipo_de_revisión: "Por favor, seleccione el tipo de revisión.",
-                    dirección: "Por favor, ingrese la dirección.",
-                    provincia: 'Por favor, selecciona la provincia',
-                    // núm_certificado: "Por favor, ingrese el número de certificado.",
-                    // máquina: "Por favor, ingrese el número de máquina.",
-                    // supervisor: "Por favor, seleccione el supervisor.",
-                    técnico: "Por favor, seleccione el técnico.",
-                    // mes_programado: "Por favor, seleccione el mes programado.",
-                    fecha_de_mantenimiento: "Por favor, ingrese la fecha de mantenimiento.",
-                    hora_inicio: "Por favor, ingrese la hora de inicio.",
-                    hora_fin: "Por favor, ingrese la hora de fin.",
-                    observaciónes: "Por favor, ingrese las observaciones.",
-                    // solución: "Por favor, ingrese la solución."
+                success: function(response) {
+                    console.log('Update successful:', response);
                 },
-                errorElement: "span",
-                errorPlacement: function(error, element) {
-                    error.addClass("error");
-                    error.insertAfter(element);
-                },
-                highlight: function(element, errorClass, validClass) {
-                    $(element).addClass("is-invalid").removeClass("is-valid");
-                },
-                unhighlight: function(element, errorClass, validClass) {
-                    $(element).removeClass("is-invalid").addClass("is-valid");
+                error: function(xhr) {
+                    console.log('Error:', xhr);
                 }
             });
-
-            $('.edit-mantenimiento').on('click', function() {
-
-                var mantenimiento = $(this).data('mantenimiento');
-                console.log(mantenimiento);
-                $('#edit-tipo_de_revisión').val(mantenimiento.tipo_de_revisión);
-                $('#edit-MAscensor').val(mantenimiento.ascensor);
-                $('#edit-dirección').val(mantenimiento.dirección);
-                $('#edit-provincia').val(mantenimiento.provincia);
-                $('#edit-NCertificado').val(mantenimiento.núm_certificado);
-                $('#edit-NMaquina').val(mantenimiento.máquina);
-                $('#supervisor').val(mantenimiento.supervisor).trigger('change');
-                $('#edit-técnico').val(mantenimiento.técnico);
-                $('#edit-Mprogramado').val(mantenimiento.mes_programado);
-                $('#edit-FMantenimiento').val(mantenimiento.fecha_de_mantenimiento);
-                $('#edit-FInicio').val(mantenimiento.hora_inicio);
-                $('#edit-HFin').val(mantenimiento.hora_fin);
-                $('#edit-observaciónes').val(mantenimiento.observaciónes);
-                $('#edit-observacionesInternas').val(mantenimiento.observaciónes_internas);
-                $('#edit-solucion').val(mantenimiento.solución);
-
-                $('#editmaintreview').attr('action', '/mant/en/revisión/actualizar/' + mantenimiento.id);
-            });
-
-            $('#editorMantenimiento').on('hidden.bs.modal', function() {
-                var form = $('#editmaintreview');
-                form.validate().resetForm();
-                form.find('.is-invalid').removeClass('is-invalid');
-                form.find('.is-valid').removeClass('is-valid');
-            });
-
-            $('.custom-control-input').on('change', function() {
-                var sparepartId = $(this).data('id');
-                console.log(sparepartId);
-                var type = $(this).data('type');
-                var isChecked = $(this).is(':checked');
-
-                $.ajax({
-                    url: "{{ route('sparepart.updateFrequency') }}", // Update with your route
-                    type: 'POST',
-                    data: {
-                        _token: '{{ csrf_token() }}',
-                        id: sparepartId,
-                        type: type,
-                        value: isChecked ? 1 : 0
-                    },
-                    success: function(response) {
-                        console.log('Update successful:', response);
-                    },
-                    error: function(xhr) {
-                        console.log('Error:', xhr);
-                    }
-                });
-            });
-
-
-
-
         });
-    </script>
+
+
+
+
+    });
+</script>
 @endpush

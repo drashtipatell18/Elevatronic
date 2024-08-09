@@ -230,7 +230,8 @@
                                                                                 <label for="provinciaAs">Provincia</label>
                                                                                 <select id="edit-provincia" name="provincia"
                                                                                     class="form-control">
-                                                                                    <option value="">Select Province
+                                                                                    <option value="">Seleccionar
+                                                                                        Provincia
                                                                                     </option>
                                                                                     @foreach ($provinces as $province)
                                                                                         <option value="{{ $province }}"
@@ -245,7 +246,22 @@
                                                                                     </span>
                                                                                 @enderror
                                                                             </div>
-
+                                                                            {{-- <div class="row"> --}}
+                                                                                {{-- <div class="col-md-6"> --}}
+                                                                                    <div class="form-group">
+                                                                                        <label for="núm_certificado">Núm Certificado</label>
+                                                                                        <input type="number" placeholder="Núm Certificado" name="núm_certificado"
+                                                                                            id="edit-NCertificado" class="form-control">
+                                                                                    </div>
+                                                                                {{-- </div> --}}
+                                                                                {{-- <div class="col-md-6">
+                                                                                    <div class="form-group">
+                                                                                        <label for="máquina">#Máquina</label>
+                                                                                        <input type="text" placeholder="#Máquina" name="máquina" id="máquina"
+                                                                                            class="form-control">
+                                                                                    </div>
+                                                                                </div> --}}
+                                                                            {{-- </div> --}}
                                                                             <div class="form-group">
                                                                                 <label for="Supervisor">Supervisor</label>
                                                                                 <select
@@ -530,7 +546,8 @@
 
                                 <div class="form-group">
                                     <label for="ascensor">Ascensor</label>
-                                    <select class="custom-select" name="ascensor" id="ascensor" class="form-control" autocomplete="new-ascensor" autoFill="off">
+                                    <select class="custom-select" name="ascensor" id="ascensor" class="form-control"
+                                        autocomplete="new-ascensor" autoFill="off">
                                         <option value="">Seleccionar opción</option>
                                         @foreach ($elevators as $key => $value)
                                             <option value="{{ $key }}">{{ $value }}</option>
@@ -550,13 +567,30 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="provincia">Provincia</label>
-                                    <select id="provincia" name="provincia" class="form-control" autocomplete="new-provincia" autoFill="off">
+                                    <select id="provincia" name="provincia" class="form-control"
+                                        autocomplete="new-provincia" autoFill="off">
                                         <option value="">Select Province</option>
                                         @foreach ($provinces as $province)
                                             <option value="{{ $province }}">{{ $province }}</option>
                                         @endforeach
                                     </select>
                                 </div>
+                                {{-- <div class="row"> --}}
+                                    {{-- <div class="col-md-6"> --}}
+                                        <div class="form-group">
+                                            <label for="núm_certificado">Núm Certificado</label>
+                                            <input type="number" placeholder="Núm Certificado" name="núm_certificado"
+                                                id="núm_certificado" class="form-control">
+                                        </div>
+                                    {{-- </div> --}}
+                                    {{-- <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="máquina">#Máquina</label>
+                                            <input type="text" placeholder="#Máquina" name="máquina" id="máquina"
+                                                class="form-control">
+                                        </div>
+                                    </div> --}}
+                                {{-- </div> --}}
                                 <div class="form-group">
                                     <label for="supervisor">Supervisor</label>
                                     <select class="custom-select" name="supervisor" id="supervisor">
@@ -687,7 +721,7 @@
     </div>
 @endsection
 @push('scripts')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <script>
         $(document).ready(function() {
             // Prevent form submission on Enter key press
@@ -785,7 +819,7 @@
             $('#cancelSupervisor').click(function() {
                 $("#crearSupervisor").modal('hide');
             });
-            
+
             var table = $('#ascensores').DataTable({
                 responsive: true,
                 dom: 'tp',
@@ -904,7 +938,7 @@
                     ascensor: "Por favor, seleccione el ascensor.",
                     dirección: "Por favor, ingrese la dirección.",
                     provincia: 'Por favor, selecciona la provincia',
-                    // núm_certificado: "Por favor, ingrese el número de certificado.",
+                    núm_certificado: "Por favor, ingrese el número de certificado.",
                     // máquina: "Por favor, ingrese el número de máquina.",
                     // supervisor: "Por favor, seleccione el supervisor.",
                     técnico: "Por favor, seleccione el técnico.",
@@ -952,7 +986,7 @@
                     tipo_de_revisión: "Por favor, seleccione el tipo de revisión.",
                     dirección: "Por favor, ingrese la dirección.",
                     provincia: 'Por favor, selecciona la provincia',
-                    // núm_certificado: "Por favor, ingrese el número de certificado.",
+                    núm_certificado: "Por favor, ingrese el número de certificado.",
                     // máquina: "Por favor, ingrese el número de máquina.",
                     // supervisor: "Por favor, seleccione el supervisor.",
                     técnico: "Por favor, seleccione el técnico.",

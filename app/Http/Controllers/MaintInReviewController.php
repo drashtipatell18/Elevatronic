@@ -49,12 +49,12 @@ class MaintInReviewController extends Controller
 
     public function maintInReviewInsert(Request $request)
     {
-        $validatedData = $request->validate([
+        $request->validate([
             'tipo_de_revisión' => 'required',
             'ascensor' => 'required',
             'dirección' => 'required',
             'provincia' => 'required',
-            // 'núm_certificado' => 'required',
+            'núm_certificado' => 'required',
             // 'máquina' => 'required',
             // 'supervisor' => 'required',
             'técnico' => 'required',
@@ -70,7 +70,7 @@ class MaintInReviewController extends Controller
             'ascensor' => $request->input('ascensor'),
             'dirección' => $request->input('dirección'),
             'provincia' => $request->input('provincia'),
-            // 'núm_certificado' => $request->input('núm_certificado'),
+            'núm_certificado' => $request->input('núm_certificado'),
             // 'máquina' => $request->input('máquina'),
             'supervisor' => $request->input('supervisor'),
             'técnico' => $request->input('técnico'),
@@ -95,7 +95,7 @@ class MaintInReviewController extends Controller
             'ascensor' => 'required',
             'dirección' => 'required',
             'provincia' => 'required',
-            // 'núm_certificado' => 'required',
+            'núm_certificado' => 'required',
             // 'máquina' => 'required',
             // 'supervisor' => 'required',
             'técnico' => 'required',
@@ -112,7 +112,7 @@ class MaintInReviewController extends Controller
             'ascensor' => $request->input('ascensor'),
             'dirección' => $request->input('dirección'),
             'provincia' => $request->input('provincia'),
-            // 'núm_certificado' => $request->input('núm_certificado'),
+            'núm_certificado' => $request->input('núm_certificado'),
             // 'máquina' => $request->input('máquina'),
             'supervisor' => $request->input('supervisor'),
             'técnico' => $request->input('técnico'),

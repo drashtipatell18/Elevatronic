@@ -101,10 +101,11 @@
                                         <div class="form-group">
                                             <label for="Técnico">Técnico</label>
                                             <select class="custom-select" name="técnico" id="técnico">
-                                                <option value="">Seleccione un técnico</option>
-                                                <option value="técnico_1">Técnico 1</option>
-                                                <option value="técnico_2">Técnico 2</option>
-                                                <option value="técnico_3">Técnico 3</option>
+                                                <option value="">Seleccione Técnico</option>
+                                                @foreach ($staffs as $staff)
+                                                <option value="{{ $staff }}">
+                                                    {{ $staff }}</option>
+                                            @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -207,17 +208,13 @@
 
                                                 <div class="form-group">
                                                     <label for="tecnico">Técnico</label>
-                                                    <select name="técnico" id="técnico" class="custom-select">
-                                                        <option value="">Seleccionar opción</option>
-                                                        <option value="técnico_1"
-                                                            {{ old('técnico') == 'técnico_1' ? 'selected' : ($schedule->técnico == 'técnico_1' ? 'selected' : '') }}>
-                                                            Técnico 1</option>
-                                                        <option value="técnico_2"
-                                                            {{ old('técnico') == 'técnico_2' ? 'selected' : ($schedule->técnico == 'técnico_2' ? 'selected' : '') }}>
-                                                            Técnico 2</option>
-                                                        <option value="técnico_3"
-                                                            {{ old('técnico') == 'técnico_3' ? 'selected' : ($schedule->técnico == 'técnico_3' ? 'selected' : '') }}>
-                                                            Técnico 3</option>
+                                                    <select name="técnico" id="edit-técnico" class="custom-select">
+                                                        <option value="">Seleccionar Técnico</option>
+                                                        @foreach ($staffs as $staff)
+                                                            <option value="{{ $staff }}"
+                                                                {{ $schedule->técnico == $staff ? 'selected' : '' }}>
+                                                                {{ $staff }}</option>
+                                                        @endforeach
                                                     </select>
                                                 </div>
                                             </div>
@@ -408,12 +405,12 @@
                     jsEvent.preventDefault(); // Prevent the default action
                     var eventId = calEvent.id;
                     // window.reload();
-                    console.log('Type of calEvent.title:', typeof calEvent.title);
-
+                    console.log(calEvent);
+                    
                     $('#editCronograma').attr('data-event-id', eventId);
                     $('#ascensor').val(calEvent.title);
                     $('#revisar').val(calEvent.tipoRevision);
-                    $('#técnico').val(calEvent.técnico);
+                    $('#edit-técnico').val(calEvent.técnico);
                     $('#mantenimiento').val(moment(calEvent.start).format('YYYY-MM-DD'));
                     $('#horah_de_finalización').val(moment(calEvent.hora_de_inicio).format('HH:mm'));
                     $('#hora_de_inicio').val(moment(calEvent.horah_de_finalización).format('HH:mm'));

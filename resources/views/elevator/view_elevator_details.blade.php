@@ -1260,7 +1260,23 @@
                                                                         </span>
                                                                     @enderror
                                                                 </div>
-
+                                                                {{-- <div class="row"> --}}
+                                                                {{-- <div class="col-md-6"> --}}
+                                                                <div class="form-group">
+                                                                    <label for="núm_certificado">Núm Certificado</label>
+                                                                    <input type="text" placeholder="Núm Certificado"
+                                                                        name="núm_certificado" id="edit-NCertificado"
+                                                                        class="form-control">
+                                                                </div>
+                                                                {{-- </div> --}}
+                                                                {{-- <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="máquina">#Máquina</label>
+                                                            <input type="text" placeholder="#Máquina"
+                                                                name="máquina" id="máquina" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div> --}}
                                                                 <div class="form-group">
                                                                     <label for="Supervisor">Supervisor</label>
                                                                     <select
@@ -2027,23 +2043,23 @@
                                                     </select>
                                                 </div>
 
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="núm_certificado">Núm Certificado</label>
-                                                            <input type="text" placeholder="Núm Certificado"
-                                                                name="núm_certificado" id="núm_certificado"
-                                                                class="form-control">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
+                                                {{-- <div class="row"> --}}
+                                                {{-- <div class="col-md-6"> --}}
+                                                <div class="form-group">
+                                                    <label for="núm_certificado">Núm Certificado</label>
+                                                    <input type="text" placeholder="Núm Certificado"
+                                                        name="núm_certificado" id="núm_certificado"
+                                                        class="form-control">
+                                                </div>
+                                                {{-- </div> --}}
+                                                {{-- <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="máquina">#Máquina</label>
                                                             <input type="text" placeholder="#Máquina"
                                                                 name="máquina" id="máquina" class="form-control">
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div> --}}
                                                 <div class="form-group">
                                                     <label for="supervisor">Supervisor</label>
                                                     <select class="custom-select" name="supervisor" id="supervisor">
@@ -2066,8 +2082,8 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="técnico">Técnico</label>
-                                                    <select class="custom-select form-control" name="técnico_instalador"
-                                                        id="técnico_instalador">
+                                                    <select class="custom-select form-control" name="técnico"
+                                                        id="técnico">
                                                         <option value="" class="d-none">Seleccionar
                                                             opción
                                                         </option>
@@ -2076,6 +2092,11 @@
                                                                 {{ $staff }}</option>
                                                         @endforeach
                                                     </select>
+                                                    @error('técnico')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-6">
@@ -2567,33 +2588,31 @@
                         provincia: "required",
                         núm_certificado: "required",
                         máquina: "required",
-                        supervisor: "required",
+                        // supervisor: "required",
                         técnico: "required",
-                        mes_programado: "required",
+                        // mes_programado: "required",
                         fecha_de_mantenimiento: "required",
                         hora_inicio: "required",
                         hora_fin: "required",
                         observaciónes: "required",
-                        observaciónes_internas: "required",
-                        solución: "required"
+                        // solución: "required" 
                     },
                     messages: {
                         // Specify validation error messages
                         tipo_de_revisión: "Por favor, seleccione el tipo de revisión.",
                         ascensor: "Por favor, seleccione el ascensor.",
                         dirección: "Por favor, ingrese la dirección.",
-                        provincia: "Por favor, ingrese la provincia.",
+                        provincia: 'Por favor, selecciona la provincia',
                         núm_certificado: "Por favor, ingrese el número de certificado.",
-                        máquina: "Por favor, ingrese el número de máquina.",
-                        supervisor: "Por favor, seleccione el supervisor.",
+                        // máquina: "Por favor, ingrese el número de máquina.",
+                        // supervisor: "Por favor, seleccione el supervisor.",
                         técnico: "Por favor, seleccione el técnico.",
-                        mes_programado: "Por favor, seleccione el mes programado.",
+                        // mes_programado: "Por favor, seleccione el mes programado.",
                         fecha_de_mantenimiento: "Por favor, ingrese la fecha de mantenimiento.",
                         hora_inicio: "Por favor, ingrese la hora de inicio.",
                         hora_fin: "Por favor, ingrese la hora de fin.",
                         observaciónes: "Por favor, ingrese las observaciones.",
-                        observaciónes_internas: "Por favor, ingrese las observaciones internas.",
-                        solución: "Por favor, ingrese la solución."
+                        // solución: "Por favor, ingrese la solución."
                     },
                     errorElement: "span",
                     errorPlacement: function(error, element) {
@@ -2619,29 +2638,29 @@
                         provincia: "required",
                         núm_certificado: "required",
                         máquina: "required",
-                        supervisor: "required",
+                        // supervisor: "required",
                         técnico: "required",
-                        mes_programado: "required",
+                        // mes_programado: "required",
                         fecha_de_mantenimiento: "required",
                         hora_inicio: "required",
                         hora_fin: "required",
                         observaciónes: "required",
-                        solución: "required",
+                        // solución: "required",
                     },
                     messages: {
                         tipo_de_revisión: "Por favor, seleccione el tipo de revisión.",
                         dirección: "Por favor, ingrese la dirección.",
                         provincia: 'Por favor, selecciona la provincia',
                         núm_certificado: "Por favor, ingrese el número de certificado.",
-                        máquina: "Por favor, ingrese el número de máquina.",
-                        supervisor: "Por favor, seleccione el supervisor.",
+                        // máquina: "Por favor, ingrese el número de máquina.",
+                        // supervisor: "Por favor, seleccione el supervisor.",
                         técnico: "Por favor, seleccione el técnico.",
-                        mes_programado: "Por favor, seleccione el mes programado.",
+                        // mes_programado: "Por favor, seleccione el mes programado.",
                         fecha_de_mantenimiento: "Por favor, ingrese la fecha de mantenimiento.",
                         hora_inicio: "Por favor, ingrese la hora de inicio.",
                         hora_fin: "Por favor, ingrese la hora de fin.",
                         observaciónes: "Por favor, ingrese las observaciones.",
-                        solución: "Por favor, ingrese la solución."
+                        // solución: "Por favor, ingrese la solución."
                     },
                     errorElement: "span",
                     errorPlacement: function(error, element) {

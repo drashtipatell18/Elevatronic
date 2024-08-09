@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Schedule;
 use App\Models\Elevators;
 use App\Models\ReviewType;
-use App\Models\Province;
+use App\Models\Staff;
 
 class ScheduleController extends Controller
 {
@@ -15,8 +15,9 @@ class ScheduleController extends Controller
         $schedules = Schedule::all();
         $elevators = Elevators::pluck('nombre', 'nombre');
         $reviewtypes = ReviewType::pluck('nombre', 'nombre');
+        $staffs = Staff::pluck('nombre', 'nombre');
         $provinces = Elevators::select('provincia')->distinct()->pluck('provincia');
-        return view('schedule.view_schedule', compact('schedules', 'elevators', 'reviewtypes', 'provinces'));
+        return view('schedule.view_schedule', compact('schedules','staffs', 'elevators', 'reviewtypes', 'provinces'));
     }
 
     public function scheduleInsert(Request $request)

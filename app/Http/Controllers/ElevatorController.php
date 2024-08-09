@@ -88,47 +88,51 @@ class ElevatorController extends Controller
         return redirect()->route('elevator');
     }
 
-    public function maintInReviewInsertelevator(Request $request,$id)
+    public function maintInReviewInsertelevator(Request $request, $id)
     {
-        $validatedData = $request->validate([
-            'tipo_de_revisión' => 'required',
-            'ascensor' => 'required',
-            'dirección' => 'required',
-            'provincia' => 'required',
-            // 'núm_certificado' => 'required',
-            // 'máquina' => 'required',
-            // 'supervisor' => 'required',
-            'técnico' => 'required',
-            // 'mes_programado' => 'required',
-            'fecha_de_mantenimiento' => 'required',
-            'hora_inicio' => 'required',
-            'hora_fin' => 'required',
-        ]);
+        // dd($request->all());
+        try {
+            // Validate the request data
+            $validatedData = $request->validate([
+                'tipo_de_revisión' => 'required',
+                'técnico' => 'required',
+                'fecha_de_mantenimiento' => 'required|date',
+                'hora_inicio' => 'required',
+                'hora_fin' => 'required',
+                'núm_certificado' => 'required',
+                'ascensor_id' => 'required|exists:ascensores,id',
+            ]);
 
-        // Fetch the elevator data
-        $elevator = Elevators::findOrFail($id);
+            // Fetch the elevator data
+            $elevator = Elevators::findOrFail($id);
 
-        // Create a new MaintInReview instance
-        $maintinreview = MaintInReview::create([
-            'tipo_de_revisión' => $request->input('tipo_de_revisión'),
-            'ascensor' => $elevator->ascensor, // Use elevator name
-            'dirección' => $elevator->dirección, // Use elevator address
-            'provincia' => $elevator->provincia, // Use elevator province
-            'supervisor' => $request->input('supervisor'),
-            'técnico' => $request->input('técnico'),
-            'mes_programado' => $request->input('mes_programado'),
-            'fecha_de_mantenimiento' => $request->input('fecha_de_mantenimiento'),
-            'hora_inicio' => $request->input('hora_inicio'),
-            'hora_fin' => $request->input('hora_fin'),
-            'observaciónes' => $request->input('observaciónes'),
-            'observaciónes_internas' => $request->input('observaciónes_internas'),
-            'solución' => $request->input('solución'),
-            'ascensor_id' => $request->input('ascensor_id'),
-        ]);
+            // Create a new MaintInReview instance
+            $maintinreview = MaintInReview::create([
+                'tipo_de_revisión' => $request->input('tipo_de_revisión'),
+                'ascensor' => $elevator->nombre,
+                'dirección' => $elevator->dirección,
+                'provincia' => $elevator->provincia,
+                'núm_certificado' => $request->input('núm_certificado'),
+                'supervisor' => $request->input('supervisor'),
+                'técnico' => $request->input('técnico'),
+                'mes_programado' => $request->input('mes_programado'),
+                'fecha_de_mantenimiento' => $request->input('fecha_de_mantenimiento'),
+                'hora_inicio' => $request->input('hora_inicio'),
+                'hora_fin' => $request->input('hora_fin'),
+                'observaciónes' => $request->input('observaciónes') ?? null,
+                'observaciónes_internas' => $request->input('observaciónes_internas') ?? null,
+                'solución' => $request->input('solución') ,
+                'ascensor_id' => $request->input('ascensor_id'),
+            ]);
 
-        // Redirect back with success message
-        session()->flash('success', 'Mant En Revisión creado exitosamente!');
-        return redirect()->route('maint_in_review');
+            // Redirect back with success message
+            return redirect()->route('ascensore')->with('success', 'Mant En Revisión creado exitosamente!');
+        } catch (\Exception $e) {
+            // Log the error
+            \Log::error('Error creating MaintInReview: ' . $e->getMessage());
+            // Redirect back with error message
+            return redirect()->back()->with('error', 'Error al crear Mant En Revisión: ' . $e->getMessage())->withInput();
+        }
     }
 
     public function elevatorEdit($id)

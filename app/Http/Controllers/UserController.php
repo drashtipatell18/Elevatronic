@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Rules\PasswordFormat;
+use App\Rules\UniqueEmail;
 use App\Models\Staff;
 use App\Models\Employee;
 
@@ -21,7 +22,7 @@ class UserController extends Controller
         $validatedData = $request->validate([
             'username' => 'required',
             'name' => 'required',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users,email',
             'phone' => 'required',
             // 'employee' => 'required',
             'password' => ['required', new PasswordFormat()],
@@ -54,7 +55,7 @@ class UserController extends Controller
         $request->validate([
             'username' => 'required',
             'name' => 'required',
-            'email' => 'required',
+            'email' => 'required|email|unique:users,email',
             'phone' => 'required',
             // 'employee' => 'required',
         ]);

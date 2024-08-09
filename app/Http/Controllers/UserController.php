@@ -11,10 +11,11 @@ use App\Models\Employee;
 
 class UserController extends Controller
 {
-    public function user(){
+    public function user()
+    {
         $users = User::all();
-        $staffs = Staff::pluck('nombre','nombre');
-        return view('user.view_user', compact('users','staffs'));
+        $staffs = Staff::pluck('nombre', 'nombre');
+        return view('user.view_user', compact('users', 'staffs'));
     }
 
     public function userInsert(Request $request)
@@ -24,7 +25,6 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
             'phone' => 'required',
-            // 'employee' => 'required',
             'password' => ['required', new PasswordFormat()],
         ]);
 
@@ -35,7 +35,7 @@ class UserController extends Controller
             $image->move('images', $filename); // Save the image to the public/images directory
         }
 
-        $user = User::create([
+        User::create([
             'image' => $filename,
             'username' => $request->input('username'),
             'name' => $request->input('name'),
@@ -45,24 +45,25 @@ class UserController extends Controller
             'password' => bcrypt($request->input('password')),
         ]);
 
-        // Redirect back with success message
-        session()->flash('success', 'Usuario creado exitosamente!');
-        return redirect()->route('user');
+        // Return a JSON response to the AJAX request
+        return response()->json(['message' => 'Usuario creado exitosamente']);
     }
 
-    public function userUpdate(Request $request,$id){
+
+    public function userUpdate(Request $request, $id)
+    {
         // dd($request->all());
         $request->validate([
             'username' => 'required',
             'name' => 'required',
-            'email' => 'required|email|unique:users,email',
+            'email' => 'required|email|unique:users,email,' . $id,
             'phone' => 'required',
             // 'employee' => 'required',
         ]);
 
         $user = User::findOrFail($id);
 
-        if ($request->hasFile('image')){
+        if ($request->hasFile('image')) {
             $image = $request->file('image');
             $filename = time() . '.' . $image->getClientOriginalExtension();
             $image->move('images', $filename);
@@ -99,17 +100,18 @@ class UserController extends Controller
         return response()->json(['success' => 'Employee added successfully!']);
     }
 
-    public function userView(Request $request, $id){
+    public function userView(Request $request, $id)
+    {
         $users = User::find($id);
-        $staffs = Staff::pluck('nombre','nombre');
-        return view('user.view_user_record',compact('users','staffs'));
+        $staffs = Staff::pluck('nombre', 'nombre');
+        return view('user.view_user_record', compact('users', 'staffs'));
     }
 
-    public function userDestroy($id){
+    public function userDestroy($id)
+    {
         $users = User::find($id);
         $users->delete();
         session()->flash('danger', 'Usuario eliminar exitosamente!');
         return redirect()->route('user');
     }
-
 }

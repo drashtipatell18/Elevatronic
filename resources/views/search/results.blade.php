@@ -1,12 +1,12 @@
 @extends('layouts.main')
 @section('content')
-<h1>Search Results</h1>
+<h1>Resultados de la búsqueda</h1>
 
     @if($assignSpares->isEmpty() && $clientes->isEmpty() && $contracts->isEmpty() && $elevators->isEmpty() && $marcas->isEmpty() && $spareParts->isEmpty())
-        <p>No results found for your query.</p>
+        <p>No se encontraron resultados para su consulta.</p>
     @else
         @if(!$assignSpares->isEmpty())
-            <h2>Assign Spares</h2>
+            <h2>Asignar repuestos</h2>
             <table class="table datatable">
                 <thead>
                     <tr>
@@ -73,7 +73,7 @@
         @endif
 
         @if(!$contracts->isEmpty())
-            <h2>Contracts</h2>
+            <h2>Contratos</h2>
             <table class="table datatable">
                 <thead>
                     <tr>
@@ -310,7 +310,7 @@
 
 
         @if(!$elevators->isEmpty())
-            <h2>Elevators</h2>
+            <h2>Ascensores</h2>
             <table class="table datatable">
                 <thead>
                     <tr>
@@ -395,7 +395,7 @@
         @endif
 
         @if(!$spareParts->isEmpty())
-            <h2>Spare Parts</h2>
+            <h2>Piezas de repuesto</h2>
             <table class="table datatable">
                 <thead>
                     <tr>
@@ -412,7 +412,6 @@
                     </tr>
                 </thead>
                 <tbody>
-                    view.sparepart
                     @foreach($spareParts as $item)
                         <tr>
                             <td>{{ $item->foto_de_repuesto }}</td>
@@ -437,13 +436,7 @@
         @endif
     @endif
 @endsection
-@push('scripts')
-<script>
-    $('.datatable').DataTable({
-        responsive: true
-    })
-</script>
-@endpush
+
 
 
 

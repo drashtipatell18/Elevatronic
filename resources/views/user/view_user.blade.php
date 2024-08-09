@@ -35,6 +35,7 @@
         .select2-container--default .select2-selection--single .select2-selection__clear {
             display: none;
         }
+
         #editimagenPrevioUsuario {
             width: 200px;
             height: 200px;
@@ -56,11 +57,12 @@
     </style>
     <div class="w-100 contenido">
         <div class="container-fluid container-mod">
-            @if (session('success'))
+            {{-- @if (session('success'))
                 <div class="alert alert-success">
                     {{ session('success') }}
                 </div>
-            @endif
+            @endif --}}
+            <div class="alert alert-success" style="display: none;"></div> <!-- Initially hidden -->
             @if (session('danger'))
                 <div class="alert alert-danger">
                     {{ session('danger') }}
@@ -390,15 +392,15 @@
                                                 @endif
                                             </div> --}}
 
-                                                <div id="editimagenPrevioUsuario">
-                                                    @if ($user->image)
-                                                        <img src="{{ asset('images/' . $user->image) }}"
-                                                            id="edituser-image" alt="Staff Image">
-                                                    @else
-                                                        <img src="{{ asset('img/fondo.png') }}" id="edituser-image"
-                                                            alt="Staff Image">
-                                                    @endif
-                                                </div>
+                                            <div id="editimagenPrevioUsuario">
+                                                @if ($user->image)
+                                                    <img src="{{ asset('images/' . $user->image) }}" id="edituser-image"
+                                                        alt="Staff Image">
+                                                @else
+                                                    <img src="{{ asset('img/fondo.png') }}" id="edituser-image"
+                                                        alt="Staff Image">
+                                                @endif
+                                            </div>
 
 
 
@@ -795,22 +797,69 @@
                 $(".alert-danger").fadeOut(1000);
             }, 1000);
 
+            $('#createuserform').submit(function(e) {
+                e.preventDefault();
+                $.ajax({
+                    url: $(this).attr('action'),
+                    type: 'POST',
+                    data: $(this).serialize(),
+                    success: function(response) {
+                        $('.alert-success').text(response.message).fadeIn();
+                        setTimeout(function() {
+                            $('.alert-success').fadeOut(1000);
+                        }, 1000);
+                        $('#createuserform').trigger('reset');
+                        $('#crearUsuario').modal('hide');
+                        // Optionally reload the page or update the table dynamically
+                        window.location.reload();
+                    },
+                    error: function(xhr) {
+                        if (xhr.status === 422) { // Validation error
+                            var errors = xhr.responseJSON.errors;
+                            if (errors.email) {
+                                $('#createuserform').validate().showErrors({
+                                    email: errors.email[0]
+                                });
+                            }
+                        }
+                    }
+                });
+            });
+            $('#edituserform').submit(function(e) {
+                e.preventDefault();
+                $.ajax({
+                    url: $(this).attr('action'),
+                    type: 'POST',
+                    data: $(this).serialize(),
+                    success: function(response) {
+                        $('.alert-success').text(response.message).fadeIn();
+                        setTimeout(function() {
+                            $('.alert-success').fadeOut(1000);
+                        }, 1000);
+                        $('#editorUsuario').trigger('reset');
+                        $('#editorUsuario').modal('hide');
+                        // Optionally reload the page or update the table dynamically
+                        window.location.reload();
+                    },
+                    error: function(xhr) {
+                        if (xhr.status === 422) { // Validation error
+                            var errors = xhr.responseJSON.errors;
+                            // Clear previous errors
+                            $('#edituserform').validate().resetForm();
+                            // Show new errors
+                            $.each(errors, function(key, value) {
+                                $('#edituserform').validate().showErrors({
+                                    [key]: value[0]
+                                });
+                            });
+                        }
+                    }
+                });
+            });
 
-
-            // Real-time feedback for password field
-            // $('#password').on('input', function() {
-            //     var password = $(this).val();
-            //     var icon = $('#passwordCheckIcon');
-
-            //     if (/^(?=.*[A-Z])(?=.*[@$!%*?&.,-_])[A-Za-z\d@$!%*?&.,-_]{8,}$/.test(password)) {
-            //         icon.removeClass('fa-times').addClass('fa-check').css('color', 'green');
-            //     } else {
-            //         icon.removeClass('fa-check').addClass('fa-times').css('color', 'red');
-            //     }
-            // });
             $.validator.addMethod("passwordFormat", function(value, element) {
                     return this.optional(element) || (
-                        /^(?=.*[A-Z])(?=.*[a-z])(?=.*[@$!%*?&.,-]).{8,}$/.test(value)
+                        /(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.,-])[A-Za-z\d@$!%*?&.,-]{8,}/.test(value)
                     );
                 },
                 "The password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, and one special character from @$!%*?&.,-."
@@ -844,7 +893,9 @@
                     name: "Por favor, ingrese el nombre",
                     email: {
                         required: "Por favor, ingrese el correo",
-                        email: "Por favor, ingrese un correo válido"
+                        email: "Por favor, ingrese un correo válido",
+                        unique: 'El correo electrónico ya está en uso.',
+
                     },
                     phone: {
                         required: "Por favor, ingrese el teléfono",

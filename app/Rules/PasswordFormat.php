@@ -14,7 +14,7 @@ class PasswordFormat implements Rule
     public function passes($attribute, $value)
     {
         // Password must be at least 8 characters, start with a capital letter, and include at least one special character
-        return preg_match('/^(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/', $value);
+        return preg_match('/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.,-])[A-Za-z\d@$!%*?&.,-]{8,}/', $value);
     }
 
     /**

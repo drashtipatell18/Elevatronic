@@ -175,23 +175,36 @@ class MaintInReviewController extends Controller
     {
         $documents = [];
 
-        foreach ($request->file('files') as $file) {
-            $originalName = $file->getClientOriginalName();
-            $extension = $file->getClientOriginalExtension();
-            $uniqueName = pathinfo($originalName, PATHINFO_FILENAME) . '_' . uniqid() . '.' . $extension;
-            $destinationPath = public_path('documents');
-            $file->move($destinationPath, $uniqueName);
-            $document = ImagePdfs::create([
-                'document' => $uniqueName,
-                'mant_en_revisións_id' => $id
-            ]);
-            $documents[] = [
-                'id' => $document->id,
-                'filename' => $uniqueName,
-            ];
-        }
+        try {
+            if (!$request->hasFile('files')) {
+                throw new \Exception('No files were uploaded.');
+            }
 
-        return response()->json(['success' => true, 'documents' => $documents]);
+            foreach ($request->file('files') as $index => $file) {
+                $originalName = $file->getClientOriginalName();
+                $extension = $file->getClientOriginalExtension();
+                $uniqueName = pathinfo($originalName, PATHINFO_FILENAME) . '_' . uniqid() . '.' . $extension;
+                $destinationPath = public_path('documents');
+
+                if (!$file->move($destinationPath, $uniqueName)) {
+                    throw new \Exception("Failed to move file {$index}: {$originalName}");
+                }
+
+                $document = ImagePdfs::create([
+                    'document' => $uniqueName,
+                    'mant_en_revisións_id' => $id
+                ]);
+
+                $documents[] = [
+                    'id' => $document->id,
+                    'filename' => $uniqueName,
+                ];
+            }
+
+            return response()->json(['success' => true, 'documents' => $documents]);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'error' => $e->getMessage()], 500);
+        }
     }
 
     public function deleteDocument($imageId)
@@ -200,7 +213,6 @@ class MaintInReviewController extends Controller
 
         if ($image) {
             $image->delete();
-
         }
         return response()->json(['success' => true]);
     }
@@ -213,6 +225,3 @@ class MaintInReviewController extends Controller
         return response()->json(['success' => true]);
     }
 }
-
-
-

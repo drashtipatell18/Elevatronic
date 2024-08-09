@@ -149,6 +149,7 @@ class MaintInReviewController extends Controller
         return view('Maint.view_maint_in_review_record', compact('spareparts', 'provinces', 'personals', 'maint_in_review', 'review_types', 'elevators', 'id', 'main_image', 'documents'));
     }
 
+   
     public function saveImage(Request $request, $id)
     {
         $savedImages = [];
@@ -170,7 +171,7 @@ class MaintInReviewController extends Controller
 
         return response()->json($savedImages);
     }
-
+    
     public function saveDocument(Request $request, $id)
     {
         $documents = [];

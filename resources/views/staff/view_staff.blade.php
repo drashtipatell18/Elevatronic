@@ -685,45 +685,57 @@
             $('#imageUpload10').change(function() {
                 var reader = new FileReader();
                 reader.onload = function(e) {
-                    $('#imagenPrevioPersonal').css('background-image', 'url(' + e.target.result + ')');
+                    $('#imagenPrevioPersonal').html('<img src="' + e.target.result +
+                        '" width="200" height="200" alt="Preview Image">');
                     $('#imagenPrevioPersonal').show();
                 }
                 reader.readAsDataURL(this.files[0]);
             });
 
+            function updateImagePreview(imageUrl) {
+                $('#editimagenPrevioPersonal').empty();
+                $('#editimagenPrevioPersonal').html('<img src="' + imageUrl +
+                    '" width="200" height="200" alt="Preview Image">');
+            }
+
+            $('#editimageUpload10').change(function() {
+                if (this.files && this.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        updateImagePreview(e.target.result);
+                    }
+                    reader.readAsDataURL(this.files[0]);
+                }
+            });
             $('#editcargarimagenpersonal').click(function() {
                 $('#editimageUpload10').click();
             });
 
-            $('#editimageUpload10').change(function() {
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                    $('#editimagenPrevioPersonal').css('background-image', 'url(' + e.target.result +
-                        ')');
-                    $('#editimagenPrevioPersonal').show();
-                }
-                reader.readAsDataURL(this.files[0]);
-            });
+            // $('#editimageUpload10').change(function() {
+            //     var reader = new FileReader();
+            //     reader.onload = function(e) {
+            //         $('#editimagenPrevioPersonal').css('background-image', 'url(' + e.target.result +
+            //             ')');
+            //         $('#editimagenPrevioPersonal').show();
+            //     }
+            //     reader.readAsDataURL(this.files[0]);
+            // });
 
-            $('#editimageUpload10').change(function() {
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                    // Update the background image of the preview div
-                    $('#editimagenPrevioPersonal').css('background-image', 'url(' + e.target.result +
-                        ')');
+            // $('#editimageUpload10').change(function() {
+            //     var reader = new FileReader();
+            //     reader.onload = function(e) {
+            //         // Clear existing content
+            //         $('#editimagenPrevioPersonal').empty();
 
-                    // Hide any existing image tags inside the preview div
-                    $('#editimagenPrevioPersonal').find('img').remove();
+            //         // Add new image
+            //         $('#editimagenPrevioPersonal').html('<img src="' + e.target.result +
+            //             '" width="200" height="200" alt="Preview Image">');
 
-                    // Show the preview div (in case it was hidden)
-                    $('#editimagenPrevioPersonal').show();
-
-                    // Optionally, add a new img element if needed
-                    $('#editimagenPrevioPersonal').append('<img src="' + e.target.result +
-                        '" width="200" height="200" alt="Preview Image">');
-                }
-                reader.readAsDataURL(this.files[0]);
-            });
+            //         // Show the preview div
+            //         $('#editimagenPrevioPersonal').show();
+            //     }
+            //     reader.readAsDataURL(this.files[0]);
+            // });
 
 
             $('#createstaff').validate({
@@ -813,10 +825,12 @@
                 $('#posición1').val(staff.posición).trigger('change');
                 $('#edit-correo').val(staff.correo);
                 $('#edit-teléfono').val(staff.teléfono);
+                $('#editimageUpload10').val('');
+
                 var imageUrl = staff.personalfoto ?
-                    "{{ asset('images/') }}" + "/" + staff.personalfoto :
+                    "{{ asset('images/') }}/" + staff.personalfoto :
                     "{{ asset('img/fondo.png') }}";
-                $('#editstaff-image').attr('src', imageUrl);
+                updateImagePreview(imageUrl);
                 // Set the form action to the correct route
                 $('#editstaff').attr('action', '/personal/actualizar/' + staff.id);
             });

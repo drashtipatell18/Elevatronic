@@ -130,6 +130,46 @@
                                                     </div>
                                                 </td>
                                             </tr>
+                                            <!-- Modal Eliminar-->
+                                            <div class="modal fade" id="modalEliminar{{ $customer->id }}" tabindex="-1"
+                                                role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                    <div class="modal-content border-radius-12">
+                                                        <div class="modal-body">
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <button type="button" class="close"
+                                                                        data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">×</span>
+                                                                    </button>
+                                                                    <div class="box1">
+                                                                        <img src="{{ asset('img/iconos/trash.svg') }}"
+                                                                            alt="trash" width="76">
+                                                                        <p class="mt-3 mb-0">
+                                                                            ¿Seguro que quieres eliminar <span
+                                                                                id="item-name"></span>?
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer align-items-center justify-content-center">
+                                                            @isset($customer)
+                                                                <form id="delete-form"
+                                                                    action="{{ route('destroy.customer', $customer->id) }}"
+                                                                    method="POST">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="submit" class="btn-gris btn-red">Sí</button>
+                                                                    <button type="button" class="btn-gris btn-border"
+                                                                        data-dismiss="modal">No</button>
+                                                                </form>
+                                                            @endisset
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         @endforeach
                                     </tbody>
                                 </table>
@@ -138,8 +178,8 @@
                     </div>
                 </div>
 
-                <div class="modal left fade" id="crearCliente" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
-                    aria-hidden="true">
+                <div class="modal left fade" id="crearCliente" tabindex="-1" role="dialog"
+                    aria-labelledby="modelTitleId" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -373,44 +413,7 @@
                     </div>
                 </div>
 
-                <!-- Modal Eliminar-->
-                @isset($customer)
-                    <div class="modal fade" id="modalEliminar{{ $customer->id }}" tabindex="-1" role="dialog"
-                        aria-labelledby="modelTitleId" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content border-radius-12">
-                                <div class="modal-body">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">×</span>
-                                            </button>
-                                            <div class="box1">
-                                                <img src="{{ asset('img/iconos/trash.svg') }}" alt="trash"
-                                                    width="76">
-                                                <p class="mt-3 mb-0">
-                                                    ¿Seguro que quieres eliminar <span id="item-name"></span>?
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="modal-footer align-items-center justify-content-center">
-                                    @isset($customer)
-                                        <form id="delete-form" action="{{ route('destroy.customer', $customer->id) }}"
-                                            method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn-gris btn-red">Sí</button>
-                                            <button type="button" class="btn-gris btn-border" data-dismiss="modal">No</button>
-                                        </form>
-                                    @endisset
 
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @endisset
             </div>
         </div>
 

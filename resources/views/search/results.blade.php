@@ -46,7 +46,11 @@
                 <tbody>
                     @foreach($clientes as $item)
                         <tr>
-                            <td>{{ $item->nombre }}</td>
+                            <td>
+                                <a href="{{ route('view.customer', $item->id) }}" class="text-blue">
+                                    {{ $item->nombre }}
+                                </a>
+                            </td>
                             <td>{{ $item->tipo_de_cliente }}</td>
                             <td>{{ $item->ruc }}</td>
                             <td>{{ $item->país }}</td>
@@ -84,7 +88,12 @@
                 <tbody>
                     @foreach($contracts as $item)
                         <tr>
-                            <td>{{ $item->ascensor }}</td>
+                            {{-- <td>{{ $item->ascensor }}</td> --}}
+                            <td>
+                                <a href="{{ route('getContract', $item->id) }}" class="text-blue">
+                                    {{ $item->ascensor }}
+                                </a>
+                            </td>
                             <td>{{ $item->fecha_de_propuesta }}</td>
                             <td>{{ $item->monto_de_propuesta }}</td>
                             <td>{{ $item->monto_de_contrato }}</td>
@@ -134,6 +143,11 @@
                         <tr>
                             <td>{{ $item->imagen }}</td>
                             <td>{{ $item->contrato }}</td>
+                            <td>
+                                <a href="{{ route('view.elevator', $item->id) }}" class="text-blue">
+                                    {{ $item->nombre }}
+                                </a>
+                            </td>
                             <td>{{ $item->nombre }}</td>
                             <td>{{ $item->código }}</td>
                             <td>{{ $item->marca }}</td>
@@ -171,6 +185,10 @@
                     @foreach($marcas as $item)
                         <tr>
                             <td>{{ $item->marca_nombre }}</td>
+
+
+
+
                         </tr>
                     @endforeach
                 </tbody>
@@ -195,10 +213,16 @@
                     </tr>
                 </thead>
                 <tbody>
+                    view.sparepart
                     @foreach($spareParts as $item)
                         <tr>
                             <td>{{ $item->foto_de_repuesto }}</td>
-                            <td>{{ $item->nombre }}</td>
+                            {{-- <td>{{ $item->nombre }}</td> --}}
+                            <td>
+                                <a href="{{ route('view.sparepart', $item->id) }}" class="text-blue">
+                                    {{ $item->nombre }}
+                                </a>
+                            </td>
                             <td>{{ $item->precio }}</td>
                             <td>{{ $item->descripción }}</td>
                             <td>{{ $item->frecuencia_de_limpieza }}</td>
@@ -221,3 +245,8 @@
     })
 </script>
 @endpush
+
+
+
+
+

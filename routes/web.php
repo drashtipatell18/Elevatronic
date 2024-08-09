@@ -84,7 +84,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/ascensore/vista/{id}', [ElevatorController::class, 'elevatorView'])->name('view.elevator');
     Route::post('/ascensore/actualizar/{id}', [ElevatorController::class, 'elevatorUpdate'])->name('update.elevator');
     Route::delete ('/ascensore/destruir/{id}',[ElevatorController::class,'elevatorDestroy'])->name('destroy.elevator');
-    Route::get('/contract/get/{id}', [ElevatorController::class, 'getContract']);
+    Route::get('/contract/get/{id}', [ElevatorController::class, 'getContract'])->name('getContract');
     Route::get('/getBrands', [ElevatorController::class, 'getBrands'])->name('getBrands');
 
     // Maint In Review //
@@ -155,7 +155,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::delete ('/usuarios/destruir/{id}',[UserController::class,'userDestroy'])->name('destroy.user');
     Route::post('/empleado/insertar',[UserController::class,'insertEmployee'])->name('insert.employee');
     Route::get('/conseguir/empleado', [UserController::class, 'getEmployee'])->name('getEmployee');
-   
+
     // cronograma
     Route::get('/cronograma', [ScheduleController::class, 'schedule'])->name('schedule');
     Route::post('/cronograma/insertar',[ScheduleController::class,'scheduleInsert'])->name('insert.schedule');

@@ -18,7 +18,7 @@ class SearchController extends Controller
 
         // Search in AssginSpare table
         $assignSpares = AssginSpare::where('nombre_del_tipo_de_ascensor', 'LIKE', "%{$query}%")
-            ->orWhere('reemplazo', 'LIKE', "%{$query}%")
+            ->orWhere('repuesto_id', 'LIKE', "%{$query}%")
             ->get();
 
         // Search in Cliente table
@@ -55,7 +55,7 @@ class SearchController extends Controller
             ->orWhere('nombre', 'LIKE', "%{$query}%")
             ->orWhere('código', 'LIKE', "%{$query}%")
             ->orWhere('marca', 'LIKE', "%{$query}%")
-            ->orWhere('cliente', 'LIKE', "%{$query}%")
+            ->orWhere('client_id', 'LIKE', "%{$query}%")
             ->orWhere('fecha', 'LIKE', "%{$query}%")
             ->orWhere('garantizar', 'LIKE', "%{$query}%")
             ->orWhere('dirección', 'LIKE', "%{$query}%")

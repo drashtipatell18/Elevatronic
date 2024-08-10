@@ -872,50 +872,60 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <script>
         $(document).ready(function() {
-
+            var table = $('#contratosTable').DataTable({
+                responsive: true,
+                dom: 'tp',
+                pageLength: 20,
+                language: {
+                    decimal: "",
+                    emptyTable: "No hay información",
+                    info: "Mostrando START a END de TOTAL Registros",
+                    infoEmpty: "Mostrando 0 a 0 de 0 Entradas",
+                    infoFiltered: "(Filtrado de MAX total registros)",
+                    lengthMenu: "Mostrar MENU Registros",
+                    loadingRecords: "Cargando...",
+                    processing: "Procesando...",
+                    search: "Buscar:",
+                    zeroRecords: "Sin resultados encontrados",
+                    paginate: {
+                        first: "Primero",
+                        last: "Último",
+                        next: "Siguiente",
+                        previous: "Anterior"
+                    }
+                },
+                buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                ]
+            });
             $('#SupervisorForm').on('keypress', function(e) {
-                if (e.which === 13) { // 13 is the Enter key code
+                if (e.which === 13) {
                     e.preventDefault();
                     return false;
                 }
             });
 
             function getSupervisors(edit) {
-                // Destroy existing Select2 instance if it exists
                 if ($('#supervisor').data('select2')) {
                     $('#supervisor').select2('destroy');
                 }
 
-                // Perform the AJAX call to get supervisor data
                 $.ajax({
                     type: "GET",
-                    url: "{{ route('supervisors') }}", // Ensure this route is correct
+                    url: "{{ route('supervisors') }}",
                     dataType: "JSON",
                     success: function(response) {
-                        // Clear the current options and append the retrieved options to the select element
-                        $("#supervisor").empty();
-                        $("#supervisor").append(
-                            '<option value="" class="d-none">Seleccionar Supervisor</option>'
-                        ); // Add placeholder option
+                        $("#supervisor").empty().append('<option value="" class="d-none">Seleccionar Supervisor</option>');
 
                         $.each(response, function() {
-                            $("#supervisor").append(
-                                `<option value='${this.id}'>${this.nomber}</option>`
-                            );
+                            $("#supervisor").append(`<option value='${this.id}'>${this.nomber}</option>`);
                         });
 
-                        // Initialize Select2 on the select element
-                        $('#supervisor').select2({
-                            // placeholder: "Seleccionar Supervisor",
-                            // allowClear: true
-                        });
+                        $('#supervisor').select2();
 
-                        if (edit && edit !== '') {
-                            console.log('Attempting to set value:', edit);
+                        if (edit) {
                             setTimeout(function() {
                                 $('#supervisor').val(edit).trigger('change');
-                                console.log('Selected value set to:', $('#supervisor')
-                                    .val());
                             }, 100);
                         }
                     },
@@ -924,74 +934,74 @@
                     }
                 });
             }
-
-            // Call the function when needed, e.g., when opening the modal
-            const editValue = '{{ $editValue ?? '' }}'; // Replace with actual edit value if available
+            const editValue = '{{ $editValue ?? '' }}';
             getSupervisors(editValue);
 
-            // Handle form submission
             $('#submitSupervisor').click(function(e) {
-                e.preventDefault(); // Prevent default form submission
+                e.preventDefault();
                 var formData = new FormData();
                 formData.append('nomber', $('#nomber').val());
 
-                // Send AJAX request
                 $.ajax({
                     type: "POST",
-                    method: "POST",
-                    dataType: "JSON",
                     data: formData,
                     processData: false,
                     contentType: false,
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
-                    url: "{{ route('insert.supervisor') }}", // Make sure to create this route
+                    url: "{{ route('insert.supervisor') }}",
                     success: function(response) {
                         getSupervisors();
                         $('#cancelSupervisor').click();
                     },
                     error: function(xhr) {
                         console.error('Error creating supervisor:', xhr.responseText);
-                        // Handle error (e.g., show error message to user)
                     }
                 });
             });
-
-            // Handle modal close on cancel button click
             $('#cancelSupervisor').click(function() {
                 $("#crearSupervisor").modal('hide');
             });
-            // Add event listeners to checkboxes
-            $('.custom-control-input').on('change', function() {
-                if ($(this).is(':checked')) {
-                    console.log($(this).attr('id') + ' is checked');
-                } else {
-                    console.log($(this).attr('id') + ' is unchecked');
+
+            $('.gallery').on('click', '.btn-delete-image', function(e) {
+                e.preventDefault();
+                var imageId = $(this).data('image-id');
+                var parentDiv = $(this).closest('.col-md-6');
+
+                if (confirm('¿Estás seguro de que deseas eliminar esta imagen?')) {
+                    $.ajax({
+                        type: "DELETE",
+                        url: `/document/${imageId}/delete`,
+                        data: {
+                            _token: $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success: function(response) {
+                            if (response.success) {
+                                parentDiv.remove();
+                                $('#imageCount').text('Imágenes (' + $('.gallery .img-container').length + ')');
+                            } else {
+                                console.error('Error deleting image.');
+                            }
+                        },
+                        error: function(xhr) {
+                            console.error('Request failed: ' + xhr.status + ' ' + xhr.statusText);
+                        }
+                    });
                 }
             });
-
-
-            // Image Deleted
-
             $('#uploadButton10').click(function() {
                 $('#imageUpload').click();
             });
 
             $('#imageUpload').change(function() {
-                var imageCount = $('#imageCount');
-                var count = 0;
                 if (this.files.length) {
-                    var filesCount = this.files.length;
-                    count = $('.gallery img').length + filesCount;
-
                     var formData = new FormData();
                     formData.append("_token", $("input[name='_token']").val());
 
-
-                    for (var i = 0; i < filesCount; i++) {
-                        formData.append('image[]', this.files[i]);
-                    }
+                    $.each(this.files, function(i, file) {
+                        formData.append('image[]', file);
+                    });
 
                     let id = $("#uploadButton10").data('id');
                     formData.append('id', id);
@@ -1000,7 +1010,6 @@
                         type: "POST",
                         data: formData,
                         processData: false,
-                        dataType: "JSON",
                         contentType: false,
                         url: `/mant/en/revisión/detalle/${id}/saveImage`,
                         success: function(response) {
@@ -1016,176 +1025,110 @@
                                 );
 
                                 $('.gallery .row').append(imgHtml);
+                                $('#imageUpload').val('');
                             });
-                            imageCount.text('Imágenes (' + count + ')');
+                            $('#imageCount').text('Imágenes (' + ($('.gallery .img-container').length + this.files.length) + ')');
 
-                            // avani
-                            $('#imageUpload').val('');
 
                         },
                         error: function(xhr) {
                             console.error('Error uploading images:', xhr.responseText);
                         }
-                    })
+                    });
                 }
             });
-
-        });
-
-        $('.gallery').on('click', '.btn-delete-image', function(e) {
-            e.preventDefault(); // Prevent default action of the button
-            var imageId = $(this).data('image-id');
-            var parentDiv = $(this).closest('.col-md-6');
-
-            // Confirm deletion
-            if (confirm('¿Estás seguro de que deseas eliminar esta imagen?')) {
-                $.ajax({
-                    type: "DELETE",
-                    url: `/document/${imageId}/delete`, // Ensure this URL matches your route
-                    data: {
-                        _token: $('meta[name="csrf-token"]').attr(
-                            'content') // Include CSRF token
-                    },
-                    success: function(response) {
-                        if (response.success) {
-                            parentDiv.remove(); // Remove the image element from the DOM
-                            var count = $('.gallery .img-container').length;
-                            $('#imageCount').text('Imágenes (' + count +
-                                ')'); // Update the counter
-                            console.log('Image deleted successfully.');
-                        } else {
-                            console.log('Error deleting image.');
-                        }
-                    },
-                    error: function(xhr) {
-                        console.log('Request failed: ' + xhr.status + ' ' + xhr.statusText);
-                    }
-                });
-            }
-        });
-
-        // File Deleted
-
-        $('#uploadButton11').on('click', function() {
-            $('#fileUpload').trigger('click');
-        });
-
-        $('#fileUpload').on('change', function() {
-            var files = this.files;
-            var fileCount = $('#fileList').children().length;
-            var formData = new FormData();
-            formData.append("_token", $("input[name='_token']").val());
-
-            $.each(files, function(i, file) {
-                formData.append('files[]', file);
-            });
-
-            let id = $("#uploadButton11").data('id');
-            formData.append('id', id);
-
-            $.ajax({
-                type: "POST",
-                url: `/mant/en/revisión/detalle/${id}/saveDocument`,
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function(response) {
-                    if (response.success) {
-                        $.each(response.documents, function(index, document) {
-                            // Check if document is already in the list
-                            let existing = $('#fileList').find(
-                                `[data-id="${document.id}"]`);
-                            if (existing.length) {
-                                existing.replaceWith(createFileEntry(document));
-                            } else {
-                                $('#fileList').append(createFileEntry(document));
-                                fileCount++;
-                            }
-                        });
-                        $('#fileCount').text('Archivos (' + fileCount + ')');
-                    } else {
-                        console.error('Upload failed:', response.message);
-                    }
-                },
-                error: function(xhr) {
-                    console.error('Error uploading file:', xhr.responseText);
-                }
-            });
-
 
             $('#fileList').on('click', '.remove-file', function(event) {
                 event.preventDefault();
                 let button = $(this);
                 let id = button.data('id');
+                if (confirm('¿Estás seguro de que deseas eliminar esta archivos?')) {
+                    $.ajax({
+                        type: "DELETE",
+                        url: `/document/${id}/delete`,
+                        data: {
+                            _token: $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success: function(response) {
+                            if (response.success) {
+                                button.closest('.file-entry').remove();
+                                $('#fileCount').text('Archivos (' + $('#fileList').children().length + ')');
+                            } else {
+                                console.error('Failed to delete file.');
+                            }
+                        },
+                        error: function(xhr) {
+                            console.error('Request failed: ' + xhr.status + ' ' + xhr.statusText);
+                        }
+                    });
+                }
+            });
+
+
+            $('#uploadButton11').click(function() {
+                $('#fileUpload').click();
+            });
+
+            $('#fileUpload').change(function() {
+                var files = this.files;
+                var formData = new FormData();
+                formData.append("_token", $("input[name='_token']").val());
+
+                $.each(files, function(i, file) {
+                    formData.append('files[]', file);
+                });
+
+                let id = $("#uploadButton11").data('id');
+                formData.append('id', id);
 
                 $.ajax({
-                    type: "DELETE",
-                    url: `/document/${id}/delete`,
-                    data: {
-                        _token: $('meta[name="csrf-token"]').attr('content')
-                    },
+                    type: "POST",
+                    url: `/mant/en/revisión/detalle/${id}/saveDocument`,
+                    data: formData,
+                    processData: false,
+                    contentType: false,
                     success: function(response) {
                         if (response.success) {
-                            // Refresh the page
-                            location.reload();
+                            response.documents.forEach(function(document) {
+                                let existing = $('#fileList').find(`[data-id="${document.id}"]`);
+                                if (existing.length) {
+                                    existing.replaceWith(createFileEntry(document));
+                                } else {
+                                    $('#fileList').append(createFileEntry(document));
+                                }
+                            });
+                            $('#fileCount').text('Archivos (' + $('#fileList').children().length + ')');
+                              $('#fileUpload').val('');
                         } else {
-                            console.error('Delete failed:', response.message);
+                            console.error('Upload failed:', response.message);
                         }
                     },
                     error: function(xhr) {
-                        console.error('Error deleting file:', xhr.responseText);
+                        console.error('Error uploading file:', xhr.responseText);
                     }
                 });
             });
 
             function createFileEntry(document) {
-                // Static file size set to 0.2 MB
-                var fileSize = '0.2 MB';
-
+                var fileSize = '0.2 MB'; // Adjust file size calculation if needed
                 return $('<div class="file-entry" data-id="' + document.id + '">' +
                     '<span class="file-info">' +
                     '<a href="/documents/' + document.filename + '" download>' + document.filename + '</a>' +
-                    ' (' + fileSize + ')' + // Display static file size in MB
+                    ' (' + fileSize + ')' +
                     '</span>' +
-                    '<button data-id="' + document.id +
-                    '" class="remove-file"><i class="fal fa-trash-alt"></i></button>' +
+                    '<button data-id="' + document.id + '" class="remove-file"><i class="fal fa-trash-alt"></i></button>' +
                     '</div>');
             }
 
+            function displayFileSize() {
+                $('#fileList .file-entry').each(function() {
+                    var fileSize = $(this).find('.file-info').text().match(/\(([^)]+)\)/);
+                    if (fileSize) {
+                        $(this).find('.file-info').append(' (' + fileSize[1] + ')');
+                    }
+                });
+            }
 
-
-            var table = $('#contratosTable').DataTable({
-                responsive: true,
-                dom: 'tp',
-                pageLength: 20, // Establece el número de registros por página a 8
-                language: {
-                    "decimal": "",
-                    "emptyTable": "No hay información",
-                    "info": "Mostrando START a END de TOTAL Reistros",
-                    "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
-                    "infoFiltered": "(Filtrado de MAX total registros)",
-                    "infoPostFix": "",
-                    "thousands": ",",
-                    "lengthMenu": "Mostrar MENU Registros",
-                    "loadingRecords": "Cargando...",
-                    "processing": "Procesando...",
-                    "search": "Buscar:",
-                    "zeroRecords": "Sin resultados encontrados",
-                    "paginate": {
-                        "first": "Primero",
-                        "last": "Último",
-                        "next": "Siguiente",
-                        "previous": "Anterior"
-                    },
-                },
-                buttons: [
-                    'copy', 'csv', 'excel', 'pdf', 'print'
-                ]
-            });
-
-            // $('#customSearchBox').keyup(function(){
-            //     table.search($(this).val()).draw();
-            // });
             $('.customSearchBox').keyup(function() {
                 table.search($(this).val()).draw();
             });
@@ -1199,31 +1142,21 @@
                     tipo_de_revisión: "required",
                     dirección: "required",
                     provincia: "required",
-                    // núm_certificado: "required",
-                    // máquina: "required",
-                    // supervisor: "required",
                     técnico: "required",
-                    // mes_programado: "required",
                     fecha_de_mantenimiento: "required",
                     hora_inicio: "required",
                     hora_fin: "required",
                     observaciónes: "required",
-                    // solución: "required",
                 },
                 messages: {
                     tipo_de_revisión: "Por favor, seleccione el tipo de revisión.",
                     dirección: "Por favor, ingrese la dirección.",
                     provincia: 'Por favor, selecciona la provincia',
-                    // núm_certificado: "Por favor, ingrese el número de certificado.",
-                    // máquina: "Por favor, ingrese el número de máquina.",
-                    // supervisor: "Por favor, seleccione el supervisor.",
                     técnico: "Por favor, seleccione el técnico.",
-                    // mes_programado: "Por favor, seleccione el mes programado.",
                     fecha_de_mantenimiento: "Por favor, ingrese la fecha de mantenimiento.",
                     hora_inicio: "Por favor, ingrese la hora de inicio.",
                     hora_fin: "Por favor, ingrese la hora de fin.",
                     observaciónes: "Por favor, ingrese las observaciones.",
-                    // solución: "Por favor, ingrese la solución."
                 },
                 errorElement: "span",
                 errorPlacement: function(error, element) {
@@ -1239,7 +1172,6 @@
             });
 
             $('.edit-mantenimiento').on('click', function() {
-
                 var mantenimiento = $(this).data('mantenimiento');
                 console.log(mantenimiento);
                 $('#edit-tipo_de_revisión').val(mantenimiento.tipo_de_revisión);
@@ -1257,17 +1189,14 @@
                 $('#edit-observaciónes').val(mantenimiento.observaciónes);
                 $('#edit-observacionesInternas').val(mantenimiento.observaciónes_internas);
                 $('#edit-solucion').val(mantenimiento.solución);
-
                 $('#editmaintreview').attr('action', '/mant/en/revisión/actualizar/' + mantenimiento.id);
             });
-
             $('#editorMantenimiento').on('hidden.bs.modal', function() {
                 var form = $('#editmaintreview');
                 form.validate().resetForm();
                 form.find('.is-invalid').removeClass('is-invalid');
                 form.find('.is-valid').removeClass('is-valid');
             });
-
             $('.custom-control-input').on('change', function() {
                 var sparepartId = $(this).data('id');
                 console.log(sparepartId);
@@ -1292,9 +1221,7 @@
                 });
             });
 
-
-
-
         });
+
     </script>
 @endpush

@@ -11,7 +11,7 @@ use App\Models\Staff;
 use Illuminate\Http\Request;
 use App\Models\SparePart;
 use App\Models\Supervisor;
-
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class MaintInReviewController extends Controller
 {
@@ -149,7 +149,7 @@ class MaintInReviewController extends Controller
         return view('Maint.view_maint_in_review_record', compact('spareparts', 'provinces', 'personals', 'maint_in_review', 'review_types', 'elevators', 'id', 'main_image', 'documents'));
     }
 
-   
+
     public function saveImage(Request $request, $id)
     {
         $savedImages = [];
@@ -171,16 +171,13 @@ class MaintInReviewController extends Controller
 
         return response()->json($savedImages);
     }
-    
+
     public function saveDocument(Request $request, $id)
     {
         $documents = [];
+        $successful = true;
 
         try {
-            if (!$request->hasFile('files')) {
-                throw new \Exception('No files were uploaded.');
-            }
-
             foreach ($request->file('files') as $index => $file) {
                 $originalName = $file->getClientOriginalName();
                 $extension = $file->getClientOriginalExtension();
@@ -193,20 +190,24 @@ class MaintInReviewController extends Controller
 
                 $document = ImagePdfs::create([
                     'document' => $uniqueName,
+                    'original_name' => $originalName, // Store the original name if needed
                     'mant_en_revisións_id' => $id
                 ]);
 
                 $documents[] = [
                     'id' => $document->id,
                     'filename' => $uniqueName,
+                    'original_name' => $originalName // Include the original name in the response
                 ];
             }
-
-            return response()->json(['success' => true, 'documents' => $documents]);
         } catch (\Exception $e) {
-            return response()->json(['success' => false, 'error' => $e->getMessage()], 500);
+            $successful = false;
+            return response()->json(['success' => $successful, 'message' => $e->getMessage()]);
         }
+
+        return response()->json(['success' => $successful, 'documents' => $documents]);
     }
+
 
     public function deleteDocument($imageId)
     {

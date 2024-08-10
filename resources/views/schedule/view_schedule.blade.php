@@ -158,7 +158,7 @@
     </div>
     @foreach ($schedules as $schedule)
         <!-- Modal Agregar Cromograma-->
-        <div class="modal left fade" id="editCronograma" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+        <div class="modal left fade" id="editCronograma{{ $schedule->id }}" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
             aria-hidden="true" data-event-id="">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -405,7 +405,7 @@
                     var eventId = calEvent.id;
                     console.log(calEvent);
 
-                    $('#editCronograma').attr('data-event-id', eventId);
+                    $('#editCronograma' + eventId).attr('data-event-id', eventId); // Update to use the correct modal ID
                     $('#ascensor').val(calEvent.title);
                     $('#revisar').val(calEvent.tipoRevision);
                     $('#edit-técnico').val(calEvent.técnico);
@@ -413,7 +413,7 @@
                     $('#horah_de_finalización').val(moment(calEvent.hora_de_inicio).format('HH:mm'));
                     $('#hora_de_inicio').val(moment(calEvent.horah_de_finalización).format('HH:mm'));
                     $('#estado').val(calEvent.estado);
-                    $('#editCronograma').modal('show'); // Show the modal
+                    $('#editCronograma' + eventId).modal('show'); // Show the modal
                 }
 
             });

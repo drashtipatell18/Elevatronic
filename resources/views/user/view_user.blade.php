@@ -871,6 +871,10 @@
                 return this.optional(element) || /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(value);
             }, "Por favor, introduce una dirección de correo electrónico válida");
 
+            $.validator.addMethod("customPhone", function(value, element) {
+                return this.optional(element) || /^[0-9]{9}$/.test(value);
+            }, "Por favor, introduzca al menos 9 caracteres.");
+
             // Initialize jQuery Validation plugin on the form
             $('#createuserform').validate({
                 rules: {
@@ -883,8 +887,7 @@
                     phone: {
                         required: true,
                         digits: true,
-                        minlength: 9,
-                        maxlength: 9
+                        customPhone: true
                     },
                     // employee: "required",
                     password: {
@@ -896,12 +899,12 @@
                 messages: {
                     username: "Por favor, ingrese el nombre de usuario",
                     name: "Por favor, ingrese el nombre",
-                    email: {
-                        required: "Por favor, ingrese el correo",
-                        email: "Por favor, ingrese un correo válido",
-                        unique: 'El correo electrónico ya está en uso.',
+                    // email: {
+                    //     required: "Por favor, ingrese el correo",
+                    //     email: "Por favor, ingrese un correo válido",
+                    //     unique: 'El correo electrónico ya está en uso.',
 
-                    },
+                    // },
                     phone: {
                         required: "Por favor, ingrese el teléfono",
                         digits: "Por favor, ingrese solo números"
@@ -938,8 +941,7 @@
                     phone: {
                         required: true,
                         digits: true,
-                        minlength: 9,
-                        maxlength: 9
+                        customPhone: true
                     },
                     // employee: "required",
                 },

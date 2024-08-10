@@ -496,6 +496,10 @@
                 return this.optional(element) || /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(value);
             }, "Por favor, introduce una dirección de correo electrónico válida");
 
+            $.validator.addMethod("customPhone", function(value, element) {
+                return this.optional(element) || /^[0-9]{9}$/.test(value);
+            }, "Por favor, introduzca al menos 9 caracteres.");
+
             $('#edituserform').validate({
                 rules: {
                     username: "required",
@@ -507,8 +511,7 @@
                     phone: {
                         required: true,
                         digits: true,
-                        minlength: 9,
-                        maxlength: 9
+                        customPhone: true
                     },
                     // employee: "required",
                 },

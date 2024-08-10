@@ -492,6 +492,9 @@
                 });
             });
 
+            $.validator.addMethod("customEmail", function(value, element) {
+                return this.optional(element) || /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(value);
+            }, "Por favor, introduce una dirección de correo electrónico válida");
 
             $('#edituserform').validate({
                 rules: {
@@ -499,7 +502,7 @@
                     name: "required",
                     email: {
                         required: true,
-                        email: true
+                        customEmail: true
                     },
                     phone: {
                         required: true,

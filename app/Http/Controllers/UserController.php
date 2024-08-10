@@ -26,7 +26,12 @@ class UserController extends Controller
             'email' => 'required|email|unique:users,email',
             'phone' => 'required',
             'password' => ['required', new PasswordFormat()],
-        ]);
+        ],
+    [
+        'email.required'=>'Por favor, ingrese el correo',
+        'email.unique'=>'El correo electrónico ya está en uso.',
+        'phone.digits'=>'Por favor, ingrese solo números'
+    ]);
 
         $filename = '';
         if ($request->hasFile('image')) {
@@ -59,6 +64,11 @@ class UserController extends Controller
             'email' => 'required|email|unique:users,email,' . $id,
             'phone' => 'required',
             // 'employee' => 'required',
+        ],
+        [
+            'email.required'=>'Por favor, ingrese el correo',
+            'email.unique'=>'El correo electrónico ya está en uso.',
+            'phone.digits'=>'Por favor, ingrese solo números'
         ]);
 
         $user = User::findOrFail($id);

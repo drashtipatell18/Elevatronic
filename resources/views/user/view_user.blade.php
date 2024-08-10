@@ -817,12 +817,13 @@
                         if (xhr.status === 422) { // Validation error
                             var errors = xhr.responseJSON.errors;
                             if (errors.email) {
+                                console.log('Email Error:', errors.email[0]);
                                 $('#createuserform').validate().showErrors({
                                     email: errors.email[0]
                                 });
                             }
                         }
-                    }
+                    },
                 });
             });
             $('#edituserform').submit(function(e) {
@@ -863,9 +864,12 @@
                             value)
                     );
                 },
-                "The password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, and one special character from @$!%*?&.,-."
+                "La contraseña debe tener al menos 8 caracteres, contener al menos una letra mayúscula, una letra minúscula y un carácter especial como @$!%*?&.,-."
             );
 
+            $.validator.addMethod("customEmail", function(value, element) {
+                return this.optional(element) || /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(value);
+            }, "Por favor, introduce una dirección de correo electrónico válida");
 
             // Initialize jQuery Validation plugin on the form
             $('#createuserform').validate({
@@ -874,7 +878,7 @@
                     name: "required",
                     email: {
                         required: true,
-                        email: true
+                        customEmail: true
                     },
                     phone: {
                         required: true,
@@ -929,7 +933,7 @@
                     name: "required",
                     email: {
                         required: true,
-                        email: true
+                        customEmail: true
                     },
                     phone: {
                         required: true,
@@ -1000,8 +1004,6 @@
                 // Clear any file input
                 form.find('input[type="file"]').val('');
 
-                // Clear any preview image
-                $('#imagenPrevioUsuario').css('background-image', 'none').hide();
             });
             $('#editorUsuario').on('hidden.bs.modal', function() {
                 var form = $('#edituserform');

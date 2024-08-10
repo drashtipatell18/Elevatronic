@@ -88,7 +88,7 @@ class SearchController extends Controller
 
         // Review type search
         $reviewType = ReviewType::where('nombre', 'LIKE', "%{$query}%")->get();
-
+        dd($reviewType);
         // Staff Search table
         $staff = Staff::where('personalfoto', 'LIKE', "%{$query}%")
         ->orWhere('nombre', 'LIKE', "%{$query}%")

@@ -801,66 +801,66 @@
                 $(".alert-danger").fadeOut(1000);
             }, 1000);
 
-            $('#createuserform').submit(function(e) {
-                e.preventDefault();
-                $.ajax({
-                    url: $(this).attr('action'),
-                    type: 'POST',
-                    data: $(this).serialize(),
-                    success: function(response) {
-                        $('.alert-success').text(response.message).fadeIn();
-                        setTimeout(function() {
-                            $('.alert-success').fadeOut(1000);
-                        }, 1000);
-                        $('#createuserform').trigger('reset');
-                        $('#crearUsuario').modal('hide');
-                        // Optionally reload the page or update the table dynamically
-                        window.location.reload();
-                    },
-                    error: function(xhr) {
-                        if (xhr.status === 422) { // Validation error
-                            var errors = xhr.responseJSON.errors;
-                            if (errors.email) {
-                                console.log('Email Error:', errors.email[0]);
-                                $('#createuserform').validate().showErrors({
-                                    email: errors.email[0]
-                                });
-                            }
-                        }
-                    },
-                });
-            });
-            $('#edituserform').submit(function(e) {
-                e.preventDefault();
-                $.ajax({
-                    url: $(this).attr('action'),
-                    type: 'POST',
-                    data: $(this).serialize(),
-                    success: function(response) {
-                        $('.alert-success').text(response.message).fadeIn();
-                        setTimeout(function() {
-                            $('.alert-success').fadeOut(1000);
-                        }, 1000);
-                        $('#editorUsuario').trigger('reset');
-                        $('#editorUsuario').modal('hide');
-                        // Optionally reload the page or update the table dynamically
-                        window.location.reload();
-                    },
-                    error: function(xhr) {
-                        if (xhr.status === 422) { // Validation error
-                            var errors = xhr.responseJSON.errors;
-                            // Clear previous errors
-                            $('#edituserform').validate().resetForm();
-                            // Show new errors
-                            $.each(errors, function(key, value) {
-                                $('#edituserform').validate().showErrors({
-                                    [key]: value[0]
-                                });
-                            });
-                        }
-                    }
-                });
-            });
+            // $('#createuserform').submit(function(e) {
+            //     e.preventDefault();
+            //     $.ajax({
+            //         url: $(this).attr('action'),
+            //         type: 'POST',
+            //         data: $(this).serialize(),
+            //         success: function(response) {
+            //             $('.alert-success').text(response.message).fadeIn();
+            //             setTimeout(function() {
+            //                 $('.alert-success').fadeOut(1000);
+            //             }, 1000);
+            //             $('#createuserform').trigger('reset');
+            //             $('#crearUsuario').modal('hide');
+            //             // Optionally reload the page or update the table dynamically
+            //             window.location.reload();
+            //         },
+            //         error: function(xhr) {
+            //             if (xhr.status === 422) { // Validation error
+            //                 var errors = xhr.responseJSON.errors;
+            //                 if (errors.email) {
+            //                     console.log('Email Error:', errors.email[0]);
+            //                     $('#createuserform').validate().showErrors({
+            //                         email: errors.email[0]
+            //                     });
+            //                 }
+            //             }
+            //         },
+            //     });
+            // });
+            // $('#edituserform').submit(function(e) {
+            //     e.preventDefault();
+            //     $.ajax({
+            //         url: $(this).attr('action'),
+            //         type: 'POST',
+            //         data: $(this).serialize(),
+            //         success: function(response) {
+            //             $('.alert-success').text(response.message).fadeIn();
+            //             setTimeout(function() {
+            //                 $('.alert-success').fadeOut(1000);
+            //             }, 1000);
+            //             $('#editorUsuario').trigger('reset');
+            //             $('#editorUsuario').modal('hide');
+            //             // Optionally reload the page or update the table dynamically
+            //             window.location.reload();
+            //         },
+            //         error: function(xhr) {
+            //             if (xhr.status === 422) { // Validation error
+            //                 var errors = xhr.responseJSON.errors;
+            //                 // Clear previous errors
+            //                 $('#edituserform').validate().resetForm();
+            //                 // Show new errors
+            //                 $.each(errors, function(key, value) {
+            //                     $('#edituserform').validate().showErrors({
+            //                         [key]: value[0]
+            //                     });
+            //                 });
+            //             }
+            //         }
+            //     });
+            // });
 
             $.validator.addMethod("passwordFormat", function(value, element) {
                     return this.optional(element) || (

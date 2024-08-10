@@ -460,37 +460,37 @@
             $('#cancelEmpleado').click(function() {
                 $("#crearempleado").modal('hide');
             });
-            $('#edituserform').submit(function(e) {
-                e.preventDefault();
-                $.ajax({
-                    url: $(this).attr('action'),
-                    type: 'POST',
-                    data: $(this).serialize(),
-                    success: function(response) {
-                        $('.alert-success').text(response.message).fadeIn();
-                        setTimeout(function() {
-                            $('.alert-success').fadeOut(1000);
-                        }, 1000);
-                        $('#editorUsuario').trigger('reset');
-                        $('#editorUsuario').modal('hide');
-                        // Optionally reload the page or update the table dynamically
-                        window.location.reload();
-                    },
-                    error: function(xhr) {
-                        if (xhr.status === 422) { // Validation error
-                            var errors = xhr.responseJSON.errors;
-                            // Clear previous errors
-                            $('#edituserform').validate().resetForm();
-                            // Show new errors
-                            $.each(errors, function(key, value) {
-                                $('#edituserform').validate().showErrors({
-                                    [key]: value[0]
-                                });
-                            });
-                        }
-                    }
-                });
-            });
+            // $('#edituserform').submit(function(e) {
+            //     e.preventDefault();
+            //     $.ajax({
+            //         url: $(this).attr('action'),
+            //         type: 'POST',
+            //         data: $(this).serialize(),
+            //         success: function(response) {
+            //             $('.alert-success').text(response.message).fadeIn();
+            //             setTimeout(function() {
+            //                 $('.alert-success').fadeOut(1000);
+            //             }, 1000);
+            //             $('#editorUsuario').trigger('reset');
+            //             $('#editorUsuario').modal('hide');
+            //             // Optionally reload the page or update the table dynamically
+            //             window.location.reload();
+            //         },
+            //         error: function(xhr) {
+            //             if (xhr.status === 422) { // Validation error
+            //                 var errors = xhr.responseJSON.errors;
+            //                 // Clear previous errors
+            //                 $('#edituserform').validate().resetForm();
+            //                 // Show new errors
+            //                 $.each(errors, function(key, value) {
+            //                     $('#edituserform').validate().showErrors({
+            //                         [key]: value[0]
+            //                     });
+            //                 });
+            //             }
+            //         }
+            //     });
+            // });
 
             $.validator.addMethod("customEmail", function(value, element) {
                 return this.optional(element) || /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(value);

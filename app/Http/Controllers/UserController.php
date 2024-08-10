@@ -50,8 +50,9 @@ class UserController extends Controller
             'password' => bcrypt($request->input('password')),
         ]);
 
-        // Return a JSON response to the AJAX request
-        return response()->json(['message' => 'Usuario creado exitosamente']);
+         // Redirect back with success message
+         session()->flash('success', 'Usuario creado exitosamente');
+         return redirect()->route('user');
     }
 
 
@@ -90,6 +91,7 @@ class UserController extends Controller
             'phone'               => $request->input('phone'),
             'employee'            => $request->input('employee'),
         ]);
+        // return response()->json(['message' => 'Usuario creado exitosamente']);
 
         // Redirect back with success message
         session()->flash('success', 'Usuario actualizado exitosamente!');

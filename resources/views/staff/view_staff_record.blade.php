@@ -6,6 +6,10 @@
                 text-align: center;
             }
 
+            #edit-sparepart {
+                background-color: white !important;
+            }
+
             .positionbtn {
                 margin-right: 15px;
                 font-size: 14px;
@@ -54,9 +58,10 @@
                 object-fit: cover;
                 /* Ensures that the image covers the container without distortion */
             }
-            #edit-sparepart{
-            background-color: white !important;
-        }
+
+            #edit-sparepart {
+                background-color: white !important;
+            }
         </style>
         <div class="w-100 contenido">
             <div class="container-fluid container-mod">
@@ -194,7 +199,8 @@
                                             <div id="editimagenPrevioPersonal">
                                                 @if ($staffs->personalfoto)
                                                     <img src="{{ asset('images/' . $staffs->personalfoto) }}"
-                                                        width="200" height="200" alt="Personal Image" id="edit-sparepart">
+                                                        width="200" height="200" alt="Personal Image"
+                                                        id="edit-sparepart">
                                                 @else
                                                     <img src="{{ asset('img/fondo.png') }}" width="200"
                                                         height="200" alt="Personal Image">
@@ -520,7 +526,7 @@
                     var staff = $(this).data('staff');
                     // Populate the modal with customer data
                     $('#edit-nombre').val(staff.nombre);
-                    $('#edit-posición').val(staff.posición);
+                    $('#posición').val(staff.posición);
                     $('#edit-correo').val(staff.correo);
                     $('#edit-teléfono').val(staff.teléfono);
                     // Set the form action to the correct route

@@ -25,8 +25,7 @@ class SearchController extends Controller
 {
     public function search(Request $request)
     {
-        $query = $request->input('query');
-
+        $query = trim($request->input('query'));
         // Search in AssginSpare table
         $assignSpares = AssginSpare::where('nombre_del_tipo_de_ascensor', 'LIKE', "%{$query}%")
             ->orWhere('repuesto_id', 'LIKE', "%{$query}%")
@@ -87,8 +86,7 @@ class SearchController extends Controller
         $province = Province::where('provincia', 'LIKE', "%{$query}%")->get();
 
         // Review type search
-        $reviewType = ReviewType::where('nombre', 'LIKE', "%{$query}%")->get();
-        dd($reviewType);
+        $reviewType = ReviewType::whereRaw('LOWER(nombre) LIKE LOWER(?)', ["%{$query}%"])->get();
         // Staff Search table
         $staff = Staff::where('personalfoto', 'LIKE', "%{$query}%")
         ->orWhere('nombre', 'LIKE', "%{$query}%")

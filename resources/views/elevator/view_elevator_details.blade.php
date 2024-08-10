@@ -65,7 +65,7 @@
                 /* Ensures that the image covers the container without distortion */
             }
 
-        #edit-sparepart{
+        #edit-elevator{
             background-color: white !important;
         }
         </style>
@@ -1565,7 +1565,7 @@
                                                             <div id="editimagePreview">
                                                                 @if ($elevators->imagen)
                                                                     <img src="{{ asset('images/' . $elevators->imagen) }}"
-                                                                        alt="user" width="200px" height="200px" id="edit-sparepart">
+                                                                        alt="user" width="200px" height="200px" id="edit-elevator">
                                                                 @else
                                                                     <img src="{{ asset('img/fondo.png') }}" width="200px"
                                                                         height="200px" class="img-table" alt="user">

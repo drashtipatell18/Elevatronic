@@ -704,14 +704,14 @@
             }
 
             $('#editimageUpload10').change(function() {
-                if (this.files && this.files[0]) {
-                    var reader = new FileReader();
-                    reader.onload = function(e) {
-                        updateImagePreview(e.target.result);
-                    }
-                    reader.readAsDataURL(this.files[0]);
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#editimagenPrevioPersonal').css('background-image', 'url(' + e.target.result + ')');
+                    $('#editimagenPrevioPersonal').show();
                 }
+                reader.readAsDataURL(this.files[0]);
             });
+            
             $('#editcargarimagenpersonal').click(function() {
                 $('#editimageUpload10').click();
             });
@@ -833,12 +833,12 @@
                 $('#posición1').val(staff.posición).trigger('change');
                 $('#edit-correo').val(staff.correo);
                 $('#edit-teléfono').val(staff.teléfono);
-                $('#editimageUpload10').val('');
+                // $('#editimageUpload10').val('');
 
-                var imageUrl = staff.personalfoto ?
-                    "{{ asset('images/') }}/" + staff.personalfoto :
-                    "{{ asset('img/fondo.png') }}";
-                updateImagePreview(imageUrl);
+                // var imageUrl = staff.personalfoto ?
+                //     "{{ asset('images/') }}/" + staff.personalfoto :
+                //     "{{ asset('img/fondo.png') }}";
+                // updateImagePreview(imageUrl);
                 // Set the form action to the correct route
                 $('#editstaff').attr('action', '/personal/actualizar/' + staff.id);
             });

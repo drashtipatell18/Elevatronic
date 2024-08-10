@@ -1,4 +1,4 @@
-@extends('layouts.main')
+\@extends('layouts.main')
 <!-- Select2 CSS -->
 {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"> --}}
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
@@ -56,7 +56,7 @@
 
             /* Ensures that the image covers the container without distortion */
         }
-        #edit-sparepart{
+        #edit-elevator{
             background-color: white !important;
         }
     </style>
@@ -545,7 +545,7 @@
                                                                     <div id="editimagePreview">
                                                                         @if ($elevator->imagen)
                                                                             <img src="{{ asset('images/' . $elevator->imagen) }}"
-                                                                                alt="Image" width="200px" height="200px" id="edit-sparepart">
+                                                                                alt="Image" width="200px" height="200px" id="edit-elevator">
                                                                         @else
                                                                             <img src="{{ asset('img/fondo.png') }}"
                                                                                 alt="Image" width="200px" height="200px">

@@ -116,7 +116,7 @@
 
 
         @if(!$customerTypes->isEmpty())
-            <h2>CustomerTypes</h2>
+            <h2>Tipos de clientes</h2>
             <table class="table datatable">
                 <thead>
                     <tr>
@@ -138,7 +138,7 @@
         @endif
 
         @if(!$maininReview->isEmpty())
-            <h2>MaintinRevieew</h2>
+            <h2>Revisión de mantenimiento</h2>
             <table class="table datatable">
                 <thead>
                     <tr>
@@ -184,7 +184,7 @@
         @endif
 
         @if(!$positions->isEmpty())
-            <h2>Positions</h2>
+            <h2>Posiciones</h2>
             <table class="table datatable">
                 <thead>
                     <tr>
@@ -229,7 +229,7 @@
         @endif
 
         @if(!$reviewType->isEmpty())
-            <h2>Review Type</h2>
+            <h2>Tipo de revisión</h2>
             <table class="table datatable">
                 <thead>
                     <tr>
@@ -279,7 +279,7 @@
         @endif
 
         @if(!$users->isEmpty())
-            <h2>Users</h2>
+            <h2>Usuarios</h2>
             <table class="table datatable">
                 <thead>
                     <tr>

@@ -64,6 +64,10 @@
                 object-fit: cover;
                 /* Ensures that the image covers the container without distortion */
             }
+
+        #edit-sparepart{
+            background-color: white !important;
+        }
         </style>
         <div class="w-100 contenido">
             <div class="container-fluid container-mod">
@@ -1561,7 +1565,7 @@
                                                             <div id="editimagePreview">
                                                                 @if ($elevators->imagen)
                                                                     <img src="{{ asset('images/' . $elevators->imagen) }}"
-                                                                        alt="user" width="200px" height="200px">
+                                                                        alt="user" width="200px" height="200px" id="edit-sparepart">
                                                                 @else
                                                                     <img src="{{ asset('img/fondo.png') }}" width="200px"
                                                                         height="200px" class="img-table" alt="user">
@@ -2595,7 +2599,7 @@
                         hora_inicio: "required",
                         hora_fin: "required",
                         observaciónes: "required",
-                        // solución: "required" 
+                        // solución: "required"
                     },
                     messages: {
                         // Specify validation error messages

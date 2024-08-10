@@ -2,6 +2,9 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 @section('content')
     <style>
+         #edit-sparepart{
+            background-color: white !important;
+        }
         .dt-head-center {
             text-align: center;
         }
@@ -52,8 +55,10 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+
             /* Ensures that the image covers the container without distortion */
         }
+
     </style>
     <div class="w-100 contenido">
         <div class="container-fluid container-mod">
@@ -355,9 +360,9 @@
                                             <div id="editimagenPrevioPersonal">
                                                 @if ($staff->personalfoto)
                                                     <img src="{{ asset('images/' . $staff->personalfoto) }}"
-                                                        id="editstaff-image" alt="Staff Image">
+                                                         alt="Staff Image" id="edit-sparepart">
                                                 @else
-                                                    <img src="{{ asset('img/fondo.png') }}" id="editstaff-image"
+                                                    <img src="{{ asset('img/fondo.png') }}"
                                                         alt="Staff Image">
                                                 @endif
                                             </div>
@@ -711,31 +716,34 @@
                 $('#editimageUpload10').click();
             });
 
-            // $('#editimageUpload10').change(function() {
-            //     var reader = new FileReader();
-            //     reader.onload = function(e) {
-            //         $('#editimagenPrevioPersonal').css('background-image', 'url(' + e.target.result +
-            //             ')');
-            //         $('#editimagenPrevioPersonal').show();
-            //     }
-            //     reader.readAsDataURL(this.files[0]);
-            // });
+            $('#editimageUpload10').change(function() {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#editimagenPrevioPersonal').css('background-image', 'url(' + e.target.result + ')');
+                    $('#editimagenPrevioPersonal').show();
+                }
+                reader.readAsDataURL(this.files[0]);
+            });
 
-            // $('#editimageUpload10').change(function() {
-            //     var reader = new FileReader();
-            //     reader.onload = function(e) {
-            //         // Clear existing content
-            //         $('#editimagenPrevioPersonal').empty();
+            $('#editimageUpload10').change(function() {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    // Update the background image of the preview div
+                    $('#editimagenPrevioPersonal').css('background-image', 'url(' + e.target.result +
+                        ')');
 
-            //         // Add new image
-            //         $('#editimagenPrevioPersonal').html('<img src="' + e.target.result +
-            //             '" width="200" height="200" alt="Preview Image">');
+                    // Hide any existing image tags inside the preview div
+                    $('#editimagenPrevioPersonal').find('img').remove();
 
-            //         // Show the preview div
-            //         $('#editimagenPrevioPersonal').show();
-            //     }
-            //     reader.readAsDataURL(this.files[0]);
-            // });
+                    // Show the preview div (in case it was hidden)
+                    $('#editimagenPrevioPersonal').show();
+
+                    // Optionally, add a new img element if needed
+                    $('#editimagenPrevioPersonal').append('<img src="' + e.target.result +
+                        '" width="200" height="200" alt="Preview Image">');
+                }
+                reader.readAsDataURL(this.files[0]);
+            });
 
 
             $('#createstaff').validate({

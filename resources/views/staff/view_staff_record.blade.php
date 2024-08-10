@@ -54,6 +54,9 @@
                 object-fit: cover;
                 /* Ensures that the image covers the container without distortion */
             }
+            #edit-sparepart{
+            background-color: white !important;
+        }
         </style>
         <div class="w-100 contenido">
             <div class="container-fluid container-mod">
@@ -191,7 +194,7 @@
                                             <div id="editimagenPrevioPersonal">
                                                 @if ($staffs->personalfoto)
                                                     <img src="{{ asset('images/' . $staffs->personalfoto) }}"
-                                                        width="200" height="200" alt="Personal Image">
+                                                        width="200" height="200" alt="Personal Image" id="edit-sparepart">
                                                 @else
                                                     <img src="{{ asset('img/fondo.png') }}" width="200"
                                                         height="200" alt="Personal Image">

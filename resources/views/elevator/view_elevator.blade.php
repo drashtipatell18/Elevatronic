@@ -37,6 +37,28 @@
         .select2-container--default .select2-selection--single .select2-selection__clear {
             display: none;
         }
+        #editimagePreview {
+            width: 200px;
+            height: 200px;
+            overflow: hidden;
+            /* Ensures that any overflowed part of the image is hidden */
+            display: flex;
+            align-items: center;
+            /* Centers the image vertically */
+            justify-content: center;
+            /* Centers the image horizontally */
+        }
+
+        #editimagePreview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+
+            /* Ensures that the image covers the container without distortion */
+        }
+        #edit-sparepart{
+            background-color: white !important;
+        }
     </style>
     <div class="w-100 contenido">
         <div class="container-fluid container-mod">
@@ -523,7 +545,7 @@
                                                                     <div id="editimagePreview">
                                                                         @if ($elevator->imagen)
                                                                             <img src="{{ asset('images/' . $elevator->imagen) }}"
-                                                                                alt="Image" width="200px" height="200px">
+                                                                                alt="Image" width="200px" height="200px" id="edit-sparepart">
                                                                         @else
                                                                             <img src="{{ asset('img/fondo.png') }}"
                                                                                 alt="Image" width="200px" height="200px">

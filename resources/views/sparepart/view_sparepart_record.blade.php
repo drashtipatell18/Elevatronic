@@ -19,6 +19,9 @@
                 object-fit: cover;
                 /* Ensures that the image covers the container without distortion */
             }
+            #edit-sparepart{
+                background-color: white !important;
+            }
 </style>
     <div class="w-100 contenido">
         <div class="container-fluid container-mod">
@@ -51,7 +54,7 @@
                             <div class="col-md-12 d-flex align-items-start justify-content-start gap-20 mb-6 box-detalle">
                                 <div class="">
                                     @if ($sparepart->foto_de_repuesto)
-                                        <img src="{{ asset('images/' . $sparepart->foto_de_repuesto) }}" alt="repuesto">
+                                        <img src="{{ asset('images/' . $sparepart->foto_de_repuesto) }}" id="edit-sparepart" alt="repuesto">
                                     @else
                                         <img src="{{ asset('img/fondo.png') }}" alt="user">
                                     @endif
@@ -179,7 +182,7 @@
                                                 <div id="editimagenPrevio">
                                                     @if ($sparepart->foto_de_repuesto)
                                                         <img src="{{ asset('images/' . $sparepart->foto_de_repuesto) }}"
-                                                            width="200" height="200" alt="Spare Part Image">
+                                                            width="200" height="200" alt="Spare Part Image" id="edit-sparepart">
                                                     @else
                                                         <img src="{{ asset('img/fondo.png') }}" width="200"
                                                             height="200" alt="Spare Part Image">

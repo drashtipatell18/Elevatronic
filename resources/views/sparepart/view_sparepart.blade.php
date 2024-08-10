@@ -20,7 +20,11 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+
             /* Ensures that the image covers the container without distortion */
+        }
+        #edit-sparepart{
+            background-color: white !important;
         }
     </style>
     <div class="w-100 contenido">

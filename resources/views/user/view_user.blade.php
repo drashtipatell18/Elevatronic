@@ -131,6 +131,10 @@
                                                         <img src="{{ asset('img/fondo.png') }}" alt="user"
                                                             width="52" height="52" class="img-table">
                                                     @endif
+
+
+
+
                                                 </td>
                                                 <td>{{ $index + 1 }}</td>
                                                 <td>
@@ -385,14 +389,14 @@
                                     <div class="row">
                                         <div class="col-md-6 mb-3">
                                             <label>Foto de usuario</label>
-                                            {{-- <div id="editimagenPrevioUsuario">
+                                            <div id="editimagenPrevioUsuario">
                                                 @if ($user->image)
                                                     <img src="{{ asset('images/' . ($user->image ?? 'fondo.png')) }}"
                                                         id="edituser-image" width="200" height="200" alt="User Image">
                                                 @endif
-                                            </div> --}}
+                                            </div>
 
-                                            <div id="editimagenPrevioUsuario">
+                                            {{-- <div id="editimagenPrevioUsuario">
                                                 @if ($user->image)
                                                     <img src="{{ asset('images/' . $user->image) }}" id="edituser-image"
                                                         alt="Staff Image">
@@ -400,7 +404,7 @@
                                                     <img src="{{ asset('img/fondo.png') }}" id="edituser-image"
                                                         alt="Staff Image">
                                                 @endif
-                                            </div>
+                                            </div> --}}
 
 
 

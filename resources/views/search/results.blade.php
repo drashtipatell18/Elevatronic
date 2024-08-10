@@ -77,6 +77,7 @@
             <table class="table datatable">
                 <thead>
                     <tr>
+                        <th>id</th>
                         <th>Ascensor</th>
                         <th>Fecha de Propuesta</th>
                         <th>Monto de Propuesta</th>
@@ -94,7 +95,7 @@
                     @foreach($contracts as $item)
                         <tr>
                             <td>
-                                <a href="{{ route('ascensore', $item->id) }}" class="text-blue">
+                                <a href="{{ route('elevator', $item->id) }}" class="text-blue">
                                     {{ $item->ascensor }}
                                 </a>
                             </td>

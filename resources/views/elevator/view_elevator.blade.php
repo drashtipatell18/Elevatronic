@@ -205,7 +205,7 @@
                                                                                                 id="edit-elevators">
                                                                                         @else
                                                                                             <img src="{{ asset('img/fondo.png') }}"
-                                                                                                alt="Image" width="200px"
+                                                                                                alt="Image" width="200px" id="edit-elevators"
                                                                                                 height="200px">
                                                                                         @endif
                                                                                     </div>
@@ -1338,11 +1338,13 @@
                 $('#edit-correo').val(elevator.correo);
                 $('#edit-descripcion1').val(elevator.descripcion1);
                 $('#edit-descripcion2').val(elevator.descripcion2);
+                getBrand(elevator.marca);
                 var imageUrl = elevator.imagen ?
                     "{{ asset('images/') }}/" + elevator.imagen :
                     "{{ asset('img/fondo.png') }}";
                 $('#edit-elevators').attr('src', imageUrl);
-                getBrand(elevator.marca);
+                $('#editelevatform').attr('action', '/ascensore/actualizar/' + elevator.id);
+
             });
 
             $('#crearAscensor').on('hidden.bs.modal', function() {

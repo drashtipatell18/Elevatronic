@@ -553,6 +553,10 @@
                 $('#edit-phone').val(user.phone);
                 // $('#edit-employee').val(user.employee);
                 $('#employee').val(user.employee).trigger('change');
+
+                $('#edituserform').attr('action', '/usuarios/actualizar/' + user.id);
+                var imageUrl = "{{ asset('images/') }}" + "/" + user.image;
+                $('#edit-sparepart').attr('src', imageUrl);
                 // Set the form action to the correct route
                 $('#edituserform').attr('action', '/usuarios/actualizar/' + user.id);
             });

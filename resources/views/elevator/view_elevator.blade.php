@@ -37,6 +37,7 @@
         .select2-container--default .select2-selection--single .select2-selection__clear {
             display: none;
         }
+
         #editimagePreview {
             width: 200px;
             height: 200px;
@@ -56,7 +57,8 @@
 
             /* Ensures that the image covers the container without distortion */
         }
-        #edit-elevator{
+
+        #edit-elevators {
             background-color: white !important;
         }
     </style>
@@ -138,7 +140,8 @@
                                                 </td>
                                                 <td>
                                                     @if ($elevator->client)
-                                                        <a href="{{ route('view.customer', $elevator->client_id) }}" class="text-blue">
+                                                        <a href="{{ route('view.customer', $elevator->client_id) }}"
+                                                            class="text-blue">
                                                             {{ $elevator->client->nombre }}
                                                         </a>
                                                     @else
@@ -170,6 +173,418 @@
                                                 </td>
                                             </tr>
 
+                                            <!-- Modal actualizar Ascensor-->
+                                            <div class="modal left fade" id="editarAscensor" tabindex="-1" role="dialog"
+                                                aria-labelledby="modelTitleId" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title font-family-Outfit-SemiBold">Editar
+                                                                Ascensor</h5>
+                                                            <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close">
+                                                                <span aria-hidden="true">×</span>
+                                                            </button>
+                                                        </div>
+                                                        @isset($elevator)
+                                                            <form action="{{ route('update.elevator', $elevator->id) }}"
+                                                                class="formulario-modal" enctype="multipart/form-data"
+                                                                method="POST" id="editelevatform">
+                                                                @csrf
+                                                                <div class="modal-body body_modal">
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+                                                                            <div class="row">
+                                                                                <div class="col-md-6 mb-3">
+                                                                                    <label>Foto de Ascensor</label>
+                                                                                    <div id="editimagePreview">
+                                                                                        @if ($elevator->imagen)
+                                                                                            <img src="{{ asset('images/' . $elevator->imagen) }}"
+                                                                                                alt="Image" width="200px"
+                                                                                                height="200px"
+                                                                                                id="edit-elevators">
+                                                                                        @else
+                                                                                            <img src="{{ asset('img/fondo.png') }}"
+                                                                                                alt="Image" width="200px"
+                                                                                                height="200px">
+                                                                                        @endif
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div
+                                                                                    class="align-items-start col-md-6 d-flex flex-column justify-content-between mb-3">
+                                                                                    <div class="">
+                                                                                        <label for="imageUpload"
+                                                                                            class="text-gris mt-4">Seleccione
+                                                                                            una
+                                                                                            imagen</label>
+                                                                                        <input type="file"
+                                                                                            id="editimageUpload"
+                                                                                            name="imagen"
+                                                                                            style="display: none;"
+                                                                                            accept="image/*" />
+                                                                                        <button type="button"
+                                                                                            id="edituploadButton"
+                                                                                            class="btn-gris">
+                                                                                            <i
+                                                                                                class="fas fa-arrow-to-top mr-2"></i>Subir
+                                                                                            Imagen
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <div class="form-group mb-0">
+                                                                                        <label for="contrato"># de
+                                                                                            contrato</label>
+                                                                                        <input type="text"
+                                                                                            placeholder="# de contrato"
+                                                                                            name="contrato" id="edit-contrato"
+                                                                                            class="form-control"
+                                                                                            value="">
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-md-12">
+                                                                                    <div class="form-group">
+                                                                                        <label for="nombre">Nombre
+                                                                                            ascensor</label>
+                                                                                        <input type="text"
+                                                                                            placeholder="Nombre ascensor"
+                                                                                            name="nombre" id="edit-nombre"
+                                                                                            class="form-control"
+                                                                                            value="">
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="col-md-6">
+                                                                                    <div class="form-group">
+                                                                                        <label for="código">Código</label>
+                                                                                        <input type="text"
+                                                                                            placeholder="Código"
+                                                                                            name="código" id="edit-código"
+                                                                                            class="form-control"
+                                                                                            value="">
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="col-md-6">
+                                                                                    <div class="form-group">
+                                                                                        <label for="marca">Marca</label>
+                                                                                        <select
+                                                                                            class="custom-select form-control marcaItems"
+                                                                                            name="marca" id="marca1">
+                                                                                            <option value=""
+                                                                                                class="d-none">Seleccionar
+                                                                                                opción
+                                                                                            </option>
+                                                                                        </select>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="text-right w-100">
+                                                                                    <div class="form-group">
+                                                                                        <button type="button"
+                                                                                            data-toggle="modal"
+                                                                                            data-target="#crearMarcas"
+                                                                                            class="btn-gris brandbtn"
+                                                                                            id="toggleMarcaInput">
+                                                                                            + Agregar marca
+                                                                                        </button>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-md-12">
+                                                                                    <div class="form-group">
+                                                                                        <label for="clienteAscensor">Cliente
+                                                                                            del
+                                                                                            ascensor</label>
+                                                                                        <select name="client_id"
+                                                                                            class="ustom-select form-control"
+                                                                                            id="edit-cliente">
+                                                                                            @foreach ($customers as $key => $value)
+                                                                                                <option
+                                                                                                    value="{{ $key }}"
+                                                                                                    {{ old('client_id', $elevator->client_id ?? '') == $key ? 'selected' : '' }}>
+                                                                                                    {{ $value }}
+                                                                                                </option>
+                                                                                            @endforeach
+                                                                                        </select>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="col-md-6">
+                                                                                    <div class="form-group">
+                                                                                        <label for="fechaEntrega">Fecha de
+                                                                                            entrega</label>
+                                                                                        <input type="date"
+                                                                                            placeholder="dd/mm/aaaa"
+                                                                                            class="form-control"
+                                                                                            name="fecha" id="edit-fecha"
+                                                                                            value="">
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="col-md-6">
+                                                                                    <div class="form-group">
+                                                                                        <label for="garantia">Garantía</label>
+                                                                                        <input type="text"
+                                                                                            placeholder="Garantizar"
+                                                                                            class="form-control"
+                                                                                            name="garantizar"
+                                                                                            id="edit-garantizar"
+                                                                                            value="">
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="col-md-12">
+                                                                                    <div class="form-group">
+                                                                                        <label
+                                                                                            for="dirección">Dirección</label>
+                                                                                        <input type="text"
+                                                                                            placeholder="Dirección"
+                                                                                            class="form-control"
+                                                                                            name="dirección"
+                                                                                            id="edit-dirección"
+                                                                                            value="">
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="col-md-6">
+                                                                                    <div class="form-group">
+                                                                                        <label for="ubigeo">Ubigeo</label>
+                                                                                        <input type="text"
+                                                                                            placeholder="Ubigeo"
+                                                                                            class="form-control"
+                                                                                            name="ubigeo" id="edit-ubigeo"
+                                                                                            value="">
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="col-md-6">
+                                                                                    <div class="form-group">
+                                                                                        <label
+                                                                                            for="provincia">Provincia</label>
+                                                                                        <select
+                                                                                            class="custom-select form-control"
+                                                                                            name="provincia"
+                                                                                            id="edit-provincia">
+                                                                                            <option value="">Seleccionar
+                                                                                                opción</option>
+                                                                                            @foreach ($provinces as $province)
+                                                                                                <option
+                                                                                                    value="{{ $province }}"
+                                                                                                    {{ $elevator->provincia == $province ? 'selected' : '' }}>
+                                                                                                    {{ $province }}
+                                                                                                </option>
+                                                                                            @endforeach
+                                                                                        </select>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="col-md-12">
+                                                                                    <div class="form-group">
+                                                                                        <label for="tecnicoInstalador">Técnico
+                                                                                            instalador</label>
+                                                                                        <select
+                                                                                            class="custom-select form-control"
+                                                                                            name="técnico_instalador"
+                                                                                            id="edit-técnico_instalador">
+                                                                                            <option value="">Seleccionar
+                                                                                                opción</option>
+                                                                                            @foreach ($staffs as $staff)
+                                                                                                <option
+                                                                                                    value="{{ $staff }}"
+                                                                                                    {{ $elevator->técnico_instalador == $staff ? 'selected' : '' }}>
+                                                                                                    {{ $staff }}
+                                                                                                </option>
+                                                                                            @endforeach
+                                                                                        </select>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="col-md-12">
+                                                                                    <div class="form-group">
+                                                                                        <label for="técnico_ajustador">Técnico
+                                                                                            ajustador</label>
+                                                                                        <select
+                                                                                            class="custom-select form-control"
+                                                                                            name="técnico_ajustador"
+                                                                                            id="edit-técnico_ajustador">
+                                                                                            <option value="">Seleccionar
+                                                                                                opción</option>
+                                                                                            @foreach ($staffs as $staff)
+                                                                                                <option
+                                                                                                    value="{{ $staff }}"
+                                                                                                    {{ $elevator->técnico_ajustador == $staff ? 'selected' : '' }}>
+                                                                                                    {{ $staff }}
+                                                                                                </option>
+                                                                                            @endforeach
+                                                                                        </select>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="col-md-12">
+                                                                                    <div class="form-group">
+                                                                                        <label for="tipo_de_ascensor">Tipo de
+                                                                                            ascensor</label>
+                                                                                        <select
+                                                                                            class="custom-select form-control"
+                                                                                            name="tipo_de_ascensor"
+                                                                                            id="edit-tipo_de_ascensor">
+                                                                                            <option value="">Seleccionar
+                                                                                                opción</option>
+                                                                                            @foreach ($elevatortypes as $elevatortype)
+                                                                                                <option
+                                                                                                    value="{{ $elevatortype }}"
+                                                                                                    {{ $elevator->tipo_de_ascensor == $elevatortype ? 'selected' : '' }}>
+                                                                                                    {{ $elevatortype }}
+                                                                                                </option>
+                                                                                            @endforeach
+                                                                                        </select>
+                                                                                    </div>
+                                                                                </div>
+
+
+                                                                                <div class="col-md-6">
+                                                                                    <div class="form-group">
+                                                                                        <label
+                                                                                            for="tiposAscensor">Cantidad</label>
+                                                                                        <input type="number"
+                                                                                            placeholder="Cantidad"
+                                                                                            class="form-control"
+                                                                                            name="cantidad" id="edit-cantidad"
+                                                                                            value="">
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="col-md-12"></div>
+                                                                                <div class="col-md-6">
+                                                                                    <div class="adornoinput mb-3">
+                                                                                        <div
+                                                                                            class="custom-control custom-checkbox">
+                                                                                            <input type="checkbox"
+                                                                                                class="custom-control-input"
+                                                                                                id="mgratuito"
+                                                                                                name="quarters[]"
+                                                                                                value="mgratuito">
+                                                                                            <label class="custom-control-label"
+                                                                                                for="mgratuito">Mantenimiento
+                                                                                                gratuito?</label>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-md-6">
+                                                                                    <div class="adornoinput mb-3">
+                                                                                        <div
+                                                                                            class="custom-control custom-checkbox">
+                                                                                            <input type="checkbox"
+                                                                                                class="custom-control-input"
+                                                                                                id="sincuarto"
+                                                                                                name="quarters[]"
+                                                                                                value="sincuarto">
+                                                                                            <label class="custom-control-label"
+                                                                                                for="sincuarto">Sin cuarto de
+                                                                                                maquina?</label>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-md-6">
+                                                                                    <div class="adornoinput mb-3">
+                                                                                        <div
+                                                                                            class="custom-control custom-checkbox">
+                                                                                            <input type="checkbox"
+                                                                                                class="custom-control-input"
+                                                                                                id="concuarto"
+                                                                                                name="quarters[]"
+                                                                                                value="concuarto">
+                                                                                            <label class="custom-control-label"
+                                                                                                for="concuarto">Con cuarto de
+                                                                                                maquina?</label>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="col-md-12">
+                                                                                    <div class="form-group">
+                                                                                        <label for="Npisos"># de
+                                                                                            pisos</label>
+                                                                                        <input type="text" placeholder="#"
+                                                                                            name="npisos" id="edit-npisos"
+                                                                                            class="form-control"
+                                                                                            value="">
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-md-12">
+                                                                                    <div class="form-group">
+                                                                                        <label for="Ncontacto">Nombre del
+                                                                                            Contacto</label>
+                                                                                        <input type="text"
+                                                                                            placeholder="Nombre del contacto"
+                                                                                            name="ncontacto"
+                                                                                            id="edit-ncontacto"
+                                                                                            class="form-control"
+                                                                                            value="">
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="col-md-12">
+                                                                                    <div class="form-group">
+                                                                                        <label for="telefono">Teléfono</label>
+                                                                                        <input type="number"
+                                                                                            placeholder="Teléfono"
+                                                                                            class="form-control"
+                                                                                            name="teléfono" id="edit-teléfono"
+                                                                                            value="">
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="col-md-12">
+                                                                                    <div class="form-group">
+                                                                                        <label for="correo">Correo
+                                                                                            electrónico</label>
+                                                                                        <input type="text"
+                                                                                            placeholder="Correo electrónico"
+                                                                                            class="form-control"
+                                                                                            name="correo" id="edit-correo"
+                                                                                            value="">
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="col-md-12">
+                                                                                    <div class="form-group">
+                                                                                        <label for="Descripcion1">Descripción
+                                                                                            1</label>
+                                                                                        <textarea name="descripcion1" id="edit-descripcion1" placeholder="Descripción" cols="30" rows="5"
+                                                                                            class="form-control"></textarea>
+
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="col-md-12 d-none position-relative"
+                                                                                    id="DAdicional">
+                                                                                    <div class="form-group">
+                                                                                        <label for="Descripcion2">Descripción
+                                                                                            2</label>
+                                                                                        <textarea name="descripcion2" id="descripcion2" placeholder="Descripción" cols="30" rows="5">{{ old('descripcion1', isset($elevator) ? $elevator->descripcion1 : '') }}</textarea>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-md-12">
+                                                                                    <button type="button" class="btn-gris"
+                                                                                        id="AgregarDescripcion">+ Agregar
+                                                                                        Descripción</button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div
+                                                                    class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
+                                                                    <button type="submit"
+                                                                        class="btn-gris btn-red mr-2">actualizar cambios
+                                                                    </button>
+                                                                    <button type="button" class="btn-gris btn-border"
+                                                                        data-dismiss="modal">Cancelar</button>
+                                                                </div>
+                                                            </form>
+                                                        @endisset
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                             <!-- Modal Eliminar-->
                                             <div class="modal fade" id="modalEliminar{{ $elevator->id }}" tabindex="-1"
                                                 role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
@@ -193,7 +608,8 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="modal-footer align-items-center justify-content-center">
+                                                        <div
+                                                            class="modal-footer align-items-center justify-content-center">
                                                             @isset($elevator)
                                                                 <form id="delete-form"
                                                                     action="{{ route('destroy.elevator', $elevator->id) }}"
@@ -514,345 +930,6 @@
                                             </div>
                                         </form>
 
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Modal actualizar Ascensor-->
-                            <div class="modal left fade" id="editarAscensor" tabindex="-1" role="dialog"
-                                aria-labelledby="modelTitleId" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title font-family-Outfit-SemiBold">Editar
-                                                Ascensor</h5>
-                                            <button type="button" class="close" data-dismiss="modal"
-                                                aria-label="Close">
-                                                <span aria-hidden="true">×</span>
-                                            </button>
-                                        </div>
-                                        @isset($elevator)
-                                            <form action="{{ route('update.elevator', $elevator->id) }}"
-                                                class="formulario-modal" enctype="multipart/form-data" method="POST"
-                                                id="editelevatform">
-                                                @csrf
-                                                <div class="modal-body body_modal">
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <div class="row">
-                                                                <div class="col-md-6 mb-3">
-                                                                    <label>Foto de Ascensor</label>
-                                                                    <div id="editimagePreview">
-                                                                        @if ($elevator->imagen)
-                                                                            <img src="{{ asset('images/' . $elevator->imagen) }}"
-                                                                                alt="Image" width="200px" height="200px" id="edit-elevator">
-                                                                        @else
-                                                                            <img src="{{ asset('img/fondo.png') }}"
-                                                                                alt="Image" width="200px" height="200px">
-                                                                        @endif
-                                                                    </div>
-                                                                </div>
-                                                                <div
-                                                                    class="align-items-start col-md-6 d-flex flex-column justify-content-between mb-3">
-                                                                    <div class="">
-                                                                        <label for="imageUpload"
-                                                                            class="text-gris mt-4">Seleccione
-                                                                            una
-                                                                            imagen</label>
-                                                                        <input type="file" id="editimageUpload"
-                                                                            name="imagen" style="display: none;"
-                                                                            accept="image/*" />
-                                                                        <button type="button" id="edituploadButton"
-                                                                            class="btn-gris">
-                                                                            <i class="fas fa-arrow-to-top mr-2"></i>Subir
-                                                                            Imagen
-                                                                        </button>
-                                                                    </div>
-                                                                    <div class="form-group mb-0">
-                                                                        <label for="contrato"># de
-                                                                            contrato</label>
-                                                                        <input type="text" placeholder="# de contrato"
-                                                                            name="contrato" id="edit-contrato"
-                                                                            class="form-control" value="">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-12">
-                                                                    <div class="form-group">
-                                                                        <label for="nombre">Nombre
-                                                                            ascensor</label>
-                                                                        <input type="text" placeholder="Nombre ascensor"
-                                                                            name="nombre" id="edit-nombre"
-                                                                            class="form-control" value="">
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <label for="código">Código</label>
-                                                                        <input type="text" placeholder="Código"
-                                                                            name="código" id="edit-código"
-                                                                            class="form-control" value="">
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <label for="marca">Marca</label>
-                                                                        <select class="custom-select form-control marcaItems"
-                                                                            name="marca" id="marca1">
-                                                                            <option value="" class="d-none">Seleccionar
-                                                                                opción
-                                                                            </option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="text-right w-100">
-                                                                    <div class="form-group">
-                                                                        <button type="button" data-toggle="modal"
-                                                                            data-target="#crearMarcas"
-                                                                            class="btn-gris brandbtn" id="toggleMarcaInput">
-                                                                            + Agregar marca
-                                                                        </button>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-12">
-                                                                    <div class="form-group">
-                                                                        <label for="clienteAscensor">Cliente
-                                                                            del
-                                                                            ascensor</label>
-                                                                            <select name="client_id" class="ustom-select form-control" id="edit-cliente">
-                                                                                @foreach ($customers as $key => $value)
-                                                                                    <option value="{{ $key }}"
-                                                                                        {{ old('client_id', $elevator->client_id ?? '') == $key ? 'selected' : '' }}>
-                                                                                        {{ $value }}
-                                                                                    </option>
-                                                                            @endforeach
-                                                                            </select>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <label for="fechaEntrega">Fecha de
-                                                                            entrega</label>
-                                                                        <input type="date" placeholder="dd/mm/aaaa"
-                                                                            class="form-control" name="fecha"
-                                                                            id="edit-fecha" value="">
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <label for="garantia">Garantía</label>
-                                                                        <input type="text" placeholder="Garantizar"
-                                                                            class="form-control" name="garantizar"
-                                                                            id="edit-garantizar" value="">
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-md-12">
-                                                                    <div class="form-group">
-                                                                        <label for="dirección">Dirección</label>
-                                                                        <input type="text" placeholder="Dirección"
-                                                                            class="form-control" name="dirección"
-                                                                            id="edit-dirección" value="">
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <label for="ubigeo">Ubigeo</label>
-                                                                        <input type="text" placeholder="Ubigeo"
-                                                                            class="form-control" name="ubigeo"
-                                                                            id="edit-ubigeo" value="">
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <label for="provincia">Provincia</label>
-                                                                        <select class="custom-select form-control"
-                                                                            name="provincia" id="edit-provincia">
-                                                                            <option value="">Seleccionar opción</option>
-                                                                            @foreach ($provinces as $province)
-                                                                                <option value="{{ $province }}"
-                                                                                    {{ $elevator->provincia == $province ? 'selected' : '' }}>
-                                                                                    {{ $province }}
-                                                                                </option>
-                                                                            @endforeach
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-md-12">
-                                                                    <div class="form-group">
-                                                                        <label for="tecnicoInstalador">Técnico
-                                                                            instalador</label>
-                                                                        <select class="custom-select form-control"
-                                                                            name="técnico_instalador"
-                                                                            id="edit-técnico_instalador">
-                                                                            <option value="">Seleccionar opción</option>
-                                                                            @foreach ($staffs as $staff)
-                                                                                <option value="{{ $staff }}"
-                                                                                    {{ $elevator->técnico_instalador == $staff ? 'selected' : '' }}>
-                                                                                    {{ $staff }}</option>
-                                                                            @endforeach
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-md-12">
-                                                                    <div class="form-group">
-                                                                        <label for="técnico_ajustador">Técnico
-                                                                            ajustador</label>
-                                                                        <select class="custom-select form-control"
-                                                                            name="técnico_ajustador"
-                                                                            id="edit-técnico_ajustador">
-                                                                            <option value="">Seleccionar opción</option>
-                                                                            @foreach ($staffs as $staff)
-                                                                                <option value="{{ $staff }}"
-                                                                                    {{ $elevator->técnico_ajustador == $staff ? 'selected' : '' }}>
-                                                                                    {{ $staff }}</option>
-                                                                            @endforeach
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-md-12">
-                                                                    <div class="form-group">
-                                                                        <label for="tipo_de_ascensor">Tipo de ascensor</label>
-                                                                        <select class="custom-select form-control"
-                                                                            name="tipo_de_ascensor"
-                                                                            id="edit-tipo_de_ascensor">
-                                                                            <option value="">Seleccionar opción</option>
-                                                                            @foreach ($elevatortypes as $elevatortype)
-                                                                                <option value="{{ $elevatortype }}"
-                                                                                    {{ $elevator->tipo_de_ascensor == $elevatortype ? 'selected' : '' }}>
-                                                                                    {{ $elevatortype }}</option>
-                                                                            @endforeach
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-
-
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <label for="tiposAscensor">Cantidad</label>
-                                                                        <input type="number" placeholder="Cantidad"
-                                                                            class="form-control" name="cantidad"
-                                                                            id="edit-cantidad" value="">
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-md-12"></div>
-                                                                <div class="col-md-6">
-                                                                    <div class="adornoinput mb-3">
-                                                                        <div class="custom-control custom-checkbox">
-                                                                            <input type="checkbox"
-                                                                                class="custom-control-input" id="mgratuito"
-                                                                                name="quarters[]" value="mgratuito">
-                                                                            <label class="custom-control-label"
-                                                                                for="mgratuito">Mantenimiento gratuito?</label>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    <div class="adornoinput mb-3">
-                                                                        <div class="custom-control custom-checkbox">
-                                                                            <input type="checkbox"
-                                                                                class="custom-control-input" id="sincuarto"
-                                                                                name="quarters[]" value="sincuarto">
-                                                                            <label class="custom-control-label"
-                                                                                for="sincuarto">Sin cuarto de maquina?</label>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    <div class="adornoinput mb-3">
-                                                                        <div class="custom-control custom-checkbox">
-                                                                            <input type="checkbox"
-                                                                                class="custom-control-input" id="concuarto"
-                                                                                name="quarters[]" value="concuarto">
-                                                                            <label class="custom-control-label"
-                                                                                for="concuarto">Con cuarto de maquina?</label>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-md-12">
-                                                                    <div class="form-group">
-                                                                        <label for="Npisos"># de
-                                                                            pisos</label>
-                                                                        <input type="text" placeholder="#" name="npisos"
-                                                                            id="edit-npisos" class="form-control"
-                                                                            value="">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-12">
-                                                                    <div class="form-group">
-                                                                        <label for="Ncontacto">Nombre del
-                                                                            Contacto</label>
-                                                                        <input type="text"
-                                                                            placeholder="Nombre del contacto" name="ncontacto"
-                                                                            id="edit-ncontacto" class="form-control"
-                                                                            value="">
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-md-12">
-                                                                    <div class="form-group">
-                                                                        <label for="telefono">Teléfono</label>
-                                                                        <input type="number" placeholder="Teléfono"
-                                                                            class="form-control" name="teléfono"
-                                                                            id="edit-teléfono" value="">
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-md-12">
-                                                                    <div class="form-group">
-                                                                        <label for="correo">Correo
-                                                                            electrónico</label>
-                                                                        <input type="text" placeholder="Correo electrónico"
-                                                                            class="form-control" name="correo"
-                                                                            id="edit-correo" value="">
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-md-12">
-                                                                    <div class="form-group">
-                                                                        <label for="Descripcion1">Descripción
-                                                                            1</label>
-                                                                        <textarea name="descripcion1" id="edit-descripcion1" placeholder="Descripción" cols="30" rows="5"
-                                                                            class="form-control"></textarea>
-
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-md-12 d-none position-relative"
-                                                                    id="DAdicional">
-                                                                    <div class="form-group">
-                                                                        <label for="Descripcion2">Descripción
-                                                                            2</label>
-                                                                        <textarea name="descripcion2" id="descripcion2" placeholder="Descripción" cols="30" rows="5">{{ old('descripcion1', isset($elevator) ? $elevator->descripcion1 : '') }}</textarea>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-12">
-                                                                    <button type="button" class="btn-gris"
-                                                                        id="AgregarDescripcion">+ Agregar
-                                                                        Descripción</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
-                                                    <button type="submit" class="btn-gris btn-red mr-2">actualizar cambios
-                                                    </button>
-                                                    <button type="button" class="btn-gris btn-border"
-                                                        data-dismiss="modal">Cancelar</button>
-                                                </div>
-                                            </form>
-                                        @endisset
                                     </div>
                                 </div>
                             </div>
@@ -1261,7 +1338,10 @@
                 $('#edit-correo').val(elevator.correo);
                 $('#edit-descripcion1').val(elevator.descripcion1);
                 $('#edit-descripcion2').val(elevator.descripcion2);
-
+                var imageUrl = elevator.imagen ?
+                    "{{ asset('images/') }}/" + elevator.imagen :
+                    "{{ asset('img/fondo.png') }}";
+                $('#edit-elevators').attr('src', imageUrl);
                 getBrand(elevator.marca);
             });
 

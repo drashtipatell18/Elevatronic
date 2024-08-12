@@ -455,6 +455,16 @@
                 $('#editimageUpload10').change(function() {
                     var reader = new FileReader();
                     reader.onload = function(e) {
+                        $('#editimagenPrevioPersonal').css('background-image', 'url(' + e.target.result +
+                            ')');
+                        $('#editimagenPrevioPersonal').show();
+                    }
+                    reader.readAsDataURL(this.files[0]);
+                });
+
+                $('#editimageUpload10').change(function() {
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
                         // Update the background image of the preview div
                         $('#editimagenPrevioPersonal').css('background-image', 'url(' + e.target.result +
                             ')');
@@ -468,16 +478,6 @@
                         // Optionally, add a new img element if needed
                         $('#editimagenPrevioPersonal').append('<img src="' + e.target.result +
                             '" width="200" height="200" alt="Preview Image">');
-                    }
-                    reader.readAsDataURL(this.files[0]);
-                });
-
-                $('#editimageUpload10').change(function() {
-                    var reader = new FileReader();
-                    reader.onload = function(e) {
-                        $('#editimagenPrevioPersonal').css('background-image', 'url(' + e.target.result +
-                            ')');
-                        $('#editimagenPrevioPersonal').show();
                     }
                     reader.readAsDataURL(this.files[0]);
                 });
@@ -529,9 +529,13 @@
                     $('#posición').val(staff.posición);
                     $('#edit-correo').val(staff.correo);
                     $('#edit-teléfono').val(staff.teléfono);
-                    // Set the form action to the correct route
-                    $('#editstaff').attr('action', '/personal/actualizar/' + staff.id);
-                });
+                    var imageUrl = staff.personalfoto ?
+                    "{{ asset('images/') }}/" + staff.personalfoto :
+                    "{{ asset('img/fondo.png') }}";
+                    $('#edit-sparepart').attr('src', imageUrl);
+                        // Set the form action to the correct route
+                        $('#editstaff').attr('action', '/personal/actualizar/' + staff.id);
+                    });
 
                 $('#editarPersonal').on('hidden.bs.modal', function() {
                     var form = $('#editstaff');

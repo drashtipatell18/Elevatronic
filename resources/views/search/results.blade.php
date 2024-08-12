@@ -2,7 +2,7 @@
 @section('content')
 <h1>Resultados de la búsqueda</h1>
 
-    @if($assignSpares->isEmpty() && $clientes->isEmpty() && $contracts->isEmpty() && $elevators->isEmpty() && $marcas->isEmpty() && $spareParts->isEmpty())
+    @if($assignSpares->isEmpty() && $clientes->isEmpty() && $contracts->isEmpty()  && $customerTypes->isEmpty() && $maininReview->isEmpty() && $positions->isEmpty()  && $province->isEmpty() && $staff->isEmpty() && $users->isEmpty()  && $reviewType->isEmpty() && $elevators->isEmpty() && $marcas->isEmpty() && $spareParts->isEmpty())
         <p>No se encontraron resultados para su consulta.</p>
     @else
         @if(!$assignSpares->isEmpty())

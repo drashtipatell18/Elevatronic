@@ -68,6 +68,11 @@
         #edit-elevator{
             background-color: white !important;
         }
+        .imageCrops{
+                object-fit: cover;
+                width: 100%;
+                height: 400px;
+            }
         </style>
         <div class="w-100 contenido">
             <div class="container-fluid container-mod">
@@ -107,7 +112,7 @@
                                         <div class="contenido-img">
                                             @if ($elevators->imagen)
                                                 <img src="{{ asset('images/' . $elevators->imagen) }}" alt="user"
-                                                    width="160">
+                                                    width="160" class="imageCrops">
                                             @else
                                                 <img src="{{ asset('img/fondo.png') }}" width="160" class="img-table"
                                                     alt="user">

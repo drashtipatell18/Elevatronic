@@ -35,6 +35,11 @@
         .select2-container--default .select2-selection--single .select2-selection__clear {
             display: none;
         }
+        .imageCrops{
+                object-fit: cover;
+                width: 100%;
+                height: 400px;
+            }
     </style>
     <div class="w-100 contenido">
         <div class="container-fluid container-mod">
@@ -112,7 +117,7 @@
                                         <h3>Foto de usuario</h3>
                                         @if ($users->image)
                                             <img src="{{ asset('images/' . $users->image) }}" alt="personal"
-                                                class="w-100">
+                                                class="imageCrops">
                                         @else
                                             <img src="{{ asset('img/fondo.png') }}" alt="personal" class="w-100">
                                         @endif

@@ -2,7 +2,7 @@
 @section('content')
 <h1>Resultados de la búsqueda</h1>
 
-    @if($assignSpares->isEmpty() && $clientes->isEmpty() && $contracts->isEmpty()  && $customerTypes->isEmpty() && $maininReview->isEmpty() && $positions->isEmpty()  && $province->isEmpty() && $staff->isEmpty() && $users->isEmpty()  && $reviewType->isEmpty() && $elevators->isEmpty() && $marcas->isEmpty() && $spareParts->isEmpty())
+    @if($assignSpares->isEmpty() && $clientes->isEmpty() && $contracts->isEmpty()  && $customerTypes->isEmpty() && $maininReview->isEmpty() && $positions->isEmpty()  && $province->isEmpty() && $staff->isEmpty() && $users->isEmpty()  && $reviewType->isEmpty() && $elevators->isEmpty() && $elevatorsType->isEmpty()  && $marcas->isEmpty() && $spareParts->isEmpty())
         <p>No se encontraron resultados para su consulta.</p>
     @else
         @if(!$assignSpares->isEmpty())
@@ -367,6 +367,29 @@
                             <td>{{ $item->teléfono }}</td>
                             <td>{{ $item->correo }}</td>
                             <td>{{ $item->descripcion1 }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        @endif
+
+
+        @if(!$elevatorsType->isEmpty())
+            <h2>Tipos de ascensor</h2>
+            <table class="table datatable">
+                <thead>
+                    <tr>
+                        <th>nombre_de_tipo_de_ascensor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($elevatorsType as $item)
+                        <tr>
+                            <td>
+                                <a href="{{ route('elevatortypes', $item->id) }}" class="text-blue">
+                                    {{ $item->nombre_de_tipo_de_ascensor }}
+                                </a>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>

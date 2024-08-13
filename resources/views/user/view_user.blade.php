@@ -193,7 +193,7 @@
                                                                             <div class="row">
                                                                                 <div class="col-md-6 mb-3">
                                                                                     <label>Foto de usuario</label>
-                                                                                    
+
                                                                                     <div id="editimagenPrevioUsuario">
                                                                                         @if ($user->image)
                                                                                             <img src="{{ asset('images/' . $user->image) }}"
@@ -836,12 +836,12 @@
                 $(".alert-danger").fadeOut(1000);
             }, 1000);
             $.validator.addMethod("passwordFormat", function(value, element) {
-                    return this.optional(element) || (
-                        /(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.,-])[A-Za-z\d@$!%*?&.,-]{8,}/.test(
-                            value)
-                    );
+                    var result = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.,-])[A-Za-z\d@$!%*?&.,-]{8,}$/
+                        .test(value);
+                    console.log("Password:", value, "Validation result:", result);
+                    return this.optional(element) || result;
                 },
-                "La contraseña debe tener al menos 8 caracteres, contener al menos una letra mayúscula, una letra minúscula y un carácter especial como @$!%*?&.,-."
+                "La contraseña debe tener al menos 8 caracteres, contener al menos una letra mayúscula, una letra minúscula, un número y un carácter especial como @$!%*?&.,-."
             );
 
             $.validator.addMethod("customEmail", function(value, element) {

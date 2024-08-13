@@ -7,6 +7,7 @@ use App\Models\Cliente;
 use App\Models\Contract;
 use App\Models\CustomerType;
 use App\Models\Elevators;
+use App\Models\Elevatortypes\Elevatortypes;
 use App\Models\ImagePdfs;
 use App\Models\Maintenance;
 use App\Models\MaintInReview;
@@ -128,6 +129,13 @@ class SearchController extends Controller
             ->orWhere('descripcion1', 'LIKE', "%{$query}%")
             ->get();
 
+        // Elevator Type
+        // $reviewType = ReviewType::whereRaw('LOWER(nombre) LIKE LOWER(?)', ["%{$query}%"])->get();
+        $elevatorsType = Elevatortypes::where('nombre_de_tipo_de_ascensor', 'LIKE', "%{$query}%")->get();
+
+
+
+
         // Search in Marca table
         $marcas = Marca::where('marca_nombre', 'LIKE', "%{$query}%")
             ->get();
@@ -144,6 +152,6 @@ class SearchController extends Controller
             ->orWhere('frecuencia_de_cambio', 'LIKE', "%{$query}%")
             ->orWhere('frecuencia_de_solicitud', 'LIKE', "%{$query}%")
             ->get();
-        return view('search.results', compact('assignSpares', 'clientes', 'contracts','customerTypes','maininReview','positions','province','reviewType','staff','users', 'elevators', 'marcas', 'spareParts'));
+        return view('search.results', compact('assignSpares', 'clientes', 'contracts','customerTypes','maininReview','positions','province','reviewType','staff','users', 'elevators', 'elevatorsType', 'marcas', 'spareParts'));
     }
 }

@@ -62,6 +62,9 @@
             #edit-sparepart {
                 background-color: white !important;
             }
+            .imageCrops{
+                object-fit: cover;
+            }
         </style>
         <div class="w-100 contenido">
             <div class="container-fluid container-mod">
@@ -94,7 +97,7 @@
                                     class="col-md-12 d-flex align-items-start justify-content-start gap-20 mb-6 box-detalle">
                                     <div class="">
                                         @if ($staffs->personalfoto)
-                                            <img src="{{ asset('images/' . $staffs->personalfoto) }}" alt="Personal Photo">
+                                            <img src="{{ asset('images/' . $staffs->personalfoto) }}" class="imageCrops" alt="Personal Photo">
                                         @else
                                             <img src="{{ asset('img/fondo.png') }}" alt="Personal Photo">
                                         @endif
@@ -139,7 +142,7 @@
                                         <div class="box-contenido">
                                             <h3>Foto de personal</h3>
                                             <img src="{{ asset('images/' . ($staffs->personalfoto ?: 'fondo.png')) }}"
-                                                alt="personal" class="w-100">
+                                                alt="personal" class="w-100 imageCrops">
                                         </div>
                                     </div>
                                     <div class="col-md-8 mb-4">

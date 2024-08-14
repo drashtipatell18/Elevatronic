@@ -144,7 +144,7 @@
                                                         {{ $staff->nombre }}
                                                     </a>
                                                 </td>
-                                                <td>{{ $staff->posición }}</td>
+                                                <td>{{ $staff->position ? $staff->position->position : '-' }}</td>
                                                 <td>{{ $staff->correo }}</td>
                                                 <td>{{ $staff->teléfono }}</td>
                                                 <td>
@@ -277,10 +277,10 @@
                                         <div class="form-group">
                                             <label for="posición">Posición</label>
                                             <select
-                                                class="custom-select form-control @error('posición') is-invalid @enderror"
-                                                name="posición" id="posición">
+                                                class="custom-select form-control @error('posición_id') is-invalid @enderror"
+                                                name="posición_id" id="posición_id">
                                             </select>
-                                            @error('posición')
+                                            @error('posición_id')
                                                 <span class="invalid-feedback" style="color: red">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -400,10 +400,10 @@
                                             <div class="form-group">
                                                 <label for="posición">Posición</label>
                                                 <select
-                                                    class="custom-select form-control @error('posición') is-invalid @enderror"
-                                                    name="posición" id="posición1">
+                                                    class="custom-select form-control @error('posición_id1') is-invalid @enderror"
+                                                    name="posición_id" id="posición_id1">
                                                 </select>
-                                                @error('posición')
+                                                @error('posición_id')
                                                     <span class="invalid-feedback" style="color: red">
                                                         <strong>{{ $message }}</strong>
                                                     </span>
@@ -506,11 +506,11 @@
 
             function getPosition(edit) {
                 // Destroy existing Select2 instances if they exist
-                if ($('#position').data('select2')) {
-                    $('#position').select2('destroy');
+                if ($('#posición_id').data('select2')) {
+                    $('#posición_id').select2('destroy');
                 }
-                if ($('#position1').data('select2')) {
-                    $('#position1').select2('destroy');
+                if ($('#posición_id1').data('select2')) {
+                    $('#posición_id1').select2('destroy');
                 }
 
                 // Perform the AJAX call to get position data
@@ -520,32 +520,32 @@
                     dataType: "JSON",
                     success: function(response) {
                         // Clear the current options and append the retrieved options to the select elements
-                        $("#posición, #posición1").empty();
-                        $("#posición, #posición1").append(
+                        $("#posición_id, #posición_id1").empty();
+                        $("#posición_id, #posición_id1").append(
                             '<option value="" class="d-none">Seleccionar opción</option>'
                         ); // Add placeholder option
 
                         $.each(response, function() {
-                            $("#posición, #posición1").append(
+                            $("#posición_id, #posición_id1").append(
                                 `<option value='${this.id}'>${this['position']}</option>`
                             );
                         });
 
                         // Initialize Select2 on the select element with placeholder
-                        $('#posición').select2({
+                        $('#posición_id').select2({
                             placeholder: "Seleccionar posición",
                             allowClear: true
                         });
 
                         // Initialize Select2 on the select element with placeholder
-                        $('#posición1').select2({
+                        $('#posición_id1').select2({
                             placeholder: "Seleccionar posición",
                             allowClear: true
                         });
 
                         // If edit is true and has a valid ID, set the selected value
                         if (edit) {
-                            $('#position1').val(edit).trigger('change');
+                            $('#posición_id1').val(edit).trigger('change');
                             console.log(edit);
                         }
                     }
@@ -815,7 +815,7 @@
                 var staff = $(this).data('staff');
                 // Populate the modal with customer data
                 $('#edit-nombre').val(staff.nombre);
-                $('#posición1').val(staff.posición).trigger('change');
+                $('#posición_id1').val(staff.posición_id).trigger('change');
                 $('#edit-correo').val(staff.correo);
                 $('#edit-teléfono').val(staff.teléfono);
                 // $('#editimageUpload10').val('');

@@ -58,6 +58,9 @@
         #edit-users {
             background-color: white !important;
         }
+        .imgcrops{
+            object-fit: cover;
+        }
     </style>
     <div class="w-100 contenido">
         <div class="container-fluid container-mod">
@@ -130,10 +133,10 @@
                                                 <td>
                                                     @if ($user->image)
                                                         <img src="{{ asset('images/' . $user->image) }}" alt="personal"
-                                                            width="52" height="52" class="img-table">
+                                                            width="52" height="52" class="img-table imgcrops">
                                                     @else
                                                         <img src="{{ asset('img/fondo.png') }}" alt="user"
-                                                            width="52" height="52" class="img-table">
+                                                            width="52" height="52" class="img-table imgcrops">
                                                     @endif
 
 

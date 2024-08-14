@@ -11,5 +11,9 @@ class Staff extends Model
     use HasFactory, SoftDeletes;
     protected $dates = ['eliminado_en'];
     protected $table = 'personals';
-    protected $fillable = ['personalfoto','nombre','posición','correo','teléfono'];
+    protected $fillable = ['personalfoto','nombre','posición_id','correo','teléfono'];
+
+    public function position() {
+        return $this->belongsTo(Position::class,'posición_id');
+    }
 }

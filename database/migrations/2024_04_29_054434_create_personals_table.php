@@ -15,11 +15,12 @@ return new class extends Migration
             $table->id();
             $table->string('personalfoto')->nullable();
             $table->string('nombre')->nullable();
-            $table->string('posición')->nullable();
+            $table->unsignedBigInteger('posición_id')->nullable(); // Change to unsignedBigInteger
             $table->string('correo')->nullable();
             $table->string('teléfono')->nullable();
             $table->timestamps();
             $table->softDeletes();
+            $table->foreign('posición_id')->references('id')->on('positions')->onDelete('set null'); // Adjust 'positions' if the table name is different
         });
     }
 

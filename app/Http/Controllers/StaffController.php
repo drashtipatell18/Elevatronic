@@ -9,14 +9,14 @@ use App\Models\Position;
 class StaffController extends Controller
 {
     public function staff(){
-        $staffs = Staff::all();
+        $staffs = Staff::with('position')->get();
         return view('staff.view_staff', compact('staffs'));
     }
 
     public function staffInsert(Request $request){
         $validatedData = $request->validate([
             'nombre' => 'required',
-            'posición' => 'required',
+            'posición_id' => 'required',
             // 'correo' => 'required',
             // 'teléfono' => 'required',
         ]);
@@ -29,9 +29,9 @@ class StaffController extends Controller
         }
 
         $staff = Staff::create([
-            'personalfoto'           => $filename,
+            'personalfoto'        => $filename,
             'nombre'              => $request->input('nombre'),
-            'posición'            => $request->input('posición'),
+            'posición_id'         => $request->input('posición_id'),
             'correo'              => $request->input('correo'),
             'teléfono'            => $request->input('teléfono'),
         ]);
@@ -57,7 +57,7 @@ class StaffController extends Controller
     public function staffUpdate(Request $request,$id){
         $validatedData = $request->validate([
             'nombre' => 'required',
-            'posición' => 'required',
+            'posición_id' => 'required',
             // 'correo' => 'required',
             // 'teléfono' => 'required',
         ]);
@@ -76,7 +76,7 @@ class StaffController extends Controller
         //  update Elevators instance
         $staff->update([
             'nombre'              => $request->input('nombre'),
-            'posición'            => $request->input('posición'),
+            'posición_id'         => $request->input('posición_id'),
             'correo'              => $request->input('correo'),
             'teléfono'            => $request->input('teléfono'),
         ]);
@@ -88,7 +88,7 @@ class StaffController extends Controller
     }
 
     public function staffView(Request $request, $id){
-        $staffs = Staff::find($id);
+        $staffs = Staff::with('position')->find($id);
         return view('staff.view_staff_record',compact('staffs'));
 
     }

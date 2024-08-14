@@ -89,7 +89,7 @@ class UserController extends Controller
             'name'                => $request->input('name'),
             'email'               => $request->input('email'),
             'phone'               => $request->input('phone'),
-            'employee'            => $request->input('employee'),
+            'employee_id'            => $request->input('employee_id'),
         ]);
         // return response()->json(['message' => 'Usuario creado exitosamente']);
 
@@ -114,7 +114,7 @@ class UserController extends Controller
 
     public function userView(Request $request, $id)
     {
-        $users = User::find($id);
+        $users = User::with('employee')->find($id); // Corrected syntax
         $staffs = Staff::pluck('nombre', 'nombre');
         return view('user.view_user_record', compact('users', 'staffs'));
     }

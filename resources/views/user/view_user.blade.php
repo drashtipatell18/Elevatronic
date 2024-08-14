@@ -297,8 +297,8 @@
                                                                                 <div class="col-md-12">
                                                                                     <div class="form-group">
                                                                                         <label for="Empleado">Empleado</label>
-                                                                                        <select id="employee1" name="employee"
-                                                                                            class="form-control @error('employee') is-invalid @enderror">
+                                                                                        <select id="employee_id1" name="employee_id"
+                                                                                            class="form-control @error('employee_id') is-invalid @enderror">
                                                                                             <option value="">Seleccionar
                                                                                                 empleado</option>
                                                                                         </select>
@@ -499,11 +499,11 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="Empleado">Empleado</label>
-                                            <select id="employee" name="employee"
-                                                class="custom-select form-control @error('employee') is-invalid @enderror">
+                                            <select id="employee_id" name="employee_id"
+                                                class="custom-select form-control @error('employee_id') is-invalid @enderror">
                                                 <option value="">Seleccionar empleado</option>
                                             </select>
-                                            @error('employee')
+                                            @error('employee_id')
                                                 <span class="invalid-feedback" style="color: red">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -611,11 +611,11 @@
             // Function to get employees (similar to getPosition)
             function getEmployees(edit) {
                 // Destroy existing Select2 instances if they exist
-                if ($('#employee').data('select2')) {
-                    $('#employee').select2('destroy');
+                if ($('#employee_id').data('select2')) {
+                    $('#employee_id').select2('destroy');
                 }
-                if ($('#employee1').data('select2')) {
-                    $('#employee1').select2('destroy');
+                if ($('#employee_id1').data('select2')) {
+                    $('#employee_id1').select2('destroy');
                 }
 
                 // Perform the AJAX call to get employee data
@@ -625,26 +625,26 @@
                     dataType: "JSON",
                     success: function(response) {
                         // Clear the current options and append the retrieved options to the select elements
-                        $("#employee, #employee1").empty();
-                        $("#employee, #employee1").append(
+                        $("#employee_id, #employee_id1").empty();
+                        $("#employee_id, #employee_id1").append(
                             '<option value="" class="d-none">Seleccionar empleado</option>'
                         );
 
                         $.each(response, function() {
-                            $("#employee, #employee1").append(
+                            $("#employee_id, #employee_id1").append(
                                 `<option value='${this.id}'>${this['empleado']}</option>`
                             );
                         });
 
                         // Initialize Select2 on the select elements
-                        $('#employee, #employee1').select2({
+                        $('#employee_id, #employee_id1').select2({
                             placeholder: "Seleccionar empleado",
                             allowClear: true
                         });
 
                         // If edit is true and has a valid ID, set the selected value
                         if (edit) {
-                            $('#employee1').val(edit).trigger('change');
+                            $('#employee_id1').val(edit).trigger('change');
                         }
                     }
                 });
@@ -959,7 +959,7 @@
                 $('#edit-email').val(user.email);
                 $('#edit-phone').val(user.phone);
                 // $('#edit-employee').val(user.employee);
-                $('#employee1').val(user.employee).trigger('change');
+                $('#employee_id1').val(user.employee_id).trigger('change');
 
                 // Set the form action to the correct route
                 var imageUrl = user.image ?

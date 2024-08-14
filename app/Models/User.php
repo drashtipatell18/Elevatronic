@@ -11,5 +11,10 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
     protected $table = 'users';
-    protected $fillable = ['image','username','name','email','phone','employee','password'];
+    protected $fillable = ['image','username','name','email','phone','employee_id','password'];
+
+    public function employee() {
+        return $this->belongsTo(Employee::class, 'employee_id'); // Ensure 'employee_id' is the correct foreign key
+    }
+
 }

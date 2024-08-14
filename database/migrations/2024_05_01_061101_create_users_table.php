@@ -13,16 +13,17 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('employee_id')->nullable()->after('id'); // Add employee_id column
             $table->string('image')->comment('fotodeusuario');
             $table->string('username')->comment('nombredeusuario');
             $table->string('name')->comment('nombre');
             $table->string('email')->comment('correo')->unique();
             $table->string('phone')->comment('teléfono');
-            $table->string('employee')->comment('empleado');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->comment('contraseña');
             $table->rememberToken();
             $table->timestamps();
+            $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade'); // Foreign key constraint
         });
     }
 

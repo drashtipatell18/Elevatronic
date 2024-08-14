@@ -34,6 +34,9 @@
     .spacing {
         margin-left: 13px;
     }
+    .imgcrops{
+        object-fit: cover;
+    }
 </style>
 <div class="wrapper">
     <nav id="sidebar">
@@ -127,8 +130,8 @@
                                                 $image = auth()->user()->image ?? 'fondo.png';
                                             @endphp
                                             <img src="{{ asset('images/' . $image) }}" alt="User Image"
-                                                width="100" height="50" class="img-circle profile_img">
-                                        @else
+                                                width="100" height="50" class="img-circle profile_img imgcrops">
+                                        @else 
                                             <p>No user image available</p>
                                         @endif
                                         <div class="">
@@ -145,7 +148,7 @@
                                                         $image = auth()->user()->image ?? 'fondo.png';
                                                     @endphp
                                                     <img src="{{ asset('images/' . $image) }}" alt="User Image"
-                                                        width="100" height="50" class="img-circle profile_img">
+                                                        width="100" height="50" class="img-circle profile_img imgcrops">
                                                 @else
                                                     <p>No user image available</p>
                                                 @endif

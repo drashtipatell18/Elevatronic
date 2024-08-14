@@ -876,12 +876,12 @@
                 messages: {
                     username: "Por favor, ingrese el nombre de usuario",
                     name: "Por favor, ingrese el nombre",
-                    // email: {
-                    //     required: "Por favor, ingrese el correo",
-                    //     email: "Por favor, ingrese un correo válido",
-                    //     unique: 'El correo electrónico ya está en uso.',
+                    email: {
+                        required: "Por favor, ingrese el correo",
+                        email: "Por favor, ingrese un correo válido",
+                        unique: 'El correo electrónico ya está en uso.',
 
-                    // },
+                    },
                     phone: {
                         required: "Por favor, ingrese el teléfono",
                         digits: "Por favor, ingrese solo números"

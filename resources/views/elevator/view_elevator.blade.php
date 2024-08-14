@@ -1115,10 +1115,11 @@
                                 .length + 1).join('*').split('');
                             var columnCount = doc.content[1].table.body[0].length;
                             doc.content[1].table.body.forEach(function(row) {
-                                row[0].alignment =
-                                    'center'; // Center align the first column
-                                row[columnCount - 1].alignment =
-                                    'center'; // Center align the last column
+                                row[0].alignment = 'center'; // Center align the first column
+                                row[columnCount - 1].alignment = 'center'; // Center align the last column
+                                row[2].alignment = 'center'; // Center align the third column
+                                row[3].alignment = 'center'; // Center align the fourth column
+                                row[4].alignment = 'center'; // Center align the fifth column
                             });
                         }
                     },

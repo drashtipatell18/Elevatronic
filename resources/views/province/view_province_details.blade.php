@@ -106,38 +106,38 @@
                                         <table id="repuestosAsignados" class="table" style="width:100%">
                                             <thead>
                                                 <tr>
-                                                    <th>ID</th>
-                                                    <th>FECHA ENTREGA</th>
-                                                    <th>TIPO DE ASCENSOR</th>
-                                                    <th>NOMBRE</th>
-                                                    <th>CLIENTE</th>
-                                                    <th>PROVINCIA</th>
+                                                    <th class="text-center">ID</th>
+                                                    <th class="text-center">FECHA ENTREGA</th>
+                                                    <th class="text-center">TIPO DE ASCENSOR</th>
+                                                    <th class="text-center">NOMBRE</th>
+                                                    <th class="text-center">CLIENTE</th>
+                                                    <th class="text-center">PROVINCIA</th>
                                                     <th align="right" class="text-right">ACCIONES</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 @foreach ($elevators as $index => $elevator)
                                                     <tr class="td-head-center">
-                                                        <td>{{ $index + 1 }}</td>
-                                                        <td>{{ $elevator->fecha }}</td>
-                                                        <td>{{ $elevator->tipo_de_ascensor }}</td>
-                                                        <td>
-                                                            <a href="{{ route('view.elevator', $elevator->id) }}"
-                                                                class="text-blue">
+                                                        <td class="text-center">{{ $index + 1 }}</td>
+                                                        <td class="text-center">{{ $elevator->fecha }}</td>
+                                                        <td class="text-center">{{ $elevator->tipo_de_ascensor }}</td>
+                                                        <td class="text-center">
+                                                            <a  href="{{ route('view.elevator', $elevator->id) }}"
+                                                                class="text-blue text-center">
                                                                 {{ $elevator->nombre }}
                                                             </a>
                                                         </td>
-                                                        <td>
+                                                        <td class="text-center">
                                                             @if ($elevator->client)
                                                             <a href="{{ route('view.customer', $elevator->client_id) }}"
-                                                                class="text-blue">
+                                                                class="text-blue text-center">
                                                                 {{ $elevator->client->nombre }}
                                                             </a>
                                                         @else
                                                             N/A
                                                         @endif
                                                         </td>
-                                                        <td>{{ $elevator->provincia }}</td>
+                                                        <td class="text-center">{{ $elevator->provincia }}</td>
                                                         <td align="right">
                                                             <div class="dropdown">
                                                                 <button type="button" class="btn-action dropdown-toggle"
@@ -748,10 +748,11 @@
                                 .length + 1).join('*').split('');
                             var columnCount = doc.content[1].table.body[0].length;
                             doc.content[1].table.body.forEach(function(row) {
-                                row[0].alignment =
-                                    'center'; // Center align the first column
-                                row[columnCount - 1].alignment =
-                                    'center'; // Center align the last column
+                                row[0].alignment = 'center'; // Center align the first column
+                                row[columnCount - 1].alignment = 'center'; // Center align the last column
+                                row[2].alignment = 'center'; // Center align the third column
+                                row[3].alignment = 'center'; // Center align the fourth column
+                                row[4].alignment = 'center'; // Center align the fifth column
                             });
                         }
                     },

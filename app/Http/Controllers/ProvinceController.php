@@ -42,16 +42,10 @@ class ProvinceController extends Controller
     public function provinceView(Request $request, $id)
     {
         $province = Province::findOrFail($id);
-        // echo '<pre>';
-        // print_r($province);
-        // echo '</pre>';
         $customers = Cliente::pluck('nombre','nombre');
         $staffs = Staff::pluck('nombre','nombre');
         $elevatortypes = Elevatortypes::pluck('nombre_de_tipo_de_ascensor','nombre_de_tipo_de_ascensor');
         $elevators = Elevators::where('provincia', $province->provincia)->get();
-        // echo '<pre>';
-        // print_r($elevators);
-        // echo '</pre>';exit;
         $spareparts = SparePart::all();
         return view('province.view_province_details', compact('province','staffs', 'customers', 'elevators', 'elevatortypes','spareparts'));
     }

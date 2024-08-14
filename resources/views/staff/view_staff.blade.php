@@ -58,6 +58,9 @@
 
             /* Ensures that the image covers the container without distortion */
         }
+        .setimage{
+            object-fit: cover;
+        }
 
     </style>
     <div class="w-100 contenido">
@@ -132,10 +135,10 @@
                                                 <td>
                                                     @if ($staff->personalfoto)
                                                         <img src="{{ asset('images/' . $staff->personalfoto) }}"
-                                                            alt="personal" width="52" height="52" class="img-table">
+                                                            alt="personal" width="52" height="52" class="img-table setimage">
                                                     @else
                                                         <img src="{{ asset('img/fondo.png') }}" width="52"
-                                                            height="52" class="img-table" alt="user">
+                                                            height="52" class="img-table setimage" alt="user">
                                                     @endif
                                                 </td>
                                                 <td>{{ $index + 1 }}</td>

@@ -575,19 +575,11 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="tiposAscensor">Cantidad</label>
-                                                            <select class="custom-select" name="cantidad" id="edit-cantidad">
-                                                                <option value="">
-                                                                    Seleccionar</option>
-                                                                <option value="cantidad_1"
-                                                                    {{ old('cantidad', $elevator->cantidad ?? '') == 'cantidad_1' ? 'selected' : '' }}>
-                                                                    Cantidad 1</option>
-                                                                <option value="cantidad_2"
-                                                                    {{ old('cantidad', $elevator->cantidad ?? '') == 'cantidad_2' ? 'selected' : '' }}>
-                                                                    Cantidad 2</option>
-                                                                <option value="cantidad_3"
-                                                                    {{ old('cantidad', $elevator->cantidad ?? '') == 'cantidad_3' ? 'selected' : '' }}>
-                                                                    Cantidad 3</option>
-                                                            </select>
+                                                            <input type="number"
+                                                            placeholder="Cantidad"
+                                                            class="form-control"
+                                                            name="cantidad" id="edit-cantidad"
+                                                            value="">
                                                         </div>
                                                     </div>
 

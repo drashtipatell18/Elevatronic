@@ -128,9 +128,6 @@ class ElevatorController extends Controller
             // Redirect back with success message
             return redirect()->route('ascensore')->with('success', 'Mant En Revisión creado exitosamente!');
         } catch (\Exception $e) {
-            // Log the error
-            \Log::error('Error creating MaintInReview: ' . $e->getMessage());
-            // Redirect back with error message
             return redirect()->back()->with('error', 'Error al crear Mant En Revisión: ' . $e->getMessage())->withInput();
         }
     }

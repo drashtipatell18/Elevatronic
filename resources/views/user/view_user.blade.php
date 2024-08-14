@@ -738,8 +738,8 @@
                             columns: ':not(:last-child)' // Excluye la última columna
                         },
                         customize: function(doc) {
-                            doc.content[1].table.widths = Array(doc.content[1].table.body[0]
-                                .length + 1).join('*').split('');
+                            // Set smaller widths for each column
+                            doc.content[1].table.widths = Array(doc.content[1].table.body[0].length).fill('20%'); // Adjust percentage as needed
                             var columnCount = doc.content[1].table.body[0].length;
                             doc.content[1].table.body.forEach(function(row) {
                                 row[0].alignment =

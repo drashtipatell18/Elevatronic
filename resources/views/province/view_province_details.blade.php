@@ -75,7 +75,7 @@
                                         <div class="buscador">
                                             <div class="form-group position-relative">
                                                 <label for="customSearchBox"><i class="fal fa-search"></i></label>
-                                                <input type="text" id="customSearchBox" placeholder="Buscar"
+                                                <input type="text" id="customSearchBox1" placeholder="Buscar"
                                                     class="w-auto customSearchBox">
                                             </div>
                                         </div>
@@ -128,10 +128,14 @@
                                                             </a>
                                                         </td>
                                                         <td>
-                                                            <a href="{{ route('view.customer', $elevator->id) }}"
+                                                            @if ($elevator->client)
+                                                            <a href="{{ route('view.customer', $elevator->client_id) }}"
                                                                 class="text-blue">
-                                                                {{ $elevator->cliente }}
+                                                                {{ $elevator->client->nombre }}
                                                             </a>
+                                                        @else
+                                                            N/A
+                                                        @endif
                                                         </td>
                                                         <td>{{ $elevator->provincia }}</td>
                                                         <td align="right">
@@ -700,7 +704,7 @@
     <script>
         $(document).ready(function() {
 
-            var table = $('#repuestosAsignados').DataTable({
+            var table1 = $('#repuestosAsignados').DataTable({
                 responsive: true,
                 dom: 'tp',
                 pageLength: 20, // Establece el número de registros por página a 8
@@ -724,8 +728,48 @@
                         "previous": "Anterior"
                     },
                 },
-                buttons: [
-                    'copy', 'csv', 'excel', 'pdf', 'print'
+                buttons: [{
+                        extend: 'copy',
+                        exportOptions: {
+                            columns: ':not(:last-child)' // Excluye la última columna
+                        }
+                    },
+                    {
+                        extend: 'excel',
+                        exportOptions: {
+                            columns: ':not(:last-child)' // Excluye la última columna
+                        }
+                    },
+                    {
+                        extend: 'csv',
+                        exportOptions: {
+                            columns: ':not(:last-child)' // Excluye la última columna
+                        }
+                    },
+                    {
+                        extend: 'pdf',
+                        exportOptions: {
+                            columns: ':not(:last-child)' // Excluye la última columna
+                        },
+                        customize: function(doc) {
+                            doc.content[1].table.widths = Array(doc.content[1].table.body[0]
+                                .length + 1).join('*').split('');
+                            var columnCount = doc.content[1].table.body[0].length;
+                            doc.content[1].table.body.forEach(function(row) {
+                                row[0].alignment =
+                                    'center'; // Center align the first column
+                                row[columnCount - 1].alignment =
+                                    'center'; // Center align the last column
+                            });
+                        }
+                    },
+                    {
+                        extend: 'print',
+                        exportOptions: {
+                            columns: ':not(:last-child)' // Excluye la última columna
+                        }
+                    }
+                    // 'copy', 'csv', 'excel', 'pdf', 'print'
                 ]
             });
 
@@ -754,9 +798,9 @@
                 table.button('.buttons-print').trigger();
             });
 
-            // $('#customSearchBox').keyup(function(){
-            //     table.search($(this).val()).draw();
-            // });
+            $('#customSearchBox1').keyup(function(){
+                table1.search($(this).val()).draw();
+            });
             $('.customSearchBox').keyup(function() {
                 table.search($(this).val()).draw();
             });

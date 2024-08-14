@@ -738,16 +738,16 @@
                             columns: ':not(:last-child)' // Excluye la última columna
                         },
                         customize: function(doc) {
-                            // Set smaller widths for each column
-                            doc.content[1].table.widths = Array(doc.content[1].table.body[0].length).fill('20%'); // Adjust percentage as needed
-                            var columnCount = doc.content[1].table.body[0].length;
-                            doc.content[1].table.body.forEach(function(row) {
-                                row[0].alignment =
-                                    'center'; // Center align the first column
-                                row[columnCount - 1].alignment =
-                                    'center'; // Center align the last column
-                            });
-                        }
+                          // Set smaller widths for each column, excluding the first column
+                          doc.content[1].table.widths = Array(doc.content[1].table.body[0]
+                          .length).join('*').split('').fill('20%'); // Adjusted to remove the first column
+                          doc.content[1].table.body.forEach(function(row) {
+                              row.splice(0, 1); // Remove the first column from the row
+                              row.forEach(function(cell) {
+                                  cell.alignment = 'center'; // Center align all remaining cells
+                              });
+                          });
+                      }
                     },
                     {
                         extend: 'print',

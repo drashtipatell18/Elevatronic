@@ -581,6 +581,26 @@
                 reader.readAsDataURL(this.files[0]);
             });
 
+            $('#editimageUploadUsuario').change(function() {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    // Update the background image of the preview div
+                    $('#editimagenPrevioUsuario').css('background-image', 'url(' + e.target.result +
+                        ')');
+
+                    // Hide any existing image tags inside the preview div
+                    $('#editimagenPrevioUsuario').find('img').remove();
+
+                    // Show the preview div (in case it was hidden)
+                    $('#editimagenPrevioUsuario').show();
+
+                    // Optionally, add a new img element if needed
+                    $('#editimagenPrevioUsuario').append('<img src="' + e.target.result +
+                        '" width="200" height="200" alt="Preview Image">');
+                }
+                reader.readAsDataURL(this.files[0]);
+            });
+
             $('#editorUsuario').on('hidden.bs.modal', function() {
                 var form = $('#edituserform');
                 form.validate().resetForm();

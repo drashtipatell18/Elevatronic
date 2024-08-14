@@ -122,20 +122,20 @@
                                                         <td class="text-center">{{ $elevator->fecha }}</td>
                                                         <td class="text-center">{{ $elevator->tipo_de_ascensor }}</td>
                                                         <td class="text-center">
-                                                            <a  href="{{ route('view.elevator', $elevator->id) }}"
+                                                            <a href="{{ route('view.elevator', $elevator->id) }}"
                                                                 class="text-blue text-center">
                                                                 {{ $elevator->nombre }}
                                                             </a>
                                                         </td>
                                                         <td class="text-center">
                                                             @if ($elevator->client)
-                                                            <a href="{{ route('view.customer', $elevator->client_id) }}"
-                                                                class="text-blue text-center">
-                                                                {{ $elevator->client->nombre }}
-                                                            </a>
-                                                        @else
-                                                            N/A
-                                                        @endif
+                                                                <a href="{{ route('view.customer', $elevator->client_id) }}"
+                                                                    class="text-blue text-center">
+                                                                    {{ $elevator->client->nombre }}
+                                                                </a>
+                                                            @else
+                                                                N/A
+                                                            @endif
                                                         </td>
                                                         <td class="text-center">{{ $elevator->provincia }}</td>
                                                         <td align="right">
@@ -390,9 +390,15 @@
                                                     <div class="col-md-6 mb-3">
                                                         <label>Foto de Ascensor</label>
                                                         <div id="editimagePreview">
-                                                            <img src="{{ asset('images/' . ($elevator->imagen ?? 'fondo.png')) }}" 
-                                                                 alt="Image Preview" width="200px" height="200px">
-                                                        </div>                                                        
+                                                            @if ($elevator->imagen)
+                                                                <img src="{{ asset('images/' . $elevator->imagen) }}"
+                                                                    alt="Image" width="200px" height="200px"
+                                                                    id="edit-elevators">
+                                                            @else
+                                                                <img src="{{ asset('img/fondo.png') }}" alt="Image"
+                                                                    width="200px" id="edit-elevators" height="200px">
+                                                            @endif
+                                                        </div>
                                                     </div>
                                                     <div
                                                         class="align-items-start col-md-6 d-flex flex-column justify-content-between mb-3">
@@ -436,7 +442,7 @@
                                                         <div class="form-group">
                                                             <label for="marca">Marca</label>
                                                             <select class="custom-select form-control marcaItems"
-                                                                name="marca" id="marca1">
+                                                                name="marca" id="marca">
                                                                 <option value="" class="d-none">Seleccionar
                                                                     opción
                                                                 </option>
@@ -457,14 +463,11 @@
                                                             <label for="clienteAscensor">Cliente
                                                                 del
                                                                 ascensor</label>
-                                                            <select class="custom-select form-control" name="cliente"
+                                                            <select name="client_id" class="ustom-select form-control"
                                                                 id="edit-cliente">
-                                                                <option value="" disabled>
-                                                                    Seleccionar opción
-                                                                </option>
                                                                 @foreach ($customers as $key => $value)
                                                                     <option value="{{ $key }}"
-                                                                        {{ old('cliente', $elevator->cliente ?? '') == $key ? 'selected' : '' }}>
+                                                                        {{ old('client_id', $elevator->client_id ?? '') == $key ? 'selected' : '' }}>
                                                                         {{ $value }}
                                                                     </option>
                                                                 @endforeach
@@ -513,11 +516,12 @@
                                                             <label for="provincia">Provincia</label>
                                                             <select class="custom-select form-control" name="provincia"
                                                                 id="edit-provincia">
-                                                                <option value="">Seleccionar opción</option>
-                                                                @foreach ($province as $provinc)
-                                                                    <option value="{{ $provinc }}"
-                                                                        {{ $elevator->provincia == $provinc ? 'selected' : '' }}>
-                                                                        {{ $provinc }}
+                                                                <option value="">Seleccionar
+                                                                    opción</option>
+                                                                @foreach ($provinces as $province)
+                                                                    <option value="{{ $province }}"
+                                                                        {{ $elevator->provincia == $province ? 'selected' : '' }}>
+                                                                        {{ $province }}
                                                                     </option>
                                                                 @endforeach
                                                             </select>
@@ -530,11 +534,13 @@
                                                                 instalador</label>
                                                             <select class="custom-select form-control"
                                                                 name="técnico_instalador" id="edit-técnico_instalador">
-                                                                <option value="">Seleccionar opción</option>
+                                                                <option value="">Seleccionar
+                                                                    opción</option>
                                                                 @foreach ($staffs as $staff)
                                                                     <option value="{{ $staff }}"
                                                                         {{ $elevator->técnico_instalador == $staff ? 'selected' : '' }}>
-                                                                        {{ $staff }}</option>
+                                                                        {{ $staff }}
+                                                                    </option>
                                                                 @endforeach
                                                             </select>
                                                         </div>
@@ -546,11 +552,13 @@
                                                                 ajustador</label>
                                                             <select class="custom-select form-control"
                                                                 name="técnico_ajustador" id="edit-técnico_ajustador">
-                                                                <option value="">Seleccionar opción</option>
+                                                                <option value="">Seleccionar
+                                                                    opción</option>
                                                                 @foreach ($staffs as $staff)
                                                                     <option value="{{ $staff }}"
                                                                         {{ $elevator->técnico_ajustador == $staff ? 'selected' : '' }}>
-                                                                        {{ $staff }}</option>
+                                                                        {{ $staff }}
+                                                                    </option>
                                                                 @endforeach
                                                             </select>
                                                         </div>
@@ -558,14 +566,17 @@
 
                                                     <div class="col-md-12">
                                                         <div class="form-group">
-                                                            <label for="tipo_de_ascensor">Tipo de ascensor</label>
+                                                            <label for="tipo_de_ascensor">Tipo de
+                                                                ascensor</label>
                                                             <select class="custom-select form-control" name="tipo_de_ascensor"
                                                                 id="edit-tipo_de_ascensor">
-                                                                <option value="">Seleccionar opción</option>
+                                                                <option value="">Seleccionar
+                                                                    opción</option>
                                                                 @foreach ($elevatortypes as $elevatortype)
                                                                     <option value="{{ $elevatortype }}"
                                                                         {{ $elevator->tipo_de_ascensor == $elevatortype ? 'selected' : '' }}>
-                                                                        {{ $elevatortype }}</option>
+                                                                        {{ $elevatortype }}
+                                                                    </option>
                                                                 @endforeach
                                                             </select>
                                                         </div>
@@ -575,11 +586,8 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="tiposAscensor">Cantidad</label>
-                                                            <input type="number"
-                                                            placeholder="Cantidad"
-                                                            class="form-control"
-                                                            name="cantidad" id="edit-cantidad"
-                                                            value="">
+                                                            <input type="number" placeholder="Cantidad" class="form-control"
+                                                                name="cantidad" id="edit-cantidad" value="">
                                                         </div>
                                                     </div>
 
@@ -590,7 +598,8 @@
                                                                 <input type="checkbox" class="custom-control-input"
                                                                     id="mgratuito" name="quarters[]" value="mgratuito">
                                                                 <label class="custom-control-label"
-                                                                    for="mgratuito">Mantenimiento gratuito?</label>
+                                                                    for="mgratuito">Mantenimiento
+                                                                    gratuito?</label>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -600,7 +609,8 @@
                                                                 <input type="checkbox" class="custom-control-input"
                                                                     id="sincuarto" name="quarters[]" value="sincuarto">
                                                                 <label class="custom-control-label" for="sincuarto">Sin cuarto
-                                                                    de maquina?</label>
+                                                                    de
+                                                                    maquina?</label>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -610,7 +620,8 @@
                                                                 <input type="checkbox" class="custom-control-input"
                                                                     id="concuarto" name="quarters[]" value="concuarto">
                                                                 <label class="custom-control-label" for="concuarto">Con cuarto
-                                                                    de maquina?</label>
+                                                                    de
+                                                                    maquina?</label>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -688,6 +699,40 @@
                         </div>
                     </div>
                 </div>
+
+
+                {{-- Model Crear Marcas --}}
+                <div class="modal left fade" id="crearMarcas" tabindex="-1" role="dialog"
+                    aria-labelledby="modelTitleId" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title font-family-Outfit-SemiBold">Crear Ascensor</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="col-md-12" id="marcaInputSection" style="">
+                                <form method="POST" id="brandForm">
+                                    @csrf
+                                    <div class="form-group">
+                                        <label>Ingresar marca</label>
+                                        <input type="text" placeholder="Ingresar marca" name="marca_nombre"
+                                            id="marca_nombre" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="button" class="btn-primario w-auto pl-3 pr-3" id="submitBrand">
+                                            Entregar
+                                        </button>
+                                        <button type="button" class="btn-primario w-auto pl-3 pr-3" id="cancelMarca">
+                                            Cancelar
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -695,7 +740,71 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
+            function getBrand(edit) {
+                // Destroy existing Select2 instances if they exist
+                if ($('#marca').data('select2')) {
+                    $('#marca').select2('destroy');
+                }
 
+                // Perform the AJAX call to get brand data
+                $.ajax({
+                    type: "GET",
+                    url: "{{ route('getBrands') }}",
+                    dataType: "JSON",
+                    success: function(response) {
+                        // Clear the current options and append the retrieved options to the select elements
+                        $("#marca").empty();
+                        $("#marca").append(
+                            '<option value="" class="d-none">Seleccionar opción</option>'
+                        ); // Add placeholder option
+
+                        $.each(response, function() {
+                            $("#marca").append(
+                                `<option value='${this.id}'>${this['marca_nombre']}</option>`
+                            );
+                        });
+
+                        // Initialize Select2 on the select elements with placeholder
+                        $('#marca').select2({
+                            placeholder: "Seleccionar marca",
+                            allowClear: true
+                        });
+
+                        // If edit is true and has a valid ID, set the selected value
+                        if (edit) {
+                            $('#marca').val(edit).trigger('change');
+                            console.log(edit);
+                        }
+                    }
+                });
+            }
+            getBrand();
+            $('#submitBrand').click(function(e) {
+                e.preventDefault(); // Prevent default form submission
+                var formData = new FormData();
+                formData.append('marca_nombre', $('#marca_nombre').val());
+                // Send AJAX request
+                $.ajax({
+                    type: "POST",
+                    method: "POST",
+                    dataType: "JSON",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: "{{ route('insert.brand') }}",
+                    success: function(response) {
+                        getBrand();
+                        $('#cancelMarca').click();
+                    }
+                })
+            });
+
+            $('#cancelMarca').click(function() {
+                $("#crearMarcas").modal('hide')
+            });
             var table1 = $('#repuestosAsignados').DataTable({
                 responsive: true,
                 dom: 'tp',
@@ -748,11 +857,16 @@
                                 .length + 1).join('*').split('');
                             var columnCount = doc.content[1].table.body[0].length;
                             doc.content[1].table.body.forEach(function(row) {
-                                row[0].alignment = 'center'; // Center align the first column
-                                row[columnCount - 1].alignment = 'center'; // Center align the last column
-                                row[2].alignment = 'center'; // Center align the third column
-                                row[3].alignment = 'center'; // Center align the fourth column
-                                row[4].alignment = 'center'; // Center align the fifth column
+                                row[0].alignment =
+                                    'center'; // Center align the first column
+                                row[columnCount - 1].alignment =
+                                    'center'; // Center align the last column
+                                row[2].alignment =
+                                    'center'; // Center align the third column
+                                row[3].alignment =
+                                    'center'; // Center align the fourth column
+                                row[4].alignment =
+                                    'center'; // Center align the fifth column
                             });
                         }
                     },
@@ -791,7 +905,7 @@
                 table.button('.buttons-print').trigger();
             });
 
-            $('#customSearchBox1').keyup(function(){
+            $('#customSearchBox1').keyup(function() {
                 table1.search($(this).val()).draw();
             });
             $('.customSearchBox').keyup(function() {
@@ -886,6 +1000,10 @@
                         // required: true,
                         digits: true
                     },
+                    cantidad: {
+                        // required: true,
+                        digits: true
+                    },
                     correo: {
                         // required: true,
                         email: true
@@ -944,6 +1062,7 @@
                 }
             });
 
+
             $('.edit-elevator').on('click', function() {
                 var elevator = $(this).data('elevator');
                 console.log(elevator);
@@ -951,34 +1070,53 @@
                 $('#edit-nombre').val(elevator.nombre);
                 $('#edit-código').val(elevator.código);
                 $('#edit-marca').val(elevator.marca);
-                $('#edit-cliente').val(elevator.cliente);
+                $('#edit-cliente').val(elevator.client_id);
                 $('#edit-fecha').val(elevator.fecha);
                 $('#edit-garantizar').val(elevator.garantizar);
                 $('#edit-dirección').val(elevator.dirección);
                 $('#edit-ubigeo').val(elevator.ubigeo);
                 $('#edit-provincia').val(elevator.provincia);
                 $('#edit-técnico_instalador').val(elevator.técnico_instalador);
-                $('#edit-técnico_ajustador').val(elevator.técnico_ajustador);
                 $('#edit-tipo_de_ascensor').val(elevator.tipo_de_ascensor);
                 $('#edit-cantidad').val(elevator.cantidad);
-
-                // Check if quarters contain specific values
-                if (elevator.quarters) {
-                    var quarters = elevator.quarters.split(',');
-
-                    $('#mgratuito').prop('checked', quarters.includes('mgratuito'));
-                    $('#sincuarto').prop('checked', quarters.includes('sincuarto'));
-                    $('#concuarto').prop('checked', quarters.includes('concuarto'));
-                }
-
+                $('#mgratuito').val(elevator.quarters);
+                $('#sincuarto').val(elevator.quarters);
+                $('#concuarto').val(elevator.quarters);
                 $('#edit-npisos').val(elevator.npisos);
                 $('#edit-ncontacto').val(elevator.ncontacto);
                 $('#edit-teléfono').val(elevator.teléfono);
                 $('#edit-correo').val(elevator.correo);
                 $('#edit-descripcion1').val(elevator.descripcion1);
-                $('#edit-descripcion2').val(elevator.descripcion2);
 
                 getBrand(elevator.marca);
+                var imageUrl = elevator.imagen ?
+                    "{{ asset('images/') }}/" + elevator.imagen :
+                    "{{ asset('img/fondo.png') }}";
+                $('#edit-elevators').attr('src', imageUrl);
+                $('#editelevatform').attr('action', '/ascensore/actualizar/' + elevator.id);
+
+            });
+
+            $('#edituploadButton').click(function() {
+                $('#editimageUpload').click();
+            });
+            $('#editimageUpload').change(function() {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    // Update the background image of the preview div
+                    $('#editimagePreview').css('background-image', 'url(' + e.target.result + ')');
+
+                    // Hide any existing image tags inside the preview div
+                    $('#editimagePreview').find('img').remove();
+
+                    // Show the preview div (in case it was hidden)
+                    $('#editimagePreview').show();
+
+                    // Optionally, add a new img element if needed
+                    $('#editimagePreview').append('<img src="' + e.target.result +
+                        '" width="200" height="200" alt="Preview Image">');
+                }
+                reader.readAsDataURL(this.files[0]);
             });
         });
     </script>

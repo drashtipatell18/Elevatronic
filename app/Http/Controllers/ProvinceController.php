@@ -26,7 +26,7 @@ class ProvinceController extends Controller
 
         // Create a new Province instance
         $province = Province::create([
-            'provincia' => $request->input('provincia'),
+            'provincia' => ucfirst($request->input('provincia')), // Capitalize first letter
         ]);
         // Redirect back with success message
         session()->flash('success', 'Provincia creado exitosamente!');
@@ -66,7 +66,7 @@ class ProvinceController extends Controller
 
         // Update a new Province instance
         $province->update([
-            'provincia' => $request->input('provincia'),
+            'provincia' => ucfirst($request->input('provincia')), // Capitalize first letter
         ]);
 
         // Redirect back with success message

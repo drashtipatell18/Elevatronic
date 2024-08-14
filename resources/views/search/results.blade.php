@@ -16,16 +16,16 @@
                 </thead>
                 <tbody>
                     @foreach($assignSpares as $item)
-                        <tr>
-                            {{-- <td>{{ $item->nombre_del_tipo_de_ascensor }}</td> --}}
-                            <td>
-                                <a href="{{ route('details.elevatortypes', $item->id) }}" class="text-blue">
-                                    {{ $item->nombre_del_tipo_de_ascensor }}
-                                </a>
-                            </td>
-                            <td>{{ $item->sparePart->nombre }}</td>
-                        </tr>
-                    @endforeach
+                    <tr>
+                        {{-- <td>{{ $item->nombre_del_tipo_de_ascensor }}</td> --}}
+                        <td>
+                            <a href="{{ route('details.elevatortypes', $item->id) }}" class="text-blue">
+                                {{ $item->nombre_del_tipo_de_ascensor }}
+                            </a>
+                        </td>
+                        <td>{{ $item->sparePart ? $item->sparePart->nombre : 'N/A' }}</td> {{-- Check if sparePart is not null --}}
+                    </tr>
+                @endforeach
                 </tbody>
             </table>
         @endif

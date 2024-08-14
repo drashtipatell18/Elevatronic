@@ -27,130 +27,132 @@ class SearchController extends Controller
     public function search(Request $request)
     {
         $query = trim($request->input('query'));
+        $escapedQuery = str_replace(['%', '_'], ['\%', '\_'], $query);
+
         // Search in AssginSpare table
-        $assignSpares = AssginSpare::where('nombre_del_tipo_de_ascensor', 'LIKE', "%{$query}%")
-            ->orWhere('repuesto_id', 'LIKE', "%{$query}%")
+        $assignSpares = AssginSpare::where('nombre_del_tipo_de_ascensor', 'LIKE', "%{$escapedQuery}%")
+            ->orWhere('repuesto_id', 'LIKE', "%{$escapedQuery}%")
             ->get();
 
         // Search in Cliente table
-        $clientes = Cliente::where('nombre', 'LIKE', "%{$query}%")
-            ->orWhere('tipo_de_cliente', 'LIKE', "%{$query}%")
-            ->orWhere('ruc', 'LIKE', "%{$query}%")
-            ->orWhere('país', 'LIKE', "%{$query}%")
-            ->orWhere('provincia', 'LIKE', "%{$query}%")
-            ->orWhere('dirección', 'LIKE', "%{$query}%")
-            ->orWhere('teléfono', 'LIKE', "%{$query}%")
-            ->orWhere('teléfono_móvil', 'LIKE', "%{$query}%")
-            ->orWhere('correo_electrónico', 'LIKE', "%{$query}%")
-            ->orWhere('nombre_del_contacto', 'LIKE', "%{$query}%")
-            ->orWhere('posición', 'LIKE', "%{$query}%")
+        $clientes = Cliente::where('nombre', 'LIKE', "%{$escapedQuery}%")
+            ->orWhere('tipo_de_cliente', 'LIKE', "%{$escapedQuery}%")
+            ->orWhere('ruc', 'LIKE', "%{$escapedQuery}%")
+            ->orWhere('país', 'LIKE', "%{$escapedQuery}%")
+            ->orWhere('provincia', 'LIKE', "%{$escapedQuery}%")
+            ->orWhere('dirección', 'LIKE', "%{$escapedQuery}%")
+            ->orWhere('teléfono', 'LIKE', "%{$escapedQuery}%")
+            ->orWhere('teléfono_móvil', 'LIKE', "%{$escapedQuery}%")
+            ->orWhere('correo_electrónico', 'LIKE', "%{$escapedQuery}%")
+            ->orWhere('nombre_del_contacto', 'LIKE', "%{$escapedQuery}%")
+            ->orWhere('posición', 'LIKE', "%{$escapedQuery}%")
             ->get();
 
         // Search in Contract table
-        $contracts = Contract::where('ascensor', 'LIKE', "%{$query}%")
-            ->orWhere('fecha_de_propuesta', 'LIKE', "%{$query}%")
-            ->orWhere('monto_de_propuesta', 'LIKE', "%{$query}%")
-            ->orWhere('monto_de_contrato', 'LIKE', "%{$query}%")
-            ->orWhere('fecha_de_inicio', 'LIKE', "%{$query}%")
-            ->orWhere('fecha_de_fin', 'LIKE', "%{$query}%")
-            ->orWhere('renovación', 'LIKE', "%{$query}%")
-            ->orWhere('cada_cuantos_meses', 'LIKE', "%{$query}%")
-            ->orWhere('observación', 'LIKE', "%{$query}%")
-            ->orWhere('estado_cuenta_del_contrato', 'LIKE', "%{$query}%")
-            ->orWhere('estado', 'LIKE', "%{$query}%")
+        $contracts = Contract::where('ascensor', 'LIKE', "%{$escapedQuery}%")
+            ->orWhere('fecha_de_propuesta', 'LIKE', "%{$escapedQuery}%")
+            ->orWhere('monto_de_propuesta', 'LIKE', "%{$escapedQuery}%")
+            ->orWhere('monto_de_contrato', 'LIKE', "%{$escapedQuery}%")
+            ->orWhere('fecha_de_inicio', 'LIKE', "%{$escapedQuery}%")
+            ->orWhere('fecha_de_fin', 'LIKE', "%{$escapedQuery}%")
+            ->orWhere('renovación', 'LIKE', "%{$escapedQuery}%")
+            ->orWhere('cada_cuantos_meses', 'LIKE', "%{$escapedQuery}%")
+            ->orWhere('observación', 'LIKE', "%{$escapedQuery}%")
+            ->orWhere('estado_cuenta_del_contrato', 'LIKE', "%{$escapedQuery}%")
+            ->orWhere('estado', 'LIKE', "%{$escapedQuery}%")
             ->get();
 
         // Search in Custimer Type table
-        $customerTypes = CustomerType::where('tipo_de_client', 'LIKE', "%{$query}%")->get();
+        $customerTypes = CustomerType::where('tipo_de_client', 'LIKE', "%{$escapedQuery}%")->get();
 
 
         // MaintinRevieew search table
-        $maininReview = MaintInReview::where('tipo_de_revisión', 'LIKE', "%{$query}%")
-        ->orWhere('ascensor', 'LIKE', "%{$query}%")
-        ->orWhere('dirección', 'LIKE', "%{$query}%")
-        ->orWhere('provincia', 'LIKE', "%{$query}%")
-        ->orWhere('supervisor', 'LIKE', "%{$query}%")
-        ->orWhere('técnico', 'LIKE', "%{$query}%")
-        ->orWhere('mes_programado', 'LIKE', "%{$query}%")
-        ->orWhere('fecha_de_mantenimiento', 'LIKE', "%{$query}%")
-        ->orWhere('hora_inicio', 'LIKE', "%{$query}%")
-        ->orWhere('hora_fin', 'LIKE', "%{$query}%")
-        ->orWhere('observaciónes', 'LIKE', "%{$query}%")
-        ->orWhere('observaciónes_internas', 'LIKE', "%{$query}%")
-        ->orWhere('solución', 'LIKE', "%{$query}%")
+        $maininReview = MaintInReview::where('tipo_de_revisión', 'LIKE', "%{$escapedQuery}%")
+        ->orWhere('ascensor', 'LIKE', "%{$escapedQuery}%")
+        ->orWhere('dirección', 'LIKE', "%{$escapedQuery}%")
+        ->orWhere('provincia', 'LIKE', "%{$escapedQuery}%")
+        ->orWhere('supervisor', 'LIKE', "%{$escapedQuery}%")
+        ->orWhere('técnico', 'LIKE', "%{$escapedQuery}%")
+        ->orWhere('mes_programado', 'LIKE', "%{$escapedQuery}%")
+        ->orWhere('fecha_de_mantenimiento', 'LIKE', "%{$escapedQuery}%")
+        ->orWhere('hora_inicio', 'LIKE', "%{$escapedQuery}%")
+        ->orWhere('hora_fin', 'LIKE', "%{$escapedQuery}%")
+        ->orWhere('observaciónes', 'LIKE', "%{$escapedQuery}%")
+        ->orWhere('observaciónes_internas', 'LIKE', "%{$escapedQuery}%")
+        ->orWhere('solución', 'LIKE', "%{$escapedQuery}%")
         ->get();
 
         //Position table search
-        $positions = Position::where('position', 'LIKE', "%{$query}%")->get();
+        $positions = Position::where('position', 'LIKE', "%{$escapedQuery}%")->get();
 
         //Province table search
-        $province = Province::where('provincia', 'LIKE', "%{$query}%")->get();
+        $province = Province::where('provincia', 'LIKE', "%{$escapedQuery}%")->get();
 
         // Review type search
-        $reviewType = ReviewType::whereRaw('LOWER(nombre) LIKE LOWER(?)', ["%{$query}%"])->get();
+        $reviewType = ReviewType::whereRaw('LOWER(nombre) LIKE LOWER(?)', ["%{$escapedQuery}%"])->get();
         // Staff Search table
-        $staff = Staff::where('personalfoto', 'LIKE', "%{$query}%")
-        ->orWhere('nombre', 'LIKE', "%{$query}%")
-        ->orWhere('posición', 'LIKE', "%{$query}%")
-        ->orWhere('correo', 'LIKE', "%{$query}%")
-        ->orWhere('teléfono', 'LIKE', "%{$query}%")
+        $staff = Staff::where('personalfoto', 'LIKE', "%{$escapedQuery}%")
+        ->orWhere('nombre', 'LIKE', "%{$escapedQuery}%")
+        ->orWhere('posición', 'LIKE', "%{$escapedQuery}%")
+        ->orWhere('correo', 'LIKE', "%{$escapedQuery}%")
+        ->orWhere('teléfono', 'LIKE', "%{$escapedQuery}%")
         ->get();
 
 
         // User search
-        $users = User::where('username', 'LIKE', "%{$query}%")
-        ->orWhere('name', 'LIKE', "%{$query}%")
-        ->orWhere('email', 'LIKE', "%{$query}%")
-        ->orWhere('phone', 'LIKE', "%{$query}%")
-        ->orWhere('employee', 'LIKE', "%{$query}%")
+        $users = User::where('username', 'LIKE', "%{$escapedQuery}%")
+        ->orWhere('name', 'LIKE', "%{$escapedQuery}%")
+        ->orWhere('email', 'LIKE', "%{$escapedQuery}%")
+        ->orWhere('phone', 'LIKE', "%{$escapedQuery}%")
+        ->orWhere('employee', 'LIKE', "%{$escapedQuery}%")
         ->get();
 
         // Search in Elevators table
-        $elevators = Elevators::where('imagen', 'LIKE', "%{$query}%")
-            ->orWhere('contrato', 'LIKE', "%{$query}%")
-            ->orWhere('nombre', 'LIKE', "%{$query}%")
-            ->orWhere('código', 'LIKE', "%{$query}%")
-            ->orWhere('marca', 'LIKE', "%{$query}%")
-            ->orWhere('client_id', 'LIKE', "%{$query}%")
-            ->orWhere('fecha', 'LIKE', "%{$query}%")
-            ->orWhere('garantizar', 'LIKE', "%{$query}%")
-            ->orWhere('dirección', 'LIKE', "%{$query}%")
-            ->orWhere('ubigeo', 'LIKE', "%{$query}%")
-            ->orWhere('provincia', 'LIKE', "%{$query}%")
-            ->orWhere('técnico_instalador', 'LIKE', "%{$query}%")
-            ->orWhere('técnico_ajustador', 'LIKE', "%{$query}%")
-            ->orWhere('tipo_de_ascensor', 'LIKE', "%{$query}%")
-            ->orWhere('cantidad', 'LIKE', "%{$query}%")
-            ->orWhere('quarters', 'LIKE', "%{$query}%")
-            ->orWhere('npisos', 'LIKE', "%{$query}%")
-            ->orWhere('ncontacto', 'LIKE', "%{$query}%")
-            ->orWhere('teléfono', 'LIKE', "%{$query}%")
-            ->orWhere('correo', 'LIKE', "%{$query}%")
-            ->orWhere('descripcion1', 'LIKE', "%{$query}%")
+        $elevators = Elevators::where('imagen', 'LIKE', "%{$escapedQuery}%")
+            ->orWhere('contrato', 'LIKE', "%{$escapedQuery}%")
+            ->orWhere('nombre', 'LIKE', "%{$escapedQuery}%")
+            ->orWhere('código', 'LIKE', "%{$escapedQuery}%")
+            ->orWhere('marca', 'LIKE', "%{$escapedQuery}%")
+            ->orWhere('client_id', 'LIKE', "%{$escapedQuery}%")
+            ->orWhere('fecha', 'LIKE', "%{$escapedQuery}%")
+            ->orWhere('garantizar', 'LIKE', "%{$escapedQuery}%")
+            ->orWhere('dirección', 'LIKE', "%{$escapedQuery}%")
+            ->orWhere('ubigeo', 'LIKE', "%{$escapedQuery}%")
+            ->orWhere('provincia', 'LIKE', "%{$escapedQuery}%")
+            ->orWhere('técnico_instalador', 'LIKE', "%{$escapedQuery}%")
+            ->orWhere('técnico_ajustador', 'LIKE', "%{$escapedQuery}%")
+            ->orWhere('tipo_de_ascensor', 'LIKE', "%{$escapedQuery}%")
+            ->orWhere('cantidad', 'LIKE', "%{$escapedQuery}%")
+            ->orWhere('quarters', 'LIKE', "%{$escapedQuery}%")
+            ->orWhere('npisos', 'LIKE', "%{$escapedQuery}%")
+            ->orWhere('ncontacto', 'LIKE', "%{$escapedQuery}%")
+            ->orWhere('teléfono', 'LIKE', "%{$escapedQuery}%")
+            ->orWhere('correo', 'LIKE', "%{$escapedQuery}%")
+            ->orWhere('descripcion1', 'LIKE', "%{$escapedQuery}%")
             ->get();
 
         // Elevator Type
         // $reviewType = ReviewType::whereRaw('LOWER(nombre) LIKE LOWER(?)', ["%{$query}%"])->get();
-        $elevatorsType = Elevatortypes::where('nombre_de_tipo_de_ascensor', 'LIKE', "%{$query}%")->get();
+        $elevatorsType = Elevatortypes::where('nombre_de_tipo_de_ascensor', 'LIKE', "%{$escapedQuery}%")->get();
 
 
 
 
         // Search in Marca table
-        $marcas = Marca::where('marca_nombre', 'LIKE', "%{$query}%")
+        $marcas = Marca::where('marca_nombre', 'LIKE', "%{$escapedQuery}%")
             ->get();
 
         // Search in SparePart table
-        $spareParts = SparePart::where('foto_de_repuesto', 'LIKE', "%{$query}%")
-            ->orWhere('nombre', 'LIKE', "%{$query}%")
-            ->orWhere('precio', 'LIKE', "%{$query}%")
+        $spareParts = SparePart::where('foto_de_repuesto', 'LIKE', "%{$escapedQuery}%")
+            ->orWhere('nombre', 'LIKE', "%{$escapedQuery}%")
+            ->orWhere('precio', 'LIKE', "%{$escapedQuery}%")
             ->orWhere('descripción', 'LIKE', "%{$query}%")
-            ->orWhere('frecuencia_de_limpieza', 'LIKE', "%{$query}%")
-            ->orWhere('frecuencia_de_lubricación', 'LIKE', "%{$query}%")
-            ->orWhere('frecuencia_de_ajuste', 'LIKE', "%{$query}%")
-            ->orWhere('frecuencia_de_revisión', 'LIKE', "%{$query}%")
-            ->orWhere('frecuencia_de_cambio', 'LIKE', "%{$query}%")
-            ->orWhere('frecuencia_de_solicitud', 'LIKE', "%{$query}%")
+            ->orWhere('frecuencia_de_limpieza', 'LIKE', "%{$escapedQuery}%")
+            ->orWhere('frecuencia_de_lubricación', 'LIKE', "%{$escapedQuery}%")
+            ->orWhere('frecuencia_de_ajuste', 'LIKE', "%{$escapedQuery}%")
+            ->orWhere('frecuencia_de_revisión', 'LIKE', "%{$escapedQuery}%")
+            ->orWhere('frecuencia_de_cambio', 'LIKE', "%{$escapedQuery}%")
+            ->orWhere('frecuencia_de_solicitud', 'LIKE', "%{$escapedQuery}%")
             ->get();
         return view('search.results', compact('assignSpares', 'clientes', 'contracts','customerTypes','maininReview','positions','province','reviewType','staff','users', 'elevators', 'elevatorsType', 'marcas', 'spareParts'));
     }

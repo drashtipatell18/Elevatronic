@@ -160,7 +160,7 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="nombre">Nombre de Tipo de Revisión</label>
-                                                <input type="text" placeholder="Nombre de Provincia" name="nombre"
+                                                <input type="text" placeholder="Nombre de Tipo de Revisión" name="nombre"
                                                     class="form-control @error('nombre') is-invalid @enderror"
                                                     id="nombre">
                                                 @error('nombre')
@@ -213,7 +213,7 @@
                                                                                 <label for="provincia">Nombre de Tipo de
                                                                                     Revisión</label>
                                                                                 <input type="text"
-                                                                                    placeholder="Nombre de Provincia"
+                                                                                    placeholder="Nombre de Tipo de Revisión"
                                                                                     name="nombre"
                                                                                     class="form-control @error('nombre') is-invalid @enderror"
                                                                                     id="edit-nombre"

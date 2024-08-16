@@ -139,11 +139,11 @@
                                                     </a>
                                                 </td>
                                                 <td>
-                                                    @if($elevator->client)
-                                                    <a href="{{ route('view.customer', $elevator->client_id) }}"
-                                                        class="text-blue">
-                                                        {{ $elevator->client->nombre ?? '-' }}
-                                                    </a>
+                                                    @if ($elevator->client)
+                                                        <a href="{{ route('view.customer', $elevator->client_id) }}"
+                                                            class="text-blue">
+                                                            {{ $elevator->client->nombre ?? '-' }}
+                                                        </a>
                                                     @else
                                                         {{ '-' }}
                                                     @endif
@@ -556,16 +556,16 @@
                                                                                 </div>
 
                                                                                 <div class="col-md-12 d-none position-relative"
-                                                                                    id="DAdicional">
+                                                                                    id="DAdicional1">
                                                                                     <div class="form-group">
                                                                                         <label for="Descripcion2">Descripción
                                                                                             2</label>
-                                                                                        <textarea name="descripcion2" id="descripcion2" placeholder="Descripción" cols="30" rows="5">{{ old('descripcion1', isset($elevator) ? $elevator->descripcion1 : '') }}</textarea>
+                                                                                        <textarea name="descripcion2" id="edit-descripcion2" placeholder="Descripción" cols="30" rows="5"></textarea>
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="col-md-12">
                                                                                     <button type="button" class="btn-gris"
-                                                                                        id="AgregarDescripcion">+ Agregar
+                                                                                        id="AgregarDescripcion1">+ Agregar
                                                                                         Descripción</button>
                                                                                 </div>
                                                                             </div>
@@ -908,7 +908,7 @@
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-12 d-none position-relative"
-                                                                id="DAdicional">
+                                                                id="DAdicional2">
                                                                 <div class="form-group">
                                                                     <label for="Descripcion2">Descripción 2</label>
                                                                     <textarea name="descripcion2" id="descripcion2" placeholder="Descripción" cols="30" rows="5"></textarea>
@@ -916,7 +916,7 @@
                                                             </div>
                                                             <div class="col-md-12">
                                                                 <button type="button" class="btn-gris"
-                                                                    id="AgregarDescripcion">+ Agregar
+                                                                    id="AgregarDescripcion2">+ Agregar
                                                                     Descripción</button>
                                                             </div>
                                                         </div>
@@ -984,6 +984,12 @@
     <script>
         $(document).ready(function() {
 
+            $('#AgregarDescripcion1').click(function() {
+                $('#DAdicional1').removeClass('d-none');
+            });
+            $('#AgregarDescripcion2').click(function() {
+                $('#DAdicional2').removeClass('d-none');
+            });
             $('#brandForm').on('keypress', function(e) {
                 if (e.which === 13) { // 13 is the Enter key code
                     e.preventDefault();
@@ -1117,15 +1123,15 @@
                             var columnCount = doc.content[1].table.body[0].length;
                             doc.content[1].table.body.forEach(function(row) {
                                 row[0].alignment =
-                                'center'; // Center align the first column
+                                    'center'; // Center align the first column
                                 row[columnCount - 1].alignment =
-                                'center'; // Center align the last column
+                                    'center'; // Center align the last column
                                 row[2].alignment =
-                                'center'; // Center align the third column
+                                    'center'; // Center align the third column
                                 row[3].alignment =
-                                'center'; // Center align the fourth column
+                                    'center'; // Center align the fourth column
                                 row[4].alignment =
-                                'center'; // Center align the fifth column
+                                    'center'; // Center align the fifth column
                             });
                         }
                     },
@@ -1318,7 +1324,8 @@
                 $('#edit-contrato').val(elevator.contrato);
                 $('#edit-nombre').val(elevator.nombre);
                 $('#edit-código').val(elevator.código);
-                $('#marca_id1').val(elevator.marca_id).trigger('change'); // Ensure the value is set and trigger change
+                $('#marca_id1').val(elevator.marca_id).trigger(
+                'change'); // Ensure the value is set and trigger change
                 $('#edit-cliente').val(elevator.client_id);
                 $('#edit-fecha').val(elevator.fecha);
                 $('#edit-garantizar').val(elevator.garantizar);
@@ -1345,6 +1352,11 @@
                 $('#edit-correo').val(elevator.correo);
                 $('#edit-descripcion1').val(elevator.descripcion1);
                 $('#edit-descripcion2').val(elevator.descripcion2);
+                if (elevator.descripcion2 !== null) {
+                    $('#DAdicional1').removeClass('d-none'); // Show Descripción 2 section
+                }else{
+                    $('#DAdicional1').addClass('d-none'); // Show Descripción 2 section
+                }
                 getBrand(elevator.marca_id);
                 var imageUrl = elevator.imagen ?
                     "{{ asset('images/') }}/" + elevator.imagen :

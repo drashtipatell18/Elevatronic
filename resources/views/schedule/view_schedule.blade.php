@@ -3,6 +3,7 @@
     .error {
         color: red;
     }
+
     /* .fc-time{
         display: none !important;
     } */
@@ -103,9 +104,9 @@
                                             <select class="custom-select" name="técnico" id="técnico">
                                                 <option value="">Seleccione Técnico</option>
                                                 @foreach ($staffs as $staff)
-                                                <option value="{{ $staff }}">
-                                                    {{ $staff }}</option>
-                                            @endforeach
+                                                    <option value="{{ $staff }}">
+                                                        {{ $staff }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -156,10 +157,12 @@
             </div>
         </div>
     </div>
+
+
     @foreach ($schedules as $schedule)
         <!-- Modal Agregar Cromograma-->
-        <div class="modal left fade" id="editCronograma{{ $schedule->id }}" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
-            aria-hidden="true" data-event-id="">
+        <div class="modal left fade" id="editCronograma{{ $schedule->id }}" tabindex="-1" role="dialog"
+            aria-labelledby="modelTitleId" aria-hidden="true" data-event-id="">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -267,11 +270,48 @@
                             <div class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
                                 <button type="submit" class="btn-gris btn-red mr-2"
                                     id="submitFormButton">Actualizar</button>
-                                <button type="button" class="btn-gris btn-border" data-dismiss="modal">Cancelar</button>
+                                <button type="button" class="btn-gris btn-red mr-2" data-dismiss="modal">Cancelar</button>
+                                <button type="button" class="btn-gris btn-red mr-2" data-toggle="modal"
+                                    data-target="#modalEliminar{{ $schedule->id }}">
+                                    Eliminar
+                                </button>
                             </div>
                         </form>
                     @endisset
 
+                </div>
+            </div>
+        </div>
+        <!-- Modal Eliminar-->
+        <div class="modal fade" id="modalEliminar{{ $schedule->id }}" tabindex="-1" role="dialog"
+            aria-labelledby="modelTitleId" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content border-radius-12">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                                <div class="box1">
+                                    <img src="{{ asset('img/iconos/trash.svg') }}" alt="trash" width="76">
+                                    <p class="mt-3 mb-0">
+                                        ¿Seguro que quieres eliminar <span id="item-name"></span>?
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer align-items-center justify-content-center">
+                        @isset($schedule)
+                            <form id="delete-form" action="{{ route('delete.schedule', $schedule->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn-gris btn-red">Sí</button>
+                            </form>
+                        @endisset
+                        <button type="button" class="btn-gris btn-border" data-dismiss="modal">No</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -371,22 +411,25 @@
                         },
                         dataType: 'json',
                         success: function(response) {
-                        var formattedEvents = response.map(function(event) {
-                            // Safely ensure 'event.ascensor' is a string before using it
-                            var ascensorName = event.ascensor ? event.ascensor.toString().toUpperCase() : '';
+                            var formattedEvents = response.map(function(event) {
+                                // Safely ensure 'event.ascensor' is a string before using it
+                                var ascensorName = event.ascensor ? event.ascensor
+                                    .toString().toUpperCase() : '';
 
-                            return {
-                                id: event.id,
-                                title: ascensorName,
-                                tipoRevision: event.revisar,
-                                técnico: event.técnico,
-                                start: moment(event.mantenimiento + ' ' + event.hora_de_inicio).format(),
-                                end: moment(event.mantenimiento + ' ' + event.hora_de_finalización).format(),
-                                estado: event.estado
-                            };
-                        });
-                        callback(formattedEvents);
-                    },
+                                return {
+                                    id: event.id,
+                                    title: ascensorName,
+                                    tipoRevision: event.revisar,
+                                    técnico: event.técnico,
+                                    start: moment(event.mantenimiento + ' ' + event
+                                        .hora_de_inicio).format(),
+                                    end: moment(event.mantenimiento + ' ' + event
+                                        .hora_de_finalización).format(),
+                                    estado: event.estado
+                                };
+                            });
+                            callback(formattedEvents);
+                        },
                         error: function(xhr, status, error) {
                             console.error('Error fetching events:', error);
                         }
@@ -405,7 +448,8 @@
                     var eventId = calEvent.id;
                     console.log(calEvent);
 
-                    $('#editCronograma' + eventId).attr('data-event-id', eventId); // Update to use the correct modal ID
+                    $('#editCronograma' + eventId).attr('data-event-id',
+                        eventId); // Update to use the correct modal ID
                     $('#ascensor').val(calEvent.title);
                     $('#revisar').val(calEvent.tipoRevision);
                     $('#edit-técnico').val(calEvent.técnico);

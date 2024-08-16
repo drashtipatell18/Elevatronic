@@ -236,7 +236,7 @@
                                                         <td class="text-gris">Marca</td>
                                                         <td>
                                                             @isset($elevators->marca)
-                                                                {{ $elevators->marca->marca_nombre  }}
+                                                                {{ $elevators->marca->marca_nombre }}
                                                             @else
                                                                 No marca disponible
                                                             @endisset
@@ -1296,7 +1296,8 @@
                                                                     <label for="núm_certificado">Núm Certificado</label>
                                                                     <input type="text" placeholder="Núm Certificado"
                                                                         name="núm_certificado" id="edit-NCertificado"
-                                                                        class="form-control">
+                                                                        class="form-control"
+                                                                        value="{{ old('núm_certificado', $maint_in_rev->núm_certificado ?? '') }}">
                                                                 </div>
                                                                 {{-- </div> --}}
                                                                 {{-- <div class="col-md-6">
@@ -1480,7 +1481,7 @@
                                             <div class="buscador">
                                                 <div class="form-group position-relative">
                                                     <label for="customSearchBox2"><i class="fal fa-search"></i></label>
-                                                    <input type="text" id="customSearchBox2" placeholder="Buscar"
+                                                    <input type="text" id="customSearchBox1" placeholder="Buscar"
                                                         class="w-auto customSearchBox">
                                                 </div>
                                             </div>
@@ -1948,7 +1949,7 @@
                                                             </div>
                                                         </div>
 
-                                                        <div class="col-md-12 d-none position-relative" id="DAdicional">
+                                                        <div class="col-md-12 d-none position-relative" id="DAdicional1">
                                                             <div class="form-group">
                                                                 <label for="Descripcion2">Descripción 2</label>
                                                                 <textarea name="descripcion2" id="descripcion2" placeholder="Descripción" cols="30" rows="5">{{ old('descripcion1', isset($elevators) ? $elevators->descripcion1 : '') }}</textarea>
@@ -1956,7 +1957,7 @@
                                                         </div>
                                                         <div class="col-md-12">
                                                             <button type="button" class="btn-gris"
-                                                                id="AgregarDescripcion">+
+                                                                id="AgregarDescripcion1">+
                                                                 Agregar
                                                                 Descripción</button>
                                                         </div>
@@ -2309,6 +2310,9 @@
 
         <script>
             $(document).ready(function() {
+                $('#AgregarDescripcion1').click(function() {
+                    $('#DAdicional1').removeClass('d-none');
+                });
                 $('#brandForm').on('keypress', function(e) {
                     if (e.which === 13) { // 13 is the Enter key code
                         e.preventDefault();
@@ -2589,7 +2593,9 @@
                 $('#customSearchBox2').keyup(function() {
                     table2.search($(this).val()).draw();
                 });
-
+                $('#customSearchBox1').keyup(function() {
+                    table.search($(this).val()).draw();
+                });
 
                 var table2 = $('#mantenimientosTable').DataTable({
                     responsive: true,
@@ -2833,12 +2839,16 @@
                     },
                     errorElement: "span",
                     errorPlacement: function(error, element) {
-                        error.addClass("error");
+                        // Add the `invalid-feedback` class to the error element
+                        error.addClass("invalid-feedback");
+                        // Add error message after the invalid element
                         error.insertAfter(element);
                     },
+                    // Highlight the invalid fields
                     highlight: function(element, errorClass, validClass) {
                         $(element).addClass("is-invalid").removeClass("is-valid");
                     },
+                    // Remove the error message and green border when the field is valid
                     unhighlight: function(element, errorClass, validClass) {
                         $(element).removeClass("is-invalid").addClass("is-valid");
                     }
@@ -3043,7 +3053,8 @@
                     $('#edit-contrato').val(elevator.contrato);
                     $('#edit-nombre').val(elevator.nombre);
                     $('#edit-código').val(elevator.código);
-                    $('#marca_id').val(elevator.marca_id).trigger('change'); // Ensure the value is set and trigger change
+                    $('#marca_id').val(elevator.marca_id).trigger(
+                        'change'); // Ensure the value is set and trigger change
                     $('#client_id').val(elevator.client_id);
                     $('#edit-fecha').val(elevator.fecha);
                     $('#edit-garantizar').val(elevator.garantizar);
@@ -3061,7 +3072,12 @@
                     $('#edit-teléfono').val(elevator.teléfono);
                     $('#edit-correo').val(elevator.correo);
                     $('#edit-descripcion1').val(elevator.descripcion1);
-
+                    $('#edit-descripcion2').val(elevator.descripcion2);
+                    if (elevator.descripcion2 !== null) {
+                        $('#DAdicional1').removeClass('d-none'); // Show Descripción 2 section
+                    } else {
+                        $('#DAdicional1').addClass('d-none'); // Show Descripción 2 section
+                    }
                     getBrand(elevator.marca_id);
 
                 });

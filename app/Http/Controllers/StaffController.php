@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Staff;
 use App\Models\Position;
+use App\Models\MaintInReview;
 
 class StaffController extends Controller
 {
@@ -63,6 +64,7 @@ class StaffController extends Controller
         ]);
 
         $staff = Staff::findOrFail($id);
+        $oldStaffName = $staff->nombre;
 
         if ($request->hasFile('personalfoto')){
             $image = $request->file('personalfoto');
@@ -72,7 +74,6 @@ class StaffController extends Controller
             // Update the imagen attribute with the new filename
             $staff->personalfoto = $filename;
         }
-
         //  update Elevators instance
         $staff->update([
             'nombre'              => $request->input('nombre'),
@@ -80,7 +81,8 @@ class StaffController extends Controller
             'correo'              => $request->input('correo'),
             'teléfono'            => $request->input('teléfono'),
         ]);
-
+        MaintInReview::where('técnico', $oldStaffName)
+        ->update(['técnico' => $request->input('nombre')]);
         // Redirect back with success message
         session()->flash('success', 'Personal actualizado exitosamente!');
         return redirect()->route('staff');

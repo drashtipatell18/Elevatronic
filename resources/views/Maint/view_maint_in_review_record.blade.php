@@ -42,6 +42,7 @@
         .select2-container--default .select2-selection--single .select2-selection__clear {
             display: none;
         }
+
     </style>
     @csrf
     <div class="w-100 contenido">
@@ -90,15 +91,19 @@
                                             <h4>{{ $maint_in_review->núm_certificado }}</h4>
                                             <p class="mb-0"># de certificado</p>
                                         </div>
+
                                         <div class="option">
-                                            <h4>@php
-                                                $images = ImagePdfs::whereNotNull('image')
-                                                    ->where('mant_en_revisións_id', $maint_in_review->id)
-                                                    ->get();
-                                                echo count($images);
-                                            @endphp</h4>
-                                            <p class="mb-0">Imágenes</p>
+                                            <h4>
+                                                @php
+                                                    $images = ImagePdfs::whereNotNull('image')
+                                                        ->where('mant_en_revisións_id', $maint_in_review->id)
+                                                        ->get();
+                                                        // echo count($images);
+                                                        @endphp
+                                                    <p class="imageCount">Imágenes</p>
+                                            </h4>
                                         </div>
+
                                         <div class="option">
                                             <h4>@php
                                                 $images = ImagePdfs::whereNotNull('document')
@@ -331,33 +336,33 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-6 mb-4">
-                                    <div class="box-contenido contenido-elevatronic">
-                                        <h3 id="imageCount" class="mb-3">Imágenes</h3>
-                                        <div class="gallery">
-                                            <div class="row">
-                                                @isset($main_image)
-                                                    @foreach ($main_image as $image)
-                                                        <div class="col-md-6 mb-4" data-image-id="{{ $image->id }}">
-                                                            <div class="img-container">
-                                                                <img src="{{ url('/images/' . $image->image) }}"
-                                                                    alt="galeria">
-                                                                <button class="btn-delete-image btn btn-light mt-2"
-                                                                    data-image-id="{{ $image->id }}"><i
-                                                                        class="fal fa-trash-alt"></i></button>
+                                <div class="row">
+                                    <div class="col-md-6 mb-4">
+                                        <div class="box-contenido contenido-elevatronic">
+                                            <h3 class="mb-3 imageCount">Imágenes</h3>
+                                            <div class="gallery">
+                                                <div class="row">
+                                                    @isset($main_image)
+                                                        @foreach ($main_image as $image)
+                                                            <div class="col-md-6 mb-4" data-image-id="{{ $image->id }}">
+                                                                <div class="img-container">
+                                                                    <img src="{{ url('/images/' . $image->image) }}"
+                                                                        alt="galeria">
+                                                                    <button class="btn-delete-image btn btn-light mt-2"
+                                                                        data-image-id="{{ $image->id }}"><i
+                                                                            class="fal fa-trash-alt"></i></button>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                    @endforeach
-                                                @endisset
+                                                        @endforeach
+                                                    @endisset
+                                                </div>
                                             </div>
+                                            <input type="file" id="imageUpload" accept="image/*" multiple class="d-none">
+                                            <button data-id="{{ $id ?? '' }}" id="uploadButton10" class="btn-gris">
+                                                <i class="fas fa-arrow-to-top mr-2"></i> Subir Imagen
+                                            </button>
                                         </div>
-                                        <input type="file" id="imageUpload" accept="image/*" multiple class="d-none">
-                                        <button data-id="{{ $id ?? '' }}" id="uploadButton10" class="btn-gris">
-                                            <i class="fas fa-arrow-to-top mr-2"></i> Subir Imagen
-                                        </button>
                                     </div>
-                                </div>
 
 
                                 <div class="col-md-6 mb-4">
@@ -964,32 +969,7 @@
                 $("#crearSupervisor").modal('hide');
             });
 
-            $('.gallery').on('click', '.btn-delete-image', function(e) {
-                e.preventDefault();
-                var imageId = $(this).data('image-id');
-                var parentDiv = $(this).closest('.col-md-6');
-
-                if (confirm('¿Estás seguro de que deseas eliminar esta imagen?')) {
-                    $.ajax({
-                        type: "DELETE",
-                        url: `/document/${imageId}/delete`,
-                        data: {
-                            _token: $('meta[name="csrf-token"]').attr('content')
-                        },
-                        success: function(response) {
-                            if (response.success) {
-                                parentDiv.remove();
-                                $('#imageCount').text('Imágenes (' + $('.gallery .img-container').length + ')');
-                            } else {
-                                console.error('Error deleting image.');
-                            }
-                        },
-                        error: function(xhr) {
-                            console.error('Request failed: ' + xhr.status + ' ' + xhr.statusText);
-                        }
-                    });
-                }
-            });
+            updateImageCount();
             $('#uploadButton10').click(function() {
                 $('#imageUpload').click();
             });
@@ -1025,10 +1005,10 @@
                                 );
 
                                 $('.gallery .row').append(imgHtml);
-                                $('#imageUpload').val('');
-                            });
-                            $('#imageCount').text('Imágenes (' + ($('.gallery .img-container').length + this.files.length) + ')');
 
+                            });
+                            updateImageCount();
+                                $('#imageUpload').val('');
 
                         },
                         error: function(xhr) {
@@ -1038,23 +1018,24 @@
                 }
             });
 
-            $('#fileList').on('click', '.remove-file', function(event) {
-                event.preventDefault();
-                let button = $(this);
-                let id = button.data('id');
-                if (confirm('¿Estás seguro de que deseas eliminar esta archivos?')) {
+            $('.gallery').on('click', '.btn-delete-image', function(e) {
+                e.preventDefault();
+                var imageId = $(this).data('image-id');
+                var parentDiv = $(this).closest('.col-md-6');
+
+                if (confirm('¿Estás seguro de que deseas eliminar esta imagen?')) {
                     $.ajax({
                         type: "DELETE",
-                        url: `/document/${id}/delete`,
+                        url: `/document/${imageId}/delete`,
                         data: {
                             _token: $('meta[name="csrf-token"]').attr('content')
                         },
                         success: function(response) {
                             if (response.success) {
-                                button.closest('.file-entry').remove();
-                                $('#fileCount').text('Archivos (' + $('#fileList').children().length + ')');
+                                parentDiv.remove();
+                                updateImageCount();
                             } else {
-                                console.error('Failed to delete file.');
+                                console.error('Error deleting image.');
                             }
                         },
                         error: function(xhr) {
@@ -1064,7 +1045,14 @@
                 }
             });
 
+            function updateImageCount() {
+                var count = $('.gallery .row .col-md-6').length;
+                $('.imageCount').text('Imágenes (' + count + ')');
+            }
 
+
+
+            updateFileCount();
             $('#uploadButton11').click(function() {
                 $('#fileUpload').click();
             });
@@ -1097,7 +1085,7 @@
                                     $('#fileList').append(createFileEntry(document));
                                 }
                             });
-                            $('#fileCount').text('Archivos (' + $('#fileList').children().length + ')');
+                            updateFileCount();
                               $('#fileUpload').val('');
                         } else {
                             console.error('Upload failed:', response.message);
@@ -1108,6 +1096,38 @@
                     }
                 });
             });
+
+            $('#fileList').on('click', '.remove-file', function(event) {
+                    event.preventDefault();
+                    let button = $(this);
+                    let id = button.data('id');
+                    if (confirm('¿Estás seguro de que deseas eliminar este archivo?')) {
+                        $.ajax({
+                            type: "DELETE",
+                            url: `/document/${id}/delete`,
+                            data: {
+                                _token: $('meta[name="csrf-token"]').attr('content')
+                            },
+                            success: function(response) {
+                                if (response.success) {
+                                    button.closest('.file-entry').remove();
+                                    // Update file count
+                                    updateFileCount();
+                                } else {
+                                    console.error('Failed to delete file.');
+                                }
+                            },
+                            error: function(xhr) {
+                                console.error('Request failed: ' + xhr.status + ' ' + xhr.statusText);
+                            }
+                        });
+                    }
+            });
+
+            function updateFileCount() {
+        $('#fileCount').text('Archivos (' + $('#fileList').children().length + ')');
+    }
+
 
             function createFileEntry(document) {
                 var fileSize = '0.2 MB'; // Adjust file size calculation if needed

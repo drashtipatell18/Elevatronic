@@ -313,10 +313,10 @@
                                                         <td class="text-gris">Ubigeo</td>
                                                         <td>
                                                             @isset($elevators->ubigeo)
-                                                            {{ $elevators->ubigeo }}
-                                                        @else
-                                                            No Ubigeo disponible
-                                                        @endisset
+                                                                {{ $elevators->ubigeo }}
+                                                            @else
+                                                                No Ubigeo disponible
+                                                            @endisset
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -346,10 +346,10 @@
                                                         <td class="text-gris">Técnico ajustador</td>
                                                         <td>
                                                             @isset($elevators->técnico_ajustador)
-                                                            {{ $elevators->técnico_ajustador }}
-                                                        @else
-                                                            No técnico ajustador disponible
-                                                        @endisset
+                                                                {{ $elevators->técnico_ajustador }}
+                                                            @else
+                                                                No técnico ajustador disponible
+                                                            @endisset
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -1833,7 +1833,7 @@
 
                                                                 <input type="number" placeholder="Cantidad"
                                                                     class="form-control" name="cantidad" id="cantidad"
-                                                                    value="">
+                                                                    value="{{ old('cantidad', $elevators->cantidad ?? '') }}">
                                                                 @error('cantidad')
                                                                     <span class="invalid-feedback" style="color: red">
                                                                         <strong>{{ $message }}</strong>

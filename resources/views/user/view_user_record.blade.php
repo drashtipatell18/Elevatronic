@@ -39,7 +39,14 @@
                 object-fit: cover;
                 width: 100%;
                 height: 400px;
-            }
+        }
+        .object{
+            object-fit: cover;
+            width: 100%;
+        }
+        #edit-users {
+            background-color: white !important;
+        }
     </style>
     <div class="w-100 contenido">
         <div class="container-fluid container-mod">
@@ -117,9 +124,9 @@
                                         <h3>Foto de usuario</h3>
                                         @if ($users->image)
                                             <img src="{{ asset('images/' . $users->image) }}" alt="personal"
-                                                class="imageCrops">
+                                                class="imageCrops" id="edit-users">
                                         @else
-                                            <img src="{{ asset('img/fondo.png') }}" alt="personal" class="w-100">
+                                            <img src="{{ asset('img/fondo.png') }}" alt="personal" class="imageCrops"  id="edit-users">
                                         @endif
                                     </div>
                                 </div>
@@ -185,11 +192,9 @@
                                             <label>Foto de usuario</label>
                                             <div id="editimagenPrevioUsuario">
                                                 @if ($users->image)
-                                                    <img src="{{ asset('images/' . $users->image) }}" width="200"
-                                                        height="200" alt="Existing Image">
+                                                    <img src="{{ asset('images/' . $users->image) }}"  alt="Existing Image" class="object" id="edit-users">
                                                 @else
-                                                    <img src="{{ asset('images/fondo.png') }}" width="200"
-                                                        height="200" alt="Default Image">
+                                                    <img src="{{ asset('images/fondo.png') }}" alt="Default Image" class="object" id="edit-users">
                                                 @endif
                                             </div>
                                         </div>
@@ -562,9 +567,10 @@
                 // $('#edit-employee').val(user.employee);
                 $('#employee_id').val(user.employee_id).trigger('change');
 
-                $('#edituserform').attr('action', '/usuarios/actualizar/' + user.id);
-                var imageUrl = "{{ asset('images/') }}" + "/" + user.image;
-                $('#edit-sparepart').attr('src', imageUrl);
+                var imageUrl = user.image ?
+                    "{{ asset('images/') }}/" + user.image :
+                    "{{ asset('img/fondo.png') }}";
+                $('#edit-users').attr('src', imageUrl);
                 // Set the form action to the correct route
                 $('#edituserform').attr('action', '/usuarios/actualizar/' + user.id);
             });

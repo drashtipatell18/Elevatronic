@@ -139,10 +139,14 @@
                                                     </a>
                                                 </td>
                                                 <td>
+                                                    @if($elevator->client)
                                                     <a href="{{ route('view.customer', $elevator->client_id) }}"
                                                         class="text-blue">
                                                         {{ $elevator->client->nombre ?? '-' }}
                                                     </a>
+                                                    @else
+                                                        {{ '-' }}
+                                                    @endif
                                                 </td>
 
 

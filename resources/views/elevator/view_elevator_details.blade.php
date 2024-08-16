@@ -1481,7 +1481,7 @@
                                             <div class="buscador">
                                                 <div class="form-group position-relative">
                                                     <label for="customSearchBox2"><i class="fal fa-search"></i></label>
-                                                    <input type="text" id="customSearchBox2" placeholder="Buscar"
+                                                    <input type="text" id="customSearchBox1" placeholder="Buscar"
                                                         class="w-auto customSearchBox">
                                                 </div>
                                             </div>
@@ -2593,7 +2593,9 @@
                 $('#customSearchBox2').keyup(function() {
                     table2.search($(this).val()).draw();
                 });
-
+                $('#customSearchBox1').keyup(function() {
+                    table.search($(this).val()).draw();
+                });
 
                 var table2 = $('#mantenimientosTable').DataTable({
                     responsive: true,

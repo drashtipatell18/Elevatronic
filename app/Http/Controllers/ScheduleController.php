@@ -115,4 +115,14 @@ class ScheduleController extends Controller
 
         return response()->json($formattedEvents);
     }
+
+    public function scheduleDelete($id)
+    {
+        $schedule = Schedule::findOrFail($id);
+        $schedule->delete();
+
+        // Redirect back with success message
+        session()->flash('success', 'Cronograma eliminado exitosamente!');
+        return redirect()->route('schedule');
+    }
 }

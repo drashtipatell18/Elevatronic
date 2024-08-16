@@ -160,7 +160,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/cronograma', [ScheduleController::class, 'schedule'])->name('schedule');
     Route::post('/cronograma/insertar',[ScheduleController::class,'scheduleInsert'])->name('insert.schedule');
     Route::post('/cronograma/editar/{id}',[ScheduleController::class,'scheduleEdit'])->name('edit.schedule');
-    Route::post('/usuarios/actualizar/{id}', [ScheduleController::class, 'scheduleUpdate'])->name('update.schedule');
+    Route::post('/cronograma/actualizar/{id}', [ScheduleController::class, 'scheduleUpdate'])->name('update.schedule');
+    Route::delete('/cronograma/destruir/{id}', [ScheduleController::class, 'scheduleDelete'])->name('delete.schedule');
     Route::get('/get-events', [ScheduleController::class, 'getEvents'])->name('getevents');
 
     // cargaarchivos

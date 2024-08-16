@@ -497,11 +497,6 @@
             }
         });
 
-
-        $('#AgregarDescripcion').click(function() {
-            $('#DAdicional').removeClass('d-none');
-        });
-
         //js alerta carga archivos
         $('#carga').click(function() {
             $('#alertaCarga').show();

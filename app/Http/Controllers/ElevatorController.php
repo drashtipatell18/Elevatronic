@@ -61,7 +61,7 @@ class ElevatorController extends Controller
             'contrato'            => $request->input('contrato'),
             'nombre'              => $request->input('nombre'),
             'código'              => $request->input('código'),
-            'marca_id'               => $request->input('marca_id'),
+            'marca_id'            => $request->input('marca_id'),
             'client_id'           => $request->input('client_id'),
             'fecha'               => $request->input('fecha'),
             'garantizar'          => $request->input('garantizar'),
@@ -79,7 +79,6 @@ class ElevatorController extends Controller
             'correo'              => $request->input('correo'),
             'descripcion1'        => $request->input('descripcion1'),
             'descripcion2'        => $request->input('descripcion2'),
-
         ]);
 
 

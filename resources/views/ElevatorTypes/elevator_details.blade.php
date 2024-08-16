@@ -130,13 +130,13 @@
                                                         <td>{{ $index + 1 }}</td>
                                                         <td class="text-center">
                                                             {{ $assginspare->nombre_del_tipo_de_ascensor }}</td>
-                                                            <td>
-                                                                @if ($assginspare->sparePart && !empty($assginspare->sparePart->nombre))
-                                                                    {{ $assginspare->sparePart->nombre }}
-                                                                @else
-                                                                    No spare part assigned
-                                                                @endif
-                                                            </td>
+                                                        <td>
+                                                            @if ($assginspare->sparePart && !empty($assginspare->sparePart->nombre))
+                                                                {{ $assginspare->sparePart->nombre }}
+                                                            @else
+                                                                No spare part assigned
+                                                            @endif
+                                                        </td>
                                                     </tr>
                                                 @endforeach
 
@@ -204,7 +204,12 @@
                                                                 {{ $elevator->nombre }}
                                                             </a>
                                                         </td>
-                                                        <td>{{ $elevator->cliente }}</td>
+                                                        <td>
+                                                            <a href="{{ route('view.customer', $elevator->client_id) }}"
+                                                                class="text-blue">
+                                                                {{ $elevator->client->nombre ?? '-' }}
+                                                            </a>
+                                                        </td>
                                                     </tr>
                                                 @endforeach
                                             </tbody>

@@ -139,14 +139,10 @@
                                                     </a>
                                                 </td>
                                                 <td>
-                                                    @if ($elevator->client)
-                                                        <a href="{{ route('view.customer', $elevator->client_id) }}"
-                                                            class="text-blue">
-                                                            {{ $elevator->client->nombre }}
-                                                        </a>
-                                                    @else
-                                                        N/A
-                                                    @endif
+                                                    <a href="{{ route('view.customer', $elevator->client_id) }}"
+                                                        class="text-blue">
+                                                        {{ $elevator->client->nombre ?? '-' }}
+                                                    </a>
                                                 </td>
 
 
@@ -205,7 +201,8 @@
                                                                                                 id="edit-elevators">
                                                                                         @else
                                                                                             <img src="{{ asset('img/fondo.png') }}"
-                                                                                                alt="Image" width="200px" id="edit-elevators"
+                                                                                                alt="Image" width="200px"
+                                                                                                id="edit-elevators"
                                                                                                 height="200px">
                                                                                         @endif
                                                                                     </div>
@@ -1115,11 +1112,16 @@
                                 .length + 1).join('*').split('');
                             var columnCount = doc.content[1].table.body[0].length;
                             doc.content[1].table.body.forEach(function(row) {
-                                row[0].alignment = 'center'; // Center align the first column
-                                row[columnCount - 1].alignment = 'center'; // Center align the last column
-                                row[2].alignment = 'center'; // Center align the third column
-                                row[3].alignment = 'center'; // Center align the fourth column
-                                row[4].alignment = 'center'; // Center align the fifth column
+                                row[0].alignment =
+                                'center'; // Center align the first column
+                                row[columnCount - 1].alignment =
+                                'center'; // Center align the last column
+                                row[2].alignment =
+                                'center'; // Center align the third column
+                                row[3].alignment =
+                                'center'; // Center align the fourth column
+                                row[4].alignment =
+                                'center'; // Center align the fifth column
                             });
                         }
                     },

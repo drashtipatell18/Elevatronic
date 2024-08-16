@@ -2,9 +2,10 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 @section('content')
     <style>
-         #edit-sparepart{
+        #edit-sparepart {
             background-color: white !important;
         }
+
         .dt-head-center {
             text-align: center;
         }
@@ -58,10 +59,14 @@
 
             /* Ensures that the image covers the container without distortion */
         }
-        .setimage{
+
+        .setimage {
             object-fit: cover;
         }
 
+        #edit-sparepart {
+            background-color: white !important;
+        }
     </style>
     <div class="w-100 contenido">
         <div class="container-fluid container-mod">
@@ -135,7 +140,8 @@
                                                 <td>
                                                     @if ($staff->personalfoto)
                                                         <img src="{{ asset('images/' . $staff->personalfoto) }}"
-                                                            alt="personal" width="52" height="52" class="img-table setimage">
+                                                            alt="personal" width="52" height="52"
+                                                            class="img-table setimage">
                                                     @else
                                                         <img src="{{ asset('img/fondo.png') }}" width="52"
                                                             height="52" class="img-table setimage" alt="user">
@@ -363,10 +369,9 @@
                                             <div id="editimagenPrevioPersonal">
                                                 @if ($staff->personalfoto)
                                                     <img src="{{ asset('images/' . $staff->personalfoto) }}"
-                                                         alt="Staff Image" id="edit-sparepart">
+                                                        alt="Staff Image" id="edit-sparepart">
                                                 @else
-                                                    <img src="{{ asset('img/fondo.png') }}"
-                                                        alt="Staff Image">
+                                                    <img src="{{ asset('img/fondo.png') }}" alt="Staff Image">
                                                 @endif
                                             </div>
 
@@ -707,7 +712,8 @@
             $('#editimageUpload10').change(function() {
                 var reader = new FileReader();
                 reader.onload = function(e) {
-                    $('#editimagenPrevioPersonal').css('background-image', 'url(' + e.target.result + ')');
+                    $('#editimagenPrevioPersonal').css('background-image', 'url(' + e.target.result +
+                        ')');
                     $('#editimagenPrevioPersonal').show();
                 }
                 reader.readAsDataURL(this.files[0]);

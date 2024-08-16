@@ -78,7 +78,7 @@
                             <div class="col-md-12 d-flex align-items-start justify-content-start gap-20 mb-6 box-detalle">
                                 <div class="">
                                     @if ($users->image)
-                                        <img src="{{ asset('images/' . $users->image) }}" alt="User Image">
+                                        <img src="{{ asset('images/' . $users->image) }}" alt="User Image" class="imageCrops">
                                     @else
                                         <img src="{{ asset('img/fondo.png') }}" alt="User Image">
                                     @endif
@@ -190,7 +190,7 @@
                                     <div class="row">
                                         <div class="col-md-6 mb-3">
                                             <label>Foto de usuario</label>
-                                            <div id="editimagenPrevioUsuario">
+                                            <div id="editimagenPrevioUsuario" style="overflow: hidden">
                                                 @if ($users->image)
                                                     <img src="{{ asset('images/' . $users->image) }}"  alt="Existing Image" class="object" id="edit-users">
                                                 @else
@@ -595,7 +595,7 @@
                 reader.onload = function(e) {
                     // Update the background image of the preview div
                     $('#editimagenPrevioUsuario').css('background-image', 'url(' + e.target.result +
-                        ')');
+                        ')' );
 
                     // Hide any existing image tags inside the preview div
                     $('#editimagenPrevioUsuario').find('img').remove();
@@ -605,7 +605,7 @@
 
                     // Optionally, add a new img element if needed
                     $('#editimagenPrevioUsuario').append('<img src="' + e.target.result +
-                        '" width="200" height="200" alt="Preview Image">');
+                        '" width="200" height="200"  alt="Preview Image">');
                 }
                 reader.readAsDataURL(this.files[0]);
             });

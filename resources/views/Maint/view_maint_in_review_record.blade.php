@@ -104,13 +104,13 @@
                                         @endphp
 
                                         <div class="option">
-                                            <h4 class="">{{ $imageCount }}</h4>
-                                            <p>Images</p>
+                                            <h4 class="imageCount"></h4>
+                                            {{-- <p>Images</p> --}}
                                         </div>
 
                                         <div class="option">
-                                            <h4 class="">{{ $fileCount }}</h4>
-                                            <p>Archivos</p>
+                                            <h4 class="fileCount"></h4>
+                                            {{-- <p>Archivos</p> --}}
                                         </div>
 
                                         <div class="option">
@@ -1023,7 +1023,7 @@
                                 );
 
                                 $('.gallery .row').append(imgHtml);
-                                window.location.reload();
+                                // window.location.reload();
 
                             });
                             updateImageCount();
@@ -1053,7 +1053,7 @@
                             if (response.success) {
                                 parentDiv.remove();
                                 updateImageCount();
-                                window.location.reload();
+                                // window.location.reload();
                             } else {
                                 console.error('Error deleting image.');
                             }
@@ -1105,7 +1105,7 @@
                             });
                             updateFileCount();
                               $('#fileUpload').val('');
-                              window.location.reload();
+                            //   window.location.reload();
                         } else {
                             console.error('Upload failed:', response.message);
                         }
@@ -1132,7 +1132,7 @@
                                     button.closest('.file-entry').remove();
                                     // Update file count
                                     updateFileCount();
-                                    window.location.reload();
+                                    // window.location.reload();
                                 } else {
                                     console.error('Failed to delete file.');
                                 }

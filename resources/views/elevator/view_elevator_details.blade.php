@@ -65,10 +65,11 @@
                 /* Ensures that the image covers the container without distortion */
             }
 
-        #edit-elevator{
-            background-color: white !important;
-        }
-        .imageCrops{
+            #edit-elevator {
+                background-color: white !important;
+            }
+
+            .imageCrops {
                 object-fit: cover;
                 width: 100%;
                 height: 400px;
@@ -215,8 +216,10 @@
                                                     <tr>
                                                         <td class="text-gris">Cliente del ascensor</td>
                                                         <td>
-                                                            @isset($elevators->cliente)
-                                                                {{ $elevators->cliente }}
+                                                            @isset($elevators->client->nombre)
+                                                                <!-- Change from $elevators->cliente to $elevators->client->nombre -->
+                                                                {{ $elevators->client->nombre }}
+                                                                <!-- Display the client's name -->
                                                             @else
                                                                 No cliente disponible
                                                             @endisset
@@ -248,7 +251,7 @@
                                                 <tbody>
                                                     <tr>
                                                         <td class="text-gris">Fecha de entrega</td>
-                                                        {{-- <h4>{{ $elevator->fecha->format('d M Y') }}</h4> --}}
+                                                        <td>{{ $elevators->fecha }}</td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -292,7 +295,13 @@
                                                 <tbody>
                                                     <tr>
                                                         <td class="text-gris">Técnico instalador</td>
-                                                        <td>-</td>
+                                                        <td>
+                                                            @isset($elevators->técnico_instalador)
+                                                                {{ $elevators->técnico_instalador }}
+                                                            @else
+                                                                No técnico instalador disponible
+                                                            @endisset
+                                                        </td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -302,7 +311,13 @@
                                                 <tbody>
                                                     <tr>
                                                         <td class="text-gris">Ubigeo</td>
-                                                        <td>-</td>
+                                                        <td>
+                                                            @isset($elevators->ubigeo)
+                                                            {{ $elevators->ubigeo }}
+                                                        @else
+                                                            No Ubigeo disponible
+                                                        @endisset
+                                                        </td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -329,7 +344,13 @@
                                                 <tbody>
                                                     <tr>
                                                         <td class="text-gris">Técnico ajustador</td>
-                                                        <td>-</td>
+                                                        <td>
+                                                            @isset($elevators->técnico_ajustador)
+                                                            {{ $elevators->técnico_ajustador }}
+                                                        @else
+                                                            No técnico ajustador disponible
+                                                        @endisset
+                                                        </td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -1570,7 +1591,8 @@
                                                             <div id="editimagePreview">
                                                                 @if ($elevators->imagen)
                                                                     <img src="{{ asset('images/' . $elevators->imagen) }}"
-                                                                        alt="user" width="200px" height="200px" id="edit-elevator">
+                                                                        alt="user" width="200px" height="200px"
+                                                                        id="edit-elevator">
                                                                 @else
                                                                     <img src="{{ asset('img/fondo.png') }}" width="200px"
                                                                         height="200px" class="img-table" alt="user">
@@ -2480,8 +2502,58 @@
                             "previous": "Anterior"
                         },
                     },
-                    buttons: [
-                        'copy', 'csv', 'excel', 'pdf', 'print'
+                    buttons: [{
+                            extend: 'copy',
+                            exportOptions: {
+                                columns: ':not(:last-child)' // Excluye la última columna
+                            }
+                        },
+                        {
+                            extend: 'excel',
+                            exportOptions: {
+                                columns: ':not(:last-child)' // Excluye la última columna
+                            }
+                        },
+                        {
+                            extend: 'csv',
+                            exportOptions: {
+                                columns: ':not(:last-child)' // Excluye la última columna
+                            }
+                        },
+                        {
+                            extend: 'pdf',
+                            exportOptions: {
+                                columns: ':not(:last-child)' // Excluye la última columna
+                            },
+                            customize: function(doc) {
+                                // Remove the last column from the table body
+                                doc.content[1].table.body.forEach(function(row) {
+                                    row.pop(); // Remove the last column from each row
+                                });
+                                doc.content[1].table.widths = Array(doc.content[1].table.body[0]
+                                    .length + 1).join('*').split('');
+                                var columnCount = doc.content[1].table.body[0].length;
+                                doc.content[1].table.body.forEach(function(row) {
+                                    row[0].alignment =
+                                        'center'; // Center align the first column
+                                    row[1].alignment =
+                                        'center'; // Center align the second column
+                                    row[2].alignment =
+                                        'center'; // Center align the third column
+                                    row[3].alignment =
+                                        'center'; // Center align the fourth column
+                                    row[columnCount - 1].alignment =
+                                        'center'; // Center align the last column
+                                });
+                            }
+                        },
+                        {
+                            extend: 'print',
+                            exportOptions: {
+                                columns: ':not(:last-child)' // Excluye la última columna
+                            }
+                        }
+                        // 'copy', 'csv', 'excel', 'pdf', 'print'
                     ]
                 });
 
@@ -2543,8 +2615,52 @@
                             "previous": "Anterior"
                         },
                     },
-                    buttons: [
-                        'copy', 'csv', 'excel', 'pdf', 'print'
+                    buttons: [{
+                            extend: 'copy',
+                            exportOptions: {
+                                columns: ':not(:last-child)' // Excluye la última columna
+                            }
+                        },
+                        {
+                            extend: 'excel',
+                            exportOptions: {
+                                columns: ':not(:last-child)' // Excluye la última columna
+                            }
+                        },
+                        {
+                            extend: 'csv',
+                            exportOptions: {
+                                columns: ':not(:last-child)' // Excluye la última columna
+                            }
+                        },
+                        {
+                            extend: 'pdf',
+                            exportOptions: {
+                                columns: ':not(:last-child)' // Excluye la última columna
+                            },
+                            customize: function(doc) {
+                                // Remove the last column from the table body
+                                doc.content[1].table.body.forEach(function(row) {
+                                    row.pop(); // Remove the last column from each row
+                                });
+                                doc.content[1].table.widths = Array(doc.content[1].table.body[0]
+                                    .length + 1).join('*').split('');
+                                var columnCount = doc.content[1].table.body[0].length;
+                                doc.content[1].table.body.forEach(function(row) {
+                                    row[0].alignment =
+                                        'center'; // Center align the first column
+                                    row[columnCount - 1].alignment =
+                                        'center'; // Center align the last column
+                                });
+                            }
+                        },
+                        {
+                            extend: 'print',
+                            exportOptions: {
+                                columns: ':not(:last-child)' // Excluye la última columna
+                            }
+                        }
+                        // 'copy', 'csv', 'excel', 'pdf', 'print'
                     ]
                 });
 
@@ -2572,8 +2688,52 @@
                             "previous": "Anterior"
                         },
                     },
-                    buttons: [
-                        'copy', 'csv', 'excel', 'pdf', 'print'
+                    buttons: [{
+                            extend: 'copy',
+                            exportOptions: {
+                                columns: ':not(:last-child)' // Excluye la última columna
+                            }
+                        },
+                        {
+                            extend: 'excel',
+                            exportOptions: {
+                                columns: ':not(:last-child)' // Excluye la última columna
+                            }
+                        },
+                        {
+                            extend: 'csv',
+                            exportOptions: {
+                                columns: ':not(:last-child)' // Excluye la última columna
+                            }
+                        },
+                        {
+                            extend: 'pdf',
+                            exportOptions: {
+                                columns: ':not(:last-child)' // Excluye la última columna
+                            },
+                            customize: function(doc) {
+                                // Remove the last column from the table body
+                                doc.content[1].table.body.forEach(function(row) {
+                                    row.pop(); // Remove the last column from each row
+                                });
+                                doc.content[1].table.widths = Array(doc.content[1].table.body[0]
+                                    .length + 1).join('*').split('');
+                                var columnCount = doc.content[1].table.body[0].length;
+                                doc.content[1].table.body.forEach(function(row) {
+                                    row[0].alignment =
+                                        'center'; // Center align the first column
+                                    row[columnCount - 1].alignment =
+                                        'center'; // Center align the last column
+                                });
+                            }
+                        },
+                        {
+                            extend: 'print',
+                            exportOptions: {
+                                columns: ':not(:last-child)' // Excluye la última columna
+                            }
+                        }
+                        // 'copy', 'csv', 'excel', 'pdf', 'print'
                     ]
                 });
                 $("#qrButton").click(function() {

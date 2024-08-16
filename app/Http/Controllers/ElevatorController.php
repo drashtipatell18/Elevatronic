@@ -196,7 +196,7 @@ class ElevatorController extends Controller
 
     public function elevatorView(Request $request, $id)
     {
-        $elevators = Elevators::find($id);
+        $elevators = Elevators::with('client')->find($id);
         $contracts = Contract::where('ascensor', $elevators->nombre)->get();
         $spareparts = SparePart::all();
         $customers = Cliente::pluck('nombre', 'id');

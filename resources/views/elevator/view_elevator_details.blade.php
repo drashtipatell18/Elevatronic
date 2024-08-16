@@ -583,7 +583,7 @@
                                                                     <div class="alerta boton-activo">
                                                                         <i class="fas fa-circle"></i> activo
                                                                     </div>
-                                                                @elseif ($contra->estado == 'inactivo')
+                                                                @elseif ($contra->estado == 'no_activo')
                                                                     <div class="alerta boton-inactivo">
                                                                         <i class="fas fa-circle"></i> inactivo
                                                                     </div>

@@ -93,7 +93,7 @@ class SearchController extends Controller
         // Staff Search table
         $staff = Staff::where('personalfoto', 'LIKE', "%{$escapedQuery}%")
         ->orWhere('nombre', 'LIKE', "%{$escapedQuery}%")
-        ->orWhere('posición', 'LIKE', "%{$escapedQuery}%")
+        ->orWhere('posición_id', 'LIKE', "%{$escapedQuery}%")
         ->orWhere('correo', 'LIKE', "%{$escapedQuery}%")
         ->orWhere('teléfono', 'LIKE', "%{$escapedQuery}%")
         ->get();
@@ -104,7 +104,7 @@ class SearchController extends Controller
         ->orWhere('name', 'LIKE', "%{$escapedQuery}%")
         ->orWhere('email', 'LIKE', "%{$escapedQuery}%")
         ->orWhere('phone', 'LIKE', "%{$escapedQuery}%")
-        ->orWhere('employee', 'LIKE', "%{$escapedQuery}%")
+        ->orWhere('employee_id', 'LIKE', "%{$escapedQuery}%")
         ->get();
 
         // Search in Elevators table

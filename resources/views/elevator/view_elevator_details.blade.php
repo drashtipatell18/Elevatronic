@@ -2655,6 +2655,10 @@
                                 doc.content[1].table.body.forEach(function(row) {
                                     row[0].alignment =
                                         'center'; // Center align the first column
+                                    row[1].alignment = 
+                                        'center'; // Center align the second column
+                                    row[2].alignment = 
+                                        'center'; // Center align the third column
                                     row[columnCount - 1].alignment =
                                         'center'; // Center align the last column
                                 });

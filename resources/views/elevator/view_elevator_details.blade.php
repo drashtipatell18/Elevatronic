@@ -583,7 +583,7 @@
                                                                     <div class="alerta boton-activo">
                                                                         <i class="fas fa-circle"></i> activo
                                                                     </div>
-                                                                @elseif ($contra->estado == 'no_activo')
+                                                                @elseif ($contra->estado == 'inactivo')
                                                                     <div class="alerta boton-inactivo">
                                                                         <i class="fas fa-circle"></i> inactivo
                                                                     </div>
@@ -953,7 +953,7 @@
                                                                                 <option value="activo"
                                                                                     {{ old('estado', isset($contra) && $contra->estado == 'activo' ? 'selected' : '') }}>
                                                                                     Activo</option>
-                                                                                <option value="no_activo"
+                                                                                <option value="inactivo"
                                                                                     {{ old('estado', isset($contra) && $contra->estado == 'inactivo' ? 'selected' : '') }}>
                                                                                     Inactivo</option>
                                                                             </select>

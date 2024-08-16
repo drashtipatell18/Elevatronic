@@ -265,7 +265,7 @@
                                                                                         <label for="marca">Marca</label>
                                                                                         <select
                                                                                             class="custom-select form-control marcaItems"
-                                                                                            name="marca" id="marca1">
+                                                                                            name="marca_id" id="marca_id1">
                                                                                             <option value=""
                                                                                                 class="d-none">Seleccionar
                                                                                                 opción
@@ -693,7 +693,7 @@
                                                                 <div class="form-group">
                                                                     <label for="marca">Marca</label>
                                                                     <select class="custom-select form-control"
-                                                                        name="marca" id="marca">
+                                                                        name="marca_id" id="marca_id">
                                                                         <option value="">Seleccionar
                                                                             opción
                                                                         </option>
@@ -989,11 +989,11 @@
 
             function getBrand(edit) {
                 // Destroy existing Select2 instances if they exist
-                if ($('#marca').data('select2')) {
-                    $('#marca').select2('destroy');
+                if ($('#marca_id').data('select2')) {
+                    $('#marca_id').select2('destroy');
                 }
-                if ($('#marca1').data('select2')) {
-                    $('#marca1').select2('destroy');
+                if ($('#marca_id1').data('select2')) {
+                    $('marca_id1').select2('destroy');
                 }
 
                 // Perform the AJAX call to get brand data
@@ -1003,30 +1003,30 @@
                     dataType: "JSON",
                     success: function(response) {
                         // Clear the current options and append the retrieved options to the select elements
-                        $("#marca, #marca1").empty();
-                        $("#marca, #marca1").append(
+                        $("#marca_id, #marca_id1").empty();
+                        $("#marca_id, #marca_id1").append(
                             '<option value="" class="d-none">Seleccionar opción</option>'
                         ); // Add placeholder option
 
                         $.each(response, function() {
-                            $("#marca, #marca1").append(
+                            $("#marca_id, #marca_id1").append(
                                 `<option value='${this.id}'>${this['marca_nombre']}</option>`
                             );
                         });
 
                         // Initialize Select2 on the select elements with placeholder
-                        $('#marca1').select2({
+                        $('#marca_id1').select2({
                             placeholder: "Seleccionar marca",
                             allowClear: true
                         });
-                        $('#marca').select2({
+                        $('#marca_id').select2({
                             placeholder: "Seleccionar marca",
                             allowClear: true
                         });
 
                         // If edit is true and has a valid ID, set the selected value
                         if (edit) {
-                            $('#marca1').val(edit).trigger('change');
+                            $('#marca_id1').val(edit).trigger('change');
                             console.log(edit);
                         }
                     }
@@ -1314,7 +1314,7 @@
                 $('#edit-contrato').val(elevator.contrato);
                 $('#edit-nombre').val(elevator.nombre);
                 $('#edit-código').val(elevator.código);
-                $('#edit-marca').val(elevator.marca);
+                $('#marca_id1').val(elevator.marca_id).trigger('change'); // Ensure the value is set and trigger change
                 $('#edit-cliente').val(elevator.client_id);
                 $('#edit-fecha').val(elevator.fecha);
                 $('#edit-garantizar').val(elevator.garantizar);
@@ -1341,7 +1341,7 @@
                 $('#edit-correo').val(elevator.correo);
                 $('#edit-descripcion1').val(elevator.descripcion1);
                 $('#edit-descripcion2').val(elevator.descripcion2);
-                getBrand(elevator.marca);
+                getBrand(elevator.marca_id);
                 var imageUrl = elevator.imagen ?
                     "{{ asset('images/') }}/" + elevator.imagen :
                     "{{ asset('img/fondo.png') }}";

@@ -236,7 +236,7 @@
                                                         <td class="text-gris">Marca</td>
                                                         <td>
                                                             @isset($elevators->marca)
-                                                                {{ $elevators->marca }}
+                                                                {{ $elevators->marca->marca_nombre  }}
                                                             @else
                                                                 No marca disponible
                                                             @endisset
@@ -1658,8 +1658,8 @@
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label for="marca">Marca</label>
-                                                                <select class="custom-select form-control" name="marca"
-                                                                    id="marca">
+                                                                <select class="custom-select form-control" name="marca_id"
+                                                                    id="marca_id">
                                                                     <option value="" class="d-none">Seleccionar
                                                                         opción
                                                                     </option>
@@ -2414,8 +2414,8 @@
 
                 function getBrand(edit) {
                     // Destroy existing Select2 instances if they exist
-                    if ($('#marca').data('select2')) {
-                        $('#marca').select2('destroy');
+                    if ($('#marca_id').data('select2')) {
+                        $('#marca_id').select2('destroy');
                     }
 
                     // Perform the AJAX call to get brand data
@@ -2425,26 +2425,26 @@
                         dataType: "JSON",
                         success: function(response) {
                             // Clear the current options and append the retrieved options to the select elements
-                            $("#marca").empty();
-                            $("#marca").append(
+                            $("#marca_id").empty();
+                            $("#marca_id").append(
                                 '<option value="" class="d-none">Seleccionar opción</option>'
                             ); // Add placeholder option
 
                             $.each(response, function() {
-                                $("#marca").append(
+                                $("#marca_id").append(
                                     `<option value='${this.id}'>${this['marca_nombre']}</option>`
                                 );
                             });
 
                             // Initialize Select2 on the select elements with placeholder
-                            $('#marca').select2({
+                            $('#marca_id').select2({
                                 placeholder: "Seleccionar marca",
                                 allowClear: true
                             });
 
                             // If edit is true and has a valid ID, set the selected value
                             if (edit) {
-                                $('#marca').val(edit).trigger('change');
+                                $('#marca_id').val(edit).trigger('change');
                                 console.log(edit);
                             }
                         }
@@ -2995,7 +2995,7 @@
                         contrato: "Por favor, ingrese el número de contrato.",
                         nombre: "Por favor, ingrese el nombre del ascensor.",
                         código: "Por favor, ingrese el código.",
-                        marca: "Por favor, ingrese la marca.",
+                        marca_id: "Por favor, ingrese la marca.",
                         cliente: "Por favor, seleccione un cliente.",
                         fecha: "Por favor, seleccione una fecha de entrega.",
                         garantizar: "Por favor, ingrese la garantía.",
@@ -3043,7 +3043,7 @@
                     $('#edit-contrato').val(elevator.contrato);
                     $('#edit-nombre').val(elevator.nombre);
                     $('#edit-código').val(elevator.código);
-                    $('#edit-marca').val(elevator.marca);
+                    $('#marca_id').val(elevator.marca_id).trigger('change'); // Ensure the value is set and trigger change
                     $('#client_id').val(elevator.client_id);
                     $('#edit-fecha').val(elevator.fecha);
                     $('#edit-garantizar').val(elevator.garantizar);
@@ -3062,7 +3062,7 @@
                     $('#edit-correo').val(elevator.correo);
                     $('#edit-descripcion1').val(elevator.descripcion1);
 
-                    getBrand(elevator.marca);
+                    getBrand(elevator.marca_id);
 
                 });
 

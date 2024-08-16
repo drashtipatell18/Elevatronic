@@ -61,7 +61,7 @@ class ElevatorController extends Controller
             'contrato'            => $request->input('contrato'),
             'nombre'              => $request->input('nombre'),
             'código'              => $request->input('código'),
-            'marca'               => $request->input('marca'),
+            'marca_id'               => $request->input('marca_id'),
             'client_id'           => $request->input('client_id'),
             'fecha'               => $request->input('fecha'),
             'garantizar'          => $request->input('garantizar'),
@@ -165,8 +165,8 @@ class ElevatorController extends Controller
             'contrato'            => $request->input('contrato'),
             'nombre'              => $request->input('nombre'),
             'código'              => $request->input('código'),
-            'marca'               => $request->input('marca'),
-            'client_id'             => $request->input('client_id'),
+            'marca_id'            => $request->input('marca_id'),
+            'client_id'           => $request->input('client_id'),
             'fecha'               => $request->input('fecha'),
             'garantizar'          => $request->input('garantizar'),
             'dirección'           => $request->input('dirección'),
@@ -196,7 +196,7 @@ class ElevatorController extends Controller
 
     public function elevatorView(Request $request, $id)
     {
-        $elevators = Elevators::with('client')->find($id);
+        $elevators = Elevators::with(['client', 'marca'])->find($id);
         $contracts = Contract::where('ascensor', $elevators->nombre)->get();
         $spareparts = SparePart::all();
         $customers = Cliente::pluck('nombre', 'id');

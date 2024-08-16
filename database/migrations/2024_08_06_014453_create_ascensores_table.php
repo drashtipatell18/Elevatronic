@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('ascensores', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('client_id');
+            $table->unsignedBigInteger('marca_id')->nullable(); // Change 'marca' to 'marca_id'
             $table->string('imagen')->nullable();
             $table->string('contrato')->nullable();
             $table->string('nombre')->nullable();
             $table->string('código')->nullable();
-            $table->string('marca')->nullable();
             $table->date('fecha')->nullable();
             $table->string('garantizar')->nullable();
             $table->string('dirección')->nullable();
@@ -35,6 +35,7 @@ return new class extends Migration
             $table->string('correo')->nullable();
             $table->string('descripcion1')->nullable();
             $table->foreign('client_id')->references('id')->on('clientes')->onDelete('cascade');
+            $table->foreign('marca_id')->references('id')->on('marcas')->onDelete('cascade'); // Add foreign key constraint
             $table->timestamps();
             $table->softDeletes();
         });

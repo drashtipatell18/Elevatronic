@@ -98,9 +98,10 @@
                                                     $images = ImagePdfs::whereNotNull('image')
                                                         ->where('mant_en_revisións_id', $maint_in_review->id)
                                                         ->get();
-                                                        // echo count($images);
                                                         @endphp
-                                                    <p class="imageCount">Imágenes</p>
+                                                        <h3 class="imageCount"></h3>
+                                                        {{-- <h1>Imágenes</h1> --}}
+                                                    <p class="">Imágenes</p>
                                             </h4>
                                         </div>
 
@@ -1046,9 +1047,10 @@
             });
 
             function updateImageCount() {
-                var count = $('.gallery .row .col-md-6').length;
-                $('.imageCount').text('Imágenes (' + count + ')');
-            }
+    var count = $('.gallery .row .col-md-6').length;
+    $('.imageCount').html('Imágenes (' + count + ')');
+}
+
 
 
 

@@ -92,28 +92,27 @@
                                             <p class="mb-0"># de certificado</p>
                                         </div>
 
+                                        @php
+                                            // Get the image and file counts
+                                            $imageCount = ImagePdfs::whereNotNull('image')
+                                                ->where('mant_en_revisións_id', $maint_in_review->id)
+                                                ->count();
+
+                                            $fileCount = ImagePdfs::whereNotNull('document')
+                                                ->where('mant_en_revisións_id', $maint_in_review->id)
+                                                ->count();
+                                        @endphp
+
                                         <div class="option">
-                                            <h4>
-                                                @php
-                                                    $images = ImagePdfs::whereNotNull('image')
-                                                        ->where('mant_en_revisións_id', $maint_in_review->id)
-                                                        ->get();
-                                                        @endphp
-                                                        <h3 class="imageCount"></h3>
-                                                        {{-- <h1>Imágenes</h1> --}}
-                                                    <p class="">Imágenes</p>
-                                            </h4>
+                                            <h4 class="">{{ $imageCount }}</h4>
+                                            <p>Images</p>
                                         </div>
 
                                         <div class="option">
-                                            <h4>@php
-                                                $images = ImagePdfs::whereNotNull('document')
-                                                    ->where('mant_en_revisións_id', $maint_in_review->id)
-                                                    ->get();
-                                                echo count($images);
-                                            @endphp</h4>
-                                            <p class="mb-0">Archivos</p>
+                                            <h4 class="">{{ $fileCount }}</h4>
+                                            <p>Archivos</p>
                                         </div>
+
                                         <div class="option">
                                             <h4>{{ $maint_in_review->created_at->locale('es')->isoFormat('D MMMM YYYY, h:mm a') }}
                                             </h4>
@@ -368,7 +367,7 @@
 
                                 <div class="col-md-6 mb-4">
                                     <div class="box-contenido contenido-elevatronic">
-                                        <h3 id="fileCount" class="mb-3">Archivos</h3>
+                                        <h3  class="fileCount" class="mb-3">Archivos</h3>
 
                                         <div id="fileList" class="file-list">
                                             @if (isset($documents) && !empty($documents))
@@ -650,7 +649,7 @@
                                                 programado</label>
                                             <select class="custom-select @error('mes_programado') is-invalid @enderror"
                                                 name="mes_programado" id="edit-Mprogramado">
-                                                <option value="" class="">Seleccionar
+                                                {{-- <option value="" class="">Seleccionar
                                                     opción</option>
                                                 <option value="mes_programado_1"
                                                     {{ old('mes_programado', $maint_in_review->mes_programado ?? '') == 'mes_programado_1' ? 'selected' : '' }}>
@@ -660,7 +659,22 @@
                                                     Mes programado 2</option>
                                                 <option value="mes_programado_3"
                                                     {{ old('mes_programado', $maint_in_review->mes_programado ?? '') == 'mes_programado_3' ? 'selected' : '' }}>
-                                                    Mes programado 3</option>
+                                                    Mes programado 3</option> --}}
+
+                                                    <option value="">Seleccionar opción</option>
+                                                    <option value="enero" {{ old('mes_programado', $maint_in_review->mes_programado ?? '') == 'enero' ? 'selected' : '' }}>Enero</option>
+                                                    <option value="febrero" {{ old('mes_programado', $maint_in_review->mes_programado ?? '') == 'febrero' ? 'selected' : '' }}>Febrero</option>
+                                                    <option value="marzo" {{ old('mes_programado', $maint_in_review->mes_programado ?? '') == 'marzo' ? 'selected' : '' }}>Marzo</option>
+                                                    <option value="abril" {{ old('mes_programado', $maint_in_review->mes_programado ?? '') == 'abril' ? 'selected' : '' }}>Abril</option>
+                                                    <option value="mayo" {{ old('mes_programado', $maint_in_review->mes_programado ?? '') == 'mayo' ? 'selected' : '' }}>Mayo</option>
+                                                    <option value="junio" {{ old('mes_programado', $maint_in_review->mes_programado ?? '') == 'junio' ? 'selected' : '' }}>Junio</option>
+                                                    <option value="julio" {{ old('mes_programado', $maint_in_review->mes_programado ?? '') == 'julio' ? 'selected' : '' }}>Julio</option>
+                                                    <option value="agosto" {{ old('mes_programado', $maint_in_review->mes_programado ?? '') == 'agosto' ? 'selected' : '' }}>Agosto</option>
+                                                    <option value="septiembre" {{ old('mes_programado', $maint_in_review->mes_programado ?? '') == 'septiembre' ? 'selected' : '' }}>Septiembre</option>
+                                                    <option value="octubre" {{ old('mes_programado', $maint_in_review->mes_programado ?? '') == 'octubre' ? 'selected' : '' }}>Octubre</option>
+                                                    <option value="noviembre" {{ old('mes_programado', $maint_in_review->mes_programado ?? '') == 'noviembre' ? 'selected' : '' }}>Noviembre</option>
+                                                    <option value="diciembre" {{ old('mes_programado', $maint_in_review->mes_programado ?? '') == 'diciembre' ? 'selected' : '' }}>Diciembre</option>
+
                                             </select>
                                             @error('mes_programado')
                                                 <span class="invalid-feedback" role="alert">
@@ -975,6 +989,9 @@
                 $('#imageUpload').click();
             });
 
+
+
+
             $('#imageUpload').change(function() {
                 if (this.files.length) {
                     var formData = new FormData();
@@ -1006,6 +1023,7 @@
                                 );
 
                                 $('.gallery .row').append(imgHtml);
+                                window.location.reload();
 
                             });
                             updateImageCount();
@@ -1035,6 +1053,7 @@
                             if (response.success) {
                                 parentDiv.remove();
                                 updateImageCount();
+                                window.location.reload();
                             } else {
                                 console.error('Error deleting image.');
                             }
@@ -1048,11 +1067,8 @@
 
             function updateImageCount() {
     var count = $('.gallery .row .col-md-6').length;
-    $('.imageCount').html('Imágenes (' + count + ')');
+    $('.imageCount').html('Images (' + count + ')');
 }
-
-
-
 
             updateFileCount();
             $('#uploadButton11').click(function() {
@@ -1089,6 +1105,7 @@
                             });
                             updateFileCount();
                               $('#fileUpload').val('');
+                              window.location.reload();
                         } else {
                             console.error('Upload failed:', response.message);
                         }
@@ -1115,6 +1132,7 @@
                                     button.closest('.file-entry').remove();
                                     // Update file count
                                     updateFileCount();
+                                    window.location.reload();
                                 } else {
                                     console.error('Failed to delete file.');
                                 }
@@ -1126,10 +1144,12 @@
                     }
             });
 
-            function updateFileCount() {
-        $('#fileCount').text('Archivos (' + $('#fileList').children().length + ')');
-    }
 
+
+    function updateFileCount() {
+    var count = $('#fileList').children().length;
+    $('.fileCount').html('Archivos (' + count + ')');
+}
 
             function createFileEntry(document) {
                 var fileSize = '0.2 MB'; // Adjust file size calculation if needed

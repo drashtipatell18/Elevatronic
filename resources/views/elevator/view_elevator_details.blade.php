@@ -2837,12 +2837,16 @@
                     },
                     errorElement: "span",
                     errorPlacement: function(error, element) {
-                        error.addClass("error");
+                        // Add the `invalid-feedback` class to the error element
+                        error.addClass("invalid-feedback");
+                        // Add error message after the invalid element
                         error.insertAfter(element);
                     },
+                    // Highlight the invalid fields
                     highlight: function(element, errorClass, validClass) {
                         $(element).addClass("is-invalid").removeClass("is-valid");
                     },
+                    // Remove the error message and green border when the field is valid
                     unhighlight: function(element, errorClass, validClass) {
                         $(element).removeClass("is-invalid").addClass("is-valid");
                     }

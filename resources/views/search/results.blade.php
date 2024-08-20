@@ -350,8 +350,8 @@
                             </td>
                             <td>{{ $item->nombre }}</td>
                             <td>{{ $item->código }}</td>
-                            <td>{{ $item->marca }}</td>
-                            <td>{{ $item->cliente }}</td>
+                            <td>{{ $item->marca->marca_nombre }}</td>
+                            <td>{{ $item->client->nombre ?? '-' }}</td>
                             <td>{{ $item->fecha }}</td>
                             <td>{{ $item->garantizar }}</td>
                             <td>{{ $item->dirección }}</td>

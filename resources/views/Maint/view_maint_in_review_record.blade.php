@@ -1067,7 +1067,7 @@
 
             function updateImageCount() {
     var count = $('.gallery .row .col-md-6').length;
-    $('.imageCount').html('Images (' + count + ')');
+    $('.imageCount').html('Imágenes (' + count + ')');
 }
 
             updateFileCount();

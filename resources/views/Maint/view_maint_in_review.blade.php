@@ -266,7 +266,7 @@
                                                                                 <label for="Supervisor">Supervisor</label>
                                                                                 <select
                                                                                     class="custom-select  @error('supervisor') is-invalid @enderror"
-                                                                                    name="supervisor" id="supervisor1">
+                                                                                    name="supervisor_id" id="supervisor_id1">
 
                                                                                 </select>
                                                                                 @error('supervisor')
@@ -613,7 +613,7 @@
                                 {{-- </div> --}}
                                 <div class="form-group">
                                     <label for="supervisor">Supervisor</label>
-                                    <select class="custom-select" name="supervisor" id="supervisor">
+                                    <select class="custom-select" name="supervisor_id" id="supervisor_id">
 
                                     </select>
                                 </div>
@@ -766,11 +766,11 @@
 
             function getSupervisors(edit) {
                 // Destroy existing Select2 instance if it exists
-                if ($('#supervisor').data('select2')) {
-                    $('#supervisor').select2('destroy');
+                if ($('#supervisor_id').data('select2')) {
+                    $('#supervisor_id').select2('destroy');
                 }
-                if ($('#supervisor1').data('select2')) {
-                    $('#supervisor1').select2('destroy');
+                if ($('#supervisor_id1').data('select2')) {
+                    $('#supervisor_id1').select2('destroy');
                 }
 
                 // Perform the AJAX call to get supervisor data
@@ -780,31 +780,31 @@
                     dataType: "JSON",
                     success: function(response) {
                         // Clear the current options and append the retrieved options to the select element
-                        $("#supervisor,#supervisor1").empty();
-                        $("#supervisor,supervisor1").append(
+                        $("#supervisor_id,#supervisor_id1").empty();
+                        $("#supervisor_id,supervisor_id1").append(
                             '<option value="" class="d-none">Seleccionar Supervisor</option>'
                         ); // Add placeholder option
 
                         $.each(response, function() {
-                            $("#supervisor,#supervisor1").append(
+                            $("#supervisor_id,#supervisor_id1").append(
                                 `<option value='${this.id}'>${this.nomber}</option>`
                             );
                         });
 
                         // Initialize Select2 on the select element
-                        $('#supervisor').select2({
+                        $('#supervisor_id').select2({
                             placeholder: "Seleccionar Supervisor",
                             allowClear: true
                         });
 
-                        $('#supervisor1').select2({
+                        $('#supervisor_id1').select2({
                             placeholder: "Seleccionar Supervisor",
                             allowClear: true
                         });
 
                         // If edit is true and has a valid ID, set the selected value
                         if (edit) {
-                            $('#supervisor1').val(edit).trigger('change');
+                            $('#supervisor_id1').val(edit).trigger('change');
                             console.log('Selected supervisor set to:', edit);
                         }
                     },
@@ -1052,7 +1052,7 @@
                 $('#edit-provincia').val(mantenimiento.provincia);
                 $('#edit-NCertificado').val(mantenimiento.núm_certificado);
                 $('#edit-NMaquina').val(mantenimiento.máquina);
-                $('#supervisor1').val(mantenimiento.supervisor).trigger('change');
+                $('#supervisor_id1').val(mantenimiento.supervisor_id).trigger('change');
                 $('#edit-técnico').val(mantenimiento.técnico);
                 $('#edit-Mprogramado').val(mantenimiento.mes_programado);
                 $('#edit-FMantenimiento').val(mantenimiento.fecha_de_mantenimiento);

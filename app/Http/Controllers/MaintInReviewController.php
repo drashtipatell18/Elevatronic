@@ -72,7 +72,7 @@ class MaintInReviewController extends Controller
             'provincia' => $request->input('provincia'),
             'núm_certificado' => $request->input('núm_certificado'),
             // 'máquina' => $request->input('máquina'),
-            'supervisor' => $request->input('supervisor'),
+            'supervisor_id' => $request->input('supervisor_id'),
             'técnico' => $request->input('técnico'),
             'mes_programado' => $request->input('mes_programado'),
             'fecha_de_mantenimiento' => $request->input('fecha_de_mantenimiento'),
@@ -114,7 +114,7 @@ class MaintInReviewController extends Controller
             'provincia' => $request->input('provincia'),
             'núm_certificado' => $request->input('núm_certificado'),
             // 'máquina' => $request->input('máquina'),
-            'supervisor' => $request->input('supervisor'),
+            'supervisor_id' => $request->input('supervisor_id'),
             'técnico' => $request->input('técnico'),
             'mes_programado' => $request->input('mes_programado'),
             'fecha_de_mantenimiento' => $request->input('fecha_de_mantenimiento'),
@@ -138,7 +138,7 @@ class MaintInReviewController extends Controller
 
     public function maintInReviewDetails($id)
     {
-        $maint_in_review = MaintInReview::findOrFail($id);
+        $maint_in_review = MaintInReview::with('supervisor')->findOrFail($id);
         $review_types = ReviewType::pluck('nombre', 'nombre');
         $elevators = Elevators::pluck('nombre', 'nombre');
         $spareparts = SparePart::all();

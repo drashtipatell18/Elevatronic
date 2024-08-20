@@ -182,16 +182,6 @@
                                         <table class="table table-borderless">
                                             <tbody>
                                                 <tr>
-                                                    <td class="text-gris">#Máquina</td>
-                                                    <td>-</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <table class="table table-borderless">
-                                            <tbody>
-                                                <tr>
                                                     <td class="text-gris">Dirección</td>
                                                     <td>
                                                         {{ $maint_in_review->dirección }}
@@ -205,7 +195,7 @@
                                             <tbody>
                                                 <tr>
                                                     <td class="text-gris">Supervisor</td>
-                                                    <td>-</td>
+                                                    <td>{{ $maint_in_review->supervisor->nomber }}</td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -285,7 +275,7 @@
                                             <tbody>
                                                 <tr>
                                                     <td class="text-gris">Observaciones internas</td>
-                                                    <td>-</td>
+                                                    <td>{{ $maint_in_review->observaciónes_internas }}</td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -295,7 +285,7 @@
                                             <tbody>
                                                 <tr>
                                                     <td class="text-gris">Solución</td>
-                                                    <td>-</td>
+                                                    <td>{{ $maint_in_review->solución }}</td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -619,7 +609,7 @@
                                 <div class="form-group">
                                     <label for="Supervisor">Supervisor</label>
                                     <select class="custom-select  @error('supervisor') is-invalid @enderror"
-                                        name="supervisor" id="supervisor">
+                                        name="supervisor_id" id="supervisor_id">
 
                                     </select>
                                     @error('supervisor')
@@ -926,8 +916,8 @@
             });
 
             function getSupervisors(edit) {
-                if ($('#supervisor').data('select2')) {
-                    $('#supervisor').select2('destroy');
+                if ($('#supervisor_id').data('select2')) {
+                    $('#supervisor_id').select2('destroy');
                 }
 
                 $.ajax({
@@ -935,17 +925,17 @@
                     url: "{{ route('supervisors') }}",
                     dataType: "JSON",
                     success: function(response) {
-                        $("#supervisor").empty().append('<option value="" class="d-none">Seleccionar Supervisor</option>');
+                        $("#supervisor_id").empty().append('<option value="" class="d-none">Seleccionar Supervisor</option>');
 
                         $.each(response, function() {
-                            $("#supervisor").append(`<option value='${this.id}'>${this.nomber}</option>`);
+                            $("#supervisor_id").append(`<option value='${this.id}'>${this.nomber}</option>`);
                         });
 
-                        $('#supervisor').select2();
+                        $('#supervisor_id').select2();
 
                         if (edit) {
                             setTimeout(function() {
-                                $('#supervisor').val(edit).trigger('change');
+                                $('#supervisor_id').val(edit).trigger('change');
                             }, 100);
                         }
                     },
@@ -1222,7 +1212,7 @@
                 $('#edit-provincia').val(mantenimiento.provincia);
                 $('#edit-NCertificado').val(mantenimiento.núm_certificado);
                 $('#edit-NMaquina').val(mantenimiento.máquina);
-                $('#supervisor').val(mantenimiento.supervisor).trigger('change');
+                $('#supervisor_id').val(mantenimiento.supervisor_id).trigger('change');
                 $('#edit-técnico').val(mantenimiento.técnico);
                 $('#edit-Mprogramado').val(mantenimiento.mes_programado);
                 $('#edit-FMantenimiento').val(mantenimiento.fecha_de_mantenimiento);

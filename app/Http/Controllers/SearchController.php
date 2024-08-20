@@ -71,7 +71,7 @@ class SearchController extends Controller
         ->orWhere('ascensor', 'LIKE', "%{$escapedQuery}%")
         ->orWhere('dirección', 'LIKE', "%{$escapedQuery}%")
         ->orWhere('provincia', 'LIKE', "%{$escapedQuery}%")
-        ->orWhere('supervisor', 'LIKE', "%{$escapedQuery}%")
+        ->orWhere('supervisor_id', 'LIKE', "%{$escapedQuery}%")
         ->orWhere('técnico', 'LIKE', "%{$escapedQuery}%")
         ->orWhere('mes_programado', 'LIKE', "%{$escapedQuery}%")
         ->orWhere('fecha_de_mantenimiento', 'LIKE', "%{$escapedQuery}%")

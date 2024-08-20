@@ -94,7 +94,7 @@ a:focus {
 }
 #sidebar ul li.active>a i,
 #sidebar ul li a:hover i{
-    color: #FF211C;
+    color: #F8592E;
 }
 
 #sidebar ul li.active>a,
@@ -147,7 +147,7 @@ ul ul a {
 
 .btn-menu{
     color: #ffffff !important;
-    background-color: #FF211C;
+    background-color: #F8592E;
     text-align: center;
     width: 40px;
     height: 40px;
@@ -168,7 +168,7 @@ ul ul a {
     background-color: #FDF0ED !important;
 }
 #abrirperfil.activo i{
-    color: #FF211C !important;
+    color: #F8592E !important;
 }
 .perfil img{
     width: 40px;
@@ -301,7 +301,7 @@ ul ul a {
     font-size: 14px;
 }
 #modalalerta h6 span{
-    background-color: #FF211C;
+    background-color: #F8592E;
     color: #ffffff;
     width: 20px;
     height: 20px;
@@ -325,7 +325,7 @@ ul ul a {
 }
 .mensaje_box i{
     font-size: 8px;
-    color: #FF211C;
+    color: #F8592E;
     position: relative;
     top: -8px;
 }
@@ -351,7 +351,7 @@ ul ul a {
     cursor: pointer;
 }
 .alerta_mensajes span {
-    background-color: #FF211C;
+    background-color: #F8592E;
     width: 20px;
     height: 20px;
     border-radius: 50%;
@@ -374,18 +374,18 @@ button:focus{
     transition: 0.2s linear;
 }
 .btn-new a[aria-expanded="true"]{
-    border: 1px solid #FF211C;
+    border: 1px solid #F8592E;
     background-color: #FDF0ED;
-    color: #FF211C;
+    color: #F8592E;
 }
 .btn-new a[aria-expanded="true"] i{
-    color: #FF211C;
+    color: #F8592E;
     transform: rotate(180deg);
 }
 
 .btn-new .dropdown-item:hover{
     background-color: #F3F3F3;
-    color: #FF211C;
+    color: #F8592E;
 }
 .text-blue{
     color: #1492E6 !important;
@@ -473,14 +473,14 @@ table .btn-action{
     color: #000000;
 }
 .btn-red {
-    background-color: #FF211C !important;
+    background-color: #F8592E !important;
     color: #ffffff !important;
 }
 
 .btn-border {
     background-color: transparent !important;
-    border: 1px solid #FF211C !important;
-    color: #FF211C !important;
+    border: 1px solid #F8592E !important;
+    color: #F8592E !important;
 }
 
 .border-radius-12 {

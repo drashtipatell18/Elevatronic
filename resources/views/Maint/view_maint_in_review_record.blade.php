@@ -618,7 +618,7 @@
 
                                 <div class="form-group">
                                     <label for="Supervisor">Supervisor</label>
-                                    <select class="custom-select  @error('máquina') is-invalid @enderror"
+                                    <select class="custom-select  @error('supervisor') is-invalid @enderror"
                                         name="supervisor" id="supervisor">
 
                                     </select>
@@ -1067,7 +1067,7 @@
 
             function updateImageCount() {
     var count = $('.gallery .row .col-md-6').length;
-    $('.imageCount').html('Images (' + count + ')');
+    $('.imageCount').html('Imágenes (' + count + ')');
 }
 
             updateFileCount();

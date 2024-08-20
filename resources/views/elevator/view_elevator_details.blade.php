@@ -1195,7 +1195,8 @@
                                                             </div>
                                                         </div>
                                                         <!-- Modal Editor Mantenimiento-->
-                                                        <div class="modal left fade" id="editorMantenimiento{{ $maint_in_rev->id }}"
+                                                        <div class="modal left fade"
+                                                            id="editorMantenimiento{{ $maint_in_rev->id }}"
                                                             tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
                                                             aria-hidden="true">
                                                             <div class="modal-dialog" role="document">
@@ -1373,7 +1374,6 @@
                                                                                                 @endforeach
                                                                                             </select>
                                                                                         </div>
-
                                                                                         <div class="row">
                                                                                             <div class="col-md-6">
                                                                                                 <div class="form-group">
@@ -1384,25 +1384,49 @@
                                                                                                         class="custom-select @error('mes_programado') is-invalid @enderror"
                                                                                                         name="mes_programado"
                                                                                                         id="edit-Mprogramado">
-                                                                                                        <option value=""
-                                                                                                            class="">
-                                                                                                            Seleccionar
-                                                                                                            opción</option>
-                                                                                                        <option
-                                                                                                            value="mes_programado_1"
-                                                                                                            {{ old('mes_programado', $maint_in_rev->mes_programado ?? '') == 'mes_programado_1' ? 'selected' : '' }}>
-                                                                                                            Mes programado 1
+                                                                                                        <option value="">
+                                                                                                            Seleccionar opción
                                                                                                         </option>
+                                                                                                        <option value="enero"
+                                                                                                            {{ old('mes_programado', $maint_in_rev->mes_programado ?? '') == 'enero' ? 'selected' : '' }}>
+                                                                                                            Enero</option>
+                                                                                                        <option value="febrero"
+                                                                                                            {{ old('mes_programado', $maint_in_rev->mes_programado ?? '') == 'febrero' ? 'selected' : '' }}>
+                                                                                                            Febrero</option>
+                                                                                                        <option value="marzo"
+                                                                                                            {{ old('mes_programado', $maint_in_rev->mes_programado ?? '') == 'marzo' ? 'selected' : '' }}>
+                                                                                                            Marzo</option>
+                                                                                                        <option value="abril"
+                                                                                                            {{ old('mes_programado', $maint_in_rev->mes_programado ?? '') == 'abril' ? 'selected' : '' }}>
+                                                                                                            Abril</option>
+                                                                                                        <option value="mayo"
+                                                                                                            {{ old('mes_programado', $maint_in_rev->mes_programado ?? '') == 'mayo' ? 'selected' : '' }}>
+                                                                                                            Mayo</option>
+                                                                                                        <option value="junio"
+                                                                                                            {{ old('mes_programado', $maint_in_rev->mes_programado ?? '') == 'junio' ? 'selected' : '' }}>
+                                                                                                            Junio</option>
+                                                                                                        <option value="julio"
+                                                                                                            {{ old('mes_programado', $maint_in_rev->mes_programado ?? '') == 'julio' ? 'selected' : '' }}>
+                                                                                                            Julio</option>
+                                                                                                        <option value="agosto"
+                                                                                                            {{ old('mes_programado', $maint_in_rev->mes_programado ?? '') == 'agosto' ? 'selected' : '' }}>
+                                                                                                            Agosto</option>
                                                                                                         <option
-                                                                                                            value="mes_programado_2"
-                                                                                                            {{ old('mes_programado', $maint_in_rev->mes_programado ?? '') == 'mes_programado_2' ? 'selected' : '' }}>
-                                                                                                            Mes programado 2
-                                                                                                        </option>
+                                                                                                            value="septiembre"
+                                                                                                            {{ old('mes_programado', $maint_in_rev->mes_programado ?? '') == 'septiembre' ? 'selected' : '' }}>
+                                                                                                            Septiembre</option>
+                                                                                                        <option value="octubre"
+                                                                                                            {{ old('mes_programado', $maint_in_rev->mes_programado ?? '') == 'octubre' ? 'selected' : '' }}>
+                                                                                                            Octubre</option>
                                                                                                         <option
-                                                                                                            value="mes_programado_3"
-                                                                                                            {{ old('mes_programado', $maint_in_rev->mes_programado ?? '') == 'mes_programado_3' ? 'selected' : '' }}>
-                                                                                                            Mes programado 3
-                                                                                                        </option>
+                                                                                                            value="noviembre"
+                                                                                                            {{ old('mes_programado', $maint_in_rev->mes_programado ?? '') == 'noviembre' ? 'selected' : '' }}>
+                                                                                                            Noviembre</option>
+                                                                                                        <option
+                                                                                                            value="diciembre"
+                                                                                                            {{ old('mes_programado', $maint_in_rev->mes_programado ?? '') == 'diciembre' ? 'selected' : '' }}>
+                                                                                                            Diciembre</option>
+
                                                                                                     </select>
                                                                                                     @error('mes_programado')
                                                                                                         <span
@@ -1413,6 +1437,8 @@
                                                                                                     @enderror
                                                                                                 </div>
                                                                                             </div>
+                                                                                            >>>>>>>
+                                                                                            d13a45a2690a97a2ff7c0068c0d6c8781d87df29
 
 
                                                                                             <div class="col-md-6">
@@ -2013,7 +2039,7 @@
                                                         <div class="col-md-12 d-none position-relative" id="DAdicional1">
                                                             <div class="form-group">
                                                                 <label for="Descripcion2">Descripción 2</label>
-                                                                <textarea name="descripcion2" id="descripcion2" placeholder="Descripción" cols="30" rows="5">{{ old('descripcion1', isset($elevators) ? $elevators->descripcion1 : '') }}</textarea>
+                                                                <textarea name="descripcion2" id="descripcion2" placeholder="Descripción" cols="30" rows="5">{{ old('descripcion2', isset($elevators) ? $elevators->descripcion2 : '') }}</textarea>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-12">
@@ -2197,12 +2223,21 @@
                                                             <label for="Mprogramado">Mes programado</label>
                                                             <select class="custom-select" name="mes_programado"
                                                                 id="Mprogramado">
-                                                                <option selected disabled class="d-none">Seleccionar
-                                                                    opción
-                                                                </option>
-                                                                <option value="mes_programado_1">Mes programado 1</option>
-                                                                <option value="mes_programado_2">Mes programado 2</option>
-                                                                <option value="mes_programado_3">Mes programado 3</option>
+                                                                <option value="">Seleccionar opción</option>
+                                                                <option value="enero">Enero</option>
+                                                                <option value="febrero">Febrero</option>
+                                                                <option value="marzo">Marzo</option>
+                                                                <option value="abril">Abril</option>
+                                                                <option value="mayo">Mayo</option>
+                                                                <option value="junio">Junio</option>
+                                                                <option value="julio">Julio</option>
+                                                                <option value="agosto">Agosto</option>
+                                                                <option value="septiembre">Septiembre</option>
+                                                                <option value="octubre">Octubre</option>
+                                                                <option value="noviembre">Noviembre</option>
+                                                                <option value="diciembre">Diciembre</option>
+
+
                                                             </select>
                                                         </div>
                                                     </div>

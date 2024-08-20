@@ -2683,7 +2683,6 @@
                 });
 
                 $('#customSearchBox').keyup(function() {
-                    console.log('uyuytuytu');
                     table1.search($(this).val()).draw();
                 });
                 $('#customSearchBox2').keyup(function() {

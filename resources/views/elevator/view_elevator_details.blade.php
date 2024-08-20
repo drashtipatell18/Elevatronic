@@ -1954,7 +1954,7 @@
                                                         <div class="col-md-12 d-none position-relative" id="DAdicional1">
                                                             <div class="form-group">
                                                                 <label for="Descripcion2">Descripción 2</label>
-                                                                <textarea name="descripcion2" id="descripcion2" placeholder="Descripción" cols="30" rows="5">{{ old('descripcion1', isset($elevators) ? $elevators->descripcion1 : '') }}</textarea>
+                                                                <textarea name="descripcion2" id="descripcion2" placeholder="Descripción" cols="30" rows="5">{{ old('descripcion2', isset($elevators) ? $elevators->descripcion2 : '') }}</textarea>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-12">

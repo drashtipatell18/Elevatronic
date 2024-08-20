@@ -1,5 +1,10 @@
 @extends('layouts.main')
 @section('content')
+<style>
+    .setimage {
+        object-fit: cover;
+    }
+</style>
 <h1>Resultados de la búsqueda</h1>
 
     @if($assignSpares->isEmpty() && $clientes->isEmpty() && $contracts->isEmpty()  && $customerTypes->isEmpty() && $maininReview->isEmpty() && $positions->isEmpty()  && $province->isEmpty() && $staff->isEmpty() && $users->isEmpty()  && $reviewType->isEmpty() && $elevators->isEmpty() && $elevatorsType->isEmpty()  && $marcas->isEmpty() && $spareParts->isEmpty())
@@ -270,7 +275,7 @@
                                     {{ $item->nombre }}
                                 </a>
                             </td>
-                            <td>{{ $item->posición }}</td>
+                            <td>{{ $item->position->position }}</td>
                             <td>{{ $item->correo }}</td>
                             <td>{{ $item->teléfono }}</td>
                         </tr>
@@ -302,7 +307,7 @@
                             </td>
                             <td>{{ $item->email  }}</td>
                             <td>{{ $item->phone }}</td>
-                            <td>{{ $item->employee }}</td>
+                            <td>{{ $item->employee->empleado }}</td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -341,7 +346,15 @@
                 <tbody>
                     @foreach($elevators as $item)
                         <tr>
-                            <td>{{ $item->imagen }}</td>
+                            <td>
+                                @if ($item->imagen)
+                                <img src="{{ asset('images/' . $item->imagen) }}" alt="personal"
+                                    width="52" height="52" class="img-table setimage">
+                                @else
+                                <img src="{{ asset('img/fondo.png') }}" width="52" height="52"
+                                    class="img-table setimage" alt="user">
+                                @endif
+                            </td>
                             <td>{{ $item->contrato }}</td>
                             <td>
                                 <a href="{{ route('elevator', $item->id) }}" class="text-blue">
@@ -408,10 +421,6 @@
                     @foreach($marcas as $item)
                         <tr>
                             <td>{{ $item->marca_nombre }}</td>
-
-
-
-
                         </tr>
                     @endforeach
                 </tbody>

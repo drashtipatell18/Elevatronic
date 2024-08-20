@@ -3167,9 +3167,13 @@
                     $('#edit-técnico_instalador').val(elevator.técnico_instalador);
                     $('#edit-tipo_de_ascensor').val(elevator.tipo_de_ascensor);
                     $('#edit-cantidad').val(elevator.cantidad);
-                    $('#mgratuito').val(elevator.quarters);
-                    $('#sincuarto').val(elevator.quarters);
-                    $('#concuarto').val(elevator.quarters);
+                    if (elevator.quarters) {
+                        var quarters = elevator.quarters.split(',');
+
+                        $('#mgratuito').prop('checked', quarters.includes('mgratuito'));
+                        $('#sincuarto').prop('checked', quarters.includes('sincuarto'));
+                        $('#concuarto').prop('checked', quarters.includes('concuarto'));
+                    }
                     $('#edit-npisos').val(elevator.npisos);
                     $('#edit-ncontacto').val(elevator.ncontacto);
                     $('#edit-teléfono').val(elevator.teléfono);

@@ -110,7 +110,7 @@ input :-moz-placeholder {
 }
 
 .btn-primario {
-  background-color: #FF211C;
+  background-color: #F8592E;
   color: #fff;
   height: 46px;
   width: 100%;
@@ -140,8 +140,8 @@ input :-moz-placeholder {
   -o-border-radius: 5px;
   height: 46px;
   padding: 5px;
-  border: 1px solid #FF211C;
-  color: #FF211C;
+  border: 1px solid #F8592E;
+  color: #F8592E;
   background-color: #fff;
   width: 100%;
   display: inline-block;
@@ -214,18 +214,18 @@ table tbody tr td {
   font-weight: 500;
 }
 .pagination .page-link:hover {
-  background-color: #FF211C !important;
+  background-color: #F8592E !important;
   color: #ffffff !important;
-  border-color: #FF211C !important;
+  border-color: #F8592E !important;
 }
 .pagination .page-link:focus {
   box-shadow: none;
 }
 
 .page-item.active .page-link {
-  background-color: #FF211C !important;
+  background-color: #F8592E !important;
   color: #ffffff !important;
-  border-color: #FF211C !important;
+  border-color: #F8592E !important;
 }
 
 .btn-gris {
@@ -319,12 +319,12 @@ table tbody tr td {
 }
 .tabs-elevatronic .nav-item .nav-link:hover {
   border-color: #fff;
-  border-bottom: 3px solid #FF211C;
+  border-bottom: 3px solid #F8592E;
   color: #000;
 }
 .tabs-elevatronic .nav-item .active {
   border-color: #fff;
-  border-bottom: 3px solid #FF211C;
+  border-bottom: 3px solid #F8592E;
   color: #000;
 }
 
@@ -435,8 +435,8 @@ table tbody tr td {
 }
 
 .custom-control-input:checked ~ .custom-control-label::before {
-  border-color: #FF211C !important;
-  background-color: #FF211C !important;
+  border-color: #F8592E !important;
+  background-color: #F8592E !important;
 }
 
 .custom-control-input:focus ~ .custom-control-label::before {
@@ -444,7 +444,7 @@ table tbody tr td {
 }
 
 .custom-control-input:focus:not(:checked) ~ .custom-control-label::before {
-  border-color: #FF211C;
+  border-color: #F8592E;
 }
 
 .custom-control-input:not(:disabled):active ~ .custom-control-label::before {
@@ -501,7 +501,7 @@ table tbody tr td {
 }
 
 .custom-checkbox .custom-control-input:disabled:checked ~ .custom-control-label::before {
-  background-color: #FF211C;
+  background-color: #F8592E;
 }
 
 .tabla-repuestos .text-gris {
@@ -520,8 +520,8 @@ table tbody tr td {
 
 .fc-event, .fc-event-dot {
   background-color: #fff !important;
-  border: 1px solid #FF211C !important;
-  color: #FF211C !important;
+  border: 1px solid #F8592E !important;
+  color: #F8592E !important;
 }
 
 .alert-info {
@@ -541,15 +541,15 @@ table tbody tr td {
 }
 .fc-header-toolbar .btn-primary .disabled, .fc-header-toolbar .btn-primary:disabled {
   color: #fff;
-  background-color: #FF211C;
-  border-color: #FF211C;
+  background-color: #F8592E;
+  border-color: #F8592E;
 }
 .fc-header-toolbar .btn-primary:not(:disabled):not(.disabled):active,
 .fc-header-toolbar .btn-primary:not(:disabled):not(.disabled).active,
 .fc-header-toolbar .show > .btn-primary.dropdown-toggle {
   color: #fff;
-  background-color: #FF211C;
-  border-color: #FF211C;
+  background-color: #F8592E;
+  border-color: #F8592E;
 }
 .fc-header-toolbar .btn-primary:not(:disabled):not(.disabled):active:focus,
 .fc-header-toolbar .btn-primary:not(:disabled):not(.disabled).active:focus,
@@ -578,7 +578,7 @@ table tbody tr td {
 }
 .iconSelect .custom-control-label:hover {
   background-color: #FDF0ED;
-  border: 1px dashed #FF211C;
+  border: 1px dashed #F8592E;
 }
 .iconSelect .custom-control-label::before, .iconSelect .custom-control-label::after {
   top: 50%;
@@ -592,7 +592,7 @@ table tbody tr td {
 .iconSelect .custom-control-input:checked ~ .custom-control-label {
   background: #FDF0ED;
   color: #000;
-  border: 1px dashed #FF211C;
+  border: 1px dashed #F8592E;
 }
 
 .btn:focus, .btn.focus {
@@ -631,7 +631,7 @@ table tbody tr td {
 }
 
 .adorno-num {
-  background: #FF211C;
+  background: #F8592E;
   width: 24px;
   height: 24px;
   display: inline-block;

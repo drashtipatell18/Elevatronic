@@ -3,7 +3,7 @@
     padding: 0;
 }
 
-$color-primario:#FF211C;
+$color-primario:#F8592E;
 $color-gris:#C6C5CA;
 $color-blanco:#fff;
 $color-secundario: darken($color-primario, 10%);
@@ -488,7 +488,7 @@ table{
     }
 }
 .custom-checkbox .custom-control-input:disabled:checked~.custom-control-label::before {
-    background-color: #FF211C;
+    background-color: #F8592E;
 }
 .tabla-repuestos .text-gris {
     width: 220px;

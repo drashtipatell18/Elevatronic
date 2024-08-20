@@ -112,7 +112,7 @@ class SearchController extends Controller
             ->orWhere('contrato', 'LIKE', "%{$escapedQuery}%")
             ->orWhere('nombre', 'LIKE', "%{$escapedQuery}%")
             ->orWhere('código', 'LIKE', "%{$escapedQuery}%")
-            ->orWhere('marca', 'LIKE', "%{$escapedQuery}%")
+            ->orWhere('marca_id', 'LIKE', "%{$escapedQuery}%")
             ->orWhere('client_id', 'LIKE', "%{$escapedQuery}%")
             ->orWhere('fecha', 'LIKE', "%{$escapedQuery}%")
             ->orWhere('garantizar', 'LIKE', "%{$escapedQuery}%")

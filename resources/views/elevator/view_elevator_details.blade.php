@@ -1356,19 +1356,6 @@
                                                                             <select
                                                                                 class="custom-select @error('mes_programado') is-invalid @enderror"
                                                                                 name="mes_programado" id="edit-Mprogramado">
-                                                                                {{-- <option value="" class="">
-                                                                                    Seleccionar
-                                                                                    opción</option>
-                                                                                <option value="mes_programado_1"
-                                                                                    {{ old('mes_programado', $maint_in_rev->mes_programado ?? '') == 'mes_programado_1' ? 'selected' : '' }}>
-                                                                                    Mes programado 1</option>
-                                                                                <option value="mes_programado_2"
-                                                                                    {{ old('mes_programado', $maint_in_rev->mes_programado ?? '') == 'mes_programado_2' ? 'selected' : '' }}>
-                                                                                    Mes programado 2</option>
-                                                                                <option value="mes_programado_3"
-                                                                                    {{ old('mes_programado', $maint_in_rev->mes_programado ?? '') == 'mes_programado_3' ? 'selected' : '' }}>
-                                                                                    Mes programado 3</option> --}}
-                                                                                    
                                                                                     <option value="">Seleccionar opción</option>
                                                                                     <option value="enero" {{ old('mes_programado', $maint_in_rev->mes_programado ?? '') == 'enero' ? 'selected' : '' }}>Enero</option>
                                                                                     <option value="febrero" {{ old('mes_programado', $maint_in_rev->mes_programado ?? '') == 'febrero' ? 'selected' : '' }}>Febrero</option>
@@ -2151,12 +2138,6 @@
                                                             <label for="Mprogramado">Mes programado</label>
                                                             <select class="custom-select" name="mes_programado"
                                                                 id="Mprogramado">
-                                                                {{-- <option selected disabled class="d-none">Seleccionar
-                                                                    opción
-                                                                </option>
-                                                                <option value="mes_programado_1">Mes programado 1</option>
-                                                                <option value="mes_programado_2">Mes programado 2</option>
-                                                                <option value="mes_programado_3">Mes programado 3</option> --}}
                                                                 <option value="">Seleccionar opción</option>
                                                                 <option value="enero">Enero</option>
                                                                 <option value="febrero" >Febrero</option>

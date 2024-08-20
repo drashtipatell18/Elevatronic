@@ -129,7 +129,7 @@ input :-moz-placeholder {
   text-decoration: none !important;
 }
 .btn-primario:hover {
-  background-color: #e80500;
+  background-color: #F8592E;
 }
 
 .btn-lineal {
@@ -151,7 +151,7 @@ input :-moz-placeholder {
   text-decoration: none !important;
 }
 .btn-lineal:hover {
-  color: #e80500;
+  color: #F8592E;
 }
 
 .text-gris {

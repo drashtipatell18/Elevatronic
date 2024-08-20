@@ -879,42 +879,50 @@
                 buttons: [{
                         extend: 'copy',
                         exportOptions: {
-                            columns: ':not(:last-child)' // Excluye la última columna
+                            columns: ':not(:last-child(-n+2))' // Excluye las dos últimas columnas
                         }
                     },
                     {
                         extend: 'excel',
                         exportOptions: {
-                            columns: ':not(:last-child)' // Excluye la última columna
+                            columns: ':not(:last-child)' // Excluye las dos últimas columnas
                         }
                     },
                     {
                         extend: 'csv',
                         exportOptions: {
-                            columns: ':not(:last-child)' // Excluye la última columna
+                            columns: ':not(:nth-last-child(-n+2))' // Excluye las dos últimas columnas
                         }
                     },
                     {
                         extend: 'pdf',
                         exportOptions: {
-                            columns: ':not(:last-child)' // Excluye la última columna
+                            columns: ':not(:last-child)' // Excluye las dos últimas columnas
                         },
                         customize: function(doc) {
-                            doc.content[1].table.widths = Array(doc.content[1].table.body[0]
-                                .length + 1).join('*').split('');
-                            var columnCount = doc.content[1].table.body[0].length;
-                            doc.content[1].table.body.forEach(function(row) {
-                                row[0].alignment =
-                                    'center'; // Center align the first column
-                                row[columnCount - 1].alignment =
-                                    'center'; // Center align the last column
-                            });
-                        }
+                                // Remove the last column from the table body
+                                doc.content[1].table.body.forEach(function(row) {
+                                    row.pop(); // Remove the last column from each row
+                                });
+                                doc.content[1].table.widths = Array(doc.content[1].table.body[0]
+                                    .length + 1).join('*').split('');
+                                var columnCount = doc.content[1].table.body[0].length;
+                                doc.content[1].table.body.forEach(function(row) {
+                                    row[0].alignment =
+                                        'center'; // Center align the first column
+                                    row[1].alignment =
+                                        'center'; // Center align the second column
+                                    row[2].alignment =
+                                        'center'; // Center align the third column
+                                    row[columnCount - 1].alignment =
+                                        'center'; // Center align the last column
+                                });
+                            }
                     },
                     {
                         extend: 'print',
                         exportOptions: {
-                            columns: ':not(:last-child)' // Excluye la última columna
+                            columns: ':not(:nth-last-child(-n+2))' // Excluye las dos últimas columnas
                         }
                     }
                     // 'copy', 'csv', 'excel', 'pdf', 'print'

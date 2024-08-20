@@ -1111,7 +1111,7 @@
                                                                             href="#"
                                                                             data-maint_in_rev="{{ json_encode($maint_in_rev) }}"
                                                                             data-toggle="modal"
-                                                                            data-target="#editorMantenimiento">Editar</a>
+                                                                            data-target="#editorMantenimiento{{ $maint_in_rev->id }}">Editar</a>
                                                                         <a class="dropdown-item" href="javascript:void(0)"
                                                                             data-toggle="modal"
                                                                             data-target="#modalEliminar{{ $maint_in_rev->id }}">Eliminar</a>
@@ -1194,113 +1194,132 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Modal Editor Mantenimiento-->
-                                <div class="modal left fade" id="editorMantenimiento" tabindex="-1" role="dialog"
-                                    aria-labelledby="modelTitleId" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title font-family-Outfit-SemiBold">Edición De
-                                                    Mantenimiento</h5>
-                                                <button type="button" class="close" data-dismiss="modal"
-                                                    aria-label="Close">
-                                                    <span aria-hidden="true">×</span>
-                                                </button>
-                                            </div>
-                                            @isset($maint_in_rev)
-                                                <form
-                                                    action="{{ route('update.maint.in.review', ['id' => $maint_in_rev->id]) }}"
-                                                    method="POST" id="editmaintreview">
-                                                    @csrf
-                                                    @method('PUT')
-                                                    <div class="modal-body body_modal">
-                                                        <div class="row">
-                                                            <div class="col-md-12">
-                                                                <div class="form-group">
-                                                                    <label for="TRevision">Tipo de revisión</label>
-                                                                    <select
-                                                                        class="custom-select @error('tipo_de_revisión') is-invalid @enderror"
-                                                                        name="tipo_de_revisión" id="edit-tipo_de_revisión">
-                                                                        <option disabled>Seleccionar tipo de
-                                                                            revisión</option>
-                                                                        @foreach ($review_types as $key => $value)
-                                                                            <option value="{{ $key }}"
-                                                                                {{ old('tipo_de_revisión', $maint_in_rev->tipo_de_revisión ?? '') == $key ? 'selected' : '' }}>
-                                                                                {{ $value }}
-                                                                            </option>
-                                                                        @endforeach
-                                                                    </select>
-                                                                    @error('tipo_de_revisión')
-                                                                        <span class="invalid-feedback" role="alert">
-                                                                            <strong>{{ $message }}</strong>
-                                                                        </span>
-                                                                    @enderror
-                                                                </div>
-
-
-                                                                <div class="form-group">
-                                                                    <label for="ascensor">Ascensor</label>
-                                                                    <input type="text" class="form-control"
-                                                                        name="ascensor" id="edit-MAscensor"
-                                                                        value="{{ old('ascensor', $maint_in_rev->ascensor) }}"
-                                                                        readonly>
-                                                                    @error('ascensor')
-                                                                        <span class="invalid-feedback" role="alert">
-                                                                            <strong>{{ $message }}</strong>
-                                                                        </span>
-                                                                    @enderror
-                                                                </div>
-
-                                                                <div class="form-group">
-                                                                    <label for="dirección">Dirección</label>
-                                                                    <input type="text" placeholder="Dirección"
-                                                                        name="dirección" id="dirección" class="form-control"
-                                                                        value="{{ old('dirección', $maint_in_rev->dirección) }}">
-                                                                    @error('dirección')
-                                                                        <span class="invalid-feedback" style="color: red">
-                                                                            <strong>{{ $message }}</strong>
-                                                                        </span>
-                                                                    @enderror
-                                                                </div>
+                                                        <!-- Modal Editor Mantenimiento-->
+                                                        <div class="modal left fade"
+                                                            id="editorMantenimiento{{ $maint_in_rev->id }}"
+                                                            tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+                                                            aria-hidden="true">
+                                                            <div class="modal-dialog" role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5
+                                                                            class="modal-title font-family-Outfit-SemiBold">
+                                                                            Edición De
+                                                                            Mantenimiento</h5>
+                                                                        <button type="button" class="close"
+                                                                            data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">×</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    @isset($maint_in_rev)
+                                                                        <form
+                                                                            action="{{ route('update.maint.in.review', ['id' => $maint_in_rev->id]) }}"
+                                                                            method="POST" id="editmaintreview">
+                                                                            @csrf
+                                                                            @method('PUT')
+                                                                            <div class="modal-body body_modal">
+                                                                                <div class="row">
+                                                                                    <div class="col-md-12">
+                                                                                        <div class="form-group">
+                                                                                            <label for="TRevision">Tipo de
+                                                                                                revisión</label>
+                                                                                            <select
+                                                                                                class="custom-select @error('tipo_de_revisión') is-invalid @enderror"
+                                                                                                name="tipo_de_revisión"
+                                                                                                id="edit-tipo_de_revisión">
+                                                                                                <option disabled>Seleccionar
+                                                                                                    tipo de
+                                                                                                    revisión</option>
+                                                                                                @foreach ($review_types as $key => $value)
+                                                                                                    <option
+                                                                                                        value="{{ $key }}"
+                                                                                                        {{ old('tipo_de_revisión', $maint_in_rev->tipo_de_revisión ?? '') == $key ? 'selected' : '' }}>
+                                                                                                        {{ $value }}
+                                                                                                    </option>
+                                                                                                @endforeach
+                                                                                            </select>
+                                                                                            @error('tipo_de_revisión')
+                                                                                                <span class="invalid-feedback"
+                                                                                                    role="alert">
+                                                                                                    <strong>{{ $message }}</strong>
+                                                                                                </span>
+                                                                                            @enderror
+                                                                                        </div>
 
 
-                                                                <div class="form-group">
-                                                                    <label for="provinciaAs">Provincia</label>
-                                                                    <select id="edit-provincia" name="provincia"
-                                                                        class="form-control">
-                                                                        <option value="">Select Province
-                                                                        </option>
-                                                                        @foreach ($provinces as $province)
-                                                                            <option value="{{ $province }}"
-                                                                                {{ old('provincia', $maint_in_rev->provincia ?? '') == $province ? 'selected' : '' }}>
-                                                                                {{ $province }}
-                                                                            </option>
-                                                                        @endforeach
-                                                                    </select>
-                                                                    @error('provincia')
-                                                                        <span class="invalid-feedback" role="alert">
-                                                                            <strong>{{ $message }}</strong>
-                                                                        </span>
-                                                                    @enderror
-                                                                </div>
-                                                                {{-- <div class="row"> --}}
-                                                                {{-- <div class="col-md-6"> --}}
-                                                                <div class="form-group">
-                                                                    <label for="núm_certificado">Núm Certificado</label>
-                                                                    <input type="text" placeholder="Núm Certificado"
-                                                                        name="núm_certificado" id="edit-NCertificado"
-                                                                        class="form-control"
-                                                                        value="{{ old('núm_certificado', $maint_in_rev->núm_certificado ?? '') }}">
-                                                                </div>
-                                                                {{-- </div> --}}
-                                                                {{-- <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="ascensor">Ascensor</label>
+                                                                                            <input type="text"
+                                                                                                class="form-control"
+                                                                                                name="ascensor"
+                                                                                                id="edit-MAscensor"
+                                                                                                value="{{ old('ascensor', $maint_in_rev->ascensor) }}"
+                                                                                                readonly>
+                                                                                            @error('ascensor')
+                                                                                                <span class="invalid-feedback"
+                                                                                                    role="alert">
+                                                                                                    <strong>{{ $message }}</strong>
+                                                                                                </span>
+                                                                                            @enderror
+                                                                                        </div>
+
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="dirección">Dirección</label>
+                                                                                            <input type="text"
+                                                                                                placeholder="Dirección"
+                                                                                                name="dirección"
+                                                                                                id="dirección"
+                                                                                                class="form-control"
+                                                                                                value="{{ old('dirección', $maint_in_rev->dirección) }}">
+                                                                                            @error('dirección')
+                                                                                                <span class="invalid-feedback"
+                                                                                                    style="color: red">
+                                                                                                    <strong>{{ $message }}</strong>
+                                                                                                </span>
+                                                                                            @enderror
+                                                                                        </div>
+
+
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="provinciaAs">Provincia</label>
+                                                                                            <select id="edit-provincia"
+                                                                                                name="provincia"
+                                                                                                class="form-control">
+                                                                                                <option value="">Select
+                                                                                                    Province
+                                                                                                </option>
+                                                                                                @foreach ($provinces as $province)
+                                                                                                    <option
+                                                                                                        value="{{ $province }}"
+                                                                                                        {{ old('provincia', $maint_in_rev->provincia ?? '') == $province ? 'selected' : '' }}>
+                                                                                                        {{ $province }}
+                                                                                                    </option>
+                                                                                                @endforeach
+                                                                                            </select>
+                                                                                            @error('provincia')
+                                                                                                <span class="invalid-feedback"
+                                                                                                    role="alert">
+                                                                                                    <strong>{{ $message }}</strong>
+                                                                                                </span>
+                                                                                            @enderror
+                                                                                        </div>
+                                                                                        {{-- <div class="row"> --}}
+                                                                                        {{-- <div class="col-md-6"> --}}
+                                                                                        <div class="form-group">
+                                                                                            <label for="núm_certificado">Núm
+                                                                                                Certificado</label>
+                                                                                            <input type="text"
+                                                                                                placeholder="Núm Certificado"
+                                                                                                name="núm_certificado"
+                                                                                                id="edit-NCertificado"
+                                                                                                class="form-control"
+                                                                                                value="{{ old('núm_certificado', $maint_in_rev->núm_certificado ?? '') }}">
+                                                                                        </div>
+                                                                                        {{-- </div> --}}
+                                                                                        {{-- <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="máquina">#Máquina</label>
                                                             <input type="text" placeholder="#Máquina"
@@ -1308,171 +1327,237 @@
                                                         </div>
                                                     </div>
                                                 </div> --}}
-                                                                <div class="form-group">
-                                                                    <label for="Supervisor">Supervisor</label>
-                                                                    <select
-                                                                        class="custom-select  @error('supervisor') is-invalid @enderror"
-                                                                        name="supervisor" id="supervisor1">
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="Supervisor">Supervisor</label>
+                                                                                            <select
+                                                                                                class="custom-select  @error('supervisor') is-invalid @enderror"
+                                                                                                name="supervisor"
+                                                                                                id="supervisor1">
 
-                                                                    </select>
-                                                                    @error('supervisor')
-                                                                        <span class="invalid-feedback" role="alert">
-                                                                            <strong>{{ $message }}</strong>
-                                                                        </span>
-                                                                    @enderror
-                                                                </div>
+                                                                                            </select>
+                                                                                            @error('supervisor')
+                                                                                                <span class="invalid-feedback"
+                                                                                                    role="alert">
+                                                                                                    <strong>{{ $message }}</strong>
+                                                                                                </span>
+                                                                                            @enderror
+                                                                                        </div>
 
-                                                                <div class="text-right w-100">
-                                                                    <div class="form-group">
-                                                                        <button type="button" data-toggle="modal"
-                                                                            data-target="#crearSupervisor"
-                                                                            class="btn-gris supervisorbtn"
-                                                                            id="toggleMarcaInput">
-                                                                            + Agregar Supervisor
-                                                                        </button>
-                                                                    </div>
-                                                                </div>
+                                                                                        <div class="text-right w-100">
+                                                                                            <div class="form-group">
+                                                                                                <button type="button"
+                                                                                                    data-toggle="modal"
+                                                                                                    data-target="#crearSupervisor"
+                                                                                                    class="btn-gris supervisorbtn"
+                                                                                                    id="toggleMarcaInput">
+                                                                                                    + Agregar Supervisor
+                                                                                                </button>
+                                                                                            </div>
+                                                                                        </div>
 
-                                                                <div class="form-group">
-                                                                    <label for="técnico">Técnico</label>
-                                                                    <select class="custom-select" name="técnico"
-                                                                        id="edit-técnico">
-                                                                        <option value="">Seleccionar opción
-                                                                        </option>
-                                                                        @foreach ($staffs as $staff)
-                                                                            <option value="{{ $staff }}"
-                                                                                {{ old('técnico', $maint_in_rev->técnico ?? '') == $staff ? 'selected' : '' }}>
-                                                                                {{ $staff }}
-                                                                            </option>
-                                                                        @endforeach
-                                                                    </select>
-                                                                </div>
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="técnico">Técnico</label>
+                                                                                            <select class="custom-select"
+                                                                                                name="técnico"
+                                                                                                id="edit-técnico">
+                                                                                                <option value="">
+                                                                                                    Seleccionar opción
+                                                                                                </option>
+                                                                                                @foreach ($staffs as $staff)
+                                                                                                    <option
+                                                                                                        value="{{ $staff }}"
+                                                                                                        {{ old('técnico', $maint_in_rev->técnico ?? '') == $staff ? 'selected' : '' }}>
+                                                                                                        {{ $staff }}
+                                                                                                    </option>
+                                                                                                @endforeach
+                                                                                            </select>
+                                                                                        </div>
+                                                                                        <div class="row">
+                                                                                            <div class="col-md-6">
+                                                                                                <div class="form-group">
+                                                                                                    <label
+                                                                                                        for="Mprogramado">Mes
+                                                                                                        programado</label>
+                                                                                                    <select
+                                                                                                        class="custom-select @error('mes_programado') is-invalid @enderror"
+                                                                                                        name="mes_programado"
+                                                                                                        id="edit-Mprogramado">
+                                                                                                        <option value="">
+                                                                                                            Seleccionar opción
+                                                                                                        </option>
+                                                                                                        <option value="enero"
+                                                                                                            {{ old('mes_programado', $maint_in_rev->mes_programado ?? '') == 'enero' ? 'selected' : '' }}>
+                                                                                                            Enero</option>
+                                                                                                        <option value="febrero"
+                                                                                                            {{ old('mes_programado', $maint_in_rev->mes_programado ?? '') == 'febrero' ? 'selected' : '' }}>
+                                                                                                            Febrero</option>
+                                                                                                        <option value="marzo"
+                                                                                                            {{ old('mes_programado', $maint_in_rev->mes_programado ?? '') == 'marzo' ? 'selected' : '' }}>
+                                                                                                            Marzo</option>
+                                                                                                        <option value="abril"
+                                                                                                            {{ old('mes_programado', $maint_in_rev->mes_programado ?? '') == 'abril' ? 'selected' : '' }}>
+                                                                                                            Abril</option>
+                                                                                                        <option value="mayo"
+                                                                                                            {{ old('mes_programado', $maint_in_rev->mes_programado ?? '') == 'mayo' ? 'selected' : '' }}>
+                                                                                                            Mayo</option>
+                                                                                                        <option value="junio"
+                                                                                                            {{ old('mes_programado', $maint_in_rev->mes_programado ?? '') == 'junio' ? 'selected' : '' }}>
+                                                                                                            Junio</option>
+                                                                                                        <option value="julio"
+                                                                                                            {{ old('mes_programado', $maint_in_rev->mes_programado ?? '') == 'julio' ? 'selected' : '' }}>
+                                                                                                            Julio</option>
+                                                                                                        <option value="agosto"
+                                                                                                            {{ old('mes_programado', $maint_in_rev->mes_programado ?? '') == 'agosto' ? 'selected' : '' }}>
+                                                                                                            Agosto</option>
+                                                                                                        <option
+                                                                                                            value="septiembre"
+                                                                                                            {{ old('mes_programado', $maint_in_rev->mes_programado ?? '') == 'septiembre' ? 'selected' : '' }}>
+                                                                                                            Septiembre</option>
+                                                                                                        <option value="octubre"
+                                                                                                            {{ old('mes_programado', $maint_in_rev->mes_programado ?? '') == 'octubre' ? 'selected' : '' }}>
+                                                                                                            Octubre</option>
+                                                                                                        <option
+                                                                                                            value="noviembre"
+                                                                                                            {{ old('mes_programado', $maint_in_rev->mes_programado ?? '') == 'noviembre' ? 'selected' : '' }}>
+                                                                                                            Noviembre</option>
+                                                                                                        <option
+                                                                                                            value="diciembre"
+                                                                                                            {{ old('mes_programado', $maint_in_rev->mes_programado ?? '') == 'diciembre' ? 'selected' : '' }}>
+                                                                                                            Diciembre</option>
 
-                                                                <div class="row">
-                                                                    <div class="col-md-6">
-                                                                        <div class="form-group">
-                                                                            <label for="Mprogramado">Mes
-                                                                                programado</label>
-                                                                            <select
-                                                                                class="custom-select @error('mes_programado') is-invalid @enderror"
-                                                                                name="mes_programado" id="edit-Mprogramado">
-                                                                                    <option value="">Seleccionar opción</option>
-                                                                                    <option value="enero" {{ old('mes_programado', $maint_in_rev->mes_programado ?? '') == 'enero' ? 'selected' : '' }}>Enero</option>
-                                                                                    <option value="febrero" {{ old('mes_programado', $maint_in_rev->mes_programado ?? '') == 'febrero' ? 'selected' : '' }}>Febrero</option>
-                                                                                    <option value="marzo" {{ old('mes_programado', $maint_in_rev->mes_programado ?? '') == 'marzo' ? 'selected' : '' }}>Marzo</option>
-                                                                                    <option value="abril" {{ old('mes_programado', $maint_in_rev->mes_programado ?? '') == 'abril' ? 'selected' : '' }}>Abril</option>
-                                                                                    <option value="mayo" {{ old('mes_programado', $maint_in_rev->mes_programado ?? '') == 'mayo' ? 'selected' : '' }}>Mayo</option>
-                                                                                    <option value="junio" {{ old('mes_programado', $maint_in_rev->mes_programado ?? '') == 'junio' ? 'selected' : '' }}>Junio</option>
-                                                                                    <option value="julio" {{ old('mes_programado', $maint_in_rev->mes_programado ?? '') == 'julio' ? 'selected' : '' }}>Julio</option>
-                                                                                    <option value="agosto" {{ old('mes_programado', $maint_in_rev->mes_programado ?? '') == 'agosto' ? 'selected' : '' }}>Agosto</option>
-                                                                                    <option value="septiembre" {{ old('mes_programado', $maint_in_rev->mes_programado ?? '') == 'septiembre' ? 'selected' : '' }}>Septiembre</option>
-                                                                                    <option value="octubre" {{ old('mes_programado', $maint_in_rev->mes_programado ?? '') == 'octubre' ? 'selected' : '' }}>Octubre</option>
-                                                                                    <option value="noviembre" {{ old('mes_programado', $maint_in_rev->mes_programado ?? '') == 'noviembre' ? 'selected' : '' }}>Noviembre</option>
-                                                                                    <option value="diciembre" {{ old('mes_programado', $maint_in_rev->mes_programado ?? '') == 'diciembre' ? 'selected' : '' }}>Diciembre</option>
-
-                                                                            </select>
-                                                                            @error('mes_programado')
-                                                                                <span class="invalid-feedback" role="alert">
-                                                                                    <strong>{{ $message }}</strong>
-                                                                                </span>
-                                                                            @enderror
-                                                                        </div>
-                                                                    </div>
+                                                                                                    </select>
+                                                                                                    @error('mes_programado')
+                                                                                                        <span
+                                                                                                            class="invalid-feedback"
+                                                                                                            role="alert">
+                                                                                                            <strong>{{ $message }}</strong>
+                                                                                                        </span>
+                                                                                                    @enderror
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            >>>>>>>
+                                                                                            d13a45a2690a97a2ff7c0068c0d6c8781d87df29
 
 
-                                                                    <div class="col-md-6">
-                                                                        <div class="form-group">
-                                                                            <label for="FMantenimiento">Fecha de
-                                                                                mantenimiento</label>
-                                                                            <input type="date"
-                                                                                name="fecha_de_mantenimiento"
-                                                                                id="edit-FMantenimiento"
-                                                                                class="form-control @error('fecha_de_mantenimiento') is-invalid @enderror"
-                                                                                value="{{ old('fecha_de_mantenimiento', $maint_in_rev->fecha_de_mantenimiento ?? '') }}">
-                                                                            @error('fecha_de_mantenimiento')
-                                                                                <span class="invalid-feedback" style="color: red">
-                                                                                    <strong>{{ $message }}</strong>
-                                                                                </span>
-                                                                            @enderror
-                                                                        </div>
-                                                                    </div>
+                                                                                            <div class="col-md-6">
+                                                                                                <div class="form-group">
+                                                                                                    <label
+                                                                                                        for="FMantenimiento">Fecha
+                                                                                                        de
+                                                                                                        mantenimiento</label>
+                                                                                                    <input type="date"
+                                                                                                        name="fecha_de_mantenimiento"
+                                                                                                        id="edit-FMantenimiento"
+                                                                                                        class="form-control @error('fecha_de_mantenimiento') is-invalid @enderror"
+                                                                                                        value="{{ old('fecha_de_mantenimiento', $maint_in_rev->fecha_de_mantenimiento ?? '') }}">
+                                                                                                    @error('fecha_de_mantenimiento')
+                                                                                                        <span
+                                                                                                            class="invalid-feedback"
+                                                                                                            style="color: red">
+                                                                                                            <strong>{{ $message }}</strong>
+                                                                                                        </span>
+                                                                                                    @enderror
+                                                                                                </div>
+                                                                                            </div>
 
 
-                                                                    <div class="col-md-6">
-                                                                        <div class="form-group">
-                                                                            <label for="FInicio">Hora
-                                                                                inicio</label>
-                                                                            <input type="time" placeholder="Hora inicio"
-                                                                                name="hora_inicio" id="edit-FInicio"
-                                                                                class="form-control @error('hora_inicio') is-invalid @enderror"
-                                                                                value="{{ old('hora_inicio', $maint_in_rev->hora_inicio ?? '') }}">
-                                                                            @error('hora_inicio')
-                                                                                <span class="invalid-feedback" style="color: red">
-                                                                                    <strong>{{ $message }}</strong>
-                                                                                </span>
-                                                                            @enderror
-                                                                        </div>
-                                                                    </div>
+                                                                                            <div class="col-md-6">
+                                                                                                <div class="form-group">
+                                                                                                    <label for="FInicio">Hora
+                                                                                                        inicio</label>
+                                                                                                    <input type="time"
+                                                                                                        placeholder="Hora inicio"
+                                                                                                        name="hora_inicio"
+                                                                                                        id="edit-FInicio"
+                                                                                                        class="form-control @error('hora_inicio') is-invalid @enderror"
+                                                                                                        value="{{ old('hora_inicio', $maint_in_rev->hora_inicio ?? '') }}">
+                                                                                                    @error('hora_inicio')
+                                                                                                        <span
+                                                                                                            class="invalid-feedback"
+                                                                                                            style="color: red">
+                                                                                                            <strong>{{ $message }}</strong>
+                                                                                                        </span>
+                                                                                                    @enderror
+                                                                                                </div>
+                                                                                            </div>
 
-                                                                    <div class="col-md-6">
-                                                                        <div class="form-group">
-                                                                            <label for="HFin">Hora fin</label>
-                                                                            <input type="time" placeholder="Hora fin"
-                                                                                name="hora_fin" id="edit-HFin"
-                                                                                class="form-control @error('hora_fin') is-invalid @enderror"
-                                                                                value="{{ old('hora_fin', $maint_in_rev->hora_fin ?? '') }}">
-                                                                            @error('hora_fin')
-                                                                                <span class="invalid-feedback" style="color: red">
-                                                                                    <strong>{{ $message }}</strong>
-                                                                                </span>
-                                                                            @enderror
-                                                                        </div>
-                                                                    </div>
+                                                                                            <div class="col-md-6">
+                                                                                                <div class="form-group">
+                                                                                                    <label for="HFin">Hora
+                                                                                                        fin</label>
+                                                                                                    <input type="time"
+                                                                                                        placeholder="Hora fin"
+                                                                                                        name="hora_fin"
+                                                                                                        id="edit-HFin"
+                                                                                                        class="form-control @error('hora_fin') is-invalid @enderror"
+                                                                                                        value="{{ old('hora_fin', $maint_in_rev->hora_fin ?? '') }}">
+                                                                                                    @error('hora_fin')
+                                                                                                        <span
+                                                                                                            class="invalid-feedback"
+                                                                                                            style="color: red">
+                                                                                                            <strong>{{ $message }}</strong>
+                                                                                                        </span>
+                                                                                                    @enderror
+                                                                                                </div>
+                                                                                            </div>
 
-                                                                    <div class="col-md-12">
-                                                                        <div class="form-group">
-                                                                            <label
-                                                                                for="edit-observaciónes">Observaciones</label>
-                                                                            <textarea name="observaciónes" id="edit-observaciónes" placeholder="Comentario de contrato" cols="30"
-                                                                                rows="5">{{ old('observaciónes', $maint_in_rev->observaciónes ?? '') }}</textarea>
-                                                                        </div>
-                                                                    </div>
+                                                                                            <div class="col-md-12">
+                                                                                                <div class="form-group">
+                                                                                                    <label
+                                                                                                        for="edit-observaciónes">Observaciones</label>
+                                                                                                    <textarea name="observaciónes" id="edit-observaciónes" placeholder="Comentario de contrato" cols="30"
+                                                                                                        rows="5">{{ old('observaciónes', $maint_in_rev->observaciónes ?? '') }}</textarea>
+                                                                                                </div>
+                                                                                            </div>
 
-                                                                    <div class="col-md-12">
-                                                                        <div class="form-group">
-                                                                            <label
-                                                                                for="edit-observacionesInternas">Observaciones
-                                                                                internas</label>
-                                                                            <textarea name="observaciónes_internas" id="edit-observacionesInternas" placeholder="Observaciones internas"
-                                                                                cols="30" rows="5">{{ old('observaciónes_internas', $maint_in_rev->observaciónes_internas ?? '') }}</textarea>
-                                                                        </div>
-                                                                    </div>
+                                                                                            <div class="col-md-12">
+                                                                                                <div class="form-group">
+                                                                                                    <label
+                                                                                                        for="edit-observacionesInternas">Observaciones
+                                                                                                        internas</label>
+                                                                                                    <textarea name="observaciónes_internas" id="edit-observacionesInternas" placeholder="Observaciones internas"
+                                                                                                        cols="30" rows="5">{{ old('observaciónes_internas', $maint_in_rev->observaciónes_internas ?? '') }}</textarea>
+                                                                                                </div>
+                                                                                            </div>
 
-                                                                    <div class="col-md-12">
-                                                                        <div class="form-group">
-                                                                            <label for="edit-solucion">Solución</label>
-                                                                            <textarea name="solución" id="edit-solucion" placeholder="Solución" cols="30" rows="5">{{ old('solución', $maint_in_rev->solución ?? '') }}</textarea>
-                                                                        </div>
-                                                                    </div>
+                                                                                            <div class="col-md-12">
+                                                                                                <div class="form-group">
+                                                                                                    <label
+                                                                                                        for="edit-solucion">Solución</label>
+                                                                                                    <textarea name="solución" id="edit-solucion" placeholder="Solución" cols="30" rows="5">{{ old('solución', $maint_in_rev->solución ?? '') }}</textarea>
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div
+                                                                                class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
+                                                                                <button type="submit"
+                                                                                    class="btn-gris btn-red mr-2">Guardar
+                                                                                    Cambios</button>
+                                                                                <button type="button"
+                                                                                    class="btn-gris btn-border"
+                                                                                    data-dismiss="modal">Cancelar</button>
+                                                                            </div>
+
+                                                                        </form>
+                                                                    @endisset
 
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div
-                                                        class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
-                                                        <button type="submit" class="btn-gris btn-red mr-2">Guardar
-                                                            Cambios</button>
-                                                        <button type="button" class="btn-gris btn-border"
-                                                            data-dismiss="modal">Cancelar</button>
-                                                    </div>
-
-                                                </form>
-                                            @endisset
-
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
+
+
 
                                 <div id="repuestos" class="tab-pane">
                                     <div class="row">
@@ -2140,16 +2225,16 @@
                                                                 id="Mprogramado">
                                                                 <option value="">Seleccionar opción</option>
                                                                 <option value="enero">Enero</option>
-                                                                <option value="febrero" >Febrero</option>
-                                                                <option value="marzo" >Marzo</option>
-                                                                <option value="abril" >Abril</option>
-                                                                <option value="mayo" >Mayo</option>
-                                                                <option value="junio" >Junio</option>
-                                                                <option value="julio" >Julio</option>
+                                                                <option value="febrero">Febrero</option>
+                                                                <option value="marzo">Marzo</option>
+                                                                <option value="abril">Abril</option>
+                                                                <option value="mayo">Mayo</option>
+                                                                <option value="junio">Junio</option>
+                                                                <option value="julio">Julio</option>
                                                                 <option value="agosto">Agosto</option>
-                                                                <option value="septiembre" >Septiembre</option>
-                                                                <option value="octubre" >Octubre</option>
-                                                                <option value="noviembre" >Noviembre</option>
+                                                                <option value="septiembre">Septiembre</option>
+                                                                <option value="octubre">Octubre</option>
+                                                                <option value="noviembre">Noviembre</option>
                                                                 <option value="diciembre">Diciembre</option>
 
 
@@ -2635,25 +2720,25 @@
                     buttons: [{
                             extend: 'copy',
                             exportOptions: {
-                                columns: ':not(:last-child)' // Excluye la última columna
+                                columns: ':not(:nth-last-child(-n+2))' // Excluye las dos últimas columnas
                             }
                         },
                         {
                             extend: 'excel',
                             exportOptions: {
-                                columns: ':not(:last-child)' // Excluye la última columna
+                                columns: ':not(:nth-last-child(-n+2))' // Excluye las dos últimas columnas
                             }
                         },
                         {
                             extend: 'csv',
                             exportOptions: {
-                                columns: ':not(:last-child)' // Excluye la última columna
+                                columns: ':not(:nth-last-child(-n+2))' // Excluye las dos últimas columnas
                             }
                         },
                         {
                             extend: 'pdf',
                             exportOptions: {
-                                columns: ':not(:last-child)' // Excluye la última columna
+                                columns: ':not(:nth-last-child(-n+2))' // Excluye las dos últimas columnas
                             },
                             customize: function(doc) {
                                 // Remove the last column from the table body
@@ -2712,46 +2797,49 @@
                     buttons: [{
                             extend: 'copy',
                             exportOptions: {
-                                columns: ':not(:last-child)' // Excluye la última columna
+                                columns: ':not(:first-child)' // Excluye la última columna
                             }
                         },
                         {
                             extend: 'excel',
                             exportOptions: {
-                                columns: ':not(:last-child)' // Excluye la última columna
+                                columns: ':not(:first-child)' // Excluye la última columna
                             }
                         },
                         {
                             extend: 'csv',
                             exportOptions: {
-                                columns: ':not(:last-child)' // Excluye la última columna
+                                columns: ':not(:first-child)' // Excluye la última columna
                             }
                         },
                         {
                             extend: 'pdf',
                             exportOptions: {
-                                columns: ':not(:last-child)' // Excluye la última columna
+                                columns: ':not(:first-child)' // Excludes the last column
                             },
                             customize: function(doc) {
-                                // Remove the last column from the table body
-                                doc.content[1].table.body.forEach(function(row) {
-                                    row.pop(); // Remove the last column from each row
+                                var table = doc.content[1].table;
+                                var columnCount = table.body[0].length;
+
+                                // Set correct widths for columns
+                                table.widths = Array(columnCount).fill('*');
+
+                                // Center align all cells
+                                table.body.forEach(function(row) {
+                                    row.forEach(function(cell) {
+                                        cell.alignment = 'center';
+                                    });
                                 });
-                                doc.content[1].table.widths = Array(doc.content[1].table.body[0]
-                                    .length + 1).join('*').split('');
-                                var columnCount = doc.content[1].table.body[0].length;
-                                doc.content[1].table.body.forEach(function(row) {
-                                    row[0].alignment =
-                                        'center'; // Center align the first column
-                                    row[columnCount - 1].alignment =
-                                        'center'; // Center align the last column
-                                });
+
+                                // Optionally, adjust page size or orientation if needed
+                                doc.pageOrientation = 'landscape';
+                                doc.pageSize = 'A4';
                             }
                         },
                         {
                             extend: 'print',
                             exportOptions: {
-                                columns: ':not(:last-child)' // Excluye la última columna
+                                columns: ':not(:first-child)' // Excluye la última columna
                             }
                         }
                         // 'copy', 'csv', 'excel', 'pdf', 'print'
@@ -3079,9 +3167,13 @@
                     $('#edit-técnico_instalador').val(elevator.técnico_instalador);
                     $('#edit-tipo_de_ascensor').val(elevator.tipo_de_ascensor);
                     $('#edit-cantidad').val(elevator.cantidad);
-                    $('#mgratuito').val(elevator.quarters);
-                    $('#sincuarto').val(elevator.quarters);
-                    $('#concuarto').val(elevator.quarters);
+                    if (elevator.quarters) {
+                        var quarters = elevator.quarters.split(',');
+
+                        $('#mgratuito').prop('checked', quarters.includes('mgratuito'));
+                        $('#sincuarto').prop('checked', quarters.includes('sincuarto'));
+                        $('#concuarto').prop('checked', quarters.includes('concuarto'));
+                    }
                     $('#edit-npisos').val(elevator.npisos);
                     $('#edit-ncontacto').val(elevator.ncontacto);
                     $('#edit-teléfono').val(elevator.teléfono);

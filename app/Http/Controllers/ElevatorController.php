@@ -88,7 +88,6 @@ class ElevatorController extends Controller
 
     public function maintInReviewInsertelevator(Request $request, $id)
     {
-        // dd($request->all());
         try {
             // Validate the request data
             $validatedData = $request->validate([
@@ -140,7 +139,6 @@ class ElevatorController extends Controller
 
     public function elevatorUpdate(Request $request, $id)
     {
-
         $elevator = Elevators::findOrFail($id);
 
         if ($request->hasFile('imagen')) {
@@ -157,6 +155,7 @@ class ElevatorController extends Controller
             $quarters = $request->input('quarters');
         }
         $oldElevatorName = $elevator->nombre;
+        // dd($quarters);
 
         //  update Elevators instance
         $elevator->update([

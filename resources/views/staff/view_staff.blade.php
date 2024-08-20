@@ -629,13 +629,13 @@
                     {
                         extend: 'excel',
                         exportOptions: {
-                            columns: ':not(:last-child)' // Excluye la última columna
+                            columns: ':not(:first-child,:nth-last-child(-n+2))' // Excluye la última columna
                         }
                     },
                     {
                         extend: 'csv',
                         exportOptions: {
-                            columns: ':not(:last-child)' // Excluye la última columna
+                            columns: ':not(:first-child,:nth-last-child(-n+2))' // Excluye la última columna
                         }
                     },
                     {
@@ -665,7 +665,7 @@
                     {
                         extend: 'print',
                         exportOptions: {
-                            columns: ':not(:last-child)' // Excluye la última columna
+                            columns: ':not(:first-child,:nth-last-child(-n+2))' // Excluye la última columna
                         }
                     }
                     // 'copy', 'csv', 'excel', 'pdf', 'print'

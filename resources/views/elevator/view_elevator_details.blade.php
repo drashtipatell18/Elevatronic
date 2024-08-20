@@ -2720,25 +2720,25 @@
                     buttons: [{
                             extend: 'copy',
                             exportOptions: {
-                                columns: ':not(:last-child)' // Excluye la última columna
+                                columns: ':not(:nth-last-child(-n+2))' // Excluye las dos últimas columnas
                             }
                         },
                         {
                             extend: 'excel',
                             exportOptions: {
-                                columns: ':not(:last-child)' // Excluye la última columna
+                                columns: ':not(:nth-last-child(-n+2))' // Excluye las dos últimas columnas
                             }
                         },
                         {
                             extend: 'csv',
                             exportOptions: {
-                                columns: ':not(:last-child)' // Excluye la última columna
+                                columns: ':not(:nth-last-child(-n+2))' // Excluye las dos últimas columnas
                             }
                         },
                         {
                             extend: 'pdf',
                             exportOptions: {
-                                columns: ':not(:last-child)' // Excluye la última columna
+                                columns: ':not(:nth-last-child(-n+2))' // Excluye las dos últimas columnas
                             },
                             customize: function(doc) {
                                 // Remove the last column from the table body
@@ -2797,46 +2797,49 @@
                     buttons: [{
                             extend: 'copy',
                             exportOptions: {
-                                columns: ':not(:last-child)' // Excluye la última columna
+                                columns: ':not(:first-child)' // Excluye la última columna
                             }
                         },
                         {
                             extend: 'excel',
                             exportOptions: {
-                                columns: ':not(:last-child)' // Excluye la última columna
+                                columns: ':not(:first-child)' // Excluye la última columna
                             }
                         },
                         {
                             extend: 'csv',
                             exportOptions: {
-                                columns: ':not(:last-child)' // Excluye la última columna
+                                columns: ':not(:first-child)' // Excluye la última columna
                             }
                         },
                         {
                             extend: 'pdf',
                             exportOptions: {
-                                columns: ':not(:last-child)' // Excluye la última columna
+                                columns: ':not(:first-child)' // Excludes the last column
                             },
                             customize: function(doc) {
-                                // Remove the last column from the table body
-                                doc.content[1].table.body.forEach(function(row) {
-                                    row.pop(); // Remove the last column from each row
+                                var table = doc.content[1].table;
+                                var columnCount = table.body[0].length;
+
+                                // Set correct widths for columns
+                                table.widths = Array(columnCount).fill('*');
+
+                                // Center align all cells
+                                table.body.forEach(function(row) {
+                                    row.forEach(function(cell) {
+                                        cell.alignment = 'center';
+                                    });
                                 });
-                                doc.content[1].table.widths = Array(doc.content[1].table.body[0]
-                                    .length + 1).join('*').split('');
-                                var columnCount = doc.content[1].table.body[0].length;
-                                doc.content[1].table.body.forEach(function(row) {
-                                    row[0].alignment =
-                                        'center'; // Center align the first column
-                                    row[columnCount - 1].alignment =
-                                        'center'; // Center align the last column
-                                });
+
+                                // Optionally, adjust page size or orientation if needed
+                                doc.pageOrientation = 'landscape';
+                                doc.pageSize = 'A4';
                             }
                         },
                         {
                             extend: 'print',
                             exportOptions: {
-                                columns: ':not(:last-child)' // Excluye la última columna
+                                columns: ':not(:first-child)' // Excluye la última columna
                             }
                         }
                         // 'copy', 'csv', 'excel', 'pdf', 'print'

@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <title>Elevatronic</title>
+    <link rel="shortcut icon" href="{{ asset('img/logo-sidebar.svg') }}" type="image/x-icon">
 
     <link rel="stylesheet" href="{{ asset('css/menu.css') }}?v={{ uniqid() }}">
     <link rel="stylesheet" href="{{ asset('css/estilos.css') }}?v={{ rand() }}">

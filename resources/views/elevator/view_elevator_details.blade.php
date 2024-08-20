@@ -1356,7 +1356,7 @@
                                                                             <select
                                                                                 class="custom-select @error('mes_programado') is-invalid @enderror"
                                                                                 name="mes_programado" id="edit-Mprogramado">
-                                                                                <option value="" class="">
+                                                                                {{-- <option value="" class="">
                                                                                     Seleccionar
                                                                                     opción</option>
                                                                                 <option value="mes_programado_1"
@@ -1367,7 +1367,22 @@
                                                                                     Mes programado 2</option>
                                                                                 <option value="mes_programado_3"
                                                                                     {{ old('mes_programado', $maint_in_rev->mes_programado ?? '') == 'mes_programado_3' ? 'selected' : '' }}>
-                                                                                    Mes programado 3</option>
+                                                                                    Mes programado 3</option> --}}
+                                                                                    
+                                                                                    <option value="">Seleccionar opción</option>
+                                                                                    <option value="enero" {{ old('mes_programado', $maint_in_rev->mes_programado ?? '') == 'enero' ? 'selected' : '' }}>Enero</option>
+                                                                                    <option value="febrero" {{ old('mes_programado', $maint_in_rev->mes_programado ?? '') == 'febrero' ? 'selected' : '' }}>Febrero</option>
+                                                                                    <option value="marzo" {{ old('mes_programado', $maint_in_rev->mes_programado ?? '') == 'marzo' ? 'selected' : '' }}>Marzo</option>
+                                                                                    <option value="abril" {{ old('mes_programado', $maint_in_rev->mes_programado ?? '') == 'abril' ? 'selected' : '' }}>Abril</option>
+                                                                                    <option value="mayo" {{ old('mes_programado', $maint_in_rev->mes_programado ?? '') == 'mayo' ? 'selected' : '' }}>Mayo</option>
+                                                                                    <option value="junio" {{ old('mes_programado', $maint_in_rev->mes_programado ?? '') == 'junio' ? 'selected' : '' }}>Junio</option>
+                                                                                    <option value="julio" {{ old('mes_programado', $maint_in_rev->mes_programado ?? '') == 'julio' ? 'selected' : '' }}>Julio</option>
+                                                                                    <option value="agosto" {{ old('mes_programado', $maint_in_rev->mes_programado ?? '') == 'agosto' ? 'selected' : '' }}>Agosto</option>
+                                                                                    <option value="septiembre" {{ old('mes_programado', $maint_in_rev->mes_programado ?? '') == 'septiembre' ? 'selected' : '' }}>Septiembre</option>
+                                                                                    <option value="octubre" {{ old('mes_programado', $maint_in_rev->mes_programado ?? '') == 'octubre' ? 'selected' : '' }}>Octubre</option>
+                                                                                    <option value="noviembre" {{ old('mes_programado', $maint_in_rev->mes_programado ?? '') == 'noviembre' ? 'selected' : '' }}>Noviembre</option>
+                                                                                    <option value="diciembre" {{ old('mes_programado', $maint_in_rev->mes_programado ?? '') == 'diciembre' ? 'selected' : '' }}>Diciembre</option>
+
                                                                             </select>
                                                                             @error('mes_programado')
                                                                                 <span class="invalid-feedback" role="alert">
@@ -2136,12 +2151,27 @@
                                                             <label for="Mprogramado">Mes programado</label>
                                                             <select class="custom-select" name="mes_programado"
                                                                 id="Mprogramado">
-                                                                <option selected disabled class="d-none">Seleccionar
+                                                                {{-- <option selected disabled class="d-none">Seleccionar
                                                                     opción
                                                                 </option>
                                                                 <option value="mes_programado_1">Mes programado 1</option>
                                                                 <option value="mes_programado_2">Mes programado 2</option>
-                                                                <option value="mes_programado_3">Mes programado 3</option>
+                                                                <option value="mes_programado_3">Mes programado 3</option> --}}
+                                                                <option value="">Seleccionar opción</option>
+                                                                <option value="enero">Enero</option>
+                                                                <option value="febrero" >Febrero</option>
+                                                                <option value="marzo" >Marzo</option>
+                                                                <option value="abril" >Abril</option>
+                                                                <option value="mayo" >Mayo</option>
+                                                                <option value="junio" >Junio</option>
+                                                                <option value="julio" >Julio</option>
+                                                                <option value="agosto">Agosto</option>
+                                                                <option value="septiembre" >Septiembre</option>
+                                                                <option value="octubre" >Octubre</option>
+                                                                <option value="noviembre" >Noviembre</option>
+                                                                <option value="diciembre">Diciembre</option>
+
+
                                                             </select>
                                                         </div>
                                                     </div>
@@ -2655,9 +2685,9 @@
                                 doc.content[1].table.body.forEach(function(row) {
                                     row[0].alignment =
                                         'center'; // Center align the first column
-                                    row[1].alignment = 
+                                    row[1].alignment =
                                         'center'; // Center align the second column
-                                    row[2].alignment = 
+                                    row[2].alignment =
                                         'center'; // Center align the third column
                                     row[columnCount - 1].alignment =
                                         'center'; // Center align the last column

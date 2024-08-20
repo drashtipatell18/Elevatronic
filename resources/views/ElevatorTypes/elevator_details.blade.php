@@ -155,7 +155,7 @@
                                             <div class="form-group position-relative">
                                                 <label for="customSearchBox1"><i class="fal fa-search"></i></label>
                                                 <input type="text" id="customSearchBox1" placeholder="Buscar"
-                                                    class="w-auto customSearchBox">
+                                                    class="w-auto customSearchBox1">
                                             </div>
                                         </div>
                                     </div>
@@ -171,18 +171,18 @@
                                             <div class="dropdown-menu dropdown-menu-right"
                                                 aria-labelledby="dropdownMenuButton">
                                                 <button class="dropdown-item export_excel"
-                                                    data-table="#repuestosAsignados">Excel</button>
+                                                    data-table="#AscensoresTable">Excel</button>
                                                 <button class="dropdown-item export_pdf"
-                                                    data-table="#repuestosAsignados">PDF</button>
+                                                    data-table="#AscensoresTable">PDF</button>
                                                 <button class="dropdown-item export_copy"
-                                                    data-table="#repuestosAsignados">Copiar</button>
+                                                    data-table="#AscensoresTable">Copiar</button>
                                                 <button class="dropdown-item export_print"
-                                                    data-table="#repuestosAsignados">Imprimir</button>
+                                                    data-table="#AscensoresTable">Imprimir</button>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-12">
-                                        <table id="repuestosAsignados" class="table" style="width:100%">
+                                        <table id="AscensoresTable" class="table" style="width:100%">
                                             <thead>
                                                 <tr>
                                                     <th>ID</th>
@@ -397,6 +397,86 @@
                 ]
             });
 
+            var table1 = $('#AscensoresTable').DataTable({
+                responsive: true,
+                dom: 'tp',
+                pageLength: 20, // Establece el número de registros por página a 8
+                language: {
+                    "decimal": "",
+                    "emptyTable": "No hay información",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Reistros",
+                    "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+                    "infoFiltered": "(Filtrado de _MAX_ total registros)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "lengthMenu": "Mostrar _MENU_ Registros",
+                    "loadingRecords": "Cargando...",
+                    "processing": "Procesando...",
+                    "search": "Buscar:",
+                    "zeroRecords": "Sin resultados encontrados",
+                    "paginate": {
+                        "first": "Primero",
+                        "last": "Último",
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    },
+                    searching: true,
+                },
+                buttons: [{
+                        extend: 'copy',
+                        exportOptions: {
+                            columns: ':not(:last-child)' // Excluye la última columna
+                        }
+                    },
+                    {
+                        extend: 'excel',
+                        exportOptions: {
+                            columns: ':not(:last-child)' // Excluye la última columna
+                        }
+                    },
+                    {
+                        extend: 'csv',
+                        exportOptions: {
+                            columns: ':not(:last-child)' // Excluye la última columna
+                        }
+                    },
+                    {
+                        extend: 'pdf',
+                        exportOptions: {
+                            columns: ':not(:last-child)' // Excluye la última columna
+                        },
+                        customize: function(doc) {
+                            // Remove the last column from the table body
+                            doc.content[1].table.body.forEach(function(row) {
+                                row.pop(); // Remove the last column from each row
+                            });
+                            doc.content[1].table.widths = Array(doc.content[1].table.body[0]
+                                .length + 1).join('*').split('');
+                            var columnCount = doc.content[1].table.body[0].length;
+                            doc.content[1].table.body.forEach(function(row) {
+                                row[0].alignment =
+                                    'center'; // Center align the first column
+                                row[1].alignment =
+                                    'center'; // Center align the second column
+                                row[2].alignment =
+                                    'center'; // Center align the third column
+                                row[3].alignment =
+                                    'center'; // Center align the fourth column
+                                row[columnCount - 1].alignment =
+                                    'center'; // Center align the last column
+                            });
+                        }
+                    },
+                    {
+                        extend: 'print',
+                        exportOptions: {
+                            columns: ':not(:last-child)' // Excluye la última columna
+                        }
+                    }
+                    // 'copy', 'csv', 'excel', 'pdf', 'print'
+                ]
+            });
+
             $(".export_excel").on("click", function() {
                 var tableId = $(this).data("table");
                 var table = $(tableId).DataTable();
@@ -417,10 +497,9 @@
                 var table = $(tableId).DataTable();
                 table.button('.buttons-print').trigger();
             });
-
-            // $('#customSearchBox').keyup(function(){
-            //     table.search($(this).val()).draw();
-            // });
+            $('.customSearchBox1').keyup(function() {
+                table1.search($(this).val()).draw();
+            });
             $('.customSearchBox').keyup(function() {
                 table.search($(this).val()).draw();
             });

@@ -195,7 +195,13 @@
                                             <tbody>
                                                 <tr>
                                                     <td class="text-gris">Supervisor</td>
-                                                    <td>{{ $maint_in_review->supervisor->nomber }}</td>
+                                                        <td>
+                                                            @if(!is_null($maint_in_review) && isset($maint_in_review->supervisor))
+                                                                {{ $maint_in_review->supervisor->nomber }}
+                                                            @else
+                                                                {{ '-' }}
+                                                            @endif
+                                                        </td>                                                    
                                                 </tr>
                                             </tbody>
                                         </table>

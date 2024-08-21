@@ -147,10 +147,6 @@
                                                     <td class="text-gris">Posición</td>
                                                     <td>{{ $customer->posición }}</td>
                                                 </tr>
-                                                <tr>
-                                                    <td class="text-gris">Correo electrónico</td>
-                                                    <td>-</td>
-                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>

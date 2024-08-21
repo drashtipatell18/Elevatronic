@@ -393,13 +393,6 @@
                         slotLabelFormat: 'HH:mm'
                     }
                 },
-                // eventTimeFormat: {
-                //     // Format for event times
-                //     hour: '2-digit',
-                //     minute: '2-digit',
-                //     meridiem: true // Use 24-hour format
-                // },
-
                 events: function(start, end, timezone, callback) {
                     var selectedProvince = $('#province').val();
 
@@ -485,7 +478,8 @@
                         // Close the modal and reset the form
                         $("#crearCronograma").modal('hide');
                         resetForm();
-                    },
+                        window.location.reload();
+        },
                     error: function(xhr, status, error) {
                         console.error('Error submitting form:', error);
                     }

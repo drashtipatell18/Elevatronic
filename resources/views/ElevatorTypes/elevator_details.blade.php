@@ -443,7 +443,7 @@
                     {
                         extend: 'pdf',
                         exportOptions: {
-                            columns: ':not(:last-child)' // Excluye la última columna
+                            // columns: ':not(:last-child)' // Excluye la última columna
                         },
                         customize: function(doc) {
                             // Remove the last column from the table body

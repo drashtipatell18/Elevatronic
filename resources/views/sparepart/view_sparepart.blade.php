@@ -643,7 +643,7 @@
                     {
                         extend: 'print',
                         exportOptions: {
-                            columns: ':not(:last-child)' // Excluye la última columna
+                            columns: ':not(:first-child):not(:last-child)' // Excludes the first and last columns
                         }
                     }
                     // 'copy', 'csv', 'excel', 'pdf', 'print'

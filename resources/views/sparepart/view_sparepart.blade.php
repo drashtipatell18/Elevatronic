@@ -4,6 +4,7 @@
         .dt-head-center {
             text-align: center;
         }
+
         #editimagenPrevio {
             width: 200px;
             height: 200px;
@@ -23,7 +24,8 @@
 
             /* Ensures that the image covers the container without distortion */
         }
-        #edit-sparepart{
+
+        #edit-sparepart {
             background-color: white !important;
         }
     </style>
@@ -601,17 +603,40 @@
                     {
                         extend: 'pdf',
                         exportOptions: {
-                            columns: ':not(:last-child)' // Excluye la última columna
+                            columns: ':not(:first-child):not(:last-child)' // Excludes the first and last columns
                         },
                         customize: function(doc) {
-                            doc.content[1].table.widths = Array(doc.content[1].table.body[0]
-                                .length + 1).join('*').split('');
-                            var columnCount = doc.content[1].table.body[0].length;
-                            doc.content[1].table.body.forEach(function(row) {
-                                row[0].alignment =
-                                    'center'; // Center align the first column
-                                row[columnCount - 1].alignment =
-                                    'center'; // Center align the last column
+                            var table = doc.content[1].table;
+
+                            // Center align all header cells
+                            table.headerRows = 1; // Specify that the first row is the header
+
+                            // Center align all cells in the body
+                            table.body.forEach(function(row, rowIndex) {
+                                row.forEach(function(cell) {
+                                    cell.alignment =
+                                    'center'; // Center align all cells
+                                });
+                            });
+
+                            // Center align all cells in the header
+                            if (table.body.length > 0) {
+                                table.body[0].forEach(function(cell) {
+                                    cell.alignment = 'center'; // Center align header cells
+                                });
+                            }
+
+                            // Ensure this is suitable for your content
+                            doc.pageOrientation = 'landscape';
+                            doc.pageSize = 'A4';
+                            doc.defaultStyle.fontSize = 8; // Adjust font size as needed
+
+                            // Adjust the height of rows if necessary
+                            table.body.forEach(function(row) {
+                                row.forEach(function(cell) {
+                                    cell.margin = [5,
+                                    5]; // Add margin to cells for better spacing
+                                });
                             });
                         }
                     },

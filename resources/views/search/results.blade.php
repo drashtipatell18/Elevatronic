@@ -320,67 +320,39 @@
             <table class="table datatable">
                 <thead>
                     <tr>
-                        <th>Imagen</th>
-                        <th>Contrato</th>
-                        <th>Nombre</th>
-                        <th>Código</th>
-                        <th>Marca</th>
-                        <th>Cliente</th>
-                        <th>Fecha</th>
-                        <th>Garantizar</th>
-                        <th>Dirección</th>
-                        <th>Ubigeo</th>
-                        <th>Provincia</th>
-                        <th>Técnico Instalador</th>
-                        <th>Técnico Ajustador</th>
-                        <th>Tipo de Ascensor</th>
-                        <th>Cantidad</th>
-                        <th>Quarters</th>
-                        <th>NPisos</th>
-                        <th>NContacto</th>
-                        <th>Teléfono</th>
-                        <th>Correo</th>
-                        <th>Descripción1</th>
+                        <th>ID</th>
+                        <th>FECHA ENTREGA</th>
+                        <th>TIPO DE ASCENSOR</th>
+                        <th>NOMBRE</th>
+                        <th>CLIENTE</th>
+                        <th>PROVINCIA</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($elevators as $item)
-                        <tr>
-                            <td>
-                                @if ($item->imagen)
-                                <img src="{{ asset('images/' . $item->imagen) }}" alt="personal"
-                                    width="52" height="52" class="img-table setimage">
-                                @else
-                                <img src="{{ asset('img/fondo.png') }}" width="52" height="52"
-                                    class="img-table setimage" alt="user">
-                                @endif
-                            </td>
-                            <td>{{ $item->contrato }}</td>
-                            <td>
-                                <a href="{{ route('elevator', $item->id) }}" class="text-blue">
-                                    {{ $item->nombre }}
+                    <tr class="td-head-center">
+                        <td>{{ $index + 1 }}</td>
+                        <td>{{ $item->fecha }}</td>
+                        <td>{{ $item->tipo_de_ascensor }}</td>
+                        <td>
+                            <a href="{{ route('view.elevator', $item->id) }}" class="text-blue">
+                                {{ $item->nombre }}
+                            </a>
+                        </td>
+                        <td>
+                            @if ($item->client)
+                                <a href="{{ route('view.customer', $item->client_id) }}"
+                                    class="text-blue">
+                                    {{ $item->client->nombre ?? '-' }}
                                 </a>
-                            </td>
-                            <td>{{ $item->nombre }}</td>
-                            <td>{{ $item->código }}</td>
-                            <td>{{ $item->marca->marca_nombre }}</td>
-                            <td>{{ $item->client->nombre ?? '-' }}</td>
-                            <td>{{ $item->fecha }}</td>
-                            <td>{{ $item->garantizar }}</td>
-                            <td>{{ $item->dirección }}</td>
-                            <td>{{ $item->ubigeo }}</td>
-                            <td>{{ $item->provincia }}</td>
-                            <td>{{ $item->técnico_instalador }}</td>
-                            <td>{{ $item->técnico_ajustador }}</td>
-                            <td>{{ $item->tipo_de_ascensor }}</td>
-                            <td>{{ $item->cantidad }}</td>
-                            <td>{{ $item->quarters }}</td>
-                            <td>{{ $item->npisos }}</td>
-                            <td>{{ $item->ncontacto }}</td>
-                            <td>{{ $item->teléfono }}</td>
-                            <td>{{ $item->correo }}</td>
-                            <td>{{ $item->descripcion1 }}</td>
-                        </tr>
+                            @else
+                                {{ '-' }}
+                            @endif
+                        </td>
+
+
+                        <td>{{ $item->provincia }}</td>
+                    </tr>
                     @endforeach
                 </tbody>
             </table>

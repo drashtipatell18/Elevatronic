@@ -586,23 +586,29 @@
                         }
                     },
                     {
-                        extend: 'pdf',
-                        exportOptions: {
-                            columns: ':not(:last-child)' // Exclude the last column
-                        },
-                        customize: function(doc) {
-                            doc.content[1].table.widths = Array(doc.content[1].table.body[0]
-                                .length + 1).join('*').split('');
-                            var columnCount = doc.content[1].table.body[0].length;
-                            doc.content[1].table.body.forEach(function(row) {
-                                row[0].alignment =
-                                    'center'; // Center align the first column
-                                row[columnCount - 1].alignment =
-                                    'center'; // Center align the last column
-                            });
-                        }
-                    },
+                            extend: 'pdf',
+                            exportOptions: {
+                                columns: ':not(:last-child)' // Excludes the last column
+                            },
+                            customize: function(doc) {
+                                var table = doc.content[1].table;
+                                var columnCount = table.body[0].length;
 
+                                // Set correct widths for columns
+                                table.widths = Array(columnCount).fill('*');
+
+                                // Center align all cells
+                                table.body.forEach(function(row) {
+                                    row.forEach(function(cell) {
+                                        cell.alignment = 'center';
+                                    });
+                                });
+
+                                // Optionally, adjust page size or orientation if needed
+                                doc.pageOrientation = 'landscape';
+                                doc.pageSize = 'A4';
+                            }
+                        },
                     {
                         extend: 'print',
                         exportOptions: {

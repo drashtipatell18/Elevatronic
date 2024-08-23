@@ -206,7 +206,7 @@
                                                     id="tipo_de_cliente">
                                                 </select>
                                             </div>
-                                            <div class="text-right w-100">
+                                            {{-- <div class="text-right w-100">
                                                 <div class="form-group">
                                                     <button type="button" data-toggle="modal"
                                                         data-target="#crearTipodeclient" class="btn-gris clienttypebtn"
@@ -214,7 +214,7 @@
                                                         + Agregar Tipo de Cliente
                                                     </button>
                                                 </div>
-                                            </div>
+                                            </div> --}}
                                             <div class="form-group">
                                                 <label for="RUC">RUC o DNI</label>
                                                 <input type="number" placeholder="RUC o DNI" name="ruc"
@@ -315,7 +315,7 @@
                                                         id="tipo_de_cliente1">
                                                     </select>
                                                 </div>
-                                                <div class="text-right w-100">
+                                                {{-- <div class="text-right w-100">
                                                     <div class="form-group">
                                                         <button type="button" data-toggle="modal"
                                                             data-target="#crearTipodeclient" class="btn-gris clienttypebtn"
@@ -323,7 +323,7 @@
                                                             + Agregar Tipo de Cliente
                                                         </button>
                                                     </div>
-                                                </div>
+                                                </div> --}}
                                                 <div class="form-group">
                                                     <label for="RUC">RUC o DNI</label>
                                                     <input type="number" placeholder="RUC o DNI" name="ruc"

@@ -79,7 +79,6 @@
                 <div class="alert alert-danger">
                     {{ session('danger') }}
                 </div>
-                {{ session()->forget('danger') }}
             @endif
             <div class="row">
                 <div class="col-md-6 mb-4">

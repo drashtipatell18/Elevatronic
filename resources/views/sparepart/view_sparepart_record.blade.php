@@ -439,9 +439,40 @@
                 }
             });
 
-            $('.edit-sparepart').on('click', function() {
-                var sparepart = $(this).data('sparepart');
-                // Populate the modal with customer data
+            // $('.edit-sparepart').on('click', function() {
+            //     var sparepart = $(this).data('sparepart');
+            //     // Populate the modal with customer data
+            //     $('#edit-nombre').val(sparepart.nombre);
+            //     $('#edit-precio').val(sparepart.precio);
+            //     $('#edit-descripción').val(sparepart.descripción);
+            //     $('#edit-frecuencia_de_limpieza').val(sparepart.frecuencia_de_limpieza);
+            //     $('#edit-frecuencia_de_lubricación').val(sparepart.frecuencia_de_lubricación);
+            //     $('#edit-frecuencia_de_ajuste').val(sparepart.frecuencia_de_ajuste);
+            //     $('#edit-frecuencia_de_revisión').val(sparepart.frecuencia_de_revisión);
+            //     $('#edit-frecuencia_de_cambio').val(sparepart.frecuencia_de_cambio);
+            //     $('#edit-frecuencia_de_solicitud').val(sparepart.frecuencia_de_solicitud);
+
+            //     // Set the form action to the correct route
+            //     $('#editsparepart').attr('action', '/repuestos/actualizar/' + sparepart.id);
+            // });
+
+            $(document).on('click', '.edit-sparepart', function() {
+                // Clear previous modal data
+                $('#edit-nombre').val('');
+                $('#edit-precio').val('');
+                $('#edit-descripción').val('');
+                $('#edit-frecuencia_de_limpieza').val('');
+                $('#edit-frecuencia_de_lubricación').val('');
+                $('#edit-frecuencia_de_ajuste').val('');
+                $('#edit-frecuencia_de_revisión').val('');
+                $('#edit-frecuencia_de_cambio').val('');
+                $('#edit-frecuencia_de_solicitud').val('');
+                $('#edit-sparepart').attr('src', "{{ asset('img/fondo.png') }}");
+
+                        // Get the current user data
+                        var sparepart = $(this).data('sparepart');
+
+                // Populate the modal with the selected user's data
                 $('#edit-nombre').val(sparepart.nombre);
                 $('#edit-precio').val(sparepart.precio);
                 $('#edit-descripción').val(sparepart.descripción);
@@ -452,8 +483,13 @@
                 $('#edit-frecuencia_de_cambio').val(sparepart.frecuencia_de_cambio);
                 $('#edit-frecuencia_de_solicitud').val(sparepart.frecuencia_de_solicitud);
 
-                // Set the form action to the correct route
+
                 $('#editsparepart').attr('action', '/repuestos/actualizar/' + sparepart.id);
+                        // Set the form action to the correct route
+                        var imageUrl = sparepart.foto_de_repuesto ?
+                    "{{ asset('images/') }}/" + sparepart.foto_de_repuesto :
+                    "{{ asset('img/fondo.png') }}";
+                $('#edit-sparepart').attr('src', imageUrl);
             });
 
             $('#editcargarimagen').click(function() {

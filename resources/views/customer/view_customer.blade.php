@@ -724,25 +724,67 @@
                     }
                 });
             });
+            // $(document).on('click', '.edit-customer', function() {
+
+            //     var customer = $(this).data('customer');
+            //     // Populate the modal with customer data
+            //     $('#edit-nombre').val(customer.nombre);
+            //     $('#tipo_de_cliente1').val(customer.tipo_de_cliente).trigger('change');
+            //     $('#edit-ruc').val(customer.ruc);
+            //     $('#edit-país').val(customer.país);
+            //     $('#edit-provincia').val(customer.provincia);
+            //     $('#edit-dirección').val(customer.dirección);
+            //     $('#edit-teléfono').val(customer.teléfono);
+            //     $('#edit-teléfono_móvil').val(customer.teléfono_móvil);
+            //     $('#edit-correo_electrónico').val(customer.correo_electrónico);
+            //     $('#edit-nombre_del_contacto').val(customer.nombre_del_contacto);
+            //     $('#edit-posición').val(customer.posición);
+
+            //     // Set the form action to the correct route
+            //     $('#EditcustomerForm').attr('action', '/clientes/actualizar/' + customer.id);
+            // });
+
             $(document).on('click', '.edit-customer', function() {
+            // Clear previous modal data
+            $('#edit-nombre').val('');
+            $('#tipo_de_cliente1').val('').trigger('change');
+            $('#edit-ruc').val('');
+            $('#edit-país').val('');
+            $('#edit-provincia').val('');
+            $('#edit-dirección').val('');
+            $('#edit-teléfono').val('');
+            $('#edit-teléfono_móvil').val('');
+            $('#edit-correo_electrónico').val('');
+            $('#edit-nombre_del_contacto').val('');
+            $('#edit-posición').val('');
+            $('#edit-customer-image').attr('src', "{{ asset('img/default.png') }}"); // Default image
 
-                var customer = $(this).data('customer');
-                // Populate the modal with customer data
-                $('#edit-nombre').val(customer.nombre);
-                $('#tipo_de_cliente1').val(customer.tipo_de_cliente).trigger('change');
-                $('#edit-ruc').val(customer.ruc);
-                $('#edit-país').val(customer.país);
-                $('#edit-provincia').val(customer.provincia);
-                $('#edit-dirección').val(customer.dirección);
-                $('#edit-teléfono').val(customer.teléfono);
-                $('#edit-teléfono_móvil').val(customer.teléfono_móvil);
-                $('#edit-correo_electrónico').val(customer.correo_electrónico);
-                $('#edit-nombre_del_contacto').val(customer.nombre_del_contacto);
-                $('#edit-posición').val(customer.posición);
+            // Get the current customer data
+            var customer = $(this).data('customer');
 
-                // Set the form action to the correct route
-                $('#EditcustomerForm').attr('action', '/clientes/actualizar/' + customer.id);
-            });
+            // Populate the modal with the selected customer's data
+            $('#edit-nombre').val(customer.nombre);
+            $('#tipo_de_cliente1').val(customer.tipo_de_cliente).trigger('change');
+            $('#edit-ruc').val(customer.ruc);
+            $('#edit-país').val(customer.país);
+            $('#edit-provincia').val(customer.provincia);
+            $('#edit-dirección').val(customer.dirección);
+            $('#edit-teléfono').val(customer.teléfono);
+            $('#edit-teléfono_móvil').val(customer.teléfono_móvil);
+            $('#edit-correo_electrónico').val(customer.correo_electrónico);
+            $('#edit-nombre_del_contacto').val(customer.nombre_del_contacto);
+            $('#edit-posición').val(customer.posición);
+
+            // Set the form action to the correct route
+            var imageUrl = customer.image ?
+                "{{ asset('images/customers/') }}/" + customer.image :
+                "{{ asset('img/default.png') }}";
+            $('#edit-customer-image').attr('src', imageUrl);
+            $('#EditcustomerForm').attr('action', '/clientes/actualizar/' + customer.id);
+        });
+
+
+
             $('#customerForm').validate({
                 rules: {
                     nombre: 'required',

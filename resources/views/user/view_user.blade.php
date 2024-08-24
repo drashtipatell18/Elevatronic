@@ -954,24 +954,33 @@
                 }
             });
 
-            $('.edit-user').on('click', function() {
-                var user = $(this).data('user');
-                // Populate the modal with customer data
-                $('#edit-username').val(user.username);
-                $('#edit-name').val(user.name);
-                $('#edit-email').val(user.email);
-                $('#edit-phone').val(user.phone);
-                // $('#edit-employee').val(user.employee);
-                $('#employee_id1').val(user.employee_id).trigger('change');
+            $(document).on('click', '.edit-user', function() {
+    // Clear previous modal data
+            $('#edit-username').val('');
+            $('#edit-name').val('');
+            $('#edit-email').val('');
+            $('#edit-phone').val('');
+            $('#employee_id1').val('').trigger('change');
+            $('#edit-users').attr('src', "{{ asset('img/fondo.png') }}"); // Default image
 
-                // Set the form action to the correct route
-                var imageUrl = user.image ?
-                    "{{ asset('images/') }}/" + user.image :
-                    "{{ asset('img/fondo.png') }}";
-                $('#edit-users').attr('src', imageUrl);
-                $('#edituserform').attr('action', '/usuarios/actualizar/' + user.id);
+            // Get the current user data
+            var user = $(this).data('user');
 
-            });
+            // Populate the modal with the selected user's data
+            $('#edit-username').val(user.username);
+            $('#edit-name').val(user.name);
+            $('#edit-email').val(user.email);
+            $('#edit-phone').val(user.phone);
+            $('#employee_id1').val(user.employee_id).trigger('change');
+
+            // Set the form action to the correct route
+            var imageUrl = user.image ?
+                "{{ asset('images/') }}/" + user.image :
+                "{{ asset('img/fondo.png') }}";
+            $('#edit-users').attr('src', imageUrl);
+            $('#edituserform').attr('action', '/usuarios/actualizar/' + user.id);
+        });
+
 
             $('#crearUsuario').on('hidden.bs.modal', function() {
                 var form = $('#createuserform');
@@ -991,6 +1000,7 @@
             });
             $('#editorUsuario').on('hidden.bs.modal', function() {
                 var form = $('#edituserform');
+                form[0].reset();
                 form.validate().resetForm();
                 form.find('.is-invalid').removeClass('is-invalid');
                 form.find('.is-valid').removeClass('is-valid');

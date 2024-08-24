@@ -526,9 +526,16 @@
                     }
                 });
             });
-            $(document).on('click', '.edit-elevator-type', function() {
-                var elevator_type = $(this).data('elevator-type');
+            // $(document).on('click', '.edit-elevator-type', function() {
+            //     var elevator_type = $(this).data('elevator-type');
 
+            //     $('#edit-nombre_de_tipo_de_ascensor').val(elevator_type.nombre_de_tipo_de_ascensor);
+            //     $('#editelevatorForm').attr('action', '/tipos/de/ascensor/actualizar/' + elevator_type.id);
+            // });
+
+            $(document).on('click', '.edit-elevator-type', function() {
+                $('#edit-nombre_de_tipo_de_ascensor').val('');
+                var elevator_type = $(this).data('elevator-type');
                 $('#edit-nombre_de_tipo_de_ascensor').val(elevator_type.nombre_de_tipo_de_ascensor);
                 $('#editelevatorForm').attr('action', '/tipos/de/ascensor/actualizar/' + elevator_type.id);
             });

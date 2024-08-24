@@ -525,20 +525,46 @@
                     }
                 });
 
-                $('.edit-staff').on('click', function() {
+                // $('.edit-staff').on('click', function() {
+                //     var staff = $(this).data('staff');
+                //     // Populate the modal with customer data
+                //     $('#edit-nombre').val(staff.nombre);
+                //     $('#posición_id').val(staff.posición_id).trigger('change');
+                //     $('#edit-correo').val(staff.correo);
+                //     $('#edit-teléfono').val(staff.teléfono);
+                //     var imageUrl = staff.personalfoto ?
+                //     "{{ asset('images/') }}/" + staff.personalfoto :
+                //     "{{ asset('img/fondo.png') }}";
+                //     $('#edit-sparepart').attr('src', imageUrl);
+                //         // Set the form action to the correct route
+                //         $('#editstaff').attr('action', '/personal/actualizar/' + staff.id);
+                //     });
+
+
+                $(document).on('click', '.edit-staff', function() {
+                    // Clear previous modal data
+                    $('#edit-nombre').val('');
+                    $('#edit-correo').val('');
+                    $('#edit-teléfono').val('');
+                    $('#posición_id').val('').trigger('change');
+                    $('#edit-sparepart').attr('src', "{{ asset('img/fondo.png') }}"); // Default image
+
+                    // Get the current staff data
                     var staff = $(this).data('staff');
-                    // Populate the modal with customer data
+
+                    // Populate the modal with the selected staff's data
                     $('#edit-nombre').val(staff.nombre);
                     $('#posición_id').val(staff.posición_id).trigger('change');
                     $('#edit-correo').val(staff.correo);
                     $('#edit-teléfono').val(staff.teléfono);
+
+                    // Set the form action to the correct route
                     var imageUrl = staff.personalfoto ?
-                    "{{ asset('images/') }}/" + staff.personalfoto :
-                    "{{ asset('img/fondo.png') }}";
+                        "{{ asset('images/') }}/" + staff.personalfoto :
+                        "{{ asset('img/fondo.png') }}";
                     $('#edit-sparepart').attr('src', imageUrl);
-                        // Set the form action to the correct route
-                        $('#editstaff').attr('action', '/personal/actualizar/' + staff.id);
-                    });
+                    $('#editstaff').attr('action', '/personal/actualizar/' + staff.id);
+                });
 
                 $('#editarPersonal').on('hidden.bs.modal', function() {
                     var form = $('#editstaff');

@@ -397,13 +397,25 @@
                     $(element).removeClass("is-invalid").addClass("is-valid");
                 }
             });
-            $('.edit-reviewtype').on('click', function() {
+            // $('.edit-reviewtype').on('click', function() {
+            //     var reviewtype = $(this).data('reviewtype');
+            //     $('#edit-nombre').val(reviewtype.nombre);
+            //     $('#edit-descripción').val(reviewtype.descripción);
+            //     $('#editreviewtypeForm').attr('action', '/tiposderevision/actualizar/' + reviewtype.id);
+
+            // });
+
+            $(document).on('click', '.edit-reviewtype', function() {
+                $('#edit-nombre').val('');
+                $('#edit-descripción').val('');
                 var reviewtype = $(this).data('reviewtype');
                 $('#edit-nombre').val(reviewtype.nombre);
                 $('#edit-descripción').val(reviewtype.descripción);
                 $('#editreviewtypeForm').attr('action', '/tiposderevision/actualizar/' + reviewtype.id);
-
             });
+
+
+
             $('#CrearTipoRevision').on('hidden.bs.modal', function() {
                 var form = $('#createreviewtype');
                 form.validate().resetForm();

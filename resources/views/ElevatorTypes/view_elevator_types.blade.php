@@ -375,7 +375,7 @@
                 });
             });
 
-            $('.edit-elevator-type').on('click', function() {
+            $(document).on('click', '.edit-elevator-type', function() {
                 var elevator_type = $(this).data('elevator-type');
 
                 $('#edit-nombre_de_tipo_de_ascensor').val(elevator_type.nombre_de_tipo_de_ascensor);

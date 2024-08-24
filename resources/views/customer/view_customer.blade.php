@@ -724,7 +724,8 @@
                     }
                 });
             });
-            $('.edit-customer').on('click', function() {
+            $(document).on('click', '.edit-customer', function() {
+
                 var customer = $(this).data('customer');
                 // Populate the modal with customer data
                 $('#edit-nombre').val(customer.nombre);

@@ -125,7 +125,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="text-gris">Provincia</td>
-                                                    <td>{{ $customer->provincia }}</td>
+                                                    <td>{{ $customer->province->provincia }}</td>
                                                 </tr>
                                                 <tr>
                                                     <td class="text-gris">Dirección</td>
@@ -186,6 +186,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="tipo_de_cliente">Tipo de Cliente</label>
+                                        
                                         <select class="custom-select form-control" name="tipo_de_cliente"
                                             id="tipo_de_cliente">
                                         </select>
@@ -218,9 +219,9 @@
                                             <option value="">
                                                 Seleccionar Provincia
                                             </option>
-                                            @foreach ($provinces as $province)
-                                                <option value="{{ $province }}"
-                                                    {{ $customer->provincia == $province ? 'selected' : '' }}>
+                                            @foreach ($provinces as $id => $province)
+                                                <option value="{{ $id }}"
+                                                    {{ $customer->provincia == $id ? 'selected' : '' }}>
                                                     {{ $province }}
                                                 </option>
                                             @endforeach
@@ -536,43 +537,43 @@
             // });
 
             $(document).on('click', '.edit-customer', function() {
-            // Clear previous modal data
-            $('#edit-nombre').val('');
-            $('#tipo_de_cliente1').val('').trigger('change');
-            $('#edit-ruc').val('');
-            $('#edit-país').val('');
-            $('#edit-provincia').val('');
-            $('#edit-dirección').val('');
-            $('#edit-teléfono').val('');
-            $('#edit-teléfono_móvil').val('');
-            $('#edit-correo_electrónico').val('');
-            $('#edit-nombre_del_contacto').val('');
-            $('#edit-posición').val('');
-            $('#edit-customer-image').attr('src', "{{ asset('img/default.png') }}"); // Default image
+                // Clear previous modal data
+                $('#edit-nombre').val('');
+                $('#tipo_de_cliente1').val('').trigger('change');
+                $('#edit-ruc').val('');
+                $('#edit-país').val('');
+                $('#edit-provincia').val('');
+                $('#edit-dirección').val('');
+                $('#edit-teléfono').val('');
+                $('#edit-teléfono_móvil').val('');
+                $('#edit-correo_electrónico').val('');
+                $('#edit-nombre_del_contacto').val('');
+                $('#edit-posición').val('');
+                $('#edit-customer-image').attr('src', "{{ asset('img/default.png') }}"); // Default image
 
-            // Get the current customer data
-            var customer = $(this).data('customer');
+                // Get the current customer data
+                var customer = $(this).data('customer');
 
-            // Populate the modal with the selected customer's data
-            $('#edit-nombre').val(customer.nombre);
-            $('#tipo_de_cliente1').val(customer.tipo_de_cliente).trigger('change');
-            $('#edit-ruc').val(customer.ruc);
-            $('#edit-país').val(customer.país);
-            $('#edit-provincia').val(customer.provincia);
-            $('#edit-dirección').val(customer.dirección);
-            $('#edit-teléfono').val(customer.teléfono);
-            $('#edit-teléfono_móvil').val(customer.teléfono_móvil);
-            $('#edit-correo_electrónico').val(customer.correo_electrónico);
-            $('#edit-nombre_del_contacto').val(customer.nombre_del_contacto);
-            $('#edit-posición').val(customer.posición);
+                // Populate the modal with the selected customer's data
+                $('#edit-nombre').val(customer.nombre);
+                $('#tipo_de_cliente1').val(customer.tipo_de_cliente).trigger('change');
+                $('#edit-ruc').val(customer.ruc);
+                $('#edit-país').val(customer.país);
+                $('#edit-provincia').val(customer.provincia);
+                $('#edit-dirección').val(customer.dirección);
+                $('#edit-teléfono').val(customer.teléfono);
+                $('#edit-teléfono_móvil').val(customer.teléfono_móvil);
+                $('#edit-correo_electrónico').val(customer.correo_electrónico);
+                $('#edit-nombre_del_contacto').val(customer.nombre_del_contacto);
+                $('#edit-posición').val(customer.posición);
 
-            // Set the form action to the correct route
-            var imageUrl = customer.image ?
-                "{{ asset('images/customers/') }}/" + customer.image :
-                "{{ asset('img/default.png') }}";
-            $('#edit-customer-image').attr('src', imageUrl);
-            $('#EditcustomerForm').attr('action', '/clientes/actualizar/' + customer.id);
-        });
+                // Set the form action to the correct route
+                var imageUrl = customer.image ?
+                    "{{ asset('images/customers/') }}/" + customer.image :
+                    "{{ asset('img/default.png') }}";
+                $('#edit-customer-image').attr('src', imageUrl);
+                $('#EditcustomerForm').attr('action', '/clientes/actualizar/' + customer.id);
+            });
 
 
             $('#editarCliente').on('hidden.bs.modal', function() {

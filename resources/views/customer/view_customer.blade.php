@@ -110,7 +110,7 @@
                                                 <td>{{ $customer->tipo_de_cliente }}</td>
                                                 <td>{{ $customer->ruc }}</td>
                                                 <td>{{ $customer->dirección }}</td>
-                                                <td>{{ $customer->provincia }}</td>
+                                                <td>{{ $customer->province->provincia }}</td>
                                                 <td align="right">
                                                     <div class="dropdown">
                                                         <button type="button" class="btn-action dropdown-toggle"
@@ -231,8 +231,8 @@
                                                 <label for="provincia">Provincia</label>
                                                 <select id="provincia" name="provincia" class="form-control">
                                                     <option value="">Seleccionar Provincia</option>
-                                                    @foreach ($provinces as $province)
-                                                        <option value="{{ $province }}">{{ $province }}</option>
+                                                    @foreach ($provinces as $id => $province)
+                                                         <option value="{{ $id }}">{{ $province }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -347,9 +347,9 @@
                                                             Seleccionar
                                                             opción
                                                         </option>
-                                                        @foreach ($provinces as $province)
-                                                            <option value="{{ $province }}"
-                                                                {{ $customer->provincia == $province ? 'selected' : '' }}>
+                                                        @foreach ($provinces as $id => $province)
+                                                            <option value="{{ $id }}"
+                                                                {{ $customer->provincia == $id ? 'selected' : '' }}> 
                                                                 {{ $province }}
                                                             </option>
                                                         @endforeach
@@ -586,29 +586,29 @@
                         }
                     },
                     {
-                            extend: 'pdf',
-                            exportOptions: {
-                                columns: ':not(:last-child)' // Excludes the last column
-                            },
-                            customize: function(doc) {
-                                var table = doc.content[1].table;
-                                var columnCount = table.body[0].length;
-
-                                // Set correct widths for columns
-                                table.widths = Array(columnCount).fill('*');
-
-                                // Center align all cells
-                                table.body.forEach(function(row) {
-                                    row.forEach(function(cell) {
-                                        cell.alignment = 'center';
-                                    });
-                                });
-
-                                // Optionally, adjust page size or orientation if needed
-                                doc.pageOrientation = 'landscape';
-                                doc.pageSize = 'A4';
-                            }
+                        extend: 'pdf',
+                        exportOptions: {
+                            columns: ':not(:last-child)' // Excludes the last column
                         },
+                        customize: function(doc) {
+                            var table = doc.content[1].table;
+                            var columnCount = table.body[0].length;
+
+                            // Set correct widths for columns
+                            table.widths = Array(columnCount).fill('*');
+
+                            // Center align all cells
+                            table.body.forEach(function(row) {
+                                row.forEach(function(cell) {
+                                    cell.alignment = 'center';
+                                });
+                            });
+
+                            // Optionally, adjust page size or orientation if needed
+                            doc.pageOrientation = 'landscape';
+                            doc.pageSize = 'A4';
+                        }
+                    },
                     {
                         extend: 'print',
                         exportOptions: {
@@ -724,64 +724,45 @@
                     }
                 });
             });
-            // $(document).on('click', '.edit-customer', function() {
-
-            //     var customer = $(this).data('customer');
-            //     // Populate the modal with customer data
-            //     $('#edit-nombre').val(customer.nombre);
-            //     $('#tipo_de_cliente1').val(customer.tipo_de_cliente).trigger('change');
-            //     $('#edit-ruc').val(customer.ruc);
-            //     $('#edit-país').val(customer.país);
-            //     $('#edit-provincia').val(customer.provincia);
-            //     $('#edit-dirección').val(customer.dirección);
-            //     $('#edit-teléfono').val(customer.teléfono);
-            //     $('#edit-teléfono_móvil').val(customer.teléfono_móvil);
-            //     $('#edit-correo_electrónico').val(customer.correo_electrónico);
-            //     $('#edit-nombre_del_contacto').val(customer.nombre_del_contacto);
-            //     $('#edit-posición').val(customer.posición);
-
-            //     // Set the form action to the correct route
-            //     $('#EditcustomerForm').attr('action', '/clientes/actualizar/' + customer.id);
-            // });
 
             $(document).on('click', '.edit-customer', function() {
-            // Clear previous modal data
-            $('#edit-nombre').val('');
-            $('#tipo_de_cliente1').val('').trigger('change');
-            $('#edit-ruc').val('');
-            $('#edit-país').val('');
-            $('#edit-provincia').val('');
-            $('#edit-dirección').val('');
-            $('#edit-teléfono').val('');
-            $('#edit-teléfono_móvil').val('');
-            $('#edit-correo_electrónico').val('');
-            $('#edit-nombre_del_contacto').val('');
-            $('#edit-posición').val('');
-            $('#edit-customer-image').attr('src', "{{ asset('img/default.png') }}"); // Default image
+                // Clear previous modal data
+                $('#edit-nombre').val('');
+                $('#tipo_de_cliente1').val('').trigger('change');
+                $('#edit-ruc').val('');
+                $('#edit-país').val('');
+                $('#edit-provincia').val('');
+                $('#edit-dirección').val('');
+                $('#edit-teléfono').val('');
+                $('#edit-teléfono_móvil').val('');
+                $('#edit-correo_electrónico').val('');
+                $('#edit-nombre_del_contacto').val('');
+                $('#edit-posición').val('');
+                $('#edit-customer-image').attr('src', "{{ asset('img/default.png') }}"); // Default image
 
-            // Get the current customer data
-            var customer = $(this).data('customer');
+                // Get the current customer data
+                var customer = $(this).data('customer');
 
-            // Populate the modal with the selected customer's data
-            $('#edit-nombre').val(customer.nombre);
-            $('#tipo_de_cliente1').val(customer.tipo_de_cliente).trigger('change');
-            $('#edit-ruc').val(customer.ruc);
-            $('#edit-país').val(customer.país);
-            $('#edit-provincia').val(customer.provincia);
-            $('#edit-dirección').val(customer.dirección);
-            $('#edit-teléfono').val(customer.teléfono);
-            $('#edit-teléfono_móvil').val(customer.teléfono_móvil);
-            $('#edit-correo_electrónico').val(customer.correo_electrónico);
-            $('#edit-nombre_del_contacto').val(customer.nombre_del_contacto);
-            $('#edit-posición').val(customer.posición);
+                // Populate the modal with the selected customer's data
+                $('#edit-nombre').val(customer.nombre);
+                $('#tipo_de_cliente1').val(customer.tipo_de_cliente).trigger('change');
+                $('#edit-ruc').val(customer.ruc);
+                $('#edit-país').val(customer.país);
+                $('#edit-provincia').val(customer.provincia);
+                $('#edit-dirección').val(customer.dirección);
+                $('#edit-teléfono').val(customer.teléfono);
+                $('#edit-teléfono_móvil').val(customer.teléfono_móvil);
+                $('#edit-correo_electrónico').val(customer.correo_electrónico);
+                $('#edit-nombre_del_contacto').val(customer.nombre_del_contacto);
+                $('#edit-posición').val(customer.posición);
 
-            // Set the form action to the correct route
-            var imageUrl = customer.image ?
-                "{{ asset('images/customers/') }}/" + customer.image :
-                "{{ asset('img/default.png') }}";
-            $('#edit-customer-image').attr('src', imageUrl);
-            $('#EditcustomerForm').attr('action', '/clientes/actualizar/' + customer.id);
-        });
+                // Set the form action to the correct route
+                var imageUrl = customer.image ?
+                    "{{ asset('images/customers/') }}/" + customer.image :
+                    "{{ asset('img/default.png') }}";
+                $('#edit-customer-image').attr('src', imageUrl);
+                $('#EditcustomerForm').attr('action', '/clientes/actualizar/' + customer.id);
+            });
 
 
 

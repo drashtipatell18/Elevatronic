@@ -250,14 +250,14 @@
                                                 @enderror
                                             </div>
                                         </div>
-                                        <div class="text-right w-100">
+                                        {{-- <div class="text-right w-100">
                                             <div class="form-group">
                                                 <button type="button" data-toggle="modal" data-target="#crearposición"
                                                     class="btn-gris positionbtn" id="toggleMarcaInput">
                                                     + Agregar posición
                                                 </button>
                                             </div>
-                                        </div>
+                                        </div> --}}
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="correo">Correo</label>

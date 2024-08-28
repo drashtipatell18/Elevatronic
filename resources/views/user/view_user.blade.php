@@ -130,6 +130,7 @@
                                     <tbody>
                                         @foreach ($users as $index => $user)
                                             <tr class="td-head-center">
+                                                <td>{{ $index + 1 }}</td>
                                                 <td>
                                                     @if ($user->image)
                                                         <img src="{{ asset('images/' . $user->image) }}" alt="personal"
@@ -139,7 +140,6 @@
                                                             width="52" height="52" class="img-table imgcrops">
                                                     @endif
                                                 </td>
-                                                <td>{{ $index + 1 }}</td>
                                                 <td>
                                                     <a href="{{ route('view.user', $user->id) }}" class="text-blue">
                                                         {{ $user->name }}

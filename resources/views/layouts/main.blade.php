@@ -35,7 +35,8 @@
     .spacing {
         margin-left: 13px;
     }
-    .imgcrops{
+
+    .imgcrops {
         object-fit: cover;
     }
 </style>
@@ -107,10 +108,11 @@
                             <div class="col-auto d-flex align-items-center justify-content-center" id="noMobil">
                                 <div id="toggle-search" class="position-relative"></div>
                                 <!-- Input de búsqueda inicialmente oculto -->
-                                <form action="{{route('search.query')}}" method="POST">
+                                <form action="{{ route('search.query') }}" method="POST">
                                     @csrf
                                     <div id="search-container" style="display: none;">
-                                        <input type="text" id="query" name="query" placeholder="Escribe para buscar...">
+                                        <input type="text" id="query" name="query"
+                                            placeholder="Escribe para buscar...">
                                     </div>
                                 </form>
                             </div>
@@ -126,14 +128,19 @@
                                     <!-- cuadro para hacer click ocultar / aparecer -->
                                     <div class="d-flex align-items-center justify-content-start" id="abrirperfil">
                                         <i class="iconoir-nav-arrow-down"></i>
-                                        @if (auth()->check())
-                                            @php
-                                                $image = auth()->user()->image ?? 'fondo.png';
-                                            @endphp
+                                        @php
+                                            // Log the image path instead of dumping it
+                                            $image = auth()->user()->image;
+                                            Log::info('User image: ' . $image);
+                                        @endphp
+                                        @if (auth()->check() && $image)
                                             <img src="{{ asset('images/' . $image) }}" alt="User Image"
-                                                width="100" height="50" class="img-circle profile_img imgcrops">
-                                        @else 
-                                            <p>No user image available</p>
+                                                width="100" height="50"
+                                                class="img-circle profile_img imgcrops">
+                                        @else
+                                            <img src="{{ asset('img/fondo.png') }}" alt="Default User Image"
+                                                width="100" height="50"
+                                                class="img-circle profile_img imgcrops">
                                         @endif
                                         <div class="">
                                             <p class="mb-0">{{ auth()->user()->name }}</p>
@@ -149,7 +156,8 @@
                                                         $image = auth()->user()->image ?? 'fondo.png';
                                                     @endphp
                                                     <img src="{{ asset('images/' . $image) }}" alt="User Image"
-                                                        width="100" height="50" class="img-circle profile_img imgcrops">
+                                                        width="100" height="50"
+                                                        class="img-circle profile_img imgcrops">
                                                 @else
                                                     <p>No user image available</p>
                                                 @endif

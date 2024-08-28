@@ -138,10 +138,6 @@
                                                         <img src="{{ asset('img/fondo.png') }}" alt="user"
                                                             width="52" height="52" class="img-table imgcrops">
                                                     @endif
-
-
-
-
                                                 </td>
                                                 <td>{{ $index + 1 }}</td>
                                                 <td>

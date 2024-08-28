@@ -169,7 +169,7 @@
                                                                                             <img src="{{ url('img/fondo.png') }}"
                                                                                                 width="200" height="200"
                                                                                                 class="img-table"
-                                                                                                alt="user">
+                                                                                                alt="user" id="edit-sparepart">
                                                                                         @endif
                                                                                     </div>
                                                                                 </div>

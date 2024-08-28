@@ -371,7 +371,7 @@
                                                     <img src="{{ asset('images/' . $staff->personalfoto) }}"
                                                         alt="Staff Image" id="edit-sparepart">
                                                 @else
-                                                    <img src="{{ asset('img/fondo.png') }}" alt="Staff Image">
+                                                    <img src="{{ asset('img/fondo.png') }}" id="edit-sparepart" alt="Staff Image">
                                                 @endif
                                             </div>
 
@@ -726,6 +726,7 @@
                 reader.readAsDataURL(this.files[0]);
             });
 
+
             $('#editimageUpload10').change(function() {
                 var reader = new FileReader();
                 reader.onload = function(e) {
@@ -745,7 +746,6 @@
                 }
                 reader.readAsDataURL(this.files[0]);
             });
-
 
             $('#createstaff').validate({
                 rules: {
@@ -869,6 +869,9 @@
                 $('#edit-sparepart').attr('src', imageUrl);
                 $('#editstaff').attr('action', '/personal/actualizar/' + staff.id);
             });
+
+
+
 
 
 

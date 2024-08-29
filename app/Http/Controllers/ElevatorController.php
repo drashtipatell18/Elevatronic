@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -15,14 +16,19 @@ use App\Models\Staff;
 
 class ElevatorController extends Controller
 {
-    public function elevator()
+    public function elevator(Request $request) // Added Request parameter
     {
         $elevators = Elevators::with('client')->get();
         $customers = Cliente::pluck('nombre', 'id');
         $allCustomers = Cliente::all();
-        $provinces = Province::pluck('provincia', 'provincia');
-        $elevatortypes = Elevatortypes::pluck('nombre_de_tipo_de_ascensor', 'nombre_de_tipo_de_ascensor');
-        $staffs = Staff::pluck('nombre', 'nombre');
+        $provinces = Province::pluck('provincia', 'id');
+        $elevatortypes = Elevatortypes::pluck('nombre_de_tipo_de_ascensor', 'id');
+        $staffs = Staff::pluck('nombre', 'id');
+
+        if ($request->ajax()) { // Check if the request is an AJAX call
+            return response()->json(compact('elevators', 'allCustomers', 'customers', 'provinces', 'elevatortypes', 'staffs'));
+        }
+
         return view('elevator.view_elevator', compact('elevators', 'allCustomers', 'customers', 'provinces', 'elevatortypes', 'staffs'));
     }
 
@@ -31,6 +37,16 @@ class ElevatorController extends Controller
         return response()->json(Marca::all());
     }
 
+    public function getData()
+    {
+        // Return all data in a single response array
+        return response()->json([
+            'clientes' => Cliente::pluck('nombre','id')->toArray(), // Convert to array
+            'provincias' => Province::pluck('provincia','id')->toArray(), // Convert to array
+            'elevatortypes' => Elevatortypes::pluck('nombre_de_tipo_de_ascensor','id')->toArray(), // Convert to array
+            'staffs' => Staff::pluck('nombre','id')->toArray(), // Convert to array
+        ]);
+    }
     public function insertBrand(Request $request)
     {
         Marca::create([
@@ -118,7 +134,7 @@ class ElevatorController extends Controller
                 'hora_fin' => $request->input('hora_fin'),
                 'observaciónes' => $request->input('observaciónes') ?? null,
                 'observaciónes_internas' => $request->input('observaciónes_internas') ?? null,
-                'solución' => $request->input('solución') ,
+                'solución' => $request->input('solución'),
                 'ascensor_id' => $request->input('ascensor_id'),
             ]);
 
@@ -139,6 +155,7 @@ class ElevatorController extends Controller
 
     public function elevatorUpdate(Request $request, $id)
     {
+        // dd($request->all());
         $elevator = Elevators::findOrFail($id);
 
         if ($request->hasFile('imagen')) {

@@ -43,6 +43,7 @@
         .object{
             object-fit: cover;
             width: 100%;
+            height: 100%;
         }
         #edit-users {
             background-color: white !important;

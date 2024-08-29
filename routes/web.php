@@ -86,7 +86,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::delete ('/ascensore/destruir/{id}',[ElevatorController::class,'elevatorDestroy'])->name('destroy.elevator');
     Route::get('/contract/get/{id}', [ElevatorController::class, 'getContract'])->name('getContract');
     Route::get('/getBrands', [ElevatorController::class, 'getBrands'])->name('getBrands');
-
+    Route::get('/getData', [ElevatorController::class, 'getData'])->name('getData');
+    
     // Maint In Review //
 
     Route::get('/mant/en/revisión', [MaintInReviewController::class, 'maintInReview'])->name('maint_in_review');

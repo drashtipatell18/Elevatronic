@@ -2550,7 +2550,96 @@
                         }
                     });
                 }
+
+                function getDatas(edit) {
+                    // Destroy existing Select2 instances if they exist
+                    if ($('#edit-cliente').data('select2')) {
+                        $('#edit-cliente').select2('destroy');
+                    }
+                    if ($('#edit-provincia').data('select2')) {
+                        $('#edit-provincia').select2('destroy');
+                    }
+                    if ($('#edit-técnico_instalador').data('select2')) {
+                        $('#edit-técnico_instalador').select2('destroy');
+                    }
+                    if ($('#edit-técnico_ajustador').data('select2')) {
+                        $('#edit-técnico_ajustador').select2('destroy');
+                    }
+                    if ($('#edit-tipo_de_ascensor').data('select2')) {
+                        $('#edit-tipo_de_ascensor').select2('destroy');
+                    }
+
+                    // Perform the AJAX call to get brand data
+                    $.ajax({
+                        type: "GET",
+                        url: "{{ route('getData') }}",
+                        dataType: "JSON",
+                        success: function(response) {
+                            // Clear the current options and append the retrieved options to the select elements
+                            $("#edit-cliente, #edit-provincia, #edit-técnico_instalador, #edit-técnico_ajustador, #edit-tipo_de_ascensor")
+                                .empty();
+                            $("#edit-cliente").append(
+                                '<option value="" class="d-none">Seleccionar opción</option>');
+                            $("#edit-provincia").append(
+                                '<option value="" class="d-none">Seleccionar opción</option>');
+                            $("#edit-técnico_instalador").append(
+                                '<option value="" class="d-none">Seleccionar opción</option>');
+                            $("#edit-técnico_ajustador").append(
+                                '<option value="" class="d-none">Seleccionar opción</option>');
+                            $("#edit-tipo_de_ascensor").append(
+                                '<option value="" class="d-none">Seleccionar opción</option>');
+
+                            // Populate each dropdown with the corresponding data
+                            $.each(response.clientes, function(id, nombre) {
+                                $("#edit-cliente").append(
+                                    `<option value='${id}'>${nombre}</option>`);
+                            });
+                            $.each(response.provincias, function(id, provincia) {
+                                $("#edit-provincia").append(
+                                    `<option value='${id}'>${provincia}</option>`);
+                            });
+                            $.each(response.staffs, function(id, nombre) {
+                                $("#edit-técnico_instalador").append(
+                                    `<option value='${id}'>${nombre}</option>`);
+                                $("#edit-técnico_ajustador").append(
+                                    `<option value='${id}'>${nombre}</option>`);
+                            });
+                            $.each(response.elevatortypes, function(id, nombre_de_tipo_de_ascensor) {
+                                $("#edit-tipo_de_ascensor").append(
+                                    `<option value='${id}'>${nombre_de_tipo_de_ascensor}</option>`
+                                );
+                            });
+
+                            // Initialize Select2 on the select elements with placeholder
+                            $('#edit-cliente, #edit-provincia, #edit-técnico_instalador, #edit-técnico_ajustador, #edit-tipo_de_ascensor')
+                                .select2({
+                                    placeholder: "Seleccionar opción",
+                                    allowClear: true
+                                });
+
+                            // If edit is true and has a valid ID, set the selected value
+                            if (edit) {
+                                $('#edit-cliente').val(edit.client_id).trigger(
+                                    'change'); // Ensure the value is set and trigger change
+                                $('#edit-provincia').val(edit.provincia).trigger(
+                                    'change'); // Ensure the value is set and trigger change
+                                $('#edit-técnico_instalador').val(edit.técnico_instalador).trigger(
+                                    'change'); // Ensure the value is set and trigger change
+                                $('#edit-técnico_ajustador').val(edit.técnico_ajustador).trigger(
+                                    'change'); // Ensure the value is set and trigger change
+                                $('#edit-tipo_de_ascensor').val(edit.tipo_de_ascensor).trigger(
+                                    'change'); // Ensure the value is set and trigger change
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.error("Error fetching data: ", error);
+                        }
+                    });
+                }
+
                 getBrand();
+                getDatas();
+
                 $('#submitBrand').click(function(e) {
                     e.preventDefault(); // Prevent default form submission
                     var formData = new FormData();
@@ -3149,45 +3238,63 @@
                     }
                 });
 
-                $('.edit-elevator').on('click', function() {
+                $(document).on('click', '.edit-elevator', function() {
                     var elevator = $(this).data('elevator');
                     console.log(elevator);
+
+                    // Set values for all form fields using jQuery
                     $('#edit-contrato').val(elevator.contrato);
                     $('#edit-nombre').val(elevator.nombre);
                     $('#edit-código').val(elevator.código);
-                    $('#marca_id').val(elevator.marca_id).trigger(
+                    $('#marca_id1').val(elevator.marca_id).trigger(
                         'change'); // Ensure the value is set and trigger change
-                    $('#client_id').val(elevator.client_id);
+                    $('#edit-cliente').val(elevator.client_id).trigger('change');
                     $('#edit-fecha').val(elevator.fecha);
                     $('#edit-garantizar').val(elevator.garantizar);
                     $('#edit-dirección').val(elevator.dirección);
                     $('#edit-ubigeo').val(elevator.ubigeo);
-                    $('#edit-provincia').val(elevator.provincia);
-                    $('#edit-técnico_instalador').val(elevator.técnico_instalador);
-                    $('#edit-tipo_de_ascensor').val(elevator.tipo_de_ascensor);
+                    $('#edit-provincia').val(elevator.provincia).trigger('change');
+                    $('#edit-técnico_instalador').val(elevator.técnico_instalador).trigger('change');
+                    $('#edit-técnico_ajustador').val(elevator.técnico_ajustador).trigger('change');
+                    $('#edit-tipo_de_ascensor').val(elevator.tipo_de_ascensor).trigger('change');
                     $('#edit-cantidad').val(elevator.cantidad);
-                    if (elevator.quarters) {
-                        var quarters = elevator.quarters.split(',');
-
-                        $('#mgratuito').prop('checked', quarters.includes('mgratuito'));
-                        $('#sincuarto').prop('checked', quarters.includes('sincuarto'));
-                        $('#concuarto').prop('checked', quarters.includes('concuarto'));
-                    }
                     $('#edit-npisos').val(elevator.npisos);
                     $('#edit-ncontacto').val(elevator.ncontacto);
                     $('#edit-teléfono').val(elevator.teléfono);
                     $('#edit-correo').val(elevator.correo);
                     $('#edit-descripcion1').val(elevator.descripcion1);
                     $('#edit-descripcion2').val(elevator.descripcion2);
+
+                    // Check if quarters contain specific values
+                    if (elevator.quarters) {
+                        var quarters = elevator.quarters.split(',');
+                        $('#mgratuito').prop('checked', quarters.includes('mgratuito'));
+                        $('#sincuarto').prop('checked', quarters.includes('sincuarto'));
+                        $('#concuarto').prop('checked', quarters.includes('concuarto'));
+                    }
+
+                    // Show or hide additional description based on elevator data
                     if (elevator.descripcion2 !== null) {
                         $('#DAdicional1').removeClass('d-none'); // Show Descripción 2 section
                     } else {
-                        $('#DAdicional1').addClass('d-none'); // Show Descripción 2 section
+                        $('#DAdicional1').addClass('d-none'); // Hide Descripción 2 section
                     }
+
                     getBrand(elevator.marca_id);
+                    // Set the image preview
+                    var imageUrl = elevator.imagen ? "{{ asset('images/') }}/" + elevator.imagen :
+                        "{{ asset('img/fondo.png') }}";
+                    $('#edit-elevators').attr('src', imageUrl);
+                    $('#editelevatform').attr('action', '/ascensore/actualizar/' + elevator.id);
 
                 });
 
+                $(document).on('click', '.delete-elevator', function() {
+                    var elevatorId = $(this).data('id'); // Get the elevator ID
+                    $('#modalEliminar').modal('show'); // Show the modal
+                    $('#delete-form').attr('action', '/ascensore/actualizar/' +
+                        elevatorId); // Set the form action
+                });
                 $('#edituploadButton').click(function() {
                     $('#editimageUpload').click();
                 });

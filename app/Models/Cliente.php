@@ -16,4 +16,7 @@ class Cliente extends Model
     public function province() {
         return $this->belongsTo(Province::class, 'provincia'); // Adjust 'provincia_id' to your actual foreign key
     }
+    public function customertype() {
+        return $this->belongsTo(CustomerType::class, 'tipo_de_cliente'); // Adjust 'tipo_de_cliente' to your actual foreign key
+    }
 }

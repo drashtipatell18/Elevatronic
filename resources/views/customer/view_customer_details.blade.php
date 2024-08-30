@@ -79,7 +79,7 @@
                                             <p class="mb-0">ID elemento</p>
                                         </div>
                                         <div class="option">
-                                            <h4>{{ $customer->tipo_de_cliente }}</h4>
+                                            <h4>{{ $customer->customertype->tipo_de_client }}</h4>
                                             <p class="mb-0">Tipo de cliente</p>
                                         </div>
                                         <div class="option">

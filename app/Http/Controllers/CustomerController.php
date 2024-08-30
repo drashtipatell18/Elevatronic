@@ -10,7 +10,7 @@ use App\Models\CustomerType;
 class CustomerController extends Controller
 {
     public function customer(){
-        $customers = Cliente::with('province')->get();
+        $customers = Cliente::with('province','customertype')->get();
         $provinces = Province::pluck('provincia', 'id');
         return view('customer.view_customer',compact('customers','provinces'));
     }
@@ -65,7 +65,7 @@ class CustomerController extends Controller
     }
 
     public function customerView(Request $request, $id){
-        $customer = Cliente::with('province')->findOrFail($id);
+        $customer = Cliente::with('province','customertype')->findOrFail($id);
         if (!$customer) {
             return response()->view('errors.client_not_found', [], 404);
         }

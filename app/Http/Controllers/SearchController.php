@@ -57,7 +57,6 @@ class SearchController extends Controller
             ->orWhere('fecha_de_fin', 'LIKE', "%{$escapedQuery}%")
             ->orWhere('renovación', 'LIKE', "%{$escapedQuery}%")
             ->orWhere('cada_cuantos_meses', 'LIKE', "%{$escapedQuery}%")
-            ->orWhere('observación', 'LIKE', "%{$escapedQuery}%")
             ->orWhere('estado_cuenta_del_contrato', 'LIKE', "%{$escapedQuery}%")
             ->orWhere('estado', 'LIKE', "%{$escapedQuery}%")
             ->get();

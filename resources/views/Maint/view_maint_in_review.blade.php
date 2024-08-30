@@ -99,7 +99,6 @@
                                             <th>ID</th>
                                             <th>TIPO DE REVISIÓN</th>
                                             <th>ASCENSOR</th>
-                                            {{-- <th>#CERTIFICADO</th> --}}
                                             <th>FECHA</th>
                                             <th>HOR. INI</th>
                                             <th>HOR. FIN</th>

@@ -1099,12 +1099,10 @@
 
                             // Populate the DataTable with new data
                             $.each(data.elevators, function(index, elevator) {
-                                console.log(elevator.client);
                                 table.row.add([
                                     elevator.id || '', // Column 0
                                     elevator.fecha || '', // Column 1
-                                    elevator.tipo_de_ascensor || '', // Column 2
-                                    `<a href="${baseUrl}/ascensore/vista/${elevator.id}" class="text-blue">${elevator.nombre}</a>`, // Updated to show elevator name as a link
+                                    elevator.tipo_de_ascensor ? elevator.tipo_de_ascensor.nombre_de_tipo_de_ascensor : '',                                    `<a href="${baseUrl}/ascensore/vista/${elevator.id}" class="text-blue">${elevator.nombre}</a>`, // Updated to show elevator name as a link
                                     elevator.client ?
                                     `<a href="${baseUrl}/clientes/vista/${elevator.client_id}" class="text-blue">${elevator.client.nombre}</a>` :
                                     '-',

@@ -107,7 +107,7 @@
                                             <tr class="td-head-center">
                                                 <td>{{ $index + 1 }}</td>
                                                 <td>{{ $customer->nombre }}</td>
-                                                <td>{{ $customer->tipo_de_cliente }}</td>
+                                                <td>{{ $customer->customertype->tipo_de_client }}</td>
                                                 <td>{{ $customer->ruc }}</td>
                                                 <td>{{ $customer->dirección }}</td>
                                                 <td>{{ $customer->province->provincia }}</td>

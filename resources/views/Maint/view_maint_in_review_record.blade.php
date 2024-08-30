@@ -42,7 +42,6 @@
         .select2-container--default .select2-selection--single .select2-selection__clear {
             display: none;
         }
-
     </style>
     @csrf
     <div class="w-100 contenido">
@@ -62,8 +61,8 @@
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-                            <a class="dropdown-item edit-mantenimiento" href="#"
-                                data-mantenimiento="{{ json_encode($maint_in_review) }}" data-toggle="modal"
+                            <a class="dropdown-item edit-maint_in_review" href="#"
+                                data-maint_in_review="{{ json_encode($maint_in_review) }}" data-toggle="modal"
                                 data-target="#editorMantenimiento">Editar</a>
                             <a class="dropdown-item texto-1 font-family-Inter-Regular" href="javascript:void(0)"
                                 data-toggle="modal" data-target="#modalEliminar">Eliminar</a>
@@ -153,8 +152,7 @@
                                             <tbody>
                                                 <tr>
                                                     <td class="text-gris">Tipo de revisión</td>
-                                                    <td>{{ $maint_in_review->tipo_de_revisión }}</td>
-                                                </tr>
+                                                    <td>{{ $maint_in_review->reviewtype ? $maint_in_review->reviewtype->nombre : '' }}</td>                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -173,7 +171,7 @@
                                             <tbody>
                                                 <tr>
                                                     <td class="text-gris">Ascensor</td>
-                                                    <td>{{ $maint_in_review->ascensor }}</td>
+                                                    <td>{{ $maint_in_review->elevator ? $maint_in_review->elevator->nombre : '' }}</td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -195,13 +193,13 @@
                                             <tbody>
                                                 <tr>
                                                     <td class="text-gris">Supervisor</td>
-                                                        <td>
-                                                            @if(!is_null($maint_in_review) && isset($maint_in_review->supervisor))
-                                                                {{ $maint_in_review->supervisor->nomber }}
-                                                            @else
-                                                                {{ '-' }}
-                                                            @endif
-                                                        </td>                                                    
+                                                    <td>
+                                                        @if (!is_null($maint_in_review) && isset($maint_in_review->supervisor))
+                                                            {{ $maint_in_review->supervisor->nomber }}
+                                                        @else
+                                                            {{ '-' }}
+                                                        @endif
+                                                    </td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -211,7 +209,7 @@
                                             <tbody>
                                                 <tr>
                                                     <td class="text-gris">Provincia</td>
-                                                    <td>{{ $maint_in_review->provincia }}</td>
+                                                    <td>{{ maint_in_review->province ? $maint_in_review->province->provincia : '' }}</td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -221,7 +219,7 @@
                                             <tbody>
                                                 <tr>
                                                     <td class="text-gris">Técnico</td>
-                                                    <td>{{ $maint_in_review->técnico }}</td>
+                                                    <td>{{ $maint_in_review->staff->nombre }}</td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -241,7 +239,7 @@
                                             <tbody>
                                                 <tr>
                                                     <td class="text-gris">Mes programado</td>
-                                                    <td>{{ $maint_in_review->mes_programado }}</td>
+                                                    <td>{{ $maint_in_review->month->nombre }}</td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -332,38 +330,38 @@
                                     </div>
                                 </div>
                             </div>
-                                <div class="row">
-                                    <div class="col-md-6 mb-4">
-                                        <div class="box-contenido contenido-elevatronic">
-                                            <h3 class="mb-3 imageCount">Imágenes</h3>
-                                            <div class="gallery">
-                                                <div class="row">
-                                                    @isset($main_image)
-                                                        @foreach ($main_image as $image)
-                                                            <div class="col-md-6 mb-4" data-image-id="{{ $image->id }}">
-                                                                <div class="img-container">
-                                                                    <img src="{{ url('/images/' . $image->image) }}"
-                                                                        alt="galeria">
-                                                                    <button class="btn-delete-image btn btn-light mt-2"
-                                                                        data-image-id="{{ $image->id }}"><i
-                                                                            class="fal fa-trash-alt"></i></button>
-                                                                </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <div class="box-contenido contenido-elevatronic">
+                                        <h3 class="mb-3 imageCount">Imágenes</h3>
+                                        <div class="gallery">
+                                            <div class="row">
+                                                @isset($main_image)
+                                                    @foreach ($main_image as $image)
+                                                        <div class="col-md-6 mb-4" data-image-id="{{ $image->id }}">
+                                                            <div class="img-container">
+                                                                <img src="{{ url('/images/' . $image->image) }}"
+                                                                    alt="galeria">
+                                                                <button class="btn-delete-image btn btn-light mt-2"
+                                                                    data-image-id="{{ $image->id }}"><i
+                                                                        class="fal fa-trash-alt"></i></button>
                                                             </div>
-                                                        @endforeach
-                                                    @endisset
-                                                </div>
+                                                        </div>
+                                                    @endforeach
+                                                @endisset
                                             </div>
-                                            <input type="file" id="imageUpload" accept="image/*" multiple class="d-none">
-                                            <button data-id="{{ $id ?? '' }}" id="uploadButton10" class="btn-gris">
-                                                <i class="fas fa-arrow-to-top mr-2"></i> Subir Imagen
-                                            </button>
                                         </div>
+                                        <input type="file" id="imageUpload" accept="image/*" multiple class="d-none">
+                                        <button data-id="{{ $id ?? '' }}" id="uploadButton10" class="btn-gris">
+                                            <i class="fas fa-arrow-to-top mr-2"></i> Subir Imagen
+                                        </button>
                                     </div>
+                                </div>
 
 
                                 <div class="col-md-6 mb-4">
                                     <div class="box-contenido contenido-elevatronic">
-                                        <h3  class="fileCount" class="mb-3">Archivos</h3>
+                                        <h3 class="fileCount" class="mb-3">Archivos</h3>
 
                                         <div id="fileList" class="file-list">
                                             @if (isset($documents) && !empty($documents))
@@ -657,19 +655,43 @@
                                                     {{ old('mes_programado', $maint_in_review->mes_programado ?? '') == 'mes_programado_3' ? 'selected' : '' }}>
                                                     Mes programado 3</option> --}}
 
-                                                    <option value="">Seleccionar opción</option>
-                                                    <option value="enero" {{ old('mes_programado', $maint_in_review->mes_programado ?? '') == 'enero' ? 'selected' : '' }}>Enero</option>
-                                                    <option value="febrero" {{ old('mes_programado', $maint_in_review->mes_programado ?? '') == 'febrero' ? 'selected' : '' }}>Febrero</option>
-                                                    <option value="marzo" {{ old('mes_programado', $maint_in_review->mes_programado ?? '') == 'marzo' ? 'selected' : '' }}>Marzo</option>
-                                                    <option value="abril" {{ old('mes_programado', $maint_in_review->mes_programado ?? '') == 'abril' ? 'selected' : '' }}>Abril</option>
-                                                    <option value="mayo" {{ old('mes_programado', $maint_in_review->mes_programado ?? '') == 'mayo' ? 'selected' : '' }}>Mayo</option>
-                                                    <option value="junio" {{ old('mes_programado', $maint_in_review->mes_programado ?? '') == 'junio' ? 'selected' : '' }}>Junio</option>
-                                                    <option value="julio" {{ old('mes_programado', $maint_in_review->mes_programado ?? '') == 'julio' ? 'selected' : '' }}>Julio</option>
-                                                    <option value="agosto" {{ old('mes_programado', $maint_in_review->mes_programado ?? '') == 'agosto' ? 'selected' : '' }}>Agosto</option>
-                                                    <option value="septiembre" {{ old('mes_programado', $maint_in_review->mes_programado ?? '') == 'septiembre' ? 'selected' : '' }}>Septiembre</option>
-                                                    <option value="octubre" {{ old('mes_programado', $maint_in_review->mes_programado ?? '') == 'octubre' ? 'selected' : '' }}>Octubre</option>
-                                                    <option value="noviembre" {{ old('mes_programado', $maint_in_review->mes_programado ?? '') == 'noviembre' ? 'selected' : '' }}>Noviembre</option>
-                                                    <option value="diciembre" {{ old('mes_programado', $maint_in_review->mes_programado ?? '') == 'diciembre' ? 'selected' : '' }}>Diciembre</option>
+                                                <option value="">Seleccionar opción</option>
+                                                <option value="1"
+                                                    {{ old('mes_programado', $maint_in_review->mes_programado ?? '') == '1' ? 'selected' : '' }}>
+                                                    Enero</option>
+                                                <option value="2"
+                                                    {{ old('mes_programado', $maint_in_review->mes_programado ?? '') == '2' ? 'selected' : '' }}>
+                                                    Febrero</option>
+                                                <option value="3"
+                                                    {{ old('mes_programado', $maint_in_review->mes_programado ?? '') == '3' ? 'selected' : '' }}>
+                                                    Marzo</option>
+                                                <option value="4"
+                                                    {{ old('mes_programado', $maint_in_review->mes_programado ?? '') == '4' ? 'selected' : '' }}>
+                                                    Abril</option>
+                                                <option value="5"
+                                                    {{ old('mes_programado', $maint_in_review->mes_programado ?? '') == '5' ? 'selected' : '' }}>
+                                                    Mayo</option>
+                                                <option value="6"
+                                                    {{ old('mes_programado', $maint_in_review->mes_programado ?? '') == '6' ? 'selected' : '' }}>
+                                                    Junio</option>
+                                                <option value="7"
+                                                    {{ old('mes_programado', $maint_in_review->mes_programado ?? '') == '7' ? 'selected' : '' }}>
+                                                    Julio</option>
+                                                <option value="8"
+                                                    {{ old('mes_programado', $maint_in_review->mes_programado ?? '') == '8' ? 'selected' : '' }}>
+                                                    Agosto</option>
+                                                <option value="9"
+                                                    {{ old('mes_programado', $maint_in_review->mes_programado ?? '') == '9' ? 'selected' : '' }}>
+                                                    Septiembre</option>
+                                                <option value="10"
+                                                    {{ old('mes_programado', $maint_in_review->mes_programado ?? '') == '10' ? 'selected' : '' }}>
+                                                    Octubre</option>
+                                                <option value="11"
+                                                    {{ old('mes_programado', $maint_in_review->mes_programado ?? '') == '11' ? 'selected' : '' }}>
+                                                    Noviembre</option>
+                                                <option value="12"
+                                                    {{ old('mes_programado', $maint_in_review->mes_programado ?? '') == '12' ? 'selected' : '' }}>
+                                                    Diciembre</option>
 
                                             </select>
                                             @error('mes_programado')
@@ -931,10 +953,12 @@
                     url: "{{ route('supervisors') }}",
                     dataType: "JSON",
                     success: function(response) {
-                        $("#supervisor_id").empty().append('<option value="" class="d-none">Seleccionar Supervisor</option>');
+                        $("#supervisor_id").empty().append(
+                            '<option value="" class="d-none">Seleccionar Supervisor</option>');
 
                         $.each(response, function() {
-                            $("#supervisor_id").append(`<option value='${this.id}'>${this.nomber}</option>`);
+                            $("#supervisor_id").append(
+                                `<option value='${this.id}'>${this.nomber}</option>`);
                         });
 
                         $('#supervisor_id').select2();
@@ -950,8 +974,96 @@
                     }
                 });
             }
+            function getDataMain(edit) {
+                // Destroy existing Select2 instances if they exist
+                if ($('#edit-tipo_de_revisión').data('select2')) {
+                    $('#edit-tipo_de_revisión').select2('destroy');
+                }
+                if ($('#edit-MAscensor').data('select2')) {
+                    $('#edit-MAscensor').select2('destroy');
+                }
+                if ($('#edit-provincia').data('select2')) {
+                    $('#edit-provincia').select2('destroy');
+                }
+                if ($('#edit-técnico').data('select2')) {
+                    $('#edit-técnico').select2('destroy');
+                }
+                if ($('#edit-Mprogramado').data('select2')) {
+                    $('#edit-Mprogramado').select2('destroy');
+                }
+
+                // Perform the AJAX call to get brand data
+                $.ajax({
+                    type: "GET",
+                    url: "{{ route('getDataMaintance') }}",
+                    dataType: "JSON",
+                    success: function(response) {
+                        // Clear the current options and append the retrieved options to the select elements
+                        $("#edit-tipo_de_revisión, #edit-provincia, #edit-MAscensor, #edit-técnico, #edit-Mprogramado")
+                            .empty();
+                        $("#edit-tipo_de_revisión").append(
+                            '<option value="" class="d-none">Seleccionar opción</option>');
+                        $("#edit-MAscensor").append(
+                            '<option value="" class="d-none">Seleccionar opción</option>');
+                        $("#edit-técnico").append(
+                            '<option value="" class="d-none">Seleccionar opción</option>');
+                        $("#edit-Mprogramado").append(
+                            '<option value="" class="d-none">Seleccionar opción</option>');
+
+                        // Populate each dropdown with the corresponding data
+                        $.each(response.review_types, function(id, nombre) {
+                            $("#edit-tipo_de_revisión").append(
+                                `<option value='${id}'>${nombre}</option>`);
+                        });
+                        $.each(response.provinces, function(id, provincia) {
+                            $("#edit-provincia").append(
+                                `<option value='${id}'>${provincia}</option>`);
+                        });
+                        $.each(response.staffs, function(id, nombre) {
+                            $("#edit-técnico").append(
+                                `<option value='${id}'>${nombre}</option>`);
+                        });
+                        $.each(response.elevators, function(id, nombre) {
+                            $("#edit-MAscensor").append(
+                                `<option value='${id}'>${nombre}</option>`);
+                        });
+                        $.each(response.months, function(id, nombre) {
+                            $("#edit-Mprogramado").append(
+                                `<option value='${id}'>${nombre}</option>`);
+                        });
+
+                        // Initialize Select2 on the select elements with placeholder
+                        $('#edit-tipo_de_revisión, #edit-provincia, #edit-MAscensor, #edit-técnico, #edit-Mprogramado')
+                            .select2({
+                                placeholder: "Seleccionar opción",
+                                allowClear: true
+                            });
+
+                        // Log the edit object to check values
+                        console.log('Edit Object:', edit);
+
+                        // If edit is true and has a valid ID, set the selected value
+                        if (edit) {
+                            console.log('Setting values for Select2:');
+                            console.log('Tipo de revisión:', edit.tipo_de_revisión);
+                            console.log('Ascensor:', edit.ascensor);
+                            console.log('Mes programado:', edit.mes_programado);
+
+                            $('#edit-tipo_de_revisión').val(edit.tipo_de_revisión).trigger('change');
+                            $('#edit-provincia').val(edit.provincia).trigger('change');
+                            $('#edit-técnico').val(edit.técnico).trigger('change');
+                            $('#edit-MAscensor').val(edit.ascensor).trigger('change');
+                            $('#edit-Mprogramado').val(edit.mes_programado).trigger('change');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Error fetching data: ", error);
+                    }
+                });
+            }
             const editValue = '{{ $editValue ?? '' }}';
             getSupervisors(editValue);
+            getDataMain();
 
             $('#submitSupervisor').click(function(e) {
                 e.preventDefault();
@@ -1023,7 +1135,7 @@
 
                             });
                             updateImageCount();
-                                $('#imageUpload').val('');
+                            $('#imageUpload').val('');
 
                         },
                         error: function(xhr) {
@@ -1055,16 +1167,17 @@
                             }
                         },
                         error: function(xhr) {
-                            console.error('Request failed: ' + xhr.status + ' ' + xhr.statusText);
+                            console.error('Request failed: ' + xhr.status + ' ' + xhr
+                                .statusText);
                         }
                     });
                 }
             });
 
             function updateImageCount() {
-    var count = $('.gallery .row .col-md-6').length;
-    $('.imageCount').html('Imágenes (' + count + ')');
-}
+                var count = $('.gallery .row .col-md-6').length;
+                $('.imageCount').html('Imágenes (' + count + ')');
+            }
 
             updateFileCount();
             $('#uploadButton11').click(function() {
@@ -1092,7 +1205,8 @@
                     success: function(response) {
                         if (response.success) {
                             response.documents.forEach(function(document) {
-                                let existing = $('#fileList').find(`[data-id="${document.id}"]`);
+                                let existing = $('#fileList').find(
+                                    `[data-id="${document.id}"]`);
                                 if (existing.length) {
                                     existing.replaceWith(createFileEntry(document));
                                 } else {
@@ -1100,7 +1214,7 @@
                                 }
                             });
                             updateFileCount();
-                              $('#fileUpload').val('');
+                            $('#fileUpload').val('');
                             //   window.location.reload();
                         } else {
                             console.error('Upload failed:', response.message);
@@ -1113,39 +1227,40 @@
             });
 
             $('#fileList').on('click', '.remove-file', function(event) {
-                    event.preventDefault();
-                    let button = $(this);
-                    let id = button.data('id');
-                    if (confirm('¿Estás seguro de que deseas eliminar este archivo?')) {
-                        $.ajax({
-                            type: "DELETE",
-                            url: `/document/${id}/delete`,
-                            data: {
-                                _token: $('meta[name="csrf-token"]').attr('content')
-                            },
-                            success: function(response) {
-                                if (response.success) {
-                                    button.closest('.file-entry').remove();
-                                    // Update file count
-                                    updateFileCount();
-                                    // window.location.reload();
-                                } else {
-                                    console.error('Failed to delete file.');
-                                }
-                            },
-                            error: function(xhr) {
-                                console.error('Request failed: ' + xhr.status + ' ' + xhr.statusText);
+                event.preventDefault();
+                let button = $(this);
+                let id = button.data('id');
+                if (confirm('¿Estás seguro de que deseas eliminar este archivo?')) {
+                    $.ajax({
+                        type: "DELETE",
+                        url: `/document/${id}/delete`,
+                        data: {
+                            _token: $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success: function(response) {
+                            if (response.success) {
+                                button.closest('.file-entry').remove();
+                                // Update file count
+                                updateFileCount();
+                                // window.location.reload();
+                            } else {
+                                console.error('Failed to delete file.');
                             }
-                        });
-                    }
+                        },
+                        error: function(xhr) {
+                            console.error('Request failed: ' + xhr.status + ' ' + xhr
+                                .statusText);
+                        }
+                    });
+                }
             });
 
 
 
-    function updateFileCount() {
-    var count = $('#fileList').children().length;
-    $('.fileCount').html('Archivos (' + count + ')');
-}
+            function updateFileCount() {
+                var count = $('#fileList').children().length;
+                $('.fileCount').html('Archivos (' + count + ')');
+            }
 
             function createFileEntry(document) {
                 var fileSize = '0.2 MB'; // Adjust file size calculation if needed
@@ -1154,7 +1269,8 @@
                     '<a href="/documents/' + document.filename + '" download>' + document.filename + '</a>' +
                     ' (' + fileSize + ')' +
                     '</span>' +
-                    '<button data-id="' + document.id + '" class="remove-file"><i class="fal fa-trash-alt"></i></button>' +
+                    '<button data-id="' + document.id +
+                    '" class="remove-file"><i class="fal fa-trash-alt"></i></button>' +
                     '</div>');
             }
 
@@ -1209,25 +1325,28 @@
                 }
             });
 
-            $('.edit-mantenimiento').on('click', function() {
-                var mantenimiento = $(this).data('mantenimiento');
+            $(document).on('click', '.edit-maint_in_review', function() {
+                var mantenimiento = $(this).data('maint_in_review');
+
                 console.log(mantenimiento);
-                $('#edit-tipo_de_revisión').val(mantenimiento.tipo_de_revisión);
-                $('#edit-MAscensor').val(mantenimiento.ascensor);
+                $('#edit-tipo_de_revisión').val(mantenimiento.tipo_de_revisión).trigger('change');
+                $('#edit-MAscensor').val(mantenimiento.ascensor).trigger('change');
                 $('#edit-dirección').val(mantenimiento.dirección);
                 $('#edit-provincia').val(mantenimiento.provincia);
                 $('#edit-NCertificado').val(mantenimiento.núm_certificado);
                 $('#edit-NMaquina').val(mantenimiento.máquina);
-                $('#supervisor_id').val(mantenimiento.supervisor_id).trigger('change');
-                $('#edit-técnico').val(mantenimiento.técnico);
-                $('#edit-Mprogramado').val(mantenimiento.mes_programado);
+                $('#supervisor_id1').val(mantenimiento.supervisor_id).trigger('change');
+                $('#edit-técnico').val(mantenimiento.técnico).trigger('change');
+                $('#edit-Mprogramado').val(mantenimiento.mes_programado).trigger('change');
                 $('#edit-FMantenimiento').val(mantenimiento.fecha_de_mantenimiento);
                 $('#edit-FInicio').val(mantenimiento.hora_inicio);
                 $('#edit-HFin').val(mantenimiento.hora_fin);
                 $('#edit-observaciónes').val(mantenimiento.observaciónes);
                 $('#edit-observacionesInternas').val(mantenimiento.observaciónes_internas);
                 $('#edit-solucion').val(mantenimiento.solución);
+
                 $('#editmaintreview').attr('action', '/mant/en/revisión/actualizar/' + mantenimiento.id);
+
             });
             $('#editorMantenimiento').on('hidden.bs.modal', function() {
                 var form = $('#editmaintreview');
@@ -1260,6 +1379,5 @@
             });
 
         });
-
     </script>
 @endpush

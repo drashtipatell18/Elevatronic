@@ -10,22 +10,34 @@ use App\Models\Province;
 use App\Models\Staff;
 use Illuminate\Http\Request;
 use App\Models\SparePart;
+use App\Models\Month;
 use App\Models\Supervisor;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class MaintInReviewController extends Controller
 {
-    public function maintInReview()
+    public function maintInReview(Request $request)
     {
-        $maint_in_reviews = MaintInReview::all();
-        $review_types = ReviewType::pluck('nombre', 'nombre');
-        $elevators = Elevators::pluck('nombre', 'nombre');
-        $provinces = Province::pluck('provincia', 'provincia');
-        $Personals = Staff::pluck('nombre', 'nombre');
-
-        return view('Maint.view_maint_in_review', compact('maint_in_reviews', 'review_types', 'elevators', 'provinces', 'Personals'));
+        $maint_in_reviews = MaintInReview::with(['staff', 'elevator','reviewtype'])->get();
+        $review_types = ReviewType::pluck('nombre', 'id');
+        $elevators = Elevators::pluck('nombre', 'id');
+        $provinces = Province::pluck('provincia', 'id');
+        $Personals = Staff::pluck('nombre', 'id');
+        $months = Month::all();
+        if ($request->ajax()) { // Check if the request is an AJAX call
+            return response()->json(compact('months','maint_in_reviews', 'review_types', 'elevators', 'provinces', 'Personals'));
+        }
+        return view('Maint.view_maint_in_review', compact('months','maint_in_reviews', 'review_types', 'elevators', 'provinces', 'Personals'));
     }
 
+    public function getDataMaintance(){
+        return response()->json([
+            'months' =>   Month::pluck('nombre','id')->toArray(), // Fetch all data with eager loading
+            'review_types' => ReviewType::pluck('nombre','id')->toArray(), // Convert to array
+            'elevators' => Elevators::pluck('nombre','id')->toArray(), // Convert to array
+            'provinces' => Province::pluck('provincia', 'id')->toArray(),
+            'staffs' => Staff::pluck('nombre','id')->toArray(), // Convert to array
+        ]);
+    }
     public function totalRecordCount()
     {
         $maint_in_reviews = MaintInReview::all();
@@ -47,6 +59,16 @@ class MaintInReviewController extends Controller
         return response()->json(Supervisor::all());
     }
 
+    public function getObservation($id)
+    {
+        $observation = MaintInReview::find($id); // Adjust this line based on your model
+    
+        if (!$observation) {
+            return response()->json(['message' => 'Observation not found'], 404);
+        }
+    
+        return response()->json($observation); // Ensure this returns an object with 'observaciones' property
+    }
     public function maintInReviewInsert(Request $request)
     {
         $request->validate([
@@ -138,12 +160,12 @@ class MaintInReviewController extends Controller
 
     public function maintInReviewDetails($id)
     {
-        $maint_in_review = MaintInReview::with('supervisor')->findOrFail($id);
-        $review_types = ReviewType::pluck('nombre', 'nombre');
-        $elevators = Elevators::pluck('nombre', 'nombre');
+        $maint_in_review = MaintInReview::with(['supervisor','staff', 'elevator','reviewtype','month','province'])->findOrFail($id);
+        $review_types = ReviewType::pluck('nombre', 'id');
+        $elevators = Elevators::pluck('nombre', 'id');
         $spareparts = SparePart::all();
-        $provinces = Province::pluck('provincia', 'provincia');
-        $personals = Staff::pluck('nombre', 'nombre');
+        $provinces = Province::pluck('provincia', 'id');
+        $personals = Staff::pluck('nombre', 'id');
         $main_image = ImagePdfs::where('mant_en_revisións_id', $id)->where('document')->get();
         $documents = ImagePdfs::where('mant_en_revisións_id', $id)->where('image')->get();
         return view('Maint.view_maint_in_review_record', compact('spareparts', 'provinces', 'personals', 'maint_in_review', 'review_types', 'elevators', 'id', 'main_image', 'documents'));

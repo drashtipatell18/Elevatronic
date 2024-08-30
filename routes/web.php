@@ -104,7 +104,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::delete('/document/{id}/delete', [MaintInReviewController::class, 'deleteImage']);
     Route::post('/supervisor-de-inserción', [MaintInReviewController::class, 'insertSupervisor'])->name('insert.supervisor');
     Route::get('/supervisors', [MaintInReviewController::class, 'getSupervisors'])->name('supervisors');
-
+    Route::get('/get-observation/{id}', [MaintInReviewController::class, 'getObservation']);
+    Route::get('/getDataMaintance', [MaintInReviewController::class, 'getDataMaintance'])->name('getDataMaintance');
 
     // Maintenance //
 

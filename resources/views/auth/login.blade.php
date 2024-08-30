@@ -26,6 +26,9 @@
 
     <!-- Include jQuery -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <!-- Include jQuery Validation Plugin -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
 </head>
 
 <body>
@@ -43,27 +46,18 @@
                                     Bienvenido, Inicia sesión
                                 </h4>
                             </div>
-                            <form action="{{ route('login') }}" method="post">
+                            <form action="{{ route('login') }}" method="post" id="login">
                                 @csrf <!-- CSRF Protection -->
                                 <div class="form-group">
                                     <label for="email">Correo electrónico</label>
                                     <input type="email" name="email" id="email"
-                                        class="form-control @error('email') is-invalid @enderror"
+                                        class="form-control"
                                         placeholder="Correo electrónico">
-                                    @error('email')
-                                        <span class="invalid-feedback" style="color: red">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
                                 </div>
                                 <div class="form-group mb-4">
                                     <label for="password">Contraseña</label>
-                                    <input type="password" name="password" id="password" class="form-control @error('password') is-invalid @enderror placeholder="Contraseña">
-                                    @error('password')
-                                    <span class="invalid-feedback" style="color: red">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                    <input type="password" name="password" id="password"
+                                        class="form-control"placeholder="Contraseña">
                                 </div>
                                 <div class="form-group mb-4">
                                     <button type="submit" class="btn-primario">Iniciar Sesión</button>
@@ -85,3 +79,41 @@
 </body>
 
 </html>
+<script>
+  $(document).ready(function() {
+    $('#login').validate({ // Use .validate() method
+        rules: {
+            email: {
+                required: true,
+                email: true
+            },
+            password: {
+                required: true,
+                minlength: 8 // Added minlength rule
+            }
+        },
+        messages: {
+            email: {
+                required: 'Por favor, ingresa un correo electrónico',
+                email: 'Por favor, ingresa un correo electrónico válido'
+            },
+            password: {
+                required: "Por favor, ingrese la contraseña",
+                minlength: "La contraseña debe tener al menos 8 caracteres"
+            }
+        },
+        errorElement: "span",
+        errorPlacement: function(error, element) {
+            error.addClass("invalid-feedback");
+            error.insertAfter(element);
+        },
+        highlight: function(element, errorClass, validClass) {
+            $(element).addClass("is-invalid").removeClass("is-valid");
+        },
+        unhighlight: function(element, errorClass, validClass) {
+            $(element).removeClass("is-invalid").addClass("is-valid");
+        }
+    });
+});
+</script>
+// ... existing code ...

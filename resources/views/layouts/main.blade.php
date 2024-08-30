@@ -151,15 +151,19 @@
                                     <div class="perfil_abs" id="perfil_abs" style="display: none;">
                                         <div class="d-flex align-items-center justify-content-between con_perfil">
                                             <div class="">
-                                                @if (auth()->check())
-                                                    @php
-                                                        $image = auth()->user()->image ?? 'fondo.png';
-                                                    @endphp
+                                                @php
+                                                    // Log the image path instead of dumping it
+                                                    $image = auth()->user()->image;
+                                                    Log::info('User image: ' . $image);
+                                                @endphp
+                                                @if (auth()->check() && $image)
                                                     <img src="{{ asset('images/' . $image) }}" alt="User Image"
                                                         width="100" height="50"
                                                         class="img-circle profile_img imgcrops">
                                                 @else
-                                                    <p>No user image available</p>
+                                                    <img src="{{ asset('img/fondo.png') }}" alt="Default User Image"
+                                                        width="100" height="50"
+                                                        class="img-circle profile_img imgcrops">
                                                 @endif
                                             </div>
                                             <div class="spacing">

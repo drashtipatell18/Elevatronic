@@ -108,6 +108,7 @@
                     <tbody>
                         @foreach ($contracts as $item)
                             <tr>
+                                <td>{{ $item->id }}</td>
                                 <td>{{ $item->fecha_de_propuesta }}</td>
                                 <td>{{ $item->monto_de_propuesta }}</td>
                                 <td>{{ $item->fecha_de_inicio }}</td>

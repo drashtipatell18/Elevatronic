@@ -1108,7 +1108,7 @@
                                     elevator.client ?
                                     `<a href="${baseUrl}/clientes/vista/${elevator.client_id}" class="text-blue">${elevator.client.nombre}</a>` :
                                     '-',
-                                    elevator.provincia || '', // Column 5
+                                    elevator.province ? elevator.province.provincia : '', // Column 5
                                     // ... existing code ...
                                     `<td align="right">
                                         <div class="dropdown">

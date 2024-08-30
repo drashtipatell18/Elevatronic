@@ -265,7 +265,7 @@
                                                             @isset($elevators->garantizar)
                                                                 {{ $elevators->garantizar }}
                                                             @else
-                                                                No garantía disponible
+                                                            {{ '-' }}
                                                             @endisset
                                                         </td>
 
@@ -282,7 +282,7 @@
                                                             @isset($elevators->dirección)
                                                                 {{ $elevators->dirección }}
                                                             @else
-                                                                No dirección disponible
+                                                            {{ '-' }}
                                                             @endisset
                                                         </td>
 
@@ -296,10 +296,10 @@
                                                     <tr>
                                                         <td class="text-gris">Técnico instalador</td>
                                                         <td>
-                                                            @isset($elevators->técnico_instalador)
-                                                                {{ $elevators->técnico_instalador }}
+                                                            @isset($elevators->tecnicoInstalador)
+                                                                {{ $elevators->tecnicoInstalador->nombre }}
                                                             @else
-                                                                No técnico instalador disponible
+                                                            {{ '-' }}
                                                             @endisset
                                                         </td>
                                                     </tr>
@@ -315,7 +315,7 @@
                                                             @isset($elevators->ubigeo)
                                                                 {{ $elevators->ubigeo }}
                                                             @else
-                                                                No Ubigeo disponible
+                                                            {{ '-' }}
                                                             @endisset
                                                         </td>
                                                     </tr>
@@ -328,10 +328,10 @@
                                                     <tr>
                                                         <td class="text-gris">Provincia</td>
                                                         <td>
-                                                            @isset($elevators->provincia)
-                                                                {{ $elevators->provincia }}
+                                                            @isset($elevators->province)
+                                                                {{ $elevators->province->provincia }}
                                                             @else
-                                                                No provincia disponible
+                                                                {{ '-' }}
                                                             @endisset
                                                         </td>
 
@@ -346,9 +346,9 @@
                                                         <td class="text-gris">Técnico ajustador</td>
                                                         <td>
                                                             @isset($elevators->técnico_ajustador)
-                                                                {{ $elevators->técnico_ajustador }}
+                                                                {{ $elevators->tecnicoAjustador->nombre }}
                                                             @else
-                                                                No técnico ajustador disponible
+                                                            {{ '-' }}
                                                             @endisset
                                                         </td>
                                                     </tr>
@@ -361,10 +361,10 @@
                                                     <tr>
                                                         <td class="text-gris">Tipo de ascensor</td>
                                                         <td>
-                                                            @isset($elevators->tipo_de_ascensor)
-                                                                {{ $elevators->tipo_de_ascensor }}
+                                                            @isset($elevators->tipoDeAscensor)
+                                                                {{ $elevators->tipoDeAscensor->nombre_de_tipo_de_ascensor }}
                                                             @else
-                                                                Tipo de ascensor no especificado
+                                                                {{ '-' }}
                                                             @endisset
                                                         </td>
 

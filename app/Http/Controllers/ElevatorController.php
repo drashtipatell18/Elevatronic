@@ -18,7 +18,7 @@ class ElevatorController extends Controller
 {
     public function elevator(Request $request) // Added Request parameter
     {
-        $elevators = Elevators::with('client')->get();
+        $elevators = Elevators::with(['client','tecnicoAjustador','tecnicoInstalador','province','tipoDeAscensor'])->get();
         $customers = Cliente::pluck('nombre', 'id');
         $allCustomers = Cliente::all();
         $provinces = Province::pluck('provincia', 'id');
@@ -210,7 +210,7 @@ class ElevatorController extends Controller
 
     public function elevatorView(Request $request, $id)
     {
-        $elevators = Elevators::with(['client', 'marca'])->find($id);
+        $elevators = Elevators::with(['client','tecnicoAjustador','tecnicoInstalador','province','tipoDeAscensor','marca'])->find($id);
         $contracts = Contract::where('ascensor', $elevators->nombre)->get();
         $spareparts = SparePart::all();
         $customers = Cliente::pluck('nombre', 'id');

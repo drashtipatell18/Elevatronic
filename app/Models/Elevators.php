@@ -24,7 +24,7 @@ class Elevators extends Model
         return $this->belongsTo(Cliente::class, 'client_id');
     }
 
-    public function provincia()
+    public function province()
     {
         return $this->belongsTo(Province::class, 'provincia'); // Add relation for provincia
     }

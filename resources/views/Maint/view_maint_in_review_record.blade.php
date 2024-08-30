@@ -209,7 +209,7 @@
                                             <tbody>
                                                 <tr>
                                                     <td class="text-gris">Provincia</td>
-                                                    <td>{{ maint_in_review->province ? $maint_in_review->province->provincia : '' }}</td>
+                                                    <td>{{ $maint_in_review->province ? $maint_in_review->province->provincia : '' }}</td>
                                                 </tr>
                                             </tbody>
                                         </table>

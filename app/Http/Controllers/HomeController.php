@@ -29,17 +29,16 @@ class HomeController extends Controller
     public function loginStore(Request $request)
     {
         $credentials = $request->validate([
-            'email' => 'required|email',
+            'email' => 'required|exists:users,email',
             'password' => 'required',
         ]);
-
-        // Attempt to authenticate using the user's email
+    
         if (Auth::attempt(['email' => $credentials['email'], 'password' => $credentials['password']])) {
             return redirect()->route('clientes');
         }
-
-        // If none of the attempts succeed, redirect back with an error message
-        return back()->withErrors(['email' => 'Invalid credentials'])->withInput($request->only('email'));
+    
+        // Use only one method to flash the error message
+        return back()->withErrors(['email' => 'Credenciales no válidas.'])->withInput($request->only('email'));
     }
 
     public function logout(Request $request)

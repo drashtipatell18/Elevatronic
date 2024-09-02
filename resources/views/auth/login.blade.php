@@ -40,6 +40,7 @@
                             <div class="text-center">
                                 <img src="img/logo.svg" alt="logo">
                             </div>
+
                             <div class="text-center">
                                 <h4>
                                     Bienvenido, Inicia sesión
@@ -48,7 +49,15 @@
 
                             <div class="message">
                             </div>
-
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            {{ $error }}
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
                             <form action="{{ route('login') }}" method="post" id="login">
                                 @csrf <!-- CSRF Protection -->
                                 <div class="form-group">
@@ -110,8 +119,10 @@
                                     '<div class="alert alert-success">Enlace de restablecimiento de contraseña enviado con éxito</div>'
                                 );
                                 setTimeout(function() {
-                                    $(".message").fadeOut(1000); // Fades out success message
-                                    window.location.href = "{{ route('session') }}"; // Redirect to session route
+                                    $(".message").fadeOut(
+                                        1000); // Fades out success message
+                                    window.location.href =
+                                        "{{ route('session') }}"; // Redirect to session route
                                 }, 1000); // Timeout for 1 second
                             },
                             error: function(xhr) {
@@ -128,8 +139,8 @@
                             '<div class="alert alert-danger">Usuario no encontrado.</div>'
                         );
                         setTimeout(function() {
-                            $(".message").fadeOut(1000); 
-                        }, 3000); 
+                            $(".message").fadeOut(1000);
+                        }, 3000);
                     }
                 },
                 error: function(xhr) {
@@ -137,8 +148,8 @@
                         '<div class="alert alert-danger">Error en la solicitud.</div>'
                     );
                     setTimeout(function() {
-                        $(".message").fadeOut(1000); 
-                    }, 1000); 
+                        $(".message").fadeOut(1000);
+                    }, 1000);
                 }
             });
         } else {
@@ -146,11 +157,15 @@
         }
     }
     $(document).ready(function() {
+        $.validator.addMethod("customEmail", function(value, element) {
+            return this.optional(element) || /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(value);
+        }, "Por favor, introduce una dirección de correo electrónico válida");
+
         $('#login').validate({ // Use .validate() method
             rules: {
                 email: {
                     required: true,
-                    email: true
+                    customEmail: true
                 },
                 password: {
                     required: true,
@@ -179,5 +194,8 @@
                 $(element).removeClass("is-invalid").addClass("is-valid");
             }
         });
+        setTimeout(function() {
+            $(".alert-danger").fadeOut(1000);
+        }, 1000);
     });
 </script>

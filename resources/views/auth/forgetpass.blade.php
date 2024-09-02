@@ -39,7 +39,7 @@
                         <div class="login">
                             <div class="form-recupera" id="form-recupera">
                                 <div class="mb-2">
-                                    <a href="">
+                                    <a href="{{ route('session') }}">
                                         <i class="fas fa-chevron-left"></i>
                                     </a>
                                 </div>

@@ -34,28 +34,32 @@ class DashboardController extends Controller
 
             // Send the password reset email to the user
             Mail::to($user->email)->send(new ForgotPasswordMail($user));
-
-            return response()->json(['success' => true]);
+            // Handle AJAX request
+            if ($request->ajax()) {
+                return response()->json(['success' => true]);
+                return response()->json(['exists' => false]);
+            }
             return back()->with('success', 'Enlace de restablecimiento de contraseña enviado con éxito.');
         } else {
-            return response()->json(['exists' => false]);
             return back()->with('danger', 'Usuario no encontrado.');
         }
     }
 
-    public function checkEmail(Request $request) {
+    public function checkEmail(Request $request)
+    {
         $emailExists = User::where('email', $request->email)->exists();
         return response()->json(['exists' => $emailExists]);
     }
 
-    public function Session(){
+    public function Session()
+    {
         return view('auth.session');
     }
 
     public function reset($token)
     {
-        $user = User::where('remember_token','=',$token)->first();
-        if(!empty($user)){
+        $user = User::where('remember_token', '=', $token)->first();
+        if (!empty($user)) {
             $data['user'] = $user;
             $data['token'] = $user->remember_token;
             return view('auth.reset', $data);
@@ -97,5 +101,4 @@ class DashboardController extends Controller
             return redirect()->back()->with('error', 'Token no válida o usuario no encontrado.');
         }
     }
-
 }

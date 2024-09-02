@@ -72,7 +72,7 @@ class DashboardController extends Controller
 
         // Check if the new password and confirmation match
         if ($request->newpassword !== $request->confirmpassword) {
-            return redirect()->back()->with('error', 'The new password confirmation does not match.');
+            return redirect()->back()->with('error', 'La confirmación de la nueva contraseña no coincide.');
         }
 
         // Find the user by the provided token
@@ -91,10 +91,10 @@ class DashboardController extends Controller
             $user->save();
 
             // Redirect to the login page with a success message
-            return redirect('login')->with('success', 'Password successfully reset.');
+            return redirect('login')->with('success', 'Restablecimiento de contraseña exitoso.');
         } else {
             // Redirect back with an error message if the user was not found
-            return redirect()->back()->with('error', 'Invalid token or user not found.');
+            return redirect()->back()->with('error', 'Token no válida o usuario no encontrado.');
         }
     }
 

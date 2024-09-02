@@ -2876,31 +2876,48 @@
                         {
                             extend: 'csv',
                             exportOptions: {
-                                columns: ':not(:first-child)' // Excluye la última columna
+                                columns: ':not(:last-child)' // Excluye la última columna
                             }
                         },
                         {
                             extend: 'pdf',
                             exportOptions: {
-                                columns: ':not(:first-child)' // Excludes the last column
+                                columns: ':not(:first-child):not(:last-child)' // Excludes the first and last columns
                             },
                             customize: function(doc) {
                                 var table = doc.content[1].table;
-                                var columnCount = table.body[0].length;
 
-                                // Set correct widths for columns
-                                table.widths = Array(columnCount).fill('*');
+                                // Center align all header cells
+                                table.headerRows = 1; // Specify that the first row is the header
 
-                                // Center align all cells
-                                table.body.forEach(function(row) {
+                                // Center align all cells in the body
+                                table.body.forEach(function(row, rowIndex) {
                                     row.forEach(function(cell) {
-                                        cell.alignment = 'center';
+                                        cell.alignment =
+                                            'center'; // Center align all cells
                                     });
                                 });
 
-                                // Optionally, adjust page size or orientation if needed
+                                // Center align all cells in the header
+                                if (table.body.length > 0) {
+                                    table.body[0].forEach(function(cell) {
+                                        cell.alignment = 'center'; // Center align header cells
+                                    });
+                                }
+
+                                // Ensure this is suitable for your content
                                 doc.pageOrientation = 'landscape';
                                 doc.pageSize = 'A4';
+                                doc.defaultStyle.fontSize = 8; // Adjust font size as needed
+
+                                // Adjust the height of rows if necessary
+                                table.body.forEach(function(row) {
+                                    row.forEach(function(cell) {
+                                        cell.margin = [5,
+                                            5
+                                        ]; // Add margin to cells for better spacing
+                                    });
+                                });
                             }
                         },
                         {

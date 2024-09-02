@@ -26,7 +26,6 @@ class DashboardController extends Controller
 
         // Find the user by the provided email
         $user = User::where('email', $email)->first();
-
         // Check if the user exists
         if ($user) {
             // Generate a new remember token for the user
@@ -36,14 +35,18 @@ class DashboardController extends Controller
             // Send the password reset email to the user
             Mail::to($user->email)->send(new ForgotPasswordMail($user));
 
-            // Redirect back with a success message
-            return back()->with('success', 'Password reset link sent successfully.');
+            return response()->json(['success' => true]);
+            return back()->with('success', 'Enlace de restablecimiento de contraseña enviado con éxito.');
         } else {
-            // Redirect back with an error message if the user was not found
-            return back()->with('danger', 'User not found.');
+            return response()->json(['exists' => false]);
+            return back()->with('danger', 'Usuario no encontrado.');
         }
     }
 
+    public function checkEmail(Request $request) {
+        $emailExists = User::where('email', $request->email)->exists();
+        return response()->json(['exists' => $emailExists]);
+    }
 
     public function Session(){
         return view('auth.session');

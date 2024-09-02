@@ -517,25 +517,7 @@
                     }
                 });
             });
-            // $(document).on('click', '.edit-customer', function() {
-            //     var customer = $(this).data('customer');
-            //     // Populate the modal with customer data
-            //     $('#edit-nombre').val(customer.nombre);
-            //     $('#tipo_de_cliente').val(customer.tipo_de_cliente).trigger('change');
-            //     $('#edit-ruc').val(customer.ruc);
-            //     $('#edit-país').val(customer.país);
-            //     $('#edit-provincia').val(customer.provincia);
-            //     $('#edit-dirección').val(customer.dirección);
-            //     $('#edit-teléfono').val(customer.teléfono);
-            //     $('#edit-teléfono_móvil').val(customer.teléfono_móvil);
-            //     $('#edit-correo_electrónico').val(customer.correo_electrónico);
-            //     $('#edit-nombre_del_contacto').val(customer.nombre_del_contacto);
-            //     $('#edit-posición').val(customer.posición);
-
-            //     // Set the form action to the correct route
-            //     $('#EditcustomerForm').attr('action', '/clientes/actualizar/' + customer.id);
-            // });
-
+        
             $(document).on('click', '.edit-customer', function() {
                 // Clear previous modal data
                 $('#edit-nombre').val('');

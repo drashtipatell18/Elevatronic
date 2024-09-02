@@ -26,7 +26,6 @@
 
     <!-- Include jQuery -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <!-- Include jQuery Validation Plugin -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
 </head>
@@ -46,12 +45,15 @@
                                     Bienvenido, Inicia sesión
                                 </h4>
                             </div>
+
+                            <div class="message">
+                            </div>
+
                             <form action="{{ route('login') }}" method="post" id="login">
                                 @csrf <!-- CSRF Protection -->
                                 <div class="form-group">
                                     <label for="email">Correo electrónico</label>
-                                    <input type="email" name="email" id="email"
-                                        class="form-control"
+                                    <input type="email" name="email" id="email" class="form-control"
                                         placeholder="Correo electrónico">
                                 </div>
                                 <div class="form-group mb-4">
@@ -65,9 +67,9 @@
                                 <div class="line-form"></div>
                                 <div class="form-group">
                                     <p>¿Olvidaste tu contraseña?</p>
-                                    <a href="{{ route('session') }}" class="btn-lineal">Recuperar
-                                        contraseña</a>
+                                    <a class="btn-lineal" onclick="checkEmail()">Recuperar contraseña</a>
                                 </div>
+
                             </form>
                         </div>
                     </div>
@@ -80,40 +82,101 @@
 
 </html>
 <script>
-  $(document).ready(function() {
-    $('#login').validate({ // Use .validate() method
-        rules: {
-            email: {
-                required: true,
-                email: true
-            },
-            password: {
-                required: true,
-                minlength: 8 // Added minlength rule
-            }
-        },
-        messages: {
-            email: {
-                required: 'Por favor, ingresa un correo electrónico',
-                email: 'Por favor, ingresa un correo electrónico válido'
-            },
-            password: {
-                required: "Por favor, ingrese la contraseña",
-                minlength: "La contraseña debe tener al menos 8 caracteres"
-            }
-        },
-        errorElement: "span",
-        errorPlacement: function(error, element) {
-            error.addClass("invalid-feedback");
-            error.insertAfter(element);
-        },
-        highlight: function(element, errorClass, validClass) {
-            $(element).addClass("is-invalid").removeClass("is-valid");
-        },
-        unhighlight: function(element, errorClass, validClass) {
-            $(element).removeClass("is-invalid").addClass("is-valid");
+    function checkEmail() {
+        var email = document.getElementById('email').value;
+        if (email) {
+            // Check if email exists via AJAX
+            $.ajax({
+                url: "{{ route('check.email') }}", // New route for checking email
+                type: "POST",
+                data: {
+                    email: email,
+                    _token: '{{ csrf_token() }}' // Include CSRF token
+                },
+                success: function(response) {
+                    if (response.exists) { // Assuming response contains 'exists' key
+                        $.ajax({
+                            url: "{{ route('forget.password.email') }}",
+                            type: "POST",
+                            data: {
+                                email: email,
+                                _token: '{{ csrf_token() }}' // Include CSRF token
+                            },
+                            success: function(response) {
+                                console.log(response);
+                                // Handle success response
+                                $('.message').prepend(
+                                    '<div class="alert alert-success">Enlace de restablecimiento de contraseña enviado con éxito</div>'
+                                );
+                                setTimeout(function() {
+                                    $(".message").fadeOut(
+                                        1000); // Fades out success message
+                                }, 1000); // Timeout for 3 seconds
+                            },
+                            error: function(xhr) {
+                                $('.message').prepend(
+                                    '<div class="alert alert-danger">Error en la solicitud.</div>'
+                                );
+                                setTimeout(function() {
+                                    $(".message").fadeOut(1000);
+                                }, 1000);
+                            }
+                        });
+                    } else {
+                        $('.message').prepend(
+                            '<div class="alert alert-danger">Usuario no encontrado.</div>'
+                        );
+                        setTimeout(function() {
+                            $(".message").fadeOut(1000); 
+                        }, 3000); 
+                    }
+                },
+                error: function(xhr) {
+                    $('.message').prepend(
+                        '<div class="alert alert-danger">Error en la solicitud.</div>'
+                    );
+                    setTimeout(function() {
+                        $(".message").fadeOut(1000); 
+                    }, 1000); 
+                }
+            });
+        } else {
+            window.location.href = "{{ route('session') }}"; // Redirect if email is blank
         }
+    }
+    $(document).ready(function() {
+        $('#login').validate({ // Use .validate() method
+            rules: {
+                email: {
+                    required: true,
+                    email: true
+                },
+                password: {
+                    required: true,
+                    minlength: 8 // Added minlength rule
+                }
+            },
+            messages: {
+                email: {
+                    required: 'Por favor, ingresa un correo electrónico',
+                    email: 'Por favor, ingresa un correo electrónico válido'
+                },
+                password: {
+                    required: "Por favor, ingrese la contraseña",
+                    minlength: "La contraseña debe tener al menos 8 caracteres"
+                }
+            },
+            errorElement: "span",
+            errorPlacement: function(error, element) {
+                error.addClass("invalid-feedback");
+                error.insertAfter(element);
+            },
+            highlight: function(element, errorClass, validClass) {
+                $(element).addClass("is-invalid").removeClass("is-valid");
+            },
+            unhighlight: function(element, errorClass, validClass) {
+                $(element).removeClass("is-invalid").addClass("is-valid");
+            }
+        });
     });
-});
 </script>
-// ... existing code ...

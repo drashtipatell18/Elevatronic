@@ -26,6 +26,7 @@
 
     <!-- Include jQuery -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
 </head>
 
 <body>
@@ -59,18 +60,13 @@
                                         Introduce tu correo y enviaremos instrucciones sobre cómo restablecerlo.
                                     </p>
                                 </div>
-                                <form method="POST" action="{{ route('forget.password.email') }}" class="login">
+                                <form method="POST" action="{{ route('forget.password.email') }}" class="login" id="login">
                                     @csrf
                                     <div class="form-group mb-5">
                                         <label for="correo">Correo electrónico</label>
                                         <input type="email" name="email" id="email"
-                                            class="form-control @error('email') is-invalid @enderror"
+                                            class="form-control"
                                             placeholder="Correo electrónico">
-                                        @error('email')
-                                            <div class="invalid-feedback error-message" style="color: red">
-                                                <strong>{{ $message }}</strong>
-                                            </div>
-                                        @enderror
                                     </div>
                                     <div class="form-group">
                                         <button type="submit" class="btn-primario" id="envia">Enviar</button>
@@ -88,7 +84,31 @@
 </html>
 <script>
     $(document).ready(function() {
-
+        $('#login').validate({ // Use .validate() method
+        rules: {
+            email: {
+                required: true,
+                email: true
+            }
+        },
+        messages: {
+            email: {
+                required: 'Por favor, ingresa un correo electrónico',
+                email: 'Por favor, ingresa un correo electrónico válido'
+            }
+        },
+        errorElement: "span",
+        errorPlacement: function(error, element) {
+            error.addClass("invalid-feedback");
+            error.insertAfter(element);
+        },
+        highlight: function(element, errorClass, validClass) {
+            $(element).addClass("is-invalid").removeClass("is-valid");
+        },
+        unhighlight: function(element, errorClass, validClass) {
+            $(element).removeClass("is-invalid").addClass("is-valid");
+        }
+    });
         setTimeout(function() {
             $(".alert-success").fadeOut(1000);
         }, 1000);

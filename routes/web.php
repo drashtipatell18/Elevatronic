@@ -16,6 +16,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\MaintInReviewController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +34,8 @@ Route::get('/', function () {
 });
 
 Route::get('/login',[HomeController::class,'Login'])->name('login');
+Route::post('/check-email', [DashboardController::class, 'checkEmail'])->name('check.email');
+
 Route::get('/forget-password', [DashboardController::class, 'showForgetPasswordForm'])->name('forget.password');
 Route::get('/session', [DashboardController::class, 'Session'])->name('session');
 Route::post('/forget-password', [DashboardController::class, 'sendResetLinkEmail'])->name('forget.password.email');
@@ -109,12 +112,12 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Maintenance //
 
-    Route::get('/mantenimiento', [MaintenanceController::class, 'maintenance'])->name('maintenance');
-    Route::post('/mantenimiento/insertar',[MaintenanceController::class,'maintenanceInsert'])->name('insert.maintenance');
-    Route::get('/mantenimiento/editar/{id}', [MaintenanceController::class, 'maintenanceEdit'])->name('edit.maintenance');
-    Route::get('/mantenimiento/vista/{id}', [MaintenanceController::class, 'maintenanceView'])->name('view.maintenance');
-    Route::post('/mantenimiento/actualizar/{id}', [MaintenanceController::class, 'maintenanceUpdate'])->name('update.maintenance');
-    Route::delete ('/mantenimiento/destruir/{id}',[MaintenanceController::class,'maintenanceDestroy'])->name('destroy.maintenance');
+    // Route::get('/mantenimiento', [MaintenanceController::class, 'maintenance'])->name('maintenance');
+    // Route::post('/mantenimiento/insertar',[MaintenanceController::class,'maintenanceInsert'])->name('insert.maintenance');
+    // Route::get('/mantenimiento/editar/{id}', [MaintenanceController::class, 'maintenanceEdit'])->name('edit.maintenance');
+    // Route::get('/mantenimiento/vista/{id}', [MaintenanceController::class, 'maintenanceView'])->name('view.maintenance');
+    // Route::post('/mantenimiento/actualizar/{id}', [MaintenanceController::class, 'maintenanceUpdate'])->name('update.maintenance');
+    // Route::delete ('/mantenimiento/destruir/{id}',[MaintenanceController::class,'maintenanceDestroy'])->name('destroy.maintenance');
 
 
     // tipos-de-revision //

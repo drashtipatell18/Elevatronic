@@ -67,7 +67,8 @@
                                 <div class="line-form"></div>
                                 <div class="form-group">
                                     <p>¿Olvidaste tu contraseña?</p>
-                                    <a class="btn-lineal" onclick="checkEmail()">Recuperar contraseña</a>
+                                    <button type="button" class="btn-lineal" onclick="checkEmail()">Recuperar
+                                        contraseña</button>
                                 </div>
 
                             </form>
@@ -109,9 +110,9 @@
                                     '<div class="alert alert-success">Enlace de restablecimiento de contraseña enviado con éxito</div>'
                                 );
                                 setTimeout(function() {
-                                    $(".message").fadeOut(
-                                        1000); // Fades out success message
-                                }, 1000); // Timeout for 3 seconds
+                                    $(".message").fadeOut(1000); // Fades out success message
+                                    window.location.href = "{{ route('session') }}"; // Redirect to session route
+                                }, 1000); // Timeout for 1 second
                             },
                             error: function(xhr) {
                                 $('.message').prepend(

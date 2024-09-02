@@ -486,7 +486,7 @@
 
                         $.each(response, function() {
                             $("#tipo_de_cliente, #tipo_de_cliente1").append(
-                                `<option value='${this.tipo_de_client}'>${this.tipo_de_client}</option>`
+                                `<option value='${this.id}'>${this.tipo_de_client}</option>`
                             );
                         });
 

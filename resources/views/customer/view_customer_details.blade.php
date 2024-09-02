@@ -384,7 +384,7 @@
 
                         $.each(response, function() {
                             $("#tipo_de_cliente").append(
-                                `<option value='${this.tipo_de_client}'>${this.tipo_de_client}</option>`
+                                `<option value='${this.id}'>${this.tipo_de_client}</option>`
                             );
                         });
                         $('#tipo_de_cliente').select2({
@@ -521,7 +521,7 @@
             $(document).on('click', '.edit-customer', function() {
                 // Clear previous modal data
                 $('#edit-nombre').val('');
-                $('#tipo_de_cliente1').val('').trigger('change');
+                $('#tipo_de_cliente').val('').trigger('change');
                 $('#edit-ruc').val('');
                 $('#edit-país').val('');
                 $('#edit-provincia').val('');
@@ -538,7 +538,7 @@
 
                 // Populate the modal with the selected customer's data
                 $('#edit-nombre').val(customer.nombre);
-                $('#tipo_de_cliente1').val(customer.tipo_de_cliente).trigger('change');
+                $('#tipo_de_cliente').val(customer.tipo_de_cliente).trigger('change');
                 $('#edit-ruc').val(customer.ruc);
                 $('#edit-país').val(customer.país);
                 $('#edit-provincia').val(customer.provincia);

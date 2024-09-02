@@ -104,6 +104,7 @@ class ElevatorController extends Controller
 
     public function maintInReviewInsertelevator(Request $request, $id)
     {
+        // dd($request->all());
         try {
             // Validate the request data
             $validatedData = $request->validate([
@@ -113,7 +114,6 @@ class ElevatorController extends Controller
                 'hora_inicio' => 'required',
                 'hora_fin' => 'required',
                 'núm_certificado' => 'required',
-                'ascensor_id' => 'required|exists:ascensores,id',
             ]);
 
             // Fetch the elevator data
@@ -122,9 +122,9 @@ class ElevatorController extends Controller
             // Create a new MaintInReview instance
             $maintinreview = MaintInReview::create([
                 'tipo_de_revisión' => $request->input('tipo_de_revisión'),
-                'ascensor' => $elevator->nombre,
+                'ascensor' => $elevator->id,
                 'dirección' => $elevator->dirección,
-                'provincia' => $elevator->provincia,
+                'provincia' => $request->input('provincia'),
                 'núm_certificado' => $request->input('núm_certificado'),
                 'supervisor' => $request->input('supervisor'),
                 'técnico' => $request->input('técnico'),
@@ -135,12 +135,12 @@ class ElevatorController extends Controller
                 'observaciónes' => $request->input('observaciónes') ?? null,
                 'observaciónes_internas' => $request->input('observaciónes_internas') ?? null,
                 'solución' => $request->input('solución'),
-                'ascensor_id' => $request->input('ascensor_id'),
             ]);
 
             // Redirect back with success message
             return redirect()->route('ascensore')->with('success', 'Mant En Revisión creado exitosamente!');
         } catch (\Exception $e) {
+            \Log::error('Error creating Mant En Revisión: ' . $e->getMessage()); // Log the error
             return redirect()->back()->with('error', 'Error al crear Mant En Revisión: ' . $e->getMessage())->withInput();
         }
     }
@@ -217,7 +217,7 @@ class ElevatorController extends Controller
         $provinces = Province::pluck('provincia', 'id');
         $maint_in_reviews = MaintInReview::where('ascensor', $elevators->id)->get();
         $elevatornumber = Elevators::pluck('nombre', 'nombre');
-        $review_types  = ReviewType::pluck('nombre', 'nombre');
+        $review_types  = ReviewType::pluck('nombre', 'id');
         $elevatortypes = Elevatortypes::pluck('nombre_de_tipo_de_ascensor', 'nombre_de_tipo_de_ascensor');
         $staffs = Staff::pluck('nombre', 'id');
         return view('elevator.view_elevator_details', compact('elevatortypes', 'staffs', 'elevators', 'elevatornumber', 'review_types', 'maint_in_reviews', 'spareparts', 'customers', 'provinces', 'contracts'));

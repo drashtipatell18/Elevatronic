@@ -14,7 +14,7 @@ class MaintInReview extends Model
     use HasFactory, SoftDeletes;
     protected $dates = ['eliminado_en'];
     protected $table = 'mant_en_revisións';
-    protected $fillable = ['tipo_de_revisión','ascensor','dirección','provincia','núm_certificado','supervisor_id','técnico','mes_programado','fecha_de_mantenimiento','hora_inicio','hora_fin','observaciónes','observaciónes_internas','solución','ascensor_id'];
+    protected $fillable = ['tipo_de_revisión','ascensor','dirección','provincia','núm_certificado','supervisor_id','técnico','mes_programado','fecha_de_mantenimiento','hora_inicio','hora_fin','observaciónes','observaciónes_internas','solución'];
    
     public function supervisor()
     {

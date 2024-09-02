@@ -199,16 +199,21 @@
                                                         <td>{{ $elevator->fecha }}</td>
                                                         <td>{{ $elevator_type->nombre_de_tipo_de_ascensor }}</td>
                                                         <td>
+                                                            @if($elevator->id)
                                                             <a href="{{ route('view.elevator', $elevator->id) }}"
                                                                 class="text-blue">
                                                                 {{ $elevator->nombre }}
                                                             </a>
+                                                            @endif
                                                         </td>
                                                         <td>
+                                                            @if ($elevator->client_id)
                                                             <a href="{{ route('view.customer', $elevator->client_id) }}"
                                                                 class="text-blue">
                                                                 {{ $elevator->client->nombre ?? '-' }}
                                                             </a>
+                                                            @endif
+                                                           
                                                         </td>
                                                     </tr>
                                                 @endforeach

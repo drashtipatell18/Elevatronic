@@ -265,7 +265,7 @@
                                                             @isset($elevators->garantizar)
                                                                 {{ $elevators->garantizar }}
                                                             @else
-                                                            {{ '-' }}
+                                                                {{ '-' }}
                                                             @endisset
                                                         </td>
 
@@ -282,7 +282,7 @@
                                                             @isset($elevators->dirección)
                                                                 {{ $elevators->dirección }}
                                                             @else
-                                                            {{ '-' }}
+                                                                {{ '-' }}
                                                             @endisset
                                                         </td>
 
@@ -299,7 +299,7 @@
                                                             @isset($elevators->tecnicoInstalador)
                                                                 {{ $elevators->tecnicoInstalador->nombre }}
                                                             @else
-                                                            {{ '-' }}
+                                                                {{ '-' }}
                                                             @endisset
                                                         </td>
                                                     </tr>
@@ -315,7 +315,7 @@
                                                             @isset($elevators->ubigeo)
                                                                 {{ $elevators->ubigeo }}
                                                             @else
-                                                            {{ '-' }}
+                                                                {{ '-' }}
                                                             @endisset
                                                         </td>
                                                     </tr>
@@ -348,7 +348,7 @@
                                                             @isset($elevators->técnico_ajustador)
                                                                 {{ $elevators->tecnicoAjustador->nombre }}
                                                             @else
-                                                            {{ '-' }}
+                                                                {{ '-' }}
                                                             @endisset
                                                         </td>
                                                     </tr>
@@ -604,6 +604,7 @@
                                                                             detalles</a>
                                                                         <a class="dropdown-item editContract"
                                                                             href="" data-id="{{ $contra->id }}"
+                                                                            data-contract="{{ $contra }}"
                                                                             data-toggle="modal"
                                                                             data-target="#editarContratos">Editar</a>
 
@@ -688,9 +689,11 @@
                                                                     <div class="form-group">
                                                                         <label for="ascensor">Ascensor</label>
                                                                         <input type="text" placeholder="Ascensor"
-                                                                            name="ascensor"
+                                                                            name=""
                                                                             value="{{ $elevators->nombre }}"
                                                                             id="ascensor" class="form-control" readonly>
+                                                                        <input type="hidden" name="ascensor"
+                                                                            id="ascensor" value="{{ $elevators->id }}">
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-6">
@@ -833,10 +836,13 @@
                                                                         <div class="form-group">
                                                                             <label for="ascensor">Ascensor</label>
                                                                             <input type="text" placeholder="Ascensor"
-                                                                                name="ascensor" id="ascensor"
+                                                                                name="" id=""
                                                                                 class="form-control"
-                                                                                value="{{ old('ascensor', $contra->ascensor ?? '') }}"
+                                                                                value="{{ old('ascensor', $elevators->nombre ?? '') }}"
                                                                                 readonly>
+                                                                            <input type="hidden" name="ascensor"
+                                                                                id="ascensor" value="{{ $elevators->id }}">
+
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-md-6">
@@ -845,7 +851,8 @@
                                                                                 propuesta</label>
                                                                             <input type="date" placeholder="dd/mm/aaaa"
                                                                                 name="fecha_de_propuesta"
-                                                                                id="fecha_de_propuesta" class="form-control"
+                                                                                id="edit_fecha_de_propuesta"
+                                                                                class="form-control"
                                                                                 value="{{ old('fecha_de_propuesta', $contra->fecha_de_propuesta ?? '') }}">
                                                                         </div>
                                                                     </div>
@@ -855,7 +862,8 @@
                                                                                 propuesta</label>
                                                                             <input type="number" placeholder="S/ 300 mensual"
                                                                                 name="monto_de_propuesta"
-                                                                                id="monto_de_propuesta" class="form-control"
+                                                                                id="edit_monto_de_propuesta"
+                                                                                class="form-control"
                                                                                 value="{{ old('monto_de_propuesta', $contra->monto_de_propuesta ?? '') }}">
                                                                         </div>
                                                                     </div>
@@ -866,7 +874,8 @@
                                                                                 contrato</label>
                                                                             <input type="number" placeholder="S/ 300 mensual"
                                                                                 name="monto_de_contrato"
-                                                                                id="monto_de_contrato" class="form-control"
+                                                                                id="edit_monto_de_contrato"
+                                                                                class="form-control"
                                                                                 value="{{ old('monto_de_contrato', $contra->monto_de_contrato ?? '') }}">
                                                                         </div>
                                                                     </div>
@@ -876,8 +885,8 @@
                                                                             <label for="fecha_de_inicio">Fecha de
                                                                                 inicio</label>
                                                                             <input type="date" placeholder="dd/mm/aaaa"
-                                                                                name="fecha_de_inicio" id="fecha_de_inicio"
-                                                                                class="form-control"
+                                                                                name="edit_fecha_de_inicio"
+                                                                                id="fecha_de_inicio" class="form-control"
                                                                                 value="{{ old('fecha_de_inicio', $contra->fecha_de_inicio ?? '') }}">
                                                                         </div>
                                                                     </div>
@@ -886,7 +895,7 @@
                                                                         <div class="form-group">
                                                                             <label for="fecha_de_fin">Fecha de fin</label>
                                                                             <input type="date" placeholder="dd/mm/aaaa"
-                                                                                name="fecha_de_fin" id="fecha_de_fin"
+                                                                                name="edit_fecha_de_fin" id="fecha_de_fin"
                                                                                 class="form-control"
                                                                                 value="{{ old('fecha_de_fin', $contra->fecha_de_fin ?? '') }}">
                                                                         </div>
@@ -898,15 +907,16 @@
                                                                             <div class="custom-control custom-checkbox">
                                                                                 <input type="checkbox"
                                                                                     class="custom-control-input"
-                                                                                    id="renovación" name="renovación"
+                                                                                    id="edit_renovación" name="renovación"
                                                                                     class="form-control"
-                                                                                    {{ $contra->renovación ? 'checked' : '' }}>
+                                                                                    {{ $contra->renovación == 'Y' ? 'checked' : '' }}>
+                                                                                <!-- Updated condition -->
                                                                                 <label class="custom-control-label"
-                                                                                    for="renovación">Renovación</label>
+                                                                                    for="edit_renovación">Renovación</label>
+                                                                                <!-- Corrected 'for' attribute -->
                                                                             </div>
                                                                         </div>
                                                                     </div>
-
                                                                     <div class="col-md-12"></div>
                                                                     <div class="col-md-6">
                                                                         <div class="form-group">
@@ -914,7 +924,8 @@
                                                                                 meses?</label>
                                                                             <input type="text" placeholder="Meses"
                                                                                 name="cada_cuantos_meses"
-                                                                                id="cada_cuantos_meses" class="form-control"
+                                                                                id="edit_cada_cuantos_meses"
+                                                                                class="form-control"
                                                                                 value="{{ old('cada_cuantos_meses', $contra->cada_cuantos_meses ?? '') }}">
                                                                         </div>
                                                                     </div>
@@ -922,8 +933,8 @@
                                                                     <div class="col-md-12">
                                                                         <div class="form-group">
                                                                             <label for="observación">Observación</label>
-                                                                            <textarea name="observación" id="observación" placeholder="Comentario de contrato" cols="30" rows="5"
-                                                                                class="form-control">{{ old('observación', $contra->observación ?? '') }}</textarea>
+                                                                            <textarea name="observación" id="edit_observación" placeholder="Comentario de contrato" cols="30"
+                                                                                rows="5" class="form-control">{{ old('observación', $contra->observación ?? '') }}</textarea>
                                                                         </div>
                                                                     </div>
 
@@ -932,8 +943,8 @@
                                                                             <label for="estado_cuenta_del_contrato">Estado
                                                                                 cuenta
                                                                                 del contrato</label>
-                                                                            <textarea name="estado_cuenta_del_contrato" id="estado_cuenta_del_contrato" placeholder="Estado cuenta del contrato"
-                                                                                class="form-control" cols="30" rows="5"
+                                                                            <textarea name="estado_cuenta_del_contrato" id="edit_estado_cuenta_del_contrato"
+                                                                                placeholder="Estado cuenta del contrato" class="form-control" cols="30" rows="5"
                                                                                 class="@error('estado_cuenta_del_contrato') is-invalid @enderror">{{ old('estado_cuenta_del_contrato', $contra->estado_cuenta_del_contrato ?? '') }}</textarea>
                                                                             @error('estado_cuenta_del_contrato')
                                                                                 <span class="invalid-feedback" style="color: red">
@@ -946,7 +957,7 @@
                                                                     <div class="col-md-12">
                                                                         <div class="form-group">
                                                                             <label for="Estado">Estado</label>
-                                                                            <select name="estado" id="estado"
+                                                                            <select name="estado" id="edit_estado"
                                                                                 class="custom-select form-control">
                                                                                 <option value="" disabled>Seleccionar
                                                                                     opción</option>
@@ -1085,9 +1096,9 @@
                                                     @foreach ($maint_in_reviews as $maint_in_rev)
                                                         <tr>
                                                             <td>{{ $maint_in_rev->tipo_de_revisión }}</td>
-                                                            <td>{{ $maint_in_rev->ascensor }}</td>
+                                                            <td>{{ $elevators->nombre }}</td>
                                                             <td>{{ $maint_in_rev->fecha_de_mantenimiento }}</td>
-                                                            <td>{{ $maint_in_rev->técnico }}</td>
+                                                            <td>{{ $maint_in_rev->staff->nombre }}</td>
                                                             <td>
                                                                 <a class="text-blue view-observation" href="#"
                                                                     data-toggle="modal"
@@ -1254,7 +1265,7 @@
                                                                                                 class="form-control"
                                                                                                 name="ascensor"
                                                                                                 id="edit-MAscensor"
-                                                                                                value="{{ old('ascensor', $maint_in_rev->ascensor) }}"
+                                                                                                value="{{ old('ascensor', $elevators->nombre) }}"
                                                                                                 readonly>
                                                                                             @error('ascensor')
                                                                                                 <span class="invalid-feedback"
@@ -1291,10 +1302,10 @@
                                                                                                 <option value="">Select
                                                                                                     Province
                                                                                                 </option>
-                                                                                                @foreach ($provinces as $province)
+                                                                                                @foreach ($provinces as $key => $province)
                                                                                                     <option
-                                                                                                        value="{{ $province }}"
-                                                                                                        {{ old('provincia', $maint_in_rev->provincia ?? '') == $province ? 'selected' : '' }}>
+                                                                                                        value="{{ $key }}"
+                                                                                                        {{ old('provincia', $maint_in_rev->provincia ?? '') == $key ? 'selected' : '' }}>
                                                                                                         {{ $province }}
                                                                                                     </option>
                                                                                                 @endforeach
@@ -1365,10 +1376,10 @@
                                                                                                 <option value="">
                                                                                                     Seleccionar opción
                                                                                                 </option>
-                                                                                                @foreach ($staffs as $staff)
+                                                                                                @foreach ($staffs as $id => $staff)
                                                                                                     <option
-                                                                                                        value="{{ $staff }}"
-                                                                                                        {{ old('técnico', $maint_in_rev->técnico ?? '') == $staff ? 'selected' : '' }}>
+                                                                                                        value="{{ $id }}"
+                                                                                                        {{ old('técnico', $maint_in_rev->técnico ?? '') == $id ? 'selected' : '' }}>
                                                                                                         {{ $staff }}
                                                                                                     </option>
                                                                                                 @endforeach
@@ -1437,9 +1448,6 @@
                                                                                                     @enderror
                                                                                                 </div>
                                                                                             </div>
-                                                                                            >>>>>>>
-                                                                                            d13a45a2690a97a2ff7c0068c0d6c8781d87df29
-
 
                                                                                             <div class="col-md-6">
                                                                                                 <div class="form-group">
@@ -3338,22 +3346,39 @@
                     reader.readAsDataURL(this.files[0]);
                 });
 
-                $(".editContract").click(function() {
-                    let id = $(this).data('id');
-                    $.ajax({
-                        type: "GET",
-                        method: "GET",
-                        dataType: "JSON",
-                        url: `/contract/get/${id}`,
-                        success: function(response) {
-                            $("#editcontratos").attr("action", "/contrato/actualizar/" + id);
-                            for (var key in response) {
-                                $("#editcontratos").find("input[name='" + key + "']").val(response[
-                                    key])
-                            }
-                        }
-                    })
-                })
+                $(document).on('click', '.editContract', function() {
+                    // Clear previous modal data
+                    // $('#ascensor').val('');
+                    $('#edit_fecha_de_propuesta').val('');
+                    $('#edit_monto_de_propuesta').val('');
+                    $('#edit_monto_de_contrato').val('');
+                    $('#edit_fecha_de_inicio').val('');
+                    $('#edit_fecha_de_fin').val('');
+                    $('#edit_renovación').prop('checked', false); // Assuming this is a checkbox
+                    $('#edit_cada_cuantos_meses').val('');
+                    $('#edit_observación').val('');
+                    $('#edit_estado_cuenta_del_contrato').val('');
+                    $('#edit_estado').val('');
+
+                    // Get the current contract data
+                    var contract = $(this).data('contract');
+                    console.log(contract);
+                    // Populate the modal with the selected contract's data
+                    // $('#ascensor').val(contract.ascensor || '');
+                    $('#edit_fecha_de_propuesta').val(contract.fecha_de_propuesta || '');
+                    $('#edit_monto_de_propuesta').val(contract.monto_de_propuesta || '');
+                    $('#edit_monto_de_contrato').val(contract.monto_de_contrato || '');
+                    $('#edit_fecha_de_inicio').val(contract.fecha_de_inicio || '');
+                    $('#edit_fecha_de_fin').val(contract.fecha_de_fin || '');
+                    $('#edit_renovación').prop('checked', contract.renovación || false);
+                    $('#edit_cada_cuantos_meses').val(contract.cada_cuantos_meses || '');
+                    $('#edit_observación').val(contract.observación || '');
+                    $('#edit_estado_cuenta_del_contrato').val(contract.estado_cuenta_del_contrato || '');
+                    $('#edit_estado').val(contract.estado || '');
+
+                    // Set the form action to the correct route
+                    $('#editcontratos').attr('action', '/contrato/actualizar/' + contract.id);
+                });
 
                 $('#editarAscensor').on('hidden.bs.modal', function() {
                     var form = $('#editelevatform');

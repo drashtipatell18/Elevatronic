@@ -211,15 +211,15 @@ class ElevatorController extends Controller
     public function elevatorView(Request $request, $id)
     {
         $elevators = Elevators::with(['client','tecnicoAjustador','tecnicoInstalador','province','tipoDeAscensor','marca'])->find($id);
-        $contracts = Contract::where('ascensor', $elevators->nombre)->get();
+        $contracts = Contract::where('ascensor', $elevators->id)->get();
         $spareparts = SparePart::all();
         $customers = Cliente::pluck('nombre', 'id');
-        $provinces = Province::pluck('provincia', 'provincia');
-        $maint_in_reviews = MaintInReview::where('ascensor', $elevators->nombre)->get();
+        $provinces = Province::pluck('provincia', 'id');
+        $maint_in_reviews = MaintInReview::where('ascensor', $elevators->id)->get();
         $elevatornumber = Elevators::pluck('nombre', 'nombre');
         $review_types  = ReviewType::pluck('nombre', 'nombre');
         $elevatortypes = Elevatortypes::pluck('nombre_de_tipo_de_ascensor', 'nombre_de_tipo_de_ascensor');
-        $staffs = Staff::pluck('nombre', 'nombre');
+        $staffs = Staff::pluck('nombre', 'id');
         return view('elevator.view_elevator_details', compact('elevatortypes', 'staffs', 'elevators', 'elevatornumber', 'review_types', 'maint_in_reviews', 'spareparts', 'customers', 'provinces', 'contracts'));
     }
 
@@ -284,7 +284,7 @@ class ElevatorController extends Controller
             'fecha_de_fin'           => $request->input('fecha_de_fin'),
             'renovación'            => $request->input('renovación'),
             'cada_cuantos_meses'      => $request->input('cada_cuantos_meses'),
-            'observación'  => $request->input('observación'),
+            'observación'           => $request->input('observación'),
             'estado_cuenta_del_contrato' => $request->input('estado_cuenta_del_contrato'),
             'estado'            => strtolower($request->input('estado')),
         ]);

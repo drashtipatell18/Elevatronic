@@ -42,7 +42,7 @@ class ElevatortypesController extends Controller
     public function elevatortypesDetails($id){
         $elevator_type = Elevatortypes::findOrFail($id);
         $spareparts = SparePart::all();
-        $elevators = Elevators::where('tipo_de_ascensor', $elevator_type->nombre_de_tipo_de_ascensor)->get();
+        $elevators = Elevators::where('tipo_de_ascensor', $elevator_type->id)->get();
         $assginspares = AssginSpare::where('nombre_del_tipo_de_ascensor', $elevator_type->nombre_de_tipo_de_ascensor)
         ->get();
         return view('ElevatorTypes.elevator_details', compact('assginspares','elevators','spareparts','elevator_type'));

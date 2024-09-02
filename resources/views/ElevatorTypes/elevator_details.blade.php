@@ -197,7 +197,7 @@
                                                     <tr>
                                                         <td>{{ $index + 1 }}</td>
                                                         <td>{{ $elevator->fecha }}</td>
-                                                        <td>{{ $elevator->tipo_de_ascensor }}</td>
+                                                        <td>{{ $elevator_type->nombre_de_tipo_de_ascensor }}</td>
                                                         <td>
                                                             <a href="{{ route('view.elevator', $elevator->id) }}"
                                                                 class="text-blue">
@@ -425,19 +425,19 @@
                 buttons: [{
                         extend: 'copy',
                         exportOptions: {
-                            columns: ':not(:last-child)' // Excluye la última columna
+                            // columns: ':not(:last-child)' // Excluye la última columna
                         }
                     },
                     {
                         extend: 'excel',
                         exportOptions: {
-                            columns: ':not(:last-child)' // Excluye la última columna
+                            // columns: ':not(:last-child)' // Excluye la última columna
                         }
                     },
                     {
                         extend: 'csv',
                         exportOptions: {
-                            columns: ':not(:last-child)' // Excluye la última columna
+                            // columns: ':not(:last-child)' // Excluye la última columna
                         }
                     },
                     {
@@ -446,10 +446,6 @@
                             // columns: ':not(:last-child)' // Excluye la última columna
                         },
                         customize: function(doc) {
-                            // Remove the last column from the table body
-                            doc.content[1].table.body.forEach(function(row) {
-                                row.pop(); // Remove the last column from each row
-                            });
                             doc.content[1].table.widths = Array(doc.content[1].table.body[0]
                                 .length + 1).join('*').split('');
                             var columnCount = doc.content[1].table.body[0].length;
@@ -470,7 +466,7 @@
                     {
                         extend: 'print',
                         exportOptions: {
-                            columns: ':not(:last-child)' // Excluye la última columna
+                            // columns: ':not(:last-child)' // Excluye la última columna
                         }
                     }
                     // 'copy', 'csv', 'excel', 'pdf', 'print'

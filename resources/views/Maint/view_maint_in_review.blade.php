@@ -172,7 +172,7 @@
                                     <label for="provincia">Provincia</label>
                                     <select id="provincia" name="provincia" class="form-control"
                                         autocomplete="new-provincia" autoFill="off">
-                                        <option value="">Select Province</option>
+                                        <option value="">Seleccionar Provincia</option>
                                         @foreach ($provinces as $key => $province)
                                             <option value="{{ $key }}">{{ $province }}</option>
                                         @endforeach

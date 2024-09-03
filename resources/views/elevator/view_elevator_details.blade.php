@@ -1624,7 +1624,7 @@
                                                         <div class="col-md-12">
                                                             <div class="form-group">
                                                                 <label for="Npisos"># de pisos</label>
-                                                                <input type="text" placeholder="#" name="npisos"
+                                                                <input type="number" placeholder="#" name="npisos"
                                                                     id="npisos"
                                                                     class="form-control @error('npisos') is-invalid @enderror"
                                                                     value="{{ old('npisos', isset($elevators) ? $elevators->npisos : '') }}">
@@ -2604,7 +2604,7 @@
                                     'change'); // Ensure the value is set and trigger change
                                 $('#edit-técnico_ajustador').val(edit.técnico_ajustador).trigger(
                                     'change'); // Ensure the value is set and trigger change
-                                $('#edit-tipo_de_ascensor').val(edit.tipo_de_ascensor).trigger(
+                                $('#edit-tipo_de_ascensor').val(edit.tipo_de_ascensor.id).trigger(
                                     'change'); // Ensure the value is set and trigger change
                             }
                         },
@@ -2880,7 +2880,7 @@
                         {
                             extend: 'pdf',
                             exportOptions: {
-                                columns: ':not(:first-child):not(:last-child)' // Excludes the first and last columns
+                                columns: ':not(:first-child)' // Excludes the first and last columns
                             },
                             customize: function(doc) {
                                 var table = doc.content[1].table;
@@ -3250,7 +3250,7 @@
                     $('#edit-provincia').val(elevator.provincia).trigger('change');
                     $('#edit-técnico_instalador').val(elevator.técnico_instalador).trigger('change');
                     $('#edit-técnico_ajustador').val(elevator.técnico_ajustador).trigger('change');
-                    $('#edit-tipo_de_ascensor').val(elevator.tipo_de_ascensor).trigger('change');
+                    $('#edit-tipo_de_ascensor').val(elevator.tipo_de_ascensor.id).trigger('change');
                     $('#edit-cantidad').val(elevator.cantidad);
                     $('#edit-npisos').val(elevator.npisos);
                     $('#edit-ncontacto').val(elevator.ncontacto);

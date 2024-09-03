@@ -371,7 +371,7 @@
                                                             <div class="col-md-12">
                                                                 <div class="form-group">
                                                                     <label for="Npisos"># de pisos</label>
-                                                                    <input type="text" placeholder="#" name="npisos"
+                                                                    <input type="number" placeholder="#" name="npisos"
                                                                         id="npisos" class="form-control">
                                                                 </div>
                                                             </div>
@@ -1241,19 +1241,15 @@
                 },
                 nombre: {
                     required: true,
-                    alphanumeric: true
                 },
                 cliente: {
                     required: true,
-                    alphanumeric: true
                 },
                 dirección: {
                     required: true,
-                    alphanumeric: true
                 },
                 ncontacto: {
                     required: true,
-                    alphanumeric: true
                 },
                 teléfono: {
                     digits: true
@@ -1266,7 +1262,6 @@
                 },
                 descripcion1: {
                     required: true,
-                    alphanumeric: true
                 }
             };
 
@@ -1277,19 +1272,15 @@
                 },
                 nombre: {
                     required: "Por favor, ingrese el nombre del ascensor.",
-                    alphanumeric: "Por favor, ingrese solo letras, números y espacios."
                 },
                 cliente: {
                     required: "Por favor, seleccione un cliente.",
-                    alphanumeric: "Por favor, ingrese solo letras, números y espacios."
                 },
                 dirección: {
                     required: "Por favor, ingrese la dirección.",
-                    alphanumeric: "Por favor, ingrese solo letras, números y espacios."
                 },
                 ncontacto: {
                     required: "Por favor, ingrese el nombre del contacto.",
-                    alphanumeric: "Por favor, ingrese solo letras, números y espacios."
                 },
                 teléfono: {
                     digits: "Por favor, ingrese solo dígitos para el número de teléfono."
@@ -1302,7 +1293,6 @@
                 },
                 descripcion1: {
                     required: "Por favor, ingrese una descripción.",
-                    alphanumeric: "Por favor, ingrese solo letras, números y espacios."
                 }
             };
 
@@ -1329,7 +1319,7 @@
                 $('#edit-provincia').val(elevator.provincia).trigger('change');
                 $('#edit-técnico_instalador').val(elevator.técnico_instalador).trigger('change');
                 $('#edit-técnico_ajustador').val(elevator.técnico_ajustador).trigger('change');
-                $('#edit-tipo_de_ascensor').val(elevator.tipo_de_ascensor).trigger('change');
+                $('#edit-tipo_de_ascensor').val(elevator.tipo_de_ascensor.id).trigger('change'); // Ensure the value is set and trigger change
                 $('#edit-cantidad').val(elevator.cantidad);
                 $('#edit-npisos').val(elevator.npisos);
                 $('#edit-ncontacto').val(elevator.ncontacto);

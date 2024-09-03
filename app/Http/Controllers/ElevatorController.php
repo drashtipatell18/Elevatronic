@@ -219,7 +219,7 @@ class ElevatorController extends Controller
         $maint_in_reviews = MaintInReview::with('reviewtype')->where('ascensor', $elevators->id)->get();
         $elevatornumber = Elevators::pluck('nombre', 'nombre');
         $review_types  = ReviewType::pluck('nombre', 'id');
-        $elevatortypes = Elevatortypes::pluck('nombre_de_tipo_de_ascensor', 'nombre_de_tipo_de_ascensor');
+        $elevatortypes = Elevatortypes::pluck('nombre_de_tipo_de_ascensor', 'id');
         $staffs = Staff::pluck('nombre', 'id');
         return view('elevator.view_elevator_details', compact('elevatortypes', 'staffs', 'elevators', 'elevatornumber', 'review_types', 'maint_in_reviews', 'spareparts', 'customers', 'provinces', 'contracts'));
     }

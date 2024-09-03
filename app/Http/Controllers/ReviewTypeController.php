@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\ReviewType;
 use App\Models\MaintInReview;
+use App\Models\Schedule;
 
 class ReviewTypeController extends Controller
 {
@@ -51,6 +52,8 @@ class ReviewTypeController extends Controller
         ]);
         MaintInReview::where('tipo_de_revisión', $oldTypeName)
         ->update(['tipo_de_revisión' => $request->input('nombre')]);
+        Schedule::where('revisar', $oldTypeName)
+        ->update(['revisar' => $request->input('nombre')]);
 
         // Redirect back with success message
         session()->flash('success', 'Tipo de revisión actualizado exitosamente!');

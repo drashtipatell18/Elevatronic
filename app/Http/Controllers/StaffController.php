@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Staff;
 use App\Models\Position;
 use App\Models\MaintInReview;
-
+use App\Models\Schedule;
 class StaffController extends Controller
 {
     public function staff(){
@@ -82,6 +82,8 @@ class StaffController extends Controller
             'teléfono'            => $request->input('teléfono'),
         ]);
         MaintInReview::where('técnico', $oldStaffName)
+        ->update(['técnico' => $request->input('nombre')]);
+        Schedule::where('técnico', $oldStaffName)
         ->update(['técnico' => $request->input('nombre')]);
         // Redirect back with success message
         session()->flash('success', 'Personal actualizado exitosamente!');

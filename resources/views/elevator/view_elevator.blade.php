@@ -1072,6 +1072,8 @@
                                 row[4].alignment =
                                     'center'; // Center align the fifth column
                             });
+                            doc.pageSize = 'A4'; // Set page size to A4
+                            doc.defaultStyle.fontSize = 6; // Set default font size
                         }
                     },
                     {

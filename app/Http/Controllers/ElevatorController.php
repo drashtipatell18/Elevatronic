@@ -126,7 +126,7 @@ class ElevatorController extends Controller
                 'dirección' => $elevator->dirección,
                 'provincia' => $request->input('provincia'),
                 'núm_certificado' => $request->input('núm_certificado'),
-                'supervisor' => $request->input('supervisor'),
+                'supervisor_id' => $request->input('supervisor_id'),
                 'técnico' => $request->input('técnico'),
                 'mes_programado' => $request->input('mes_programado'),
                 'fecha_de_mantenimiento' => $request->input('fecha_de_mantenimiento'),
@@ -136,6 +136,7 @@ class ElevatorController extends Controller
                 'observaciónes_internas' => $request->input('observaciónes_internas') ?? null,
                 'solución' => $request->input('solución'),
             ]);
+            \Log::error('creating Mant En Revisión: ' . $maintinreview); // Log the error
 
             // Redirect back with success message
             return redirect()->route('ascensore')->with('success', 'Mant En Revisión creado exitosamente!');
@@ -255,11 +256,12 @@ class ElevatorController extends Controller
 
         // Redirect back with success message
         session()->flash('success', 'creado Contract exitosamente!');
-        return redirect()->route('elevator');
+        return redirect()->route('ascensore');
     }
 
     public function contractUpdate(Request $request, $id)
     {
+        // dd($request->all());
         $validatedData = $request->validate([
             'ascensor' => 'required',
             'fecha_de_propuesta' => 'required',
@@ -290,7 +292,7 @@ class ElevatorController extends Controller
         ]);
 
         session()->flash('success', 'Contract actualizado exitosamente!');
-        return redirect()->route('elevator');
+        return redirect()->route('ascensore');
     }
 
     public function contractDestroy($id)

@@ -774,8 +774,7 @@
                                                                             cuenta
                                                                             del
                                                                             contrato</label>
-                                                                        <textarea name="estado_cuenta_del_contrato" id="estado_cuenta_del_contrato" placeholder="Estado cuenta del contrato"
-                                                                            cols="30" rows="5"></textarea>
+                                                                            <input type="number" name="estado_cuenta_del_contrato" id="estado_cuenta_del_contrato" placeholder="Estado cuenta del contrato" class="form-control">
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-12">
@@ -940,12 +939,11 @@
 
                                                                     <div class="col-md-12">
                                                                         <div class="form-group">
-                                                                            <label for="estado_cuenta_del_contrato">Estado
-                                                                                cuenta
-                                                                                del contrato</label>
-                                                                            <textarea name="estado_cuenta_del_contrato" id="edit_estado_cuenta_del_contrato"
-                                                                                placeholder="Estado cuenta del contrato" class="form-control" cols="30" rows="5"
-                                                                                class="@error('estado_cuenta_del_contrato') is-invalid @enderror">{{ old('estado_cuenta_del_contrato', $contra->estado_cuenta_del_contrato ?? '') }}</textarea>
+                                                                            <label for="estado_cuenta_del_contrato">Estado cuenta del contrato</label>
+                                                                            <!-- Change from textarea to input type number -->
+                                                                            <input type="number" name="estado_cuenta_del_contrato" id="edit_estado_cuenta_del_contrato"
+                                                                                placeholder="Estado cuenta del contrato" class="form-control @error('estado_cuenta_del_contrato') is-invalid @enderror"
+                                                                                value="{{ old('estado_cuenta_del_contrato', $contra->estado_cuenta_del_contrato ?? '') }}">
                                                                             @error('estado_cuenta_del_contrato')
                                                                                 <span class="invalid-feedback" style="color: red">
                                                                                     <strong>{{ $message }}</strong>
@@ -1809,7 +1807,7 @@
                                                     <select id="provincia" name="provincia" class="form-control">
                                                         <option value="">Seleccionar Provincia</option>
                                                         @foreach ($provinces as $key => $province)
-                                                            <option value="{{ $province }}"
+                                                            <option value="{{ $key }}"
                                                                 {{ old('provincia', $elevators->provincia) == $key ? 'selected' : '' }}>
                                                                 {{ $province }}
                                                             </option>
@@ -1836,10 +1834,10 @@
                                                 </div> --}}
                                                 <div class="form-group">
                                                     <label for="supervisor">Supervisor</label>
-                                                    <select class="custom-select" name="supervisor" id="supervisor">
+                                                    <select class="custom-select" name="supervisor_id" id="supervisor_id">
 
                                                     </select>
-                                                    @error('supervisor')
+                                                    @error('supervisor_id')
                                                         <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $message }}</strong>
                                                         </span>
@@ -2314,11 +2312,11 @@
 
                 function getSupervisors(edit) {
                     // Destroy existing Select2 instance if it exists
-                    if ($('#supervisor').data('select2')) {
-                        $('#supervisor').select2('destroy');
+                    if ($('#supervisor_id').data('select2')) {
+                        $('#supervisor_id').select2('destroy');
                     }
-                    if ($('#supervisor1').data('select2')) {
-                        $('#supervisor1').select2('destroy');
+                    if ($('#supervisor_id1').data('select2')) {
+                        $('#supervisor_id1').select2('destroy');
                     }
 
                     // Perform the AJAX call to get supervisor data
@@ -2328,31 +2326,31 @@
                         dataType: "JSON",
                         success: function(response) {
                             // Clear the current options and append the retrieved options to the select element
-                            $("#supervisor,#supervisor1").empty();
-                            $("#supervisor,supervisor1").append(
+                            $("#supervisor_id,#supervisor_id1").empty();
+                            $("#supervisor_id,supervisor_id1").append(
                                 '<option value="" class="d-none">Seleccionar Supervisor</option>'
                             ); // Add placeholder option
 
                             $.each(response, function() {
-                                $("#supervisor,#supervisor1").append(
+                                $("#supervisor_id,#supervisor_id1").append(
                                     `<option value='${this.id}'>${this.nomber}</option>`
                                 );
                             });
 
                             // Initialize Select2 on the select element
-                            $('#supervisor').select2({
+                            $('#supervisor_id').select2({
                                 placeholder: "Seleccionar Supervisor",
                                 allowClear: true
                             });
 
-                            $('#supervisor1').select2({
+                            $('#supervisor_id1').select2({
                                 placeholder: "Seleccionar Supervisor",
                                 allowClear: true
                             });
 
                             // If edit is true and has a valid ID, set the selected value
                             if (edit) {
-                                $('#supervisor1').val(edit).trigger('change');
+                                $('#supervisor_id1').val(edit).trigger('change');
                                 console.log('Selected supervisor set to:', edit);
                             }
                         },
@@ -3048,7 +3046,7 @@
                     $('#edit-tipo_de_revisión').val(mantenimiento.tipo_de_revisión).trigger('change');
                     $('#edit-MAscensor').val(mantenimiento.ascensor).trigger('change');
                     $('#edit-dirección').val(mantenimiento.dirección);
-                    $('#edit-provincia').val(mantenimiento.provincia);
+                    $('#edit-provincia').val(mantenimiento.provincia).trigger('change');
                     $('#edit-NCertificado').val(mantenimiento.núm_certificado);
                     $('#edit-NMaquina').val(mantenimiento.máquina);
                     $('#supervisor_id1').val(mantenimiento.supervisor_id).trigger('change');

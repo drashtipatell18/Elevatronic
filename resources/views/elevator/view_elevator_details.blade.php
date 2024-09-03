@@ -884,8 +884,8 @@
                                                                             <label for="fecha_de_inicio">Fecha de
                                                                                 inicio</label>
                                                                             <input type="date" placeholder="dd/mm/aaaa"
-                                                                                name="edit_fecha_de_inicio"
-                                                                                id="fecha_de_inicio" class="form-control"
+                                                                                name="fecha_de_inicio"
+                                                                                id="edit_fecha_de_inicio" class="form-control"
                                                                                 value="{{ old('fecha_de_inicio', $contra->fecha_de_inicio ?? '') }}">
                                                                         </div>
                                                                     </div>
@@ -894,7 +894,7 @@
                                                                         <div class="form-group">
                                                                             <label for="fecha_de_fin">Fecha de fin</label>
                                                                             <input type="date" placeholder="dd/mm/aaaa"
-                                                                                name="edit_fecha_de_fin" id="fecha_de_fin"
+                                                                                name="fecha_de_fin" id="edit_fecha_de_fin"
                                                                                 class="form-control"
                                                                                 value="{{ old('fecha_de_fin', $contra->fecha_de_fin ?? '') }}">
                                                                         </div>
@@ -1093,7 +1093,7 @@
                                                 <tbody>
                                                     @foreach ($maint_in_reviews as $maint_in_rev)
                                                         <tr>
-                                                            <td>{{ $maint_in_rev->tipo_de_revisión }}</td>
+                                                            <td>{{ $maint_in_rev->reviewtype->nombre }}</td>
                                                             <td>{{ $elevators->nombre }}</td>
                                                             <td>{{ $maint_in_rev->fecha_de_mantenimiento }}</td>
                                                             <td>{{ $maint_in_rev->staff->nombre }}</td>

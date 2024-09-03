@@ -216,7 +216,7 @@ class ElevatorController extends Controller
         $spareparts = SparePart::all();
         $customers = Cliente::pluck('nombre', 'id');
         $provinces = Province::pluck('provincia', 'id');
-        $maint_in_reviews = MaintInReview::where('ascensor', $elevators->id)->get();
+        $maint_in_reviews = MaintInReview::with('reviewtype')->where('ascensor', $elevators->id)->get();
         $elevatornumber = Elevators::pluck('nombre', 'nombre');
         $review_types  = ReviewType::pluck('nombre', 'id');
         $elevatortypes = Elevatortypes::pluck('nombre_de_tipo_de_ascensor', 'nombre_de_tipo_de_ascensor');
@@ -255,13 +255,15 @@ class ElevatorController extends Controller
         ]);
 
         // Redirect back with success message
-        session()->flash('success', 'creado Contract exitosamente!');
-        return redirect()->route('ascensore');
+        // session()->flash('success', 'creado Contract exitosamente!');
+        // return redirect()->route('ascensore');
+        return redirect()->route('ascensore')->with('success', 'creado Contract exitosamente!');
+
     }
 
     public function contractUpdate(Request $request, $id)
     {
-        // dd($request->all());
+        // dd($request->all);
         $validatedData = $request->validate([
             'ascensor' => 'required',
             'fecha_de_propuesta' => 'required',
@@ -275,7 +277,7 @@ class ElevatorController extends Controller
             'estado' => 'required',
         ]);
 
-        $contract = Contract::findOrFail($id);
+        $contract = Contract::find($id); // Change to find() for debugging
         // Create a new Contract instance
         $contract->update([
             'ascensor'              => $request->input('ascensor'),
@@ -291,8 +293,10 @@ class ElevatorController extends Controller
             'estado'            => strtolower($request->input('estado')),
         ]);
 
-        session()->flash('success', 'Contract actualizado exitosamente!');
-        return redirect()->route('ascensore');
+        // session()->flash('success', 'Contract actualizado exitosamente!');
+        // return redirect()->route('ascensore');
+        return redirect()->route('elevator')->with('success', 'Contract actualizado exitosamente!');
+
     }
 
     public function contractDestroy($id)

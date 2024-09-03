@@ -85,6 +85,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <title>Elevatronic</title>
+    <link rel="shortcut icon" href="{{ asset('img/logo-sidebar.svg') }}" type="image/x-icon">
 
     <link rel="stylesheet" href="{{ asset('css/menu.css') }}?v={{ uniqid() }}">
     <link rel="stylesheet" href="{{ asset('css/estilos.css') }}?v={{ rand() }}">
@@ -104,6 +105,7 @@
 
     <!-- Include jQuery -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
 </head>
 
 <body>
@@ -125,31 +127,21 @@
                                     </h4>
                                 </div>
                                 <form method="POST" action="{{ route('post_reset', ['token' => $token]) }}"
-                                    class="login">
+                                    class="login" id="login">
                                     @csrf
                                     <div class="form-group">
                                         <input type="password" name="newpassword" value=""
-                                            class="form-control @error('newpassword') is-invalid @enderror"
-                                            placeholder="New Password">
-                                        @error('newpassword')
-                                            <span class="invalid-feedback" style="color: red">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
+                                            class="form-control"
+                                            placeholder="Nueva contraseña">
                                     </div>
                                     <div class="form-group">
                                         <input type="password"
-                                            class="form-control @error('confirmpassword') is-invalid @enderror"
-                                            name="confirmpassword" value="" placeholder="Confirm Password">
-                                        @error('confirmpassword')
-                                            <span class="invalid-feedback" style="color: red">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
+                                            class="form-control"
+                                            name="confirmpassword" value="" placeholder="Confirmar Contraseña">
                                     </div>
 
                                     <div class="form-group">
-                                        <button type="submit" class="btn-primario">{{ __('Submit') }}</button>
+                                        <button type="submit" class="btn-primario">{{ __('Entregar') }}</button>
                                     </div>
                                 </form>
                             </div>
@@ -169,7 +161,7 @@
         }, "La contraseña debe tener al menos 8 caracteres, comenzar con una letra mayúscula y contener al menos un carácter especial.");
 
         $(document).ready(function () {
-            $('form.login').validate({
+            $('#login').validate({
                 rules: {
                     newpassword: {
                         required: true,
@@ -182,22 +174,25 @@
                 },
                 messages: {
                     newpassword: {
-                        required: "Please enter a new password",
+                        required: "Por favor ingrese una nueva contraseña",
                         passwordFormat: "La contraseña debe tener al menos 8 caracteres, comenzar con una letra mayúscula y contener al menos un carácter especial."
                     },
                     confirmpassword: {
-                        required: "Please confirm your new password",
-                        equalTo: "The confirmation password does not match"
+                        required: "Por favor confirma tu nueva contraseña",
+                        equalTo: "La contraseña de confirmación no coincide"
                     }
                 },
                 errorElement: 'span',
-                errorClass: 'invalid-feedback',
-                highlight: function (element, errorClass, validClass) {
-                    $(element).addClass('is-invalid').removeClass('is-valid');
-                },
-                unhighlight: function (element, errorClass, validClass) {
-                    $(element).removeClass('is-invalid').addClass('is-valid');
-                }
+                errorPlacement: function(error, element) {
+                error.addClass("invalid-feedback");
+                error.insertAfter(element);
+            },
+            highlight: function(element, errorClass, validClass) {
+                $(element).addClass("is-invalid").removeClass("is-valid");
+            },
+            unhighlight: function(element, errorClass, validClass) {
+                $(element).removeClass("is-invalid").addClass("is-valid");
+            }
             });
         });
 </script>

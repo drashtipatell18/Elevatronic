@@ -14,7 +14,7 @@ use App\Models\Elevatortypes\Elevatortypes;
 class ProvinceController extends Controller
 {
     public function province(){
-        $provinces = Province::all();
+        $provinces = Province::all(); // Fetch only ID and name
         $customers = Cliente::pluck('provincia','id');
         return view('province.view_province',compact('provinces','customers'));
     }

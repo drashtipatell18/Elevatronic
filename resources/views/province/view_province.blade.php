@@ -134,8 +134,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div
-                                                            class="modal-footer align-items-center justify-content-center">
+                                                        <div class="modal-footer align-items-center justify-content-center">
                                                             <form id="delete-form"
                                                                 action="{{ route('destroy.province', $province->id) }}"
                                                                 method="POST">
@@ -159,22 +158,20 @@
                 </div>
 
                 <!-- Modal edit Provincia-->
-                <div class="modal left fade" id="editprovincias"
-                    tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
-                    aria-hidden="true">
+                <div class="modal left fade" id="editprovincias" tabindex="-1" role="dialog"
+                    aria-labelledby="modelTitleId" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title font-family-Outfit-SemiBold">Actualizar
                                     Provincia</h5>
-                                <button type="button" class="close" data-dismiss="modal"
-                                    aria-label="Close">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">×</span>
                                 </button>
                             </div>
                             @isset($province)
-                                <form action="{{ route('update.province', $province->id) }}"
-                                    method="POST" class="formulario-modal" id="editprovinceForm">
+                                <form action="{{ route('update.province', $province->id) }}" method="POST"
+                                    class="formulario-modal" id="editprovinceForm">
                                     @csrf
                                     <div class="modal-body body_modal">
                                         <div class="row">
@@ -182,94 +179,20 @@
                                                 <div class="form-group">
                                                     <label for="provincia">Nombre de
                                                         Provincia</label>
-                                                    <select class="custom-select form-control"
-                                                        name="provincia" id="edit-provincia">
-                                                        <option value="">Seleccionar opción
-                                                        </option>
-                                                        <option value="amazonas"
-                                                            {{ old('provincia', $province->provincia) == 'amazonas' ? 'selected' : '' }}>
-                                                            Amazonas</option>
-                                                        <option value="ancash"
-                                                            {{ old('provincia', $province->provincia) == 'ancash' ? 'selected' : '' }}>
-                                                            Ancash</option>
-                                                        <option value="apurimac"
-                                                            {{ old('provincia', $province->provincia) == 'apurimac' ? 'selected' : '' }}>
-                                                            Apurimac</option>
-                                                        <option value="arequipa"
-                                                            {{ old('provincia', $province->provincia) == 'arequipa' ? 'selected' : '' }}>
-                                                            Arequipa</option>
-                                                        <option value="ayacucho"
-                                                            {{ old('provincia', $province->provincia) == 'ayacucho' ? 'selected' : '' }}>
-                                                            Ayacucho</option>
-                                                        <option value="cajamarca"
-                                                            {{ old('provincia', $province->provincia) == 'cajamarca' ? 'selected' : '' }}>
-                                                            Cajamarca</option>
-                                                        <option value="callao"
-                                                            {{ old('provincia', $province->provincia) == 'callao' ? 'selected' : '' }}>
-                                                            Callao</option>
-                                                        <option value="cusco"
-                                                            {{ old('provincia', $province->provincia) == 'cusco' ? 'selected' : '' }}>
-                                                            Cusco</option>
-                                                        <option value="huancavelica"
-                                                            {{ old('provincia', $province->provincia) == 'huancavelica' ? 'selected' : '' }}>
-                                                            Huancavelica</option>
-                                                        <option value="huanuco"
-                                                            {{ old('provincia', $province->provincia) == 'huanuco' ? 'selected' : '' }}>
-                                                            Huanuco</option>
-                                                        <option value="ica"
-                                                            {{ old('provincia', $province->provincia) == 'ica' ? 'selected' : '' }}>
-                                                            Ica</option>
-                                                        <option
-                                                            value="junín"{{ old('provincia', $province->provincia) == 'junín' ? 'selected' : '' }}>
-                                                            Junín</option>
-                                                        <option
-                                                            value="la_libertad"{{ old('provincia', $province->provincia) == 'la_libertad' ? 'selected' : '' }}>
-                                                            La Libertad</option>
-                                                        <option
-                                                            value="lambayeque"{{ old('provincia', $province->provincia) == 'lambayeque' ? 'selected' : '' }}>
-                                                            Lambayeque</option>
-                                                        <option
-                                                            value="lima"{{ old('provincia', $province->provincia) == 'lima' ? 'selected' : '' }}>
-                                                            Lima</option>
-                                                        <option
-                                                            value="loreto"{{ old('provincia', $province->provincia) == 'loreto' ? 'selected' : '' }}>
-                                                            Loreto</option>
-                                                        <option
-                                                            value="madre_de_dios"{{ old('provincia', $province->provincia) == 'madre_de_dios' ? 'selected' : '' }}>
-                                                            Madre de Dios</option>
-                                                        <option
-                                                            value="moquegua"{{ old('provincia', $province->provincia) == 'moquegua' ? 'selected' : '' }}>
-                                                            Moquegua</option>
-                                                        <option
-                                                            value="pasco"{{ old('provincia', $province->provincia) == 'pasco' ? 'selected' : '' }}>
-                                                            Pasco</option>
-                                                        <option
-                                                            value="piura"{{ old('provincia', $province->provincia) == 'piura' ? 'selected' : '' }}>
-                                                            Piura</option>
-                                                        <option
-                                                            value="puno"{{ old('provincia', $province->provincia) == 'puno' ? 'selected' : '' }}>
-                                                            Puno</option>
-                                                        <option
-                                                            value="san_martín"{{ old('provincia', $province->provincia) == 'san_martín' ? 'selected' : '' }}>
-                                                            San Martín</option>
-                                                        <option
-                                                            value="tacna"{{ old('provincia', $province->provincia) == 'tacna' ? 'selected' : '' }}>
-                                                            Tacna</option>
-                                                        <option
-                                                            value="tumbes"{{ old('provincia', $province->provincia) == 'tumbes' ? 'selected' : '' }}>
-                                                            Tumbes</option>
-                                                        <option
-                                                            value="ucayali"{{ old('provincia', $province->provincia) == 'ucayali' ? 'selected' : '' }}>
-                                                            Ucayali</option>
-                                                    </select>
+                                                        <select class="custom-select form-control" name="provincia" id="edit-provincia">
+                                                            <option value="">Seleccionar opción</option>
+                                                            @foreach ($provinces as $provinceOption)
+                                                                <option value="{{ $provinceOption->id }}"
+                                                                    {{ old('provincia', $province->provincia) == $provinceOption->provincia ? 'selected' : '' }}>
+                                                                    {{ $provinceOption->provincia }}</option>
+                                                            @endforeach
+                                                        </select>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div
-                                        class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
-                                        <button type="submit"
-                                            class="btn-gris btn-red mr-2">Actualizar cambios
+                                    <div class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
+                                        <button type="submit" class="btn-gris btn-red mr-2">Actualizar cambios
                                         </button>
                                         <button type="button" class="btn-gris btn-border"
                                             data-dismiss="modal">Cancelar</button>
@@ -343,37 +266,11 @@
 
                                             <div class="form-group">
                                                 <label for="provincia">Nombre de Provincia</label>
-                                                <select class="custom-select form-control" name="provincia"
-                                                    id="provincia">
-                                                    <option value="" class="d-none">
-                                                        Seleccionar
-                                                        opción
-                                                    </option>
-                                                    <option value="amazonas">Amazonas</option>
-                                                    <option value="ancash">Ancash</option>
-                                                    <option value="apurimac">Apurimac</option>
-                                                    <option value="arequipa">Arequipa</option>
-                                                    <option value="ayacucho">Ayacucho</option>
-                                                    <option value="cajamarca">Cajamarca</option>
-                                                    <option value="callao">Callao</option>
-                                                    <option value="cusco">Cusco</option>
-                                                    <option value="huancavelica">Huancavelica</option>
-                                                    <option value="huanuco">Huanuco</option>
-                                                    <option value="ica">Ica</option>
-                                                    <option value="junín">Junín</option>
-                                                    <option value="la_libertad">La Libertad</option>
-                                                    <option value="lambayeque">Lambayeque</option>
-                                                    <option value="lima">Lima</option>
-                                                    <option value="loreto">Loreto</option>
-                                                    <option value="madre_de_dios">Madre de Dios</option>
-                                                    <option value="moquegua">Moquegua</option>
-                                                    <option value="pasco">Pasco</option>
-                                                    <option value="piura">Piura</option>
-                                                    <option value="puno">Puno</option>
-                                                    <option value="san_martín">San Martín</option>
-                                                    <option value="tacna">Tacna</option>
-                                                    <option value="tumbes">Tumbes</option>
-                                                    <option value="ucayali">Ucayali</option>
+                                                <select class="custom-select form-control" name="provincia" id="provincia">
+                                                    <option value="" class="d-none">Seleccionar opción</option>
+                                                    @foreach ($provinces as $province)
+                                                        <option value="{{ $province->provincia }}">{{ $province->provincia }}</option> <!-- Show name -->
+                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div>
@@ -544,7 +441,7 @@
 
             $('.edit-province').on('click', function() {
                 var province = $(this).data('province');
-                $('#edit-provincia').val(province.provincia);
+                $('#edit-provincia').val(province.id);
                 $('#editprovinceForm').attr('action', '/provincia/actualizar/' + province.id);
 
             });

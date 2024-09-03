@@ -36,7 +36,7 @@ class HomeController extends Controller
         if (Auth::attempt(['email' => $credentials['email'], 'password' => $credentials['password']])) {
             return redirect()->route('clientes');
         }
-    
+        dd(trans('auth.failed')); // This should output the Spanish error message
         // Use only one method to flash the error message
         return back()->withErrors(['email' => 'Credenciales no válidas.'])->withInput($request->only('email'));
     }

@@ -194,8 +194,8 @@
                 $(element).removeClass("is-invalid").addClass("is-valid");
             }
         });
-        setTimeout(function() {
-            $(".alert-danger").fadeOut(1000);
-        }, 1000);
+        // setTimeout(function() {
+        //     $(".alert-danger").fadeOut(1000);
+        // }, 1000);
     });
 </script>

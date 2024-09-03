@@ -34,7 +34,7 @@
                                 <div class="form-group">
                                     <input type="password" name="newpassword" value=""
                                         class="form-control @error('newpassword') is-invalid @enderror"
-                                        placeholder="New Password">
+                                        placeholder="Nueva contraseña">
                                     @error('newpassword')
                                         <span class="invalid-feedback" style="color: red">
                                             <strong>{{ $message }}</strong>
@@ -44,7 +44,7 @@
                                 <div class="form-group">
                                     <input type="password"
                                         class="form-control @error('confirmpassword') is-invalid @enderror"
-                                        name="confirmpassword" value="" placeholder="Confirm Password">
+                                        name="confirmpassword" value="" placeholder="Confirmar Contraseña">
                                     @error('confirmpassword')
                                         <span class="invalid-feedback" style="color: red">
                                             <strong>{{ $message }}</strong>

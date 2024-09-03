@@ -59,9 +59,9 @@
                             <div class="col-md-12 d-flex align-items-start justify-content-start gap-20 mb-6 box-detalle">
                                 <div class="">
                                     @if ($sparepart->foto_de_repuesto)
-                                        <img src="{{ asset('images/' . $sparepart->foto_de_repuesto) }}" id="edit-sparepart" alt="repuesto">
+                                        <img src="{{ asset('images/' . $sparepart->foto_de_repuesto) }}" id="edit-sparepart" alt="repuesto" class="imageCrops">
                                     @else
-                                        <img src="{{ asset('img/fondo.png') }}" alt="user">
+                                        <img src="{{ asset('img/fondo.png') }}" alt="user" class="imageCrops">
                                     @endif
                                 </div>
                                 <div class="align-items-start d-flex flex-column h-100 justify-content-between">

@@ -28,6 +28,9 @@
         #edit-sparepart {
             background-color: white !important;
         }
+        .object{
+            object-fit: cover;
+        }
     </style>
     <div class="w-100 contenido">
         <div class="container-fluid container-mod">
@@ -94,10 +97,10 @@
                                                 <td>
                                                     @if ($sparepart->foto_de_repuesto)
                                                         <img src="{{ asset('images/' . $sparepart->foto_de_repuesto) }}"
-                                                            alt="personal" width="52" height="52" class="img-table">
+                                                            alt="personal" width="52" height="52" class="img-table object">
                                                     @else
                                                         <img src="{{ asset('img/fondo.png') }}" width="52"
-                                                            height="52" class="img-table" alt="user">
+                                                            height="52" class="img-table object" alt="user">
                                                     @endif
                                                 </td>
                                                 <td>{{ $index + 1 }}</td>

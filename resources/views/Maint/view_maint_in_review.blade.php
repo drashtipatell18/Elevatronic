@@ -226,6 +226,7 @@
                                         <div class="form-group">
                                             <label for="Mprogramado">Mes programado</label>
                                             <select class="custom-select" name="mes_programado" id="Mprogramado">
+                                                <option value="">Seleccionar opción</option>
                                                 @foreach ($months as $key => $value)
                                                     <option value="{{ $key }}">{{ $value }}</option>
                                                 @endforeach
@@ -887,7 +888,7 @@
                                 table.row.add([
                                     maint_in_review.id || '', // Column 0
                                     maint_in_review.reviewtype ? maint_in_review.reviewtype.nombre : '', // Column 1
-                                    maint_in_review.elevator.nombre || '', // Column 1
+                                    maint_in_review.elevator ?  maint_in_review.elevator.nombre : '', // Column 1
                                     maint_in_review.fecha_de_mantenimiento ||
                                     '', // Column 1
                                     maint_in_review.hora_inicio || '', // Column 1

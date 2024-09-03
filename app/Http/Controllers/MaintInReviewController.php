@@ -22,7 +22,7 @@ class MaintInReviewController extends Controller
         $elevators = Elevators::pluck('nombre', 'id');
         $provinces = Province::pluck('provincia', 'id');
         $Personals = Staff::pluck('nombre', 'id');
-        $months = Month::all();
+        $months = Month::pluck('nombre', 'id');
         if ($request->ajax()) { // Check if the request is an AJAX call
             return response()->json(compact('months','maint_in_reviews', 'review_types', 'elevators', 'provinces', 'Personals'));
         }

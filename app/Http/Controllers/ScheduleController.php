@@ -16,7 +16,7 @@ class ScheduleController extends Controller
         $elevators = Elevators::pluck('nombre', 'nombre');
         $reviewtypes = ReviewType::pluck('nombre', 'nombre');
         $staffs = Staff::pluck('nombre', 'nombre');
-        $provinces = Elevators::select('provincia')->distinct()->pluck('provincia')->filter(); // Remove null values
+        $provinces = Elevators::with('province')->distinct()->get()->pluck('province.provincia')->filter(); // Get province names
         return view('schedule.view_schedule', compact('schedules','staffs', 'elevators', 'reviewtypes', 'provinces'));
     }
 

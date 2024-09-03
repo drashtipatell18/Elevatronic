@@ -136,12 +136,10 @@ class ElevatorController extends Controller
                 'observaciónes_internas' => $request->input('observaciónes_internas') ?? null,
                 'solución' => $request->input('solución'),
             ]);
-            \Log::error('creating Mant En Revisión: ' . $maintinreview); // Log the error
 
             // Redirect back with success message
             return redirect()->route('ascensore')->with('success', 'Mant En Revisión creado exitosamente!');
         } catch (\Exception $e) {
-            \Log::error('Error creating Mant En Revisión: ' . $e->getMessage()); // Log the error
             return redirect()->back()->with('error', 'Error al crear Mant En Revisión: ' . $e->getMessage())->withInput();
         }
     }

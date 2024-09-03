@@ -255,10 +255,7 @@ class ElevatorController extends Controller
         ]);
 
         // Redirect back with success message
-        // session()->flash('success', 'creado Contract exitosamente!');
-        // return redirect()->route('ascensore');
-        return redirect()->route('ascensore')->with('success', 'creado Contract exitosamente!');
-
+        return redirect()->route('elevator')->with('success', 'Contract creado exitosamente!');
     }
 
     public function contractUpdate(Request $request, $id)

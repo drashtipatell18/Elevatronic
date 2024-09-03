@@ -1363,8 +1363,7 @@
             $(document).on('click', '.delete-elevator', function() {
                 var elevatorId = $(this).data('id'); // Get the elevator ID
                 $('#modalEliminar').modal('show'); // Show the modal
-                $('#delete-form').attr('action', '/ascensore/actualizar/' +
-                    elevatorId); // Set the form action
+                $('#delete-form').attr('action', '/ascensore/destruir/' + elevatorId); // Set the form action to the DELETE route
             });
             $('#crearAscensor').on('hidden.bs.modal', function() {
                 var form = $('#createelevatform');

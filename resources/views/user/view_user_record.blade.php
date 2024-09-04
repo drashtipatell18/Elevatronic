@@ -634,7 +634,7 @@
 
                     // Optionally, add a new img element if needed
                     $('#editimagenPrevioUsuario').append('<img src="' + e.target.result +
-                        '" width="200" height="200"  alt="Preview Image">');
+                        '" width="200" height="200" class="object" alt="Preview Image">');
                 }
                 reader.readAsDataURL(this.files[0]);
             });

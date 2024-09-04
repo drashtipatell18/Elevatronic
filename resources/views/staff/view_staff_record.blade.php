@@ -62,7 +62,8 @@
             #edit-sparepart {
                 background-color: white !important;
             }
-            .imageCrops{
+
+            .imageCrops {
                 object-fit: cover;
             }
         </style>
@@ -97,7 +98,8 @@
                                     class="col-md-12 d-flex align-items-start justify-content-start gap-20 mb-6 box-detalle">
                                     <div class="">
                                         @if ($staffs->personalfoto)
-                                            <img src="{{ asset('images/' . $staffs->personalfoto) }}" class="imageCrops" alt="Personal Photo">
+                                            <img src="{{ asset('images/' . $staffs->personalfoto) }}" class="imageCrops"
+                                                alt="Personal Photo">
                                         @else
                                             <img src="{{ asset('img/fondo.png') }}" alt="Personal Photo">
                                         @endif
@@ -141,8 +143,13 @@
                                     <div class="col-md-4 mb-4">
                                         <div class="box-contenido">
                                             <h3>Foto de personal</h3>
-                                            <img src="{{ asset('images/' . ($staffs->personalfoto ?: 'fondo.png')) }}"
-                                                alt="personal" class="w-100 imageCrops">
+                                            @if ($staffs->personalfoto)
+                                                <img src="{{ asset('images/' . $staffs->personalfoto) }}" alt="personal"
+                                                    class="w-100 imageCrops">
+                                            @else
+                                                <img src="{{ asset('img/fondo.png') }}" alt="personal"
+                                                    class="w-100 imageCrops">
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="col-md-8 mb-4">
@@ -156,7 +163,8 @@
                                                     </tr>
                                                     <tr>
                                                         <td class="text-gris">Posición</td>
-                                                        <td>{{ $staffs->position ? $staffs->position->position : '-' }}</td>
+                                                        <td>{{ $staffs->position ? $staffs->position->position : '-' }}
+                                                        </td>
                                                     </tr>
                                                     <tr>
                                                         <td class="text-gris">Correo</td>

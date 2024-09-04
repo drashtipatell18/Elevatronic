@@ -371,7 +371,8 @@
                                                     <img src="{{ asset('images/' . $staff->personalfoto) }}"
                                                         alt="Staff Image" id="edit-sparepart">
                                                 @else
-                                                    <img src="{{ asset('img/fondo.png') }}" id="edit-sparepart" alt="Staff Image">
+                                                    <img src="{{ asset('img/fondo.png') }}" id="edit-sparepart"
+                                                        alt="Staff Image">
                                                 @endif
                                             </div>
 
@@ -645,21 +646,23 @@
                         },
                         customize: function(doc) {
                             var table = doc.content[1].table;
-                                var columnCount = table.body[0].length;
+                            var columnCount = table.body[0].length;
 
-                                // Set correct widths for columns
-                                table.widths = Array(columnCount).fill('*');
+                            // Set specific widths for columns (adjust as needed)
+                            table.widths = ['10%', '10%', '30%', '15%', '15%', '10%', '10%',
+                            '10%']; // Example widths
 
-                                // Center align all cells
-                                table.body.forEach(function(row) {
-                                    row.forEach(function(cell) {
-                                        cell.alignment = 'center';
-                                    });
+                            // Center align all cells
+                            table.body.forEach(function(row) {
+                                row.forEach(function(cell) {
+                                    cell.alignment = 'center';
                                 });
+                            });
 
-                                // Optionally, adjust page size or orientation if needed
-                                doc.pageOrientation = 'landscape';
-                                doc.pageSize = 'A4';
+                            // Adjust page size or orientation if needed
+                            doc.pageOrientation = 'landscape';
+                            doc.pageSize = 'A4';
+                            doc.fontSize = 8; // Set font size to 6
                         }
                     },
                     {
@@ -869,11 +872,6 @@
                 $('#edit-sparepart').attr('src', imageUrl);
                 $('#editstaff').attr('action', '/personal/actualizar/' + staff.id);
             });
-
-
-
-
-
 
             $('#crearPersonal').on('hidden.bs.modal', function() {
                 var form = $('#createstaff');

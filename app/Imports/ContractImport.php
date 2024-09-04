@@ -10,24 +10,33 @@ class ContractImport implements ToCollection
     {
         foreach ($rows as $key => $row) {
             if ($key === 0) {
-                continue;
+                continue; // Skip header row
             }
-            Contract::create([
-                // 'ascensor' => $row[0],
-                'fecha_de_propuesta' => $row[0],
-                'monto_de_propuesta' => $row[1],
+            try {
+                // Validate date format before creating DateTime
+                $fechaPropuesta = $this->validateDate($row[1]);
+                $fechaInicio = $this->validateDate($row[3]);
+                $fechaFin = $this->validateDate($row[4]);
 
-                'fecha_de_inicio' => $row[2],
-                'fecha_de_fin' => $row[3],
-                'monto_de_contrato' => $row[4],
-                // 'cada_cuantos_meses' => $row[6],
-                // 'observación' => $row[7],
-                // 'estado_cuenta_del_contrato' => $row[8],
-                'estado' => $row[5],
-            ]);
-
+                $contract = Contract::create([
+                    'ascensor' => $row[0],
+                    'fecha_de_propuesta' => $fechaPropuesta,
+                    'monto_de_propuesta' => $row[2],
+                    'fecha_de_inicio' => $fechaInicio,
+                    'fecha_de_fin' => $fechaFin,
+                    'monto_de_contrato' => $row[5],
+                    'estado' => $row[6],
+                ]);
+            } catch (\Exception $e) {
+                // Log the error message and the row that caused it
+                \Log::error('Failed to import row: ' . json_encode($row) . ' - Error: ' . $e->getMessage());
+            }
         }
     }
+
+    private function validateDate($date, $format = 'Y-m-d')
+    {
+        $d = \DateTime::createFromFormat($format, $date);
+        return $d && $d->format($format) === $date ? $d->format($format) : null; // Return null if invalid
+    }
 }
-
-

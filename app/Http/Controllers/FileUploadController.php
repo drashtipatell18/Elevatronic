@@ -62,8 +62,6 @@ class FileUploadController extends Controller
             }
         }
 
-
-
             catch (\Exception $e) {
                 Log::error('Failed to import data: ' . $e->getMessage());
                 return response()->json(['status' => 'danger', 'message' => 'Failed to import data: ' . $e->getMessage()], 500);

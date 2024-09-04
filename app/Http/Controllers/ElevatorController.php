@@ -263,7 +263,7 @@ class ElevatorController extends Controller
         ]);
 
         // Redirect back with success message
-        return redirect()->route('elevator')->with('success', 'Contract creado exitosamente!');
+        return redirect()->route('elevator')->with('success', 'Contrato creado exitosamente!');
     }
 
     public function contractUpdate(Request $request, $id)
@@ -300,14 +300,14 @@ class ElevatorController extends Controller
 
         // session()->flash('success', 'Contract actualizado exitosamente!');
         // return redirect()->route('ascensore');
-        return redirect()->route('elevator')->with('success', 'Contract actualizado exitosamente!');
+        return redirect()->route('elevator')->with('success', 'Contrato actualizado exitosamente!');
     }
 
     public function contractDestroy($id)
     {
         $contract = Contract::find($id);
         $contract->delete();
-        session()->flash('danger', 'Contract eliminado exitosamente!');
+        session()->flash('danger', 'Contrato eliminado exitosamente!');
         return redirect()->back();
     }
 

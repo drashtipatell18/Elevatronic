@@ -42,8 +42,8 @@
                                     <label for="Empleado">Seleccione la provincia que desea consulta</label>
                                     <select id="province" name="province" class="form-control">
                                         <option value="">Seleccionar Provincia</option>
-                                        @foreach ($provinces as $province)
-                                            <option value="{{ $province }}">{{ $province }}</option>
+                                        @foreach ($provinces as $key => $province)
+                                            <option value="{{ $key }}">{{ $province }}</option>
                                         @endforeach
                                     </select>
                                 </div>

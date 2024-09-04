@@ -66,7 +66,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/tipos/de/ascensor/actualizar/{id}', [ElevatortypesController::class, 'elevatortypesUpdate'])->name('update.elevatortypes');
     Route::delete('/tipos/de/ascensor/destruir/{id}',[ElevatortypesController::class,'elevatortypesDestroy'])->name('destroy.elevatortypes');
     Route::post('/asignarrepuesto/insertar',[ElevatortypesController::class,'AsignarRepuesto'])->name('insert.asignarrepuesto');
-
     // Province //
 
     Route::get('/provincia', [ProvinceController::class, 'province'])->name('province');
@@ -90,7 +89,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/contract/get/{id}', [ElevatorController::class, 'getContract'])->name('getContract');
     Route::get('/getBrands', [ElevatorController::class, 'getBrands'])->name('getBrands');
     Route::get('/getData', [ElevatorController::class, 'getData'])->name('getData');
-    
+    Route::get('/get-elevators', [ElevatorController::class, 'getElevators'])->name('get.elevators'); // Define the route for fetching elevators
+
     // Maint In Review //
 
     Route::get('/mant/en/revisión', [MaintInReviewController::class, 'maintInReview'])->name('maint_in_review');

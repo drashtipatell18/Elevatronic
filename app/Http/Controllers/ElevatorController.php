@@ -55,6 +55,13 @@ class ElevatorController extends Controller
 
         return response()->json(['success' => 'Brand added successfully!']);
     }
+    public function getElevators(Request $request) {
+        $province = $request->input('province'); // Get the province from the request
+        // Fetch elevators based on the selected province
+        $elevators = Elevators::where('provincia', $province)->get()->toArray();
+              
+        return response()->json($elevators); // Return the elevators as a JSON response
+    }
     public function elevatorInsert(Request $request)
     {
         $filename = '';

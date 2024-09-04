@@ -49,8 +49,9 @@
             <div class="row">
                 <div class="col-xl-10 col-lg-10 col-md-8 col-sm-8 col-8 mb-4">
                     <div class="titulo">
-                        <h4>{{ $maint_in_review->tipo_de_revisión }}</h4>
-                        <span>Mantenimiento en revisión >> {{ $maint_in_review->tipo_de_revisión }}</span>
+                        <h4>{{ $maint_in_review->reviewtype ? $maint_in_review->reviewtype->nombre : '' }}</h4>                                                </tr>
+
+                        <span>Mantenimiento en revisión >> {{ $maint_in_review->reviewtype ? $maint_in_review->reviewtype->nombre : '' }}</span>
                     </div>
                 </div>
                 <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 col-4 d-flex align-items-center justify-content-end">
@@ -78,7 +79,7 @@
                                 </div>
                                 <div class="align-items-start d-flex flex-column h-100 justify-content-between">
                                     <div>
-                                        <h3>{{ $maint_in_review->tipo_de_revisión }}</h3>
+                                        <h3>{{ $maint_in_review->reviewtype ? $maint_in_review->reviewtype->nombre : '' }}</h3>
                                         <span>Mantenimiento</span>
                                     </div>
                                     <div class="d-flex align-items-center justify-content-start gap-15 flex-wrap">
@@ -239,8 +240,7 @@
                                             <tbody>
                                                 <tr>
                                                     <td class="text-gris">Mes programado</td>
-                                                    <td>{{ $maint_in_review->month->nombre }}</td>
-                                                </tr>
+                                                    <td>{{ isset($maint_in_review->month) ? $maint_in_review->month->nombre : '' }}</td>                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>

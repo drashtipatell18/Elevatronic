@@ -80,9 +80,9 @@
                 <div class="row">
                     <div class="col-xl-10 col-lg-10 col-md-8 col-sm-8 col-8 mb-4">
                         <div class="titulo">
-                            @isset($elevator)
-                                <h4>{{ $elevator->nombre }}</h4>
-                                <span>Ascensores >> {{ $elevator->nombre }}</span>
+                            @isset($elevators)
+                                <h4>{{ $elevators->nombre }}</h4>
+                                <span>Ascensores >> {{ $elevators->nombre }}</span>
                             @endisset
                         </div>
 

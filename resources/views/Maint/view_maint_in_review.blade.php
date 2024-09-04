@@ -872,7 +872,7 @@
 
             function fetchData() {
                 $.ajax({
-                    url: "{{ route('maint_in_review') }}", // Ensure this route is correct
+                    url: "/api/mant/en/revisión", // Ensure this route is correct
                     method: "GET",
                     dataType: "json",
                     success: function(data) {

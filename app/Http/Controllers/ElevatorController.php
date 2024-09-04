@@ -26,12 +26,21 @@ class ElevatorController extends Controller
         $elevatortypes = Elevatortypes::pluck('nombre_de_tipo_de_ascensor', 'id');
         $staffs = Staff::pluck('nombre', 'id');
 
-        if ($request->ajax()) { // Check if the request is an AJAX call
-            return response()->json(compact('elevators', 'allCustomers', 'customers', 'provinces', 'elevatortypes', 'staffs'));
-        }
-
         return view('elevator.view_elevator', compact('elevators', 'allCustomers', 'customers', 'provinces', 'elevatortypes', 'staffs'));
     }
+
+    public function elevatorApi(Request $request) // Added Request parameter
+    {
+        $elevators = Elevators::with(['client', 'tecnicoAjustador', 'tecnicoInstalador', 'province', 'tipoDeAscensor'])->get();
+        $customers = Cliente::pluck('nombre', 'id');
+        $allCustomers = Cliente::all();
+        $provinces = Province::pluck('provincia', 'id');
+        $elevatortypes = Elevatortypes::pluck('nombre_de_tipo_de_ascensor', 'id');
+        $staffs = Staff::pluck('nombre', 'id');
+        
+        return response()->json(compact('elevators', 'allCustomers', 'customers', 'provinces', 'elevatortypes', 'staffs'));
+    }
+
 
     public function getBrands()
     {

@@ -23,10 +23,17 @@ class MaintInReviewController extends Controller
         $provinces = Province::pluck('provincia', 'id');
         $Personals = Staff::pluck('nombre', 'id');
         $months = Month::pluck('nombre', 'id');
-        if ($request->ajax()) { // Check if the request is an AJAX call
-            return response()->json(compact('months','maint_in_reviews', 'review_types', 'elevators', 'provinces', 'Personals'));
-        }
         return view('Maint.view_maint_in_review', compact('months','maint_in_reviews', 'review_types', 'elevators', 'provinces', 'Personals'));
+    }
+    public function maintInReviewApi(Request $request)
+    {
+        $maint_in_reviews = MaintInReview::with(['staff', 'elevator','reviewtype'])->get();
+        $review_types = ReviewType::pluck('nombre', 'id');
+        $elevators = Elevators::pluck('nombre', 'id');
+        $provinces = Province::pluck('provincia', 'id');
+        $Personals = Staff::pluck('nombre', 'id');
+        $months = Month::pluck('nombre', 'id');
+        return response()->json(compact('months','maint_in_reviews', 'review_types', 'elevators', 'provinces', 'Personals'));
     }
 
     public function getDataMaintance(){

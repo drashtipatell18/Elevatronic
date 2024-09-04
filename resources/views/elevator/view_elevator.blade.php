@@ -1088,7 +1088,7 @@
 
             function fetchData() {
                 $.ajax({
-                    url: "{{ route('elevator') }}", // Ensure this route is correct
+                    url: "/api/ascensore", // Ensure this route is correct
                     method: "GET",
                     dataType: "json",
                     success: function(data) {

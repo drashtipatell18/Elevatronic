@@ -439,7 +439,10 @@
                 }
             });
 
-            $('.edit-province').on('click', function() {
+            $(document).on('click', '.edit-province', function() {
+
+                $('#edit-provincia').val('');
+                
                 var province = $(this).data('province');
                 $('#edit-provincia').val(province.id);
                 $('#editprovinceForm').attr('action', '/provincia/actualizar/' + province.id);

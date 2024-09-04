@@ -120,7 +120,9 @@
                                                     <tr class="td-head-center">
                                                         <td class="text-center">{{ $index + 1 }}</td>
                                                         <td class="text-center">{{ $elevator->fecha }}</td>
-                                                        <td class="text-center">{{ $elevator->tipoDeAscensor->nombre_de_tipo_de_ascensor ?? '-' }}</td> <!-- Updated to show name -->
+                                                        <td class="text-center">
+                                                            {{ $elevator->tipoDeAscensor->nombre_de_tipo_de_ascensor ?? '-' }}
+                                                        </td> <!-- Updated to show name -->
                                                         <td class="text-center">
                                                             <a href="{{ route('view.elevator', $elevator->id) }}"
                                                                 class="text-blue text-center">
@@ -134,10 +136,12 @@
                                                                     {{ $elevator->client->nombre }}
                                                                 </a>
                                                             @else
-                                                                {{ '-'}}
+                                                                {{ '-' }}
                                                             @endif
                                                         </td>
-                                                        <td class="text-center">{{ $elevator->province->provincia ?? '-' }}</td> <!-- Updated to show name -->
+                                                        <td class="text-center">
+                                                            {{ $elevator->province->provincia ?? '-' }}</td>
+                                                        <!-- Updated to show name -->
                                                         <td align="right">
                                                             <div class="dropdown">
                                                                 <button type="button" class="btn-action dropdown-toggle"
@@ -966,9 +970,12 @@
                 }
             });
 
-            $('.edit-province').on('click', function() {
+            $(document).on('click', '.edit-province', function() {
+
+                $('#edit-provincia').val('');
+
                 var province = $(this).data('province');
-                $('#edit-provincia').val(province.provincia);
+                $('#edit-provincia').val(province.id);
                 $('#editprovinceForm').attr('action', '/provincia/actualizar/' + province.id);
 
             });

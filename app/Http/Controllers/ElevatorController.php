@@ -13,12 +13,13 @@ use App\Models\MaintInReview;
 use App\Models\ReviewType;
 use App\Models\Elevatortypes\Elevatortypes;
 use App\Models\Staff;
+use App\Models\Schedule;
 
 class ElevatorController extends Controller
 {
     public function elevator(Request $request) // Added Request parameter
     {
-        $elevators = Elevators::with(['client','tecnicoAjustador','tecnicoInstalador','province','tipoDeAscensor'])->get();
+        $elevators = Elevators::with(['client', 'tecnicoAjustador', 'tecnicoInstalador', 'province', 'tipoDeAscensor'])->get();
         $customers = Cliente::pluck('nombre', 'id');
         $allCustomers = Cliente::all();
         $provinces = Province::pluck('provincia', 'id');
@@ -41,10 +42,10 @@ class ElevatorController extends Controller
     {
         // Return all data in a single response array
         return response()->json([
-            'clientes' => Cliente::pluck('nombre','id')->toArray(), // Convert to array
-            'provincias' => Province::pluck('provincia','id')->toArray(), // Convert to array
-            'elevatortypes' => Elevatortypes::pluck('nombre_de_tipo_de_ascensor','id')->toArray(), // Convert to array
-            'staffs' => Staff::pluck('nombre','id')->toArray(), // Convert to array
+            'clientes' => Cliente::pluck('nombre', 'id')->toArray(), // Convert to array
+            'provincias' => Province::pluck('provincia', 'id')->toArray(), // Convert to array
+            'elevatortypes' => Elevatortypes::pluck('nombre_de_tipo_de_ascensor', 'id')->toArray(), // Convert to array
+            'staffs' => Staff::pluck('nombre', 'id')->toArray(), // Convert to array
         ]);
     }
     public function insertBrand(Request $request)
@@ -55,11 +56,12 @@ class ElevatorController extends Controller
 
         return response()->json(['success' => 'Brand added successfully!']);
     }
-    public function getElevators(Request $request) {
+    public function getElevators(Request $request)
+    {
         $province = $request->input('province'); // Get the province from the request
         // Fetch elevators based on the selected province
         $elevators = Elevators::where('provincia', $province)->get()->toArray();
-              
+
         return response()->json($elevators); // Return the elevators as a JSON response
     }
     public function elevatorInsert(Request $request)
@@ -208,7 +210,8 @@ class ElevatorController extends Controller
             ->update(['ascensor' => $request->input('nombre')]);
         MaintInReview::where('ascensor', $oldElevatorName)
             ->update(['ascensor' => $request->input('nombre')]);
-
+        Schedule::where('ascensor', $oldElevatorName)
+            ->update(['ascensor' => $request->input('nombre')]);
         // Redirect back with success message
         session()->flash('success', 'Ascensores actualizado exitosamente!');
         return redirect()->route('elevator');
@@ -216,7 +219,7 @@ class ElevatorController extends Controller
 
     public function elevatorView(Request $request, $id)
     {
-        $elevators = Elevators::with(['client','tecnicoAjustador','tecnicoInstalador','province','tipoDeAscensor','marca'])->find($id);
+        $elevators = Elevators::with(['client', 'tecnicoAjustador', 'tecnicoInstalador', 'province', 'tipoDeAscensor', 'marca'])->find($id);
         $contracts = Contract::where('ascensor', $elevators->id)->get();
         $spareparts = SparePart::all();
         $customers = Cliente::pluck('nombre', 'id');
@@ -298,7 +301,6 @@ class ElevatorController extends Controller
         // session()->flash('success', 'Contract actualizado exitosamente!');
         // return redirect()->route('ascensore');
         return redirect()->route('elevator')->with('success', 'Contract actualizado exitosamente!');
-
     }
 
     public function contractDestroy($id)

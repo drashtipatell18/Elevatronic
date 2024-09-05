@@ -1304,6 +1304,7 @@
             $(document).on('click', '.edit-elevator', function() {
                 var elevator = $(this).data('elevator');
                 console.log(elevator);
+                $('#editelevatform').attr('action', '/ascensore/actualizar/' + elevator.id);
 
                 // Set values for all form fields using jQuery
                 $('#edit-contrato').val(elevator.contrato);
@@ -1322,7 +1323,7 @@
                 $('#edit-tipo_de_ascensor').val(elevator.tipo_de_ascensor.id).trigger('change'); // Ensure the value is set and trigger change
                 $('#edit-cantidad').val(elevator.cantidad);
                 $('#edit-npisos').val(elevator.npisos);
-                $('#edit-ncontacto').val(elevator.ncontacto);
+                $('#edit-ncontacto').val(elevator.ncontacto); 
                 $('#edit-teléfono').val(elevator.teléfono);
                 $('#edit-correo').val(elevator.correo);
                 $('#edit-descripcion1').val(elevator.descripcion1);
@@ -1347,7 +1348,7 @@
                 var imageUrl = elevator.imagen ? "{{ asset('images/') }}/" + elevator.imagen :
                     "{{ asset('img/fondo.png') }}";
                 $('#edit-elevators').attr('src', imageUrl);
-                $('#editelevatform').attr('action', '/ascensore/actualizar/' + elevator.id);
+                
             });
 
             $(document).on('click', '.delete-elevator', function() {

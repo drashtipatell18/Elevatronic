@@ -3231,7 +3231,7 @@
                 $(document).on('click', '.edit-elevator', function() {
                     var elevator = $(this).data('elevator');
                     console.log(elevator);
-
+                    $('#editelevatform').attr('action', '/ascensore/actualizar/' + elevator.id);
                     // Set values for all form fields using jQuery
                     $('#edit-contrato').val(elevator.contrato);
                     $('#edit-nombre').val(elevator.nombre);

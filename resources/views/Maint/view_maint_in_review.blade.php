@@ -755,10 +755,97 @@
                     }
                 });
             }
+            function getDatas(edit) {
+                    // Destroy existing Select2 instances if they exist
+                    if ($('#edit-cliente').data('select2')) {
+                        $('#edit-cliente').select2('destroy');
+                    }
+                    if ($('#edit-provincia').data('select2')) {
+                        $('#edit-provincia').select2('destroy');
+                    }
+                    if ($('#edit-técnico_instalador').data('select2')) {
+                        $('#edit-técnico_instalador').select2('destroy');
+                    }
+                    if ($('#edit-técnico_ajustador').data('select2')) {
+                        $('#edit-técnico_ajustador').select2('destroy');
+                    }
+                    if ($('#edit-tipo_de_ascensor').data('select2')) {
+                        $('#edit-tipo_de_ascensor').select2('destroy');
+                    }
+
+                    // Perform the AJAX call to get brand data
+                    $.ajax({
+                        type: "GET",
+                        url: "{{ route('getData') }}",
+                        dataType: "JSON",
+                        success: function(response) {
+                            // Clear the current options and append the retrieved options to the select elements
+                            $("#edit-cliente, #edit-provincia, #edit-técnico_instalador, #edit-técnico_ajustador, #edit-tipo_de_ascensor")
+                                .empty();
+                            $("#edit-cliente").append(
+                                '<option value="" class="d-none">Seleccionar opción</option>');
+                            $("#edit-provincia").append(
+                                '<option value="" class="d-none">Seleccionar opción</option>');
+                            $("#edit-técnico_instalador").append(
+                                '<option value="" class="d-none">Seleccionar opción</option>');
+                            $("#edit-técnico_ajustador").append(
+                                '<option value="" class="d-none">Seleccionar opción</option>');
+                            $("#edit-tipo_de_ascensor").append(
+                                '<option value="" class="d-none">Seleccionar opción</option>');
+
+                            // Populate each dropdown with the corresponding data
+                            $.each(response.clientes, function(id, nombre) {
+                                $("#edit-cliente").append(
+                                    `<option value='${id}'>${nombre}</option>`);
+                            });
+                            $.each(response.provincias, function(id, provincia) {
+                                $("#edit-provincia").append(
+                                    `<option value='${id}'>${provincia}</option>`);
+                            });
+                            $.each(response.staffs, function(id, nombre) {
+                                $("#edit-técnico_instalador").append(
+                                    `<option value='${id}'>${nombre}</option>`);
+                                $("#edit-técnico_ajustador").append(
+                                    `<option value='${id}'>${nombre}</option>`);
+                            });
+                            $.each(response.elevatortypes, function(id, nombre_de_tipo_de_ascensor) {
+                                $("#edit-tipo_de_ascensor").append(
+                                    `<option value='${id}'>${nombre_de_tipo_de_ascensor}</option>`
+                                );
+                            });
+
+                            // Initialize Select2 on the select elements with placeholder
+                            $('#edit-cliente, #edit-provincia, #edit-técnico_instalador, #edit-técnico_ajustador, #edit-tipo_de_ascensor')
+                                .select2({
+                                    placeholder: "Seleccionar opción",
+                                    allowClear: true
+                                });
+
+                            // If edit is true and has a valid ID, set the selected value
+                            if (edit) {
+                                $('#edit-cliente').val(edit.client_id).trigger(
+                                    'change'); // Ensure the value is set and trigger change
+                                $('#edit-provincia').val(edit.provincia).trigger(
+                                    'change'); // Ensure the value is set and trigger change
+                                $('#edit-técnico_instalador').val(edit.técnico_instalador).trigger(
+                                    'change'); // Ensure the value is set and trigger change
+                                $('#edit-técnico_ajustador').val(edit.técnico_ajustador).trigger(
+                                    'change'); // Ensure the value is set and trigger change
+                                $('#edit-tipo_de_ascensor').val(edit.tipo_de_ascensor.id).trigger(
+                                    'change'); // Ensure the value is set and trigger change
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.error("Error fetching data: ", error);
+                        }
+                    });
+                }
             // Call the function when needed, e.g., when opening the modal
             const editValue = '{{ $editValue ?? '' }}'; // Replace with actual edit value if available
             getSupervisors(editValue);
             getDataMain();
+            getDatas();
+
             // Handle form submission
             $('#submitSupervisor').click(function(e) {
                 e.preventDefault(); // Prevent default form submission
@@ -1179,6 +1266,7 @@
 
             $(document).on('click', '.edit-maint_in_review', function() {
                 var mantenimiento = $(this).data('maint_in_review');
+                $('#editmaintreview').attr('action', '/mant/en/revisión/actualizar/' + mantenimiento.id);
 
                 console.log(mantenimiento);
                 $('#edit-tipo_de_revisión').val(mantenimiento.tipo_de_revisión).trigger('change');
@@ -1197,7 +1285,6 @@
                 $('#edit-observacionesInternas').val(mantenimiento.observaciónes_internas);
                 $('#edit-solucion').val(mantenimiento.solución);
 
-                $('#editmaintreview').attr('action', '/mant/en/revisión/actualizar/' + mantenimiento.id);
 
             });
             $(document).on('click', '.delete-maint_in_review', function() {

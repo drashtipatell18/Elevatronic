@@ -49,9 +49,11 @@
             <div class="row">
                 <div class="col-xl-10 col-lg-10 col-md-8 col-sm-8 col-8 mb-4">
                     <div class="titulo">
-                        <h4>{{ $maint_in_review->reviewtype ? $maint_in_review->reviewtype->nombre : '' }}</h4>                                                </tr>
+                        <h4>{{ $maint_in_review->reviewtype ? $maint_in_review->reviewtype->nombre : '' }}</h4>
+                        </tr>
 
-                        <span>Mantenimiento en revisión >> {{ $maint_in_review->reviewtype ? $maint_in_review->reviewtype->nombre : '' }}</span>
+                        <span>Mantenimiento en revisión >>
+                            {{ $maint_in_review->reviewtype ? $maint_in_review->reviewtype->nombre : '' }}</span>
                     </div>
                 </div>
                 <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 col-4 d-flex align-items-center justify-content-end">
@@ -79,7 +81,8 @@
                                 </div>
                                 <div class="align-items-start d-flex flex-column h-100 justify-content-between">
                                     <div>
-                                        <h3>{{ $maint_in_review->reviewtype ? $maint_in_review->reviewtype->nombre : '' }}</h3>
+                                        <h3>{{ $maint_in_review->reviewtype ? $maint_in_review->reviewtype->nombre : '' }}
+                                        </h3>
                                         <span>Mantenimiento</span>
                                     </div>
                                     <div class="d-flex align-items-center justify-content-start gap-15 flex-wrap">
@@ -153,7 +156,9 @@
                                             <tbody>
                                                 <tr>
                                                     <td class="text-gris">Tipo de revisión</td>
-                                                    <td>{{ $maint_in_review->reviewtype ? $maint_in_review->reviewtype->nombre : '' }}</td>                                                </tr>
+                                                    <td>{{ $maint_in_review->reviewtype ? $maint_in_review->reviewtype->nombre : '' }}
+                                                    </td>
+                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -172,7 +177,8 @@
                                             <tbody>
                                                 <tr>
                                                     <td class="text-gris">Ascensor</td>
-                                                    <td>{{ $maint_in_review->elevator ? $maint_in_review->elevator->nombre : '' }}</td>
+                                                    <td>{{ $maint_in_review->elevator ? $maint_in_review->elevator->nombre : '' }}
+                                                    </td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -210,7 +216,8 @@
                                             <tbody>
                                                 <tr>
                                                     <td class="text-gris">Provincia</td>
-                                                    <td>{{ $maint_in_review->province ? $maint_in_review->province->provincia : '' }}</td>
+                                                    <td>{{ $maint_in_review->province ? $maint_in_review->province->provincia : '' }}
+                                                    </td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -240,7 +247,9 @@
                                             <tbody>
                                                 <tr>
                                                     <td class="text-gris">Mes programado</td>
-                                                    <td>{{ isset($maint_in_review->month) ? $maint_in_review->month->nombre : '' }}</td>                                                </tr>
+                                                    <td>{{ isset($maint_in_review->month) ? $maint_in_review->month->nombre : '' }}
+                                                    </td>
+                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -579,11 +588,8 @@
                                     <select id="edit-provincia" name="provincia" class="form-control"
                                         autocomplete="new-provincia" autoFill="off">
                                         <option value="">Seleccionar Provincia</option>
-                                        @foreach ($provinces as $province)
-                                            <option value="{{ $province }}"
-                                                {{ old('provincia', $maint_in_review->provincia ?? '') == $province ? 'selected' : '' }}>
-                                                {{ $province }}
-                                            </option>
+                                        @foreach ($provinces as $key => $province)
+                                            <option value="{{ $key }}">{{ $province }}</option>
                                         @endforeach
                                     </select>
                                     @error('provincia')
@@ -626,11 +632,8 @@
                                     <label for="técnico">Técnico</label>
                                     <select class="custom-select" name="técnico" id="edit-técnico">
                                         <option value="">Seleccionar opción</option>
-                                        @foreach ($personals as $personal)
-                                            <option value="{{ $personal }}"
-                                                {{ old('técnico') == $personal || (isset($maintInRev) && $maintInRev->técnico == $personal) ? 'selected' : '' }}>
-                                                {{ $personal }}
-                                            </option>
+                                        @foreach ($Personals as $key => $Personal)
+                                            <option value="{{ $key }}">{{ $Personal }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -974,6 +977,7 @@
                     }
                 });
             }
+
             function getDataMain(edit) {
                 // Destroy existing Select2 instances if they exist
                 if ($('#edit-tipo_de_revisión').data('select2')) {

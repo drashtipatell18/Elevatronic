@@ -957,7 +957,7 @@
                                         Acción <i class="fas fa-chevron-down"></i>
                                     </button>
                                     <div class="dropdown-menu dropdown-menu-right">
-                                        <a class="dropdown-item" href="/details/maint/in/review/${data.id}">Ver detalles</a>
+                                        <a class="dropdown-item" href="/mant/en/revisión/vista/${data.id}">Ver detalles</a>
                                         <a class="dropdown-item edit-maint_in_review" href="#" data-maint_in_review='${JSON.stringify(data)}' data-toggle="modal" data-target="#editorMantenimiento">Editar</a>
                                         <a class="dropdown-item delete-maint_in_review" href="#" data-id="${data.id}" data-toggle="modal" data-target="#modalEliminar">Eliminar</a>
                                     </div>
@@ -1005,7 +1005,12 @@
                         exportOptions: {
                             columns: ':not(:last-child)' // Excluye las dos últimas columnas
                         },
-                        customize: function(doc) {
+                         customize: function(doc) {
+                            // Set the page size to A4
+                            doc.pageSize = 'A4';
+                            // Set the font size
+                            doc.defaultStyle.fontSize = 10; // Adjust the font size as needed
+
                             // Remove the last column from the table body
                             doc.content[1].table.body.forEach(function(row) {
                                 row.pop(); // Remove the last column from each row

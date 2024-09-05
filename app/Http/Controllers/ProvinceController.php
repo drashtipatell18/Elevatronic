@@ -44,10 +44,9 @@ class ProvinceController extends Controller
         $province = Province::findOrFail($id);
         $customers = Cliente::pluck('nombre', 'id');
         $staffs = Staff::pluck('nombre','nombre');
-        $provinces = Province::pluck('provincia', 'provincia');
+        $provinces = Province::pluck('provincia', 'id');
         $elevatortypes = Elevatortypes::pluck('nombre_de_tipo_de_ascensor','nombre_de_tipo_de_ascensor');
-
-        $elevators = Elevators::where('provincia', $province->id)->get();
+        $elevators = Elevators::with(['client', 'tecnicoAjustador', 'tecnicoInstalador', 'province', 'tipoDeAscensor', 'marca'])->where('provincia', $province->id)->get();
         $spareparts = SparePart::all();
         return view('province.view_province_details', compact('province','provinces','staffs', 'customers', 'elevators', 'elevatortypes','spareparts'));
     }

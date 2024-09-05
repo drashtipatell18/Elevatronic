@@ -16,7 +16,7 @@ class ScheduleController extends Controller
         $elevators = Elevators::pluck('nombre', 'nombre');
         $reviewtypes = ReviewType::pluck('nombre', 'nombre');
         $staffs = Staff::pluck('nombre', 'nombre');
-        $provinces = Elevators::with('province')->distinct()->get()->pluck('province.provincia','province.id')->filter()->unique(); // Get unique province names, removing null values
+        $provinces = Schedule::with('provinces')->get()->pluck('provinces.provincia','provinces.id')->filter()->unique(); // Get unique province names, removing null values
         return view('schedule.view_schedule', compact('schedules','staffs', 'elevators', 'reviewtypes', 'provinces'));
     }
 
@@ -32,7 +32,12 @@ class ScheduleController extends Controller
             'estado' => 'required',
         ]);
 
-        // Create a new ReviewType instance
+        $ascensor = Elevators::where('nombre', $request->input('ascensor'))->first();
+        $provinceId = $ascensor ? $ascensor->provincia : null; // Assuming province_id is a field in the Elevators model
+        
+        if (!$provinceId) {
+            return redirect()->back()->withErrors(['ascensor' => 'Selected ascensor does not have an associated province.']);
+        }
 
         $reviewtype = Schedule::create([
             'ascensor'             => $request->input('ascensor'),
@@ -42,6 +47,7 @@ class ScheduleController extends Controller
             'hora_de_inicio'       => $request->input('hora_de_inicio'),
             'hora_de_finalización' => $request->input('hora_de_finalización'),
             'estado'               => $request->input('estado'),
+            'provincia'            => $provinceId,
         ]);
 
         // Redirect back with success message
@@ -63,7 +69,12 @@ class ScheduleController extends Controller
         ]);
         $schedules = Schedule::findOrFail($id);
 
-        // Create a new ReviewType instance
+        $ascensor = Elevators::where('nombre', $request->input('ascensor'))->first();
+        $provinceId = $ascensor ? $ascensor->provincia : null; // Assuming province_id is a field in the Elevators model
+        
+        if (!$provinceId) {
+            return redirect()->back()->withErrors(['ascensor' => 'Selected ascensor does not have an associated province.']);
+        }
 
         $schedules->update([
             'ascensor'             => $request->input('ascensor'),
@@ -73,6 +84,7 @@ class ScheduleController extends Controller
             'hora_de_inicio'       => $request->input('hora_de_inicio'),
             'hora_de_finalización' => $request->input('hora_de_finalización'),
             'estado'               => $request->input('estado'),
+            'provincia'            => $provinceId,
         ]);
 
         // Redirect back with success message

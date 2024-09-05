@@ -793,19 +793,184 @@
                 $("#crearSupervisor").modal('hide');
             });
 
+            // var table = $('#ascensores').DataTable({
+            //     responsive: true,
+            //     dom: 'tp',
+            //     pageLength: 20, // Establece el número de registros por página a 8
+            //     language: {
+            //         "decimal": "",
+            //         "emptyTable": "No hay información",
+            //         "info": "Mostrando _START_ a _END_ de _TOTAL_ Reistros",
+            //         "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+            //         "infoFiltered": "(Filtrado de _MAX_ total registros)",
+            //         "infoPostFix": "",
+            //         "thousands": ",",
+            //         "lengthMenu": "Mostrar _MENU_ Registros",
+            //         "loadingRecords": "Cargando...",
+            //         "processing": "Procesando...",
+            //         "search": "Buscar:",
+            //         "zeroRecords": "Sin resultados encontrados",
+            //         "paginate": {
+            //             "first": "Primero",
+            //             "last": "Último",
+            //             "next": "Siguiente",
+            //             "previous": "Anterior"
+            //         },
+            //     },
+            //     buttons: [{
+            //             extend: 'copy',
+            //             exportOptions: {
+            //                 columns: ':not(:last-child(-n+2))' // Excluye las dos últimas columnas
+            //             }
+            //         },
+            //         {
+            //             extend: 'excel',
+            //             exportOptions: {
+            //                 columns: ':not(:last-child)' // Excluye las dos últimas columnas
+            //             }
+            //         },
+            //         {
+            //             extend: 'csv',
+            //             exportOptions: {
+            //                 columns: ':not(:nth-last-child(-n+2))' // Excluye las dos últimas columnas
+            //             }
+            //         },
+            //         {
+            //             extend: 'pdf',
+            //             exportOptions: {
+            //                 columns: ':not(:last-child)' // Excluye las dos últimas columnas
+            //             },
+            //             customize: function(doc) {
+            //                 // Remove the last column from the table body
+            //                 doc.content[1].table.body.forEach(function(row) {
+            //                     row.pop(); // Remove the last column from each row
+            //                 });
+            //                 doc.content[1].table.widths = Array(doc.content[1].table.body[0]
+            //                     .length + 1).join('*').split('');
+            //                 var columnCount = doc.content[1].table.body[0].length;
+            //                 doc.content[1].table.body.forEach(function(row) {
+            //                     row[0].alignment =
+            //                         'center'; // Center align the first column
+            //                     row[1].alignment =
+            //                         'center'; // Center align the second column
+            //                     row[2].alignment =
+            //                         'center'; // Center align the third column
+            //                     row[columnCount - 1].alignment =
+            //                         'center'; // Center align the last column
+            //                 });
+            //             }
+            //         },
+            //         {
+            //             extend: 'print',
+            //             exportOptions: {
+            //                 columns: ':not(:nth-last-child(-n+2))' // Excluye las dos últimas columnas
+            //             }
+            //         }
+            //         // 'copy', 'csv', 'excel', 'pdf', 'print'
+            //     ]
+            // });
+
+            // function fetchData() {
+            //     $.ajax({
+            //         url: "/api/mant/en/revisión", // Ensure this route is correct
+            //         method: "GET",
+            //         dataType: "json",
+            //         success: function(data) {
+            //             // console.log("Fetched Data:", data.maint_in_reviews); // Log the fetched data
+
+            //             // Check if the expected property exists
+            //             if (data.maint_in_reviews && Array.isArray(data.maint_in_reviews)) {
+            //                 table.clear(); // Clear existing data
+            //                 var baseUrl = "{{ url('/') }}"; // Define base URL
+
+            //                 // Populate the DataTable with new data
+            //                 $.each(data.maint_in_reviews, function(index, maint_in_review) {
+            //                     table.row.add([
+            //                         maint_in_review.id || '', // Column 0
+            //                         maint_in_review.reviewtype ? maint_in_review.reviewtype.nombre : '', // Column 1
+            //                         maint_in_review.elevator ?  maint_in_review.elevator.nombre : '', // Column 1
+            //                         maint_in_review.fecha_de_mantenimiento ||
+            //                         '', // Column 1
+            //                         maint_in_review.hora_inicio || '', // Column 1
+            //                         maint_in_review.hora_fin || '', // Column 1
+            //                         maint_in_review.staff.nombre || '', // Column 1
+            //                         `   <a class="text-blue view-observation" href="#" data-id="${maint_in_review.id}" data-toggle="modal" data-target="#observacion">Ver observación</a>`,
+            //                         `<td align="right">
+            //                             <div class="dropdown">
+            //                                 <button type="button" class="btn-action dropdown-toggle" data-toggle="dropdown">
+            //                                     Acción <i class="fas fa-chevron-down"></i>
+            //                                 </button>
+            //                                 <div class="dropdown-menu dropdown-menu-right">
+            //                                     <a class="dropdown-item" href="{{ route('details.maint.in.review', '') }}/${maint_in_review.id}">Ver detalles</a>
+            //                                     <a class="dropdown-item edit-maint_in_review" href="#" data-maint_in_review='${JSON.stringify(maint_in_review)}' data-toggle="modal" data-target="#editorMantenimiento">Editar</a>
+            //                                     <a class="dropdown-item delete-maint_in_review" href="#" data-id="${maint_in_review.id}" data-toggle="modal" data-target="#modalEliminar">Eliminar</a>                                        </div>
+            //                         </td>` // Column 6 with dropdown actions
+            //                     ]);
+            //                 });
+            //                 table.draw(); // Draw the updated table
+            //             } else {
+            //                 console.error("No elevators found in the response.");
+            //                 alert("No data available.");
+            //             }
+            //         },
+            //         error: function(xhr, status, error) {
+            //             console.error("Error fetching data: ", error);
+            //             alert("Failed to fetch data. Please check the console for more details.");
+            //         }
+            //     });
+            // }
+
+            // fetchData();
             var table = $('#ascensores').DataTable({
                 responsive: true,
                 dom: 'tp',
-                pageLength: 20, // Establece el número de registros por página a 8
+                pageLength: 20,
+                serverSide: true, // Enable server-side processing
+                processing: true, // Display a loading message
+                ajax: {
+                    url: "/api/mant/en/revisión", // API endpoint for fetching paginated data
+                    type: "GET",
+                    data: function(d) {
+                        // Send additional parameters if needed
+                    }
+                },
+                columns: [
+                    { data: 'id' },
+                    { data: 'reviewtype.nombre', defaultContent: '' },
+                    { data: 'elevator.nombre', defaultContent: '' },
+                    { data: 'fecha_de_mantenimiento', defaultContent: '' },
+                    { data: 'hora_inicio', defaultContent: '' },
+                    { data: 'hora_fin', defaultContent: '' },
+                    { data: 'staff.nombre', defaultContent: '' },
+                    {
+                        data: null,
+                        render: function(data, type, row) {
+                            return `<a class="text-blue view-observation" href="#" data-id="${data.id}" data-toggle="modal" data-target="#observacion">Ver observación</a>`;
+                        }
+                    },
+                    {
+                        data: null,
+                        render: function(data, type, row) {
+                            return `<td align="right">
+                                <div class="dropdown">
+                                    <button type="button" class="btn-action dropdown-toggle" data-toggle="dropdown">
+                                        Acción <i class="fas fa-chevron-down"></i>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <a class="dropdown-item" href="/details/maint/in/review/${data.id}">Ver detalles</a>
+                                        <a class="dropdown-item edit-maint_in_review" href="#" data-maint_in_review='${JSON.stringify(data)}' data-toggle="modal" data-target="#editorMantenimiento">Editar</a>
+                                        <a class="dropdown-item delete-maint_in_review" href="#" data-id="${data.id}" data-toggle="modal" data-target="#modalEliminar">Eliminar</a>
+                                    </div>
+                                </div>`;
+                        }
+                    }
+                ],
                 language: {
                     "decimal": "",
                     "emptyTable": "No hay información",
-                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Reistros",
-                    "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+                    "infoEmpty": "Mostrando 0 to 0 de 0 Entradas",
                     "infoFiltered": "(Filtrado de _MAX_ total registros)",
-                    "infoPostFix": "",
-                    "thousands": ",",
-                    "lengthMenu": "Mostrar _MENU_ Registros",
                     "loadingRecords": "Cargando...",
                     "processing": "Procesando...",
                     "search": "Buscar:",
@@ -816,111 +981,8 @@
                         "next": "Siguiente",
                         "previous": "Anterior"
                     },
-                },
-                buttons: [{
-                        extend: 'copy',
-                        exportOptions: {
-                            columns: ':not(:last-child(-n+2))' // Excluye las dos últimas columnas
-                        }
-                    },
-                    {
-                        extend: 'excel',
-                        exportOptions: {
-                            columns: ':not(:last-child)' // Excluye las dos últimas columnas
-                        }
-                    },
-                    {
-                        extend: 'csv',
-                        exportOptions: {
-                            columns: ':not(:nth-last-child(-n+2))' // Excluye las dos últimas columnas
-                        }
-                    },
-                    {
-                        extend: 'pdf',
-                        exportOptions: {
-                            columns: ':not(:last-child)' // Excluye las dos últimas columnas
-                        },
-                        customize: function(doc) {
-                            // Remove the last column from the table body
-                            doc.content[1].table.body.forEach(function(row) {
-                                row.pop(); // Remove the last column from each row
-                            });
-                            doc.content[1].table.widths = Array(doc.content[1].table.body[0]
-                                .length + 1).join('*').split('');
-                            var columnCount = doc.content[1].table.body[0].length;
-                            doc.content[1].table.body.forEach(function(row) {
-                                row[0].alignment =
-                                    'center'; // Center align the first column
-                                row[1].alignment =
-                                    'center'; // Center align the second column
-                                row[2].alignment =
-                                    'center'; // Center align the third column
-                                row[columnCount - 1].alignment =
-                                    'center'; // Center align the last column
-                            });
-                        }
-                    },
-                    {
-                        extend: 'print',
-                        exportOptions: {
-                            columns: ':not(:nth-last-child(-n+2))' // Excluye las dos últimas columnas
-                        }
-                    }
-                    // 'copy', 'csv', 'excel', 'pdf', 'print'
-                ]
+                }
             });
-
-            function fetchData() {
-                $.ajax({
-                    url: "/api/mant/en/revisión", // Ensure this route is correct
-                    method: "GET",
-                    dataType: "json",
-                    success: function(data) {
-                        // console.log("Fetched Data:", data.maint_in_reviews); // Log the fetched data
-
-                        // Check if the expected property exists
-                        if (data.maint_in_reviews && Array.isArray(data.maint_in_reviews)) {
-                            table.clear(); // Clear existing data
-                            var baseUrl = "{{ url('/') }}"; // Define base URL
-
-                            // Populate the DataTable with new data
-                            $.each(data.maint_in_reviews, function(index, maint_in_review) {
-                                table.row.add([
-                                    maint_in_review.id || '', // Column 0
-                                    maint_in_review.reviewtype ? maint_in_review.reviewtype.nombre : '', // Column 1
-                                    maint_in_review.elevator ?  maint_in_review.elevator.nombre : '', // Column 1
-                                    maint_in_review.fecha_de_mantenimiento ||
-                                    '', // Column 1
-                                    maint_in_review.hora_inicio || '', // Column 1
-                                    maint_in_review.hora_fin || '', // Column 1
-                                    maint_in_review.staff.nombre || '', // Column 1
-                                    `   <a class="text-blue view-observation" href="#" data-id="${maint_in_review.id}" data-toggle="modal" data-target="#observacion">Ver observación</a>`,
-                                    `<td align="right">
-                                        <div class="dropdown">
-                                            <button type="button" class="btn-action dropdown-toggle" data-toggle="dropdown">
-                                                Acción <i class="fas fa-chevron-down"></i>
-                                            </button>
-                                            <div class="dropdown-menu dropdown-menu-right">
-                                                <a class="dropdown-item" href="{{ route('details.maint.in.review', '') }}/${maint_in_review.id}">Ver detalles</a>
-                                                <a class="dropdown-item edit-maint_in_review" href="#" data-maint_in_review='${JSON.stringify(maint_in_review)}' data-toggle="modal" data-target="#editorMantenimiento">Editar</a>
-                                                <a class="dropdown-item delete-maint_in_review" href="#" data-id="${maint_in_review.id}" data-toggle="modal" data-target="#modalEliminar">Eliminar</a>                                        </div>
-                                    </td>` // Column 6 with dropdown actions
-                                ]);
-                            });
-                            table.draw(); // Draw the updated table
-                        } else {
-                            console.error("No elevators found in the response.");
-                            alert("No data available.");
-                        }
-                    },
-                    error: function(xhr, status, error) {
-                        console.error("Error fetching data: ", error);
-                        alert("Failed to fetch data. Please check the console for more details.");
-                    }
-                });
-            }
-
-            fetchData(); // Ensure this is called after DataTable initialization
 
 
             // Manejadores para los botones de exportación personalizados

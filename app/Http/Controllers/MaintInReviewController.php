@@ -27,13 +27,32 @@ class MaintInReviewController extends Controller
     }
     public function maintInReviewApi(Request $request)
     {
-        $maint_in_reviews = MaintInReview::with(['staff', 'elevator','reviewtype'])->get();
-        $review_types = ReviewType::pluck('nombre', 'id');
-        $elevators = Elevators::pluck('nombre', 'id');
-        $provinces = Province::pluck('provincia', 'id');
-        $Personals = Staff::pluck('nombre', 'id');
-        $months = Month::pluck('nombre', 'id');
-        return response()->json(compact('months','maint_in_reviews', 'review_types', 'elevators', 'provinces', 'Personals'));
+        // $maint_in_reviews = MaintInReview::with(['staff', 'elevator','reviewtype'])->get();
+        // $review_types = ReviewType::pluck('nombre', 'id');
+        // $elevators = Elevators::pluck('nombre', 'id');
+        // $provinces = Province::pluck('provincia', 'id');
+        // $Personals = Staff::pluck('nombre', 'id');
+        // $months = Month::pluck('nombre', 'id');
+        // return response()->json(compact('months','maint_in_reviews', 'review_types', 'elevators', 'provinces', 'Personals'));
+
+        // Get the start and length parameters from DataTables
+        $start = $request->input('start', 0);  // Starting record (offset)
+        $length = $request->input('length', 20);  // Number of records per page
+
+        // Calculate the current page
+        $currentPage = ($start / $length) + 1;
+
+        // Fetch paginated data
+        $maint_in_reviews = MaintInReview::with(['staff', 'elevator', 'reviewtype'])
+            ->paginate($length, ['*'], 'page', $currentPage);
+
+        // Send the paginated response
+        return response()->json([
+            'draw' => $request->input('draw'),  // Pass the 'draw' parameter from DataTables
+            'recordsTotal' => $maint_in_reviews->total(),  // Total number of records
+            'recordsFiltered' => $maint_in_reviews->total(),  // Total number of filtered records
+            'data' => $maint_in_reviews->items(),  // Data for the current page
+        ]);
     }
 
     public function getDataMaintance(){
@@ -69,11 +88,11 @@ class MaintInReviewController extends Controller
     public function getObservation($id)
     {
         $observation = MaintInReview::find($id); // Adjust this line based on your model
-    
+
         if (!$observation) {
             return response()->json(['message' => 'Observation not found'], 404);
         }
-    
+
         return response()->json($observation); // Ensure this returns an object with 'observaciones' property
     }
     public function maintInReviewInsert(Request $request)

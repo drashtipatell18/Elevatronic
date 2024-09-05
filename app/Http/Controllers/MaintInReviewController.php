@@ -27,14 +27,6 @@ class MaintInReviewController extends Controller
     }
     public function maintInReviewApi(Request $request)
     {
-        // $maint_in_reviews = MaintInReview::with(['staff', 'elevator','reviewtype'])->get();
-        // $review_types = ReviewType::pluck('nombre', 'id');
-        // $elevators = Elevators::pluck('nombre', 'id');
-        // $provinces = Province::pluck('provincia', 'id');
-        // $Personals = Staff::pluck('nombre', 'id');
-        // $months = Month::pluck('nombre', 'id');
-        // return response()->json(compact('months','maint_in_reviews', 'review_types', 'elevators', 'provinces', 'Personals'));
-
         // Get the start and length parameters from DataTables
         $start = $request->input('start', 0);  // Starting record (offset)
         $length = $request->input('length', 20);  // Number of records per page

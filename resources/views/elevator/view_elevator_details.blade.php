@@ -1505,19 +1505,11 @@
                                                                 <label for="provincia">Provincia</label>
                                                                 <select
                                                                     class="custom-select form-control @error('provincia') is-invalid @enderror"
-                                                                    name="provincia" id="provincia">
-                                                                    @foreach ($provinces as $province)
-                                                                        <option value="{{ $province }}"
-                                                                            @if (isset($elevators) && $elevators->provincia == $province) selected @endif>
-                                                                            {{ $province }}
-                                                                        </option>
-                                                                    @endforeach
+                                                                    name="provincia" id="edit-provincia">
+                                                                    <option value="">Seleccionar
+                                                                        opción</option>
                                                                 </select>
-                                                                @error('provincia')
-                                                                    <span class="invalid-feedback" style="color: red">
-                                                                        <strong>{{ $message }}</strong>
-                                                                    </span>
-                                                                @enderror
+                                                                
                                                             </div>
                                                         </div>
 

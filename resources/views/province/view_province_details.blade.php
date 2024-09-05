@@ -771,10 +771,10 @@
                         });
 
                         // Initialize Select2 on the select elements with placeholder
-                        $('#marca').select2({
-                            placeholder: "Seleccionar marca",
-                            allowClear: true
-                        });
+                        // $('#marca').select2({
+                        //     placeholder: "Seleccionar marca",
+                        //     allowClear: true
+                        // });
 
                         // If edit is true and has a valid ID, set the selected value
                         if (edit) {
@@ -785,9 +785,9 @@
                 });
             }
 
-            
+
             getBrand();
-          
+
             $('#submitBrand').click(function(e) {
                 e.preventDefault(); // Prevent default form submission
                 var formData = new FormData();
@@ -888,13 +888,14 @@
                     // 'copy', 'csv', 'excel', 'pdf', 'print'
                 ]
             });
+
             function getDatas(edit) {
                 // Destroy existing Select2 instances if they exist
                 if ($('#edit-cliente').data('select2')) {
                     $('#edit-cliente').select2('destroy');
                 }
-                if ($('#edit-provincia').data('select2')) {
-                    $('#edit-provincia').select2('destroy');
+                if ($('#edit-province').data('select2')) {
+                    $('#edit-province').select2('destroy');
                 }
                 if ($('#edit-técnico_instalador').data('select2')) {
                     $('#edit-técnico_instalador').select2('destroy');
@@ -947,12 +948,13 @@
                             );
                         });
 
-                        // Initialize Select2 on the select elements with placeholder
-                        $('#edit-cliente, #edit-provincia, #edit-técnico_instalador, #edit-técnico_ajustador, #edit-tipo_de_ascensor')
-                            .select2({
-                                placeholder: "Seleccionar opción",
-                                allowClear: true
-                            });
+                        // $('#editarAscensor').on('shown.bs.modal', function() {
+                        //     $('#edit-cliente, #edit-province, #edit-técnico_instalador, #edit-técnico_ajustador, #edit-tipo_de_ascensor')
+                        //         .select2({
+                        //             placeholder: "Seleccionar opción",
+                        //             allowClear: true
+                        //         });
+                        // });
 
                         // If edit is true and has a valid ID, set the selected value
                         if (edit) {
@@ -1164,48 +1166,48 @@
                 var elevator = $(this).data('elevator');
                 console.log(elevator);
                 $('#edit-contrato').val(elevator.contrato);
-                    $('#edit-nombre').val(elevator.nombre);
-                    $('#edit-código').val(elevator.código);
-                    $('#marca').val(elevator.marca_id).trigger(
-                        'change'); // Ensure the value is set and trigger change
-                    $('#edit-cliente').val(elevator.client_id).trigger('change');
-                    $('#edit-fecha').val(elevator.fecha);
-                    $('#edit-garantizar').val(elevator.garantizar);
-                    $('#edit-dirección').val(elevator.dirección);
-                    $('#edit-ubigeo').val(elevator.ubigeo);
-                    $('#edit-province').val(elevator.provincia).trigger('change');
-                    $('#edit-técnico_instalador').val(elevator.técnico_instalador).trigger('change');
-                    $('#edit-técnico_ajustador').val(elevator.técnico_ajustador).trigger('change');
-                    $('#edit-tipo_de_ascensor').val(elevator.tipo_de_ascensor).trigger('change');
-                    $('#edit-cantidad').val(elevator.cantidad);
-                    $('#edit-npisos').val(elevator.npisos);
-                    $('#edit-ncontacto').val(elevator.ncontacto);
-                    $('#edit-teléfono').val(elevator.teléfono);
-                    $('#edit-correo').val(elevator.correo);
-                    $('#edit-descripcion1').val(elevator.descripcion1);
-                    $('#edit-descripcion2').val(elevator.descripcion2);
+                $('#edit-nombre').val(elevator.nombre);
+                $('#edit-código').val(elevator.código);
+                $('#marca').val(elevator.marca_id).trigger(
+                    'change'); // Ensure the value is set and trigger change
+                $('#edit-cliente').val(elevator.client_id).trigger('change');
+                $('#edit-fecha').val(elevator.fecha);
+                $('#edit-garantizar').val(elevator.garantizar);
+                $('#edit-dirección').val(elevator.dirección);
+                $('#edit-ubigeo').val(elevator.ubigeo);
+                $('#edit-province').val(elevator.provincia).trigger('change');
+                $('#edit-técnico_instalador').val(elevator.técnico_instalador).trigger('change');
+                $('#edit-técnico_ajustador').val(elevator.técnico_ajustador).trigger('change');
+                $('#edit-tipo_de_ascensor').val(elevator.tipo_de_ascensor).trigger('change');
+                $('#edit-cantidad').val(elevator.cantidad);
+                $('#edit-npisos').val(elevator.npisos);
+                $('#edit-ncontacto').val(elevator.ncontacto);
+                $('#edit-teléfono').val(elevator.teléfono);
+                $('#edit-correo').val(elevator.correo);
+                $('#edit-descripcion1').val(elevator.descripcion1);
+                $('#edit-descripcion2').val(elevator.descripcion2);
 
-                    // Check if quarters contain specific values
-                    if (elevator.quarters) {
-                        var quarters = elevator.quarters.split(',');
-                        $('#mgratuito').prop('checked', quarters.includes('mgratuito'));
-                        $('#sincuarto').prop('checked', quarters.includes('sincuarto'));
-                        $('#concuarto').prop('checked', quarters.includes('concuarto'));
-                    }
+                // Check if quarters contain specific values
+                if (elevator.quarters) {
+                    var quarters = elevator.quarters.split(',');
+                    $('#mgratuito').prop('checked', quarters.includes('mgratuito'));
+                    $('#sincuarto').prop('checked', quarters.includes('sincuarto'));
+                    $('#concuarto').prop('checked', quarters.includes('concuarto'));
+                }
 
-                    // Show or hide additional description based on elevator data
-                    if (elevator.descripcion2 !== null) {
-                        $('#DAdicional1').removeClass('d-none'); // Show Descripción 2 section
-                    } else {
-                        $('#DAdicional1').addClass('d-none'); // Hide Descripción 2 section
-                    }
+                // Show or hide additional description based on elevator data
+                if (elevator.descripcion2 !== null) {
+                    $('#DAdicional1').removeClass('d-none'); // Show Descripción 2 section
+                } else {
+                    $('#DAdicional1').addClass('d-none'); // Hide Descripción 2 section
+                }
 
-                    getBrand(elevator.marca_id);
-                    // Set the image preview
-                    var imageUrl = elevator.imagen ? "{{ asset('images/') }}/" + elevator.imagen :
-                        "{{ asset('img/fondo.png') }}";
-                    $('#edit-elevators').attr('src', imageUrl);
-                    $('#editelevatform').attr('action', '/ascensore/actualizar/' + elevator.id);
+                getBrand(elevator.marca_id);
+                // Set the image preview
+                var imageUrl = elevator.imagen ? "{{ asset('images/') }}/" + elevator.imagen :
+                    "{{ asset('img/fondo.png') }}";
+                $('#edit-elevators').attr('src', imageUrl);
+                $('#editelevatform').attr('action', '/ascensore/actualizar/' + elevator.id);
 
             });
 

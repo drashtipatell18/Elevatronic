@@ -138,7 +138,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="tipo_de_revisión">Tipo de revisión</label>
-                                    <select class="custom-select" name="tipo_de_revisión" id="edit-tipo_de_revisión"
+                                    <select class="custom-select" name="tipo_de_revisión" id="tipo_de_revisión"
                                         class="form-control">
                                         <option value="">Seleccionar tipo de revisión</option>
                                         @foreach ($review_types as $key => $value)
@@ -668,6 +668,7 @@
                     }
                 });
             }
+
             function getDataMain(edit) {
                 // Destroy existing Select2 instances if they exist
                 if ($('#edit-tipo_de_revisión').data('select2')) {
@@ -755,91 +756,92 @@
                     }
                 });
             }
+
             function getDatas(edit) {
-                    // Destroy existing Select2 instances if they exist
-                    if ($('#edit-cliente').data('select2')) {
-                        $('#edit-cliente').select2('destroy');
-                    }
-                    if ($('#edit-provincia').data('select2')) {
-                        $('#edit-provincia').select2('destroy');
-                    }
-                    if ($('#edit-técnico_instalador').data('select2')) {
-                        $('#edit-técnico_instalador').select2('destroy');
-                    }
-                    if ($('#edit-técnico_ajustador').data('select2')) {
-                        $('#edit-técnico_ajustador').select2('destroy');
-                    }
-                    if ($('#edit-tipo_de_ascensor').data('select2')) {
-                        $('#edit-tipo_de_ascensor').select2('destroy');
-                    }
-
-                    // Perform the AJAX call to get brand data
-                    $.ajax({
-                        type: "GET",
-                        url: "{{ route('getData') }}",
-                        dataType: "JSON",
-                        success: function(response) {
-                            // Clear the current options and append the retrieved options to the select elements
-                            $("#edit-cliente, #edit-provincia, #edit-técnico_instalador, #edit-técnico_ajustador, #edit-tipo_de_ascensor")
-                                .empty();
-                            $("#edit-cliente").append(
-                                '<option value="" class="d-none">Seleccionar opción</option>');
-                            $("#edit-provincia").append(
-                                '<option value="" class="d-none">Seleccionar opción</option>');
-                            $("#edit-técnico_instalador").append(
-                                '<option value="" class="d-none">Seleccionar opción</option>');
-                            $("#edit-técnico_ajustador").append(
-                                '<option value="" class="d-none">Seleccionar opción</option>');
-                            $("#edit-tipo_de_ascensor").append(
-                                '<option value="" class="d-none">Seleccionar opción</option>');
-
-                            // Populate each dropdown with the corresponding data
-                            $.each(response.clientes, function(id, nombre) {
-                                $("#edit-cliente").append(
-                                    `<option value='${id}'>${nombre}</option>`);
-                            });
-                            $.each(response.provincias, function(id, provincia) {
-                                $("#edit-provincia").append(
-                                    `<option value='${id}'>${provincia}</option>`);
-                            });
-                            $.each(response.staffs, function(id, nombre) {
-                                $("#edit-técnico_instalador").append(
-                                    `<option value='${id}'>${nombre}</option>`);
-                                $("#edit-técnico_ajustador").append(
-                                    `<option value='${id}'>${nombre}</option>`);
-                            });
-                            $.each(response.elevatortypes, function(id, nombre_de_tipo_de_ascensor) {
-                                $("#edit-tipo_de_ascensor").append(
-                                    `<option value='${id}'>${nombre_de_tipo_de_ascensor}</option>`
-                                );
-                            });
-
-                            // Initialize Select2 on the select elements with placeholder
-                            $('#edit-cliente, #edit-provincia, #edit-técnico_instalador, #edit-técnico_ajustador, #edit-tipo_de_ascensor')
-                                .select2({
-                                    placeholder: "Seleccionar opción",
-                                    allowClear: true
-                                });
-
-                            // If edit is true and has a valid ID, set the selected value
-                            if (edit) {
-                                $('#edit-cliente').val(edit.client_id).trigger(
-                                    'change'); // Ensure the value is set and trigger change
-                                $('#edit-provincia').val(edit.provincia).trigger(
-                                    'change'); // Ensure the value is set and trigger change
-                                $('#edit-técnico_instalador').val(edit.técnico_instalador).trigger(
-                                    'change'); // Ensure the value is set and trigger change
-                                $('#edit-técnico_ajustador').val(edit.técnico_ajustador).trigger(
-                                    'change'); // Ensure the value is set and trigger change
-                                $('#edit-tipo_de_ascensor').val(edit.tipo_de_ascensor.id).trigger(
-                                    'change'); // Ensure the value is set and trigger change
-                            }
-                        },
-                        error: function(xhr, status, error) {
-                            console.error("Error fetching data: ", error);
-                        }
-                    });
+                // Destroy existing Select2 instances if they exist
+                if ($('#edit-cliente').data('select2')) {
+                    $('#edit-cliente').select2('destroy');
                 }
+                if ($('#edit-provincia').data('select2')) {
+                    $('#edit-provincia').select2('destroy');
+                }
+                if ($('#edit-técnico_instalador').data('select2')) {
+                    $('#edit-técnico_instalador').select2('destroy');
+                }
+                if ($('#edit-técnico_ajustador').data('select2')) {
+                    $('#edit-técnico_ajustador').select2('destroy');
+                }
+                if ($('#edit-tipo_de_ascensor').data('select2')) {
+                    $('#edit-tipo_de_ascensor').select2('destroy');
+                }
+
+                // Perform the AJAX call to get brand data
+                $.ajax({
+                    type: "GET",
+                    url: "{{ route('getData') }}",
+                    dataType: "JSON",
+                    success: function(response) {
+                        // Clear the current options and append the retrieved options to the select elements
+                        $("#edit-cliente, #edit-provincia, #edit-técnico_instalador, #edit-técnico_ajustador, #edit-tipo_de_ascensor")
+                            .empty();
+                        $("#edit-cliente").append(
+                            '<option value="" class="d-none">Seleccionar opción</option>');
+                        $("#edit-provincia").append(
+                            '<option value="" class="d-none">Seleccionar opción</option>');
+                        $("#edit-técnico_instalador").append(
+                            '<option value="" class="d-none">Seleccionar opción</option>');
+                        $("#edit-técnico_ajustador").append(
+                            '<option value="" class="d-none">Seleccionar opción</option>');
+                        $("#edit-tipo_de_ascensor").append(
+                            '<option value="" class="d-none">Seleccionar opción</option>');
+
+                        // Populate each dropdown with the corresponding data
+                        $.each(response.clientes, function(id, nombre) {
+                            $("#edit-cliente").append(
+                                `<option value='${id}'>${nombre}</option>`);
+                        });
+                        $.each(response.provincias, function(id, provincia) {
+                            $("#edit-provincia").append(
+                                `<option value='${id}'>${provincia}</option>`);
+                        });
+                        $.each(response.staffs, function(id, nombre) {
+                            $("#edit-técnico_instalador").append(
+                                `<option value='${id}'>${nombre}</option>`);
+                            $("#edit-técnico_ajustador").append(
+                                `<option value='${id}'>${nombre}</option>`);
+                        });
+                        $.each(response.elevatortypes, function(id, nombre_de_tipo_de_ascensor) {
+                            $("#edit-tipo_de_ascensor").append(
+                                `<option value='${id}'>${nombre_de_tipo_de_ascensor}</option>`
+                            );
+                        });
+
+                        // Initialize Select2 on the select elements with placeholder
+                        $('#edit-cliente, #edit-provincia, #edit-técnico_instalador, #edit-técnico_ajustador, #edit-tipo_de_ascensor')
+                            .select2({
+                                placeholder: "Seleccionar opción",
+                                allowClear: true
+                            });
+
+                        // If edit is true and has a valid ID, set the selected value
+                        if (edit) {
+                            $('#edit-cliente').val(edit.client_id).trigger(
+                                'change'); // Ensure the value is set and trigger change
+                            $('#edit-provincia').val(edit.provincia).trigger(
+                                'change'); // Ensure the value is set and trigger change
+                            $('#edit-técnico_instalador').val(edit.técnico_instalador).trigger(
+                                'change'); // Ensure the value is set and trigger change
+                            $('#edit-técnico_ajustador').val(edit.técnico_ajustador).trigger(
+                                'change'); // Ensure the value is set and trigger change
+                            $('#edit-tipo_de_ascensor').val(edit.tipo_de_ascensor.id).trigger(
+                                'change'); // Ensure the value is set and trigger change
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Error fetching data: ", error);
+                    }
+                });
+            }
             // Call the function when needed, e.g., when opening the modal
             const editValue = '{{ $editValue ?? '' }}'; // Replace with actual edit value if available
             getSupervisors(editValue);
@@ -880,134 +882,6 @@
                 $("#crearSupervisor").modal('hide');
             });
 
-            // var table = $('#ascensores').DataTable({
-            //     responsive: true,
-            //     dom: 'tp',
-            //     pageLength: 20, // Establece el número de registros por página a 8
-            //     language: {
-            //         "decimal": "",
-            //         "emptyTable": "No hay información",
-            //         "info": "Mostrando _START_ a _END_ de _TOTAL_ Reistros",
-            //         "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
-            //         "infoFiltered": "(Filtrado de _MAX_ total registros)",
-            //         "infoPostFix": "",
-            //         "thousands": ",",
-            //         "lengthMenu": "Mostrar _MENU_ Registros",
-            //         "loadingRecords": "Cargando...",
-            //         "processing": "Procesando...",
-            //         "search": "Buscar:",
-            //         "zeroRecords": "Sin resultados encontrados",
-            //         "paginate": {
-            //             "first": "Primero",
-            //             "last": "Último",
-            //             "next": "Siguiente",
-            //             "previous": "Anterior"
-            //         },
-            //     },
-            //     buttons: [{
-            //             extend: 'copy',
-            //             exportOptions: {
-            //                 columns: ':not(:last-child(-n+2))' // Excluye las dos últimas columnas
-            //             }
-            //         },
-            //         {
-            //             extend: 'excel',
-            //             exportOptions: {
-            //                 columns: ':not(:last-child)' // Excluye las dos últimas columnas
-            //             }
-            //         },
-            //         {
-            //             extend: 'csv',
-            //             exportOptions: {
-            //                 columns: ':not(:nth-last-child(-n+2))' // Excluye las dos últimas columnas
-            //             }
-            //         },
-            //         {
-            //             extend: 'pdf',
-            //             exportOptions: {
-            //                 columns: ':not(:last-child)' // Excluye las dos últimas columnas
-            //             },
-            //             customize: function(doc) {
-            //                 // Remove the last column from the table body
-            //                 doc.content[1].table.body.forEach(function(row) {
-            //                     row.pop(); // Remove the last column from each row
-            //                 });
-            //                 doc.content[1].table.widths = Array(doc.content[1].table.body[0]
-            //                     .length + 1).join('*').split('');
-            //                 var columnCount = doc.content[1].table.body[0].length;
-            //                 doc.content[1].table.body.forEach(function(row) {
-            //                     row[0].alignment =
-            //                         'center'; // Center align the first column
-            //                     row[1].alignment =
-            //                         'center'; // Center align the second column
-            //                     row[2].alignment =
-            //                         'center'; // Center align the third column
-            //                     row[columnCount - 1].alignment =
-            //                         'center'; // Center align the last column
-            //                 });
-            //             }
-            //         },
-            //         {
-            //             extend: 'print',
-            //             exportOptions: {
-            //                 columns: ':not(:nth-last-child(-n+2))' // Excluye las dos últimas columnas
-            //             }
-            //         }
-            //         // 'copy', 'csv', 'excel', 'pdf', 'print'
-            //     ]
-            // });
-
-            // function fetchData() {
-            //     $.ajax({
-            //         url: "/api/mant/en/revisión", // Ensure this route is correct
-            //         method: "GET",
-            //         dataType: "json",
-            //         success: function(data) {
-            //             // console.log("Fetched Data:", data.maint_in_reviews); // Log the fetched data
-
-            //             // Check if the expected property exists
-            //             if (data.maint_in_reviews && Array.isArray(data.maint_in_reviews)) {
-            //                 table.clear(); // Clear existing data
-            //                 var baseUrl = "{{ url('/') }}"; // Define base URL
-
-            //                 // Populate the DataTable with new data
-            //                 $.each(data.maint_in_reviews, function(index, maint_in_review) {
-            //                     table.row.add([
-            //                         maint_in_review.id || '', // Column 0
-            //                         maint_in_review.reviewtype ? maint_in_review.reviewtype.nombre : '', // Column 1
-            //                         maint_in_review.elevator ?  maint_in_review.elevator.nombre : '', // Column 1
-            //                         maint_in_review.fecha_de_mantenimiento ||
-            //                         '', // Column 1
-            //                         maint_in_review.hora_inicio || '', // Column 1
-            //                         maint_in_review.hora_fin || '', // Column 1
-            //                         maint_in_review.staff.nombre || '', // Column 1
-            //                         `   <a class="text-blue view-observation" href="#" data-id="${maint_in_review.id}" data-toggle="modal" data-target="#observacion">Ver observación</a>`,
-            //                         `<td align="right">
-            //                             <div class="dropdown">
-            //                                 <button type="button" class="btn-action dropdown-toggle" data-toggle="dropdown">
-            //                                     Acción <i class="fas fa-chevron-down"></i>
-            //                                 </button>
-            //                                 <div class="dropdown-menu dropdown-menu-right">
-            //                                     <a class="dropdown-item" href="{{ route('details.maint.in.review', '') }}/${maint_in_review.id}">Ver detalles</a>
-            //                                     <a class="dropdown-item edit-maint_in_review" href="#" data-maint_in_review='${JSON.stringify(maint_in_review)}' data-toggle="modal" data-target="#editorMantenimiento">Editar</a>
-            //                                     <a class="dropdown-item delete-maint_in_review" href="#" data-id="${maint_in_review.id}" data-toggle="modal" data-target="#modalEliminar">Eliminar</a>                                        </div>
-            //                         </td>` // Column 6 with dropdown actions
-            //                     ]);
-            //                 });
-            //                 table.draw(); // Draw the updated table
-            //             } else {
-            //                 console.error("No elevators found in the response.");
-            //                 alert("No data available.");
-            //             }
-            //         },
-            //         error: function(xhr, status, error) {
-            //             console.error("Error fetching data: ", error);
-            //             alert("Failed to fetch data. Please check the console for more details.");
-            //         }
-            //     });
-            // }
-
-            // fetchData();
             var table = $('#ascensores').DataTable({
                 responsive: true,
                 dom: 'tp',
@@ -1021,14 +895,33 @@
                         // Send additional parameters if needed
                     }
                 },
-                columns: [
-                    { data: 'id' },
-                    { data: 'reviewtype.nombre', defaultContent: '' },
-                    { data: 'elevator.nombre', defaultContent: '' },
-                    { data: 'fecha_de_mantenimiento', defaultContent: '' },
-                    { data: 'hora_inicio', defaultContent: '' },
-                    { data: 'hora_fin', defaultContent: '' },
-                    { data: 'staff.nombre', defaultContent: '' },
+                columns: [{
+                        data: 'id'
+                    },
+                    {
+                        data: 'reviewtype.nombre',
+                        defaultContent: ''
+                    },
+                    {
+                        data: 'elevator.nombre',
+                        defaultContent: ''
+                    },
+                    {
+                        data: 'fecha_de_mantenimiento',
+                        defaultContent: ''
+                    },
+                    {
+                        data: 'hora_inicio',
+                        defaultContent: ''
+                    },
+                    {
+                        data: 'hora_fin',
+                        defaultContent: ''
+                    },
+                    {
+                        data: 'staff.nombre',
+                        defaultContent: ''
+                    },
                     {
                         data: null,
                         render: function(data, type, row) {
@@ -1092,7 +985,7 @@
                         exportOptions: {
                             columns: ':not(:last-child)' // Excluye las dos últimas columnas
                         },
-                         customize: function(doc) {
+                        customize: function(doc) {
                             // Set the page size to A4
                             doc.pageSize = 'A4';
                             // Set the font size
@@ -1265,10 +1158,33 @@
             });
 
             $(document).on('click', '.edit-maint_in_review', function() {
+                console.log("Edit maintenance review clicked.");
+
+                // Clear all fields
+                $('#edit-tipo_de_revisión').val('')trigger('change');
+                $('#edit-MAscensor').val('')trigger('change');
+                $('#edit-dirección').val('');
+                $('#edit-provincia').val('');
+                $('#edit-NCertificado').val('');
+                $('#edit-NMaquina').val('');
+                $('#supervisor_id1').val('')trigger('change');
+                $('#edit-técnico').val('')trigger('change');
+                $('#edit-Mprogramado').val('')trigger('change');
+                $('#edit-FMantenimiento').val('');
+                $('#edit-FInicio').val('');
+                $('#edit-HFin').val('');
+                $('#edit-observaciónes').val('');
+                $('#edit-observacionesInternas').val('');
+                $('#edit-solucion').val('');
+
+                // Retrieve the maintenance data
                 var mantenimiento = $(this).data('maint_in_review');
+                console.log("Maintenance data:", mantenimiento);
+
+                // Set form action
                 $('#editmaintreview').attr('action', '/mant/en/revisión/actualizar/' + mantenimiento.id);
 
-                console.log(mantenimiento);
+                // Populate fields with data
                 $('#edit-tipo_de_revisión').val(mantenimiento.tipo_de_revisión).trigger('change');
                 $('#edit-MAscensor').val(mantenimiento.ascensor).trigger('change');
                 $('#edit-dirección').val(mantenimiento.dirección);
@@ -1284,8 +1200,6 @@
                 $('#edit-observaciónes').val(mantenimiento.observaciónes);
                 $('#edit-observacionesInternas').val(mantenimiento.observaciónes_internas);
                 $('#edit-solucion').val(mantenimiento.solución);
-
-
             });
             $(document).on('click', '.delete-maint_in_review', function() {
                 var itemId = $(this).data('id');

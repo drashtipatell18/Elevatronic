@@ -345,7 +345,7 @@
                                                     <tr>
                                                         <td class="text-gris">Técnico ajustador</td>
                                                         <td>
-                                                            @isset($elevators->técnico_ajustador)
+                                                            @isset($elevators->tecnicoAjustador)
                                                                 {{ $elevators->tecnicoAjustador->nombre }}
                                                             @else
                                                                 {{ '-' }}

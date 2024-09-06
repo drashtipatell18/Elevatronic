@@ -1,4 +1,6 @@
-<?php namespace App\Http\Controllers;
+<?php
+
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Imports\ContractImport;
@@ -28,41 +30,41 @@ class FileUploadController extends Controller
         $file = $request->file('file');
 
         $expectedHeaders = [
-            'mantenimiento' => ['tipo_de_revisión', 'ascensor', 'núm_certificado','fecha_de_mantenimiento','hora_inicio','hora_fin','técnico','observaciónes'],
-            'contratos' => ['fecha_de_propuesta', 'monto_de_propuesta', 'fecha_de_inicio', 'fecha_de_fin','monto_de_contrato','estado'],
-            'repuestos' => ['nombre', 'precio', 'frecuencia_de_limpieza', 'frecuencia_de_lubricación','frecuencia_de_ajuste','frecuencia_de_revisión','frecuencia_de_cambio','frecuencia_de_solicitud'],
+            'mantenimiento' => ['tipo_de_revisión', 'ascensor', 'núm_certificado', 'fecha_de_mantenimiento', 'hora_inicio', 'hora_fin', 'técnico', 'observaciónes'],
+            'contratos' => ['ascensor','fecha_de_propuesta', 'monto_de_propuesta', 'fecha_de_inicio', 'fecha_de_fin', 'monto_de_contrato', 'estado'],
+            'repuestos' => ['nombre', 'precio', 'frecuencia_de_limpieza', 'frecuencia_de_lubricación', 'frecuencia_de_ajuste', 'frecuencia_de_revisión', 'frecuencia_de_cambio', 'frecuencia_de_solicitud'],
         ];
 
         if ($file->isValid()) {
             try {
 
-            $headers = Excel::toArray([], $file)[0][0];
+                $headers = Excel::toArray([], $file)[0][0];
 
-            if ($this->validateHeaders($headers, $expectedHeaders[$tipoArchivo])) {
-                switch ($tipoArchivo) {
-                    case 'mantenimiento':
-                        Excel::import(new MaintReviewImport, $file);
-                        break;
-                    case 'contratos':
-                        Excel::import(new ContractImport, $file);
-                        break;
-                    case 'repuestos':
-                        Excel::import(new SparepartImport, $file);
-                        break;
-                    default:
-                        Log::info('Invalid file type selected');
-                        return response()->json(['status' => 'danger', 'message' => 'Invalid file type selected.'], 400);
+                if ($this->validateHeaders($headers, $expectedHeaders[$tipoArchivo])) {
+                    switch ($tipoArchivo) {
+                        case 'mantenimiento':
+                            Excel::import(new MaintReviewImport, $file);
+                            break;
+                        case 'contratos':
+                            Excel::import(new ContractImport, $file);
+                            break;
+                        case 'repuestos':
+                            Excel::import(new SparepartImport, $file);
+                            break;
+                        default:
+                            Log::info('Invalid file type selected');
+                            return response()->json(['status' => 'danger', 'message' => 'Invalid file type selected.'], 400);
+                    }
+                    Log::info('Excel data imported successfully');
+                    return response()->json(['status' => 'success', 'message' => 'Excel data imported successfully.']);
+                } else {
+                    Log::info('Excel file headers do not match expected headers', [
+                        'actual_headers' => $headers,
+                        'expected_headers' => $expectedHeaders[$tipoArchivo]
+                    ]);
+                    return response()->json(['status' => 'danger', 'message' => 'Excel file headers do not match expected headers.']);
                 }
-                Log::info('Excel data imported successfully');
-                return response()->json(['status' => 'success', 'message' => 'Excel data imported successfully.']);
-            }
-            else{
-                Log::info('Excel file headers do not match expected headers');
-                return response()->json(['status' => 'danger', 'message' => 'Excel file headers do not match expected headers.']);
-            }
-        }
-
-            catch (\Exception $e) {
+            } catch (\Exception $e) {
                 Log::error('Failed to import data: ' . $e->getMessage());
                 return response()->json(['status' => 'danger', 'message' => 'Failed to import data: ' . $e->getMessage()], 500);
             }
@@ -82,10 +84,4 @@ class FileUploadController extends Controller
         // Compare sorted arrays
         return $actualHeaders === $expectedHeaders;
     }
-
-
-
-
-
-
 }

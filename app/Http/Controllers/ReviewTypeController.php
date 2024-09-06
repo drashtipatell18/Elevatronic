@@ -44,14 +44,15 @@ class ReviewTypeController extends Controller
 
         $reviewtype = ReviewType::findOrFail($id);
         $oldTypeName = $reviewtype->nombre;
+        $oldTypeId = $reviewtype->id; // Use ID instead of name
 
         // Update a new Province instance
         $reviewtype->update([
             'nombre' => $request->input('nombre'),
             // 'descripción' => $request->input('descripción')
         ]);
-        MaintInReview::where('tipo_de_revisión', $oldTypeName)
-        ->update(['tipo_de_revisión' => $request->input('nombre')]);
+        MaintInReview::where('tipo_de_revisión', $oldTypeId)
+        ->update(['tipo_de_revisión' => $reviewtype->id]);
         Schedule::where('revisar', $oldTypeName)
         ->update(['revisar' => $request->input('nombre')]);
 

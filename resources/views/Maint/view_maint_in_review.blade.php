@@ -138,7 +138,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="tipo_de_revisión">Tipo de revisión</label>
-                                    <select class="custom-select" name="tipo_de_revisión" id="tipo_de_revisión"
+                                    <select class="custom-select" name="tipo_de_revisión" id="edit-tipo_de_revisión"
                                         class="form-control">
                                         <option value="">Seleccionar tipo de revisión</option>
                                         @foreach ($review_types as $key => $value)
@@ -658,10 +658,10 @@
                         });
 
                         // If edit is true and has a valid ID, set the selected value
-                        if (edit) {
-                            $('#supervisor_id1').val(edit).trigger('change');
-                            console.log('Selected supervisor set to:', edit);
-                        }
+                        // if (edit) {
+                        //     $('#supervisor_id1').val(edit).trigger('change');
+                        //     console.log('Selected supervisor set to:', edit);
+                        // }
                     },
                     error: function(xhr) {
                         console.error('Error fetching supervisors:', xhr.responseText);
@@ -738,18 +738,18 @@
                         console.log('Edit Object:', edit);
 
                         // If edit is true and has a valid ID, set the selected value
-                        if (edit) {
-                            console.log('Setting values for Select2:');
-                            console.log('Tipo de revisión:', edit.tipo_de_revisión);
-                            console.log('Ascensor:', edit.ascensor);
-                            console.log('Mes programado:', edit.mes_programado);
+                        // if (edit) {
+                        //     console.log('Setting values for Select2:');
+                        //     console.log('Tipo de revisión:', edit.tipo_de_revisión);
+                        //     console.log('Ascensor:', edit.ascensor);
+                        //     console.log('Mes programado:', edit.mes_programado);
 
-                            $('#edit-tipo_de_revisión').val(edit.tipo_de_revisión).trigger('change');
-                            $('#edit-provincia').val(edit.provincia).trigger('change');
-                            $('#edit-técnico').val(edit.técnico).trigger('change');
-                            $('#edit-MAscensor').val(edit.ascensor).trigger('change');
-                            $('#edit-Mprogramado').val(edit.mes_programado).trigger('change');
-                        }
+                        //     $('#edit-tipo_de_revisión').val(edit.tipo_de_revisión).trigger('change');
+                        //     $('#edit-provincia').val(edit.provincia).trigger('change');
+                        //     $('#edit-técnico').val(edit.técnico).trigger('change');
+                        //     $('#edit-MAscensor').val(edit.ascensor).trigger('change');
+                        //     $('#edit-Mprogramado').val(edit.mes_programado).trigger('change');
+                        // }
                     },
                     error: function(xhr, status, error) {
                         console.error("Error fetching data: ", error);
@@ -1161,15 +1161,15 @@
                 console.log("Edit maintenance review clicked.");
 
                 // Clear all fields
-                $('#edit-tipo_de_revisión').val('')trigger('change');
-                $('#edit-MAscensor').val('')trigger('change');
+                $('#edit-tipo_de_revisión').val('');
+                $('#edit-MAscensor').val('');
                 $('#edit-dirección').val('');
                 $('#edit-provincia').val('');
                 $('#edit-NCertificado').val('');
                 $('#edit-NMaquina').val('');
-                $('#supervisor_id1').val('')trigger('change');
-                $('#edit-técnico').val('')trigger('change');
-                $('#edit-Mprogramado').val('')trigger('change');
+                $('#supervisor_id1').val('');
+                $('#edit-técnico').val('');
+                $('#edit-Mprogramado').val('');
                 $('#edit-FMantenimiento').val('');
                 $('#edit-FInicio').val('');
                 $('#edit-HFin').val('');
@@ -1188,7 +1188,7 @@
                 $('#edit-tipo_de_revisión').val(mantenimiento.tipo_de_revisión).trigger('change');
                 $('#edit-MAscensor').val(mantenimiento.ascensor).trigger('change');
                 $('#edit-dirección').val(mantenimiento.dirección);
-                $('#edit-provincia').val(mantenimiento.provincia);
+                $('#edit-provincia').val(mantenimiento.provincia).trigger('change');
                 $('#edit-NCertificado').val(mantenimiento.núm_certificado);
                 $('#edit-NMaquina').val(mantenimiento.máquina);
                 $('#supervisor_id1').val(mantenimiento.supervisor_id).trigger('change');

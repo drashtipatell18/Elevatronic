@@ -2012,7 +2012,7 @@
 
                                                 <div class="form-group">
                                                     <label for="provinciaAs">Provincia</label>
-                                                    <select id="edit-provincia" name="provincia" class="form-control">
+                                                    <select id="edit-province" name="provincia" class="form-control">
                                                         <option value="">Seleccionar
                                                             Provincia
                                                         </option>
@@ -2360,8 +2360,8 @@
                     if ($('#edit-MAscensor').data('select2')) {
                         $('#edit-MAscensor').select2('destroy');
                     }
-                    if ($('#edit-provincia').data('select2')) {
-                        $('#edit-provincia').select2('destroy');
+                    if ($('#edit-province').data('select2')) {
+                        $('#edit-province').select2('destroy');
                     }
                     if ($('#edit-técnico').data('select2')) {
                         $('#edit-técnico').select2('destroy');
@@ -2377,7 +2377,7 @@
                         dataType: "JSON",
                         success: function(response) {
                             // Clear the current options and append the retrieved options to the select elements
-                            $("#edit-tipo_de_revisión, #edit-provincia, #edit-MAscensor, #edit-técnico, #edit-Mprogramado")
+                            $("#edit-tipo_de_revisión, #edit-province, #edit-MAscensor, #edit-técnico, #edit-Mprogramado")
                                 .empty();
                             $("#edit-tipo_de_revisión").append(
                                 '<option value="" class="d-none">Seleccionar opción</option>');
@@ -2394,7 +2394,7 @@
                                     `<option value='${id}'>${nombre}</option>`);
                             });
                             $.each(response.provinces, function(id, provincia) {
-                                $("#edit-provincia").append(
+                                $("#edit-province").append(
                                     `<option value='${id}'>${provincia}</option>`);
                             });
                             $.each(response.staffs, function(id, nombre) {
@@ -2411,7 +2411,7 @@
                             });
 
                             // Initialize Select2 on the select elements with placeholder
-                            $('#edit-tipo_de_revisión, #edit-provincia, #edit-MAscensor, #edit-técnico, #edit-Mprogramado')
+                            $('#edit-tipo_de_revisión, #edit-province, #edit-MAscensor, #edit-técnico, #edit-Mprogramado')
                                 .select2({
                                     placeholder: "Seleccionar opción",
                                     allowClear: true
@@ -2428,7 +2428,7 @@
                                 console.log('Mes programado:', edit.mes_programado);
 
                                 $('#edit-tipo_de_revisión').val(edit.tipo_de_revisión).trigger('change');
-                                $('#edit-provincia').val(edit.provincia).trigger('change');
+                                $('#edit-province').val(edit.provincia).trigger('change');
                                 $('#edit-técnico').val(edit.técnico).trigger('change');
                                 $('#edit-MAscensor').val(edit.ascensor).trigger('change');
                                 $('#edit-Mprogramado').val(edit.mes_programado).trigger('change');
@@ -3034,7 +3034,7 @@
                     $('#edit-tipo_de_revisión').val(mantenimiento.tipo_de_revisión).trigger('change');
                     $('#edit-MAscensor').val(mantenimiento.ascensor).trigger('change');
                     $('#edit-dirección').val(mantenimiento.dirección);
-                    $('#edit-provincia').val(mantenimiento.provincia).trigger('change');
+                    $('#edit-province').val(mantenimiento.provincia).trigger('change');
                     $('#edit-NCertificado').val(mantenimiento.núm_certificado);
                     $('#edit-NMaquina').val(mantenimiento.máquina);
                     $('#supervisor_id1').val(mantenimiento.supervisor_id).trigger('change');

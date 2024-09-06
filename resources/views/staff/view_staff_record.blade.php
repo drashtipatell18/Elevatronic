@@ -331,7 +331,7 @@
                             <form id="delete-form" action="{{ route('destroy.staff', $staffs->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn-gris btn-red">Sí</button>
+                                <button type="submit" class="btn-gris btn-red" onclick="this.disabled=true;this.form.submit();">Sí</button>
                             </form>
                         @endisset
                         <button type="button" class="btn-gris btn-border" data-dismiss="modal">No</button>

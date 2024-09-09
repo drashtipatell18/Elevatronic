@@ -184,9 +184,10 @@ class MaintInReviewController extends Controller
         $spareparts = SparePart::all();
         $provinces = Province::pluck('provincia', 'id');
         $Personals = Staff::pluck('nombre', 'id');
+        $months = Month::pluck('nombre', 'id');
         $main_image = ImagePdfs::where('mant_en_revisións_id', $id)->where('document')->get();
         $documents = ImagePdfs::where('mant_en_revisións_id', $id)->where('image')->get();
-        return view('Maint.view_maint_in_review_record', compact('spareparts', 'provinces', 'Personals', 'maint_in_review', 'review_types', 'elevators', 'id', 'main_image', 'documents'));
+        return view('Maint.view_maint_in_review_record', compact('spareparts', 'provinces', 'Personals','months', 'maint_in_review', 'review_types', 'elevators', 'id', 'main_image', 'documents'));
     }
 
 

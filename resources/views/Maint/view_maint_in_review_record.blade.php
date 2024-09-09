@@ -587,10 +587,6 @@
                                     <label for="provinciaAs">Provincia</label>
                                     <select id="edit-provincia" name="provincia" class="form-control"
                                         autocomplete="new-provincia" autoFill="off">
-                                        <option value="">Seleccionar Provincia</option>
-                                        @foreach ($provinces as $key => $province)
-                                            <option value="{{ $key }}">{{ $province }}</option>
-                                        @endforeach
                                     </select>
                                     @error('provincia')
                                         <span class="invalid-feedback" role="alert">
@@ -632,9 +628,6 @@
                                     <label for="técnico">Técnico</label>
                                     <select class="custom-select" name="técnico" id="edit-técnico">
                                         <option value="">Seleccionar opción</option>
-                                        @foreach ($Personals as $key => $Personal)
-                                            <option value="{{ $key }}">{{ $Personal }}</option>
-                                        @endforeach
                                     </select>
                                 </div>
 
@@ -644,64 +637,9 @@
                                         <div class="form-group">
                                             <label for="Mprogramado">Mes
                                                 programado</label>
-                                            <select class="custom-select @error('mes_programado') is-invalid @enderror"
-                                                name="mes_programado" id="edit-Mprogramado">
-                                                {{-- <option value="" class="">Seleccionar
-                                                    opción</option>
-                                                <option value="mes_programado_1"
-                                                    {{ old('mes_programado', $maint_in_review->mes_programado ?? '') == 'mes_programado_1' ? 'selected' : '' }}>
-                                                    Mes programado 1</option>
-                                                <option value="mes_programado_2"
-                                                    {{ old('mes_programado', $maint_in_review->mes_programado ?? '') == 'mes_programado_2' ? 'selected' : '' }}>
-                                                    Mes programado 2</option>
-                                                <option value="mes_programado_3"
-                                                    {{ old('mes_programado', $maint_in_review->mes_programado ?? '') == 'mes_programado_3' ? 'selected' : '' }}>
-                                                    Mes programado 3</option> --}}
-
-                                                <option value="">Seleccionar opción</option>
-                                                <option value="1"
-                                                    {{ old('mes_programado', $maint_in_review->mes_programado ?? '') == '1' ? 'selected' : '' }}>
-                                                    Enero</option>
-                                                <option value="2"
-                                                    {{ old('mes_programado', $maint_in_review->mes_programado ?? '') == '2' ? 'selected' : '' }}>
-                                                    Febrero</option>
-                                                <option value="3"
-                                                    {{ old('mes_programado', $maint_in_review->mes_programado ?? '') == '3' ? 'selected' : '' }}>
-                                                    Marzo</option>
-                                                <option value="4"
-                                                    {{ old('mes_programado', $maint_in_review->mes_programado ?? '') == '4' ? 'selected' : '' }}>
-                                                    Abril</option>
-                                                <option value="5"
-                                                    {{ old('mes_programado', $maint_in_review->mes_programado ?? '') == '5' ? 'selected' : '' }}>
-                                                    Mayo</option>
-                                                <option value="6"
-                                                    {{ old('mes_programado', $maint_in_review->mes_programado ?? '') == '6' ? 'selected' : '' }}>
-                                                    Junio</option>
-                                                <option value="7"
-                                                    {{ old('mes_programado', $maint_in_review->mes_programado ?? '') == '7' ? 'selected' : '' }}>
-                                                    Julio</option>
-                                                <option value="8"
-                                                    {{ old('mes_programado', $maint_in_review->mes_programado ?? '') == '8' ? 'selected' : '' }}>
-                                                    Agosto</option>
-                                                <option value="9"
-                                                    {{ old('mes_programado', $maint_in_review->mes_programado ?? '') == '9' ? 'selected' : '' }}>
-                                                    Septiembre</option>
-                                                <option value="10"
-                                                    {{ old('mes_programado', $maint_in_review->mes_programado ?? '') == '10' ? 'selected' : '' }}>
-                                                    Octubre</option>
-                                                <option value="11"
-                                                    {{ old('mes_programado', $maint_in_review->mes_programado ?? '') == '11' ? 'selected' : '' }}>
-                                                    Noviembre</option>
-                                                <option value="12"
-                                                    {{ old('mes_programado', $maint_in_review->mes_programado ?? '') == '12' ? 'selected' : '' }}>
-                                                    Diciembre</option>
-
-                                            </select>
-                                            @error('mes_programado')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
+                                                <select class="custom-select" name="mes_programado" id="edit-Mprogramado">
+                                                    <option value="">Seleccionar opción</option>
+                                                </select>
                                         </div>
                                     </div>
 

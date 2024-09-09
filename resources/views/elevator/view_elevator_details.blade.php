@@ -3267,8 +3267,6 @@
                     var imageUrl = elevator.imagen ? "{{ asset('images/') }}/" + elevator.imagen :
                         "{{ asset('img/fondo.png') }}";
                     $('#edit-elevators').attr('src', imageUrl);
-                    $('#editelevatform').attr('action', '/ascensore/actualizar/' + elevator.id);
-
                 });
 
                 $(document).on('click', '.delete-elevator', function() {

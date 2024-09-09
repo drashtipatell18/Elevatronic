@@ -380,7 +380,6 @@
                     nombre: "required",
                     precio: {
                         required: true,
-                        number: true
                     },
                     // descripción: "required",
                     frecuencia_de_limpieza: {
@@ -409,7 +408,6 @@
                     nombre: "Por favor, ingrese el nombre del repuesto",
                     precio: {
                         required: "Por favor, ingrese el precio",
-                        number: "Por favor, ingrese un valor numérico para el precio"
                     },
                     frecuencia_de_limpieza: {
                         // required: "Por favor, ingrese la frecuencia de limpieza",

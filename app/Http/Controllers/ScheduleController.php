@@ -22,6 +22,7 @@ class ScheduleController extends Controller
 
     public function scheduleInsert(Request $request)
     {
+        // Validate the incoming request data
         $validatedData = $request->validate([
             'ascensor' => 'required',
             'revisar' => 'required',
@@ -32,27 +33,36 @@ class ScheduleController extends Controller
             'estado' => 'required',
         ]);
 
-        $ascensor = Elevators::where('nombre', $request->input('ascensor'))->first();
-        $provinceId = $ascensor ? $ascensor->provincia : null; // Assuming province_id is a field in the Elevators model
+        try {
+            // echo 'try';exit;
+            $ascensor = Elevators::where('nombre', $request->input('ascensor'))->first();
+            $provinceId = $ascensor ? $ascensor->provincia : null; // Assuming province_id is a field in the Elevators model
         
-        if (!$provinceId) {
-            return redirect()->back()->withErrors(['ascensor' => 'Selected ascensor does not have an associated province.']);
+            if (!$provinceId) {
+                return response()->json(['errors' => ['ascensor' => ['La provincia no está definida en el ascensor.']]], 422);
+            }
+
+            $reviewtype = Schedule::create([
+                'ascensor'             => $request->input('ascensor'),
+                'revisar'              => $request->input('revisar'),
+                'técnico'              => $request->input('técnico'),
+                'mantenimiento'        => $request->input('mantenimiento'),
+                'hora_de_inicio'       => $request->input('hora_de_inicio'),
+                'hora_de_finalización' => $request->input('hora_de_finalización'),
+                'estado'               => $request->input('estado'),
+                'provincia'            => $provinceId,
+            ]);
+
+            // Redirect back with success message
+            session()->flash('success', 'Cronograma creado exitosamente!');
+            return redirect()->route('schedule');
+        } catch (\Exception $e) {
+            // echo 'catch';exit;
+            // Log the error message
+            \Log::error('Error inserting schedule: ' . $e->getMessage());
+            return response()->json(['errors' => ['ascensor' => ['An error occurred while creating the schedule.']]], 422);
+
         }
-
-        $reviewtype = Schedule::create([
-            'ascensor'             => $request->input('ascensor'),
-            'revisar'              => $request->input('revisar'),
-            'técnico'              => $request->input('técnico'),
-            'mantenimiento'        => $request->input('mantenimiento'),
-            'hora_de_inicio'       => $request->input('hora_de_inicio'),
-            'hora_de_finalización' => $request->input('hora_de_finalización'),
-            'estado'               => $request->input('estado'),
-            'provincia'            => $provinceId,
-        ]);
-
-        // Redirect back with success message
-        session()->flash('success', 'Cronograma creado exitosamente!');
-        return redirect()->route('schedule');
     }
 
     public function scheduleUpdate(Request $request, $id)

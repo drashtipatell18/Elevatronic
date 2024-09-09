@@ -70,7 +70,7 @@
                                     <tbody>
                                         @foreach ($reviewtypes as $index => $reviewtype)
                                             <tr class="td-head-center">
-                                                <td>{{ $index + 1 }}</td>
+                                                <td>{{ $reviewtype->id }}</td>
                                                 <td class="text-center">{{ $reviewtype->nombre }}</td>
                                                 {{-- <td class="text-center">{{ $reviewtype->descripción }}</td> --}}
                                                 <td align="right">

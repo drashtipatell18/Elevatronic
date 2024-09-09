@@ -71,7 +71,7 @@
                                     <tbody>
                                         @foreach ($elevator_types as $index => $elevator_type)
                                             <tr class="td-head-center">
-                                                <td>{{ $index + 1 }}</td>
+                                                <td>{{ $elevator_type->id }}</td>
                                                 <td align="center">
                                                     <a href="{{ route('details.elevatortypes', $elevator_type->id) }}"
                                                         class="text-blue">

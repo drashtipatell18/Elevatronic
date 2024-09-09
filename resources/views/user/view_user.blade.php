@@ -130,7 +130,7 @@
                                     <tbody>
                                         @foreach ($users as $index => $user)
                                             <tr class="td-head-center">
-                                                <td>{{ $index + 1 }}</td>
+                                                <td>{{ $user->id }}</td>
                                                 <td>
                                                     @if ($user->image)
                                                         <img src="{{ asset('images/' . $user->image) }}" alt="personal"

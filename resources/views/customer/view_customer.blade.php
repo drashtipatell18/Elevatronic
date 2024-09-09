@@ -105,7 +105,7 @@
                                     <tbody>
                                         @foreach ($customers as $index => $customer)
                                             <tr class="td-head-center">
-                                                <td>{{ $index + 1 }}</td>
+                                                <td>{{ $customer->id }}</td>
                                                 <td>{{ $customer->nombre }}</td>
                                                 <td>{{ $customer->customertype->tipo_de_client }}</td>
                                                 <td>{{ $customer->ruc }}</td>

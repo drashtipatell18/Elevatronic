@@ -119,7 +119,7 @@
                                             <tbody>
                                                 @foreach ($elevators as $index => $elevator)
                                                     <tr class="td-head-center">
-                                                        <td class="text-center">{{ $index + 1 }}</td>
+                                                        <td class="text-center">{{ $elevator->id }}</td>
                                                         <td class="text-center">{{ $elevator->fecha }}</td>
                                                         <td class="text-center">
                                                             {{ $elevator->tipoDeAscensor->nombre_de_tipo_de_ascensor ?? '-' }}

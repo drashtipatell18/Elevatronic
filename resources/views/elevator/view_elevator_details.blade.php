@@ -1282,7 +1282,7 @@
                                                             <img src="{{ asset('img/fondo.png') }}" alt="personal"
                                                                 width="52" height="52" class="img-table"></td>
                                                     @endif
-                                                    <td>{{ $index + 1 }}</td>
+                                                    <td>{{ $sparepart->id }}</td>
                                                     <td>
                                                         <a href="{{ route('view.sparepart', $sparepart->id) }}"
                                                             class="text-blue">

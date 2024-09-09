@@ -147,7 +147,7 @@
                                                             height="52" class="img-table setimage" alt="user">
                                                     @endif
                                                 </td>
-                                                <td>{{ $index + 1 }}</td>
+                                                <td>{{ $staff->id }}</td>
                                                 <td>
                                                     <a href="{{ route('view.staff', $staff->id) }}" class="text-blue">
                                                         {{ $staff->nombre }}

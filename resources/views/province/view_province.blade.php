@@ -83,7 +83,7 @@
                                     <tbody>
                                         @foreach ($provinces as $index => $province)
                                             <tr class="td-head-center">
-                                                <td>{{ $index + 1 }}</td>
+                                                <td>{{ $province->id }}</td>
                                                 <td class="text-center">
                                                     <a href="{{ route('view.province', $province->id) }}" class="text-blue">
                                                         {{ $province->provincia }}

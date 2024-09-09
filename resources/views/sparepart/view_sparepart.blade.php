@@ -103,7 +103,7 @@
                                                             height="52" class="img-table object" alt="user">
                                                     @endif
                                                 </td>
-                                                <td>{{ $index + 1 }}</td>
+                                                <td>{{ $sparepart->id }}</td>
                                                 <td>
                                                     <a href="{{ route('view.sparepart', $sparepart->id) }}"
                                                         class="text-blue">

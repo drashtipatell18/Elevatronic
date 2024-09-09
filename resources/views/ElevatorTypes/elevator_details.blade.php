@@ -127,7 +127,7 @@
                                                 @foreach ($assginspares as $index => $assginspare)
                                                     @php $assginspare->load('sparePart'); @endphp
                                                     <tr>
-                                                        <td>{{ $index + 1 }}</td>
+                                                        <td>{{ $assginspare->id }}</td>
                                                         <td class="text-center">
                                                             {{ $assginspare->nombre_del_tipo_de_ascensor }}</td>
                                                         <td>
@@ -195,7 +195,7 @@
                                             <tbody>
                                                 @foreach ($elevators as $index => $elevator)
                                                     <tr>
-                                                        <td>{{ $index + 1 }}</td>
+                                                        <td>{{ $elevators->id }}</td>
                                                         <td>{{ $elevator->fecha }}</td>
                                                         <td>{{ $elevator_type->nombre_de_tipo_de_ascensor }}</td>
                                                         <td>

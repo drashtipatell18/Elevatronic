@@ -966,7 +966,7 @@
                                 'change'); // Ensure the value is set and trigger change
                             $('#edit-técnico_ajustador').val(edit.técnico_ajustador).trigger(
                                 'change'); // Ensure the value is set and trigger change
-                            $('#edit-tipo_de_ascensor').val(edit.tipo_de_ascensor).trigger(
+                            $('#edit-tipo_de_ascensor').val(edit.tipo_de_ascensor.id).trigger(
                                 'change'); // Ensure the value is set and trigger change
                         }
                     },
@@ -1178,7 +1178,7 @@
                 $('#edit-province').val(elevator.provincia).trigger('change');
                 $('#edit-técnico_instalador').val(elevator.técnico_instalador).trigger('change');
                 $('#edit-técnico_ajustador').val(elevator.técnico_ajustador).trigger('change');
-                $('#edit-tipo_de_ascensor').val(elevator.tipo_de_ascensor).trigger('change');
+                $('#edit-tipo_de_ascensor').val(elevator.tipo_de_ascensor.id).trigger('change');
                 $('#edit-cantidad').val(elevator.cantidad);
                 $('#edit-npisos').val(elevator.npisos);
                 $('#edit-ncontacto').val(elevator.ncontacto);

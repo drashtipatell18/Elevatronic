@@ -457,14 +457,8 @@
                                                             <div class="col-md-6 mb-3">
                                                                 <label>Foto de Ascensor</label>
                                                                 <div id="editimagePreview">
-                                                                    {{-- @if ($elevator->imagen) --}}
                                                                     <img src="" alt="Image" width="200px"
                                                                         height="200px" id="edit-elevators">
-                                                                    {{-- @else
-                                                                        <img src="{{ asset('img/fondo.png') }}"
-                                                                            alt="Image" width="200px"
-                                                                            id="edit-elevators" height="200px">
-                                                                    @endif --}}
                                                                 </div>
                                                             </div>
                                                             <div
@@ -815,7 +809,8 @@
                                             <form id="delete-form" action="" method="POST">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn-gris btn-red" onclick="this.disabled=true;this.form.submit();">Sí</button>
+                                                <button type="submit" class="btn-gris btn-red"
+                                                    onclick="this.disabled=true;this.form.submit();">Sí</button>
                                             </form>
                                             <button type="button" class="btn-gris btn-border"
                                                 data-dismiss="modal">No</button>
@@ -1104,11 +1099,14 @@
                                 table.row.add([
                                     elevator.id || '', // Column 0
                                     elevator.fecha || '', // Column 1
-                                    elevator.tipo_de_ascensor ? elevator.tipo_de_ascensor.nombre_de_tipo_de_ascensor : '',                                    `<a href="${baseUrl}/ascensore/vista/${elevator.id}" class="text-blue">${elevator.nombre}</a>`, // Updated to show elevator name as a link
+                                    elevator.tipo_de_ascensor ? elevator
+                                    .tipo_de_ascensor.nombre_de_tipo_de_ascensor : '',
+                                    `<a href="${baseUrl}/ascensore/vista/${elevator.id}" class="text-blue">${elevator.nombre}</a>`, // Updated to show elevator name as a link
                                     elevator.client ?
                                     `<a href="${baseUrl}/clientes/vista/${elevator.client_id}" class="text-blue">${elevator.client.nombre}</a>` :
                                     '-',
-                                    elevator.province ? elevator.province.provincia : '', // Column 5
+                                    elevator.province ? elevator.province.provincia :
+                                    '', // Column 5
                                     // ... existing code ...
                                     `<td align="right">
                                         <div class="dropdown">
@@ -1303,7 +1301,6 @@
             // ... existing code ...
             $(document).on('click', '.edit-elevator', function() {
                 var elevator = $(this).data('elevator');
-                console.log(elevator);
                 $('#editelevatform').attr('action', '/ascensore/actualizar/' + elevator.id);
 
                 // Set values for all form fields using jQuery
@@ -1320,10 +1317,11 @@
                 $('#edit-provincia').val(elevator.provincia).trigger('change');
                 $('#edit-técnico_instalador').val(elevator.técnico_instalador).trigger('change');
                 $('#edit-técnico_ajustador').val(elevator.técnico_ajustador).trigger('change');
-                $('#edit-tipo_de_ascensor').val(elevator.tipo_de_ascensor.id).trigger('change'); // Ensure the value is set and trigger change
+                $('#edit-tipo_de_ascensor').val(elevator.tipo_de_ascensor.id).trigger(
+                'change'); // Ensure the value is set and trigger change
                 $('#edit-cantidad').val(elevator.cantidad);
                 $('#edit-npisos').val(elevator.npisos);
-                $('#edit-ncontacto').val(elevator.ncontacto); 
+                $('#edit-ncontacto').val(elevator.ncontacto);
                 $('#edit-teléfono').val(elevator.teléfono);
                 $('#edit-correo').val(elevator.correo);
                 $('#edit-descripcion1').val(elevator.descripcion1);
@@ -1346,15 +1344,16 @@
 
                 // Set the image preview
                 var imageUrl = elevator.imagen ? "{{ asset('images/') }}/" + elevator.imagen :
-                    "{{ asset('img/fondo.png') }}";
-                $('#edit-elevators').attr('src', imageUrl);
-                
+                        "{{ asset('img/fondo.png') }}";
+                    $('#edit-elevators').attr('src', imageUrl);
+
             });
 
             $(document).on('click', '.delete-elevator', function() {
                 var elevatorId = $(this).data('id'); // Get the elevator ID
                 $('#modalEliminar').modal('show'); // Show the modal
-                $('#delete-form').attr('action', '/ascensore/destruir/' + elevatorId); // Set the form action to the DELETE route
+                $('#delete-form').attr('action', '/ascensore/destruir/' +
+                elevatorId); // Set the form action to the DELETE route
             });
             $('#crearAscensor').on('hidden.bs.modal', function() {
                 var form = $('#createelevatform');

@@ -178,7 +178,7 @@
                                         {{ $item->nombre_del_tipo_de_ascensor ?? '' }} {{-- Check if nombre_del_tipo_de_ascensor is not null --}}
                                     </a>
                                 </td>
-                                <td>{{ $item->elevator->nombre }}</td>
+                                <td>{{ $item->elevator ? $item->elevator->nombre : '-' }}</td> 
                                 <td>{{ $item->dirección }}</td>
                                 <td>{{ $item->fecha_de_mantenimiento }}</td>
                                 <td>{{ $item->hora_inicio }}</td>

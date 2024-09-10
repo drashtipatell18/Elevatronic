@@ -140,8 +140,8 @@
                                                                 method="POST">
                                                                 @csrf
                                                                 @method('DELETE')
-                                                                <button type="submit"
-                                                                    class="btn-gris btn-red" onclick="this.disabled=true;this.form.submit();">Sí</button>
+                                                                <button type="submit" class="btn-gris btn-red"
+                                                                    onclick="this.disabled=true;this.form.submit();">Sí</button>
                                                             </form>
                                                             <button type="button" class="btn-gris btn-border"
                                                                 data-dismiss="modal">No</button>
@@ -179,14 +179,16 @@
                                                 <div class="form-group">
                                                     <label for="provincia">Nombre de
                                                         Provincia</label>
-                                                        <select class="custom-select form-control" name="provincia" id="edit-provincia">
-                                                            <option value="">Seleccionar opción</option>
-                                                            @foreach ($provinces as $provinceOption)
-                                                                <option value="{{ $provinceOption->id }}"
-                                                                    {{ old('provincia', $province->provincia) == $provinceOption->provincia ? 'selected' : '' }}>
-                                                                    {{ $provinceOption->provincia }}</option>
-                                                            @endforeach
-                                                        </select>
+                                                    <select class="custom-select form-control" name="provincia"
+                                                        id="edit-provincia">
+                                                        <option value="">Seleccionar opción</option>
+                                                        @foreach ($provinces as $provinceOption)
+                                                        <option value="{{ $provinceOption->provincia }}"
+                                                            {{ old('provincia', isset($province) ? $province->provincia : '') == $provinceOption->provincia ? 'selected' : '' }}>
+                                                            {{ $provinceOption->provincia }}
+                                                        </option>
+                                                    @endforeach
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
@@ -232,7 +234,8 @@
                                         method="POST">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn-gris btn-red" onclick="this.disabled=true;this.form.submit();">Sí</button>
+                                        <button type="submit" class="btn-gris btn-red"
+                                            onclick="this.disabled=true;this.form.submit();">Sí</button>
                                     </form>
                                     <button type="button" class="btn-gris btn-border" data-dismiss="modal">No</button>
                                 </div>
@@ -266,10 +269,12 @@
 
                                             <div class="form-group">
                                                 <label for="provincia">Nombre de Provincia</label>
-                                                <select class="custom-select form-control" name="provincia" id="provincia">
+                                                <select class="custom-select form-control" name="provincia"
+                                                    id="provincia">
                                                     <option value="" class="d-none">Seleccionar opción</option>
                                                     @foreach ($provinces as $province)
-                                                        <option value="{{ $province->provincia }}">{{ $province->provincia }}</option> <!-- Show name -->
+                                                        <option value="{{ $province->provincia }}">
+                                                            {{ $province->provincia }}</option> <!-- Show name -->
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -442,9 +447,9 @@
             $(document).on('click', '.edit-province', function() {
 
                 $('#edit-provincia').val('');
-                
+
                 var province = $(this).data('province');
-                $('#edit-provincia').val(province.id);
+                $('#edit-provincia').val(province.provincia);
                 $('#editprovinceForm').attr('action', '/provincia/actualizar/' + province.id);
 
             });

@@ -1067,7 +1067,7 @@
                 $('#edit-provincia').val('');
 
                 var province = $(this).data('province');
-                $('#edit-provincia').val(province.id);
+                $('#edit-provincia').val(province.provincia);
                 $('#editprovinceForm').attr('action', '/provincia/actualizar/' + province.id);
 
             });

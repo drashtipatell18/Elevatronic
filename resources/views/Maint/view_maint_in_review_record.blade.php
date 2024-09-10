@@ -1277,7 +1277,7 @@
                 $('#edit-provincia').val(mantenimiento.provincia);
                 $('#edit-NCertificado').val(mantenimiento.núm_certificado);
                 $('#edit-NMaquina').val(mantenimiento.máquina);
-                $('#supervisor_id1').val(mantenimiento.supervisor_id).trigger('change');
+                $('#supervisor_id').val(mantenimiento.supervisor_id).trigger('change');
                 $('#edit-técnico').val(mantenimiento.técnico).trigger('change');
                 $('#edit-Mprogramado').val(mantenimiento.mes_programado).trigger('change');
                 $('#edit-FMantenimiento').val(mantenimiento.fecha_de_mantenimiento);

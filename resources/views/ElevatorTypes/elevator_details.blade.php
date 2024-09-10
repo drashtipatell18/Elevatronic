@@ -195,7 +195,7 @@
                                             <tbody>
                                                 @foreach ($elevators as $index => $elevator)
                                                     <tr>
-                                                        <td>{{ $elevators->id }}</td>
+                                                        <td>{{ $elevator->id }}</td>
                                                         <td>{{ $elevator->fecha }}</td>
                                                         <td>{{ $elevator_type->nombre_de_tipo_de_ascensor }}</td>
                                                         <td>

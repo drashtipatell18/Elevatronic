@@ -17,13 +17,13 @@ class MaintInReviewController extends Controller
 {
     public function maintInReview(Request $request)
     {
-        $maint_in_reviews = MaintInReview::with(['staff', 'elevator','reviewtype'])->get();
+        $maint_in_reviews = MaintInReview::with(['staff', 'elevator', 'reviewtype'])->get();
         $review_types = ReviewType::pluck('nombre', 'id');
         $elevators = Elevators::pluck('nombre', 'id');
         $provinces = Province::pluck('provincia', 'id');
         $Personals = Staff::pluck('nombre', 'id');
         $months = Month::pluck('nombre', 'id');
-        return view('Maint.view_maint_in_review', compact('months','maint_in_reviews', 'review_types', 'elevators', 'provinces', 'Personals'));
+        return view('Maint.view_maint_in_review', compact('months', 'maint_in_reviews', 'review_types', 'elevators', 'provinces', 'Personals'));
     }
     public function maintInReviewApi(Request $request)
     {
@@ -33,11 +33,33 @@ class MaintInReviewController extends Controller
 
         // Calculate the current page
         $currentPage = ($start / $length) + 1;
+        // Get the sorting parameters
+        $sortColumn = $request->input('order.0.column', 'id'); // Default sort column
+        $sortDirection = $request->input('order.0.dir', 'asc'); // Default sort direction
 
-        // Fetch paginated data
+        // Validate sort direction
+        if (!in_array($sortDirection, ['asc', 'desc'])) {
+            $sortDirection = 'asc'; // Fallback to default
+        }
+
+        // Define allowed columns for sorting
+        $allowedSortColumns = ['id', 'tipo_de_revisión', 'ascensor', 'provincia']; // Add other columns as needed
+
+        // Validate sort column
+        if (!in_array($sortColumn, $allowedSortColumns)) {
+            $sortColumn = 'id'; // Fallback to default
+        }
+        $searchValue = $request->input('search.value', ''); // Default to empty string
+
+        // Fetch paginated data with sorting
         $maint_in_reviews = MaintInReview::with(['staff', 'elevator', 'reviewtype'])
-            ->paginate($length, ['*'], 'page', $currentPage);
-
+        ->when($searchValue, function ($query) use ($searchValue) {
+            return $query->where(function ($query) use ($searchValue) {
+                $query->where('id', 'like', "%{$searchValue}%");
+            });
+        })
+        ->orderBy($sortColumn, $sortDirection) // Add sorting
+        ->paginate($length, ['*'], 'page', $currentPage);
         // Send the paginated response
         return response()->json([
             'draw' => $request->input('draw'),  // Pass the 'draw' parameter from DataTables
@@ -47,13 +69,14 @@ class MaintInReviewController extends Controller
         ]);
     }
 
-    public function getDataMaintance(){
+    public function getDataMaintance()
+    {
         return response()->json([
-            'months' =>   Month::pluck('nombre','id')->toArray(), // Fetch all data with eager loading
-            'review_types' => ReviewType::pluck('nombre','id')->toArray(), // Convert to array
-            'elevators' => Elevators::pluck('nombre','id')->toArray(), // Convert to array
+            'months' =>   Month::pluck('nombre', 'id')->toArray(), // Fetch all data with eager loading
+            'review_types' => ReviewType::pluck('nombre', 'id')->toArray(), // Convert to array
+            'elevators' => Elevators::pluck('nombre', 'id')->toArray(), // Convert to array
             'provinces' => Province::pluck('provincia', 'id')->toArray(),
-            'staffs' => Staff::pluck('nombre','id')->toArray(), // Convert to array
+            'staffs' => Staff::pluck('nombre', 'id')->toArray(), // Convert to array
         ]);
     }
     public function totalRecordCount()
@@ -178,7 +201,7 @@ class MaintInReviewController extends Controller
 
     public function maintInReviewDetails($id)
     {
-        $maint_in_review = MaintInReview::with(['supervisor','staff', 'elevator','reviewtype','month','province'])->findOrFail($id);
+        $maint_in_review = MaintInReview::with(['supervisor', 'staff', 'elevator', 'reviewtype', 'month', 'province'])->findOrFail($id);
         $review_types = ReviewType::pluck('nombre', 'id');
         $elevators = Elevators::pluck('nombre', 'id');
         $spareparts = SparePart::all();
@@ -187,7 +210,7 @@ class MaintInReviewController extends Controller
         $months = Month::pluck('nombre', 'id');
         $main_image = ImagePdfs::where('mant_en_revisións_id', $id)->where('document')->get();
         $documents = ImagePdfs::where('mant_en_revisións_id', $id)->where('image')->get();
-        return view('Maint.view_maint_in_review_record', compact('spareparts', 'provinces', 'Personals','months', 'maint_in_review', 'review_types', 'elevators', 'id', 'main_image', 'documents'));
+        return view('Maint.view_maint_in_review_record', compact('spareparts', 'provinces', 'Personals', 'months', 'maint_in_review', 'review_types', 'elevators', 'id', 'main_image', 'documents'));
     }
 
 

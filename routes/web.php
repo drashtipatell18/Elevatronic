@@ -108,8 +108,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/supervisors', [MaintInReviewController::class, 'getSupervisors'])->name('supervisors');
     Route::get('/get-observation/{id}', [MaintInReviewController::class, 'getObservation']);
     Route::get('/getDataMaintance', [MaintInReviewController::class, 'getDataMaintance'])->name('getDataMaintance');
-
-    // Maintenance //
+    Route::get('/maint/in-review/export/{type}', [MaintInReviewController::class, 'export'])->name('maint_in_review.export');    // Maintenance //
 
     // Route::get('/mantenimiento', [MaintenanceController::class, 'maintenance'])->name('maintenance');
     // Route::post('/mantenimiento/insertar',[MaintenanceController::class,'maintenanceInsert'])->name('insert.maintenance');

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Elevators;
 use App\Models\ImagePdfs;
-use App\Models\MaintInReview;
 use App\Models\ReviewType;
 use App\Models\Province;
 use App\Models\Staff;
@@ -12,6 +11,10 @@ use Illuminate\Http\Request;
 use App\Models\SparePart;
 use App\Models\Month;
 use App\Models\Supervisor;
+use App\Models\MaintInReview;
+use Barryvdh\DomPDF\Facade as PDF; // Ensure this line is present
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class MaintInReviewController extends Controller
 {
@@ -53,13 +56,13 @@ class MaintInReviewController extends Controller
 
         // Fetch paginated data with sorting
         $maint_in_reviews = MaintInReview::with(['staff', 'elevator', 'reviewtype'])
-        ->when($searchValue, function ($query) use ($searchValue) {
-            return $query->where(function ($query) use ($searchValue) {
-                $query->where('id', 'like', "%{$searchValue}%");
-            });
-        })
-        ->orderBy($sortColumn, $sortDirection) // Add sorting
-        ->paginate($length, ['*'], 'page', $currentPage);
+            ->when($searchValue, function ($query) use ($searchValue) {
+                return $query->where(function ($query) use ($searchValue) {
+                    $query->where('id', 'like', "%{$searchValue}%");
+                });
+            })
+            ->orderBy($sortColumn, $sortDirection) // Add sorting
+            ->paginate($length, ['*'], 'page', $currentPage);
         // Send the paginated response
         return response()->json([
             'draw' => $request->input('draw'),  // Pass the 'draw' parameter from DataTables
@@ -69,6 +72,78 @@ class MaintInReviewController extends Controller
         ]);
     }
 
+    public function export($type)
+    {
+        $maint_in_reviews = MaintInReview::with(['staff', 'elevator', 'reviewtype'])->get();
+
+        switch ($type) {
+            case 'excel':
+                return $this->exportExcel($maint_in_reviews);
+            case 'pdf':
+                return $this->exportPdf($maint_in_reviews);
+            case 'copy':
+                return $this->exportCopy($maint_in_reviews);
+            case 'print':
+                return $this->exportPrint($maint_in_reviews);
+            default:
+                return redirect()->back()->with('error', 'Invalid export type');
+        }
+    }
+
+    private function exportExcel($maint_in_reviews)
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        // Set header
+        $sheet->setCellValue('A1', 'ID');
+        $sheet->setCellValue('B1', 'Tipo de Revisión');
+        $sheet->setCellValue('C1', 'Ascensor');
+        $sheet->setCellValue('D1', 'Fecha de Mantenimiento');
+        $sheet->setCellValue('E1', 'Técnico');
+
+        // Populate data
+        $row = 2; // Start from the second row
+        foreach ($maint_in_reviews as $review) {
+            $sheet->setCellValue('A' . $row, $review->id);
+            $sheet->setCellValue('B' . $row, $review->reviewtype->nombre ?? '-'); // Use 'N/A' if reviewtype is null            $sheet->setCellValue('C' . $row, $review->elevator->nombre);
+            $sheet->setCellValue('D' . $row, $review->fecha_de_mantenimiento);
+            $sheet->setCellValue('E' . $row, $review->staff->nombre ?? '-');
+            $row++;
+        }
+
+        // Create Excel file
+        $writer = new Xlsx($spreadsheet);
+        $filename = 'maint_in_review_' . date('Ymd') . '.xlsx';
+
+        // Set headers for download
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment; filename="' . $filename . '"');
+        $writer->save('php://output');
+        exit;
+    }
+
+    private function exportPdf($maint_in_reviews)
+    {
+        $pdf = PDF::loadView('pdf.maint_in_review', compact('maint_in_reviews'));
+        return $pdf->download('maint_in_review_' . date('Ymd') . '.pdf');
+    }
+
+    private function exportCopy($maint_in_reviews)
+    {
+        // Logic for copying data to clipboard
+        // This typically requires client-side handling
+        // You can return a JSON response or handle it in the frontend
+        return response()->json(['data' => $maint_in_reviews]);
+    }
+
+    private function exportPrint($maint_in_reviews)
+    {
+        // Logic for printing data
+        // This typically requires client-side handling
+        // You can return a view that formats the data for printing
+        return view('print.maint_in_review', compact('maint_in_reviews'));
+    }
     public function getDataMaintance()
     {
         return response()->json([

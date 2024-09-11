@@ -85,10 +85,10 @@
                                         Exportar Datos <i class="iconoir-nav-arrow-down"></i>
                                     </button>
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                                        <button class="dropdown-item" id="export_excel">Excel</button>
-                                        <button class="dropdown-item" id="export_pdf">PDF</button>
-                                        <button class="dropdown-item" id="export_copy">Copiar</button>
-                                        <button class="dropdown-item" id="export_print">Imprimir</button>
+                                        <a class="dropdown-item" href="{{ route('maint_in_review.export', ['type' => 'excel']) }}">Excel</a>
+                                        <a class="dropdown-item" href="{{ route('maint_in_review.export', ['type' => 'pdf']) }}">PDF</a>
+                                        <a class="dropdown-item" href="{{ route('maint_in_review.export', ['type' => 'copy']) }}">Copiar</a>
+                                        <a class="dropdown-item" href="{{ route('maint_in_review.export', ['type' => 'print']) }}">Imprimir</a>
                                     </div>
                                 </div>
                             </div>
@@ -566,7 +566,8 @@
                     <form id="delete-form" action="" method="POST">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn-gris btn-red" onclick="this.disabled=true;this.form.submit();">Sí</button>
+                        <button type="submit" class="btn-gris btn-red"
+                            onclick="this.disabled=true;this.form.submit();">Sí</button>
                         <button type="button" class="btn-gris btn-border" data-dismiss="modal">No</button>
                     </form>
                     {{-- @endisset --}}
@@ -971,7 +972,10 @@
                     {
                         extend: 'excel',
                         exportOptions: {
-                            columns: ':not(:last-child)' // Excluye las dos últimas columnas
+                            columns: ':not(:last-child)',
+                            modifier: {
+                                page: 'all' // This ensures all pages are included
+                            }
                         }
                     },
                     {

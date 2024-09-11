@@ -125,24 +125,45 @@ class MaintInReviewController extends Controller
 
     private function exportPdf($maint_in_reviews)
     {
-        $mpdf = new \Mpdf\Mpdf(); // Create a new instance of mPDF
-        $html = '<h1>Mantenimiento en Revisión</h1>';
-        $html .= '<table cellpadding="5"><tr><th>ID</th><th>Tipo de Revisión</th><th>Ascensor</th><th>Fecha de Mantenimiento</th><th>Técnico</th></tr>';
-    
-        foreach ($maint_in_reviews as $review) {
-            $html .= '<tr>';
-            $html .= '<td>' . $review->id . '</td>';
-            $html .= '<td>' . ($review->reviewtype->nombre ?? '-') . '</td>'; // Use '-' if reviewtype is null
-            $html .= '<td>' . $review->elevator->nombre . '</td>';
-            $html .= '<td>' . $review->fecha_de_mantenimiento . '</td>';
-            $html .= '<td>' . ($review->staff->nombre ?? '-') . '</td>';
-            $html .= '</tr>';
+
+        $mpdf = new Mpdf(); // Create a new instance of mPDF
+        $mpdf->SetDisplayMode('fullpage');
+
+        // Check if there are any reviews to export
+        if ($maint_in_reviews->isEmpty()) {
+            $mpdf->WriteHTML('<h1>No data available for export</h1>');
+            $mpdf->Output('no_data.pdf', 'D');
+            exit;
         }
-    
-        $html .= '</table>';
+
+        $htmlHeader = '<h1>Mantenimiento en Revisión</h1>';
+        $htmlHeader .= '<table class="table" cellpadding="5"><tr><th class="text-center">ID</th><th class="text-center">Tipo de Revisión</th><th class="text-center">Ascensor</th><th class="text-center">Fecha de Mantenimiento</th><th class="text-center">Técnico</th></tr>';
+        $mpdf->WriteHTML($htmlHeader); // Write header HTML
+
+        // Process data in chunks
+        $chunkSize = 100; // Adjust chunk size as needed
+        $totalReviews = $maint_in_reviews->count();
+
+        for ($i = 0; $i < $totalReviews; $i += $chunkSize) {
+            $chunk = $maint_in_reviews->slice($i, $chunkSize);
+            $htmlChunk = '';
+
+            foreach ($chunk as $review) {
+                $htmlChunk .= '<tr>';
+                $htmlChunk .= '<td class="text-center">' . $review->id . '</td>';
+                $htmlChunk .= '<td class="text-center">' . ($review->reviewtype->nombre ?? '-') . '</td>';
+                $htmlChunk .= '<td class="text-center">' . ($review->elevator->nombre ?? '-') . '</td>';
+                $htmlChunk .= '<td class="text-center">' . $review->fecha_de_mantenimiento . '</td>';
+                $htmlChunk .= '<td class="text-center">' . ($review->staff->nombre ?? '-') . '</td>';
+                $htmlChunk .= '</tr>';
+            }
+
+            $mpdf->WriteHTML($htmlChunk); // Write chunk HTML
+        }
+
+        $mpdf->WriteHTML('</table>'); // Close the table
+
         $filename = 'maint_in_review_' . date('Ymd') . '.pdf';
-        
-        $mpdf->WriteHTML($html); // Write the HTML to the PDF
         $mpdf->Output($filename, 'D'); // 'D' for download
         exit; // Ensure no further output is sent
     }
@@ -159,19 +180,19 @@ class MaintInReviewController extends Controller
     {
         $html = '<h1>Mantenimiento en Revisión</h1>';
         $html .= '<table cellpadding="5"><tr><th>ID</th><th>Tipo de Revisión</th><th>Ascensor</th><th>Fecha de Mantenimiento</th><th>Técnico</th></tr>';
-    
+
         foreach ($maint_in_reviews as $review) {
             $html .= '<tr>';
             $html .= '<td>' . $review->id . '</td>';
             $html .= '<td>' . ($review->reviewtype->nombre ?? '-') . '</td>'; // Use '-' if reviewtype is null
-            $html .= '<td>' . ($review->elevator->nombre ?? '-') .'</td>';
+            $html .= '<td>' . ($review->elevator->nombre ?? '-') . '</td>';
             $html .= '<td>' . $review->fecha_de_mantenimiento . '</td>';
             $html .= '<td>' . ($review->staff->nombre ?? '-') . '</td>';
             $html .= '</tr>';
         }
-    
+
         $html .= '</table>';
-        
+
         // Return the HTML for printing
         return response($html)->header('Content-Type', 'text/html');
     }

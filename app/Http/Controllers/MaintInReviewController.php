@@ -125,8 +125,26 @@ class MaintInReviewController extends Controller
 
     private function exportPdf($maint_in_reviews)
     {
-        $pdf = PDF::loadView('pdf.maint_in_review', compact('maint_in_reviews'));
-        return $pdf->download('maint_in_review_' . date('Ymd') . '.pdf');
+        $mpdf = new \Mpdf\Mpdf(); // Create a new instance of mPDF
+        $html = '<h1>Mantenimiento en Revisión</h1>';
+        $html .= '<table border="1" cellpadding="5"><tr><th>ID</th><th>Tipo de Revisión</th><th>Ascensor</th><th>Fecha de Mantenimiento</th><th>Técnico</th></tr>';
+    
+        foreach ($maint_in_reviews as $review) {
+            $html .= '<tr>';
+            $html .= '<td>' . $review->id . '</td>';
+            $html .= '<td>' . ($review->reviewtype->nombre ?? '-') . '</td>'; // Use '-' if reviewtype is null
+            $html .= '<td>' . $review->elevator->nombre . '</td>';
+            $html .= '<td>' . $review->fecha_de_mantenimiento . '</td>';
+            $html .= '<td>' . ($review->staff->nombre ?? '-') . '</td>';
+            $html .= '</tr>';
+        }
+    
+        $html .= '</table>';
+        $filename = 'maint_in_review_' . date('Ymd') . '.pdf';
+        
+        $mpdf->WriteHTML($html); // Write the HTML to the PDF
+        $mpdf->Output($filename, 'D'); // 'D' for download
+        exit; // Ensure no further output is sent
     }
 
     private function exportCopy($maint_in_reviews)

@@ -39,6 +39,29 @@
         .select2-container--default .select2-selection--single .select2-selection__clear {
             display: none;
         }
+
+        .loader-circle {
+            border: 8px solid rgba(128, 128, 128, 0.5);
+            /* Grey border */
+            border-top: 8px solid #F8592E;
+            /* Change this color as needed */
+            border-radius: 50%;
+            width: 50px;
+            /* Size of the loader */
+            height: 50px;
+            /* Size of the loader */
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
     </style>
     <div class="w-100 contenido">
         <div class="container-fluid container-mod">
@@ -85,10 +108,14 @@
                                         Exportar Datos <i class="iconoir-nav-arrow-down"></i>
                                     </button>
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href="{{ route('maint_in_review.export', ['type' => 'excel']) }}">Excel</a>
-                                        <a class="dropdown-item" href="{{ route('maint_in_review.export', ['type' => 'pdf']) }}">PDF</a>
-                                        <a class="dropdown-item" href="{{ route('maint_in_review.export', ['type' => 'copy']) }}">Copiar</a>
-                                        <a class="dropdown-item" href="{{ route('maint_in_review.export', ['type' => 'print']) }}">Imprimir</a>
+                                        <a class="dropdown-item" id="export_excel"
+                                            href="{{ route('maint_in_review.export', ['type' => 'excel']) }}">Excel</a>
+                                        <a class="dropdown-item" id="export_pdf"
+                                            href="{{ route('maint_in_review.export', ['type' => 'pdf']) }}">PDF</a>
+                                        <a class="dropdown-item" id="export_copy"
+                                            href="{{ route('maint_in_review.export', ['type' => 'copy']) }}">Copiar</a>
+                                        <a class="dropdown-item" id="export_print"
+                                            href="{{ route('maint_in_review.export', ['type' => 'print']) }}">Imprimir</a>
                                     </div>
                                 </div>
                             </div>
@@ -607,6 +634,11 @@
             </div>
         </div>
     </div>
+
+    <div id="loader"
+        style="display:none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 9999; background: rgba(255, 255, 255, 0.8); padding: 20px; border-radius: 5px;">
+        <div class="loader-circle"></div>
+    </div> <!-- Loader element -->
 @endsection
 @push('scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
@@ -1026,17 +1058,126 @@
 
             // Manejadores para los botones de exportación personalizados
             $("#export_excel").on("click", function() {
-                table.button('.buttons-csv').trigger();
+                $("#loader").show(); // Show loader
+
+                // Perform AJAX request to export Excel
+                $.ajax({
+                    url: "{{ route('maint_in_review.export', ['type' => 'excel']) }}",
+                    method: 'GET',
+                    xhrFields: {
+                        responseType: 'blob' // Set response type to blob for file download
+                    },
+                    success: function(data) {
+                        // Create a link element to download the Excel file
+                        const url = window.URL.createObjectURL(data);
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = 'maint_in_review.xlsx'; // Set the desired file name
+                        document.body.appendChild(a);
+                        a.click();
+                        a.remove();
+                        window.URL.revokeObjectURL(url); // Clean up
+                    },
+                    error: function(xhr) {
+                        console.error('Error exporting Excel:', xhr.responseText);
+                    },
+                    complete: function() {
+                        $("#loader").hide(); // Hide loader after the request is complete
+                    }
+                });
             });
-            $("#export_pdf").on("click", function() {
-                table.button('.buttons-pdf').trigger();
-            });
+
+            // Similar changes for Copy and Print
             $("#export_copy").on("click", function() {
-                table.button('.buttons-copy').trigger();
+                $("#loader").show(); // Show loader
+
+                // Perform AJAX request to export Copy
+                $.ajax({
+                    url: "{{ route('maint_in_review.export', ['type' => 'copy']) }}",
+                    method: 'GET',
+                    xhrFields: {
+                        responseType: 'blob' // Set response type to blob for file download
+                    },
+                    success: function(data) {
+                        // Create a link element to download the Copy
+                        const url = window.URL.createObjectURL(data);
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = 'maint_in_review_copy.txt'; // Set the desired file name
+                        document.body.appendChild(a);
+                        a.click();
+                        a.remove();
+                        window.URL.revokeObjectURL(url); // Clean up
+                    },
+                    error: function(xhr) {
+                        console.error('Error exporting Copy:', xhr.responseText);
+                    },
+                    complete: function() {
+                        $("#loader").hide(); // Hide loader after the request is complete
+                    }
+                });
             });
+
+            $("#export_pdf").on("click", function() {
+                $("#loader").show(); // Show loader
+
+                // Perform AJAX request to export PDF
+                $.ajax({
+                    url: "{{ route('maint_in_review.export', ['type' => 'pdf']) }}", // Adjust the URL to your route
+                    method: 'GET',
+                    xhrFields: {
+                        responseType: 'blob' // Set response type to blob for file download
+                    },
+                    success: function(data) {
+                        // Create a link element to download the PDF
+                        const url = window.URL.createObjectURL(data);
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = 'maint_in_review.pdf'; // Set the desired file name
+                        document.body.appendChild(a);
+                        a.click();
+                        a.remove();
+                        window.URL.revokeObjectURL(url); // Clean up
+                    },
+                    error: function(xhr) {
+                        console.error('Error exporting PDF:', xhr.responseText);
+                    },
+                    complete: function() {
+                        $("#loader").hide(); // Hide loader after the request is complete
+                    }
+                });
+            });
+
             $("#export_print").on("click", function() {
-                table.button('.buttons-print').trigger();
+                $("#loader").show(); // Show loader
+
+                // Perform AJAX request to export Print
+                $.ajax({
+                    url: "{{ route('maint_in_review.export', ['type' => 'print']) }}",
+                    method: 'GET',
+                    xhrFields: {
+                        responseType: 'blob' // Set response type to blob for file download
+                    },
+                    success: function(data) {
+                        // Create a link element to download the Print
+                        const url = window.URL.createObjectURL(data);
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = 'maint_in_review_print.pdf'; // Set the desired file name
+                        document.body.appendChild(a);
+                        a.click();
+                        a.remove();
+                        window.URL.revokeObjectURL(url); // Clean up
+                    },
+                    error: function(xhr) {
+                        console.error('Error exporting Print:', xhr.responseText);
+                    },
+                    complete: function() {
+                        $("#loader").hide(); // Hide loader after the request is complete
+                    }
+                });
             });
+
             $('#customSearchBox').keyup(function() {
                 table.search($(this).val()).draw();
             });

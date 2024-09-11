@@ -141,7 +141,7 @@ class MaintInReviewController extends Controller
         $mpdf->WriteHTML($htmlHeader); // Write header HTML
 
         // Process data in chunks
-        $chunkSize = 100; // Adjust chunk size as needed
+        $chunkSize = 1000; // Adjust chunk size as needed
         $totalReviews = $maint_in_reviews->count();
 
         for ($i = 0; $i < $totalReviews; $i += $chunkSize) {

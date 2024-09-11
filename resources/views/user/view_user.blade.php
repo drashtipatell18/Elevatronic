@@ -119,8 +119,8 @@
                                 <table id="TiposAscensores" class="table">
                                     <thead>
                                         <tr>
+                                            <th>ID< /th>
                                             <th>FOTO</th>
-                                            <th>ID</th>
                                             <th>NOMBRE</th>
                                             <th>CORREO</th>
                                             <th>TELÉFONO</th>

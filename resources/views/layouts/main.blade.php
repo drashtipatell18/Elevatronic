@@ -144,7 +144,7 @@
                                         @endif
                                         <div class="">
                                             <p class="mb-0">{{ auth()->user()->name }}</p>
-                                            <span>Administradora</span>
+                                            <span>Administrador</span>
                                         </div>
                                     </div>
                                     <!-- cuadro oculto -->

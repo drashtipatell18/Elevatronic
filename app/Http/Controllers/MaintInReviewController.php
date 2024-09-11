@@ -12,7 +12,7 @@ use App\Models\SparePart;
 use App\Models\Month;
 use App\Models\Supervisor;
 use App\Models\MaintInReview;
-use Barryvdh\DomPDF\Facade as PDF; // Ensure this line is present
+use Mpdf\Mpdf;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
@@ -127,7 +127,7 @@ class MaintInReviewController extends Controller
     {
         $mpdf = new \Mpdf\Mpdf(); // Create a new instance of mPDF
         $html = '<h1>Mantenimiento en Revisión</h1>';
-        $html .= '<table border="1" cellpadding="5"><tr><th>ID</th><th>Tipo de Revisión</th><th>Ascensor</th><th>Fecha de Mantenimiento</th><th>Técnico</th></tr>';
+        $html .= '<table cellpadding="5"><tr><th>ID</th><th>Tipo de Revisión</th><th>Ascensor</th><th>Fecha de Mantenimiento</th><th>Técnico</th></tr>';
     
         foreach ($maint_in_reviews as $review) {
             $html .= '<tr>';
@@ -157,10 +157,23 @@ class MaintInReviewController extends Controller
 
     private function exportPrint($maint_in_reviews)
     {
-        // Logic for printing data
-        // This typically requires client-side handling
-        // You can return a view that formats the data for printing
-        return view('print.maint_in_review', compact('maint_in_reviews'));
+        $html = '<h1>Mantenimiento en Revisión</h1>';
+        $html .= '<table cellpadding="5"><tr><th>ID</th><th>Tipo de Revisión</th><th>Ascensor</th><th>Fecha de Mantenimiento</th><th>Técnico</th></tr>';
+    
+        foreach ($maint_in_reviews as $review) {
+            $html .= '<tr>';
+            $html .= '<td>' . $review->id . '</td>';
+            $html .= '<td>' . ($review->reviewtype->nombre ?? '-') . '</td>'; // Use '-' if reviewtype is null
+            $html .= '<td>' . ($review->elevator->nombre ?? '-') .'</td>';
+            $html .= '<td>' . $review->fecha_de_mantenimiento . '</td>';
+            $html .= '<td>' . ($review->staff->nombre ?? '-') . '</td>';
+            $html .= '</tr>';
+        }
+    
+        $html .= '</table>';
+        
+        // Return the HTML for printing
+        return response($html)->header('Content-Type', 'text/html');
     }
     public function getDataMaintance()
     {

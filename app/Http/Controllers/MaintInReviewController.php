@@ -107,6 +107,7 @@ class MaintInReviewController extends Controller
         foreach ($maint_in_reviews as $review) {
             $sheet->setCellValue('A' . $row, $review->id);
             $sheet->setCellValue('B' . $row, $review->reviewtype->nombre ?? '-'); // Use 'N/A' if reviewtype is null            $sheet->setCellValue('C' . $row, $review->elevator->nombre);
+            $sheet->setCellValue('C' . $row, $review->elevator->nombre ?? '-'); // Use 'N/A' if reviewtype is null            $sheet->setCellValue('C' . $row, $review->elevator->nombre);
             $sheet->setCellValue('D' . $row, $review->fecha_de_mantenimiento);
             $sheet->setCellValue('E' . $row, $review->staff->nombre ?? '-');
             $row++;
@@ -180,7 +181,7 @@ class MaintInReviewController extends Controller
     {
         $html = '<h1>Mantenimiento en Revisión</h1>';
         $html .= '<table cellpadding="5"><tr><th>ID</th><th>Tipo de Revisión</th><th>Ascensor</th><th>Fecha de Mantenimiento</th><th>Técnico</th></tr>';
-
+    
         foreach ($maint_in_reviews as $review) {
             $html .= '<tr>';
             $html .= '<td>' . $review->id . '</td>';
@@ -190,11 +191,18 @@ class MaintInReviewController extends Controller
             $html .= '<td>' . ($review->staff->nombre ?? '-') . '</td>';
             $html .= '</tr>';
         }
-
+    
         $html .= '</table>';
-
-        // Return the HTML for printing
-        return response($html)->header('Content-Type', 'text/html');
+    
+        // Create a new instance of mPDF
+        $mpdf = new \Mpdf\Mpdf();
+       
+        // Output the PDF to the browser
+        $filename = 'maint_in_review_' . date('Ymd') . '.pdf';
+        $mpdf->Output($filename, 'D'); // 'D' for download
+    
+        // Prevent further output
+        exit;
     }
     public function getDataMaintance()
     {

@@ -114,8 +114,8 @@
                                             href="{{ route('maint_in_review.export', ['type' => 'pdf']) }}">PDF</a>
                                         <a class="dropdown-item" id="export_copy"
                                             href="{{ route('maint_in_review.export', ['type' => 'copy']) }}">Copiar</a>
-                                        <a class="dropdown-item" id="export_print"
-                                            href="{{ route('maint_in_review.export', ['type' => 'print']) }}">Imprimir</a>
+                                        <a class="dropdown-item" id="export_print" href="#"
+                                            onclick="printPage()">Imprimir</a>
                                     </div>
                                 </div>
                             </div>
@@ -643,6 +643,34 @@
 @push('scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <script>
+        function printPage() {
+            $("#loader").show(); // Show loader
+            // Perform AJAX request to export Print
+            $.ajax({
+                url: "{{ route('maint_in_review.export', ['type' => 'print']) }}",
+                method: 'GET',
+                xhrFields: {
+                    responseType: 'blob' // Set response type to blob for file download
+                },
+                success: function(data) {
+                    const url = window.URL.createObjectURL(data); // Create a URL for the blob
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'maint_in_review_print.pdf'; // Set the desired file name
+                    document.body.appendChild(a);
+                    a.click(); // Trigger the download
+                    a.remove();
+                    window.URL.revokeObjectURL(url); // Clean up
+                    window.print(); // Trigger the print dialog
+                },
+                error: function(xhr) {
+                    console.error('Error exporting Print:', xhr.responseText);
+                },
+                complete: function() {
+                    $("#loader").hide(); // Hide loader after the request is complete
+                }
+            });
+        }
         $(document).ready(function() {
             // Prevent form submission on Enter key press
             $('#SupervisorForm').on('keypress', function(e) {
@@ -1056,6 +1084,7 @@
                 ]
             });
 
+            let isDownloading = false;
             // Manejadores para los botones de exportación personalizados
             $("#export_excel").on("click", function() {
                 $("#loader").show(); // Show loader
@@ -1068,15 +1097,18 @@
                         responseType: 'blob' // Set response type to blob for file download
                     },
                     success: function(data) {
-                        // Create a link element to download the Excel file
-                        const url = window.URL.createObjectURL(data);
-                        const a = document.createElement('a');
-                        a.href = url;
-                        a.download = 'maint_in_review.xlsx'; // Set the desired file name
-                        document.body.appendChild(a);
-                        a.click();
-                        a.remove();
-                        window.URL.revokeObjectURL(url); // Clean up
+                        if (!isDownloading) {
+                            isDownloading = true;
+                            // Create a link element to download the Excel file
+                            const url = window.URL.createObjectURL(data);
+                            const a = document.createElement('a');
+                            a.href = url;
+                            a.download = 'maint_in_review.xlsx'; // Set the desired file name
+                            document.body.appendChild(a);
+                            a.click();
+                            a.remove();
+                            window.URL.revokeObjectURL(url); // Clean up
+                        }
                     },
                     error: function(xhr) {
                         console.error('Error exporting Excel:', xhr.responseText);
@@ -1147,37 +1179,6 @@
                     }
                 });
             });
-
-            $("#export_print").on("click", function() {
-                $("#loader").show(); // Show loader
-
-                // Perform AJAX request to export Print
-                $.ajax({
-                    url: "{{ route('maint_in_review.export', ['type' => 'print']) }}",
-                    method: 'GET',
-                    xhrFields: {
-                        responseType: 'blob' // Set response type to blob for file download
-                    },
-                    success: function(data) {
-                        // Create a link element to download the Print
-                        const url = window.URL.createObjectURL(data);
-                        const a = document.createElement('a');
-                        a.href = url;
-                        a.download = 'maint_in_review_print.pdf'; // Set the desired file name
-                        document.body.appendChild(a);
-                        a.click();
-                        a.remove();
-                        window.URL.revokeObjectURL(url); // Clean up
-                    },
-                    error: function(xhr) {
-                        console.error('Error exporting Print:', xhr.responseText);
-                    },
-                    complete: function() {
-                        $("#loader").hide(); // Hide loader after the request is complete
-                    }
-                });
-            });
-
             $('#customSearchBox').keyup(function() {
                 table.search($(this).val()).draw();
             });

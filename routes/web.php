@@ -42,6 +42,7 @@ Route::post('/forget-password', [DashboardController::class, 'sendResetLinkEmail
 Route::get('/logout',[HomeController::class,'Logout'])->name('logout');
 Route::get('/restablecer/{token}', [DashboardController::class, 'reset'])->name('reset');
 Route::post('/restablecer/{token}', [DashboardController::class, 'postReset'])->name('post_reset');
+Route::post('/check-email-unique', [DashboardController::class, 'checkEmailUnique'])->name('check.email.unique');
 
 Auth::routes();
 

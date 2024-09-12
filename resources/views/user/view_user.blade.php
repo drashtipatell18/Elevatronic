@@ -58,7 +58,8 @@
         #edit-users {
             background-color: white !important;
         }
-        .imgcrops{
+
+        .imgcrops {
             object-fit: cover;
         }
     </style>
@@ -296,7 +297,8 @@
                                                                                 <div class="col-md-12">
                                                                                     <div class="form-group">
                                                                                         <label for="Empleado">Empleado</label>
-                                                                                        <select id="employee_id1" name="employee_id"
+                                                                                        <select id="employee_id1"
+                                                                                            name="employee_id"
                                                                                             class="form-control @error('employee_id') is-invalid @enderror">
                                                                                             <option value="">Seleccionar
                                                                                                 empleado</option>
@@ -391,8 +393,8 @@
                                                                     method="POST">
                                                                     @csrf
                                                                     @method('DELETE')
-                                                                    <button type="submit"
-                                                                        class="btn-gris btn-red" onclick="this.disabled=true;this.form.submit();">Sí</button>
+                                                                    <button type="submit" class="btn-gris btn-red"
+                                                                        onclick="this.disabled=true;this.form.submit();">Sí</button>
                                                                     <button type="button" class="btn-gris btn-border"
                                                                         data-dismiss="modal">No</button>
                                                                 </form>
@@ -737,16 +739,18 @@
                             columns: ':not(:last-child)' // Excluye la última columna
                         },
                         customize: function(doc) {
-                          // Set smaller widths for each column, excluding the first column
-                          doc.content[1].table.widths = Array(doc.content[1].table.body[0]
-                          .length).join('*').split('').fill('20%'); // Adjusted to remove the first column
-                          doc.content[1].table.body.forEach(function(row) {
-                              row.splice(0, 1); // Remove the first column from the row
-                              row.forEach(function(cell) {
-                                  cell.alignment = 'center'; // Center align all remaining cells
-                              });
-                          });
-                      }
+                            // Set smaller widths for each column, excluding the first column
+                            doc.content[1].table.widths = Array(doc.content[1].table.body[0]
+                                .length).join('*').split('').fill(
+                            '20%'); // Adjusted to remove the first column
+                            doc.content[1].table.body.forEach(function(row) {
+                                row.splice(0, 1); // Remove the first column from the row
+                                row.forEach(function(cell) {
+                                    cell.alignment =
+                                    'center'; // Center align all remaining cells
+                                });
+                            });
+                        }
                     },
                     {
                         extend: 'print',
@@ -851,6 +855,23 @@
                 return this.optional(element) || /^[0-9]{9}$/.test(value);
             }, "Por favor, introduzca al menos 9 caracteres.");
 
+            $.validator.addMethod("uniqueEmail", function(value, element) {
+                var isValid = false;
+                $.ajax({
+                    type: "POST",
+                    url: "{{ route('check.email.unique') }}", // Ensure this route exists
+                    data: {
+                        email: value,
+                        _token: $('meta[name="csrf-token"]').attr('content')
+                    },
+                    async: false, // Make it synchronous for validation
+                    success: function(response) {
+                        isValid = response
+                        .isUnique; // Expecting a JSON response with isUnique property
+                    }
+                });
+                return this.optional(element) || isValid;
+            }, "El correo electrónico ya está en uso.");
             // Initialize jQuery Validation plugin on the form
             $('#createuserform').validate({
                 rules: {
@@ -858,7 +879,8 @@
                     name: "required",
                     email: {
                         required: true,
-                        customEmail: true
+                        customEmail: true,
+                        uniqueEmail: true // Use the new uniqueEmail method
                     },
                     phone: {
                         required: true,
@@ -912,7 +934,8 @@
                     name: "required",
                     email: {
                         required: true,
-                        customEmail: true
+                        customEmail: true,
+                        uniqueEmail: true // Use the new uniqueEmail method
                     },
                     phone: {
                         required: true,
@@ -926,7 +949,8 @@
                     name: "Por favor, ingrese el nombre",
                     email: {
                         required: "Por favor, ingrese el correo",
-                        email: "Por favor, ingrese un correo válido"
+                        email: "Por favor, ingrese un correo válido",
+                        unique: "El correo electrónico ya está en uso.", // Added unique message
                     },
                     phone: {
                         required: "Por favor, ingrese el teléfono",
@@ -951,31 +975,31 @@
             });
 
             $(document).on('click', '.edit-user', function() {
-    // Clear previous modal data
-            $('#edit-username').val('');
-            $('#edit-name').val('');
-            $('#edit-email').val('');
-            $('#edit-phone').val('');
-            $('#employee_id1').val('').trigger('change');
-            $('#edit-users').attr('src', "{{ asset('img/fondo.png') }}"); // Default image
+                // Clear previous modal data
+                $('#edit-username').val('');
+                $('#edit-name').val('');
+                $('#edit-email').val('');
+                $('#edit-phone').val('');
+                $('#employee_id1').val('').trigger('change');
+                $('#edit-users').attr('src', "{{ asset('img/fondo.png') }}"); // Default image
 
-            // Get the current user data
-            var user = $(this).data('user');
+                // Get the current user data
+                var user = $(this).data('user');
 
-            // Populate the modal with the selected user's data
-            $('#edit-username').val(user.username);
-            $('#edit-name').val(user.name);
-            $('#edit-email').val(user.email);
-            $('#edit-phone').val(user.phone);
-            $('#employee_id1').val(user.employee_id).trigger('change');
+                // Populate the modal with the selected user's data
+                $('#edit-username').val(user.username);
+                $('#edit-name').val(user.name);
+                $('#edit-email').val(user.email);
+                $('#edit-phone').val(user.phone);
+                $('#employee_id1').val(user.employee_id).trigger('change');
 
-            // Set the form action to the correct route
-            var imageUrl = user.image ?
-                "{{ asset('images/') }}/" + user.image :
-                "{{ asset('img/fondo.png') }}";
-            $('#edit-users').attr('src', imageUrl);
-            $('#edituserform').attr('action', '/usuarios/actualizar/' + user.id);
-        });
+                // Set the form action to the correct route
+                var imageUrl = user.image ?
+                    "{{ asset('images/') }}/" + user.image :
+                    "{{ asset('img/fondo.png') }}";
+                $('#edit-users').attr('src', imageUrl);
+                $('#edituserform').attr('action', '/usuarios/actualizar/' + user.id);
+            });
 
 
             $('#crearUsuario').on('hidden.bs.modal', function() {

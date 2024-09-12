@@ -51,6 +51,15 @@ class DashboardController extends Controller
         return response()->json(['exists' => $emailExists]);
     }
 
+    public function checkEmailUnique(Request $request) {
+        $email = $request->input('email');
+    
+        // Check if the email exists in the users table
+        $exists = User::where('email', $email)->exists();
+    
+        return response()->json(['isUnique' => !$exists]);
+    }
+
     public function Session()
     {
         return view('auth.session');

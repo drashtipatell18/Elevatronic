@@ -818,6 +818,7 @@
                 responsive: true,
                 dom: 'tp',
                 pageLength: 20, // Establece el número de registros por página a 8
+                order: [[0, 'desc']], 
                 language: {
                     "decimal": "",
                     "emptyTable": "No hay información",
@@ -1012,7 +1013,8 @@
             var table = $('#AscensoresTipo').DataTable({
                 responsive: true,
                 dom: 'tp',
-                pageLength: 20, // Establece el número de registros por página a 8
+                pageLength: 20, // Establece el número de registros por página a 8\
+                order: [[0, 'desc']], // Add this line to set default sorting by ID in descending order
                 language: {
                     "decimal": "",
                     "emptyTable": "No hay información",

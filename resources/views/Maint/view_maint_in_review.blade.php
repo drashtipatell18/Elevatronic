@@ -947,6 +947,7 @@
                 responsive: true,
                 dom: 'tp',
                 pageLength: 20,
+                order: [[0, 'desc']], // Add this line to set default sorting by ID in descending order
                 serverSide: true, // Enable server-side processing
                 processing: true, // Display a loading message
                 ajax: {

@@ -1098,18 +1098,18 @@
                         responseType: 'blob' // Set response type to blob for file download
                     },
                     success: function(data) {
-                        if (!isDownloading) {
-                            isDownloading = true;
-                            // Create a link element to download the Excel file
-                            const url = window.URL.createObjectURL(data);
-                            const a = document.createElement('a');
-                            a.href = url;
-                            a.download = 'maint_in_review.xlsx'; // Set the desired file name
-                            document.body.appendChild(a);
-                            a.click();
-                            a.remove();
-                            window.URL.revokeObjectURL(url); // Clean up
-                        }
+                        // if (!isDownloading) {
+                        //     isDownloading = true;
+                        //     // Create a link element to download the Excel file
+                        //     const url = window.URL.createObjectURL(data);
+                        //     const a = document.createElement('a');
+                        //     a.href = url;
+                        //     a.download = 'maint_in_review.xlsx'; // Set the desired file name
+                        //     document.body.appendChild(a);
+                        //     a.click();
+                        //     a.remove();
+                        //     window.URL.revokeObjectURL(url); // Clean up
+                        // }
                     },
                     error: function(xhr) {
                         console.error('Error exporting Excel:', xhr.responseText);
@@ -1162,15 +1162,15 @@
                         responseType: 'blob' // Set response type to blob for file download
                     },
                     success: function(data) {
-                        // Create a link element to download the PDF
-                        const url = window.URL.createObjectURL(data);
-                        const a = document.createElement('a');
-                        a.href = url;
-                        a.download = 'maint_in_review.pdf'; // Set the desired file name
-                        document.body.appendChild(a);
-                        a.click();
-                        a.remove();
-                        window.URL.revokeObjectURL(url); // Clean up
+                        // // Create a link element to download the PDF
+                        // const url = window.URL.createObjectURL(data);
+                        // const a = document.createElement('a');
+                        // a.href = url;
+                        // a.download = 'maint_in_review.pdf'; // Set the desired file name
+                        // document.body.appendChild(a);
+                        // a.click();
+                        // a.remove();
+                        // window.URL.revokeObjectURL(url); // Clean up
                     },
                     error: function(xhr) {
                         console.error('Error exporting PDF:', xhr.responseText);

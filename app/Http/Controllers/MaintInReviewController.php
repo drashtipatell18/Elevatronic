@@ -138,7 +138,14 @@ class MaintInReviewController extends Controller
         }
 
         $htmlHeader = '<h1>Mantenimiento en Revisión</h1>';
-        $htmlHeader .= '<table class="table" cellpadding="5"><tr><th class="text-center">ID</th><th class="text-center">Tipo de Revisión</th><th class="text-center">Ascensor</th><th class="text-center">Fecha de Mantenimiento</th><th class="text-center">Técnico</th></tr>';
+        $htmlHeader .= '<table class="table table-striped" cellpadding="5" style="width: 100%; border-collapse: collapse;">';
+        $htmlHeader .= '<tr style="background-color:#2D4054; color: white;">';
+        $htmlHeader .= '<th class="text-center" style="color: white;">ID</th>';
+        $htmlHeader .= '<th class="text-center" style="color: white;" >Tipo de Revisión</th>';
+        $htmlHeader .= '<th class="text-center" style="color: white;" >Ascensor</th>';
+        $htmlHeader .= '<th class="text-center" style="color: white;" >Fecha de Mantenimiento</th>';
+        $htmlHeader .= '<th class="text-center" style="color: white;" >Técnico</th>';
+        $htmlHeader .= '</tr>';
         $mpdf->WriteHTML($htmlHeader); // Write header HTML
 
         // Process data in chunks
@@ -151,11 +158,11 @@ class MaintInReviewController extends Controller
 
             foreach ($chunk as $review) {
                 $htmlChunk .= '<tr>';
-                $htmlChunk .= '<td class="text-center">' . $review->id . '</td>';
-                $htmlChunk .= '<td class="text-center">' . ($review->reviewtype->nombre ?? '-') . '</td>';
-                $htmlChunk .= '<td class="text-center">' . ($review->elevator->nombre ?? '-') . '</td>';
-                $htmlChunk .= '<td class="text-center">' . $review->fecha_de_mantenimiento . '</td>';
-                $htmlChunk .= '<td class="text-center">' . ($review->staff->nombre ?? '-') . '</td>';
+                $htmlChunk .= '<td style="text-align: center;">' . $review->id . '</td>'; // Centered
+                $htmlChunk .= '<td style="text-align: center;">' . ($review->reviewtype->nombre ?? '-') . '</td>'; // Centered
+                $htmlChunk .= '<td style="text-align: center;">' . ($review->elevator->nombre ?? '-') . '</td>'; // Centered
+                $htmlChunk .= '<td style="text-align: center;">' . $review->fecha_de_mantenimiento . '</td>'; // Centered
+                $htmlChunk .= '<td style="text-align: center;">' . ($review->staff->nombre ?? '-') . '</td>'; // Centered
                 $htmlChunk .= '</tr>';
             }
 
@@ -196,7 +203,6 @@ class MaintInReviewController extends Controller
     
         // Create a new instance of mPDF
         $mpdf = new \Mpdf\Mpdf();
-       
         // Output the PDF to the browser
         $filename = 'maint_in_review_' . date('Ymd') . '.pdf';
         $mpdf->Output($filename, 'D'); // 'D' for download

@@ -176,19 +176,37 @@ class MaintInReviewController extends Controller
         exit; // Ensure no further output is sent
     }
 
-    private function exportCopy($maint_in_reviews)
+    public function exportCopy()
     {
-        // Logic for copying data to clipboard
-        // This typically requires client-side handling
-        // You can return a JSON response or handle it in the frontend
-        return response()->json(['data' => $maint_in_reviews]);
+        // Fetch the maintenance reviews from the database
+        $maint_in_reviews = MaintInReview::with(['reviewtype', 'elevator', 'staff'])->get();
+    
+        // Check if there are no reviews
+        if ($maint_in_reviews->isEmpty()) {
+            return response('No data available for export', 404)
+                ->header('Content-Type', 'text/plain');
+        }
+    
+        // Create a plain text representation of the data
+        $output = "ID\tTipo de Revisión\tAscensor\tTécnico\n";
+    
+        foreach ($maint_in_reviews as $review) {
+            $output .= $review->id . "\t" .
+                       ($review->reviewtype->nombre ?? '-') . "\t" .
+                       ($review->elevator->nombre ?? '-') . "\t" .
+                       $review->fecha_de_mantenimiento . "\t" .
+                       ($review->staff->nombre ?? '-') . "\n";
+        }
+    
+        // Return the plain text response
+        return response($output, 200)
+            ->header('Content-Type', 'text/plain'); // Set content type to plain text
     }
-
     private function exportPrint($maint_in_reviews)
     {
         $html = '<h1>Mantenimiento en Revisión</h1>';
         $html .= '<table cellpadding="5"><tr><th>ID</th><th>Tipo de Revisión</th><th>Ascensor</th><th>Fecha de Mantenimiento</th><th>Técnico</th></tr>';
-    
+
         foreach ($maint_in_reviews as $review) {
             $html .= '<tr>';
             $html .= '<td>' . $review->id . '</td>';
@@ -198,15 +216,15 @@ class MaintInReviewController extends Controller
             $html .= '<td>' . ($review->staff->nombre ?? '-') . '</td>';
             $html .= '</tr>';
         }
-    
+
         $html .= '</table>';
-    
+
         // Create a new instance of mPDF
         $mpdf = new \Mpdf\Mpdf();
         // Output the PDF to the browser
         $filename = 'maint_in_review_' . date('Ymd') . '.pdf';
         $mpdf->Output($filename, 'D'); // 'D' for download
-    
+
         // Prevent further output
         exit;
     }

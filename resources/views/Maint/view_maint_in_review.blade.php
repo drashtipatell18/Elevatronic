@@ -113,7 +113,7 @@
                                         <a class="dropdown-item" id="export_pdf"
                                             href="{{ route('maint_in_review.export', ['type' => 'pdf']) }}">PDF</a>
                                         <a class="dropdown-item" id="export_copy"
-                                            href="{{ route('maint_in_review.export', ['type' => 'copy']) }}">Copiar</a>
+                                            href="">Copiar</a>
                                         <a class="dropdown-item" id="export_print" href="#"
                                             onclick="printPage()">Imprimir</a>
                                     </div>
@@ -947,7 +947,9 @@
                 responsive: true,
                 dom: 'tp',
                 pageLength: 20,
-                order: [[0, 'desc']], // Add this line to set default sorting by ID in descending order
+                order: [
+                    [0, 'desc']
+                ], // Add this line to set default sorting by ID in descending order
                 serverSide: true, // Enable server-side processing
                 processing: true, // Display a loading message
                 ajax: {
@@ -1124,26 +1126,19 @@
             $("#export_copy").on("click", function() {
                 $("#loader").show(); // Show loader
 
-                // Perform AJAX request to export Copy
                 $.ajax({
                     url: "{{ route('maint_in_review.export', ['type' => 'copy']) }}",
                     method: 'GET',
-                    xhrFields: {
-                        responseType: 'blob' // Set response type to blob for file download
-                    },
-                    success: function(data) {
-                        // Create a link element to download the Copy
-                        const url = window.URL.createObjectURL(data);
-                        const a = document.createElement('a');
-                        a.href = url;
-                        a.download = 'maint_in_review_copy.txt'; // Set the desired file name
-                        document.body.appendChild(a);
-                        a.click();
-                        a.remove();
-                        window.URL.revokeObjectURL(url); // Clean up
+                    success: function(response) {
+                        console.log(response); // Log the response to debug
+                        navigator.clipboard.writeText(response).then(function() {
+                            // alert('Data copied to clipboard!'); // Notify the user
+                        }).catch(function(err) {
+                            console.error('Error copying text: ', err);
+                        });
                     },
                     error: function(xhr) {
-                        console.error('Error exporting Copy:', xhr.responseText);
+                        console.error('Error copying table:', xhr.responseText);
                     },
                     complete: function() {
                         $("#loader").hide(); // Hide loader after the request is complete

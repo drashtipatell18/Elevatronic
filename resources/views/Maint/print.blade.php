@@ -17,11 +17,12 @@
     </style>
 </head>
 <body>
-    {!! $html !!} <!-- Render the HTML table -->
+    {!! substr($html, 0, 1100000) !!} <!-- Render the first 100 characters of the HTML table -->
     <script>
-        window.onload = function() {
-            window.print(); // Trigger the print dialog
-        };
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Length of HTML: " + document.body.innerHTML.length); // Log the length of the HTML content
+            window.print(); // Trigger the print dialog after all data is loaded
+        });
     </script>
 </body>
 </html>

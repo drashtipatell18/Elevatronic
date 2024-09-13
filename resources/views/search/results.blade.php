@@ -172,13 +172,13 @@
                     <tbody>
                         @foreach ($maininReview as $item)
                             <tr>
-                                <td>{{$item->id }}</td>
+                                <td>{{ $item->id }}</td>
                                 <td>
                                     <a href="{{ route('maint_in_review', $item->id) }}" class="text-blue">
                                         {{ $item->nombre_del_tipo_de_ascensor ?? '' }} {{-- Check if nombre_del_tipo_de_ascensor is not null --}}
                                     </a>
                                 </td>
-                                <td>{{ $item->elevator ? $item->elevator->nombre : '-' }}</td> 
+                                <td>{{ $item->elevator ? $item->elevator->nombre : '-' }}</td>
                                 <td>{{ $item->dirección }}</td>
                                 <td>{{ $item->fecha_de_mantenimiento }}</td>
                                 <td>{{ $item->hora_inicio }}</td>
@@ -419,8 +419,16 @@
                     <tbody>
                         @foreach ($spareParts as $item)
                             <tr>
-                                <td>{{ $item->foto_de_repuesto }}</td>
-                                {{-- <td>{{ $item->nombre }}</td> --}}
+                                <td>
+                                    @if ($item->foto_de_repuesto)
+                                        <img src="{{ asset('images/' . $item->foto_de_repuesto) }}" alt="personal"
+                                            width="52" height="52" class="img-table object">
+                                    @else
+                                        <img src="{{ asset('img/fondo.png') }}" width="52" height="52"
+                                            class="img-table object" alt="user">
+                                    @endif
+                                </td>
+
                                 <td>
                                     <a href="{{ route('sparepart', $item->id) }}" class="text-blue">
                                         {{ $item->nombre }}

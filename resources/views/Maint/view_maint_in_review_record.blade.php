@@ -227,7 +227,11 @@
                                             <tbody>
                                                 <tr>
                                                     <td class="text-gris">Técnico</td>
-                                                    <td>{{ $maint_in_review->staff->nombre }}</td>
+                                                    @if ($maint_in_review->staff)
+                                                        {{ $maint_in_review->staff->nombre }}
+                                                    @else
+                                                        {{ '-' }}
+                                                    @endif
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -637,9 +641,9 @@
                                         <div class="form-group">
                                             <label for="Mprogramado">Mes
                                                 programado</label>
-                                                <select class="custom-select" name="mes_programado" id="edit-Mprogramado">
-                                                    <option value="">Seleccionar opción</option>
-                                                </select>
+                                            <select class="custom-select" name="mes_programado" id="edit-Mprogramado">
+                                                <option value="">Seleccionar opción</option>
+                                            </select>
                                         </div>
                                     </div>
 
@@ -783,7 +787,8 @@
                             method="POST">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn-gris btn-red" onclick="this.disabled=true;this.form.submit();">Sí</button>
+                            <button type="submit" class="btn-gris btn-red"
+                                onclick="this.disabled=true;this.form.submit();">Sí</button>
                             <button type="button" class="btn-gris btn-border" data-dismiss="modal">No</button>
                         </form>
                     @endisset
@@ -855,7 +860,9 @@
                 responsive: true,
                 dom: 'tp',
                 pageLength: 20,
-                order: [[0, 'desc']], // Add this line to set default sorting by ID in descending order
+                order: [
+                    [0, 'desc']
+                ], // Add this line to set default sorting by ID in descending order
                 language: {
                     decimal: "",
                     emptyTable: "No hay información",

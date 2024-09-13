@@ -112,10 +112,8 @@
                                             href="{{ route('maint_in_review.export', ['type' => 'excel']) }}">Excel</a>
                                         <a class="dropdown-item" id="export_pdf"
                                             href="{{ route('maint_in_review.export', ['type' => 'pdf']) }}">PDF</a>
-                                        <a class="dropdown-item" id="export_copy"
-                                            href="">Copiar</a>
-                                        <a class="dropdown-item" id="export_print" href="#"
-                                            onclick="printPage()">Imprimir</a>
+                                        <a class="dropdown-item" id="export_copy" href="">Copiar</a>
+                                        <a class="dropdown-item" id="export_print" href="{{ route('maint_in_review.export', ['type' => 'print']) }}">Imprimir</a>
                                     </div>
                                 </div>
                             </div>
@@ -643,34 +641,6 @@
 @push('scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <script>
-        function printPage() {
-            $("#loader").show(); // Show loader
-            // Perform AJAX request to export Print
-            $.ajax({
-                url: "{{ route('maint_in_review.export', ['type' => 'print']) }}",
-                method: 'GET',
-                xhrFields: {
-                    responseType: 'blob' // Set response type to blob for file download
-                },
-                success: function(data) {
-                    const url = window.URL.createObjectURL(data); // Create a URL for the blob
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = 'maint_in_review_print.pdf'; // Set the desired file name
-                    document.body.appendChild(a);
-                    a.click(); // Trigger the download
-                    a.remove();
-                    window.URL.revokeObjectURL(url); // Clean up
-                    window.print(); // Trigger the print dialog
-                },
-                error: function(xhr) {
-                    console.error('Error exporting Print:', xhr.responseText);
-                },
-                complete: function() {
-                    $("#loader").hide(); // Hide loader after the request is complete
-                }
-            });
-        }
         $(document).ready(function() {
             // Prevent form submission on Enter key press
             $('#SupervisorForm').on('keypress', function(e) {
@@ -1132,7 +1102,7 @@
                     success: function(response) {
                         console.log(response); // Log the response to debug
                         navigator.clipboard.writeText(response).then(function() {
-                            // alert('Data copied to clipboard!'); // Notify the user
+                            alert('Data copied to clipboard!'); // Notify the user
                         }).catch(function(err) {
                             console.error('Error copying text: ', err);
                         });
@@ -1175,6 +1145,30 @@
                     }
                 });
             });
+
+            // ... existing code ...
+            $("#export_print").on("click", function() {
+                $("#loader").show(); // Show loader
+                // Perform AJAX request to export Print
+                $.ajax({
+                    url: "{{ route('maint_in_review.export', ['type' => 'print']) }}",
+                    method: 'GET',
+                    success: function(data) {
+                        alert(
+                        'Print Susscefully!!!!!!!!!'); // Notify user
+                    },
+                    error: function(xhr) {
+                        console.error('Error exporting Print:', xhr.responseText);
+                        alert(
+                        'An error occurred while exporting. Please try again.'); // Notify user
+                    },
+                    complete: function() {
+                        $("#loader").hide(); // Hide loader after the request is complete
+                    }
+                });
+            });
+            // ... existing code ...
+
             $('#customSearchBox').keyup(function() {
                 table.search($(this).val()).draw();
             });

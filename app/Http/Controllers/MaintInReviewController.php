@@ -100,7 +100,9 @@ class MaintInReviewController extends Controller
         $sheet->setCellValue('B1', 'Tipo de Revisión');
         $sheet->setCellValue('C1', 'Ascensor');
         $sheet->setCellValue('D1', 'Fecha de Mantenimiento');
-        $sheet->setCellValue('E1', 'Técnico');
+        $sheet->setCellValue('E1', 'HOR. INI');
+        $sheet->setCellValue('F1', 'HOR. FIN');
+        $sheet->setCellValue('G1', 'Técnico');
 
         // Populate data
         $row = 2; // Start from the second row
@@ -109,7 +111,9 @@ class MaintInReviewController extends Controller
             $sheet->setCellValue('B' . $row, $review->reviewtype->nombre ?? '-'); // Use 'N/A' if reviewtype is null            $sheet->setCellValue('C' . $row, $review->elevator->nombre);
             $sheet->setCellValue('C' . $row, $review->elevator->nombre ?? '-'); // Use 'N/A' if reviewtype is null            $sheet->setCellValue('C' . $row, $review->elevator->nombre);
             $sheet->setCellValue('D' . $row, $review->fecha_de_mantenimiento);
-            $sheet->setCellValue('E' . $row, $review->staff->nombre ?? '-');
+            $sheet->setCellValue('E' . $row, $review->hora_inicio);
+            $sheet->setCellValue('F' . $row, $review->hora_fin);
+            $sheet->setCellValue('G' . $row, $review->staff->nombre ?? '-');
             $row++;
         }
 
@@ -144,6 +148,8 @@ class MaintInReviewController extends Controller
         $htmlHeader .= '<th class="text-center" style="color: white;" >Tipo de Revisión</th>';
         $htmlHeader .= '<th class="text-center" style="color: white;" >Ascensor</th>';
         $htmlHeader .= '<th class="text-center" style="color: white;" >Fecha de Mantenimiento</th>';
+        $htmlHeader .= '<th class="text-center" style="color: white;" >HOR. INI</th>';
+        $htmlHeader .= '<th class="text-center" style="color: white;" >HOR. FIN</th>';
         $htmlHeader .= '<th class="text-center" style="color: white;" >Técnico</th>';
         $htmlHeader .= '</tr>';
         $mpdf->WriteHTML($htmlHeader); // Write header HTML
@@ -162,6 +168,8 @@ class MaintInReviewController extends Controller
                 $htmlChunk .= '<td style="text-align: center;">' . ($review->reviewtype->nombre ?? '-') . '</td>'; // Centered
                 $htmlChunk .= '<td style="text-align: center;">' . ($review->elevator->nombre ?? '-') . '</td>'; // Centered
                 $htmlChunk .= '<td style="text-align: center;">' . $review->fecha_de_mantenimiento . '</td>'; // Centered
+                $htmlChunk .= '<td style="text-align: center;">' . $review->hora_inicio . '</td>'; // Centered
+                $htmlChunk .= '<td style="text-align: center;">' . $review->hora_fin . '</td>'; // Centered
                 $htmlChunk .= '<td style="text-align: center;">' . ($review->staff->nombre ?? '-') . '</td>'; // Centered
                 $htmlChunk .= '</tr>';
             }
@@ -180,54 +188,55 @@ class MaintInReviewController extends Controller
     {
         // Fetch the maintenance reviews from the database
         $maint_in_reviews = MaintInReview::with(['reviewtype', 'elevator', 'staff'])->get();
-    
+
         // Check if there are no reviews
         if ($maint_in_reviews->isEmpty()) {
             return response('No data available for export', 404)
                 ->header('Content-Type', 'text/plain');
         }
-    
+
         // Create a plain text representation of the data
         $output = "ID\tTipo de Revisión\tAscensor\tTécnico\n";
-    
+
         foreach ($maint_in_reviews as $review) {
             $output .= $review->id . "\t" .
-                       ($review->reviewtype->nombre ?? '-') . "\t" .
-                       ($review->elevator->nombre ?? '-') . "\t" .
-                       $review->fecha_de_mantenimiento . "\t" .
-                       ($review->staff->nombre ?? '-') . "\n";
+                ($review->reviewtype->nombre ?? '-') . "\t" .
+                ($review->elevator->nombre ?? '-') . "\t" .
+                $review->fecha_de_mantenimiento . "\t" .
+                ($review->staff->nombre ?? '-') . "\n";
         }
-    
+
         // Return the plain text response
         return response($output, 200)
             ->header('Content-Type', 'text/plain'); // Set content type to plain text
     }
-    private function exportPrint($maint_in_reviews)
+    private function exportPrint()
     {
         $html = '<h1>Mantenimiento en Revisión</h1>';
-        $html .= '<table cellpadding="5"><tr><th>ID</th><th>Tipo de Revisión</th><th>Ascensor</th><th>Fecha de Mantenimiento</th><th>Técnico</th></tr>';
+        $html .= '<table cellpadding="5"><tr><th>ID</th><th>Tipo de Revisión</th><th>Ascensor</th><th>Fecha de Mantenimiento</th><th>HOR. INI</th><th>HOR. FIN</th><th>Técnico</th></tr>';
 
-        foreach ($maint_in_reviews as $review) {
-            $html .= '<tr>';
-            $html .= '<td>' . $review->id . '</td>';
-            $html .= '<td>' . ($review->reviewtype->nombre ?? '-') . '</td>'; // Use '-' if reviewtype is null
-            $html .= '<td>' . ($review->elevator->nombre ?? '-') . '</td>';
-            $html .= '<td>' . $review->fecha_de_mantenimiento . '</td>';
-            $html .= '<td>' . ($review->staff->nombre ?? '-') . '</td>';
-            $html .= '</tr>';
-        }
+        // Fetch data directly from the database using chunk
+        MaintInReview::with(['reviewtype', 'elevator', 'staff'])
+            ->chunk(100, function ($chunk) use (&$html) {
+                foreach ($chunk as $review) {
+                    $html .= '<tr>';
+                    $html .= '<td>' . $review->id . '</td>';
+                    $html .= '<td>' . ($review->reviewtype->nombre ?? '-') . '</td>';
+                    $html .= '<td>' . ($review->elevator->nombre ?? '-') . '</td>';
+                    $html .= '<td>' . $review->fecha_de_mantenimiento . '</td>';
+                    $html .= '<td>' . $review->hora_inicio . '</td>';
+                    $html .= '<td>' . $review->hora_fin . '</td>';
+                    $html .= '<td>' . ($review->staff->nombre ?? '-') . '</td>';
+                    $html .= '</tr>';
+                }
+            });
 
         $html .= '</table>';
 
-        // Create a new instance of mPDF
-        $mpdf = new \Mpdf\Mpdf();
-        // Output the PDF to the browser
-        $filename = 'maint_in_review_' . date('Ymd') . '.pdf';
-        $mpdf->Output($filename, 'D'); // 'D' for download
-
-        // Prevent further output
-        exit;
+        // Return the HTML content directly
+        return view('Maint.print', ['html' => $html]);
     }
+
     public function getDataMaintance()
     {
         return response()->json([

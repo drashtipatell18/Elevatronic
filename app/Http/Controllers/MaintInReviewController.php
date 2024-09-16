@@ -56,13 +56,21 @@ class MaintInReviewController extends Controller
 
         // Fetch paginated data with sorting
         $maint_in_reviews = MaintInReview::with(['staff', 'elevator', 'reviewtype'])
-            ->when($searchValue, function ($query) use ($searchValue) {
-                return $query->where(function ($query) use ($searchValue) {
-                    $query->where('id', 'like', "%{$searchValue}%");
-                });
-            })
-            ->orderBy($sortColumn, $sortDirection) // Add sorting
-            ->paginate($length, ['*'], 'page', $currentPage);
+        ->when($searchValue, function ($query) use ($searchValue) {
+            $searchValueLower = strtolower($searchValue); // Convert search value to lowercase
+            return $query->where(function ($query) use ($searchValueLower) {
+                $query->whereRaw('LOWER(id) like ?', ["%{$searchValueLower}%"])
+                      ->orWhereHas('reviewtype', function ($q) use ($searchValueLower) {
+                          $q->whereRaw('LOWER(nombre) like ?', ["%{$searchValueLower}%"]);
+                      })
+                      ->orWhereHas('elevator', function ($q) use ($searchValueLower) {
+                          $q->whereRaw('LOWER(nombre) like ?', ["%{$searchValueLower}%"]);
+                      })
+                      ->orWhereRaw('LOWER(técnico) like ?', ["%{$searchValueLower}%"]);
+            });
+        })
+        ->orderBy($sortColumn, $sortDirection) // Add sorting
+        ->paginate($length, ['*'], 'page', $currentPage);
         // Send the paginated response
         return response()->json([
             'draw' => $request->input('draw'),  // Pass the 'draw' parameter from DataTables

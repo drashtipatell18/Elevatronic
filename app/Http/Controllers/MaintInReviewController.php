@@ -197,6 +197,7 @@ class MaintInReviewController extends Controller
 
         // Check if there are no reviews
         if ($maint_in_reviews->isEmpty()) {
+            \Log::warning('No data available for export'); // Log warning if no data
             return response('No data available for export', 404)
                 ->header('Content-Type', 'text/plain');
         }
@@ -213,92 +214,62 @@ class MaintInReviewController extends Controller
                 $review->staff->nombre ?? '-'
             ]) . "\n";
         }
+        \Log::info('Export data prepared successfully'); // Log successful data preparation
+
         // Return the plain text response
         return response($output, 200)
             ->header('Content-Type', 'text/plain'); // Ensure the content type is plain text
     }
 
-    private function exportPrint($maint_in_reviews)
+    private function exportPrint()
     {
-        $mpdf = new Mpdf(); // Create a new instance of mPDF
-        $mpdf->SetDisplayMode('fullpage');
+        // Number of records to process per chunk (adjust as necessary for your server)
+        $chunkSize = 1000;
 
-        // Check if there are any reviews to export
-        if ($maint_in_reviews->isEmpty()) {
-            $mpdf->WriteHTML('<h1>No data available for export</h1>');
-            $mpdf->Output('no_data.pdf', 'I'); // Show PDF in browser
-            exit;
+        // Count total records and divide into chunks
+        $totalRecords = MaintInReview::count();
+        $totalChunks = ceil($totalRecords / $chunkSize);
+        
+        $html = ''; // Initialize HTML variable to accumulate results
+
+        for ($i = 0; $i < $totalChunks; $i++) {
+            $html .= $this->generateHtmlChunk($i * $chunkSize, $chunkSize); // Append each chunk's HTML
         }
 
-        // Header for the table
-        $htmlHeader = '<h1>Mantenimiento en Revisión</h1>';
-        $htmlHeader .= '<table class="table table-striped" cellpadding="5" style="width: 100%; border-collapse: collapse;">';
-        $htmlHeader .= '<tr style="background-color:#2D4054; color: white;">';
-        $htmlHeader .= '<th class="text-center" style="color: white;">ID</th>';
-        $htmlHeader .= '<th class="text-center" style="color: white;" >Tipo de Revisión</th>';
-        $htmlHeader .= '<th class="text-center" style="color: white;" >Ascensor</th>';
-        $htmlHeader .= '<th class="text-center" style="color: white;" >Fecha de Mantenimiento</th>';
-        $htmlHeader .= '<th class="text-center" style="color: white;" >HOR. INI</th>';
-        $htmlHeader .= '<th class="text-center" style="color: white;" >HOR. FIN</th>';
-        $htmlHeader .= '<th class="text-center" style="color: white;" >Técnico</th>';
-        $htmlHeader .= '</tr>';
-        $mpdf->WriteHTML($htmlHeader); // Write header HTML
-
-        // Process data in chunks
-        $chunkSize = 500; // Adjust chunk size as needed
-        $totalReviews = $maint_in_reviews->count();
-
-        for ($i = 0; $i < $totalReviews; $i += $chunkSize) {
-            $chunk = $maint_in_reviews->slice($i, $chunkSize);
-            $htmlChunk = '';
-
-            foreach ($chunk as $review) {
-                $htmlChunk .= '<tr>';
-                $htmlChunk .= '<td style="text-align: center;">' . $review->id . '</td>'; // Centered
-                $htmlChunk .= '<td style="text-align: center;">' . ($review->reviewtype->nombre ?? '-') . '</td>'; // Centered
-                $htmlChunk .= '<td style="text-align: center;">' . ($review->elevator->nombre ?? '-') . '</td>'; // Centered
-                $htmlChunk .= '<td style="text-align: center;">' . $review->fecha_de_mantenimiento . '</td>'; // Centered
-                $htmlChunk .= '<td style="text-align: center;">' . $review->hora_inicio . '</td>'; // Centered
-                $htmlChunk .= '<td style="text-align: center;">' . $review->hora_fin . '</td>'; // Centered
-                $htmlChunk .= '<td style="text-align: center;">' . ($review->staff->nombre ?? '-') . '</td>'; // Centered
-                $htmlChunk .= '</tr>';
-            }
-
-            $mpdf->WriteHTML($htmlChunk); // Write chunk HTML
-        }
-
-        $mpdf->WriteHTML('</table>'); // Close the table
-
-        // Output the PDF to browser and allow printing
-        return view('Maint.print', ['html' => $mpdf]);
+        return view('Maint.print', [
+            'html' => $html,
+            'totalChunks' => $totalChunks,
+            'chunkSize' => $chunkSize
+        ]);
     }
 
-    //   private function exportPrint()
-    //     {
-    //         $html = '<h1>Mantenimiento en Revisión</h1>';
-    //         $html .= '<table cellpadding="5"><tr><th>ID</th><th>Tipo de Revisión</th><th>Ascensor</th><th>Fecha de Mantenimiento</th><th>HOR. INI</th><th>HOR. FIN</th><th>Técnico</th></tr>';
+    private function generateHtmlChunk($offset, $chunkSize)
+    {
+        $html = '';
+        $html .= '<table cellpadding="5"><tr><th>ID</th><th>Tipo de Revisión</th><th>Ascensor</th><th>Fecha de Mantenimiento</th><th>HOR. INI</th><th>HOR. FIN</th><th>Técnico</th></tr>';
 
-    //         // Fetch data directly from the database using chunk
-    //         MaintInReview::with(['reviewtype', 'elevator', 'staff'])
-    //             ->chunk(100, function ($chunk) use (&$html) {
-    //                 foreach ($chunk as $review) {
-    //                     $html .= '<tr>';
-    //                     $html .= '<td>' . $review->id . '</td>';
-    //                     $html .= '<td>' . ($review->reviewtype->nombre ?? '-') . '</td>';
-    //                     $html .= '<td>' . ($review->elevator->nombre ?? '-') . '</td>';
-    //                     $html .= '<td>' . $review->fecha_de_mantenimiento . '</td>';
-    //                     $html .= '<td>' . $review->hora_inicio . '</td>';
-    //                     $html .= '<td>' . $review->hora_fin . '</td>';
-    //                     $html .= '<td>' . ($review->staff->nombre ?? '-') . '</td>';
-    //                     $html .= '</tr>';
-    //                 }
-    //             });
+        // Fetch a chunk of data from the database
+        $reviews = MaintInReview::with(['reviewtype', 'elevator', 'staff'])
+            ->offset($offset)
+            ->limit($chunkSize)
+            ->get();
 
-    //         $html .= '</table>';
+        foreach ($reviews as $review) {
+            $html .= '<tr>';
+            $html .= '<td>' . $review->id . '</td>';
+            $html .= '<td>' . ($review->reviewtype->nombre ?? '-') . '</td>';
+            $html .= '<td>' . ($review->elevator->nombre ?? '-') . '</td>';
+            $html .= '<td>' . $review->fecha_de_mantenimiento . '</td>';
+            $html .= '<td>' . $review->hora_inicio . '</td>';
+            $html .= '<td>' . $review->hora_fin . '</td>';
+            $html .= '<td>' . ($review->staff->nombre ?? '-') . '</td>';
+            $html .= '</tr>';
+        }
 
-    //         // Return the HTML content directly
-    //         return view('Maint.print', ['html' => $html]);
-    //     }
+        $html .= '</table>';
+
+        return $html;
+    }
 
     public function getDataMaintance()
     {
@@ -477,7 +448,7 @@ class MaintInReviewController extends Controller
                 $originalName = $file->getClientOriginalName();
                 $extension = $file->getClientOriginalExtension();
                 $uniqueName = pathinfo($originalName, PATHINFO_FILENAME) . '_' . uniqid() . '.' . $extension;
-                $destinationPath = public_path('documents');
+                $destinationPath = ('documents');
 
                 if (!$file->move($destinationPath, $uniqueName)) {
                     throw new \Exception("Failed to move file {$index}: {$originalName}");
@@ -517,7 +488,7 @@ class MaintInReviewController extends Controller
     public function deleteImage(Request $request, $imageId)
     {
         $image = ImagePdfs::findOrFail($imageId);
-        $imagePath = public_path('images/' . $image->image);
+        $imagePath = ('images/' . $image->image);
         $image->delete();
         return response()->json(['success' => true]);
     }

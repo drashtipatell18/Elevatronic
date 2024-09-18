@@ -112,7 +112,7 @@
                                             href="{{ route('maint_in_review.export', ['type' => 'excel']) }}">Excel</a>
                                         <a class="dropdown-item" id="export_pdf"
                                             href="{{ route('maint_in_review.export', ['type' => 'pdf']) }}">PDF</a>
-                                        <a class="dropdown-item" id="export_copy" href="">Copiar</a>
+                                        <a class="dropdown-item" id="export_copy">Copiar</a>
                                         <a class="dropdown-item" id="export_print" href="{{ route('maint_in_review.export', ['type' => 'print']) }}">Imprimir</a>
                                     </div>
                                 </div>
@@ -1092,30 +1092,34 @@
                 });
             });
 
-            // Similar changes for Copy and Print
-            $("#export_copy").on("click", function() {
-                $("#loader").show(); // Show loader
-
-                $.ajax({
-                    url: "{{ route('maint_in_review.export', ['type' => 'copy']) }}",
-                    method: 'GET',
-                    success: function(response) {
-                        console.log(response); // Log the response to debug
-                        navigator.clipboard.writeText(response).then(function() {
-                            alert('Data copied to clipboard!'); // Notify the user
-                        }).catch(function(err) {
-                            console.error('Error copying text: ', err);
-                        });
-                    },
-                    error: function(xhr) {
-                        console.error('Error copying table:', xhr.responseText);
-                    },
-                    complete: function() {
+           $("#export_copy").on("click", function() {
+                               $("#loader").show(); // Show loader
+            $.ajax({
+                url: "{{ route('maint_in_review.export', ['type' => 'copy']) }}",
+                method: 'GET',
+                success: function(response) {
+                    console.log('Response from server:', response); // Log the response to debug
+                    
+                    // Create a temporary textarea element
+                    const tempTextArea = document.createElement("textarea");
+                    tempTextArea.value = response; // Set the response as the value
+                    document.body.appendChild(tempTextArea); // Append to the body
+                    tempTextArea.select(); // Select the text
+                    
+                    // Copy the text to clipboard
+                    document.execCommand("copy"); // Copy the text to clipboard
+                    alert('Datos copiados al portapapeles!'); // Notify the user
+                    document.body.removeChild(tempTextArea); // Remove the textarea
+                },
+                error: function(xhr) {
+                    console.error('Error copying table:', xhr.responseText);
+                    alert('Error copying data.'); // Notify the user of the error
+                },
+                 complete: function() {
                         $("#loader").hide(); // Hide loader after the request is complete
                     }
-                });
             });
-
+        });
             $("#export_pdf").on("click", function() {
                 $("#loader").show(); // Show loader
 

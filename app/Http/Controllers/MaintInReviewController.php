@@ -54,23 +54,23 @@ class MaintInReviewController extends Controller
         }
         $searchValue = $request->input('search.value', ''); // Default to empty string
 
-        // Fetch paginated data with sorting
         $maint_in_reviews = MaintInReview::with(['staff', 'elevator', 'reviewtype'])
-        ->when($searchValue, function ($query) use ($searchValue) {
-            $searchValueLower = strtolower($searchValue); // Convert search value to lowercase
-            return $query->where(function ($query) use ($searchValueLower) {
-                $query->whereRaw('LOWER(id) like ?', ["%{$searchValueLower}%"])
-                      ->orWhereHas('reviewtype', function ($q) use ($searchValueLower) {
-                          $q->whereRaw('LOWER(nombre) like ?', ["%{$searchValueLower}%"]);
-                      })
-                      ->orWhereHas('elevator', function ($q) use ($searchValueLower) {
-                          $q->whereRaw('LOWER(nombre) like ?', ["%{$searchValueLower}%"]);
-                      })
-                      ->orWhereRaw('LOWER(técnico) like ?', ["%{$searchValueLower}%"]);
-            });
-        })
-        ->orderBy($sortColumn, $sortDirection) // Add sorting
-        ->paginate($length, ['*'], 'page', $currentPage);
+            ->when($searchValue, function ($query) use ($searchValue) {
+                $searchValueLower = strtolower($searchValue); // Convert search value to lowercase
+                return $query->where(function ($query) use ($searchValueLower) {
+                    $query->whereRaw('LOWER(id) like ?', ["%{$searchValueLower}%"])
+                        ->orWhereHas('reviewtype', function ($q) use ($searchValueLower) {
+                            $q->whereRaw('LOWER(nombre) like ?', ["%{$searchValueLower}%"]);
+                        })
+                        ->orWhereHas('elevator', function ($q) use ($searchValueLower) {
+                            $q->whereRaw('LOWER(nombre) like ?', ["%{$searchValueLower}%"]);
+                        })
+                        ->orWhereRaw('LOWER(técnico) like ?', ["%{$searchValueLower}%"]);
+                });
+            })
+            ->orderBy($sortColumn, $sortDirection) // Add sorting
+            ->paginate($length, ['*'], 'page', $currentPage);
+
         // Send the paginated response
         return response()->json([
             'draw' => $request->input('draw'),  // Pass the 'draw' parameter from DataTables
@@ -192,10 +192,8 @@ class MaintInReviewController extends Controller
         exit; // Ensure no further output is sent
     }
 
-    public function exportCopy()
+    public function exportCopy($maint_in_reviews)
     {
-        // Fetch the maintenance reviews from the database
-        $maint_in_reviews = MaintInReview::with(['reviewtype', 'elevator', 'staff'])->get();
 
         // Check if there are no reviews
         if ($maint_in_reviews->isEmpty()) {
@@ -204,46 +202,103 @@ class MaintInReviewController extends Controller
         }
 
         // Create a plain text representation of the data
-        $output = "ID\tTipo de Revisión\tAscensor\tTécnico\n";
+        $output = "ID\tTipo de Revisión\tAscensor\tFecha de Mantenimiento\tTécnico\n";
 
         foreach ($maint_in_reviews as $review) {
-            $output .= $review->id . "\t" .
-                ($review->reviewtype->nombre ?? '-') . "\t" .
-                ($review->elevator->nombre ?? '-') . "\t" .
-                $review->fecha_de_mantenimiento . "\t" .
-                ($review->staff->nombre ?? '-') . "\n";
+            $output .= implode("\t", [
+                $review->id,
+                $review->reviewtype->nombre ?? '-',
+                $review->elevator->nombre ?? '-',
+                $review->fecha_de_mantenimiento,
+                $review->staff->nombre ?? '-'
+            ]) . "\n";
         }
-
         // Return the plain text response
         return response($output, 200)
-            ->header('Content-Type', 'text/plain'); // Set content type to plain text
+            ->header('Content-Type', 'text/plain'); // Ensure the content type is plain text
     }
-    private function exportPrint()
+
+    private function exportPrint($maint_in_reviews)
     {
-        $html = '<h1>Mantenimiento en Revisión</h1>';
-        $html .= '<table cellpadding="5"><tr><th>ID</th><th>Tipo de Revisión</th><th>Ascensor</th><th>Fecha de Mantenimiento</th><th>HOR. INI</th><th>HOR. FIN</th><th>Técnico</th></tr>';
+        $mpdf = new Mpdf(); // Create a new instance of mPDF
+        $mpdf->SetDisplayMode('fullpage');
 
-        // Fetch data directly from the database using chunk
-        MaintInReview::with(['reviewtype', 'elevator', 'staff'])
-            ->chunk(100, function ($chunk) use (&$html) {
-                foreach ($chunk as $review) {
-                    $html .= '<tr>';
-                    $html .= '<td>' . $review->id . '</td>';
-                    $html .= '<td>' . ($review->reviewtype->nombre ?? '-') . '</td>';
-                    $html .= '<td>' . ($review->elevator->nombre ?? '-') . '</td>';
-                    $html .= '<td>' . $review->fecha_de_mantenimiento . '</td>';
-                    $html .= '<td>' . $review->hora_inicio . '</td>';
-                    $html .= '<td>' . $review->hora_fin . '</td>';
-                    $html .= '<td>' . ($review->staff->nombre ?? '-') . '</td>';
-                    $html .= '</tr>';
-                }
-            });
+        // Check if there are any reviews to export
+        if ($maint_in_reviews->isEmpty()) {
+            $mpdf->WriteHTML('<h1>No data available for export</h1>');
+            $mpdf->Output('no_data.pdf', 'I'); // Show PDF in browser
+            exit;
+        }
 
-        $html .= '</table>';
+        // Header for the table
+        $htmlHeader = '<h1>Mantenimiento en Revisión</h1>';
+        $htmlHeader .= '<table class="table table-striped" cellpadding="5" style="width: 100%; border-collapse: collapse;">';
+        $htmlHeader .= '<tr style="background-color:#2D4054; color: white;">';
+        $htmlHeader .= '<th class="text-center" style="color: white;">ID</th>';
+        $htmlHeader .= '<th class="text-center" style="color: white;" >Tipo de Revisión</th>';
+        $htmlHeader .= '<th class="text-center" style="color: white;" >Ascensor</th>';
+        $htmlHeader .= '<th class="text-center" style="color: white;" >Fecha de Mantenimiento</th>';
+        $htmlHeader .= '<th class="text-center" style="color: white;" >HOR. INI</th>';
+        $htmlHeader .= '<th class="text-center" style="color: white;" >HOR. FIN</th>';
+        $htmlHeader .= '<th class="text-center" style="color: white;" >Técnico</th>';
+        $htmlHeader .= '</tr>';
+        $mpdf->WriteHTML($htmlHeader); // Write header HTML
 
-        // Return the HTML content directly
-        return view('Maint.print', ['html' => $html]);
+        // Process data in chunks
+        $chunkSize = 500; // Adjust chunk size as needed
+        $totalReviews = $maint_in_reviews->count();
+
+        for ($i = 0; $i < $totalReviews; $i += $chunkSize) {
+            $chunk = $maint_in_reviews->slice($i, $chunkSize);
+            $htmlChunk = '';
+
+            foreach ($chunk as $review) {
+                $htmlChunk .= '<tr>';
+                $htmlChunk .= '<td style="text-align: center;">' . $review->id . '</td>'; // Centered
+                $htmlChunk .= '<td style="text-align: center;">' . ($review->reviewtype->nombre ?? '-') . '</td>'; // Centered
+                $htmlChunk .= '<td style="text-align: center;">' . ($review->elevator->nombre ?? '-') . '</td>'; // Centered
+                $htmlChunk .= '<td style="text-align: center;">' . $review->fecha_de_mantenimiento . '</td>'; // Centered
+                $htmlChunk .= '<td style="text-align: center;">' . $review->hora_inicio . '</td>'; // Centered
+                $htmlChunk .= '<td style="text-align: center;">' . $review->hora_fin . '</td>'; // Centered
+                $htmlChunk .= '<td style="text-align: center;">' . ($review->staff->nombre ?? '-') . '</td>'; // Centered
+                $htmlChunk .= '</tr>';
+            }
+
+            $mpdf->WriteHTML($htmlChunk); // Write chunk HTML
+        }
+
+        $mpdf->WriteHTML('</table>'); // Close the table
+
+        // Output the PDF to browser and allow printing
+        return view('Maint.print', ['html' => $mpdf]);
     }
+
+    //   private function exportPrint()
+    //     {
+    //         $html = '<h1>Mantenimiento en Revisión</h1>';
+    //         $html .= '<table cellpadding="5"><tr><th>ID</th><th>Tipo de Revisión</th><th>Ascensor</th><th>Fecha de Mantenimiento</th><th>HOR. INI</th><th>HOR. FIN</th><th>Técnico</th></tr>';
+
+    //         // Fetch data directly from the database using chunk
+    //         MaintInReview::with(['reviewtype', 'elevator', 'staff'])
+    //             ->chunk(100, function ($chunk) use (&$html) {
+    //                 foreach ($chunk as $review) {
+    //                     $html .= '<tr>';
+    //                     $html .= '<td>' . $review->id . '</td>';
+    //                     $html .= '<td>' . ($review->reviewtype->nombre ?? '-') . '</td>';
+    //                     $html .= '<td>' . ($review->elevator->nombre ?? '-') . '</td>';
+    //                     $html .= '<td>' . $review->fecha_de_mantenimiento . '</td>';
+    //                     $html .= '<td>' . $review->hora_inicio . '</td>';
+    //                     $html .= '<td>' . $review->hora_fin . '</td>';
+    //                     $html .= '<td>' . ($review->staff->nombre ?? '-') . '</td>';
+    //                     $html .= '</tr>';
+    //                 }
+    //             });
+
+    //         $html .= '</table>';
+
+    //         // Return the HTML content directly
+    //         return view('Maint.print', ['html' => $html]);
+    //     }
 
     public function getDataMaintance()
     {

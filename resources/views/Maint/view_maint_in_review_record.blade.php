@@ -227,11 +227,13 @@
                                             <tbody>
                                                 <tr>
                                                     <td class="text-gris">Técnico</td>
-                                                    @if ($maint_in_review->staff)
-                                                        {{ $maint_in_review->staff->nombre }}
-                                                    @else
-                                                        {{ '-' }}
-                                                    @endif
+                                                    <td>
+                                                        @if ($maint_in_review->staff)
+                                                            {{ $maint_in_review->staff->nombre }}
+                                                        @else
+                                                            {{ '-' }}
+                                                        @endif
+                                                    </td>
                                                 </tr>
                                             </tbody>
                                         </table>

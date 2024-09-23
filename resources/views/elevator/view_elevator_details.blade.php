@@ -2735,10 +2735,21 @@
                     table1.button('.buttons-copy').trigger();
                 });
                 $(".export_print").on("click", function() {
-                    var tableId = $(this).data("table");
-                    var table1 = $(tableId).DataTable();
+                var tableId = $(this).data("table");
+                var table1 = $(tableId).DataTable();
+               
+                event.stopPropagation(); // Stop the event from bubbling up
+                
+                // Set a delay of 1 second before triggering the print
+                setTimeout(function() {
                     table1.button('.buttons-print').trigger();
-                });
+                    $('.row').css('cursor', 'pointer');
+                }, 1000); // 1000 milliseconds = 1 second
+                setTimeout(function() {
+                    window.location.reload();
+                }, 1000); // Adjust the delay as needed
+    
+            });
 
                 $('#customSearchBox').keyup(function() {
                     table1.column(0).search($(this).val()).draw(); // Change here to target only the second column

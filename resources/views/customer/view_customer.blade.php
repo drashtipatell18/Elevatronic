@@ -160,7 +160,8 @@
                                                                     method="POST">
                                                                     @csrf
                                                                     @method('DELETE')
-                                                                    <button type="submit" class="btn-gris btn-red" onclick="this.disabled=true;this.form.submit();">Sí</button>
+                                                                    <button type="submit" class="btn-gris btn-red"
+                                                                        onclick="this.disabled=true;this.form.submit();">Sí</button>
                                                                     <button type="button" class="btn-gris btn-border"
                                                                         data-dismiss="modal">No</button>
                                                                 </form>
@@ -232,7 +233,7 @@
                                                 <select id="provincia" name="provincia" class="form-control">
                                                     <option value="">Seleccionar Provincia</option>
                                                     @foreach ($provinces as $id => $province)
-                                                         <option value="{{ $id }}">{{ $province }}</option>
+                                                        <option value="{{ $id }}">{{ $province }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -349,7 +350,7 @@
                                                         </option>
                                                         @foreach ($provinces as $id => $province)
                                                             <option value="{{ $id }}"
-                                                                {{ $customer->provincia == $id ? 'selected' : '' }}> 
+                                                                {{ $customer->provincia == $id ? 'selected' : '' }}>
                                                                 {{ $province }}
                                                             </option>
                                                         @endforeach
@@ -547,7 +548,9 @@
                 responsive: true,
                 dom: 'tp',
                 pageLength: 20, // Establece el número de registros por página a 8
-                order: [[0, 'desc']], // Add this line to set default sorting by ID in descending order
+                order: [
+                    [0, 'desc']
+                ], // Add this line to set default sorting by ID in descending order
                 language: {
                     "decimal": "",
                     "emptyTable": "No hay información",
@@ -633,11 +636,22 @@
             $("#export_copy").on("click", function() {
                 table.button('.buttons-copy').trigger();
             });
-            $("#export_print").on("click", function() {
-                table.button('.buttons-print').trigger();
+            $("#export_print").on("click", function(event) {
+                event.stopPropagation(); // Stop the event from bubbling up
+                
+                // Set a delay of 1 second before triggering the print
+                setTimeout(function() {
+                    table.button('.buttons-print').trigger();
+                    $('.row').css('cursor', 'pointer');
+                }, 1000); // 1000 milliseconds = 1 second
+                setTimeout(function() {
+                    window.location.reload();
+                }, 1000); // Adjust the delay as needed
             });
+
             $('#customSearchBox').keyup(function() {
-                table.column(1).search($(this).val()).draw(); // Change here to target only the second column
+                table.column(1).search($(this).val())
+                    .draw(); // Change here to target only the second column
             });
             setTimeout(function() {
                 $(".alert-success").fadeOut(1000);

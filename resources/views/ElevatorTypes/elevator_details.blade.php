@@ -497,7 +497,18 @@
             $(".export_print").on("click", function() {
                 var tableId = $(this).data("table");
                 var table = $(tableId).DataTable();
-                table.button('.buttons-print').trigger();
+               
+                event.stopPropagation(); // Stop the event from bubbling up
+                
+                // Set a delay of 1 second before triggering the print
+                setTimeout(function() {
+                    table.button('.buttons-print').trigger();
+                    $('.row').css('cursor', 'pointer');
+                }, 1000); // 1000 milliseconds = 1 second
+                setTimeout(function() {
+                    window.location.reload();
+                }, 1000); // Adjust the delay as needed
+    
             });
             $('.customSearchBox1').keyup(function() {
                 table1.column(3).search($(this).val()).draw(); // Change here to target only the second column

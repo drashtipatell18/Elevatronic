@@ -62,10 +62,10 @@ class MaintInReviewController extends Controller
                         ->orWhereHas('reviewtype', function ($q) use ($searchValueLower) {
                             $q->whereRaw('LOWER(nombre) like ?', ["%{$searchValueLower}%"]);
                         });
-                        // ->orWhereHas('elevator', function ($q) use ($searchValueLower) {
-                        //     $q->whereRaw('LOWER(nombre) like ?', ["%{$searchValueLower}%"]);
-                        // })
-                        // ->orWhereRaw('LOWER(técnico) like ?', ["%{$searchValueLower}%"]);
+                    // ->orWhereHas('elevator', function ($q) use ($searchValueLower) {
+                    //     $q->whereRaw('LOWER(nombre) like ?', ["%{$searchValueLower}%"]);
+                    // })
+                    // ->orWhereRaw('LOWER(técnico) like ?', ["%{$searchValueLower}%"]);
                 });
             })
             ->orderBy($sortColumn, $sortDirection) // Add sorting
@@ -103,21 +103,27 @@ class MaintInReviewController extends Controller
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
 
+        // Set title
+        $sheet->mergeCells('A1:G1'); // Merge cells for the title
+        $sheet->setCellValue('A1', 'Mantenimiento en Revisión');
+        $sheet->getStyle('A1')->getFont()->setBold(true); // Make the title bold
+        $sheet->getStyle('A1')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+
         // Set header
-        $sheet->setCellValue('A1', 'ID');
-        $sheet->setCellValue('B1', 'Tipo de Revisión');
-        $sheet->setCellValue('C1', 'Ascensor');
-        $sheet->setCellValue('D1', 'Fecha de Mantenimiento');
-        $sheet->setCellValue('E1', 'HOR. INI');
-        $sheet->setCellValue('F1', 'HOR. FIN');
-        $sheet->setCellValue('G1', 'Técnico');
+        $sheet->setCellValue('A2', 'ID');
+        $sheet->setCellValue('B2', 'Tipo de Revisión');
+        $sheet->setCellValue('C2', 'Ascensor');
+        $sheet->setCellValue('D2', 'Fecha de Mantenimiento');
+        $sheet->setCellValue('E2', 'HOR. INI');
+        $sheet->setCellValue('F2', 'HOR. FIN');
+        $sheet->setCellValue('G2', 'Técnico');
 
         // Populate data
-        $row = 2; // Start from the second row
+        $row = 3; // Start from the third row due to the title and header
         foreach ($maint_in_reviews as $review) {
             $sheet->setCellValue('A' . $row, $review->id);
-            $sheet->setCellValue('B' . $row, $review->reviewtype->nombre ?? '-'); // Use 'N/A' if reviewtype is null            $sheet->setCellValue('C' . $row, $review->elevator->nombre);
-            $sheet->setCellValue('C' . $row, $review->elevator->nombre ?? '-'); // Use 'N/A' if reviewtype is null            $sheet->setCellValue('C' . $row, $review->elevator->nombre);
+            $sheet->setCellValue('B' . $row, $review->reviewtype->nombre ?? '-');
+            $sheet->setCellValue('C' . $row, $review->elevator->nombre ?? '-');
             $sheet->setCellValue('D' . $row, $review->fecha_de_mantenimiento);
             $sheet->setCellValue('E' . $row, $review->hora_inicio);
             $sheet->setCellValue('F' . $row, $review->hora_fin);
@@ -149,7 +155,7 @@ class MaintInReviewController extends Controller
             exit;
         }
 
-        $htmlHeader = '<h1>Mantenimiento en Revisión</h1>';
+        $htmlHeader = '<h1 style="text-align: center;">Mantenimiento en Revisión</h1>';
         $htmlHeader .= '<table class="table table-striped" cellpadding="5" style="width: 100%; border-collapse: collapse;">';
         $htmlHeader .= '<tr style="background-color:#2D4054; color: white;">';
         $htmlHeader .= '<th class="text-center" style="color: white;">ID</th>';
@@ -211,6 +217,8 @@ class MaintInReviewController extends Controller
                 $review->reviewtype->nombre ?? '-',
                 $review->elevator->nombre ?? '-',
                 $review->fecha_de_mantenimiento,
+                $review->hora_inicio,
+                $review->hora_fin,
                 $review->staff->nombre ?? '-'
             ]) . "\n";
         }
@@ -229,7 +237,7 @@ class MaintInReviewController extends Controller
         // Count total records and divide into chunks
         $totalRecords = MaintInReview::count();
         $totalChunks = ceil($totalRecords / $chunkSize);
-        
+
         $html = ''; // Initialize HTML variable to accumulate results
 
         for ($i = 0; $i < $totalChunks; $i++) {

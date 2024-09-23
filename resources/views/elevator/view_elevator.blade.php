@@ -1153,7 +1153,7 @@
                 table.button('.buttons-print').trigger();
             });
             $('#customSearchBox').keyup(function() {
-                table.search($(this).val()).draw();
+                table.column(3).search($(this).val()).draw(); // Change here to target only the second column
             });
             setTimeout(function() {
                 $(".alert-success").fadeOut(1000);

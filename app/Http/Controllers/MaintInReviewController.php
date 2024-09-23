@@ -61,11 +61,11 @@ class MaintInReviewController extends Controller
                     $query->whereRaw('LOWER(id) like ?', ["%{$searchValueLower}%"])
                         ->orWhereHas('reviewtype', function ($q) use ($searchValueLower) {
                             $q->whereRaw('LOWER(nombre) like ?', ["%{$searchValueLower}%"]);
-                        })
-                        ->orWhereHas('elevator', function ($q) use ($searchValueLower) {
-                            $q->whereRaw('LOWER(nombre) like ?', ["%{$searchValueLower}%"]);
-                        })
-                        ->orWhereRaw('LOWER(técnico) like ?', ["%{$searchValueLower}%"]);
+                        });
+                        // ->orWhereHas('elevator', function ($q) use ($searchValueLower) {
+                        //     $q->whereRaw('LOWER(nombre) like ?', ["%{$searchValueLower}%"]);
+                        // })
+                        // ->orWhereRaw('LOWER(técnico) like ?', ["%{$searchValueLower}%"]);
                 });
             })
             ->orderBy($sortColumn, $sortDirection) // Add sorting

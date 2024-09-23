@@ -2741,13 +2741,13 @@
                 });
 
                 $('#customSearchBox').keyup(function() {
-                    table1.search($(this).val()).draw();
+                    table1.column(0).search($(this).val()).draw(); // Change here to target only the second column
                 });
                 $('#customSearchBox2').keyup(function() {
-                    table2.search($(this).val()).draw();
+                    table2.column(0).search($(this).val()).draw(); // Change here to target only the second column
                 });
                 $('#customSearchBox1').keyup(function() {
-                    table.search($(this).val()).draw();
+                    table.column(2).search($(this).val()).draw(); // Change here to target only the second column
                 });
 
                 var table2 = $('#mantenimientosTable').DataTable({

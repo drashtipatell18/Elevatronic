@@ -120,7 +120,7 @@
                                 <table id="TiposAscensores" class="table">
                                     <thead>
                                         <tr>
-                                            <th>ID< /th>
+                                            <th>ID</th>
                                             <th>FOTO</th>
                                             <th>NOMBRE</th>
                                             <th>CORREO</th>
@@ -780,7 +780,7 @@
                 table.button('.buttons-print').trigger();
             });
             $('#customSearchBox').keyup(function() {
-                table.search($(this).val()).draw();
+                table.column(2).search($(this).val()).draw(); // Change here to target only the second column
             });
 
             $('#cargarimagenUsuario').click(function() {

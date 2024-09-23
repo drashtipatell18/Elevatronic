@@ -31,7 +31,7 @@ class SearchController extends Controller
 
         // Search in AssginSpare table
         $assignSpares = AssginSpare::whereRaw('LOWER(nombre_del_tipo_de_ascensor) LIKE LOWER(?)', ["%{$escapedQuery}%"])
-            ->orWhereRaw('LOWER(repuesto_id) LIKE LOWER(?)', ["%{$escapedQuery}%"])
+            // ->orWhereRaw('LOWER(repuesto_id) LIKE LOWER(?)', ["%{$escapedQuery}%"])
             ->get();
 
         // Search in Cliente table
@@ -49,16 +49,16 @@ class SearchController extends Controller
             ->get();
 
         // Search in Contract table
-        $contracts = Contract::whereRaw('LOWER(ascensor) LIKE LOWER(?)', ["%{$escapedQuery}%"])
-            ->orWhereRaw('LOWER(fecha_de_propuesta) LIKE LOWER(?)', ["%{$escapedQuery}%"])
-            ->orWhereRaw('LOWER(monto_de_propuesta) LIKE LOWER(?)', ["%{$escapedQuery}%"])
-            ->orWhereRaw('LOWER(monto_de_contrato) LIKE LOWER(?)', ["%{$escapedQuery}%"])
-            ->orWhereRaw('LOWER(fecha_de_inicio) LIKE LOWER(?)', ["%{$escapedQuery}%"])
-            ->orWhereRaw('LOWER(fecha_de_fin) LIKE LOWER(?)', ["%{$escapedQuery}%"])
-            ->orWhereRaw('LOWER(renovación) LIKE LOWER(?)', ["%{$escapedQuery}%"])
-            ->orWhereRaw('LOWER(cada_cuantos_meses) LIKE LOWER(?)', ["%{$escapedQuery}%"])
-            ->orWhereRaw('LOWER(estado_cuenta_del_contrato) LIKE LOWER(?)', ["%{$escapedQuery}%"])
-            ->orWhereRaw('LOWER(estado) LIKE LOWER(?)', ["%{$escapedQuery}%"])
+        $contracts = Contract::whereRaw('LOWER(fecha_de_propuesta) LIKE LOWER(?)', ["%{$escapedQuery}%"])
+            // ->orWhereRaw('LOWER(fecha_de_propuesta) LIKE LOWER(?)', ["%{$escapedQuery}%"])
+            // ->orWhereRaw('LOWER(monto_de_propuesta) LIKE LOWER(?)', ["%{$escapedQuery}%"])
+            // ->orWhereRaw('LOWER(monto_de_contrato) LIKE LOWER(?)', ["%{$escapedQuery}%"])
+            // ->orWhereRaw('LOWER(fecha_de_inicio) LIKE LOWER(?)', ["%{$escapedQuery}%"])
+            // ->orWhereRaw('LOWER(fecha_de_fin) LIKE LOWER(?)', ["%{$escapedQuery}%"])
+            // ->orWhereRaw('LOWER(renovación) LIKE LOWER(?)', ["%{$escapedQuery}%"])
+            // ->orWhereRaw('LOWER(cada_cuantos_meses) LIKE LOWER(?)', ["%{$escapedQuery}%"])
+            // ->orWhereRaw('LOWER(estado_cuenta_del_contrato) LIKE LOWER(?)', ["%{$escapedQuery}%"])
+            // ->orWhereRaw('LOWER(estado) LIKE LOWER(?)', ["%{$escapedQuery}%"])
             ->get();
 
         // Search in Customer Type table
@@ -66,18 +66,18 @@ class SearchController extends Controller
 
         // MaintinRevieew search table
         $maininReview = MaintInReview::whereRaw('LOWER(tipo_de_revisión) LIKE LOWER(?)', ["%{$escapedQuery}%"])
-            ->orWhereRaw('LOWER(ascensor) LIKE LOWER(?)', ["%{$escapedQuery}%"])
-            ->orWhereRaw('LOWER(dirección) LIKE LOWER(?)', ["%{$escapedQuery}%"])
-            ->orWhereRaw('LOWER(provincia) LIKE LOWER(?)', ["%{$escapedQuery}%"])
-            ->orWhereRaw('LOWER(supervisor_id) LIKE LOWER(?)', ["%{$escapedQuery}%"])
-            ->orWhereRaw('LOWER(técnico) LIKE LOWER(?)', ["%{$escapedQuery}%"])
-            ->orWhereRaw('LOWER(mes_programado) LIKE LOWER(?)', ["%{$escapedQuery}%"])
-            ->orWhereRaw('LOWER(fecha_de_mantenimiento) LIKE LOWER(?)', ["%{$escapedQuery}%"])
-            ->orWhereRaw('LOWER(hora_inicio) LIKE LOWER(?)', ["%{$escapedQuery}%"])
-            ->orWhereRaw('LOWER(hora_fin) LIKE LOWER(?)', ["%{$escapedQuery}%"])
-            ->orWhereRaw('LOWER(observaciónes) LIKE LOWER(?)', ["%{$escapedQuery}%"])
-            ->orWhereRaw('LOWER(observaciónes_internas) LIKE LOWER(?)', ["%{$escapedQuery}%"])
-            ->orWhereRaw('LOWER(solución) LIKE LOWER(?)', ["%{$escapedQuery}%"])
+            // ->orWhereRaw('LOWER(ascensor) LIKE LOWER(?)', ["%{$escapedQuery}%"])
+            // ->orWhereRaw('LOWER(dirección) LIKE LOWER(?)', ["%{$escapedQuery}%"])
+            // ->orWhereRaw('LOWER(provincia) LIKE LOWER(?)', ["%{$escapedQuery}%"])
+            // ->orWhereRaw('LOWER(supervisor_id) LIKE LOWER(?)', ["%{$escapedQuery}%"])
+            // ->orWhereRaw('LOWER(técnico) LIKE LOWER(?)', ["%{$escapedQuery}%"])
+            // ->orWhereRaw('LOWER(mes_programado) LIKE LOWER(?)', ["%{$escapedQuery}%"])
+            // ->orWhereRaw('LOWER(fecha_de_mantenimiento) LIKE LOWER(?)', ["%{$escapedQuery}%"])
+            // ->orWhereRaw('LOWER(hora_inicio) LIKE LOWER(?)', ["%{$escapedQuery}%"])
+            // ->orWhereRaw('LOWER(hora_fin) LIKE LOWER(?)', ["%{$escapedQuery}%"])
+            // ->orWhereRaw('LOWER(observaciónes) LIKE LOWER(?)', ["%{$escapedQuery}%"])
+            // ->orWhereRaw('LOWER(observaciónes_internas) LIKE LOWER(?)', ["%{$escapedQuery}%"])
+            // ->orWhereRaw('LOWER(solución) LIKE LOWER(?)', ["%{$escapedQuery}%"])
             ->get();
 
         // Position table search
@@ -90,24 +90,24 @@ class SearchController extends Controller
         $reviewType = ReviewType::whereRaw('LOWER(nombre) LIKE LOWER(?)', ["%{$escapedQuery}%"])->get();
 
         // Staff Search table
-        $staff = Staff::whereRaw('LOWER(personalfoto) LIKE LOWER(?)', ["%{$escapedQuery}%"])
-            ->orWhereRaw('LOWER(nombre) LIKE LOWER(?)', ["%{$escapedQuery}%"])
+        $staff = Staff::whereRaw('LOWER(nombre) LIKE LOWER(?)', ["%{$escapedQuery}%"])
+            // ->orWhereRaw('LOWER(nombre) LIKE LOWER(?)', ["%{$escapedQuery}%"])
             // ->orWhereRaw('LOWER(posición_id) LIKE LOWER(?)', ["%{$escapedQuery}%"])
             // ->orWhereRaw('LOWER(correo) LIKE LOWER(?)', ["%{$escapedQuery}%"])
             // ->orWhereRaw('LOWER(teléfono) LIKE LOWER(?)', ["%{$escapedQuery}%"])
             ->get();
 
         // User search
-        $users = User::whereRaw('LOWER(username) LIKE LOWER(?)', ["%{$escapedQuery}%"])
-            ->orWhereRaw('LOWER(name) LIKE LOWER(?)', ["%{$escapedQuery}%"])
+        $users = User::whereRaw('LOWER(name) LIKE LOWER(?)', ["%{$escapedQuery}%"])
+            // ->orWhereRaw('LOWER(name) LIKE LOWER(?)', ["%{$escapedQuery}%"])
             // ->orWhereRaw('LOWER(email) LIKE LOWER(?)', ["%{$escapedQuery}%"])
             // ->orWhereRaw('LOWER(phone) LIKE LOWER(?)', ["%{$escapedQuery}%"])
             // ->orWhereRaw('LOWER(employee_id) LIKE LOWER(?)', ["%{$escapedQuery}%"])
             ->get();
 
         // Search in Elevators table
-        $elevators = Elevators::whereRaw('LOWER(imagen) LIKE LOWER(?)', ["%{$escapedQuery}%"])
-            ->orWhereRaw('LOWER(nombre) LIKE LOWER(?)', ["%{$escapedQuery}%"])
+        $elevators = Elevators::whereRaw('LOWER(nombre) LIKE LOWER(?)', ["%{$escapedQuery}%"])
+            // ->orWhereRaw('LOWER(nombre) LIKE LOWER(?)', ["%{$escapedQuery}%"])
             // ->orWhereRaw('LOWER(código) LIKE LOWER(?)', ["%{$escapedQuery}%"])
             // ->orWhereRaw('LOWER(marca_id) LIKE LOWER(?)', ["%{$escapedQuery}%"])
             // ->orWhereRaw('LOWER(client_id) LIKE LOWER(?)', ["%{$escapedQuery}%"])
@@ -135,8 +135,8 @@ class SearchController extends Controller
         $marcas = Marca::whereRaw('LOWER(marca_nombre) LIKE LOWER(?)', ["%{$escapedQuery}%"])->get();
 
         // Search in SparePart table
-        $spareParts = SparePart::whereRaw('LOWER(foto_de_repuesto) LIKE LOWER(?)', ["%{$escapedQuery}%"])
-            ->orWhereRaw('LOWER(nombre) LIKE LOWER(?)', ["%{$escapedQuery}%"])
+        $spareParts = SparePart::whereRaw('LOWER(nombre) LIKE LOWER(?)', ["%{$escapedQuery}%"])
+            // ->orWhereRaw('LOWER(nombre) LIKE LOWER(?)', ["%{$escapedQuery}%"])
             // ->orWhereRaw('LOWER(precio) LIKE LOWER(?)', ["%{$escapedQuery}%"])
             // ->orWhereRaw('LOWER(descripción) LIKE LOWER(?)', ["%{$escapedQuery}%"])
             // ->orWhereRaw('LOWER(frecuencia_de_limpieza) LIKE LOWER(?)', ["%{$escapedQuery}%"])

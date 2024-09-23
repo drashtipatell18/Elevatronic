@@ -1003,7 +1003,7 @@
             });
 
             $('#customSearchBox1').keyup(function() {
-                table1.search($(this).val()).draw();
+                table1.column(3).search($(this).val()).draw(); // Change here to target only the second column
             });
             $('.customSearchBox').keyup(function() {
                 table.search($(this).val()).draw();

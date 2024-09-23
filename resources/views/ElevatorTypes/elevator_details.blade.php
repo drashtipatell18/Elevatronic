@@ -500,10 +500,10 @@
                 table.button('.buttons-print').trigger();
             });
             $('.customSearchBox1').keyup(function() {
-                table1.search($(this).val()).draw();
+                table1.column(3).search($(this).val()).draw(); // Change here to target only the second column
             });
             $('.customSearchBox').keyup(function() {
-                table.search($(this).val()).draw();
+                table.column(1).search($(this).val()).draw(); // Change here to target only the second column
             });
 
             $('#editartiposAscensores').on('shown.bs.modal', function() {

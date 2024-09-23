@@ -73,13 +73,14 @@ class ElevatortypesController extends Controller
         ]);
         $elevator_type = Elevatortypes::findOrFail($id);
         $oldTypeName = $elevator_type->nombre_de_tipo_de_ascensor;
+        $oldTypeID = $elevator_type->id;
         $elevator_type->update([
             'nombre_de_tipo_de_ascensor' => $request->input('nombre_de_tipo_de_ascensor'),
         ]);
         AssginSpare::where('nombre_del_tipo_de_ascensor', $oldTypeName)
                    ->update(['nombre_del_tipo_de_ascensor' => $request->input('nombre_de_tipo_de_ascensor')]);
 
-        Elevators::where('tipo_de_ascensor', $oldTypeName)
+        Elevators::where('tipo_de_ascensor', $oldTypeID)
                  ->update(['tipo_de_ascensor' => $request->input('nombre_de_tipo_de_ascensor')]);
 
         session()->flash('success', 'Tipos de ascensor actualizado exitosamente!');

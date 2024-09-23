@@ -274,7 +274,7 @@
                                     id="submitFormButton">Actualizar</button>
                                 <button type="button" class="btn-gris btn-red mr-2" data-dismiss="modal">Cancelar</button>
                                 <button type="button" class="btn-gris btn-red mr-2 delete-schedule"
-                                    data-id="{{ $schedule->id }}" data-toggle="modal" data-target="#modalEliminar">
+                                    data-id="{{ $schedule->id }}" data-toggle="modal" data-target="#modalEliminar{{ $schedule->id }}">
                                     Eliminar
                                 </button>
                             </div>
@@ -285,7 +285,7 @@
             </div>
         </div>
         <!-- Modal Eliminar-->
-        <div class="modal fade" id="modalEliminar" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+        <div class="modal fade" id="modalEliminar{{ $schedule->id }}" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
             aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content border-radius-12">
@@ -305,9 +305,8 @@
                         </div>
                     </div>
                     <div class="modal-footer align-items-center justify-content-center">
-                        <form id="delete-form" action="" method="POST">
+                        <form id="delete-form" action="{{ route('delete.schedule', ['id' => $schedule->id]) }}" method="POST">
                             @csrf
-                            @method('DELETE')
                             <button type="submit" class="btn-gris btn-red"
                                 onclick="this.disabled=true;this.form.submit();">Sí</button>
                         </form>

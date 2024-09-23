@@ -334,7 +334,7 @@
                             <tr class="td-head-center">
                                 <td>{{ $item->id }}</td>
                                 <td>{{ $item->fecha }}</td>
-                                <td>{{ $item->tipo_de_ascensor }}</td>
+                                <td>{{ $item->tipoDeAscensor->nombre_de_tipo_de_ascensor }}</td>
                                 <td>
                                     <a href="{{ route('view.elevator', $item->id) }}" class="text-blue">
                                         {{ $item->nombre }}
@@ -351,7 +351,7 @@
                                 </td>
 
 
-                                <td>{{ $item->provincia }}</td>
+                                <td>{{ $item->province->provincia }}</td>
                             </tr>
                         @endforeach
                     </tbody>

@@ -456,7 +456,7 @@
                                                     <tbody>
                                                         <tr>
                                                             <td class="text-gris">Contacto</td>
-                                                            <td>{{ $elevators->contrato }}</td>
+                                                            <td>{{ $elevators->ncontacto }}</td>
                                                         </tr>
                                                     </tbody>
                                                 </table>

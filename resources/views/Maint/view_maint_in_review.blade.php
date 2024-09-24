@@ -124,6 +124,7 @@
                                         <tr>
                                             <th>ID</th>
                                             <th>TIPO DE REVISIÓN</th>
+                                            <th>Certificado</th>
                                             <th>ASCENSOR</th>
                                             <th>FECHA</th>
                                             <th>HOR. INI</th>
@@ -935,6 +936,10 @@
                     },
                     {
                         data: 'reviewtype.nombre',
+                        defaultContent: ''
+                    },
+                    {
+                        data: 'núm_certificado',
                         defaultContent: ''
                     },
                     {

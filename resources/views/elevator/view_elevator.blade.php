@@ -352,7 +352,7 @@
                                                                             name="quarters[]" value="sincuarto">
                                                                         <label class="custom-control-label"
                                                                             for="SinCuarto">Sin cuarto de
-                                                                            maquina?</label>
+                                                                            máquina?</label>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -364,7 +364,7 @@
                                                                             name="quarters[]" value="concuarto">
                                                                         <label class="custom-control-label"
                                                                             for="ConCuarto">Con cuarto de
-                                                                            maquina?</label>
+                                                                            máquina?</label>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -654,7 +654,7 @@
                                                                             name="quarters[]" value="sincuarto">
                                                                         <label class="custom-control-label"
                                                                             for="sincuarto">Sin cuarto de
-                                                                            maquina?</label>
+                                                                            máquina?</label>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -666,7 +666,7 @@
                                                                             name="quarters[]" value="concuarto">
                                                                         <label class="custom-control-label"
                                                                             for="concuarto">Con cuarto de
-                                                                            maquina?</label>
+                                                                            máquina?</label>
                                                                     </div>
                                                                 </div>
                                                             </div>

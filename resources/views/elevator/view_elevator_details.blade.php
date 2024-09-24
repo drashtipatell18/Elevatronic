@@ -416,7 +416,7 @@
                                                                 {{ in_array('sincuarto', explode(',', $elevators->quarters)) ? 'checked' : '' }}
                                                                 disabled>
                                                             <label class="custom-control-label" for="SinCuarto">Sin
-                                                                cuarto de maquina?</label>
+                                                                cuarto de máquina?</label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -432,7 +432,7 @@
                                                                 {{ in_array('concuarto', explode(',', $elevators->quarters)) ? 'checked' : '' }}
                                                                 disabled>
                                                             <label class="custom-control-label" for="ConCuarto">Con
-                                                                cuarto de maquina?</label>
+                                                                cuarto de máquina?</label>
                                                         </div>
                                                     </div>
                                                 </div>

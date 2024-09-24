@@ -579,13 +579,13 @@
                                                             <td>{{ $contra->fecha_de_fin }}</td>
                                                             <td>{{ $contra->monto_de_contrato }}
                                                             <td>
-                                                                @if ($contra->estado == 'activo')
+                                                                @if ($contra->estado == '1')
                                                                     <div class="alerta boton-activo">
-                                                                        <i class="fas fa-circle"></i> activo
+                                                                        <i class="fas fa-circle"></i>Vigente
                                                                     </div>
-                                                                @elseif ($contra->estado == 'inactivo')
+                                                                @elseif ($contra->estado == '0')
                                                                     <div class="alerta boton-inactivo">
-                                                                        <i class="fas fa-circle"></i> inactivo
+                                                                        <i class="fas fa-circle"></i> No vigente
                                                                     </div>
                                                                 @endif
                                                             </td>
@@ -786,8 +786,8 @@
                                                                             name="estado" id="estado">
                                                                             <option selected disabled>Seleccionar opción
                                                                             </option>
-                                                                            <option value="activo">Activo</option>
-                                                                            <option value="inactivo">Inactivo</option>
+                                                                            <option value="1">Vigente</option>
+                                                                            <option value="0">No vigente</option>
                                                                         </select>
 
                                                                     </div>
@@ -960,11 +960,11 @@
                                                                                 <option value="" disabled>Seleccionar
                                                                                     opción</option>
                                                                                 <option value="activo"
-                                                                                    {{ old('estado', isset($contra) && $contra->estado == 'activo' ? 'selected' : '') }}>
-                                                                                    Activo</option>
+                                                                                    {{ old('estado', isset($contra) && $contra->estado == '1' ? 'selected' : '') }}>
+                                                                                    Vigente</option>
                                                                                 <option value="inactivo"
-                                                                                    {{ old('estado', isset($contra) && $contra->estado == 'inactivo' ? 'selected' : '') }}>
-                                                                                    Inactivo</option>
+                                                                                    {{ old('estado', isset($contra) && $contra->estado == '0' ? 'selected' : '') }}>
+                                                                                    No vigente</option>
                                                                             </select>
                                                                         </div>
                                                                     </div>

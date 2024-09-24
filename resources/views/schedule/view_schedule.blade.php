@@ -591,6 +591,7 @@
 
             $(document).on('click', '.delete-schedule', function() {
                 var scheduleId = $(this).data('id'); // Get the elevator ID
+                $('#editCronograma' + scheduleId).modal('hide'); // Hide the edit form modal
                 $('#modalEliminar').modal('show'); // Show the modal
                 $('#delete-form').attr('action', '/cronograma/destruir/' +
                     scheduleId); // Set the form action to the DELETE route

@@ -1093,7 +1093,7 @@
                                                 <tbody>
                                                     @foreach ($maint_in_reviews as $maint_in_rev)
                                                         <tr>
-                                                            <td>{{ $maint_in_rev->reviewtype ? $maint_in_rev->reviewtype->nombre : '-' }}</td>
+                                                            <td>{{ $elevators->tipoDeAscensor ? $elevators->tipoDeAscensor->nombre_de_tipo_de_ascensor : '-' }}</td>
                                                             <td>{{ $elevators->nombre }}</td>
                                                             <td>{{ $maint_in_rev->fecha_de_mantenimiento }}</td>
                                                             <td>{{ isset($maint_in_rev->staff) ? $maint_in_rev->staff->nombre : '-' }}</td>

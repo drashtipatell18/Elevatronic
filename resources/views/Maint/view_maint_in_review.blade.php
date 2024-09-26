@@ -1169,8 +1169,7 @@
                     url: "{{ route('maint_in_review.export', ['type' => 'print']) }}",
                     method: 'GET',
                     success: function(data) {
-                        alert(
-                            'Print Susscefully!!!!!!!!!'); // Notify user
+                      
                     },
                     error: function(xhr) {
                         console.error('Error exporting Print:', xhr.responseText);

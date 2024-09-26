@@ -112,12 +112,13 @@ class MaintInReviewController extends Controller
         // Set header
         $sheet->setCellValue('A2', 'ID');
         $sheet->setCellValue('B2', 'Tipo de Revisión');
-        $sheet->setCellValue('C2', 'Tipo de Revisión');
+        $sheet->setCellValue('C2', 'Certificado');
         $sheet->setCellValue('D2', 'Ascensor');
         $sheet->setCellValue('E2', 'Fecha de Mantenimiento');
         $sheet->setCellValue('F2', 'HOR. INI');
         $sheet->setCellValue('G2', 'HOR. FIN');
         $sheet->setCellValue('H2', 'Técnico');
+        $sheet->setCellValue('H2', 'OBSERVACIÓN');
 
         // Populate data
         $row = 3; // Start from the third row due to the title and header
@@ -129,7 +130,7 @@ class MaintInReviewController extends Controller
             $sheet->setCellValue('E' . $row, $review->fecha_de_mantenimiento);
             $sheet->setCellValue('F' . $row, $review->hora_inicio);
             $sheet->setCellValue('G' . $row, $review->hora_fin);
-            $sheet->setCellValue('H' . $row, $review->staff->nombre ?? '-');
+            $sheet->setCellValue('H' . $row, $review->observaciónes ?? '-');
             $row++;
         }
 
@@ -168,6 +169,7 @@ class MaintInReviewController extends Controller
         $htmlHeader .= '<th class="text-center" style="color: white;" >HOR. INI</th>';
         $htmlHeader .= '<th class="text-center" style="color: white;" >HOR. FIN</th>';
         $htmlHeader .= '<th class="text-center" style="color: white;" >Técnico</th>';
+        $htmlHeader .= '<th class="text-center" style="color: white;" >OBSERVACIÓN</th>';
         $htmlHeader .= '</tr>';
         $mpdf->WriteHTML($htmlHeader); // Write header HTML
 
@@ -189,6 +191,7 @@ class MaintInReviewController extends Controller
                 $htmlChunk .= '<td style="text-align: center;">' . $review->hora_inicio . '</td>'; // Centered
                 $htmlChunk .= '<td style="text-align: center;">' . $review->hora_fin . '</td>'; // Centered
                 $htmlChunk .= '<td style="text-align: center;">' . ($review->staff->nombre ?? '-') . '</td>'; // Centered
+                $htmlChunk .= '<td style="text-align: center;">' . ($review->observaciónes ?? '-') . '</td>'; // Centered
                 $htmlChunk .= '</tr>';
             }
 
@@ -224,7 +227,8 @@ class MaintInReviewController extends Controller
                 $review->fecha_de_mantenimiento,
                 $review->hora_inicio,
                 $review->hora_fin,
-                $review->staff->nombre ?? '-'
+                $review->staff->nombre ?? '-',
+                $review->observaciónes
             ]) . "\n";
         }
         \Log::info('Export data prepared successfully'); // Log successful data preparation
@@ -259,7 +263,7 @@ class MaintInReviewController extends Controller
     private function generateHtmlChunk($offset, $chunkSize)
     {
         $html = '';
-        $html .= '<table cellpadding="5"><tr><th>ID</th><th>Tipo de Revisión</th><th>Certificado</th><th>Ascensor</th><th>Fecha de Mantenimiento</th><th>HOR. INI</th><th>HOR. FIN</th><th>Técnico</th></tr>';
+        $html .= '<table cellpadding="5"><tr><th>ID</th><th>Tipo de Revisión</th><th>Certificado</th><th>Ascensor</th><th>Fecha de Mantenimiento</th><th>HOR. INI</th><th>HOR. FIN</th><th>Técnico</th><th>OBSERVACIÓN</th></tr>';
 
         // Fetch a chunk of data from the database
         $reviews = MaintInReview::with(['reviewtype', 'elevator', 'staff'])
@@ -277,6 +281,7 @@ class MaintInReviewController extends Controller
             $html .= '<td>' . $review->hora_inicio . '</td>';
             $html .= '<td>' . $review->hora_fin . '</td>';
             $html .= '<td>' . ($review->staff->nombre ?? '-') . '</td>';
+            $html .= '<td>' . ($review->observaciónes ?? '-') . '</td>';
             $html .= '</tr>';
         }
 

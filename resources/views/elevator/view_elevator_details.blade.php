@@ -650,7 +650,8 @@
                                                                                 @csrf
                                                                                 @method('DELETE')
                                                                                 <button type="submit"
-                                                                                    class="btn-gris btn-red" onclick="this.disabled=true;this.form.submit();">Sí</button>
+                                                                                    class="btn-gris btn-red"
+                                                                                    onclick="this.disabled=true;this.form.submit();">Sí</button>
                                                                                 <button type="button"
                                                                                     class="btn-gris btn-border"
                                                                                     data-dismiss="modal">No</button>
@@ -774,7 +775,11 @@
                                                                             cuenta
                                                                             del
                                                                             contrato</label>
-                                                                            <input type="number" name="estado_cuenta_del_contrato" id="estado_cuenta_del_contrato" placeholder="Estado cuenta del contrato" class="form-control">
+                                                                        <input type="number"
+                                                                            name="estado_cuenta_del_contrato"
+                                                                            id="estado_cuenta_del_contrato"
+                                                                            placeholder="Estado cuenta del contrato"
+                                                                            class="form-control">
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-12">
@@ -939,10 +944,14 @@
 
                                                                     <div class="col-md-12">
                                                                         <div class="form-group">
-                                                                            <label for="estado_cuenta_del_contrato">Estado cuenta del contrato</label>
+                                                                            <label for="estado_cuenta_del_contrato">Estado
+                                                                                cuenta del contrato</label>
                                                                             <!-- Change from textarea to input type number -->
-                                                                            <input type="number" name="estado_cuenta_del_contrato" id="edit_estado_cuenta_del_contrato"
-                                                                                placeholder="Estado cuenta del contrato" class="form-control @error('estado_cuenta_del_contrato') is-invalid @enderror"
+                                                                            <input type="number"
+                                                                                name="estado_cuenta_del_contrato"
+                                                                                id="edit_estado_cuenta_del_contrato"
+                                                                                placeholder="Estado cuenta del contrato"
+                                                                                class="form-control @error('estado_cuenta_del_contrato') is-invalid @enderror"
                                                                                 value="{{ old('estado_cuenta_del_contrato', $contra->estado_cuenta_del_contrato ?? '') }}">
                                                                             @error('estado_cuenta_del_contrato')
                                                                                 <span class="invalid-feedback" style="color: red">
@@ -1017,7 +1026,8 @@
                                                             action="{{ route('destroy.contract', $contra->id) }}" method="POST">
                                                             @csrf
                                                             @method('DELETE')
-                                                            <button type="submit" class="btn-gris btn-red" onclick="this.disabled=true;this.form.submit();">Sí</button>
+                                                            <button type="submit" class="btn-gris btn-red"
+                                                                onclick="this.disabled=true;this.form.submit();">Sí</button>
                                                             <button type="button" class="btn-gris btn-border"
                                                                 data-dismiss="modal">No</button>
                                                         </form>
@@ -1061,21 +1071,23 @@
                                                     Exportar
                                                     Datos <i class="iconoir-nav-arrow-down"></i>
                                                 </button>
-                                                <div class="dropdown-menu dropdown-menu-right"
-                                                    aria-labelledby="dropdownMenuButton1">
-                                                    <button class="dropdown-item export_excel"
-                                                        data-table="#mantenimientosTable">Excel
-                                                    </button>
-                                                    <button class="dropdown-item export_pdf"
-                                                        data-table="#mantenimientosTable">PDF
-                                                    </button>
-                                                    <button class="dropdown-item export_copy"
-                                                        data-table="#mantenimientosTable">Copiar
-                                                    </button>
-                                                    <button class="dropdown-item export_print"
-                                                        data-table="#mantenimientosTable">Imprimir
-                                                    </button>
-                                                </div>
+                                                @foreach ($maint_in_reviews as $maint_in_rev)
+                                                    <div class="dropdown-menu dropdown-menu-right"
+                                                        aria-labelledby="dropdownMenuButton1">
+                                                        <button class="dropdown-item export_excel"
+                                                            data-table="#mantenimientosTable">Excel
+                                                        </button>
+                                                        <button class="dropdown-item export_pdf"
+                                                            data-table="#mantenimientosTable"
+                                                            data-maint-id="{{ $maint_in_rev->id }}">PDF
+                                                        </button>
+                                                        <button class="dropdown-item export_copy"
+                                                            data-table="#mantenimientosTable">Copiar
+                                                        </button>
+                                                        <button class="dropdown-item export_print"
+                                                            data-table="#mantenimientosTable">Imprimir
+                                                        </button>
+                                                    </div>
                                             </div>
                                         </div>
                                         <div class="col-md-12">
@@ -1092,119 +1104,115 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach ($maint_in_reviews as $maint_in_rev)
-                                                        <tr>
-                                                            <td>{{ $elevators->tipoDeAscensor ? $elevators->tipoDeAscensor->nombre_de_tipo_de_ascensor : '-' }}</td>
-                                                            <td>{{ $maint_in_rev->núm_certificado }}</td>
-                                                            <td>{{ $elevators->nombre }}</td>
-                                                            <td>{{ $maint_in_rev->fecha_de_mantenimiento }}</td>
-                                                            <td>{{ isset($maint_in_rev->staff) ? $maint_in_rev->staff->nombre : '-' }}</td>
-                                                            <td>
-                                                                <a class="text-blue view-observation" href="#"
-                                                                    data-toggle="modal"
-                                                                    data-target="#observacion{{ $maint_in_rev->id }}">
-                                                                    Ver observación
-                                                                </a>
+                                                    <tr>
+                                                        <td>{{ $maint_in_rev->reviewtype ? $maint_in_rev->reviewtype->nombre : '-' }}
+                                                        </td>
+                                                        <td>{{ $maint_in_rev->núm_certificado }}</td>
+                                                        <td>{{ $elevators->nombre }}</td>
+                                                        <td>{{ $maint_in_rev->fecha_de_mantenimiento }}</td>
+                                                        <td>{{ isset($maint_in_rev->staff) ? $maint_in_rev->staff->nombre : '-' }}
+                                                        </td>
+                                                        <td>
+                                                            <a class="text-blue view-observation" href="#"
+                                                                data-toggle="modal"
+                                                                data-target="#observacion{{ $maint_in_rev->id }}">
+                                                                Ver observación
+                                                            </a>
 
-                                                            </td>
-                                                            <td align="right">
-                                                                <div class="dropdown">
-                                                                    <button type="button"
-                                                                        class="btn-action dropdown-toggle"
-                                                                        data-toggle="dropdown">
-                                                                        Acción <i class="fas fa-chevron-down"></i>
+                                                        </td>
+                                                        <td align="right">
+                                                            <div class="dropdown">
+                                                                <button type="button" class="btn-action dropdown-toggle"
+                                                                    data-toggle="dropdown">
+                                                                    Acción <i class="fas fa-chevron-down"></i>
+                                                                </button>
+                                                                <div class="dropdown-menu dropdown-menu-right">
+                                                                    <a class="dropdown-item"
+                                                                        href="{{ route('details.maint.in.review', $maint_in_rev->id) }}">Ver
+                                                                        detalles</a>
+                                                                    <a class="dropdown-item edit-maint_in_review"
+                                                                        href="#"
+                                                                        data-maint_in_rev="{{ json_encode($maint_in_rev) }}"
+                                                                        data-toggle="modal"
+                                                                        data-target="#editorMantenimiento">Editar</a>
+                                                                    <a class="dropdown-item" href="javascript:void(0)"
+                                                                        data-toggle="modal"
+                                                                        data-target="#modalEliminar{{ $maint_in_rev->id }}">Eliminar</a>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                    <!-- Modal for observation -->
+                                                    <div class="modal fade" id="observacion{{ $maint_in_rev->id }}"
+                                                        tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                                        aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                                            <div class="modal-content" style="border-radius: 10px;">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title">Observación</h5>
+                                                                    <button type="button" class="close"
+                                                                        data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
                                                                     </button>
-                                                                    <div class="dropdown-menu dropdown-menu-right">
-                                                                        <a class="dropdown-item"
-                                                                            href="{{ route('details.maint.in.review', $maint_in_rev->id) }}">Ver
-                                                                            detalles</a>
-                                                                        <a class="dropdown-item edit-maint_in_review"
-                                                                            href="#"
-                                                                            data-maint_in_rev="{{ json_encode($maint_in_rev) }}"
-                                                                            data-toggle="modal"
-                                                                            data-target="#editorMantenimiento">Editar</a>
-                                                                        <a class="dropdown-item" href="javascript:void(0)"
-                                                                            data-toggle="modal"
-                                                                            data-target="#modalEliminar{{ $maint_in_rev->id }}">Eliminar</a>
-                                                                    </div>
                                                                 </div>
-                                                            </td>
-                                                        </tr>
-
-                                                        <!-- Modal for observation -->
-                                                        <div class="modal fade" id="observacion{{ $maint_in_rev->id }}"
-                                                            tabindex="-1" role="dialog"
-                                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                            <div class="modal-dialog modal-dialog-centered"
-                                                                role="document">
-                                                                <div class="modal-content" style="border-radius: 10px;">
-                                                                    <div class="modal-header">
-                                                                        <h5 class="modal-title">Observación</h5>
-                                                                        <button type="button" class="close"
-                                                                            data-dismiss="modal" aria-label="Close">
-                                                                            <span aria-hidden="true">&times;</span>
-                                                                        </button>
-                                                                    </div>
-                                                                    <div class="modal-body">
-                                                                        <div class="row">
-                                                                            <div class="col-md-12">
-                                                                                @isset($maint_in_rev->observaciónes)
-                                                                                    <p>{{ $maint_in_rev->observaciónes }}</p>
-                                                                                @else
-                                                                                    <p>No hay observación disponible.</p>
-                                                                                @endisset
-                                                                            </div>
+                                                                <div class="modal-body">
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+                                                                            @isset($maint_in_rev->observaciónes)
+                                                                                <p>{{ $maint_in_rev->observaciónes }}</p>
+                                                                            @else
+                                                                                <p>No hay observación disponible.</p>
+                                                                            @endisset
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                    </div>
 
-                                                        <!-- Modal Eliminar-->
-                                                        <div class="modal fade" id="modalEliminar{{ $maint_in_rev->id }}"
-                                                            tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
-                                                            aria-hidden="true">
-                                                            <div class="modal-dialog modal-dialog-centered"
-                                                                role="document">
-                                                                <div class="modal-content border-radius-12">
-                                                                    <div class="modal-body">
-                                                                        <div class="row">
-                                                                            <div class="col-md-12">
-                                                                                <button type="button" class="close"
-                                                                                    data-dismiss="modal"
-                                                                                    aria-label="Close">
-                                                                                    <span aria-hidden="true">×</span>
-                                                                                </button>
-                                                                                <div class="box1">
-                                                                                    <img src="{{ asset('img/iconos/trash.svg') }}"
-                                                                                        alt="trash" width="76">
-                                                                                    <p class="mt-3 mb-0">
-                                                                                        ¿Seguro que quieres eliminar <span
-                                                                                            id="item-name"></span>?
-                                                                                    </p>
-                                                                                </div>
+                                                    <!-- Modal Eliminar-->
+                                                    <div class="modal fade" id="modalEliminar{{ $maint_in_rev->id }}"
+                                                        tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+                                                        aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                                            <div class="modal-content border-radius-12">
+                                                                <div class="modal-body">
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+                                                                            <button type="button" class="close"
+                                                                                data-dismiss="modal" aria-label="Close">
+                                                                                <span aria-hidden="true">×</span>
+                                                                            </button>
+                                                                            <div class="box1">
+                                                                                <img src="{{ asset('img/iconos/trash.svg') }}"
+                                                                                    alt="trash" width="76">
+                                                                                <p class="mt-3 mb-0">
+                                                                                    ¿Seguro que quieres eliminar <span
+                                                                                        id="item-name"></span>?
+                                                                                </p>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div
-                                                                        class="modal-footer align-items-center justify-content-center">
-                                                                        @isset($maint_in_rev)
-                                                                            <form id="delete-form"
-                                                                                action="{{ route('destroy.maint.in.review', $maint_in_rev->id) }}"
-                                                                                method="POST">
-                                                                                @csrf
-                                                                                @method('DELETE')
-                                                                                <button type="submit"
-                                                                                    class="btn-gris btn-red" onclick="this.disabled=true;this.form.submit();">Sí</button>
-                                                                                <button type="button"
-                                                                                    class="btn-gris btn-border"
-                                                                                    data-dismiss="modal">No</button>
-                                                                            </form>
-                                                                        @endisset
-                                                                    </div>
+                                                                </div>
+                                                                <div
+                                                                    class="modal-footer align-items-center justify-content-center">
+                                                                    @isset($maint_in_rev)
+                                                                        <form id="delete-form"
+                                                                            action="{{ route('destroy.maint.in.review', $maint_in_rev->id) }}"
+                                                                            method="POST">
+                                                                            @csrf
+                                                                            @method('DELETE')
+                                                                            <button type="submit" class="btn-gris btn-red"
+                                                                                onclick="this.disabled=true;this.form.submit();">Sí</button>
+                                                                            <button type="button" class="btn-gris btn-border"
+                                                                                data-dismiss="modal">No</button>
+                                                                        </form>
+                                                                    @endisset
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                    </div>
                                                     @endforeach
                                                 </tbody>
                                             </table>
@@ -1511,7 +1519,7 @@
                                                                     <option value="">Seleccionar
                                                                         opción</option>
                                                                 </select>
-                                                                
+
                                                             </div>
                                                         </div>
 
@@ -1828,7 +1836,8 @@
                                                 </div> --}}
                                                 <div class="form-group">
                                                     <label for="supervisor">Supervisor</label>
-                                                    <select class="custom-select" name="supervisor_id" id="supervisor_id">
+                                                    <select class="custom-select" name="supervisor_id"
+                                                        id="supervisor_id">
 
                                                     </select>
                                                     @error('supervisor_id')
@@ -1939,7 +1948,8 @@
                                         </div>
                                     </div>
                                     <div class="modal-foojustify-content-start justify-content-start pl-4 pb-4">
-                                        <button type="submit" class="btn-gris btn-red mr-2" onclick="this.disabled=true;this.form.submit();">Guardar Cambios</button>
+                                        <button type="submit" class="btn-gris btn-red mr-2"
+                                            onclick="this.disabled=true;this.form.submit();">Guardar Cambios</button>
                                         <button type="button" class="btn-gris btn-border"
                                             data-dismiss="modal">Cancelar</button>
                                     </div>
@@ -2212,7 +2222,8 @@
                                             method="POST">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn-gris btn-red" onclick="this.disabled=true;this.form.submit();">Sí</button>
+                                            <button type="submit" class="btn-gris btn-red"
+                                                onclick="this.disabled=true;this.form.submit();">Sí</button>
                                             <button type="button" class="btn-gris btn-border"
                                                 data-dismiss="modal">No</button>
                                         </form>
@@ -2737,32 +2748,75 @@
                     table1.button('.buttons-copy').trigger();
                 });
                 $(".export_print").on("click", function() {
-                var tableId = $(this).data("table");
-                var table1 = $(tableId).DataTable();
-               
-                event.stopPropagation(); // Stop the event from bubbling up
-                
-                // Set a delay of 1 second before triggering the print
-                setTimeout(function() {
-                    table1.button('.buttons-print').trigger();
-                    $('.row').css('cursor', 'pointer');
-                }, 1000); // 1000 milliseconds = 1 second
-                setTimeout(function() {
-                    window.location.reload();
-                }, 1000); // Adjust the delay as needed
-    
-            });
+                    var tableId = $(this).data("table");
+                    var table1 = $(tableId).DataTable();
+
+                    event.stopPropagation(); // Stop the event from bubbling up
+
+                    // Set a delay of 1 second before triggering the print
+                    setTimeout(function() {
+                        table1.button('.buttons-print').trigger();
+                        $('.row').css('cursor', 'pointer');
+                    }, 1000); // 1000 milliseconds = 1 second
+                    setTimeout(function() {
+                        window.location.reload();
+                    }, 1000); // Adjust the delay as needed
+
+                });
 
                 $('#customSearchBox').keyup(function() {
-                    table1.column(0).search($(this).val()).draw(); // Change here to target only the second column
+                    table1.column(0).search($(this).val())
+                        .draw(); // Change here to target only the second column
                 });
                 $('#customSearchBox2').keyup(function() {
-                    table2.column(0).search($(this).val()).draw(); // Change here to target only the second column
+                    table2.column(0).search($(this).val())
+                        .draw(); // Change here to target only the second column
                 });
                 $('#customSearchBox1').keyup(function() {
-                    table.column(2).search($(this).val()).draw(); // Change here to target only the second column
+                    table.column(2).search($(this).val())
+                        .draw(); // Change here to target only the second column
                 });
 
+                $("#miTabla_filter").css('float', 'left');
+                var maintId; // Declare the variable
+
+                // Manejadores para los botones de exportación personalizados
+                $(".export_excel").on("click", function() {
+                    var tableId = $(this).data("table");
+                    var table2 = $(tableId).DataTable();
+                    table2.button('.buttons-csv').trigger();
+                });
+                var maintId; // Declare this variable at a higher scope
+
+                $(".export_pdf").on("click", function() {
+                    var maintId = $(this).data('maint-id');
+
+                    console.log('Observation:', observation);
+                    var tableId = $(this).data("table");
+                    var table2 = $(tableId).DataTable();
+                    table2.button('.buttons-pdf').trigger();
+                });
+                $(".export_copy").on("click", function() {
+                    var tableId = $(this).data("table");
+                    var table2 = $(tableId).DataTable();
+                    table1.button('.buttons-copy').trigger();
+                });
+                $(".export_print").on("click", function() {
+                    var tableId = $(this).data("table");
+                    var table2 = $(tableId).DataTable();
+
+                    event.stopPropagation(); // Stop the event from bubbling up
+
+                    // Set a delay of 1 second before triggering the print
+                    setTimeout(function() {
+                        table2.button('.buttons-print').trigger();
+                        $('.row').css('cursor', 'pointer');
+                    }, 1000); // 1000 milliseconds = 1 second
+                    setTimeout(function() {
+                        window.location.reload();
+                    }, 1000); // Adjust the delay as needed
+
+                });
                 var table2 = $('#mantenimientosTable').DataTable({
                     responsive: true,
                     dom: 'tp',
@@ -2790,57 +2844,107 @@
                     buttons: [{
                             extend: 'copy',
                             exportOptions: {
-                                columns: ':not(:nth-last-child(-n+2))' // Excluye las dos últimas columnas
+                                columns: ':not(:nth-last-child(-n+1))' // Excluye las dos últimas columnas
                             }
                         },
                         {
                             extend: 'excel',
                             exportOptions: {
-                                columns: ':not(:nth-last-child(-n+2))' // Excluye las dos últimas columnas
+                                columns: ':not(:nth-last-child(-n+1))' // Excluye las dos últimas columnas
                             }
                         },
                         {
                             extend: 'csv',
                             exportOptions: {
-                                columns: ':not(:nth-last-child(-n+2))' // Excluye las dos últimas columnas
+                                columns: ':not(:nth-last-child(-n+1))' // Excluye las dos últimas columnas
                             }
                         },
                         {
                             extend: 'pdf',
                             exportOptions: {
-                                columns: ':not(:nth-last-child(-n+2))' // Excluye las dos últimas columnas
+                                columns: ':not(:nth-last-child(-n+1))' // Excluye las dos últimas columnas
                             },
                             customize: function(doc) {
-                                doc.content[1].table.widths = Array(doc.content[1].table.body[0]
-                                    .length + 1).join('*').split('');
-                                var columnCount = doc.content[1].table.body[0].length;
-                                doc.content[1].table.body.forEach(function(row) {
-                                    row[0].alignment =
-                                        'center'; // Center align the first column
-                                    row[1].alignment =
-                                        'center'; // Center align the second column
-                                    row[2].alignment =
-                                        'center'; // Center align the third column
-                                    row[columnCount - 1].alignment =
-                                        'center'; // Center align the last column
-                                });
+                                // console.log(doc);
+                                // Ensure the table body maintId
+                                if (doc.content[1] && doc.content[1].table && doc.content[1].table
+                                    .body) {
+                                    console.log("drashti",maintId);
+                                    // Use the maintId to get the observation
+                                    var observation = $('#observacion' + maintId + ' .modal-body p')
+                                        .text(); // Get the observation text
+
+                                    // Log the observation to check if it's being retrieved correctly
+                                    console.log('Observation for PDF:', observation);
+
+                                    // Add observation as a new row in the table
+                                    if (observation) {
+                                        doc.content[1].table.body.push(['Observación:',
+                                            observation
+                                        ]); // Add observation as a new row
+                                    } else {
+                                        console.warn('Observation is undefined or empty.');
+                                    }
+
+                                    // Ensure all rows have the same number of cells
+                                    var columnCount = doc.content[1].table.body[0]
+                                        .length; // Get the number of columns from the first row
+                                    doc.content[1].table.body.forEach(function(row) {
+                                        // Fill missing cells with empty strings to maintain structure
+                                        while (row.length < columnCount) {
+                                            row.push(''); // Add empty cells if needed
+                                        }
+                                    });
+
+                                    // Append the observation to column 6 of the last row (if it exists)
+                                    var lastRowIndex = doc.content[1].table.body.length -
+                                        1; // Get the index of the last row
+                                    if (lastRowIndex >= 0 && doc.content[1].table.body[lastRowIndex]
+                                        .length >= 6) {
+                                        doc.content[1].table.body[lastRowIndex][5] =
+                                            observation; // Append observation to column 6 (index 5)
+                                    } else {
+                                        console.warn(
+                                            'Last row does not exist or does not have enough columns.'
+                                        );
+                                    }
+
+                                    // Existing code to set widths and alignments
+                                    doc.content[1].table.widths = Array(columnCount + 1).join('*')
+                                        .split('');
+                                    doc.pageSize = 'A4'; // Set page size to A4
+                                    doc.pageOrientation = 'landscape';
+                                    doc.defaultStyle.fontSize = 8; // Adjust font size as needed
+
+                                    doc.content[1].table.body.forEach(function(row) {
+                                        if (row.length > 0) { // Ensure the row has elements
+                                            row.forEach(function(cell) {
+                                                cell.alignment =
+                                                    'center'; // Center align all cells
+                                            });
+                                        }
+                                    });
+                                }
                             }
                         },
                         {
                             extend: 'print',
                             exportOptions: {
-                                columns: ':not(:nth-last-child(-n+2))' // Excluye las dos últimas columnas
+                                columns: ':not(:nth-last-child(-n+1))' // Excluye las dos últimas columnas
                             }
                         }
-                        // 'copy', 'csv', 'excel', 'pdf', 'print'
+
                     ]
                 });
+
 
                 var table = $('#repuestosAsensorTable').DataTable({
                     responsive: true,
                     dom: 'tp',
                     pageLength: 20, // Establece el número de registros por página a 8
-                    order: [[1, 'desc']], 
+                    order: [
+                        [1, 'desc']
+                    ],
                     language: {
                         "decimal": "",
                         "emptyTable": "No hay información",

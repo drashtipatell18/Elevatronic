@@ -64,8 +64,8 @@
             </li>
             <li class="">
                 <a href="{{ route('maint_in_review') }}" class="position-relative">
-                    <i class="iconoir-search-window"></i> Mant. en revisión <span
-                        class="adorno-num">{{ $totalRecordCount }}</span>
+                    <i class="iconoir-search-window"></i> Mant. en revisión <span class="adorno-num">{{
+                        $totalRecordCount }}</span>
                 </a>
             </li>
             <li class="">
@@ -108,11 +108,14 @@
                             <div class="col-auto d-flex align-items-center justify-content-center" id="noMobil">
                                 <div id="toggle-search" class="position-relative"></div>
                                 <!-- Input de búsqueda inicialmente oculto -->
-                                <form action="{{ route('search.query') }}" method="POST">
+                                <form action="" method="POST">
                                     @csrf
                                     <div id="search-container" style="display: none;">
-                                        <input type="text" id="query" name="query"
-                                            placeholder="Escribe para buscar...">
+                                        <input type="text" id="query" name="query" placeholder="Escribe para buscar..."
+                                            style="width: 1000px;"> <!-- Set width here -->
+                                        <ul id="suggestions"
+                                            style="display: none; cursor: default; width:93%; max-height: 300px; overflow-y: auto; list-style-type: none; padding: 0; margin: 0;padding-left:10px; border: 1px solid #ccc; position: absolute; background: white;">
+                                        </ul>
                                     </div>
                                 </form>
                             </div>
@@ -129,18 +132,16 @@
                                     <div class="d-flex align-items-center justify-content-start" id="abrirperfil">
                                         <i class="iconoir-nav-arrow-down"></i>
                                         @php
-                                            // Log the image path instead of dumping it
-                                            $image = auth()->user()->image;
-                                            Log::info('User image: ' . $image);
+                                        // Log the image path instead of dumping it
+                                        $image = auth()->user()->image;
+                                        Log::info('User image: ' . $image);
                                         @endphp
                                         @if (auth()->check() && $image)
-                                            <img src="{{ asset('images/' . $image) }}" alt="User Image"
-                                                width="100" height="50"
-                                                class="img-circle profile_img imgcrops">
+                                        <img src="{{ asset('images/' . $image) }}" alt="User Image" width="100"
+                                            height="50" class="img-circle profile_img imgcrops">
                                         @else
-                                            <img src="{{ asset('img/fondo.png') }}" alt="Default User Image"
-                                                width="100" height="50"
-                                                class="img-circle profile_img imgcrops">
+                                        <img src="{{ asset('img/fondo.png') }}" alt="Default User Image" width="100"
+                                            height="50" class="img-circle profile_img imgcrops">
                                         @endif
                                         <div class="">
                                             <p class="mb-0">{{ auth()->user()->name }}</p>
@@ -152,18 +153,16 @@
                                         <div class="d-flex align-items-center justify-content-between con_perfil">
                                             <div class="">
                                                 @php
-                                                    // Log the image path instead of dumping it
-                                                    $image = auth()->user()->image;
-                                                    Log::info('User image: ' . $image);
+                                                // Log the image path instead of dumping it
+                                                $image = auth()->user()->image;
+                                                Log::info('User image: ' . $image);
                                                 @endphp
                                                 @if (auth()->check() && $image)
-                                                    <img src="{{ asset('images/' . $image) }}" alt="User Image"
-                                                        width="100" height="50"
-                                                        class="img-circle profile_img imgcrops">
+                                                <img src="{{ asset('images/' . $image) }}" alt="User Image" width="100"
+                                                    height="50" class="img-circle profile_img imgcrops">
                                                 @else
-                                                    <img src="{{ asset('img/fondo.png') }}" alt="Default User Image"
-                                                        width="100" height="50"
-                                                        class="img-circle profile_img imgcrops">
+                                                <img src="{{ asset('img/fondo.png') }}" alt="Default User Image"
+                                                    width="100" height="50" class="img-circle profile_img imgcrops">
                                                 @endif
                                             </div>
                                             <div class="spacing">
@@ -246,8 +245,7 @@
 </div>
 
 <!-- Logout Modal -->
-<div class="modal fade" id="modalcerrar" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
-    aria-hidden="true">
+<div class="modal fade" id="modalcerrar" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content border-radius-12">
             <form method="POST" action="{{ route('logout') }}">
@@ -347,22 +345,19 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="Mcontrato">Monto de contrato</label>
-                                        <input type="text" placeholder="S/ 300 mensual" name="Mcontrato"
-                                            id="Mcontrato">
+                                        <input type="text" placeholder="S/ 300 mensual" name="Mcontrato" id="Mcontrato">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="FechaInicio">Fecha de inicio</label>
-                                        <input type="date" placeholder="dd/mm/aaaa" name="FechaInicio"
-                                            id="FechaInicio">
+                                        <input type="date" placeholder="dd/mm/aaaa" name="FechaInicio" id="FechaInicio">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="FechaFin">Fecha de fin</label>
-                                        <input type="date" placeholder="dd/mm/aaaa" name="FechaFin"
-                                            id="FechaFin">
+                                        <input type="date" placeholder="dd/mm/aaaa" name="FechaFin" id="FechaFin">
                                     </div>
                                 </div>
                                 <div class="col-md-12"></div>
@@ -385,13 +380,15 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="observacion1">Observación</label>
-                                        <textarea name="observacion1" id="observacion1" placeholder="Comentario de contrato" cols="30" rows="5"></textarea>
+                                        <textarea name="observacion1" id="observacion1"
+                                            placeholder="Comentario de contrato" cols="30" rows="5"></textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="Econtrato">Estado cuenta del contrato</label>
-                                        <textarea name="Econtrato" id="Econtrato" placeholder="Estado cuenta del contrato" cols="30" rows="5"></textarea>
+                                        <textarea name="Econtrato" id="Econtrato"
+                                            placeholder="Estado cuenta del contrato" cols="30" rows="5"></textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
@@ -462,118 +459,162 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
-        $('.sidebarCollapse').on('click', function() {
-            $('#sidebar, #content').toggleClass('active');
-            $('.collapse.in').toggleClass('in');
-            $('a[aria-expanded=true]').attr('aria-expanded', 'false');
-        });
-        $('#oculta').click(function() {
-            $('#sidebarCollapse').css('display', 'inline-block');
-        });
-        $('#sidebarCollapse').click(function() {
-            $(this).css('display', 'none');
-        });
-        $('#abrirperfil').click(function(event) {
-            event.stopPropagation();
-            $('#perfil_abs').toggle();
-            $(this).toggleClass("activo");
-            $(this).find("i").toggleClass("iconoir-nav-arrow-down iconoir-nav-arrow-up");
-        });
-        $(document).click(function(event) {
-            var $trigger = $('#abrirperfil');
-            if ($trigger !== event.target && !$trigger.has(event.target).length && !$('#perfil_abs')
-                .has(event.target).length) {
-                if ($('#perfil_abs').is(":visible")) {
-                    $('#perfil_abs').hide();
-                    $trigger.removeClass("activo");
-                    $trigger.find("i").addClass("iconoir-nav-arrow-down").removeClass(
-                        "iconoir-nav-arrow-up");
+            $('.sidebarCollapse').on('click', function() {
+                $('#sidebar, #content').toggleClass('active');
+                $('.collapse.in').toggleClass('in');
+                $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+            });
+            $('#oculta').click(function() {
+                $('#sidebarCollapse').css('display', 'inline-block');
+            });
+            $('#sidebarCollapse').click(function() {
+                $(this).css('display', 'none');
+            });
+            $('#abrirperfil').click(function(event) {
+                event.stopPropagation();
+                $('#perfil_abs').toggle();
+                $(this).toggleClass("activo");
+                $(this).find("i").toggleClass("iconoir-nav-arrow-down iconoir-nav-arrow-up");
+            });
+            $(document).click(function(event) {
+                var $trigger = $('#abrirperfil');
+                if ($trigger !== event.target && !$trigger.has(event.target).length && !$('#perfil_abs')
+                    .has(event.target).length) {
+                    if ($('#perfil_abs').is(":visible")) {
+                        $('#perfil_abs').hide();
+                        $trigger.removeClass("activo");
+                        $trigger.find("i").addClass("iconoir-nav-arrow-down").removeClass(
+                            "iconoir-nav-arrow-up");
+                    }
                 }
-            }
-        });
+            });
 
 
-        $('#toggle-search').click(function() {
-            // Muestra u oculta el contenedor del input de búsqueda
-            $('#search-container').toggle();
-        });
+            $('#toggle-search').click(function() {
+                // Muestra u oculta el contenedor del input de búsqueda
+                $('#search-container').toggle();
+            });
 
-        // Opcional: Cierra el input de búsqueda si se hace clic fuera de él
-        $(document).click(function(e) {
-            var searchContainer = $("#search-container");
-            var toggleButton = $("#toggle-search");
+            // Opcional: Cierra el input de búsqueda si se hace clic fuera de él
+            $(document).click(function(e) {
+                var searchContainer = $("#search-container");
+                var toggleButton = $("#toggle-search");
 
-            // Verifica si el clic fue fuera del input de búsqueda y del botón toggle
-            if (!searchContainer.is(e.target) && searchContainer.has(e.target).length === 0 && !
-                toggleButton.is(e.target)) {
-                searchContainer.hide();
-            }
-        });
+                // Verifica si el clic fue fuera del input de búsqueda y del botón toggle
+                if (!searchContainer.is(e.target) && searchContainer.has(e.target).length === 0 && !
+                    toggleButton.is(e.target)) {
+                    searchContainer.hide();
+                }
+            });
 
-        //js alerta carga archivos
-        $('#carga').click(function() {
-            $('#alertaCarga').show();
-            setTimeout(function() {
-                $('#alertaCarga').fadeOut('fast');
-            }, 3000); // Ajusta este tiempo según necesites
-        });
+            //js alerta carga archivos
+            $('#carga').click(function() {
+                $('#alertaCarga').show();
+                setTimeout(function() {
+                    $('#alertaCarga').fadeOut('fast');
+                }, 3000); // Ajusta este tiempo según necesites
+            });
 
-        //js alerta carga archivos
-        $('#envioExitoso, #envia, #muestraRecupera').click(function() {
-            $('#alertaEnvio').show();
-            setTimeout(function() {
-                $('#alertaEnvio').fadeOut('fast');
-            }, 3000);
-        });
+            //js alerta carga archivos
+            $('#envioExitoso, #envia, #muestraRecupera').click(function() {
+                $('#alertaEnvio').show();
+                setTimeout(function() {
+                    $('#alertaEnvio').fadeOut('fast');
+                }, 3000);
+            });
 
 
-        // new DataTable('#example');
-        var table = $('#example').DataTable({
-            responsive: true,
-            dom: 'tp',
-            language: {
-                "decimal": "",
-                "emptyTable": "No hay información",
-                "info": "Mostrando _START_ a _END_ de _TOTAL_ Reistros",
-                "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
-                "infoFiltered": "(Filtrado de _MAX_ total registros)",
-                "infoPostFix": "",
-                "thousands": ",",
-                "lengthMenu": "Mostrar _MENU_ Registros",
-                "loadingRecords": "Cargando...",
-                "processing": "Procesando...",
-                "search": "Buscar:",
-                "zeroRecords": "Sin resultados encontrados",
-                "paginate": {
-                    "first": "Primero",
-                    "last": "Último",
-                    "next": "Siguiente",
-                    "previous": "Anterior"
+            // new DataTable('#example');
+            var table = $('#example').DataTable({
+                responsive: true,
+                dom: 'tp',
+                language: {
+                    "decimal": "",
+                    "emptyTable": "No hay información",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Reistros",
+                    "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+                    "infoFiltered": "(Filtrado de _MAX_ total registros)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "lengthMenu": "Mostrar _MENU_ Registros",
+                    "loadingRecords": "Cargando...",
+                    "processing": "Procesando...",
+                    "search": "Buscar:",
+                    "zeroRecords": "Sin resultados encontrados",
+                    "paginate": {
+                        "first": "Primero",
+                        "last": "Último",
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    },
                 },
-            },
-        });
+            });
 
-        // Mover el contenedor de búsqueda (filtro) a la izquierda
-        $("#miTabla_filter").css('float', 'left');
+            // Mover el contenedor de búsqueda (filtro) a la izquierda
+            $("#miTabla_filter").css('float', 'left');
 
-        // Manejadores para los botones de exportación personalizados
-        $("#export_excel").on("click", function() {
-            table.button('.buttons-csv').trigger();
-        });
-        $("#export_pdf").on("click", function() {
-            table.button('.buttons-pdf').trigger();
-        });
-        $("#export_copy").on("click", function() {
-            table.button('.buttons-copy').trigger();
-        });
-        $("#export_print").on("click", function() {
-            table.button('.buttons-print').trigger();
-        });
-        $('#customSearchBox').keyup(function() {
-            table.search($(this).val()).draw();
-        });
+            // Manejadores para los botones de exportación personalizados
+            $("#export_excel").on("click", function() {
+                table.button('.buttons-csv').trigger();
+            });
+            $("#export_pdf").on("click", function() {
+                table.button('.buttons-pdf').trigger();
+            });
+            $("#export_copy").on("click", function() {
+                table.button('.buttons-copy').trigger();
+            });
+            $("#export_print").on("click", function() {
+                table.button('.buttons-print').trigger();
+            });
+            $('#customSearchBox').keyup(function() {
+                table.search($(this).val()).draw();
+            });
+            $('#query').on('keypress', function(event) {
+                if (event.which === 13) { // 13 is the Enter key
+                    event.preventDefault(); // Prevent form submission
+                }
+            });
+            $('#query').on('keyup', function() {
+                let query = $(this).val();
 
-    });
+                if (query.length > 1) {
+                    $.ajax({
+                        url: "{{ route('search.suggest') }}", // Define the route for suggestions
+                        method: "GET",
+                        data: { query: query },
+                        success: function(data) {
+                            let suggestions = '';
+                            if (data.length) {
+                                suggestions = data.map(item => `<li data-id="${item.id}">${item.nombre}</li>`).join(''); // Use 'nombre' instead of 'name'
+                            } else {
+                                suggestions = '<li>No se encontraron resultados</li>';
+                            }
+                            $('#suggestions').html(suggestions).show();
+                            // Unbind previous click event to avoid multiple bindings
+                            $('#suggestions').off('click', 'li').on('click', 'li', function() {
+                                var id = $(this).data('id'); // Assuming each suggestion has a data-id attribute
+                                if (id) {
+                                    window.location.href = '/ascensore/vista/' + id; // Redirect to the new route
+                                }
+                                $('#suggestions').hide(); // Hide suggestions after selection
+                                $('#query').val(''); // Reset the search input value
+                                $('#search-container').css('display','none');
+                            });
+                        }
+                    });
+                } else {
+                    $('#suggestions').hide();
+                }
+            });
+
+            // Hide suggestions when clicking outside
+            $(document).click(function(e) {
+                if (!$(e.target).closest('#search-container').length) {
+                    $('#suggestions').hide();
+                    $('#query').val(''); // Reset the search input value
+                }
+            });
+        });
 </script>
 @stack('scripts')
 

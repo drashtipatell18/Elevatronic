@@ -181,5 +181,5 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/contract/get/{id}', [ElevatorController::class, 'getContract']);
 
     // Searching from Navbar
-    Route::post('/buscar', [SearchController::class,'search'])->name('search.query');
+    Route::get('/search/suggest', [SearchController::class, 'suggest'])->name('search.suggest');
 });

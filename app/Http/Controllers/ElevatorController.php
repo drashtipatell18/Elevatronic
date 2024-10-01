@@ -14,7 +14,9 @@ use App\Models\ReviewType;
 use App\Models\Elevatortypes\Elevatortypes;
 use App\Models\Staff;
 use App\Models\Schedule;
-
+use Mpdf\Mpdf;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 class ElevatorController extends Controller
 {
     public function elevator(Request $request) // Added Request parameter
@@ -37,7 +39,7 @@ class ElevatorController extends Controller
         $provinces = Province::pluck('provincia', 'id');
         $elevatortypes = Elevatortypes::pluck('nombre_de_tipo_de_ascensor', 'id');
         $staffs = Staff::pluck('nombre', 'id');
-        
+
         return response()->json(compact('elevators', 'allCustomers', 'customers', 'provinces', 'elevatortypes', 'staffs'));
     }
 
@@ -240,7 +242,218 @@ class ElevatorController extends Controller
         $staffs = Staff::pluck('nombre', 'id');
         return view('elevator.view_elevator_details', compact('elevatortypes', 'staffs', 'elevators', 'elevatornumber', 'review_types', 'maint_in_reviews', 'spareparts', 'customers', 'provinces', 'contracts'));
     }
+    public function Elevatorexport($type,$id)
+    {
+        $maint_in_reviews = MaintInReview::with('reviewtype')->where('ascensor', $id)->get();
 
+        switch ($type) {
+            case 'excel':
+                return $this->exportExcel($maint_in_reviews);
+            case 'pdf':
+                return $this->exportPdf($maint_in_reviews);
+            case 'copy':
+                return $this->exportCopy($maint_in_reviews);
+            case 'print':
+                return $this->exportPrint($id);
+            default:
+                return redirect()->back()->with('error', 'Invalid export type');
+        }
+    }
+
+    private function exportExcel($maint_in_reviews)
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        // Set title
+        $sheet->mergeCells('A1:H1'); // Merge cells for the title
+        $sheet->setCellValue('A1', 'Mantenimiento en Revisión');
+        $sheet->getStyle('A1')->getFont()->setBold(true); // Make the title bold
+        $sheet->getStyle('A1')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+
+        // Set header
+        $sheet->setCellValue('A2', 'ID');
+        $sheet->setCellValue('B2', 'Tipo de Revisión');
+        $sheet->setCellValue('C2', 'Certificado');
+        $sheet->setCellValue('D2', 'Ascensor');
+        $sheet->setCellValue('E2', 'Fecha de Mantenimiento');
+        $sheet->setCellValue('F2', 'HOR. INI');
+        $sheet->setCellValue('G2', 'HOR. FIN');
+        $sheet->setCellValue('H2', 'Técnico');
+        $sheet->setCellValue('H2', 'OBSERVACIÓN');
+
+        // Populate data
+        $row = 3; // Start from the third row due to the title and header
+        foreach ($maint_in_reviews as $review) {
+            $sheet->setCellValue('A' . $row, $review->id);
+            $sheet->setCellValue('B' . $row, $review->reviewtype->nombre ?? '-');
+            $sheet->setCellValue('C' . $row, $review->núm_certificado ?? '-');
+            $sheet->setCellValue('D' . $row, $review->elevator->nombre ?? '-');
+            $sheet->setCellValue('E' . $row, $review->fecha_de_mantenimiento);
+            $sheet->setCellValue('F' . $row, $review->hora_inicio);
+            $sheet->setCellValue('G' . $row, $review->hora_fin);
+            $sheet->setCellValue('H' . $row, $review->observaciónes ?? '-');
+            $row++;
+        }
+
+        // Create Excel file
+        $writer = new Xlsx($spreadsheet);
+        $filename = 'maint_in_review_' . date('Ymd') . '.xlsx';
+
+        // Set headers for download
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment; filename="' . $filename . '"');
+        $writer->save('php://output');
+        exit;
+    }
+
+    private function exportPdf($maint_in_reviews)
+    {
+
+        $mpdf = new Mpdf(); // Create a new instance of mPDF
+        $mpdf->SetDisplayMode('fullpage');
+
+        // Check if there are any reviews to export
+        if ($maint_in_reviews->isEmpty()) {
+            $mpdf->WriteHTML('<h1>No data available for export</h1>');
+            $mpdf->Output('no_data.pdf', 'D');
+            exit;
+        }
+
+        $htmlHeader = '<h1 style="text-align: center;">Mantenimiento en Revisión</h1>';
+        $htmlHeader .= '<table class="table table-striped" cellpadding="5" style="width: 100%; border-collapse: collapse;">';
+        $htmlHeader .= '<tr style="background-color:#2D4054; color: white;">';
+        $htmlHeader .= '<th class="text-center" style="color: white;">ID</th>';
+        $htmlHeader .= '<th class="text-center" style="color: white;" >Tipo de Revisión</th>';
+        $htmlHeader .= '<th class="text-center" style="color: white;" > Certificado</th>';
+        $htmlHeader .= '<th class="text-center" style="color: white;" >Ascensor</th>';
+        $htmlHeader .= '<th class="text-center" style="color: white;" >Fecha de Mantenimiento</th>';
+        $htmlHeader .= '<th class="text-center" style="color: white;" >HOR. INI</th>';
+        $htmlHeader .= '<th class="text-center" style="color: white;" >HOR. FIN</th>';
+        $htmlHeader .= '<th class="text-center" style="color: white;" >Técnico</th>';
+        $htmlHeader .= '<th class="text-center" style="color: white;" >OBSERVACIÓN</th>';
+        $htmlHeader .= '</tr>';
+        $mpdf->WriteHTML($htmlHeader); // Write header HTML
+
+        // Process data in chunks
+        $chunkSize = 1000; // Adjust chunk size as needed
+        $totalReviews = $maint_in_reviews->count();
+
+        for ($i = 0; $i < $totalReviews; $i += $chunkSize) {
+            $chunk = $maint_in_reviews->slice($i, $chunkSize);
+            $htmlChunk = '';
+
+            foreach ($chunk as $review) {
+                $htmlChunk .= '<tr>';
+                $htmlChunk .= '<td style="text-align: center;">' . $review->id . '</td>'; // Centered
+                $htmlChunk .= '<td style="text-align: center;">' . ($review->reviewtype->nombre ?? '-') . '</td>'; // Centered
+                $htmlChunk .= '<td style="text-align: center;">' . ($review->núm_certificado ?? '-') . '</td>'; // Centered
+                $htmlChunk .= '<td style="text-align: center;">' . ($review->elevator->nombre ?? '-') . '</td>'; // Centered
+                $htmlChunk .= '<td style="text-align: center;">' . $review->fecha_de_mantenimiento . '</td>'; // Centered
+                $htmlChunk .= '<td style="text-align: center;">' . $review->hora_inicio . '</td>'; // Centered
+                $htmlChunk .= '<td style="text-align: center;">' . $review->hora_fin . '</td>'; // Centered
+                $htmlChunk .= '<td style="text-align: center;">' . ($review->staff->nombre ?? '-') . '</td>'; // Centered
+                $htmlChunk .= '<td style="text-align: center;">' . ($review->observaciónes ?? '-') . '</td>'; // Centered
+                $htmlChunk .= '</tr>';
+            }
+
+            $mpdf->WriteHTML($htmlChunk); // Write chunk HTML
+        }
+
+        $mpdf->WriteHTML('</table>'); // Close the table
+
+        $filename = 'maint_in_review_' . date('Ymd') . '.pdf';
+        $mpdf->Output($filename, 'D'); // 'D' for download
+        exit; // Ensure no further output is sent
+    }
+
+    public function exportCopy($maint_in_reviews)
+    {
+
+        // Check if there are no reviews
+        if ($maint_in_reviews->isEmpty()) {
+            \Log::warning('No data available for export'); // Log warning if no data
+            return response('No data available for export', 404)
+                ->header('Content-Type', 'text/plain');
+        }
+
+        // Create a plain text representation of the data
+        $output = "ID\tTipo de Revisión\tAscensor\tFecha de Mantenimiento\tTécnico\tObservaciónes\n";
+
+        foreach ($maint_in_reviews as $review) {
+            $output .= implode("\t", [
+                $review->id,
+                $review->reviewtype->nombre ?? '-',
+                $review->núm_certificado ?? '-',
+                $review->elevator->nombre ?? '-',
+                $review->fecha_de_mantenimiento,
+                $review->hora_inicio,
+                $review->hora_fin,
+                $review->staff->nombre ?? '-',
+                $review->observaciónes
+            ]) . "\n";
+        }
+        \Log::info('Export data prepared successfully'); // Log successful data preparation
+
+        // Return the plain text response
+        return response($output, 200)
+            ->header('Content-Type', 'text/plain'); // Ensure the content type is plain text
+    }
+
+    private function exportPrint($id)
+    {
+
+        // Number of records to process per chunk (adjust as necessary for your server)
+        $chunkSize = 1000;
+
+        // Count total records and divide into chunks
+        $totalRecords = MaintInReview::where('ascensor', $id)->count(); // Ensure filtering by ID
+
+        $totalChunks = ceil($totalRecords / $chunkSize);
+
+        $html = ''; // Initialize HTML variable to accumulate results
+
+        for ($i = 0; $i < $totalChunks; $i++) {
+            $html .= $this->generateHtmlChunk($i * $chunkSize, $chunkSize, $id); // Append each chunk's HTML
+        }
+
+        // Log the generated HTML for debugging
+        \Log::info('Generated HTML: ' . $html);
+
+        return view('elevator.print', [
+            'html' => $html,
+            'totalChunks' => $totalChunks,
+            'chunkSize' => $chunkSize
+        ]);
+    }
+
+    private function generateHtmlChunk($offset, $chunkSize,$id)
+    {
+        $html = '';
+        $html .= '<table cellpadding="5"><tr><th>ID</th><th>Tipo de Revisión</th><th>Certificado</th><th>Ascensor</th><th>Fecha de Mantenimiento</th><th>HOR. INI</th><th>HOR. FIN</th><th>Técnico</th><th>OBSERVACIÓN</th></tr>';
+
+        // Fetch a chunk of data from the database
+            $reviews = MaintInReview::with('reviewtype')->where('ascensor', $id)->offset($offset)
+            ->limit($chunkSize)->get();
+
+        foreach ($reviews as $review) {
+            $html .= '<tr>';
+            $html .= '<td>' . $review->id . '</td>';
+            $html .= '<td>' . ($review->reviewtype->nombre ?? '-') . '</td>';
+            $html .= '<td>' . ($review->núm_certificado ?? '-') . '</td>';
+            $html .= '<td>' . ($review->elevator->nombre ?? '-') . '</td>';
+            $html .= '<td>' . $review->fecha_de_mantenimiento . '</td>';
+            $html .= '<td>' . $review->hora_inicio . '</td>';
+            $html .= '<td>' . $review->hora_fin . '</td>';
+            $html .= '<td>' . ($review->staff->nombre ?? '-') . '</td>';
+            $html .= '<td>' . ($review->observaciónes ?? '-') . '</td>';
+            $html .= '</tr>';
+        }
+
+        $html .= '</table>';
+
+        return $html;
+    }
     public function contractInsert(Request $request)
     {
         $validatedData = $request->validate([

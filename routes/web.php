@@ -91,6 +91,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/getBrands', [ElevatorController::class, 'getBrands'])->name('getBrands');
     Route::get('/getData', [ElevatorController::class, 'getData'])->name('getData');
     Route::get('/get-elevators', [ElevatorController::class, 'getElevators'])->name('get.elevators'); // Define the route for fetching elevators
+    Route::get('/elevators/export/{type}/{id}', [ElevatorController::class, 'Elevatorexport'])->name('elevators.export');    // Maintenance //
 
     // Maint In Review //
 

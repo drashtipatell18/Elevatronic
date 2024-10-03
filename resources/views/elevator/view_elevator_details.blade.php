@@ -1061,14 +1061,20 @@
                                                 Exportar
                                                 Datos <i class="iconoir-nav-arrow-down"></i>
                                             </button>
-                                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton1">
-                                                <a class="dropdown-item" data-table="#mantenimientosTable" id="export_excel"
-                                                    href="{{ route('elevators.export', ['type' => 'excel', 'id' => $elevators->id]) }}">Excel</a>
-                                                <a class="dropdown-item" data-table="#mantenimientosTable" id="export_pdf"
-                                                    href="{{ route('elevators.export', ['type' => 'pdf', 'id' => $elevators->id]) }}">PDF</a>
-                                                <a class="dropdown-item" data-table="#mantenimientosTable" id="export_copy">Copiar</a>
-                                                <a class="dropdown-item" id="export_print" data-table="#mantenimientosTable"
-                                                    href="{{ route('elevators.export', ['type' => 'print', 'id' => $elevators->id]) }}">Imprimir</a>
+                                            <div class="dropdown-menu dropdown-menu-right"
+                                                aria-labelledby="dropdownMenuButton">
+                                                <button class="dropdown-item export_excel"
+                                                    data-table="#mantenimientosTable">Excel
+                                                </button>
+                                                <button class="dropdown-item export_pdf"
+                                                    data-table="#mantenimientosTable">PDF
+                                                </button>
+                                                <button class="dropdown-item export_copy"
+                                                    data-table="#mantenimientosTable">Copiar
+                                                </button>
+                                                <button class="dropdown-item export_print"
+                                                    data-table="#mantenimientosTable">Imprimir
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
@@ -1094,11 +1100,12 @@
                                                         <td>{{ $maint_in_rev->fecha_de_mantenimiento }}</td>
                                                         <td>{{ isset($maint_in_rev->staff) ? $maint_in_rev->staff->nombre : '-' }}</td>
                                                         <td>
-                                                            <a class="text-blue view-observation" href="#"
+                                                            {{ $maint_in_rev->observaciónes }}
+                                                            {{-- <a class="text-blue view-observation" href="#"
                                                                 data-toggle="modal"
                                                                 data-target="#observacion{{ $maint_in_rev->id }}">
                                                                 Ver observación
-                                                            </a>
+                                                            </a> --}}
 
                                                         </td>
                                                         <td align="right">
@@ -2805,8 +2812,13 @@
                             columns: ':not(:nth-last-child(-n+1))' // Excluye las dos últimas columnas
                         },
                         customize: function(doc) {
-                            doc.content[1].table.widths = Array(doc.content[1].table.body[0]
-                                .length + 1).join('*').split('');
+                            doc.pageSize = 'A4'; // Set page size to A4
+                            doc.defaultStyle.fontSize = 10; // Set default font size
+                            doc.pageMargins = [30, 0, 20, 0]; // Set left margin to 30, right margin to 20
+
+                            // Set specific widths for each column
+                            doc.content[1].table.widths = [70, 70, 70, 70, 70, '*']; // Adjust the first column width
+
                             var columnCount = doc.content[1].table.body[0].length;
                             doc.content[1].table.body.forEach(function(row) {
                                 row[0].alignment =
@@ -2815,6 +2827,8 @@
                                     'center'; // Center align the second column
                                 row[2].alignment =
                                     'center'; // Center align the third column
+                                row[3].alignment =
+                                    'left'; // Center align the fourth column
                                 row[columnCount - 1].alignment =
                                     'center'; // Center align the last column
                             });
@@ -2829,111 +2843,111 @@
                     // 'copy', 'csv', 'excel', 'pdf', 'print'
                 ]
             });
-            $("#export_excel").on("click", function() {
+            // $("#export_excel").on("click", function() {
 
-                // Perform AJAX request to export Excel
-                $.ajax({
-                    url: "{{ route('elevators.export', ['type' => 'excel', 'id' => $elevators->id]) }}", // Added 'id' parameter
-                    method: 'GET',
-                    xhrFields: {
-                        responseType: 'blob' // Set response type to blob for file download
-                    },
-                    success: function(data) {
-                        // if (!isDownloading) {
-                        //     isDownloading = true;
-                        //     // Create a link element to download the Excel file
-                        //     const url = window.URL.createObjectURL(data);
-                        //     const a = document.createElement('a');
-                        //     a.href = url;
-                        //     a.download = 'maint_in_review.xlsx'; // Set the desired file name
-                        //     document.body.appendChild(a);
-                        //     a.click();
-                        //     a.remove();
-                        //     window.URL.revokeObjectURL(url); // Clean up
-                        // }
-                    },
-                    error: function(xhr) {
-                        console.error('Error exporting Excel:', xhr.responseText);
-                    },
-                    complete: function() {
-                    }
-                });
-            });
+            //     // Perform AJAX request to export Excel
+            //     $.ajax({
+            //         url: "{{ route('elevators.export', ['type' => 'excel', 'id' => $elevators->id]) }}", // Added 'id' parameter
+            //         method: 'GET',
+            //         xhrFields: {
+            //             responseType: 'blob' // Set response type to blob for file download
+            //         },
+            //         success: function(data) {
+            //             // if (!isDownloading) {
+            //             //     isDownloading = true;
+            //             //     // Create a link element to download the Excel file
+            //             //     const url = window.URL.createObjectURL(data);
+            //             //     const a = document.createElement('a');
+            //             //     a.href = url;
+            //             //     a.download = 'maint_in_review.xlsx'; // Set the desired file name
+            //             //     document.body.appendChild(a);
+            //             //     a.click();
+            //             //     a.remove();
+            //             //     window.URL.revokeObjectURL(url); // Clean up
+            //             // }
+            //         },
+            //         error: function(xhr) {
+            //             console.error('Error exporting Excel:', xhr.responseText);
+            //         },
+            //         complete: function() {
+            //         }
+            //     });
+            // });
 
-            $("#export_copy").on("click", function() {
-                $.ajax({
-                    url: "{{ route('elevators.export', ['type' => 'copy', 'id' => $elevators->id]) }}", // Added 'id' parameter
-                    method: 'GET',
-                    success: function(response) {
-                        console.log('Response from server:',
-                        response); // Log the response to debug
+            // $("#export_copy").on("click", function() {
+            //     $.ajax({
+            //         url: "{{ route('elevators.export', ['type' => 'copy', 'id' => $elevators->id]) }}", // Added 'id' parameter
+            //         method: 'GET',
+            //         success: function(response) {
+            //             console.log('Response from server:',
+            //             response); // Log the response to debug
 
-                        // Create a temporary textarea element
-                        const tempTextArea = document.createElement("textarea");
-                        tempTextArea.value = response; // Set the response as the value
-                        document.body.appendChild(tempTextArea); // Append to the body
-                        tempTextArea.select(); // Select the text
+            //             // Create a temporary textarea element
+            //             const tempTextArea = document.createElement("textarea");
+            //             tempTextArea.value = response; // Set the response as the value
+            //             document.body.appendChild(tempTextArea); // Append to the body
+            //             tempTextArea.select(); // Select the text
 
-                        // Copy the text to clipboard
-                        document.execCommand("copy"); // Copy the text to clipboard
-                        document.body.removeChild(tempTextArea); // Remove the textarea
-                    },
-                    error: function(xhr) {
-                        console.error('Error copying table:', xhr.responseText);
-                    },
-                    complete: function() {
-                    }
-                });
-            });
-            $("#export_pdf").on("click", function() {
+            //             // Copy the text to clipboard
+            //             document.execCommand("copy"); // Copy the text to clipboard
+            //             document.body.removeChild(tempTextArea); // Remove the textarea
+            //         },
+            //         error: function(xhr) {
+            //             console.error('Error copying table:', xhr.responseText);
+            //         },
+            //         complete: function() {
+            //         }
+            //     });
+            // });
+            // $("#export_pdf").on("click", function() {
 
-                // Perform AJAX request to export PDF
-                $.ajax({
-                    url: "{{ route('elevators.export', ['type' => 'pdf', 'id' => $elevators->id]) }}", // Added 'id' parameter
-                    method: 'GET',
-                    xhrFields: {
-                        responseType: 'blob' // Set response type to blob for file download
-                    },
-                    success: function(data) {
-                        // // Create a link element to download the PDF
-                        // const url = window.URL.createObjectURL(data);
-                        // const a = document.createElement('a');
-                        // a.href = url;
-                        // a.download = 'maint_in_review.pdf'; // Set the desired file name
-                        // document.body.appendChild(a);
-                        // a.click();
-                        // a.remove();
-                        // window.URL.revokeObjectURL(url); // Clean up
-                    },
-                    error: function(xhr) {
-                        console.error('Error exporting PDF:', xhr.responseText);
-                    },
-                    complete: function() {
-                    }
-                });
-            });
+            //     // Perform AJAX request to export PDF
+            //     $.ajax({
+            //         url: "{{ route('elevators.export', ['type' => 'pdf', 'id' => $elevators->id]) }}", // Added 'id' parameter
+            //         method: 'GET',
+            //         xhrFields: {
+            //             responseType: 'blob' // Set response type to blob for file download
+            //         },
+            //         success: function(data) {
+            //             // // Create a link element to download the PDF
+            //             // const url = window.URL.createObjectURL(data);
+            //             // const a = document.createElement('a');
+            //             // a.href = url;
+            //             // a.download = 'maint_in_review.pdf'; // Set the desired file name
+            //             // document.body.appendChild(a);
+            //             // a.click();
+            //             // a.remove();
+            //             // window.URL.revokeObjectURL(url); // Clean up
+            //         },
+            //         error: function(xhr) {
+            //             console.error('Error exporting PDF:', xhr.responseText);
+            //         },
+            //         complete: function() {
+            //         }
+            //     });
+            // });
 
-            // ... existing code ...
-            $("#export_print").on("click", function() {
-                // Perform AJAX request to export Print
-                $.ajax({
-                    url: "{{ route('elevators.export', ['type' => 'print', 'id' => $elevators->id]) }}", // Added 'id' parameter
-                    method: 'GET',
-                    success: function(data) {
-                        // Handle the successful response here
-                        // For example, you might want to trigger a download or display a message
-                        console.log('Print export successful:', data);
-                    },
-                    error: function(xhr) {
-                        console.error('Error exporting Print:', xhr.responseText);
-                        alert('An error occurred while exporting. Please try again.'); // Notify user
-                    },
-                    complete: function() {
-                        $("#").hide(); // Hide loader after the request is complete
-                    }
-                });
-            });
-            // ... existing code ...
+            // // ... existing code ...
+            // $("#export_print").on("click", function() {
+            //     // Perform AJAX request to export Print
+            //     $.ajax({
+            //         url: "{{ route('elevators.export', ['type' => 'print', 'id' => $elevators->id]) }}", // Added 'id' parameter
+            //         method: 'GET',
+            //         success: function(data) {
+            //             // Handle the successful response here
+            //             // For example, you might want to trigger a download or display a message
+            //             console.log('Print export successful:', data);
+            //         },
+            //         error: function(xhr) {
+            //             console.error('Error exporting Print:', xhr.responseText);
+            //             alert('An error occurred while exporting. Please try again.'); // Notify user
+            //         },
+            //         complete: function() {
+            //             $("#").hide(); // Hide loader after the request is complete
+            //         }
+            //     });
+            // });
+            // // ... existing code ...
 
             var table = $('#repuestosAsensorTable').DataTable({
                 responsive: true,

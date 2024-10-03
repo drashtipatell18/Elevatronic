@@ -318,7 +318,7 @@
     </div>
 
     <!-- Modal for observation -->
-    <div class="modal fade" id="observacion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    {{-- <div class="modal fade" id="observacion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content" style="border-radius: 10px;">
@@ -341,7 +341,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     <!-- Modal Editor Mantenimiento-->
     <div class="modal left fade" id="editorMantenimiento" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
         aria-hidden="true">
@@ -967,10 +967,11 @@
                         defaultContent: ''
                     },
                     {
-                        data: null,
-                        render: function(data, type, row) {
-                            return `<a class="text-blue view-observation" href="#" data-id="${data.id}" data-toggle="modal" data-target="#observacion">Ver observación</a>`;
-                        }
+                        data: 'observaciónes',
+                        // render: function(data, type, row) {
+                        //     return `<a class="text-blue view-observation" href="#" data-id="${data.id}" data-toggle="modal" data-target="#observacion">Ver observación</a>`;
+                        // }
+                        defaultContent: ''
                     },
                     {
                         data: null,
@@ -1039,9 +1040,9 @@
                             doc.defaultStyle.fontSize = 10; // Adjust the font size as needed
 
                             // Remove the last column from the table body
-                            doc.content[1].table.body.forEach(function(row) {
-                                row.pop(); // Remove the last column from each row
-                            });
+                            // doc.content[1].table.body.forEach(function(row) {
+                            //     row.pop(); // Remove the last column from each row
+                            // });
                             doc.content[1].table.widths = Array(doc.content[1].table.body[0]
                                 .length + 1).join('*').split('');
                             var columnCount = doc.content[1].table.body[0].length;
@@ -1169,7 +1170,7 @@
                     url: "{{ route('maint_in_review.export', ['type' => 'print']) }}",
                     method: 'GET',
                     success: function(data) {
-                      
+
                     },
                     error: function(xhr) {
                         console.error('Error exporting Print:', xhr.responseText);

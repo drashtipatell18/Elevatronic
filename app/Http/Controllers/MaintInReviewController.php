@@ -216,7 +216,7 @@ class MaintInReviewController extends Controller
         }
 
         // Create a plain text representation of the data
-        $output = "ID\tTipo de Revisión\tAscensor\tFecha de Mantenimiento\tTécnico\n";
+        $output = "ID\tTipo de Revisión\tAscensor\tFecha de Mantenimiento\tTécnico\tObservaciónes\n";
 
         foreach ($maint_in_reviews as $review) {
             $output .= implode("\t", [
